@@ -36,15 +36,15 @@ export class TagMockApi {
             .onPut('tags/:id')
             .reply(({request, urlParams}) => {
                 const id = Number(urlParams.id);
-                const novaTag = request.body;
-
-                this._tag.map(tag => {
+                const novaTag: Tag = request.body;
+                
+                this._tag.forEach(tag => {
                     if (tag.id === id) {
-                        tag = novaTag;
-                        tag.id = id;
-                    } 
+                        tag.descricao = novaTag.descricao;
+                        tag.publica = novaTag.publica;
+                    }
                 });
-
+                
                 const tag = this._tag.find(tag => tag.id === id);
                 return [200, tag];
             });

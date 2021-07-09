@@ -1,12 +1,12 @@
 import { Component, Inject, OnInit, ElementRef, ViewChild } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { COMMA, ENTER } from '@angular/cdk/keycodes';
-import { FormControl } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatAutocompleteSelectedEvent, MatAutocomplete } from '@angular/material/autocomplete';
 import { MatChipInputEvent } from '@angular/material/chips';
 import { EMPTY, Observable } from 'rxjs';
-import { catchError, map } from 'rxjs/operators';
-import { HttpClient, HttpParams } from '@angular/common/http';
+import { catchError, map, startWith } from 'rxjs/operators';
+import { HttpClient } from '@angular/common/http';
 import { Processo } from 'app/modules/acervo/tabela/tabela.component';
 import { Tag } from '../agrupar-emlista.component';
 
@@ -16,6 +16,9 @@ import { Tag } from '../agrupar-emlista.component';
   styleUrls: ['./gerenciar-marcadores.component.scss']
 })
 export class GerenciarMarcadoresComponent implements OnInit {
+  tagForm: FormGroup;
+  processoForm: FormGroup;
+
   visible = true;
   selectable = true;
   removable = true;
@@ -40,9 +43,21 @@ export class GerenciarMarcadoresComponent implements OnInit {
 
   constructor(
     private _httpClient: HttpClient,
+    private _fb: FormBuilder,
     public dialogRef: MatDialogRef<GerenciarMarcadoresComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
   ) {
+    this.tagForm = this._fb.group({
+      id: [0, [Validators.required]],
+      descricao: ['', [Validators.required]],
+      publica: [false, [Validators.required]],
+      checked: [false,[]],
+    });
+
+    this.processoForm = this._fb.group({
+      processos: [[], [Validators.required]]
+    });
+
     this.buscarProcessos();
   }
 
@@ -50,6 +65,7 @@ export class GerenciarMarcadoresComponent implements OnInit {
     this._listarTags().subscribe({
       next: (data) => {
         this.tagEscolhida = data[0];
+        this.tagForm.setValue(this.tagEscolhida);
         this.tags = data;
 
         this.buscarProcessosDaLista();
@@ -58,14 +74,17 @@ export class GerenciarMarcadoresComponent implements OnInit {
   }
 
   add(event: MatChipInputEvent): void {
-    const value = (event.value || '').trim();
-
-    // Adicionar processo
-    if (value) {
-      const processoEncontrado = this.todosOsProcessos.find(processo => 
-        processo.numero === +value);
-
-      this.processosSelecionados.push(processoEncontrado);
+    const value = (event.value || '').toLocaleLowerCase();
+    
+    const processo = this.todosOsProcessos
+      .find(({classe, numero}) => {
+        const classeNumero = `${classe} ${numero}`.toLocaleLowerCase();
+        return classeNumero === value;
+      });
+    
+    if (processo) {
+      this.processosSelecionados.push(processo);
+      this.processoForm.setValue({processos: this.processosSelecionados});
     }
 
     // Clear the input value
@@ -79,6 +98,7 @@ export class GerenciarMarcadoresComponent implements OnInit {
 
     if (index >= 0) {
       this.processosSelecionados.splice(index, 1);
+      this.processoForm.setValue({processos: this.processosSelecionados});
       
       if (processo.lista.find(lista => lista.id === this.tagEscolhida.id)) {
         // DELETE via API
@@ -93,15 +113,20 @@ export class GerenciarMarcadoresComponent implements OnInit {
 
   selected(event: MatAutocompleteSelectedEvent): void {
     this.processosSelecionados.push(event.option.value);
+    this.processoForm.setValue({processos: this.processosSelecionados});
     this.processoInput.nativeElement.value = null;
     this.processoCtrl.setValue(null);
   }
 
-  private _filter(value: Processo): Processo[] {
-    const filterValue = value.id;
+  private _filter(value: Processo | string): Processo[] {
+    const isProcesso = (<Processo>value).numero !== undefined;
+    const filterValue = (isProcesso) ? ((<Processo>value).classe + ' ' + (<Processo>value).numero).toString().toLocaleLowerCase() : value.toString().toLocaleLowerCase();
 
     return this.todosOsProcessos
-      .filter(processo => processo.id === filterValue);
+      .filter(({classe, numero}) => {
+        const classeNumero = `${classe} ${numero}`;
+        return classeNumero.toString().toLocaleLowerCase().includes(filterValue);
+      });
   }
 
   private _listarTags(): Observable<Tag[]> {
@@ -117,6 +142,8 @@ export class GerenciarMarcadoresComponent implements OnInit {
     this._carregarProcessosDaLista().subscribe({
       next: (data) => {
         this.processosSelecionados = data;
+        this.tagForm.setValue(this.tagEscolhida);
+        this.processoForm.setValue({processos: this.processosSelecionados});
       }
     });
   }
@@ -135,6 +162,7 @@ export class GerenciarMarcadoresComponent implements OnInit {
       next: (data) => {
         this.todosOsProcessos = data;
         this.processosFiltrados = this.processoCtrl.valueChanges.pipe(
+          startWith(''),
           map((processo: Processo | null) => 
             processo ? this._filter(processo) : this.todosOsProcessos.slice()));
       }
@@ -151,6 +179,7 @@ export class GerenciarMarcadoresComponent implements OnInit {
   }
 
   public atualizar(): void {
+    console.log(this.processoCtrl.value)
     // PUT /tags/:id
     this._atualizaTag().subscribe({
       next: (tag) => {
@@ -168,11 +197,12 @@ export class GerenciarMarcadoresComponent implements OnInit {
   }
 
   private _atualizaTag(): Observable<Tag> {
-    return this._httpClient.put<Tag>(`tags/${this.tagEscolhida.id}`, this.tagEscolhida).pipe(
-      catchError(error => {
-        console.log(error);
-        return EMPTY;
-      }),  
+    return this._httpClient.put<Tag>(`tags/${this.tagEscolhida.id}`, this.tagForm.value)
+      .pipe(
+        catchError(error => {
+          console.log(error);
+          return EMPTY;
+        }),  
     );
   }
 
