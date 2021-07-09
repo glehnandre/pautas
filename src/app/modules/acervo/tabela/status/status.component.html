@@ -1,17 +1,18 @@
-<div *ngIf="mobile && display;else elseBlock">
-    <mat-chip
-        selected
+<div>
+    <button class="absolute right-8 h-12 w-2 rounded-full my-auto sm:hidden"
+        [style]="'background-color:' + situacao.color"
+        [matTooltip]="situacao.text"
+        matTooltipPosition="left"
+        matTooltipShowDelay="100"
+        matTooltipHideDelay="1000"
+    ></button>
+</div>
+
+<div>
+    <mat-chip class="absolute right-8 w-40 text-center hidden sm:block"
+        selected 
         [style]="'background-color:' + situacao.color"
     >
         {{situacao.text}}
     </mat-chip>
 </div>
-
-<ng-template #elseBlock>
-        <mat-chip 
-            selected 
-            [style]="'background-color:' + situacao.color"
-        >
-            {{situacao.text}}
-        </mat-chip>
-</ng-template>

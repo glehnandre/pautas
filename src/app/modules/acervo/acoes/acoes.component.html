@@ -1,28 +1,37 @@
 <section>
     <div>
-        <div class="inline-flex space-x-2 ml-3.5">
+        <div class="flex space-x-2 ml-3.5">
             <mat-checkbox color="primary" class="mt-2 mb-2" (change)="selectAll($event)"></mat-checkbox>
             <button mat-basic-button color="secondary" class="mt-2">
                 <mat-icon>refresh</mat-icon>
             </button>
-            <button mat-raised-button color="primary" (click)="openComposeDialog()">
-                <span *ngIf="!mobile;else elseBlock">Pautar</span>
-                <ng-template #elseBlock>
-                    <span>Pautar</span>
-                </ng-template>
-            </button>
-            <button mat-flat-button color="secondary">
-                Devolver Vista
-            </button>
-            <button mat-flat-button color="secondary">
-                Retirar de pauta
-            </button>
-            <button mat-flat-button color="secondary">
-                Alterar Sessão
-            </button>
-            <button mat-flat-button color="secondary" (click)="abrirModalAgruparTags()">
-                Agrupar em Lista
-            </button>
+            <mat-form-field class="flex-1 h-2 md:hidden text-lg">
+                <mat-select class="flex-1" style="height: 10px;" placeholder="Escolha sua ação">
+                  <mat-option value="pautar" (click)="openComposeDialog()" class="bg-primary text-white">Pautar</mat-option>
+                  <mat-option value="devolverVista">Devolver Vista</mat-option>
+                  <mat-option value="retirarDePauta">Retirar de Pauta</mat-option>
+                  <mat-option value="alterarSessao">Alterar Sessão</mat-option>
+                  <mat-option value="agruparEmLista" (click)="abrirModalAgruparTags()">Agrupar em Lista</mat-option>
+                </mat-select>
+            </mat-form-field>
+            <div class="hidden md:flex space-x-4">
+                <button mat-raised-button color="primary" (click)="openComposeDialog()">
+                    Pautar
+                </button>
+                <button mat-flat-button color="secondary">
+                    Devolver Vista
+                </button>
+                <button mat-flat-button color="secondary">
+                    Retirar de pauta
+                </button>
+                <button mat-flat-button color="secondary">
+                    Alterar Sessão
+                </button>
+                <button mat-flat-button color="secondary" (click)="abrirModalAgruparTags()">
+                    Agrupar em Lista
+                </button>
+            </div>
         </div>
     </div>
+    
 </section>
