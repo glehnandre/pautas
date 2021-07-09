@@ -1,0 +1,49 @@
+<div class="flex flex-col max-w-240 md:min-w-160 -m-6">
+  <div class="flex items-center justify-between h-16 pr-3 sm:pr-5 pl-6 sm:pl-8 bg-primary text-on-primary">
+    <h1 class="mt-4 flex items-center justify-center text-lg font-medium font-semibold text-white-500">
+      <mat-icon class="text-white v-middle mr-2">info</mat-icon>
+      Marcar como
+    </h1>
+    
+    <button mat-button mat-dialog-close class="mat-focus-indicator mat-icon-button mat-button-base" tabindex="-1">
+      <span class="mat-button-wrapper">
+        <mat-icon matSuffix class="text-white">close</mat-icon>
+      </span>
+    </button>
+  </div>
+  
+  <div class="flex flex-col flex-auto p-6 sm:p-8 overflow-y-auto ng-pristine ng-invalid ng-touched">
+    <div class="flex flex-col justify-between	items-start	p-0 overflow-y-auto max-h-36">
+      <section>
+        <p *ngFor="let tag of tags">
+          <mat-checkbox 
+            [checked]="checked"
+            [value]="tag.id"
+            (change)="tag.checked = !tag.checked"
+          >
+            {{tag.descricao}}
+          </mat-checkbox>
+        </p>
+      </section>
+    </div>
+    
+    <div class="flex flex-col	items-start mt-8">
+      <button class="mb-1" mat-button (click)="abrirModalDeNovaTag()">Cadastrar lista</button>
+      <button class="mb-1" mat-button (click)="abrirModalDeGerenciarTag()">Gerenciar Marcadores</button>
+    </div>
+    
+    <hr class="mt-4 mb-8"/>
+    
+    <div mat-dialog-actions class="w-full">
+      <button 
+        class="ml-auto"
+        color="primary" 
+        mat-raised-button 
+        mat-dialog-close
+        [mat-dialog-close]="obterTagsSelecionadas()"
+      >
+        Confirmar
+      </button>
+    </div>
+  </div>
+</div>

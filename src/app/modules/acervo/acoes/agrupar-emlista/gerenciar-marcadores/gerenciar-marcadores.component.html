@@ -1,0 +1,96 @@
+<div class="flex flex-col max-w-240 md:min-w-160 -m-6">
+  <div class="flex flex-0 items-center justify-between h-16 pr-3 sm:pr-5 pl-6 sm:pl-8 bg-primary text-on-primary">
+    <h1 class="mt-4 text-lg font-medium font-semibold text-white-500">
+      Gerenciar Marcadores
+    </h1>
+    
+    <button mat-button mat-dialog-close class="mat-focus-indicator mat-icon-button mat-button-base" tabindex="-1">
+      <span class="mat-button-wrapper">
+        <mat-icon matSuffix class="text-white">close</mat-icon>
+      </span>
+    </button>
+  </div>
+  
+  <div class="flex flex-col flex-auto p-6 sm:p-8 overflow-y-auto ng-pristine ng-invalid ng-touched">
+    <label id="example-radio-group-label">Escolha a lista:</label>
+    <div class="overflow-y-auto max-h-36 mb-4">
+      <mat-form-field appearance="fill" class="w-full">
+        <mat-select 
+          [(value)]="tagEscolhida"
+          (selectionChange)="buscarProcessosDaLista()"  
+        >
+          <mat-option 
+            *ngFor="let tag of tags" 
+            [value]="tag"
+          >{{tag.descricao}}</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+
+    <div>
+      <div mat-dialog-content>
+        <p>
+          <mat-form-field class="w-full" appearance="fill">
+            <mat-label>Nome da lista:<span class="text-red-500">*</span></mat-label>
+            <input class="sm" matInput name="descricao" [(ngModel)]="tagEscolhida.descricao" placeholder="Nome da lista">
+            <mat-hint>Coloque um nome sugestivo para sua nova lista</mat-hint>
+          </mat-form-field>
+        </p>
+      
+        <div>
+          <mat-radio-group
+            class="flex flex-col my-4 mx-0"
+            [(ngModel)]="tagEscolhida.publica"
+          >
+            <mat-radio-button class="mb-1" [value]="false">Visível somente dentro do gabinete</mat-radio-button>
+            <mat-radio-button class="mb-1" [value]="true">Visível fora do gabinete</mat-radio-button>
+          </mat-radio-group>
+        </div>
+      </div>
+    </div>
+    
+    <mat-form-field class="example-chip-list">
+      <mat-label>Adicionar processos:</mat-label>
+      <mat-chip-list #chipList aria-label="Fruit selection">
+        <mat-chip
+          *ngFor="let processo of processosSelecionados"
+          [selectable]="selectable"
+          [removable]="removable"
+          (removed)="remove(processo)"
+        >
+          {{processo.numero}}
+          <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
+        </mat-chip>
+        <input
+          placeholder="Novo processo"
+          #processoInput
+          [formControl]="processoCtrl"
+          [matAutocomplete]="auto"
+          [matChipInputFor]="chipList"
+          [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+          (matChipInputTokenEnd)="add($event)"
+        >
+      </mat-chip-list>
+      <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selected($event)">
+        <mat-option 
+          *ngFor="let processo of processosFiltrados | async" 
+          [value]="processo"
+        >
+          {{processo.numero}}
+        </mat-option>
+      </mat-autocomplete>
+    </mat-form-field>
+
+    <div mat-dialog-actions class="w-full">
+      <button 
+        class="ml-auto"
+        color="primary" 
+        mat-raised-button 
+        mat-dialog-close
+        (click)="atualizar()"
+      >
+        Atualizar lista
+      </button>
+    </div>
+  </div>
+</div>
