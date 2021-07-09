@@ -1,0 +1,28 @@
+<section>
+    <div>
+        <div class="inline-flex space-x-2 ml-3.5">
+            <mat-checkbox color="primary" class="mt-2 mb-2" (change)="selectAll($event)"></mat-checkbox>
+            <button mat-basic-button color="secondary" class="mt-2">
+                <mat-icon>refresh</mat-icon>
+            </button>
+            <button mat-raised-button color="primary" (click)="openComposeDialog()">
+                <span *ngIf="!mobile;else elseBlock">Pautar</span>
+                <ng-template #elseBlock>
+                    <span>Pautar</span>
+                </ng-template>
+            </button>
+            <button mat-flat-button color="secondary">
+                Devolver Vista
+            </button>
+            <button mat-flat-button color="secondary">
+                Retirar de pauta
+            </button>
+            <button mat-flat-button color="secondary">
+                Alterar Sessão
+            </button>
+            <button mat-flat-button color="secondary" (click)="abrirModalAgruparTags()">
+                Agrupar em Lista
+            </button>
+        </div>
+    </div>
+</section>

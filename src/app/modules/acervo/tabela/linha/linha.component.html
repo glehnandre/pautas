@@ -1,0 +1,41 @@
+<mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
+    <mat-expansion-panel-header [collapsedHeight]="'80px'" class="p-5">
+        <div>
+            <div class="grid grid-cols-12 gap-2 mt-4 pl-3">
+                <div class="w-screen col-span-1 flex">
+                    <div (click)="$event.stopPropagation()">
+                        <mat-checkbox 
+                            color="primary" 
+                            (change)="emiteStatusDoCheckbox($event)"
+                            [checked]="Selected"
+                        ></mat-checkbox>
+                    </div>
+                    <app-classe>
+                    </app-classe>
+                </div>
+                <div class="w-screen col-span-9">
+                    <app-nome
+                        [text]="processo.ementa"
+                    ></app-nome>
+                </div>
+                <div class="w-screen col-span-2" >
+                    <app-status
+                        [idSituacao]="processo.situacao"
+                    ></app-status>
+                </div>
+            </div>
+            <div class="w-screen mb-4">
+                <app-tags
+                    [tags]="processo.lista"
+                ></app-tags>
+            </div>
+        </div>
+    </mat-expansion-panel-header>
+    <!--Conteúdo de dentro da área expansível-->
+    <div class="container">
+        <app-descricao
+            [descricao]="processo.descricao"
+        ></app-descricao>
+    </div>
+
+</mat-expansion-panel>

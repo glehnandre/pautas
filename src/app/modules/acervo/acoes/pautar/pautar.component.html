@@ -1,0 +1,57 @@
+<div class="flex flex-col max-w-240 md:min-w-160 -m-6">
+
+    <!-- Header -->
+    <div class="flex flex-0 items-center justify-between h-16 pr-3 sm:pr-5 pl-6 sm:pl-8 bg-accent text-on-primary">
+        <div class="text-lg font-medium">Liberar processo para julgamento</div>
+        <button mat-icon-button (click)="saveAndClose()" [tabIndex]="-1">
+            <mat-icon class="text-current" [svgIcon]="'heroicons_outline:x'"></mat-icon>
+        </button>
+    </div>
+
+    <!-- Compose form -->
+        <form class="flex flex-col flex-auto p-6 sm:p-8 overflow-y-auto"  [formGroup]="composeForm" >
+        <mat-form-field appearance="fill">
+            <mat-label>Colegiado</mat-label>
+            <mat-select name="colegiado" [formControlName]="'colegiado'">
+                <mat-option *ngFor="let colegiado of colegiados" [value]="colegiado.value" >
+                    {{colegiado.viewValue}}
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+
+        <mat-form-field appearance="fill">
+            <mat-label>Selecionar Data</mat-label>
+            <mat-date-range-input [rangePicker]="picker">
+                <input matStartDate placeholder="Data de início" [formControlName]="'data_inicio'">
+                <input matEndDate placeholder="Data do fim" [formControlName]="'data_fim'">
+            </mat-date-range-input>
+            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-date-range-picker #picker></mat-date-range-picker>
+        </mat-form-field>
+
+        <input type="text" placeholder="Escolha uma sessão" aria-label="Number" matInput [formControl]="myControl"
+            [matAutocomplete]="auto">
+        <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
+            <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
+                {{option}}
+            </mat-option>
+        </mat-autocomplete>
+
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between mt-4 sm:mt-6">
+            <div class="flex items-center mt-4 sm:mt-0">
+                <!-- Discard -->
+                <button class="ml-auto sm:ml-0" mat-button (click)="discard()">
+                    SOLICITAR SESSÃO EXTRAORDINÁRIA
+                </button>
+                <!-- Save as draft -->
+                <button class="ml-auto sm:ml-0" mat-button (click)="saveAsDraft()">
+                    <span>CANCELAR</span>
+                </button>
+                <!-- Send -->
+                <button class="order-first sm:order-last" mat-flat-button [color]="'primary'" (click)="send()">
+                    LIBERAR PARA JULGAMENTO
+                </button>
+            </div>
+        </div>
+    </form>
+</div>

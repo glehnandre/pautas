@@ -1,0 +1,17 @@
+<div *ngIf="mobile && display;else elseBlock">
+    <mat-chip
+        selected
+        [style]="'background-color:' + situacao.color"
+    >
+        {{situacao.text}}
+    </mat-chip>
+</div>
+
+<ng-template #elseBlock>
+        <mat-chip 
+            selected 
+            [style]="'background-color:' + situacao.color"
+        >
+            {{situacao.text}}
+        </mat-chip>
+</ng-template>
