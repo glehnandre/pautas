@@ -49,7 +49,6 @@ export class AgruparEmlistaComponent implements OnInit {
   abrirModalDeGerenciarTag(): void {
     const dialogRef = this.dialog.open(GerenciarMarcadoresComponent, {
       width: '60%',
-      maxHeight: '560px',
     });
     dialogRef.afterClosed().subscribe(() => {});
   }

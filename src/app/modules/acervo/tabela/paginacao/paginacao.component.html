@@ -1,5 +1,5 @@
 <mat-paginator 
-    [length]="totalDeDados" 
-    [pageSizeOptions]="pageSizeOptions"
+    [(length)]="totalDeDados" 
+    [(pageSizeOptions)]="pageSizeOptions"
     (page)="obterDadosDaPaginacao($event)"
 ></mat-paginator>

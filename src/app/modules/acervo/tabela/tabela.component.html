@@ -1,3 +1,8 @@
+<app-paginacao
+    [totalDeDados]="15"
+    (paginacao)="dadosDaPaginacao($event)"
+></app-paginacao>
+
 <div class="m-2 sm:mx-0.5">
     <app-linha
         *ngFor="let processo of processos"

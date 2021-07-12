@@ -36,7 +36,7 @@ export class SessaoExtraordinariaComponent implements OnInit {
       data_fim: ['', [Validators.required]],
       assunto: ['', [Validators.required]],
       colegiado: ['', [Validators.required]],
-      pautas: [this.processosSelecionados],
+      pautas: [[], [Validators.required]],
     });
 
     this.recuperarProcessos();    
@@ -55,6 +55,7 @@ export class SessaoExtraordinariaComponent implements OnInit {
     
     if (processo) {
       this.processosSelecionados.push(processo);
+      this.sessaoExtraordinariaForm.controls.pautas.setValue(this.processosSelecionados);
     }
 
     event.chipInput!.clear();
@@ -67,11 +68,13 @@ export class SessaoExtraordinariaComponent implements OnInit {
 
     if (index >= 0) {
       this.processosSelecionados.splice(index, 1);
+      this.sessaoExtraordinariaForm.controls.pautas.setValue(this.processosSelecionados);
     }
   }
 
   public selected(event: MatAutocompleteSelectedEvent): void {
     this.processosSelecionados.push(event.option.value);
+    this.sessaoExtraordinariaForm.controls.pautas.setValue(this.processosSelecionados);
     this.processoInput.nativeElement.value = '';
     this.processoCtrl.setValue(null);
   }

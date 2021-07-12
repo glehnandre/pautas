@@ -1,14 +1,10 @@
 <div class="flex flex-col max-w-240 md:min-w-160 -m-6">
-  <div class="flex items-center justify-between h-16 pr-3 sm:pr-5 pl-6 sm:pl-8 bg-primary text-on-primary">
-    <h1 class="mt-4 flex items-center justify-center text-lg font-medium font-semibold text-white-500">
-      <mat-icon class="text-white v-middle mr-2">info</mat-icon>
-      Marcar como
-    </h1>
-    
-    <button mat-button mat-dialog-close class="mat-focus-indicator mat-icon-button mat-button-base" tabindex="-1">
-      <span class="mat-button-wrapper">
-        <mat-icon matSuffix class="text-white">close</mat-icon>
-      </span>
+  <div class="flex flex-0 items-center justify-between h-16 pr-3 sm:pr-5 pl-6 sm:pl-8 bg-accent text-on-primary">
+    <div class="text-lg font-medium">
+      Gerenciar listas
+    </div>
+    <button mat-icon-button mat-dialog-close [tabIndex]="-1">
+        <mat-icon class="text-current" [svgIcon]="'heroicons_outline:x'"></mat-icon>
     </button>
   </div>
   
@@ -32,18 +28,23 @@
       <button class="mb-1" mat-button (click)="abrirModalDeGerenciarTag()">Gerenciar Marcadores</button>
     </div>
     
-    <hr class="mt-4 mb-8"/>
-    
-    <div mat-dialog-actions class="w-full">
-      <button 
-        class="ml-auto"
-        color="primary" 
-        mat-raised-button 
-        mat-dialog-close
-        [mat-dialog-close]="obterTagsSelecionadas()"
-      >
-        Confirmar
-      </button>
+    <div class="flex flex-col sm:flex-row sm:items-center justify-between mt-4 sm:mt-6">
+      <div mat-dialog-actions class="flex items-center mt-4 sm:mt-0 ml-auto">
+        <button class="ml-auto sm:ml-0 mr-2" mat-button mat-dialog-close>
+          <span>Cancelar</span>
+        </button>
+  
+        <button 
+          class="ml-auto"
+          color="primary" 
+          mat-raised-button 
+          mat-dialog-close
+          [disabled]="obterTagsSelecionadas().length === 0"
+          [mat-dialog-close]="obterTagsSelecionadas()"
+        >
+          Confirmar
+        </button>
+      </div>
     </div>
   </div>
 </div>

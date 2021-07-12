@@ -179,21 +179,22 @@ export class GerenciarMarcadoresComponent implements OnInit {
   }
 
   public atualizar(): void {
-    console.log(this.processoCtrl.value)
     // PUT /tags/:id
-    this._atualizaTag().subscribe({
-      next: (tag) => {
-        // PUT /tag/:id/processos
-        this.processosSelecionados.forEach(processo => {
-          this._atualizaProcessos(processo.id, tag).subscribe({
-            next: (data) => {
-              console.log('processos atualizados');
-              console.log(data);
-            }
+    if (this.tagForm.valid && this.processoForm.valid) {
+      this._atualizaTag().subscribe({
+        next: (tag) => {
+          // PUT /tag/:id/processos
+          this.processosSelecionados.forEach(processo => {
+            this._atualizaProcessos(processo.id, tag).subscribe({
+              next: (data) => {
+                console.log('processos atualizados');
+                console.log(data);
+              }
+            });
           });
-        });
-      }
-    });
+        }
+      });
+    }
   }
 
   private _atualizaTag(): Observable<Tag> {
