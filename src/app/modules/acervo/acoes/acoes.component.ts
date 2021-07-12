@@ -1,7 +1,8 @@
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { AgruparEmlistaComponent } from './agrupar-emlista/agrupar-emlista.component';
 import { PautarComponent } from './pautar/pautar.component';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-acoes',
@@ -14,7 +15,7 @@ export class AcoesComponent implements OnInit {
   @Output() Allselected = new EventEmitter();
   @Output() colecaoIdsDasTags = new EventEmitter<Array<{id: number}>>();
  
-  constructor(private _matDialog: MatDialog) {
+  constructor(private _matDialog: MatDialog, private _snackBar: MatSnackBar) {
     if (document.body.clientWidth <= 800) {
       this.mobile = true
     }
@@ -58,5 +59,11 @@ export class AcoesComponent implements OnInit {
       .subscribe((result) => {
         console.log('Compose dialog was closed!');
       });
+  }
+
+  openSnackBar() {
+    this._snackBar.open("Selecione um ou mais processos", null, {
+      duration:3000,
+    });
   }
 }
