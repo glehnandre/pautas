@@ -4,6 +4,7 @@ import { EMPTY, Observable } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { Tag } from '../acoes/agrupar-emlista/agrupar-emlista.component';
 import { ProcessoCheckboxProps } from './linha/linha.component';
+import { Paginacao } from './paginacao/paginacao.component';
 
 export enum SituacaoDoProcesso {
   'Apto a Julgar' = 1, 
@@ -22,11 +23,11 @@ export enum TipoDoProcesso {
 
 export interface Processo {
   id: number;
-  nome: string;
+  ementa: string;
   lista: Tag[];
   classe: string;
   numero: number;
-  cadeira: number;
+  cadeira: string;
   descricao: string;
   situacao: SituacaoDoProcesso;
   tipo: TipoDoProcesso;
@@ -55,9 +56,9 @@ export class TabelaComponent implements OnInit {
   @Output() colecaoIdsProcesso = new EventEmitter<number[]>();
 
   idsDosProcessos: number[] = [];
-  idsProcessoChecked: Array<number> = [];
+  idsProcessoChecked: number[] = [];
   processos: Processo[] = [];
-
+  
   constructor(private _httpClient: HttpClient) {
     this.data ={
       checked: true,
@@ -75,13 +76,13 @@ export class TabelaComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this._listarTodosOsProcessos().subscribe({
-      next: (data) => {
-        this.processos = data;
-        this.processos
-          .forEach(processo => this.idsDosProcessos.push(processo.id));
-      }
-    });
+    // this._listarTodosOsProcessos().subscribe({
+    //   next: (data) => {
+    //     this.processos = data;
+    //     this.processos
+    //       .forEach(processo => this.idsDosProcessos.push(processo.id));
+    //   }
+    // });
   }
 
   ngOnChanges(changes: SimpleChange){
@@ -119,17 +120,9 @@ export class TabelaComponent implements OnInit {
     this.colecaoIdsProcesso.emit(this.idsProcessoChecked);
   }
 
-  private _listarTodosOsProcessos(): Observable<Processo[]> {
-    let params = new HttpParams();
-    // params = params.set('situacao-processo', 1);
-    // params = params.set('termo', 'ADI 100');
-    // params = params.set('colegiado', 'primeira-turma');
-    // params = params.set('classe', 'ADI');
-    // params = params.set('tag', 1);
-    //   params = params.append('tag', 2);
-
+  private _listarTodosOsProcessos(params?: HttpParams): Observable<Processo[]> {
     return this._httpClient.get<Processo[]>('processos', {
-      params,
+      params
     }).pipe(
       catchError(error => {
         console.log(error);
@@ -137,4 +130,21 @@ export class TabelaComponent implements OnInit {
       })
     );
   }
+
+  dadosDaPaginacao(dados: Paginacao): void {
+    let params = new HttpParams();
+    params = params.set('itensPorPagina', dados.itensPorPagina);
+    params = params.set('numeroDaPagina', dados.numeroDaPagina);
+    params = params.set('offset', dados.offset);
+
+    this._httpClient.get<Processo[]>('processos/paginacao', {
+      params
+    }).subscribe(data => {
+      this.processos = data;
+      console.log(this.processos)
+      this.processos
+          .forEach(processo => this.idsDosProcessos.push(processo.id));
+    });
+  }
+
 }

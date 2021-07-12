@@ -5,6 +5,7 @@ import { Processo } from 'app/modules/acervo/tabela/tabela.component';
 import { processo as processoData } from 'app/mock-api/pautas/processos/data';
 import { tags as tagData } from 'app/mock-api/pautas/tags/data';
 import { Tag } from 'app/modules/acervo/acoes/agrupar-emlista/agrupar-emlista.component';
+import { Paginacao } from 'app/modules/acervo/tabela/paginacao/paginacao.component';
 
 @Injectable({
     providedIn: 'root'
@@ -80,6 +81,22 @@ export class ProcessoMockApi {
                 } else {
                     return [200, this._processo];
                 }
+            });
+        
+        this._fuseMockApiService
+            .onGet('processos/paginacao')
+            .reply(({ request }) => {
+                const { params } = request;
+                const paginacao: Paginacao = {
+                    itensPorPagina: +params.get('itensPorPagina'),
+                    numeroDaPagina: +params.get('numeroDaPagina'),
+                    offset: +params.get('offset'),
+                }
+
+                const processosPaginados = this._processo
+                    .slice(paginacao.offset, paginacao.offset+paginacao.itensPorPagina);
+
+                return [200, processosPaginados];
             });
 
         this._fuseMockApiService

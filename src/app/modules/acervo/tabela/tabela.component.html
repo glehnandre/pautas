@@ -2,20 +2,12 @@
     <app-linha
         *ngFor="let processo of processos"
         [processo]="processo" 
-        [id]="idsDosProcessos[0]" 
         (checked)="trataEventoDeChecked($event)" 
         [Selected]="SelectAll"
     ></app-linha>
-
-
-    <!-- <app-linha [id]="idsDosProcessos[0]" (checked)="trataEventoDeChecked($event)" [Selected]="SelectAll"></app-linha>
-    <app-linha [id]="idsDosProcessos[1]" (checked)="trataEventoDeChecked($event)" [Selected]="SelectAll"></app-linha>
-    <app-linha [id]="idsDosProcessos[2]" (checked)="trataEventoDeChecked($event)" [Selected]="SelectAll"></app-linha>
-    <app-linha [id]="idsDosProcessos[3]" (checked)="trataEventoDeChecked($event)" [Selected]="SelectAll"></app-linha>
-    <app-linha [Selected]="SelectAll"></app-linha>
-    <app-linha [Selected]="SelectAll"></app-linha>
-    <app-linha [Selected]="SelectAll"></app-linha>
-    <app-linha [Selected]="SelectAll"></app-linha>
-    <app-linha [Selected]="SelectAll"></app-linha>
-    <app-linha [Selected]="SelectAll"></app-linha> -->
 </div>
+
+<app-paginacao
+    [totalDeDados]="15"
+    (paginacao)="dadosDaPaginacao($event)"
+></app-paginacao>
