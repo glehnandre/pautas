@@ -3,7 +3,6 @@ import { CommonModule } from '@angular/common';
 import { TabelaComponent } from './tabela.component';
 import { RouterModule } from '@angular/router';
 import { LinhaComponent } from './linha/linha.component';
-import { NomeComponent } from './nome/nome.component'
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatIconModule } from '@angular/material/icon';
@@ -13,6 +12,7 @@ import { StatusComponent } from './status/status.component';
 import { TagsComponent } from './tags/tags.component';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { CapitulosComponent } from './capitulos/capitulos.component';
+import { MatTooltipModule } from '@angular/material/tooltip';
 
 import { MatChipsModule } from '@angular/material/chips';
 import { AcoesModule } from '../acoes/acoes.module';
@@ -28,7 +28,6 @@ const routes = [
   declarations: [
     TabelaComponent,
     LinhaComponent,
-    NomeComponent,
     ClasseComponent,
     DescricaoComponent,
     StatusComponent,
@@ -43,7 +42,8 @@ const routes = [
     MatGridListModule,
     MatExpansionModule,
     AcoesModule,
-    MatChipsModule
+    MatChipsModule,
+    MatTooltipModule
   ],
   exports: [
     TabelaComponent

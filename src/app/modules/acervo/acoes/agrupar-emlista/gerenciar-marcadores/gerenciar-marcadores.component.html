@@ -12,8 +12,8 @@
   </div>
   
   <div class="flex flex-col flex-auto p-6 sm:p-8 overflow-y-auto ng-pristine ng-invalid ng-touched">
-    <label id="example-radio-group-label">Escolha a lista:</label>
     <div class="overflow-y-auto max-h-36 mb-4">
+      <label id="example-radio-group-label">Escolha a lista:</label>
       <mat-form-field appearance="fill" class="w-full">
         <mat-select 
           [(value)]="tagEscolhida"
@@ -27,12 +27,12 @@
       </mat-form-field>
     </div>
 
-    <div>
+    <form [formGroup]="tagForm">
       <div mat-dialog-content>
         <p>
           <mat-form-field class="w-full" appearance="fill">
             <mat-label>Nome da lista:<span class="text-red-500">*</span></mat-label>
-            <input class="sm" matInput name="descricao" [(ngModel)]="tagEscolhida.descricao" placeholder="Nome da lista">
+            <input class="sm" matInput name="descricao" formControlName="descricao" placeholder="Nome da lista">
             <mat-hint>Coloque um nome sugestivo para sua nova lista</mat-hint>
           </mat-form-field>
         </p>
@@ -40,46 +40,48 @@
         <div>
           <mat-radio-group
             class="flex flex-col my-4 mx-0"
-            [(ngModel)]="tagEscolhida.publica"
+            formControlName="publica"
           >
             <mat-radio-button class="mb-1" [value]="false">Visível somente dentro do gabinete</mat-radio-button>
             <mat-radio-button class="mb-1" [value]="true">Visível fora do gabinete</mat-radio-button>
           </mat-radio-group>
         </div>
-      </div>
-    </div>
-    
-    <mat-form-field class="example-chip-list">
-      <mat-label>Adicionar processos:</mat-label>
-      <mat-chip-list #chipList aria-label="Fruit selection">
-        <mat-chip
-          *ngFor="let processo of processosSelecionados"
-          [selectable]="selectable"
-          [removable]="removable"
-          (removed)="remove(processo)"
-        >
-          {{processo.numero}}
-          <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
-        </mat-chip>
-        <input
-          placeholder="Novo processo"
-          #processoInput
-          [formControl]="processoCtrl"
-          [matAutocomplete]="auto"
-          [matChipInputFor]="chipList"
-          [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
-          (matChipInputTokenEnd)="add($event)"
-        >
-      </mat-chip-list>
-      <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selected($event)">
-        <mat-option 
-          *ngFor="let processo of processosFiltrados | async" 
-          [value]="processo"
-        >
-          {{processo.numero}}
-        </mat-option>
-      </mat-autocomplete>
-    </mat-form-field>
+        </div>
+    </form>
+      
+    <form [formGroup]="processoForm">
+      <mat-form-field class="example-chip-list">
+        <mat-label>Adicionar processos:</mat-label>
+        <mat-chip-list #chipList aria-label="Fruit selection" formControlName="processos">
+          <mat-chip
+            *ngFor="let processo of processosSelecionados"
+            [selectable]="selectable"
+            [removable]="removable"
+            (removed)="remove(processo)"
+          >
+            {{processo.classe + ' ' + processo.numero}}
+            <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
+          </mat-chip>
+          <input
+            placeholder="Novo processo"
+            #processoInput
+            [formControl]="processoCtrl"
+            [matAutocomplete]="auto"
+            [matChipInputFor]="chipList"
+            [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+            (matChipInputTokenEnd)="add($event)"
+          >
+        </mat-chip-list>
+        <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selected($event)">
+          <mat-option 
+            *ngFor="let processo of processosFiltrados | async" 
+            [value]="processo"
+          >
+            {{processo.classe + ' ' + processo.numero}}
+          </mat-option>
+        </mat-autocomplete>
+      </mat-form-field>
+    </form>
 
     <div mat-dialog-actions class="w-full">
       <button 
