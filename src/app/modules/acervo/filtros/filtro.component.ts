@@ -46,6 +46,12 @@ export class FiltroComponent implements OnInit {
     this.filtros[nome_filtro] = false;
   }
 
+   //Remove the filters of a single term
+    removeFiltroTermo(): void {
+      this.filtros['termo'] = '';
+      this.termo = '';
+  }
+
   ngOnInit(): void {
 
   }
