@@ -2,7 +2,6 @@ import { Component, OnInit, Output, ViewChild, ViewEncapsulation, Inject } from 
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { FiltroDialogComponent } from './filtro-dialog.component';
 import { Filtros } from './filtros';
-import { MatChipInputEvent } from '@angular/material/chips';
 
 
 @Component({
