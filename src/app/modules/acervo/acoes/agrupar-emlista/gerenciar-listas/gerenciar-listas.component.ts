@@ -11,11 +11,11 @@ import { Processo } from 'app/modules/acervo/tabela/tabela.component';
 import { Tag } from '../agrupar-emlista.component';
 
 @Component({
-  selector: 'app-gerenciar-marcadores',
-  templateUrl: './gerenciar-marcadores.component.html',
-  styleUrls: ['./gerenciar-marcadores.component.scss']
+  selector: 'app-gerenciar-listas',
+  templateUrl: './gerenciar-listas.component.html',
+  styleUrls: ['./gerenciar-listas.component.scss']
 })
-export class GerenciarMarcadoresComponent implements OnInit {
+export class GerenciarListasComponent implements OnInit {
   tagForm: FormGroup;
   processoForm: FormGroup;
 
@@ -44,7 +44,7 @@ export class GerenciarMarcadoresComponent implements OnInit {
   constructor(
     private _httpClient: HttpClient,
     private _fb: FormBuilder,
-    public dialogRef: MatDialogRef<GerenciarMarcadoresComponent>,
+    public dialogRef: MatDialogRef<GerenciarListasComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
   ) {
     this.tagForm = this._fb.group({

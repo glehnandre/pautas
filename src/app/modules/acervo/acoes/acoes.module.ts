@@ -19,7 +19,7 @@ import { MAT_DATE_LOCALE } from '@angular/material/core';
 
 import { AgruparEmlistaComponent } from './agrupar-emlista/agrupar-emlista.component';
 import { NovaListaComponent } from './agrupar-emlista/nova-lista/nova-lista.component';
-import { GerenciarMarcadoresComponent } from './agrupar-emlista/gerenciar-marcadores/gerenciar-marcadores.component';
+import { GerenciarListasComponent } from './agrupar-emlista/gerenciar-listas/gerenciar-listas.component';
 import { PautarComponent } from './pautar/pautar.component';
 import { SessaoExtraordinariaComponent } from './pautar/sessao-extraordinaria/sessao-extraordinaria.component';
 
@@ -35,7 +35,7 @@ const routes = [
     AcoesComponent,
     AgruparEmlistaComponent,
     NovaListaComponent,
-    GerenciarMarcadoresComponent,
+    GerenciarListasComponent,
     PautarComponent,
     SessaoExtraordinariaComponent,
   ],
