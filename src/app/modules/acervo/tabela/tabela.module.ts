@@ -12,10 +12,12 @@ import { StatusComponent } from './status/status.component';
 import { TagsComponent } from './tags/tags.component';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { CapitulosComponent } from './capitulos/capitulos.component';
-import { MatTooltipModule } from '@angular/material/tooltip';
 
 import { MatChipsModule } from '@angular/material/chips';
 import { AcoesModule } from '../acoes/acoes.module';
+import { MatPaginatorIntl, MatPaginatorModule } from '@angular/material/paginator';
+import { PaginacaoComponent } from './paginacao/paginacao.component';
+import { PaginacaoCustomizadaComponent } from './paginacao/paginacao-customizada.component';
 
 const routes = [
   {
@@ -33,6 +35,7 @@ const routes = [
     StatusComponent,
     TagsComponent,
     CapitulosComponent,
+    PaginacaoComponent,
   ],
   imports: [
     CommonModule,
@@ -43,10 +46,16 @@ const routes = [
     MatExpansionModule,
     AcoesModule,
     MatChipsModule,
-    MatTooltipModule
+    MatPaginatorModule,
   ],
   exports: [
     TabelaComponent
+  ],
+  providers: [
+    {
+      provide: MatPaginatorIntl, 
+      useClass: PaginacaoCustomizadaComponent,
+    }
   ]
 })
 export class TabelaModule { }

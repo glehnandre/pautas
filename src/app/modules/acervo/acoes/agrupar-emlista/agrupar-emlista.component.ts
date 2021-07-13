@@ -3,7 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { EMPTY, Observable } from 'rxjs';
 import { catchError } from 'rxjs/operators';
-import { GerenciarMarcadoresComponent } from './gerenciar-marcadores/gerenciar-marcadores.component';
+import { GerenciarListasComponent } from './gerenciar-listas/gerenciar-listas.component';
 import { NovaListaComponent } from './nova-lista/nova-lista.component';
 
 export interface Tag {
@@ -47,9 +47,8 @@ export class AgruparEmlistaComponent implements OnInit {
   }
 
   abrirModalDeGerenciarTag(): void {
-    const dialogRef = this.dialog.open(GerenciarMarcadoresComponent, {
+    const dialogRef = this.dialog.open(GerenciarListasComponent, {
       width: '60%',
-      maxHeight: '560px',
     });
     dialogRef.afterClosed().subscribe(() => {});
   }

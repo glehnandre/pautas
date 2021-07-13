@@ -23,6 +23,7 @@ export class SessaoExtraordinariaComponent implements OnInit {
   processoCtrl = new FormControl();
   processosFiltrados: Observable<Processo[]>;
   processosSelecionados: Processo[] = [];
+  processosRemovidos: Processo[] = [];
   processos: Processo[] = [];
 
   @ViewChild('processoInput') processoInput: ElementRef<HTMLInputElement>;
@@ -36,7 +37,7 @@ export class SessaoExtraordinariaComponent implements OnInit {
       data_fim: ['', [Validators.required]],
       assunto: ['', [Validators.required]],
       colegiado: ['', [Validators.required]],
-      pautas: [this.processosSelecionados],
+      pautas: [[], [Validators.required]],
     });
 
     this.recuperarProcessos();    
@@ -55,6 +56,8 @@ export class SessaoExtraordinariaComponent implements OnInit {
     
     if (processo) {
       this.processosSelecionados.push(processo);
+      this.sessaoExtraordinariaForm.controls.pautas.setValue(this.processosSelecionados);
+      this._retirarProcessoDosRemovidos(processo);
     }
 
     event.chipInput!.clear();
@@ -67,11 +70,16 @@ export class SessaoExtraordinariaComponent implements OnInit {
 
     if (index >= 0) {
       this.processosSelecionados.splice(index, 1);
+      this.sessaoExtraordinariaForm.controls.pautas.setValue(this.processosSelecionados);
+      this._adicionarProcessoAosRemovidos(processo);
     }
   }
 
   public selected(event: MatAutocompleteSelectedEvent): void {
-    this.processosSelecionados.push(event.option.value);
+    const processo: Processo = event.option.value;
+    this.processosSelecionados.push(processo);
+    this.sessaoExtraordinariaForm.controls.pautas.setValue(this.processosSelecionados);
+    this._retirarProcessoDosRemovidos(processo);
     this.processoInput.nativeElement.value = '';
     this.processoCtrl.setValue(null);
   }
@@ -122,6 +130,32 @@ export class SessaoExtraordinariaComponent implements OnInit {
         return EMPTY;
       }),
     )
+  }
+
+  private _adicionarProcessoAosRemovidos(processo: Processo) {
+    const index = this.processos.findIndex(p => p.id === processo.id);
+    if (this.processosRemovidos.findIndex(p => p.id === processo.id) === -1) {
+      this.processos.splice(index, 1);
+      this.processosRemovidos.push(processo);
+      this._recarregaSugestoesDeProcessos();
+    }
+  }
+
+  private _retirarProcessoDosRemovidos(processo: Processo) {
+    const index = this.processosRemovidos.findIndex(p => p.id === processo.id);
+    if (index !== -1) {
+      const processos = this.processosRemovidos.splice(index, 1);
+      this.processos = [...this.processos, ...processos];
+      this._recarregaSugestoesDeProcessos();
+    }
+  }
+
+  private _recarregaSugestoesDeProcessos(): void {
+    this.processosFiltrados = this.processoCtrl.valueChanges.pipe(
+      startWith(''),
+      map((processo: Processo | null) => 
+        processo ? this._filter(processo) : this.processos.slice())
+      );
   }
 
 }
