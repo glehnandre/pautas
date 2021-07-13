@@ -1,8 +1,9 @@
-import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { AcervoComponent } from '../acervo.component';
 import { AgruparEmlistaComponent } from './agrupar-emlista/agrupar-emlista.component';
 import { PautarComponent } from './pautar/pautar.component';
-import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-acoes',
@@ -14,6 +15,8 @@ export class AcoesComponent implements OnInit {
   mobile: boolean;
   @Output() Allselected = new EventEmitter();
   @Output() colecaoIdsDasTags = new EventEmitter<Array<{id: number}>>();
+
+  @Input() idsProcessos: number[];
  
   constructor(private _matDialog: MatDialog, private _snackBar: MatSnackBar) {
     if (document.body.clientWidth <= 800) {
@@ -42,28 +45,45 @@ export class AcoesComponent implements OnInit {
   }
 
   abrirModalAgruparTags() {
-    const dialogRef = this._matDialog.open(AgruparEmlistaComponent, {
-      maxHeight: '560px',
-    });
-
-    dialogRef.afterClosed().subscribe((tags: Array<{id :number}>) => {
-      this.colecaoIdsDasTags.emit(tags);
-    });
+    if(!this.verificaProcesso()){
+      this.openSnackBar();
+    }
+    else{
+      const dialogRef = this._matDialog.open(AgruparEmlistaComponent, {
+        maxHeight: '560px',
+      });
+    
+      dialogRef.afterClosed().subscribe((tags: Array<{id :number}>) => {
+        this.colecaoIdsDasTags.emit(tags);
+      });
+    } 
   }
 
   openComposeDialog(): void {
-    // Open the dialog
-    const dialogRef = this._matDialog.open(PautarComponent);
+    if(!this.verificaProcesso()){
+      this.openSnackBar();
+    }
+    else{
+      // Open the dialog
+      const dialogRef = this._matDialog.open(PautarComponent);
 
-    dialogRef.afterClosed()
-      .subscribe((result) => {
-        console.log('Compose dialog was closed!');
-      });
+      dialogRef.afterClosed()
+        .subscribe((result) => {
+          console.log('Compose dialog was closed!');
+        });
+    }
   }
 
   openSnackBar() {
     this._snackBar.open("Selecione um ou mais processos", null, {
       duration:3000,
     });
+  }
+
+  verificaProcesso(): boolean{
+    if(this.idsProcessos.length == 0){
+      return false;
+    }
+    return true;
   }
 }

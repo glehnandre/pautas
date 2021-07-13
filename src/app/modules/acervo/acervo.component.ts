@@ -48,8 +48,13 @@ export class AcervoComponent implements OnInit {
     });
   }
 
-  obterIdsDosProcessos(data: Array<number>) {
+  obterIdsDosProcessos(data: Array<number>): void {
     this.processo.idsProcessos = data;
+    this.idsProcessos();
+  }
+
+  idsProcessos(): number[]{
+    return this.processo.idsProcessos;
   }
 
   atualizarTagsDoProcesso(id: number): Observable<any> {
