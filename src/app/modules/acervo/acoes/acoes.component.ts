@@ -46,7 +46,9 @@ export class AcoesComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe((tags: Array<{id :number}>) => {
-      this.colecaoIdsDasTags.emit(tags);
+      if (tags.length > 0) {
+        this.colecaoIdsDasTags.emit(tags);
+      }
     });
   }
 
