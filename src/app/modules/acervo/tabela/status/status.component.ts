@@ -17,7 +17,7 @@ export class StatusComponent implements OnInit {
   @Input() idSituacao: number;
 
   status: Status[] = [
-    { id: 1, color: "#3C8D40", text: "APTO A JULGAR" },
+    { id: 1, color: "#3C8D40", text: "APTO A PAUTAR" },
     { id: 2, color: "#FDC02F", text: "EM JULGAMENTO" },
     { id: 3, color: "#BF221o", text: "VISTO MDT" },
     { id: 4, color: "#1170A6", text: "PAUTADO" }
