@@ -1,7 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { MatSnackBar } from '@angular/material/snack-bar';
-import { AcervoComponent } from '../acervo.component';
+import { FuseAlertService } from '@fuse/components/alert';
 import { AgruparEmlistaComponent } from './agrupar-emlista/agrupar-emlista.component';
 import { PautarComponent } from './pautar/pautar.component';
 
@@ -18,7 +17,7 @@ export class AcoesComponent implements OnInit {
 
   @Input() idsProcessos: number[];
  
-  constructor(private _matDialog: MatDialog, private _snackBar: MatSnackBar) {
+  constructor(private _matDialog: MatDialog, private _fuseAlertService: FuseAlertService) {
     if (document.body.clientWidth <= 800) {
       this.mobile = true
     }
@@ -46,9 +45,11 @@ export class AcoesComponent implements OnInit {
 
   abrirModalAgruparTags() {
     if(!this.verificaProcesso()){
-      this.openSnackBar();
+      this.mostrarAlerta();
     }
     else{
+      this.fecharAlerta();
+
       const dialogRef = this._matDialog.open(AgruparEmlistaComponent, {
         maxHeight: '560px',
       });
@@ -61,9 +62,10 @@ export class AcoesComponent implements OnInit {
 
   openComposeDialog(): void {
     if(!this.verificaProcesso()){
-      this.openSnackBar();
+      this.mostrarAlerta();
     }
     else{
+      this.fecharAlerta();
       // Open the dialog
       const dialogRef = this._matDialog.open(PautarComponent);
 
@@ -74,16 +76,17 @@ export class AcoesComponent implements OnInit {
     }
   }
 
-  openSnackBar() {
-    this._snackBar.open("Selecione um ou mais processos", null, {
-      duration:3000,
-    });
-  }
-
   verificaProcesso(): boolean{
     if(this.idsProcessos.length == 0){
       return false;
     }
     return true;
+  }
+
+  mostrarAlerta(){
+      this._fuseAlertService.show('alertBox');
+  }
+  fecharAlerta(){
+    this._fuseAlertService.dismiss('alertBox');
   }
 }
