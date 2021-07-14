@@ -48,5 +48,33 @@ export class TagMockApi {
                 const tag = this._tag.find(tag => tag.id === id);
                 return [200, tag];
             });
+
+        this._fuseMockApiService
+            .onDelete('tags/:id')
+            .reply(({urlParams}) => {
+                let id: number = 0;
+
+                if (urlParams.id) {
+                    id = +urlParams.id;
+                } else {
+                    return [400, {
+                        message: 'Parâmetros incorretos para a ação',
+                    }];
+                }
+
+                const index = this._tag
+                    .findIndex(tag => tag.id === id);
+
+                if (index !== -1) {
+                    this._tag.splice(index, 1);
+                    return [201, {
+                        message: 'Sucesso!',
+                    }];
+                } else {
+                    return [404, {
+                        message: 'Tag não encontrada',
+                    }];
+                }
+            });
     }
 }

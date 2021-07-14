@@ -57,7 +57,7 @@ export class SessaoExtraordinariaComponent implements OnInit {
     if (processo) {
       this.processosSelecionados.push(processo);
       this.sessaoExtraordinariaForm.controls.pautas.setValue(this.processosSelecionados);
-      this._retirarProcessoDosRemovidos(processo);
+      this._adicionarProcessoAosRemovidos(processo);
     }
 
     event.chipInput!.clear();
@@ -71,7 +71,7 @@ export class SessaoExtraordinariaComponent implements OnInit {
     if (index >= 0) {
       this.processosSelecionados.splice(index, 1);
       this.sessaoExtraordinariaForm.controls.pautas.setValue(this.processosSelecionados);
-      this._adicionarProcessoAosRemovidos(processo);
+      this._retirarProcessoDosRemovidos(processo);
     }
   }
 
@@ -79,14 +79,13 @@ export class SessaoExtraordinariaComponent implements OnInit {
     const processo: Processo = event.option.value;
     this.processosSelecionados.push(processo);
     this.sessaoExtraordinariaForm.controls.pautas.setValue(this.processosSelecionados);
-    this._retirarProcessoDosRemovidos(processo);
+    this._adicionarProcessoAosRemovidos(processo);
     this.processoInput.nativeElement.value = '';
     this.processoCtrl.setValue(null);
   }
 
   public solicitarSessaoExtraordinaria(): void {
     if (this.sessaoExtraordinariaForm.valid) {
-      console.log(this.sessaoExtraordinariaForm.value);
       this._httpClient.post('pautas', this.sessaoExtraordinariaForm.value)
         .subscribe({
           next: (data) => {
@@ -135,8 +134,8 @@ export class SessaoExtraordinariaComponent implements OnInit {
   private _adicionarProcessoAosRemovidos(processo: Processo) {
     const index = this.processos.findIndex(p => p.id === processo.id);
     if (this.processosRemovidos.findIndex(p => p.id === processo.id) === -1) {
-      this.processos.splice(index, 1);
       this.processosRemovidos.push(processo);
+      this.processos.splice(index, 1);
       this._recarregaSugestoesDeProcessos();
     }
   }

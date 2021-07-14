@@ -1,4 +1,4 @@
-import { Component, Inject, OnInit, ElementRef, ViewChild } from '@angular/core';
+import { Component, Inject, OnInit, OnDestroy, ElementRef, ViewChild } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { COMMA, ENTER } from '@angular/cdk/keycodes';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
@@ -9,6 +9,7 @@ import { catchError, map, startWith } from 'rxjs/operators';
 import { HttpClient } from '@angular/common/http';
 import { Processo } from 'app/modules/acervo/tabela/tabela.component';
 import { Tag } from '../agrupar-emlista.component';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-gerenciar-listas',
@@ -44,6 +45,7 @@ export class GerenciarListasComponent implements OnInit {
   constructor(
     private _httpClient: HttpClient,
     private _fb: FormBuilder,
+    private _snackBar: MatSnackBar,
     public dialogRef: MatDialogRef<GerenciarListasComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
   ) {
@@ -64,15 +66,12 @@ export class GerenciarListasComponent implements OnInit {
         this.tagForm.setValue(this.tagEscolhida);
         this.tags = data;
 
-        this.buscarProcessosDaLista();
         this.buscarProcessos();
       }
     });
   }
 
-  ngOnInit(): void {
-    
-  }
+  ngOnInit(): void {}
 
   add(event: MatChipInputEvent): void {
     const value = (event.value || '').toLocaleLowerCase();
@@ -86,7 +85,7 @@ export class GerenciarListasComponent implements OnInit {
     if (processo) {
       this.processosSelecionados.push(processo);
       this.processoForm.setValue({processos: this.processosSelecionados});
-      this._removeProcesso(processo.id);
+      this._adicionarProcessoAosRemovidos(processo);
     }
 
     // Clear the input value
@@ -101,6 +100,7 @@ export class GerenciarListasComponent implements OnInit {
     if (index >= 0) {
       const processo = this.processosSelecionados.splice(index, 1)[0];
       this.processoForm.setValue({processos: this.processosSelecionados});
+      this._retirarProcessoDosRemovidos(processo);
       
       if (processo.lista.find(lista => lista.id === this.tagEscolhida.id)) {
         // DELETE via API
@@ -111,14 +111,6 @@ export class GerenciarListasComponent implements OnInit {
         });
       }
     }
-
-    // this.todosOsProcessos.unshift(...new Set(this.processosRemovidos));
-    // this.processosFiltrados = this.processoCtrl.valueChanges.pipe(
-    //   startWith(''),
-    //   map((processo: Processo | null) => {
-    //     return processo ? this._filter(processo) : this.todosOsProcessos.slice();
-    //   })
-    // );
   }
 
   selected(event: MatAutocompleteSelectedEvent): void {
@@ -126,17 +118,9 @@ export class GerenciarListasComponent implements OnInit {
 
     this.processosSelecionados.push(processo);
     this.processoForm.setValue({processos: this.processosSelecionados});
-    this._removeProcesso(processo.id);
-
+    this._adicionarProcessoAosRemovidos(processo);
     this.processoInput.nativeElement.value = null;
     this.processoCtrl.setValue(null);
-  }
-
-  private _removeProcesso(id: number): void {
-    const index = this.todosOsProcessos.findIndex(processo => processo.id === id);
-    if (index !== -1) {
-      this.todosOsProcessos.splice(index, 1);
-    }
   }
 
   private _filter(value: Processo | string): Processo[] {
@@ -162,8 +146,12 @@ export class GerenciarListasComponent implements OnInit {
   public buscarProcessosDaLista(): void {
     this._carregarProcessosDaLista().subscribe({
       next: (data) => {
-        console.log(data)
         this.processosSelecionados = data;
+        this.todosOsProcessos = [...this.todosOsProcessos, ...this.processosRemovidos];
+        this.processosRemovidos = [];
+        this.processosSelecionados
+          .forEach(processo => this._adicionarProcessoAosRemovidos(processo));
+
         this.tagForm.setValue(this.tagEscolhida);
         this.processoForm.setValue({processos: this.processosSelecionados});
       }
@@ -183,16 +171,16 @@ export class GerenciarListasComponent implements OnInit {
     this._carregarProcessos().subscribe({
       next: (data) => {
         this.todosOsProcessos = data;
-        this.processosSelecionados.forEach(processo => {
-          this._removeProcesso(processo.id);
-        });
-
+        this.processosSelecionados
+          .forEach(processo => this._adicionarProcessoAosRemovidos(processo));
         this.processosFiltrados = this.processoCtrl.valueChanges.pipe(
           startWith(''),
           map((processo: Processo | null) => {
             return processo ? this._filter(processo) : this.todosOsProcessos.slice();
           })
         );
+
+        this.buscarProcessosDaLista();
       }
     });
   }
@@ -253,6 +241,52 @@ export class GerenciarListasComponent implements OnInit {
           return EMPTY;
         }),
       );
+  }
+
+  private _adicionarProcessoAosRemovidos(processo: Processo) {
+    const index = this.todosOsProcessos.findIndex(p => p.id === processo.id);
+    const indexProcessoRemovido = this.processosRemovidos.findIndex(p => p.id === processo.id);
+    if (indexProcessoRemovido === -1) {
+      this.processosRemovidos.push(processo);
+      this.todosOsProcessos.splice(index, 1);
+      this._recarregaSugestoesDeProcessos();
+    } 
+  }
+
+  private _retirarProcessoDosRemovidos(processo: Processo) {
+    const index = this.processosRemovidos.findIndex(p => p.id === processo.id);
+    if (index !== -1) {
+      const processos = this.processosRemovidos.splice(index, 1);
+      this.todosOsProcessos = [...this.todosOsProcessos, ...processos];
+      this._recarregaSugestoesDeProcessos();
+    }
+  }
+
+  private _recarregaSugestoesDeProcessos(): void {
+    this.processosFiltrados = this.processoCtrl.valueChanges.pipe(
+      startWith(''),
+      map((processo: Processo | null) => 
+        processo ? this._filter(processo) : this.todosOsProcessos.slice())
+      );
+  }
+
+  public excluirLista(): void {
+    this._httpClient.delete(`tags/${this.tagEscolhida.id}`).subscribe({
+      next: () => {
+        this._openSnackBar('Sucesso!', 'Fechar');
+      },
+
+      error: (error) => {
+        this._openSnackBar(`${error.message}`, 'Fechar');
+      }
+    });
+  }
+
+  private _openSnackBar(message: string, action: string) {
+    this._snackBar.open(message, action, {
+      panelClass: ['text-white', 'btn-snack'],
+      duration: 5000, // 5 seg
+    });
   }
 
 }

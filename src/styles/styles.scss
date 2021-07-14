@@ -31,3 +31,9 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
       justify-content: flex-end !important;
   }
 }
+
+.btn-snack {
+  simple-snack-bar button span {
+    color: rgb(218, 148, 20) !important;
+  }
+}
