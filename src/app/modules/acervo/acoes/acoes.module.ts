@@ -16,6 +16,7 @@ import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { FuseAlertModule } from '@fuse/components/alert';
 import { MAT_DATE_LOCALE } from '@angular/material/core';
 
 import { AgruparEmlistaComponent } from './agrupar-emlista/agrupar-emlista.component';
@@ -23,6 +24,7 @@ import { NovaListaComponent } from './agrupar-emlista/nova-lista/nova-lista.comp
 import { GerenciarListasComponent } from './agrupar-emlista/gerenciar-listas/gerenciar-listas.component';
 import { PautarComponent } from './pautar/pautar.component';
 import { SessaoExtraordinariaComponent } from './pautar/sessao-extraordinaria/sessao-extraordinaria.component';
+import { AlertaComponent } from './agrupar-emlista/gerenciar-listas/alerta/alerta.component';
 
 const routes = [
   {
@@ -39,6 +41,7 @@ const routes = [
     GerenciarListasComponent,
     PautarComponent,
     SessaoExtraordinariaComponent,
+    AlertaComponent,
   ],
   imports: [
     CommonModule,
@@ -63,6 +66,7 @@ const routes = [
     FormsModule,
     ReactiveFormsModule,
     MatSnackBarModule,
+    FuseAlertModule,
   ],
   providers: [{ provide: MAT_DATE_LOCALE, useValue: 'pt-BR' }],
   exports: [

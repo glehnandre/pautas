@@ -1,5 +1,5 @@
 import { Component, Inject, OnInit, OnDestroy, ElementRef, ViewChild } from '@angular/core';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { COMMA, ENTER } from '@angular/cdk/keycodes';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatAutocompleteSelectedEvent, MatAutocomplete } from '@angular/material/autocomplete';
@@ -9,7 +9,7 @@ import { catchError, map, startWith } from 'rxjs/operators';
 import { HttpClient } from '@angular/common/http';
 import { Processo } from 'app/modules/acervo/tabela/tabela.component';
 import { Tag } from '../agrupar-emlista.component';
-import { MatSnackBar } from '@angular/material/snack-bar';
+import { AlertaComponent } from './alerta/alerta.component';
 
 @Component({
   selector: 'app-gerenciar-listas',
@@ -45,7 +45,7 @@ export class GerenciarListasComponent implements OnInit {
   constructor(
     private _httpClient: HttpClient,
     private _fb: FormBuilder,
-    private _snackBar: MatSnackBar,
+    private _dialog: MatDialog,
     public dialogRef: MatDialogRef<GerenciarListasComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
   ) {
@@ -271,21 +271,23 @@ export class GerenciarListasComponent implements OnInit {
   }
 
   public excluirLista(): void {
-    this._httpClient.delete(`tags/${this.tagEscolhida.id}`).subscribe({
-      next: () => {
-        this._openSnackBar('Sucesso!', 'Fechar');
-      },
-
-      error: (error) => {
-        this._openSnackBar(`${error.message}`, 'Fechar');
+    const dialogRef = this._dialog.open(AlertaComponent, {
+      data: {
+        titulo: `${this.tagEscolhida.descricao}`,
+        mensagem: 'Deseja realmente excluir esta lista?',
       }
     });
-  }
 
-  private _openSnackBar(message: string, action: string) {
-    this._snackBar.open(message, action, {
-      panelClass: ['text-white', 'btn-snack'],
-      duration: 5000, // 5 seg
+    dialogRef.afterClosed().subscribe((data) => {
+      if (data === 'ok') {
+        this._httpClient.delete(`tags/${this.tagEscolhida.id}`).subscribe({
+          next: () => {
+            this.dialogRef.close('ok');
+          },
+        });
+      } else {
+        dialogRef.close();
+      }
     });
   }
 

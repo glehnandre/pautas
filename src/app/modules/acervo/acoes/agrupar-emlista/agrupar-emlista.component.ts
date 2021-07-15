@@ -20,7 +20,7 @@ export interface Tag {
 })
 export class AgruparEmlistaComponent implements OnInit {
   public confirmMessage: string;
-
+  public exclusaoComSucesso: boolean;
   public tags: Array<Tag> = [];
 
   /**
@@ -35,6 +35,7 @@ export class AgruparEmlistaComponent implements OnInit {
   ) {}
 
   ngOnInit() {
+    this.exclusaoComSucesso = false;
     this.carregaTodasAsTags();
   }
 
@@ -50,7 +51,15 @@ export class AgruparEmlistaComponent implements OnInit {
     const dialogRef = this.dialog.open(GerenciarListasComponent, {
       width: '60%',
     });
-    dialogRef.afterClosed().subscribe(() => {});
+    
+    dialogRef.afterClosed().subscribe((data) => {
+      if (data === 'ok') {
+        this.exclusaoComSucesso = true;
+        setInterval(() => {
+          this.exclusaoComSucesso = false;
+        }, 5000);
+      }
+    });
   }
 
   obterTagsSelecionadas(): Array<{id: number}> {
