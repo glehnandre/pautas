@@ -23,7 +23,7 @@ export class PautarComponent implements OnInit {
         { value: 'colegiado-pleno', viewValue: 'Pleno' }
     ];
     myControl: FormControl = new FormControl();
-    options: string[] = ['One', 'Two', 'Three'];
+    options: string[] = ['1000', '2000', '3000'];
     filteredOptions: Observable<string[]>;
 
     constructor(

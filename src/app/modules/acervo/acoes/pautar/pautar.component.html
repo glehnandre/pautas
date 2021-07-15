@@ -29,13 +29,24 @@
             <mat-date-range-picker #picker></mat-date-range-picker>
         </mat-form-field>
 
-        <input type="text" placeholder="Escolha uma sessão" aria-label="Number" matInput [formControl]="myControl"
-            [matAutocomplete]="auto">
-        <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
-            <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
-                {{option}}
-            </mat-option>
-        </mat-autocomplete>
+        <mat-form-field appearance="fill">
+            <input 
+                type="text" 
+                placeholder="Escolha uma sessão" 
+                aria-label="Number" 
+                matInput 
+                [formControl]="myControl"
+                [matAutocomplete]="auto"
+            >
+            <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
+                <mat-option 
+                    *ngFor="let option of filteredOptions | async" 
+                    [value]="option"
+                >
+                    {{option}}
+                </mat-option>
+            </mat-autocomplete>
+        </mat-form-field>
 
         <div class="flex flex-col sm:flex-row sm:items-center justify-between mt-4 sm:mt-6">
             <div class="flex items-center mt-4 sm:mt-0">

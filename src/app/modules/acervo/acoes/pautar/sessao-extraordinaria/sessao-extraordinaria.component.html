@@ -47,7 +47,7 @@
 
         <mat-form-field class="example-chip-list" appearance="fill">
           <mat-label>Processos:</mat-label>
-          <mat-chip-list #chipList aria-label="Fruit selection" formControlName="pautas">
+          <mat-chip-list #chipList formControlName="pautas">
             <mat-chip
               *ngFor="let processo of processosSelecionados"
               [selectable]="selectable"

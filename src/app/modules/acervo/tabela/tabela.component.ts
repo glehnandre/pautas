@@ -21,6 +21,13 @@ export enum TipoDoProcesso {
   'Incidente',
 }
 
+export interface Capitulo {
+  id: number;
+  descricao: string;
+  ordem: number;
+  tipo: string;
+}
+
 export interface Processo {
   id: number;
   ementa: string;
@@ -31,6 +38,7 @@ export interface Processo {
   descricao: string;
   situacao: SituacaoDoProcesso;
   tipo: TipoDoProcesso;
+  capitulos: Capitulo[];
 }
 
 @Component({

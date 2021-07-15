@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { Capitulo } from '../tabela.component';
 
 @Component({
   selector: 'app-descricao',
@@ -7,7 +8,7 @@ import { Component, Input, OnInit } from '@angular/core';
 })
 export class DescricaoComponent implements OnInit {
   
-  @Input() descricao: string;
+  @Input() capitulos: Capitulo[] = [];
   
   constructor() {}
 
