@@ -21,12 +21,22 @@
 
             <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
             <mat-date-range-picker #picker></mat-date-range-picker>
+
+            <mat-error class="mb-1" *ngIf="sessaoExtraordinariaForm.controls.data_inicio.errors?.required">
+              A data de início é obrigatória
+            </mat-error>
+            <mat-error class="mb-1" *ngIf="sessaoExtraordinariaForm.controls.data_fim.errors?.required">
+              A data de fim é obrigatória
+            </mat-error>
         </mat-form-field>
 
         <mat-form-field appearance="fill">
           <mat-label>Trata-se de:</mat-label>
           <textarea matInput name="assunto" formControlName="assunto"></textarea>
-          <mat-hint>Preencha com os motivos pelos quais a criação de uma Sessão de Julgamento Extraordinário foi solicitada.</mat-hint>
+          <mat-hint class="mb-1">Preencha com os motivos pelos quais a criação de uma Sessão de Julgamento Extraordinário foi solicitada.</mat-hint>
+          <mat-error class="mb-1" *ngIf="sessaoExtraordinariaForm.controls.assunto.errors?.required">
+            O assunto é obrigatório
+          </mat-error>
         </mat-form-field>
 
         <mat-form-field appearance="fill">
@@ -43,6 +53,9 @@
             </mat-option>
           </mat-select>
           <mat-hint>Informe o colegiado, se turma ou plenário.</mat-hint>
+          <mat-error class="mb-1" *ngIf="sessaoExtraordinariaForm.controls.colegiado.errors?.required">
+            O colegiado é obrigatório
+          </mat-error>
         </mat-form-field>
 
         <mat-form-field class="example-chip-list" appearance="fill">
@@ -63,7 +76,8 @@
               [matAutocomplete]="auto"
               [matChipInputFor]="chipList"
               [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
-              (matChipInputTokenEnd)="add($event)">
+              (matChipInputTokenEnd)="add($event)"
+            >
           </mat-chip-list>
           <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selected($event)">
             <mat-option 
@@ -73,6 +87,9 @@
               {{processo.classe + ' ' + processo.numero}}
             </mat-option>
           </mat-autocomplete>
+          <mat-error class="mb-1" *ngIf="sessaoExtraordinariaForm.controls.pautas.errors?.required">
+            Escolha pelo menos um processo
+          </mat-error>
         </mat-form-field>
 
         <div class="flex flex-col sm:flex-row sm:items-center justify-between mt-4 sm:mt-6">

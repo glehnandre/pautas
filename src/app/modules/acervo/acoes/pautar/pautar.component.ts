@@ -5,17 +5,19 @@ import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { Observable } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
 import { SessaoExtraordinariaComponent } from './sessao-extraordinaria/sessao-extraordinaria.component';
+
 interface Colegiado {
     value: string;
     viewValue: string;
 }
+
 @Component({
     selector: 'app-pautar',
     templateUrl: './pautar.component.html',
     styleUrls: ['./pautar.component.scss'],
 })
 export class PautarComponent implements OnInit {
-    composeForm: FormGroup;
+    pautarForm: FormGroup;
     selectedValue: string;
     colegiados: Colegiado[] = [
         { value: 'primeira-turma', viewValue: 'Primeira Turma' },
@@ -31,18 +33,12 @@ export class PautarComponent implements OnInit {
         private _formBuilder: FormBuilder,
         private _dialog: MatDialog,
     ) {
+
     }
 
-    // -----------------------------------------------------------------------------------------------------
-    // @ Lifecycle hooks
-    // -----------------------------------------------------------------------------------------------------
-
-    /**
-     * On init
-     */
     ngOnInit(): void {
         // Create the form
-        this.composeForm = this._formBuilder.group({
+        this.pautarForm = this._formBuilder.group({
             numero: ['', [Validators.required]],
             ano: ['', [Validators.required]],
             colegiado: ['', [Validators.required]],
@@ -53,23 +49,20 @@ export class PautarComponent implements OnInit {
             data_fim: ['', [Validators.required]],
             secretario: ['', [Validators.required]],
         });
+
         this.filteredOptions = this.myControl.valueChanges.pipe(
             startWith(''),
             map(value => this._filter(value))
         );
+
+        this.myControl.setValidators(Validators.required);
     }
     private _filter(value: string): string[] {
         const filterValue = value.toLowerCase();
 
         return this.options.filter(option => option.toLowerCase().indexOf(filterValue) === 0);
     }
-    // -----------------------------------------------------------------------------------------------------
-    // @ Public methods
-    // -----------------------------------------------------------------------------------------------------
-
-    /**
-     * Save and close
-     */
+    
     saveAndClose(): void {
         // Save the message as a draft
         this.saveAsDraft();
@@ -100,6 +93,6 @@ export class PautarComponent implements OnInit {
      * Send the message
      */
     send(): void {
-        console.log(this.composeForm.value)
+        console.log(this.pautarForm.value)
     }
 }

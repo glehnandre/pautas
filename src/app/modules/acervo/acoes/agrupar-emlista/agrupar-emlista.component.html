@@ -10,11 +10,11 @@
 
   <fuse-alert
       class="m-2"
-      *ngIf="exclusaoComSucesso"
+      *ngIf="sucesso"
       [type]="'success'"
       [appearance]="'outline'">
       <span fuseAlertTitle>Sucesso</span>
-      Operação efetuada com êxito!
+      {{confirmMessage}}
   </fuse-alert>
   
   <div class="flex flex-col flex-auto p-6 sm:p-8 overflow-y-auto ng-pristine ng-invalid ng-touched">

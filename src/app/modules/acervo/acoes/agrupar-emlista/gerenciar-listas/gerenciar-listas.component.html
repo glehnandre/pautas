@@ -6,7 +6,7 @@
     <button mat-icon-button mat-dialog-close [tabIndex]="-1">
         <mat-icon class="text-current" [svgIcon]="'heroicons_outline:x'"></mat-icon>
     </button>
-</div>
+  </div>
   
   <div class="flex flex-col flex-auto p-6 sm:p-8 overflow-y-auto ng-pristine ng-invalid ng-touched">
     <div class="overflow-y-auto max-h-36 mb-4">
@@ -30,7 +30,8 @@
           <mat-form-field class="w-full" appearance="fill">
             <mat-label>Nome da lista:<span class="text-red-500">*</span></mat-label>
             <input class="sm" matInput name="descricao" formControlName="descricao" placeholder="Nome da lista">
-            <mat-hint>Coloque um nome sugestivo para sua nova lista</mat-hint>
+            <mat-hint class="pb-1">Coloque um nome sugestivo para sua nova lista</mat-hint>
+            <mat-error class="pb-1" *ngIf="tagForm.controls.descricao.errors?.required">Nome da lista é obrigatório</mat-error>
           </mat-form-field>
         </p>
       
@@ -77,6 +78,7 @@
             {{processo.classe + ' ' + processo.numero}}
           </mat-option>
         </mat-autocomplete>
+        <mat-error class="mb-1" *ngIf="processoForm.controls.processos.errors?.required">Escolha pelo menos um processo</mat-error>
       </mat-form-field>
     </form>
 

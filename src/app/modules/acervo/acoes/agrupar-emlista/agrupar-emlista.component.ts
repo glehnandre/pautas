@@ -20,7 +20,7 @@ export interface Tag {
 })
 export class AgruparEmlistaComponent implements OnInit {
   public confirmMessage: string;
-  public exclusaoComSucesso: boolean;
+  public sucesso: boolean = false;
   public tags: Array<Tag> = [];
 
   /**
@@ -35,15 +35,17 @@ export class AgruparEmlistaComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.exclusaoComSucesso = false;
     this.carregaTodasAsTags();
   }
 
   abrirModalDeNovaTag(): void {
     const dialogRef = this.dialog.open(NovaListaComponent, {});
     
-    dialogRef.afterClosed().subscribe(() => {
-      this.carregaTodasAsTags();
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result === 'ok') {
+        this._exibeAlertaSucesso('Lista cadastrada com sucesso!', 5000);
+        this.carregaTodasAsTags();
+      }
     });
   }
 
@@ -54,12 +56,17 @@ export class AgruparEmlistaComponent implements OnInit {
     
     dialogRef.afterClosed().subscribe((data) => {
       if (data === 'ok') {
-        this.exclusaoComSucesso = true;
-        setInterval(() => {
-          this.exclusaoComSucesso = false;
-        }, 5000);
+        this._exibeAlertaSucesso('Lista excluída com sucesso!', 5000);
       }
     });
+  }
+
+  private _exibeAlertaSucesso(mensagem: string = 'Operação efetuada com sucesso!', tempo: number = 5000): void {
+    this.sucesso = true;
+    this.confirmMessage = mensagem;
+    setTimeout(() => {
+      this.sucesso = false;
+    }, tempo);
   }
 
   obterTagsSelecionadas(): Array<{id: number}> {

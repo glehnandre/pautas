@@ -1,48 +1,57 @@
 <div class="flex flex-col max-w-240 md:min-w-160 -m-6 mb-4">
-  <div class="flex flex-0 items-center justify-between h-16 pr-3 sm:pr-5 pl-6 sm:pl-8 bg-primary text-on-primary">
-    <h1 class="mt-4 text-lg font-medium font-semibold text-white-500">
+  <div class="flex flex-0 items-center justify-between h-16 pr-3 sm:pr-5 pl-6 sm:pl-8 bg-accent text-on-primary">
+    <div class="text-lg font-medium">
       Cadastrar lista
-    </h1>
-    
-    <button mat-button mat-dialog-close class="mat-focus-indicator mat-icon-button mat-button-base" tabindex="-1">
-      <span class="mat-button-wrapper">
-        <mat-icon matSuffix class="text-white">close</mat-icon>
-      </span>
+    </div>
+    <button mat-icon-button mat-dialog-close [tabIndex]="-1">
+        <mat-icon class="text-current" [svgIcon]="'heroicons_outline:x'"></mat-icon>
     </button>
   </div>
 </div>
 
 <div mat-dialog-content>
-  <p>
-    <mat-form-field class="w-full" appearance="fill">
-      <mat-label>Nome da lista:<span class="text-red-500">*</span></mat-label>
-      <input class="sm" matInput name="descricao" [(ngModel)]="tag.descricao" placeholder="Nome da lista">
-      <mat-hint>Coloque um nome sugestivo para sua nova lista</mat-hint>
-    </mat-form-field>
-  </p>
-
-  <div>
-    <mat-radio-group
-      class="flex flex-col my-4 mx-0"
-      [(ngModel)]="tag.publica"
-    >
-      <mat-radio-button class="mb-1" [value]="false">Visível somente dentro do gabinete</mat-radio-button>
-      <mat-radio-button class="mb-1" [value]="true">Visível fora do gabinete</mat-radio-button>
-    </mat-radio-group>
-  </div>
+  <form [formGroup]="listaFormGroup">
+    <p>
+      <mat-form-field class="w-full mb-2" appearance="fill">
+        <mat-label>Nome da lista:<span class="text-red-500">*</span></mat-label>
+        <input 
+          class="sm" 
+          matInput 
+          name="descricao" 
+          formControlName="descricao"
+          placeholder="Nome da lista"
+        >
+        <mat-hint class="pb-1">Coloque um nome sugestivo para sua nova lista</mat-hint>
+        <mat-error class="pb-1" *ngIf="listaFormGroup.controls.descricao.errors?.required">Nome da lista é obrigatório</mat-error>
+      </mat-form-field>
+    </p>
+  
+    <p>
+      <mat-radio-group
+        class="flex flex-col my-4 mx-0"
+        formControlName="publica"
+      >
+        <mat-radio-button class="mb-1" [value]="false">Visível somente dentro do gabinete</mat-radio-button>
+        <mat-radio-button class="mb-1" [value]="true">Visível fora do gabinete</mat-radio-button>
+      </mat-radio-group>
+    </p>
+  </form>
 </div>
 
-<hr class="mt-4 mb-8"/>
+<div class="flex flex-col sm:flex-row sm:items-center justify-between mt-4 sm:mt-6">
+  <div mat-dialog-actions class="flex items-center mt-4 sm:mt-0 ml-auto">
+    <button class="ml-auto mr-2 sm:ml-0" mat-button (click)="fechar()">
+      <span>Cancelar</span>
+    </button>
 
-<div mat-dialog-actions class="w-full">
-  <button 
-    class="ml-auto"
-    color="primary" 
-    [disabled]="!tag.descricao"
-    (click)="cadastrarNovaTag()"
-    mat-raised-button 
-    mat-dialog-close
-  >
-    Cadastrar lista
-  </button>
+    <button 
+      class="ml-auto"
+      color="primary" 
+      [disabled]="listaFormGroup.invalid"
+      (click)="cadastrarNovaTag()"
+      mat-raised-button 
+    >
+      Cadastrar lista
+    </button>
+  </div>
 </div>

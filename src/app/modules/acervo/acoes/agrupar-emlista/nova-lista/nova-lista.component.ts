@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
-import { Component, Inject, OnInit } from '@angular/core';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { MatDialogRef } from '@angular/material/dialog';
 import { EMPTY, Observable } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { Tag } from '../agrupar-emlista.component';
@@ -11,12 +12,9 @@ import { Tag } from '../agrupar-emlista.component';
   styleUrls: ['./nova-lista.component.scss']
 })
 export class NovaListaComponent implements OnInit {
-  tag: Tag = {
-    id: 0,
-    descricao: '',
-    publica: false,
-    checked: false,
-  };
+
+  listaFormGroup: FormGroup;
+
   /**
    * Constructor
    *
@@ -24,27 +22,40 @@ export class NovaListaComponent implements OnInit {
    */
   constructor(
     private _httpClient: HttpClient,
+    private _fb: FormBuilder,
     public dialogRef: MatDialogRef<NovaListaComponent>,
-  ) {}
+  ) {
+    this.listaFormGroup = this._fb.group({
+      descricao: ['', [Validators.required]],
+      publica: [false, [Validators.required]],
+    });
+  }
 
   ngOnInit() {
   }
 
   cadastrarNovaTag(): void {
-    this.cadastrarTagViaApi().subscribe({
-      next: (data) => {
-        console.log(data);
-      }
-    });
+    console.log(this.listaFormGroup)
+    if (this.listaFormGroup.valid) {
+      this.cadastrarTagViaApi().subscribe({
+        next: (data) => {
+          this.dialogRef.close('ok');
+        }
+      });
+    }
   }
 
   cadastrarTagViaApi(): Observable<Tag> {
-    return this._httpClient.post<Tag>('tags', this.tag).pipe(
+    return this._httpClient.post<Tag>('tags', this.listaFormGroup.value).pipe(
       catchError(error => {
         console.log(error);
         return EMPTY;
       })
     );
+  }
+
+  fechar(): void {
+    this.dialogRef.close('');
   }
 
 }
