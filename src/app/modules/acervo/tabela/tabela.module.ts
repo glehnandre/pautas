@@ -12,6 +12,7 @@ import { StatusComponent } from './status/status.component';
 import { TagsComponent } from './tags/tags.component';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { CapitulosComponent } from './capitulos/capitulos.component';
+import { MatTooltipModule } from '@angular/material/tooltip';
 
 import { MatChipsModule } from '@angular/material/chips';
 import { AcoesModule } from '../acoes/acoes.module';
@@ -47,6 +48,7 @@ const routes = [
     AcoesModule,
     MatChipsModule,
     MatPaginatorModule,
+    MatTooltipModule
   ],
   exports: [
     TabelaComponent

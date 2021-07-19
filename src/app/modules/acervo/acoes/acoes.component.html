@@ -7,11 +7,12 @@
             </button>
             <mat-form-field class="flex-1 h-2 md:hidden text-lg">
                 <mat-select class="flex-1" style="height: 10px;" placeholder="Escolha sua ação">
-                  <mat-option value="pautar" (click)="openComposeDialog()" class="bg-primary text-white">Pautar</mat-option>
-                  <mat-option value="devolverVista">Devolver Vista</mat-option>
-                  <mat-option value="retirarDePauta">Retirar de Pauta</mat-option>
-                  <mat-option value="alterarSessao">Alterar Sessão</mat-option>
-                  <mat-option value="agruparEmLista" (click)="abrirModalAgruparTags()">Agrupar em Lista</mat-option>
+                    <mat-option value="pautar" (click)="openComposeDialog()" class="bg-primary text-white">Pautar
+                    </mat-option>
+                    <mat-option value="devolverVista">Devolver Vista</mat-option>
+                    <mat-option value="retirarDePauta">Retirar de Pauta</mat-option>
+                    <mat-option value="alterarSessao">Alterar Sessão</mat-option>
+                    <mat-option value="agruparEmLista" (click)="abrirModalAgruparTags()">Agrupar em Lista</mat-option>
                 </mat-select>
             </mat-form-field>
             <div class="hidden md:flex space-x-4">
@@ -33,5 +34,16 @@
             </div>
         </div>
     </div>
-    
+    <div class="w-screen absolute bottom-0 z-10 pr-6 mb-4">
+        <fuse-alert class="max-w-120 mx-auto"
+                    [type]="'error'" 
+                    [appearance]="'outline'" 
+                    [dismissible]="true" 
+                    [dismissed]="true"
+                    [name]="'alertBox'">
+            <span fuseAlertTitle>Erro de validação</span>
+            Selecione um ou mais processos
+        </fuse-alert>
+    </div>
+
 </section>

@@ -2,7 +2,6 @@ import { Component, OnInit, Output, ViewChild, ViewEncapsulation, Inject } from 
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { FiltroDialogComponent } from './filtro-dialog.component';
 import { Filtros } from './filtros';
-import { MatChipInputEvent } from '@angular/material/chips';
 
 
 @Component({
@@ -44,6 +43,12 @@ export class FiltroComponent implements OnInit {
   //Remove the filters os an boolean (checkbox for exemple) attribute in Filtros interface.
   removeFiltroBooleano(nome_filtro: string): void {
     this.filtros[nome_filtro] = false;
+  }
+
+   //Remove the filters of a single term
+    removeFiltroTermo(): void {
+      this.filtros['termo'] = '';
+      this.termo = '';
   }
 
   ngOnInit(): void {

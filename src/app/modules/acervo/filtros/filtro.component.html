@@ -14,6 +14,11 @@
     <div class="content-start p-2">
             <mat-chip-list #chipList class="content-center" aria-orientation="vertical">
                 <mat-chip [removable]="true"
+                    (removed)="removeFiltroTermo()" *ngIf="this.filtros.termo">
+                    {{ this.filtros.termo }}
+                    <mat-icon matChipRemove>cancel</mat-icon>
+                </mat-chip>
+                <mat-chip [removable]="true"
                     (removed)="removeFiltroBooleano('primeira_turma')" *ngIf="this.filtros.primeira_turma">
                     Primeira Turma
                     <mat-icon matChipRemove>cancel</mat-icon>

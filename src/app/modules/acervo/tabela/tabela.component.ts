@@ -30,11 +30,11 @@ export interface Capitulo {
 
 export interface Processo {
   id: number;
-  ementa: string;
+  nome: string;
   lista: Tag[];
   classe: string;
   numero: number;
-  cadeira: string;
+  cadeira: number;
   descricao: string;
   situacao: SituacaoDoProcesso;
   tipo: TipoDoProcesso;
