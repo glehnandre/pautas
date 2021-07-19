@@ -44,6 +44,17 @@
             <span fuseAlertTitle>Erro de validação</span>
             Selecione um ou mais processos
         </fuse-alert>
+
+        <fuse-alert
+            class="max-w-120 mx-auto"
+            [dismissed]="true"
+            [dismissible]="true" 
+            [name]="'sucesso'"
+            [type]="'success'"
+            [appearance]="'outline'">
+            <span fuseAlertTitle>Sucesso</span>
+            Operação efetuada com êxito
+        </fuse-alert>
     </div>
 
 </section>

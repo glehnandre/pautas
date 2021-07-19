@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
+import { FuseAlertService } from '@fuse/components/alert';
 import { EMPTY, Observable } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { GerenciarListasComponent } from './gerenciar-listas/gerenciar-listas.component';
@@ -30,6 +31,7 @@ export class AgruparEmlistaComponent implements OnInit {
    */
   constructor(
     private _httpClient: HttpClient,
+    private _fuseAlertService: FuseAlertService,
     public dialogRef: MatDialogRef<AgruparEmlistaComponent>,
     public dialog: MatDialog,
   ) {}
@@ -43,7 +45,7 @@ export class AgruparEmlistaComponent implements OnInit {
     
     dialogRef.afterClosed().subscribe((result) => {
       if (result === 'ok') {
-        this._exibeAlertaSucesso('Lista cadastrada com sucesso!', 5000);
+        this._exibeAlertaSucesso();
         this.carregaTodasAsTags();
       }
     });
@@ -56,16 +58,16 @@ export class AgruparEmlistaComponent implements OnInit {
     
     dialogRef.afterClosed().subscribe((data) => {
       if (data === 'ok') {
-        this._exibeAlertaSucesso('Lista excluída com sucesso!', 5000);
+        this._exibeAlertaSucesso();
       }
     });
   }
 
-  private _exibeAlertaSucesso(mensagem: string = 'Operação efetuada com sucesso!', tempo: number = 5000): void {
-    this.sucesso = true;
-    this.confirmMessage = mensagem;
+  private _exibeAlertaSucesso(tempo: number = 5000): void {
+    this._fuseAlertService.show('sucesso');
+
     setTimeout(() => {
-      this.sucesso = false;
+      this._fuseAlertService.dismiss('sucesso');
     }, tempo);
   }
 
