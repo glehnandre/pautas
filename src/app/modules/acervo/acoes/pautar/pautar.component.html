@@ -10,14 +10,23 @@
 
     <!-- Compose form -->
         <form class="flex flex-col flex-auto p-6 sm:p-8 overflow-y-auto"  [formGroup]="composeForm" >
-        <mat-form-field appearance="fill">
-            <mat-label>Colegiado</mat-label>
-            <mat-select name="colegiado" [formControlName]="'colegiado'">
-                <mat-option *ngFor="let colegiado of colegiados" [value]="colegiado.value" >
-                    {{colegiado.viewValue}}
-                </mat-option>
-            </mat-select>
-        </mat-form-field>
+        
+            <!-- <mat-chip-list #chipList class="content-center" aria-orientation="vertical">
+                <mat-chip [removable]="true">
+                    {{ this.idsProcessos }}
+                    <mat-icon matChipRemove>cancel</mat-icon>
+                </mat-chip>
+            </mat-chip-list> -->
+
+        <div>
+            <mat-radio-group
+              class="flex flex-col my-4 mx-0"
+              [formControlName]="'colegiado'"
+              [(ngModel)]="chosenItem"
+            >
+              <mat-radio-button class="mb-1" *ngFor="let colegiado of colegiados" [value]="colegiado.value">{{colegiado.viewValue}}</mat-radio-button>
+            </mat-radio-group>
+        </div>
 
         <mat-form-field appearance="fill">
             <mat-label>Selecionar Data</mat-label>
@@ -29,13 +38,14 @@
             <mat-date-range-picker #picker></mat-date-range-picker>
         </mat-form-field>
 
-        <input type="text" placeholder="Escolha uma sessão" aria-label="Number" matInput [formControl]="myControl"
-            [matAutocomplete]="auto">
-        <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
-            <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
-                {{option}}
-            </mat-option>
-        </mat-autocomplete>
+        <mat-form-field appearance="fill">
+            <mat-label>Escolha uma sessão</mat-label>
+            <mat-select name="option">
+                <mat-option *ngFor="let option of filteredOptions | async" value="option">
+                    {{option}}
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
 
         <div class="flex flex-col sm:flex-row sm:items-center justify-between mt-4 sm:mt-6">
             <div class="flex items-center mt-4 sm:mt-0">
