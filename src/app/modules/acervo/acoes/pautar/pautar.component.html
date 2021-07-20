@@ -13,56 +13,116 @@
         class="flex flex-col flex-auto p-6 sm:p-8 overflow-y-auto"  
         [formGroup]="pautarForm" 
     >
-        <mat-form-field appearance="fill">
-            <mat-label>Colegiado</mat-label>
-            <mat-select name="colegiado" [formControlName]="'colegiado'">
-                <mat-option *ngFor="let colegiado of colegiados" [value]="colegiado.value" >
-                    {{colegiado.viewValue}}
-                </mat-option>
-            </mat-select>
-            <mat-error class="mb-1" *ngIf="pautarForm.controls.colegiado.errors?.required">
-                Colegiado é obrigatório
-            </mat-error>
-        </mat-form-field>
+        <div class="flex flex-auto flex-row space-x-4">
+            <mat-form-field class="w-full" appearance="fill">
+                <mat-label>Número:</mat-label>
+                <input matInput type="number" name="numero" [formControlName]="'numero'">
+                <mat-error class="mb-1" *ngIf="pautarForm.controls.numero.errors?.required">
+                    O número é obrigatório
+                </mat-error>
+            </mat-form-field>
 
-        <mat-form-field appearance="fill">
-            <mat-label>Selecionar Data</mat-label>
-            <mat-date-range-input [rangePicker]="picker">
-                <input matStartDate placeholder="Data de início" [formControlName]="'data_inicio'">
-                <input matEndDate placeholder="Data do fim" [formControlName]="'data_fim'">
-            </mat-date-range-input>
-            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-            <mat-date-range-picker #picker></mat-date-range-picker>
-            <mat-error class="mb-1" *ngIf="pautarForm.controls.data_inicio.errors?.required">
-                A data de início é obrigatória
-            </mat-error>
-            <mat-error class="mb-1" *ngIf="pautarForm.controls.data_fim.errors?.required">
-                A data de fim é obrigatória
-            </mat-error>
-        </mat-form-field>
+            <mat-form-field class="w-full" appearance="fill">
+                <mat-label>Ano:</mat-label>
+                <input matInput type="number" name="ano" [formControlName]="'ano'">
+                <mat-error class="mb-1" *ngIf="pautarForm.controls.ano.errors?.required">
+                    O ano é obrigatório
+                </mat-error>
+            </mat-form-field>
+        </div>
 
-        <mat-form-field appearance="fill">
-            <mat-label>Sessão:</mat-label>
-            <input 
-                type="text" 
-                placeholder="Escolha uma sessão" 
-                aria-label="Number" 
-                matInput 
-                [formControl]="myControl"
-                [matAutocomplete]="auto"
-            >
-            <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
-                <mat-option 
-                    *ngFor="let option of filteredOptions | async" 
-                    [value]="option"
+        <div class="flex flex-auto flex-row space-x-4">
+            <mat-form-field class="w-full" appearance="fill">
+                <mat-label>Colegiado:</mat-label>
+                <mat-select name="colegiado" [formControlName]="'colegiado'">
+                    <mat-option *ngFor="let colegiado of colegiados" [value]="colegiado.value" >
+                        {{colegiado.viewValue}}
+                    </mat-option>
+                </mat-select>
+                <mat-error class="mb-1" *ngIf="pautarForm.controls.colegiado.errors?.required">
+                    Colegiado é obrigatório
+                </mat-error>
+            </mat-form-field>
+
+            <mat-form-field class="w-full" appearance="fill">
+                <mat-label>Tipo:</mat-label>
+                <mat-select name="tipo" [formControlName]="'tipo'">
+                    <mat-option [value]="'ordinaria'" >
+                        Ordinária
+                    </mat-option>
+                </mat-select>
+                <mat-error class="mb-1" *ngIf="pautarForm.controls.tipo.errors?.required">
+                    O tipo é obrigatório
+                </mat-error>
+            </mat-form-field>
+        </div>
+
+        <div class="flex flex-auto flex-row space-x-4">
+            <mat-form-field class="w-full" appearance="fill">
+                <mat-label>Selecionar Data</mat-label>
+                <mat-date-range-input [rangePicker]="picker">
+                    <input matStartDate placeholder="Data de início" [formControlName]="'data_inicio'">
+                    <input matEndDate placeholder="Data do fim" [formControlName]="'data_fim'">
+                </mat-date-range-input>
+                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                <mat-date-range-picker #picker></mat-date-range-picker>
+                <mat-error class="mb-1" *ngIf="pautarForm.controls.data_inicio.errors?.required">
+                    A data de início é obrigatória
+                </mat-error>
+                <mat-error class="mb-1" *ngIf="pautarForm.controls.data_fim.errors?.required">
+                    A data de fim é obrigatória
+                </mat-error>
+            </mat-form-field>
+
+            <mat-form-field class="w-full" appearance="fill">
+                <mat-label>Categoria:</mat-label>
+                <mat-select name="categoria" [formControlName]="'categoria'">
+                    <mat-option [value]="'REPERCUSSAO_GERAL'">
+                        Repercussão Geral
+                    </mat-option>
+                </mat-select>
+                <mat-error class="mb-1" *ngIf="pautarForm.controls.categoria.errors?.required">
+                    A categoria é obrigatória
+                </mat-error>
+            </mat-form-field>
+        </div>
+
+        <div class="flex flex-auto flex-row space-x-4">
+            <mat-form-field class="w-full" appearance="fill">
+                <mat-label>Sessão:</mat-label>
+                <input 
+                    type="text" 
+                    placeholder="Escolha uma sessão" 
+                    aria-label="Number" 
+                    matInput 
+                    [formControl]="myControl"
+                    [matAutocomplete]="auto"
                 >
-                    {{option}}
-                </mat-option>
-            </mat-autocomplete>
-            <mat-error class="mb-1" *ngIf="myControl.hasError('required')">
-                A sessão é obrigatória
-            </mat-error>
-        </mat-form-field>
+                <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
+                    <mat-option 
+                        *ngFor="let option of filteredOptions | async" 
+                        [value]="option"
+                    >
+                        {{option}}
+                    </mat-option>
+                </mat-autocomplete>
+                <mat-error class="mb-1" *ngIf="myControl.hasError('required')">
+                    A sessão é obrigatória
+                </mat-error>
+            </mat-form-field>
+    
+            <mat-form-field class="w-full" appearance="fill">
+                <mat-label>Modalidade:</mat-label>
+                <mat-select name="modalidade" [formControlName]="'modalidade'">
+                    <mat-option [value]="'VIRTUAL'">
+                        Virtual
+                    </mat-option>
+                </mat-select>
+                <mat-error class="mb-1" *ngIf="pautarForm.controls.modalidade.errors?.required">
+                    A modalidade é obrigatória
+                </mat-error>
+            </mat-form-field>
+        </div>
 
         <div class="flex flex-col sm:flex-row sm:items-center justify-between mt-4 sm:mt-6">
             <div class="flex items-center mt-4 sm:mt-0">
@@ -75,7 +135,14 @@
                     <span>CANCELAR</span>
                 </button>
                 <!-- Send -->
-                <button class="order-first sm:order-last" mat-flat-button [color]="'primary'" (click)="send()">
+                <button 
+                    [disabled]="pautarForm.invalid"
+                    mat-flat-button 
+                    mat-dialog-close
+                    class="order-first sm:order-last" 
+                    [color]="'primary'" 
+                    (click)="send()"
+                >
                     LIBERAR PARA JULGAMENTO
                 </button>
             </div>

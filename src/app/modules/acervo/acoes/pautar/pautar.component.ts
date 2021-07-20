@@ -1,7 +1,9 @@
 
+import { HttpClient } from '@angular/common/http';
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
+import { FuseAlertService } from '@fuse/components/alert';
 import { Observable } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
 import { SessaoExtraordinariaComponent } from './sessao-extraordinaria/sessao-extraordinaria.component';
@@ -9,6 +11,21 @@ import { SessaoExtraordinariaComponent } from './sessao-extraordinaria/sessao-ex
 interface Colegiado {
     value: string;
     viewValue: string;
+}
+
+export interface Julgamento {
+    numero: number;
+    ano: number;
+    colegiado: string;
+    tipo: string;
+    categoria: string;
+    modalidade: string;
+    data_inicio: string;
+    data_fim: string;
+    secretario: {
+        id: number;
+        nome: string;
+    };
 }
 
 @Component({
@@ -32,6 +49,8 @@ export class PautarComponent implements OnInit {
         public matDialogRef: MatDialogRef<PautarComponent>,
         private _formBuilder: FormBuilder,
         private _dialog: MatDialog,
+        private _httpClient: HttpClient,
+        private _fuseAlertService: FuseAlertService,
     ) {
 
     }
@@ -47,7 +66,7 @@ export class PautarComponent implements OnInit {
             modalidade: ['', [Validators.required]],
             data_inicio: ['', [Validators.required]],
             data_fim: ['', [Validators.required]],
-            secretario: ['', [Validators.required]],
+            secretario: [{ id: 1 }, [Validators.required]],
         });
 
         this.filteredOptions = this.myControl.valueChanges.pipe(
@@ -93,6 +112,17 @@ export class PautarComponent implements OnInit {
      * Send the message
      */
     send(): void {
-        console.log(this.pautarForm.value)
+        if (this.pautarForm.valid) {
+            this._httpClient.post('julgamentos', this.pautarForm.value as Julgamento)
+                .subscribe({
+                    next: (data) => {
+                        console.log(data)
+                        this._fuseAlertService.show('sucesso');
+                        setTimeout(() => {
+                            this._fuseAlertService.dismiss('sucesso');
+                        }, 5000);
+                    }   
+                });
+        }
     }
 }
