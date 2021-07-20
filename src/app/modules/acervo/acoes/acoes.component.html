@@ -20,7 +20,7 @@
                     Pautar
                 </button>
                 <button mat-flat-button color="secondary">
-                    Devolver Vista
+                    Reanalisar
                 </button>
                 <button mat-flat-button color="secondary">
                     Retirar de pauta
@@ -34,12 +34,12 @@
             </div>
         </div>
     </div>
-    <div class="w-screen absolute bottom-0 z-10 pr-6 mb-4">
+    <div class="absolute top-0 right-0 z-10">
         <fuse-alert class="max-w-120 mx-auto"
                     [type]="'error'" 
-                    [appearance]="'outline'" 
-                    [dismissible]="true" 
-                    [dismissed]="true"
+                    [appearance]="'soft'" 
+                    [dismissible]=true 
+                    [dismissed]=true
                     [name]="'alertBox'">
             <span fuseAlertTitle>Erro de validação</span>
             Selecione um ou mais processos
@@ -47,11 +47,11 @@
 
         <fuse-alert
             class="max-w-120 mx-auto"
-            [dismissed]="true"
-            [dismissible]="true" 
+            [dismissed]=true
+            [dismissible]=true 
             [name]="'sucesso'"
             [type]="'success'"
-            [appearance]="'outline'">
+            [appearance]="'soft'">
             <span fuseAlertTitle>Sucesso</span>
             Operação efetuada com êxito
         </fuse-alert>
