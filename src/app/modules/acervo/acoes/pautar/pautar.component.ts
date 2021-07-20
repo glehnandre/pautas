@@ -59,15 +59,10 @@ export class PautarComponent implements OnInit {
     ngOnInit(): void {
         // Create the form
         this.pautarForm = this._formBuilder.group({
-            numero: ['', [Validators.required]],
-            ano: ['', [Validators.required]],
-            colegiado: ['', [Validators.required]],
-            tipo: ['', [Validators.required]],
-            categoria: ['', [Validators.required]],
-            modalidade: ['', [Validators.required]],
-            data_inicio: ['', [Validators.required]],
-            data_fim: ['', [Validators.required]],
-            secretario: [{ id: 1 }, [Validators.required]],
+            sessao: ['', [Validators.required]],
+            colegiado: [''],
+            data_inicio: [''],
+            data_fim: ['']
         });
 
         this.filteredOptions = this.myControl.valueChanges.pipe(
@@ -83,10 +78,7 @@ export class PautarComponent implements OnInit {
         return this.options.filter(option => option.toLowerCase().indexOf(filterValue) === 0);
     }
     
-    saveAndClose(): void {
-        // Save the message as a draft
-        this.saveAsDraft();
-
+    fechar(): void {
         // Close the dialog
         this.matDialogRef.close();
     }
@@ -94,7 +86,7 @@ export class PautarComponent implements OnInit {
     /**
      * Discard the message
      */
-    discard(): void {
+    sessaoExtraordinaria(): void {
         const dialogRef = this._dialog.open(SessaoExtraordinariaComponent, {});
 
         dialogRef.afterClosed().subscribe(resultado => {
@@ -102,17 +94,11 @@ export class PautarComponent implements OnInit {
         });
     }
 
-    /**
-     * Save the message as a draft
-     */
-    saveAsDraft(): void {
-
-    }
 
     /**
      * Send the message
      */
-    send(): void {
+    pautar(): void {
         if (this.pautarForm.valid) {
             this._httpClient.post('julgamentos', this.pautarForm.value as Julgamento)
                 .subscribe({
