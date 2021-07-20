@@ -13,6 +13,13 @@
         class="flex flex-col flex-auto p-6 sm:p-8 overflow-y-auto"  
         [formGroup]="pautarForm" 
     >
+        <!-- <mat-chip-list #chipList class="content-center" aria-orientation="vertical">
+                <mat-chip [removable]="true">
+                    {{ this.idsProcessos }}
+                    <mat-icon matChipRemove>cancel</mat-icon>
+                </mat-chip>
+            </mat-chip-list> -->
+            
         <div class="flex flex-auto flex-row space-x-4">
             <mat-form-field class="w-full" appearance="fill">
                 <mat-label>Número:</mat-label>

@@ -41,6 +41,7 @@ export class PautarComponent implements OnInit {
         { value: 'segunda-turma', viewValue: 'Segunda Turma' },
         { value: 'colegiado-pleno', viewValue: 'Pleno' }
     ];
+    chosenItem = this.colegiados[0].value;
     myControl: FormControl = new FormControl();
     options: string[] = ['1000', '2000', '3000'];
     filteredOptions: Observable<string[]>;
