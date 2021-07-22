@@ -14,18 +14,10 @@ interface Colegiado {
 }
 
 export interface Julgamento {
-    numero: number;
-    ano: number;
+    sessao: number;
     colegiado: string;
-    tipo: string;
-    categoria: string;
-    modalidade: string;
     data_inicio: string;
     data_fim: string;
-    secretario: {
-        id: number;
-        nome: string;
-    };
 }
 
 @Component({
@@ -59,7 +51,7 @@ export class PautarComponent implements OnInit {
     ngOnInit(): void {
         // Create the form
         this.pautarForm = this._formBuilder.group({
-            sessao: ['', [Validators.required]],
+            sessao: [null, [Validators.required]],
             colegiado: [''],
             data_inicio: [''],
             data_fim: ['']
@@ -69,8 +61,6 @@ export class PautarComponent implements OnInit {
             startWith(''),
             map(value => this._filter(value))
         );
-
-        this.myControl.setValidators(Validators.required);
     }
     private _filter(value: string): string[] {
         const filterValue = value.toLowerCase();

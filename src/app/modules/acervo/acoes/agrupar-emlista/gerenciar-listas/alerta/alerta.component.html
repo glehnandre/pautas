@@ -1,33 +1,43 @@
-<div class="flex flex-col max-w-240 md:min-w-160 -m-6">
-  <div class="flex flex-col flex-auto p-6 sm:p-8 overflow-y-auto ng-pristine ng-invalid ng-touched">
-    <h1 class="text-lg font-medium">
-      {{data.titulo}}
-    </h1>
-
-    <p class="text-lg ">
-      {{data.mensagem}}
-    </p>
-
-    <div class="flex flex-col sm:flex-row sm:items-center justify-between mt-4 sm:mt-6">
-      <div mat-dialog-actions class="flex items-center mt-4 sm:mt-0 ml-auto">
-        <button 
-          class="ml-auto mr-2 sm:ml-0" 
-          mat-button 
-          (click)="fechar()"
-        >
-          Cancelar
-        </button>
-
-        <button 
-          class="ml-auto" 
-          color="primary" 
-          mat-raised-button
-          mat-dialog-close 
-          (click)="confirmar()"
-        >
-          Confirmar
-        </button>
+<div class="relative flex flex-col md:w-128 -m-6">
+  <div class="absolute top-0 right-0 pt-4 pr-4 ng-star-inserted">
+    <button (click)="fechar()" mat-icon-button="" class="mat-focus-indicator mat-icon-button mat-button-base" type="button">
+      <span class="mat-button-wrapper">
+        <mat-icon role="img" class="mat-icon notranslate text-secondary mat-icon-no-color" aria-hidden="true" data-mat-icon-type="svg" data-mat-icon-name="x" data-mat-icon-namespace="heroicons_outline">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" fit="" height="100%" width="100%" preserveAspectRatio="xMidYMid meet" focusable="false">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+          </svg>
+        </mat-icon>
+      </span>
+      <span matripple="" class="mat-ripple mat-button-ripple mat-button-ripple-round"></span>
+    </button>
+  </div>
+  <!----><!---->
+  <div class="flex flex-col sm:flex-row items-center sm:items-start p-8 pb-6 sm:pb-8">
+    <div class="flex flex-0 items-center justify-center w-10 h-10 sm:mr-4 rounded-full text-warn-600 bg-warn-100 dark:text-warn-50 dark:bg-warn-600 ng-star-inserted">
+      <mat-icon role="img" class="mat-icon notranslate text-current mat-icon-no-color" aria-hidden="true" data-mat-icon-type="svg" data-mat-icon-name="exclamation" data-mat-icon-namespace="heroicons_outline">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" fit="" height="100%" width="100%" preserveAspectRatio="xMidYMid meet" focusable="false">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path>
+        </svg>
+      </mat-icon>
+    </div>
+    
+    <div class="flex flex-col items-center sm:items-start mt-4 sm:mt-0 sm:pr-8 space-y-1 text-center sm:text-left ng-star-inserted">
+      <div class="text-xl leading-6 font-medium ng-star-inserted">Remover lista</div>
+      <div class="text-secondary ng-star-inserted">Você tem certeza que deseja remover essa lista permanentemente?
+        <span class="font-medium">Essa ação não poderá ser desfeita!</span>
       </div>
     </div>
   </div>
+  <div class="flex items-center justify-center sm:justify-end px-6 py-4 space-x-3 bg-gray-50 dark:bg-black dark:bg-opacity-10 ng-star-inserted">
+    <button (click)="fechar()" mat-stroked-button="" class="mat-focus-indicator mat-stroked-button mat-button-base ng-star-inserted" type="button">
+      <span class="mat-button-wrapper">Cancelar</span>
+      <span matripple="" class="mat-ripple mat-button-ripple"></span>
+    </button><!----><!---->
+    
+    <button (click)="confirmar()" mat-flat-button="" class="mat-focus-indicator mat-flat-button mat-button-base mat-warn ng-star-inserted" type="button">
+      <span class="mat-button-wrapper">Remover</span>
+      <span matripple="" class="mat-ripple mat-button-ripple"></span>
+    </button><!----><!---->
+  </div>
+  <!----><!---->
 </div>

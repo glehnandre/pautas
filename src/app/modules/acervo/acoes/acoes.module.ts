@@ -59,7 +59,6 @@ const routes = [
     MatChipsModule,
     MatAutocompleteModule,
     MatDatepickerModule,
-    MatDatepickerModule,
     MatMomentDateModule,
     MatAutocompleteModule,
     MatFormFieldModule,
