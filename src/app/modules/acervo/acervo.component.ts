@@ -2,7 +2,6 @@ import { HttpClient } from '@angular/common/http';
 import { Component, OnInit, Output, Injectable } from '@angular/core';
 import { EMPTY, Observable } from 'rxjs';
 import { catchError } from 'rxjs/operators';
-import { BehaviorSubject } from 'rxjs';
 
 interface Processo {
   idsProcessos: Array<number>;
@@ -15,7 +14,6 @@ interface Processo {
   styleUrls: ['./acervo.component.scss']
 })
 
-@Injectable()
 export class AcervoComponent implements OnInit {
   @Output() SelectAllLines:any;
 
@@ -24,15 +22,11 @@ export class AcervoComponent implements OnInit {
     idsProcessos: [],
   };
 
-  private processData = new BehaviorSubject<Processo>(undefined);
 
   constructor(
     private _httpClient: HttpClient,
   ) {}
 
-  getProcess(): Observable<Processo> {
-    return this.processData.asObservable();
-  }
 
   ngOnInit(): void {
   }
