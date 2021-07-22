@@ -13,7 +13,6 @@ interface Status {
 })
 export class StatusComponent implements OnInit {
   @Input() display: boolean;
-  @Input() mobile: boolean;
   @Input() idSituacao: number;
 
   status: Status[] = [

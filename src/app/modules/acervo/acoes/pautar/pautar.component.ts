@@ -58,7 +58,7 @@ export class PautarComponent implements OnInit {
     ];
 
 
-    chosenItem = this.colegiados[0].value;
+    colegiadoEscolhido = this.colegiados[0].viewValue;
     myControl: FormControl = new FormControl();
     options: string[] = ['1000', '2000', '3000'];
     filteredOptions: Observable<string[]>;
@@ -117,4 +117,6 @@ export class PautarComponent implements OnInit {
                 });
         }
     }
+
+    
 }
