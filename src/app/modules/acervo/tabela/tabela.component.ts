@@ -3,7 +3,6 @@ import { Component, Input, OnInit, Output, SimpleChange, EventEmitter } from '@a
 import { EMPTY, Observable } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { Tag } from '../acoes/agrupar-emlista/agrupar-emlista.component';
-import { ProcessoCheckboxProps } from './linha/linha.component';
 import { Paginacao } from './paginacao/paginacao.component';
 
 export enum SituacaoDoProcesso {
@@ -62,10 +61,11 @@ export class TabelaComponent implements OnInit {
       }]
     }
   }
-  @Output() colecaoDeProcessos = new EventEmitter<ProcessoCheckboxProps[]>();
+
+  @Output() colecaoDeProcessos = new EventEmitter<Processo[]>();
 
   idsDosProcessos: number[] = [];
-  idsProcessoChecked: ProcessoCheckboxProps[] = [];
+  processosSelecionados: Processo[] = [];
   processos: Processo[] = [];
   
   constructor(private _httpClient: HttpClient) {
@@ -99,12 +99,10 @@ export class TabelaComponent implements OnInit {
     let change: SimpleChange = changes['Allselected']; 
     this.SelectAll = changes['Allselected'].currentValue?.checked;
     if (this.SelectAll) {
-      let todosOsProcessos: ProcessoCheckboxProps[] = [];
-      this.processos.forEach(({id, descricao}) => todosOsProcessos.push({processoId: id, descricao}));
-      this.colecaoDeProcessos.emit(todosOsProcessos);
-      this.idsProcessoChecked = todosOsProcessos;
+      this.colecaoDeProcessos.emit(this.processos);
+      this.processosSelecionados = this.processos;
     } else {
-      this.idsProcessoChecked = [];
+      this.processosSelecionados = [];
     }
   }
 
@@ -113,22 +111,22 @@ export class TabelaComponent implements OnInit {
     //this.SelectAll = this.Allselected
   }
 
-  trataEventoDeChecked(data: ProcessoCheckboxProps) {
+  trataEventoDeChecked(data: Processo) {
     if (data.checked) {
-      const index = this.idsProcessoChecked.findIndex(processo => processo.processoId === data.processoId);
+      const index = this.processosSelecionados.findIndex(({id}) => id === data.id);
       if (index !== -1) {
         // id do processo já está na coleção
-        this.idsProcessoChecked.splice(index, 1);
+        this.processosSelecionados.splice(index, 1);
       } else {
         // id não está na coleção
-        this.idsProcessoChecked.push(data);
+        this.processosSelecionados.push(data);
       }
     } else {
-      const index = this.idsProcessoChecked.findIndex(processo => processo.processoId === data.processoId);
-      this.idsProcessoChecked.splice(index, 1);
+      const index = this.processosSelecionados.findIndex(({id}) => id === data.id);
+      this.processosSelecionados.splice(index, 1);
     }
 
-    this.colecaoDeProcessos.emit(this.idsProcessoChecked);
+    this.colecaoDeProcessos.emit(this.processosSelecionados);
   }
 
   private _listarTodosOsProcessos(params?: HttpParams): Observable<Processo[]> {

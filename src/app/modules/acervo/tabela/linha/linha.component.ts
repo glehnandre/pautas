@@ -2,12 +2,6 @@ import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
 import { MatCheckboxChange } from '@angular/material/checkbox';
 import { Processo } from '../tabela.component';
 
-export interface ProcessoCheckboxProps {
-  processoId: number;
-  descricao: string;
-  checked?: boolean;
-}
-
 @Component({
   selector: 'app-linha',
   templateUrl: './linha.component.html',
@@ -16,7 +10,7 @@ export interface ProcessoCheckboxProps {
 export class LinhaComponent implements OnInit {
   @Output() display: boolean = false;
   @Output() mobile: boolean = false;
-  @Output() checked = new EventEmitter<Object>();
+  @Output() checked = new EventEmitter<Processo>();
 
   @Input() Selected: boolean;
   @Input() processo: Processo;
@@ -35,13 +29,8 @@ export class LinhaComponent implements OnInit {
   }
 
   emiteStatusDoCheckbox(status: MatCheckboxChange) {
-    const data: ProcessoCheckboxProps = {
-      processoId: this.processo.id,
-      descricao: this.processo.descricao,
-      checked: status.checked,
-    };
-    
-    this.checked.emit(data);
+    this.processo.checked = status.checked;
+    this.checked.emit(this.processo);
   }
   
   onResize() {
