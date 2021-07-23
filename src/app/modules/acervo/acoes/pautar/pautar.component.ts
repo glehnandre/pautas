@@ -3,7 +3,7 @@ import { Component, OnInit, Inject } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { FuseAlertService } from '@fuse/components/alert';
-import { Processo } from '../../tabela/tabela.component';
+import { Observable } from 'rxjs';
 import { SessaoExtraordinariaComponent } from './sessao-extraordinaria/sessao-extraordinaria.component';
 import { SessaoJulgamento } from './sessaoJulgamento';
 
@@ -14,10 +14,18 @@ interface Colegiado {
 
 //remover julgamento. O correto é sessao de julgamento. A interface que está separada do código sessaoJulgamento.ts
 export interface Julgamento {
-    sessao: number;
+    numero: number;
+    ano: number;
     colegiado: string;
+    tipo: string;
+    categoria: string;
+    modalidade: string;
     data_inicio: string;
     data_fim: string;
+    secretario: {
+        id: number;
+        nome: string;
+    };
 }
 
 @Component({
@@ -49,7 +57,11 @@ export class PautarComponent implements OnInit {
         {id: 10, ano: 2021, numero: 10, colegiado: 'Pleno', modalidade: 'Virtual', categoria: 'Judicial', tipo: 'Ordinária', data_inicio: new Date(2021, 8, 20), data_fim: new Date(2021, 8, 25)}
     ];
 
-    colegiadoEscolhido = this.colegiados[0].viewValue;
+
+    colegiadoEscolhido = this.colegiados[0].value;
+    myControl: FormControl = new FormControl();
+    options: string[] = ['1000', '2000', '3000'];
+    filteredOptions: Observable<string[]>;
 
     constructor(
         public matDialogRef: MatDialogRef<PautarComponent>,
@@ -65,7 +77,7 @@ export class PautarComponent implements OnInit {
     ngOnInit(): void {
         // Create the form
         this.pautarForm = this._formBuilder.group({
-            sessao: [null, [Validators.required]],
+            sessao: ['', [Validators.required]],
             colegiado: [''],
             data_inicio: [''],
             data_fim: [''],
