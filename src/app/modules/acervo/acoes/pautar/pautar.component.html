@@ -23,24 +23,22 @@
         <div class="flex flex-auto flex-row space-x-4">
             <mat-form-field class="w-full" appearance="fill">
                 <mat-label>Colegiado:</mat-label>
-                <mat-select name="colegiado" [formControlName]="'colegiado'">
-                    <mat-option *ngFor="let colegiado of colegiados" [value]="'colegiado.value'" >
+                <mat-select name="colegiado" formControlName="colegiado">
+                    <mat-option *ngFor="let colegiado of colegiados" [value]="colegiado.viewValue" >
                         {{colegiado.viewValue}}
                     </mat-option>
                 </mat-select>
-            
             </mat-form-field>
         </div>
 
         <div class="flex flex-auto flex-row space-x-4">
             <mat-form-field class="w-full" appearance="fill">
-                <mat-label>Selecione a data:</mat-label>
-
+                <mat-label>Filtre por período</mat-label>
                 <mat-date-range-input [rangePicker]="picker">
                     <input matStartDate placeholder="Data de início" name="data_inicio" formControlName="data_inicio">
                     <input matEndDate placeholder="Data do fim" name="data_fim" formControlName="data_fim">
                 </mat-date-range-input>
-
+    
                 <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                 <mat-date-range-picker #picker></mat-date-range-picker>
             </mat-form-field>
@@ -49,22 +47,14 @@
         <div class="flex flex-auto flex-row space-x-4">
             <mat-form-field class="w-full" appearance="fill">
                 <mat-label>Sessão:</mat-label>
-                <input 
-                    type="text" 
-                    placeholder="Escolha uma sessão" 
-                    aria-label="Number" 
-                    matInput 
-                    [formControlName]="'sessao'"
-                    [matAutocomplete]="auto"
-                >
-                <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
+                <mat-select [formControlName]="'sessao'" placeholder="Escolha uma sessão" required>
                     <mat-option 
-                        *ngFor="let option of filteredOptions | async" 
-                        [value]="option"
+                        *ngFor="let sessaoJulgamento of (sessoes | filtroSessoes: this.pautarForm.get('colegiado').value : this.pautarForm.get('data_inicio').value : this.pautarForm.get('data_fim').value )" 
+                        [value]="sessaoJulgamento.id"
                     >
-                        {{option}}
+                        Sessão {{sessaoJulgamento.modalidade}}, <b>{{sessaoJulgamento.colegiado}}</b>, nº {{sessaoJulgamento.numero}}/{{sessaoJulgamento.ano}} de {{sessaoJulgamento.data_inicio | date:'dd/MM/yyyy'}} a {{sessaoJulgamento.data_fim  | date:'dd/MM/yyyy'}}
                     </mat-option>
-                </mat-autocomplete>
+                </mat-select>
                 <mat-error class="mb-1" *ngIf="'sessao.errors?.required'">
                     A sessão é obrigatória
                 </mat-error>

@@ -4,7 +4,7 @@ import { tags as tagData } from 'app/mock-api/pautas/tags/data';
 export const processo: Processo[] = [
   {
     id:         1,
-    nome:     'Mérito',
+    nome:       'Mérito',
     lista:      [
                   tagData[0],
                   tagData[1],

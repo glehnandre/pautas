@@ -9,7 +9,7 @@
             <app-acoes 
                 (Allselected)="reciverFeedback($event)"
                 (colecaoIdsDasTags)="obterIdsDasTagsSelecionadas($event)" 
-                [idsProcessos]="idsProcessos()"   
+                [processos]="processos()"   
             ></app-acoes>
         </div>
     </div>
@@ -21,7 +21,7 @@
         <div>
             <app-tabela 
                 [Allselected]="SelectAllLines"
-                (colecaoIdsProcesso)="obterIdsDosProcessos($event)"
+                (colecaoDeProcessos)="obterProcessosSelecionados($event)"
             ></app-tabela>
         </div>
     </div>

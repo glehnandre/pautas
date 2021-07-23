@@ -4,7 +4,8 @@ import { Processo } from '../tabela.component';
 
 export interface ProcessoCheckboxProps {
   processoId: number;
-  checked: boolean;
+  descricao: string;
+  checked?: boolean;
 }
 
 @Component({
@@ -36,6 +37,7 @@ export class LinhaComponent implements OnInit {
   emiteStatusDoCheckbox(status: MatCheckboxChange) {
     const data: ProcessoCheckboxProps = {
       processoId: this.processo.id,
+      descricao: this.processo.descricao,
       checked: status.checked,
     };
     

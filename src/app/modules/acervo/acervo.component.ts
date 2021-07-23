@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Component, OnInit, Output } from '@angular/core';
 import { EMPTY, Observable } from 'rxjs';
 import { catchError } from 'rxjs/operators';
+import { ProcessoCheckboxProps } from './tabela/linha/linha.component';
 
 interface Processo {
   idsProcessos: Array<number>;
@@ -21,6 +22,8 @@ export class AcervoComponent implements OnInit {
     idsTags: [],
     idsProcessos: [],
   };
+
+  processoSelecionados: ProcessoCheckboxProps[] = [];
 
   constructor(
     private _httpClient: HttpClient,
@@ -48,13 +51,16 @@ export class AcervoComponent implements OnInit {
     });
   }
 
-  obterIdsDosProcessos(data: Array<number>): void {
-    this.processo.idsProcessos = data;
-    this.idsProcessos();
+  obterProcessosSelecionados(data: Array<ProcessoCheckboxProps>): void {
+    data.forEach(({processoId}) => {
+      this.processo.idsProcessos.push(processoId)
+    });
+    this.processoSelecionados = data;
+    this.processos();
   }
 
-  idsProcessos(): number[]{
-    return this.processo.idsProcessos;
+  processos(): ProcessoCheckboxProps[]{
+    return this.processoSelecionados;
   }
 
   atualizarTagsDoProcesso(id: number): Observable<any> {

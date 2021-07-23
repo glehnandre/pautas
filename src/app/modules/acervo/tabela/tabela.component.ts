@@ -9,7 +9,7 @@ import { Paginacao } from './paginacao/paginacao.component';
 export enum SituacaoDoProcesso {
   'Apto a Julgar' = 1, 
   'Em julgamento', 
-  'Visitado', 
+  'Vista', 
   'Pautado', 
   'Suspenso', 
   'Retirado de pauta', 
@@ -39,6 +39,7 @@ export interface Processo {
   situacao: SituacaoDoProcesso;
   tipo: TipoDoProcesso;
   capitulos: Capitulo[];
+  checked?: boolean;
 }
 
 @Component({
@@ -61,10 +62,10 @@ export class TabelaComponent implements OnInit {
       }]
     }
   }
-  @Output() colecaoIdsProcesso = new EventEmitter<number[]>();
+  @Output() colecaoDeProcessos = new EventEmitter<ProcessoCheckboxProps[]>();
 
   idsDosProcessos: number[] = [];
-  idsProcessoChecked: number[] = [];
+  idsProcessoChecked: ProcessoCheckboxProps[] = [];
   processos: Processo[] = [];
   
   constructor(private _httpClient: HttpClient) {
@@ -98,8 +99,10 @@ export class TabelaComponent implements OnInit {
     let change: SimpleChange = changes['Allselected']; 
     this.SelectAll = changes['Allselected'].currentValue?.checked;
     if (this.SelectAll) {
-      this.colecaoIdsProcesso.emit(this.idsDosProcessos);
-      this.idsProcessoChecked = [...this.idsDosProcessos];
+      let todosOsProcessos: ProcessoCheckboxProps[] = [];
+      this.processos.forEach(({id, descricao}) => todosOsProcessos.push({processoId: id, descricao}));
+      this.colecaoDeProcessos.emit(todosOsProcessos);
+      this.idsProcessoChecked = todosOsProcessos;
     } else {
       this.idsProcessoChecked = [];
     }
@@ -112,20 +115,20 @@ export class TabelaComponent implements OnInit {
 
   trataEventoDeChecked(data: ProcessoCheckboxProps) {
     if (data.checked) {
-      const index = this.idsProcessoChecked.findIndex(id => id === data.processoId);
+      const index = this.idsProcessoChecked.findIndex(processo => processo.processoId === data.processoId);
       if (index !== -1) {
         // id do processo já está na coleção
         this.idsProcessoChecked.splice(index, 1);
       } else {
         // id não está na coleção
-        this.idsProcessoChecked.push(data.processoId);
+        this.idsProcessoChecked.push(data);
       }
     } else {
-      const index = this.idsProcessoChecked.findIndex(id => id === data.processoId);
+      const index = this.idsProcessoChecked.findIndex(processo => processo.processoId === data.processoId);
       this.idsProcessoChecked.splice(index, 1);
     }
 
-    this.colecaoIdsProcesso.emit(this.idsProcessoChecked);
+    this.colecaoDeProcessos.emit(this.idsProcessoChecked);
   }
 
   private _listarTodosOsProcessos(params?: HttpParams): Observable<Processo[]> {

@@ -273,8 +273,8 @@ export class GerenciarListasComponent implements OnInit {
   public excluirLista(): void {
     const dialogRef = this._dialog.open(AlertaComponent, {
       data: {
-        titulo: `${this.tagEscolhida.descricao}`,
-        mensagem: 'Deseja realmente excluir esta lista?',
+        titulo: 'Remover lista',
+        mensagem: 'Você tem certeza que deseja remover essa lista permanentemente?',
       }
     });
 

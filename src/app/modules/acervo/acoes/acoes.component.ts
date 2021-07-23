@@ -1,7 +1,9 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { FuseAlertService } from '@fuse/components/alert';
+import { ProcessoCheckboxProps } from '../tabela/linha/linha.component';
 import { AgruparEmlistaComponent } from './agrupar-emlista/agrupar-emlista.component';
+import { AlertaComponent } from './agrupar-emlista/gerenciar-listas/alerta/alerta.component';
 import { PautarComponent } from './pautar/pautar.component';
 
 @Component({
@@ -15,7 +17,7 @@ export class AcoesComponent implements OnInit {
   @Output() Allselected = new EventEmitter();
   @Output() colecaoIdsDasTags = new EventEmitter<Array<{id: number}>>();
 
-  @Input() idsProcessos: number[];
+  @Input() processos: ProcessoCheckboxProps[];
  
   constructor(private _matDialog: MatDialog, private _fuseAlertService: FuseAlertService) {
     if (document.body.clientWidth <= 800) {
@@ -79,7 +81,7 @@ export class AcoesComponent implements OnInit {
   }
 
   verificaProcesso(): boolean{
-    if(this.idsProcessos.length == 0){
+    if(this.processos.length == 0) {
       return false;
     }
     return true;
@@ -91,4 +93,37 @@ export class AcoesComponent implements OnInit {
   fecharAlerta(){
     this._fuseAlertService.dismiss('alertBox');
   }
+
+  retirarDePauta(): void {
+    const dialogRef = this._matDialog.open(AlertaComponent, {
+      data: {
+        titulo: 'Retirar processo',
+        mensagem: `Você tem certeza que deseja retirar esse(s) processo(s) de pauta? 
+                   
+                  ${this.exibeDescricaoDosProcessos()}
+                  
+                  `,
+      }
+    });
+
+    dialogRef.afterClosed().subscribe(resultado => {
+      if (resultado === 'ok') {
+        // DELETE
+        
+      } else {
+        dialogRef.close();
+      }
+    });
+  }
+
+  exibeDescricaoDosProcessos(): string {
+    let descricoes = ``;
+
+    this.processos.forEach(processo => {
+      descricoes += `${processo.descricao}\n`;
+    });
+
+    return descricoes;
+  }
+
 }
