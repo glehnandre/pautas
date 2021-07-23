@@ -22,7 +22,7 @@
                 <button mat-flat-button color="secondary">
                     Reanalisar
                 </button>
-                <button mat-flat-button color="secondary">
+                <button (click)="retirarDePauta()" mat-flat-button color="secondary">
                     Retirar de pauta
                 </button>
                 <button mat-flat-button color="secondary">
@@ -46,7 +46,7 @@
         </fuse-alert>
 
         <fuse-alert
-            class="max-w-120 mx-auto"
+            class="max-w-120 mx-auto z-40"
             [dismissed]=true
             [dismissible]=true 
             [name]="'sucesso'"

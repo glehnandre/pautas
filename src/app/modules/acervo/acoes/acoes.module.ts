@@ -43,7 +43,7 @@ const routes = [
     PautarComponent,
     SessaoExtraordinariaComponent,
     AlertaComponent,
-    SessoesPipe
+    SessoesPipe,
   ],
   imports: [
     CommonModule,
@@ -60,7 +60,6 @@ const routes = [
     MatRadioModule,
     MatChipsModule,
     MatAutocompleteModule,
-    MatDatepickerModule,
     MatDatepickerModule,
     MatMomentDateModule,
     MatAutocompleteModule,

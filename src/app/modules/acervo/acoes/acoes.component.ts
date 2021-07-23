@@ -1,7 +1,10 @@
+import { HttpClient } from '@angular/common/http';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { FuseAlertService } from '@fuse/components/alert';
+import { Processo } from '../tabela/tabela.component';
 import { AgruparEmlistaComponent } from './agrupar-emlista/agrupar-emlista.component';
+import { AlertaComponent } from './agrupar-emlista/gerenciar-listas/alerta/alerta.component';
 import { PautarComponent } from './pautar/pautar.component';
 
 @Component({
@@ -15,9 +18,13 @@ export class AcoesComponent implements OnInit {
   @Output() Allselected = new EventEmitter();
   @Output() colecaoIdsDasTags = new EventEmitter<Array<{id: number}>>();
 
-  @Input() idsProcessos: number[];
+  @Input() processos: Processo[];
  
-  constructor(private _matDialog: MatDialog, private _fuseAlertService: FuseAlertService) {
+  constructor(
+    private _httpClient: HttpClient,
+    private _matDialog: MatDialog, 
+    private _fuseAlertService: FuseAlertService,
+  ) {
     if (document.body.clientWidth <= 800) {
       this.mobile = true
     }
@@ -69,7 +76,7 @@ export class AcoesComponent implements OnInit {
     else{
       this.fecharAlerta();
       // Open the dialog
-      const dialogRef = this._matDialog.open(PautarComponent);
+      const dialogRef = this._matDialog.open(PautarComponent, {data: {processos:this.processos}});
 
       dialogRef.afterClosed()
         .subscribe((result) => {
@@ -79,7 +86,7 @@ export class AcoesComponent implements OnInit {
   }
 
   verificaProcesso(): boolean{
-    if(this.idsProcessos.length == 0){
+    if(this.processos.length == 0) {
       return false;
     }
     return true;
@@ -91,4 +98,42 @@ export class AcoesComponent implements OnInit {
   fecharAlerta(){
     this._fuseAlertService.dismiss('alertBox');
   }
+
+  retirarDePauta(): void {
+    console.log(this.processos);
+    const dialogRef = this._matDialog.open(AlertaComponent, {
+      data: {
+        titulo: 'Retirar processo',
+        mensagem: `Você tem certeza que deseja retirar esse(s) processo(s) de pauta? 
+                  ${this.exibeDescricaoDosProcessos()}
+                  `,
+      }
+    });
+
+    dialogRef.afterClosed().subscribe(resultado => {
+      if (resultado === 'ok') {
+        // DELETE
+        this.processos.forEach(({id}) => {
+          this._httpClient.delete(`processos/${id}/pautar`).subscribe({
+            next: () => {
+              console.log('excluido');
+            }
+          });
+        });
+      } else {
+        dialogRef.close();
+      }
+    });
+  }
+
+  exibeDescricaoDosProcessos(): string {
+    let descricoes = ``;
+
+    this.processos.forEach(processo => {
+      descricoes += `\n${processo.classe} ${processo.numero} - ${processo.descricao}\n`;
+    });
+
+    return descricoes;
+  }
+
 }

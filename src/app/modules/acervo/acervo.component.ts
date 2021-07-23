@@ -1,9 +1,10 @@
 import { HttpClient } from '@angular/common/http';
-import { Component, OnInit, Output, Injectable } from '@angular/core';
+import { Component, OnInit, Output } from '@angular/core';
 import { EMPTY, Observable } from 'rxjs';
 import { catchError } from 'rxjs/operators';
+import { Processo } from './tabela/tabela.component';
 
-interface Processo {
+interface ProcessosTags {
   idsProcessos: Array<number>;
   idsTags: Array<{id: number}>;
 };
@@ -17,11 +18,12 @@ interface Processo {
 export class AcervoComponent implements OnInit {
   @Output() SelectAllLines:any;
 
-  processo: Processo = {
+  processo: ProcessosTags = {
     idsTags: [],
     idsProcessos: [],
   };
 
+  processoSelecionados: Processo[] = [];
 
   constructor(
     private _httpClient: HttpClient,
@@ -50,13 +52,17 @@ export class AcervoComponent implements OnInit {
     });
   }
 
-  obterIdsDosProcessos(data: Array<number>): void {
-    this.processo.idsProcessos = data;
-    this.idsProcessos();
+  obterProcessosSelecionados(data: Processo[]): void {
+    data.forEach(({id}) => {
+      this.processo.idsProcessos.push(id);
+    });
+
+    this.processoSelecionados = data;
+    this.processos();
   }
 
-  idsProcessos(): number[]{
-    return this.processo.idsProcessos;
+  processos(): Processo[] {
+    return this.processoSelecionados;
   }
 
   atualizarTagsDoProcesso(id: number): Observable<any> {

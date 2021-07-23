@@ -13,13 +13,14 @@
         class="flex flex-col flex-auto p-6 sm:p-8 overflow-y-auto"  
         [formGroup]="pautarForm" 
     >
-        <!-- <mat-chip-list #chipList class="content-center" aria-orientation="vertical">
-                <mat-chip [removable]="true">
-                    {{ this.idsProcessos }}
+        <div class="flex flex-row flex-wrap">
+            <mat-chip-list #chipList *ngFor="let processo of data.processos" class="m-1">
+                <mat-chip [removable]="true" class="flex-none">
+                    {{processo.classe}} {{processo.numero}} {{processo.nome}}
                     <mat-icon matChipRemove>cancel</mat-icon>
                 </mat-chip>
-            </mat-chip-list> -->
-
+            </mat-chip-list>
+        </div>
         <div>
             <mat-radio-group
               class="flex flex-col my-4"
@@ -48,12 +49,11 @@
                 <mat-label>Sessão:</mat-label>
                 <mat-select [formControlName]="'sessao'" placeholder="Escolha uma sessão" required>
                     <mat-option 
-                    *ngFor="let sessaoJulgamento of (sessoes | filtroSessoes: this.pautarForm.get('colegiado').value : this.pautarForm.get('data_inicio').value : this.pautarForm.get('data_fim').value )" 
-                    [value]="sessaoJulgamento.id"
-                >
-                    Sessão {{sessaoJulgamento.modalidade}}, <b>{{sessaoJulgamento.colegiado}}</b>, nº {{sessaoJulgamento.numero}}/{{sessaoJulgamento.ano}} de {{sessaoJulgamento.data_inicio | date:'dd/MM/yyyy'}} a {{sessaoJulgamento.data_fim  | date:'dd/MM/yyyy'}}
-                </mat-option>
-
+                        *ngFor="let sessaoJulgamento of (sessoes | filtroSessoes: this.pautarForm.get('colegiado').value : this.pautarForm.get('data_inicio').value : this.pautarForm.get('data_fim').value )" 
+                        [value]="sessaoJulgamento.id"
+                    >
+                        Sessão {{sessaoJulgamento.modalidade}}, <b>{{sessaoJulgamento.colegiado}}</b>, nº {{sessaoJulgamento.numero}}/{{sessaoJulgamento.ano}} de {{sessaoJulgamento.data_inicio | date:'dd/MM/yyyy'}} a {{sessaoJulgamento.data_fim  | date:'dd/MM/yyyy'}}
+                    </mat-option>
                 </mat-select>
                 <mat-error class="mb-1" *ngIf="'sessao.errors?.required'">
                     A sessão é obrigatória
