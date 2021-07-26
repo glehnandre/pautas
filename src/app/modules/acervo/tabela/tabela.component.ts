@@ -1,7 +1,6 @@
-import { HttpClient, HttpParams } from '@angular/common/http';
+import { HttpParams } from '@angular/common/http';
 import { Component, Input, OnInit, Output, SimpleChange, EventEmitter } from '@angular/core';
-import { EMPTY, Observable } from 'rxjs';
-import { catchError } from 'rxjs/operators';
+import { ProcessoService } from 'app/modules/services/processo.service';
 import { Tag } from '../acoes/agrupar-emlista/agrupar-emlista.component';
 import { Paginacao } from './paginacao/paginacao.component';
 
@@ -64,37 +63,21 @@ export class TabelaComponent implements OnInit {
 
   @Output() colecaoDeProcessos = new EventEmitter<Processo[]>();
 
-  idsDosProcessos: number[] = [];
   processosSelecionados: Processo[] = [];
-  processos: Processo[] = [];
+  processos: Processo[];
   
-  constructor(private _httpClient: HttpClient) {
-    this.data ={
-      checked: true,
-      nome: "Nome",
-      descricao:"Descrição",
-      capitulo: {
-        titulo: "título",
-        preliminares: [{
-          subtitulo: "Subtitulo",
-          texto: "texto",
-        }]
-      }
-
-    }
-  }
+  constructor(
+    private _processoService: ProcessoService,
+  ) {}
 
   ngOnInit(): void {
-    // this._listarTodosOsProcessos().subscribe({
-    //   next: (data) => {
-    //     this.processos = data;
-    //     this.processos
-    //       .forEach(processo => this.idsDosProcessos.push(processo.id));
-    //   }
-    // });
+    this._processoService.isProcessosRemovidosDaPauta().subscribe(() => {
+      this.processos = [];
+      this._buscarProcessos();
+    });
   }
 
-  ngOnChanges(changes: SimpleChange){
+  ngOnChanges(changes: SimpleChange) {
     // Extract changes to the input property by its name
     let change: SimpleChange = changes['Allselected']; 
     this.SelectAll = changes['Allselected'].currentValue?.checked;
@@ -125,19 +108,8 @@ export class TabelaComponent implements OnInit {
       const index = this.processosSelecionados.findIndex(({id}) => id === data.id);
       this.processosSelecionados.splice(index, 1);
     }
-
+    
     this.colecaoDeProcessos.emit(this.processosSelecionados);
-  }
-
-  private _listarTodosOsProcessos(params?: HttpParams): Observable<Processo[]> {
-    return this._httpClient.get<Processo[]>('processos', {
-      params
-    }).pipe(
-      catchError(error => {
-        console.log(error);
-        return EMPTY;
-      })
-    );
   }
 
   dadosDaPaginacao(dados: Paginacao): void {
@@ -146,13 +118,14 @@ export class TabelaComponent implements OnInit {
     params = params.set('numeroDaPagina', dados.numeroDaPagina);
     params = params.set('offset', dados.offset);
 
-    this._httpClient.get<Processo[]>('processos/paginacao', {
-      params
-    }).subscribe(data => {
-      this.processos = data;
-      console.log(this.processos)
-      this.processos
-          .forEach(processo => this.idsDosProcessos.push(processo.id));
+    this._buscarProcessos(params);
+  }
+
+  private _buscarProcessos(params?: HttpParams): void {
+    this._processoService.listarProcessos(params).subscribe({
+      next: (data) => {
+        this.processos = data;
+      }
     });
   }
 

@@ -9,14 +9,18 @@
                     </div>
                 </div>
                 <div class="flex-none">
-                    <app-classe>
-                    </app-classe>
+                    <app-classe
+                        [numero]="processo.numero"
+                        [classe]="processo.classe"
+                    ></app-classe>
                 </div>
                 <div class="flex-1 mt-1 ml-4 mr-24 sm:mr-56" style="font-size: 16px;">
                     {{processo.nome}}
                 </div>
                 <div>
-                    <app-status [idSituacao]="processo.situacao"></app-status>
+                    <app-status 
+                        [idSituacao]="processo.situacao"
+                    ></app-status>
                 </div>
             </div>
             <div class="mb-4 hidden sm:block">
