@@ -19,7 +19,8 @@ export class StatusComponent implements OnInit {
     { id: 1, color: "#3C8D40", text: "APTO A PAUTAR" },
     { id: 2, color: "#FDC02F", text: "EM JULGAMENTO" },
     { id: 3, color: "#BF221o", text: "VISTO MDT" },
-    { id: 4, color: "#1170A6", text: "PAUTADO" }
+    { id: 4, color: "#1170A6", text: "PAUTADO" },
+    { id: 6, color: "#3434AC", text: "RETIRADO DE PAUTA" },
   ]
 
   situacao: Status;
