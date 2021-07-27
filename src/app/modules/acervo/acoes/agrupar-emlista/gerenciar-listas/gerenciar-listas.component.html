@@ -83,32 +83,35 @@
       </mat-form-field>
     </form>
 
-    <div class="flex flex-col md:flex-row lg:flex-row md:justify-between">
-        <button
-            class="my-1"
-            color="primary"
-            [disabled]="tagForm.invalid || processoForm.invalid"
-            mat-raised-button
-            mat-dialog-close
-            (click)="atualizar()"
-        >
-            Atualizar lista
-        </button>
+    <div class="flex flex-col md:flex-row-reverse lg:flex-row-reverse md:justify-between">
 
-        <div class="flex flex-col md:flex-row lg:flex-row">
+
+
+        <div class="flex flex-col md:flex-row-reverse lg:flex-row-reverse">
             <button
-                class="my-1"
+                class="my-1 mx-1"
+                color="primary"
+                [disabled]="tagForm.invalid || processoForm.invalid"
+                mat-raised-button
+                mat-dialog-close
+                (click)="atualizar()"
+            >
+                Atualizar lista
+            </button>
+
+            <button
+                class="my-1 mx-1"
                 color="warn"
                 mat-raised-button
                 (click)="excluirLista()"
             >
                 Excluir lista
             </button>
-
-            <button class="my-1" mat-button mat-dialog-close>
-                <span>Cancelar</span>
-            </button>
         </div>
+
+        <button class="my-1" mat-button mat-dialog-close>
+            <span>Cancelar</span>
+        </button>
     </div>
   </div>
 </div>
