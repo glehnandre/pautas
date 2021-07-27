@@ -25,7 +25,7 @@ export class AcoesComponent implements OnInit {
   @Output() Allselected = new EventEmitter();
   @Output() colecaoIdsDasTags = new EventEmitter<Array<{id: number}>>();
 
-  processos: Processo[];
+  processos: Processo[] = [];
  
   constructor(
     private _httpClient: HttpClient,
