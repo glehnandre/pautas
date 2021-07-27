@@ -1,0 +1,52 @@
+<div class="flex flex-col max-w-240 md:min-w-160 -m-6 mb-4">
+  <div class="flex flex-0 items-center justify-between h-16 pr-3 sm:pr-5 pl-6 sm:pl-8 bg-accent text-on-primary">
+    <div class="text-lg font-medium">
+      Reanalizar Processos
+    </div>
+    <button mat-icon-button mat-dialog-close [tabIndex]="-1">
+        <mat-icon class="text-current" [svgIcon]="'heroicons_outline:x'"></mat-icon>
+    </button>
+  </div>
+</div>
+
+<div mat-dialog-content>
+  <div class="whitespace-pre-line mb-2">
+    <h4 class="font-medium mb-0">Processos selecionados:</h4>
+    {{descricoes}}
+  </div>
+
+  <form [formGroup]="reanalizeForm">
+    <p>
+      <mat-form-field class="w-full mb-2" appearance="fill">
+        <mat-label>Descrição:<span class="text-red-500">*</span></mat-label>
+        <textarea 
+          matInput 
+          class="sm" 
+          name="descricao" 
+          formControlName="descricao"
+        ></textarea>
+
+        <mat-hint class="pb-1">Informe o motivo para a reanálise deste processo</mat-hint>
+        <mat-error class="pb-1">Descrição é obrigatória</mat-error>
+      </mat-form-field>
+    </p>
+  </form>
+</div>
+
+<div class="flex flex-col sm:flex-row sm:items-center justify-between mt-4 sm:mt-6">
+  <div mat-dialog-actions class="flex items-center mt-4 sm:mt-0 ml-auto">
+    <button class="ml-auto mr-2 sm:ml-0" mat-button mat-dialog-close>
+      <span>Cancelar</span>
+    </button>
+
+    <button 
+      class="ml-auto"
+      color="primary"
+      mat-raised-button 
+      [disabled]="reanalizeForm.invalid"
+      (click)="reanalizar()"
+    >
+      Reanalizar
+    </button>
+  </div>
+</div>

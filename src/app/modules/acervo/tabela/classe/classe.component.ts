@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 
 @Component({
   selector: 'app-classe',
@@ -6,10 +6,11 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./classe.component.scss']
 })
 export class ClasseComponent implements OnInit {
-  classe: string;
-  constructor() { 
-    this.classe = "ARE 712345"
-  }
+
+  @Input() numero: number;
+  @Input() classe: string;
+
+  constructor() {}
 
   ngOnInit(): void {
   }

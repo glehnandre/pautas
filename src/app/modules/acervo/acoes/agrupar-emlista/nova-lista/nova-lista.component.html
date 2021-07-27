@@ -1,5 +1,5 @@
 <div class="flex flex-col max-w-240 md:min-w-160 -m-6 mb-4">
-  <div class="flex flex-0 items-center justify-between h-16 pr-3 sm:pr-5 pl-6 sm:pl-8 bg-accent text-on-primary">
+  <div class="flex flex-0 items-center justify-between h-16 pr-3 sm:pr-5 pl-6 sm:pl-8 bg-primary text-on-primary">
     <div class="text-lg font-medium">
       Cadastrar lista
     </div>
@@ -14,10 +14,10 @@
     <p>
       <mat-form-field class="w-full mb-2" appearance="fill">
         <mat-label>Nome da lista:<span class="text-red-500">*</span></mat-label>
-        <input 
-          class="sm" 
-          matInput 
-          name="descricao" 
+        <input
+          class="sm"
+          matInput
+          name="descricao"
           formControlName="descricao"
           placeholder="Nome da lista"
         >
@@ -25,7 +25,7 @@
         <mat-error class="pb-1" *ngIf="listaFormGroup.controls.descricao.errors?.required">Nome da lista é obrigatório</mat-error>
       </mat-form-field>
     </p>
-  
+
     <p>
       <mat-radio-group
         class="flex flex-col my-4 mx-0"
@@ -44,12 +44,12 @@
       <span>Cancelar</span>
     </button>
 
-    <button 
+    <button
       class="ml-auto"
-      color="primary" 
+      color="primary"
       [disabled]="listaFormGroup.invalid"
       (click)="cadastrarNovaTag()"
-      mat-raised-button 
+      mat-raised-button
     >
       Cadastrar lista
     </button>

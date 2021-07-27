@@ -1,13 +1,14 @@
 import { Injectable } from '@angular/core';
 import { FuseMockApiUtils } from '@fuse/lib/mock-api';
 import { FuseMockApiService } from '@fuse/lib/mock-api/mock-api.service';
+import { Pauta } from 'app/modules/acervo/acoes/pautar/pautar.component';
 import { pautas as pautaData } from './data';
 
 @Injectable({
     providedIn: 'root'
 })
 export class PautaMockApi {
-    private _pauta: any[] = pautaData;
+    private _pauta: Pauta[] = pautaData;
 
     constructor(private _fuseMockApiService: FuseMockApiService) {
         this._pauta = pautaData;

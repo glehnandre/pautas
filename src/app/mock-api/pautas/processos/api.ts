@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { FuseMockApiService } from '@fuse/lib/mock-api/mock-api.service';
 import { Filtros } from 'app/modules/acervo/filtros/filtros';
-import { Processo } from 'app/modules/acervo/tabela/tabela.component';
+import { Processo, SituacaoDoProcesso } from 'app/modules/acervo/tabela/tabela.component';
 import { processo as processoData } from 'app/mock-api/pautas/processos/data';
 import { tags as tagData } from 'app/mock-api/pautas/tags/data';
 import { Tag } from 'app/modules/acervo/acoes/agrupar-emlista/agrupar-emlista.component';
@@ -88,9 +88,9 @@ export class ProcessoMockApi {
             .reply(({ request }) => {
                 const { params } = request;
                 const paginacao: Paginacao = {
-                    itensPorPagina: +params.get('itensPorPagina'),
-                    numeroDaPagina: +params.get('numeroDaPagina'),
-                    offset: +params.get('offset'),
+                    itensPorPagina: +params.get('itensPorPagina') || 5,
+                    numeroDaPagina: +params.get('numeroDaPagina') || 0,
+                    offset: +params.get('offset') || 0,
                 }
 
                 const processosPaginados = this._processo
@@ -122,6 +122,34 @@ export class ProcessoMockApi {
                 })
                 
                 return [200, processoRef];
+            });
+        
+        this._fuseMockApiService
+            .onDelete('processos/:id/pautar')
+            .reply(({urlParams}) => {
+              const id = +urlParams.id;
+              
+              this._processo.map(processo => {
+                  if (processo.id === id) {
+                      processo.situacao = SituacaoDoProcesso['Apto a Julgar'];
+                  }
+              });
+    
+              return [201, [this._processo]];
+            });
+
+        this._fuseMockApiService
+            .onPut('/processos/:id/reanalisar')
+            .reply(({urlParams}) => {
+              const id = +urlParams.id;
+              
+              this._processo.map(processo => {
+                  if (processo.id === id) {
+                      processo.situacao = SituacaoDoProcesso['Retirado de pauta'];
+                  }
+              });
+    
+              return [201, [this._processo]];
             });
     }
 
