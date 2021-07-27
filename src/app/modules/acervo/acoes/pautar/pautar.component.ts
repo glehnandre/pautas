@@ -3,6 +3,7 @@ import { Component, OnInit, Inject } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { FuseAlertService } from '@fuse/components/alert';
+import { indexOf } from 'lodash';
 import { Observable } from 'rxjs';
 import { Processo } from '../../tabela/tabela.component';
 import { SessaoExtraordinariaComponent } from './sessao-extraordinaria/sessao-extraordinaria.component';
@@ -126,5 +127,11 @@ export class PautarComponent implements OnInit {
                     }   
                 });
         }
+    }
+
+    removeChip(processo){
+        processo.checked = false;
+        this.data.processos.splice(this.data.processos.indexOf(processo), 1);
+        console.log(this.data.processos);
     }
 }
