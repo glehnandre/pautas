@@ -35,11 +35,11 @@ export class ReanalizarComponent implements OnInit {
       this._processoService.reanalizarProcesso(id, this.reanalizeForm.value)
         .subscribe({
           next: () => {
-
+            
           }
         });
     });
-    this._dialogRef.close();
+    this._dialogRef.close('ok');
   }
 
 }

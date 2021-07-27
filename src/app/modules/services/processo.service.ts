@@ -11,6 +11,7 @@ export class ProcessoService {
   
   // Informa se os processos precisam ser carregados novamente
   private isCarregarProcessos: Subject<boolean> = new Subject<boolean>();
+  private processosSelecionados: Subject<Processo[]> = new Subject<Processo[]>();
 
   constructor(
     private _httpClient: HttpClient,
@@ -37,6 +38,14 @@ export class ProcessoService {
 
   public isCarregarProcesso(): Subject<boolean> {
     return this.isCarregarProcessos;
+  }
+
+  public obterProcessosSelecionados(): Subject<Processo[]> {
+    return this.processosSelecionados;
+  }
+
+  public setProcessosSelecionados(processos: Processo[]): void {
+    this.processosSelecionados.next(processos);
   }
 
   public exibeDescricaoDosProcessos(processos: Processo[]): string {

@@ -25,7 +25,7 @@ export class AcoesComponent implements OnInit {
   @Output() Allselected = new EventEmitter();
   @Output() colecaoIdsDasTags = new EventEmitter<Array<{id: number}>>();
 
-  @Input() processos: Processo[];
+  processos: Processo[];
  
   constructor(
     private _httpClient: HttpClient,
@@ -43,6 +43,11 @@ export class AcoesComponent implements OnInit {
 
 
   ngOnInit(): void {
+    this._processoService.obterProcessosSelecionados().subscribe(processos => {
+      console.log(processos)
+      this.processos = processos;
+    });
+
     this.alerta = {
       titulo: 'Erro de validação',
       mensagem: 'Selecione um ou mais processos',
@@ -97,7 +102,7 @@ export class AcoesComponent implements OnInit {
     }
   }
 
-  verificaProcesso(): boolean{
+  verificaProcesso(): boolean {
     if(this.processos.length == 0) {
       return false;
     }
@@ -171,8 +176,10 @@ export class AcoesComponent implements OnInit {
         data: this.processos,
       });
   
-      dialogRef.afterClosed().subscribe(() => {
-        this._processoService.setCarregarProcessos(true);
+      dialogRef.afterClosed().subscribe((resultado) => {
+        if (resultado === 'ok') {
+          this._processoService.setCarregarProcessos(true);
+        }
       });
     }
   }

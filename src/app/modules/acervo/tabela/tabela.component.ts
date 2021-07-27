@@ -61,8 +61,6 @@ export class TabelaComponent implements OnInit {
     }
   }
 
-  @Output() colecaoDeProcessos = new EventEmitter<Processo[]>();
-
   processosSelecionados: Processo[] = [];
   processos: Processo[];
   
@@ -82,8 +80,8 @@ export class TabelaComponent implements OnInit {
     let change: SimpleChange = changes['Allselected']; 
     this.SelectAll = changes['Allselected'].currentValue?.checked;
     if (this.SelectAll) {
-      this.colecaoDeProcessos.emit(this.processos);
-      this.processosSelecionados = this.processos;
+      this._processoService.setProcessosSelecionados(this.processos);
+      this.processosSelecionados = [...this.processos];
     } else {
       this.processosSelecionados = [];
     }
@@ -109,7 +107,7 @@ export class TabelaComponent implements OnInit {
       this.processosSelecionados.splice(index, 1);
     }
     
-    this.colecaoDeProcessos.emit(this.processosSelecionados);
+    this._processoService.setProcessosSelecionados(this.processosSelecionados);
   }
 
   dadosDaPaginacao(dados: Paginacao): void {

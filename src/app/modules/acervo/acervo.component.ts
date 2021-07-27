@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Component, OnInit, Output } from '@angular/core';
 import { EMPTY, Observable } from 'rxjs';
 import { catchError } from 'rxjs/operators';
+import { ProcessoService } from '../services/processo.service';
 import { Processo } from './tabela/tabela.component';
 
 interface ProcessosTags {
@@ -27,9 +28,13 @@ export class AcervoComponent implements OnInit {
 
   constructor(
     private _httpClient: HttpClient,
+    private _processoService: ProcessoService,
   ) {}
 
   ngOnInit(): void {
+    this._processoService.obterProcessosSelecionados().subscribe(processos => {
+      this.obterProcessosSelecionados(processos);
+    });
   }
 
   reciverFeedback(CheckboxStatus) {
