@@ -7,17 +7,17 @@
         <mat-icon class="text-current" [svgIcon]="'heroicons_outline:x'"></mat-icon>
     </button>
   </div>
-  
+
   <div class="flex flex-col flex-auto p-6 sm:p-8 overflow-y-auto ng-pristine ng-invalid ng-touched">
     <div class="overflow-y-auto max-h-36 mb-4">
       <label id="example-radio-group-label">Escolha a lista:</label>
       <mat-form-field appearance="fill" class="w-full">
-        <mat-select 
+        <mat-select
           [(value)]="tagEscolhida"
-          (selectionChange)="buscarProcessosDaLista();"  
+          (selectionChange)="buscarProcessosDaLista();"
         >
-          <mat-option 
-            *ngFor="let tag of tags" 
+          <mat-option
+            *ngFor="let tag of tags"
             [value]="tag"
             color="primary"
           >{{tag.descricao}}</mat-option>
@@ -35,7 +35,7 @@
             <mat-error class="pb-1" *ngIf="tagForm.controls.descricao.errors?.required">Nome da lista é obrigatório</mat-error>
           </mat-form-field>
         </p>
-      
+
         <div>
           <mat-radio-group
             class="flex flex-col my-4 mx-0"
@@ -47,7 +47,7 @@
         </div>
         </div>
     </form>
-      
+
     <form [formGroup]="processoForm">
       <mat-form-field class="example-chip-list">
         <mat-label>Adicionar processos:</mat-label>
@@ -72,8 +72,8 @@
           >
         </mat-chip-list>
         <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selected($event)">
-          <mat-option 
-            *ngFor="let processo of processosFiltrados | async" 
+          <mat-option
+            *ngFor="let processo of processosFiltrados | async"
             [value]="processo"
           >
             {{processo.classe + ' ' + processo.numero}}
@@ -83,31 +83,32 @@
       </mat-form-field>
     </form>
 
-    <div class="flex flex-col sm:flex-row sm:items-center justify-between mt-4 sm:mt-6">
-      <button 
-        color="warn" 
-        mat-raised-button 
-        (click)="excluirLista()"
-      >
-        Excluir lista
-      </button>
-      
-      <div mat-dialog-actions class="flex items-center mt-4 sm:mt-0 ml-auto">
-        <button class="ml-auto mr-2 sm:ml-0" mat-button mat-dialog-close>
-          <span>Cancelar</span>
-        </button>
-  
-        <button 
-          class="ml-auto"
-          color="primary" 
-          [disabled]="tagForm.invalid || processoForm.invalid"
-          mat-raised-button 
-          mat-dialog-close
-          (click)="atualizar()"
+    <div class="flex flex-col md:flex-row lg:flex-row md:justify-between">
+        <button
+            class="my-1"
+            color="primary"
+            [disabled]="tagForm.invalid || processoForm.invalid"
+            mat-raised-button
+            mat-dialog-close
+            (click)="atualizar()"
         >
-          Atualizar lista
+            Atualizar lista
         </button>
-      </div>
+
+        <div class="flex flex-col md:flex-row lg:flex-row">
+            <button
+                class="my-1"
+                color="warn"
+                mat-raised-button
+                (click)="excluirLista()"
+            >
+                Excluir lista
+            </button>
+
+            <button class="my-1" mat-button mat-dialog-close>
+                <span>Cancelar</span>
+            </button>
+        </div>
     </div>
   </div>
 </div>
