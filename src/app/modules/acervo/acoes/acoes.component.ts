@@ -2,10 +2,12 @@ import { HttpClient } from '@angular/common/http';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { FuseAlertService } from '@fuse/components/alert';
-import { Processo } from '../tabela/tabela.component';
+import { ProcessoService } from 'app/modules/services/processo.service';
+import { Processo, SituacaoDoProcesso } from '../tabela/tabela.component';
 import { AgruparEmlistaComponent } from './agrupar-emlista/agrupar-emlista.component';
 import { AlertaComponent } from './agrupar-emlista/gerenciar-listas/alerta/alerta.component';
 import { PautarComponent } from './pautar/pautar.component';
+import { ReanalizarComponent } from './reanalizar/reanalizar.component';
 
 @Component({
   selector: 'app-acoes',
@@ -14,16 +16,22 @@ import { PautarComponent } from './pautar/pautar.component';
 })
 export class AcoesComponent implements OnInit {
 
+  public alerta: {
+    titulo: string,
+    mensagem: string,
+  }
+
   mobile: boolean;
   @Output() Allselected = new EventEmitter();
   @Output() colecaoIdsDasTags = new EventEmitter<Array<{id: number}>>();
 
-  @Input() processos: Processo[];
+  processos: Processo[];
  
   constructor(
     private _httpClient: HttpClient,
     private _matDialog: MatDialog, 
     private _fuseAlertService: FuseAlertService,
+    private _processoService: ProcessoService,
   ) {
     if (document.body.clientWidth <= 800) {
       this.mobile = true
@@ -35,6 +43,15 @@ export class AcoesComponent implements OnInit {
 
 
   ngOnInit(): void {
+    this._processoService.obterProcessosSelecionados().subscribe(processos => {
+      console.log(processos)
+      this.processos = processos;
+    });
+
+    this.alerta = {
+      titulo: 'Erro de validação',
+      mensagem: 'Selecione um ou mais processos',
+    }
   }
 
   selectAll(completed) {
@@ -85,7 +102,7 @@ export class AcoesComponent implements OnInit {
     }
   }
 
-  verificaProcesso(): boolean{
+  verificaProcesso(): boolean {
     if(this.processos.length == 0) {
       return false;
     }
@@ -100,40 +117,71 @@ export class AcoesComponent implements OnInit {
   }
 
   retirarDePauta(): void {
-    console.log(this.processos);
-    const dialogRef = this._matDialog.open(AlertaComponent, {
-      data: {
-        titulo: 'Retirar processo',
-        mensagem: `Você tem certeza que deseja retirar esse(s) processo(s) de pauta? 
-                  ${this.exibeDescricaoDosProcessos()}
-                  `,
-      }
-    });
+    if (!this.verificaProcesso()) {
+      this.mostrarAlerta();
+    } else if (this.processos.some(p => p.situacao !== SituacaoDoProcesso.Pautado)) {
+      this.alertaDeErro('Erro nos processos selecionados', 'Selecione apenas os processos com a situação: Pautado.');
+    } else {
+      const dialogRef = this._matDialog.open(AlertaComponent, {
+        data: {
+          titulo: 'Retirar processo',
+          mensagem: `Você tem certeza que deseja retirar esse(s) processo(s) de pauta?\n
+                    ${this._processoService.exibeDescricaoDosProcessos(this.processos)}
+                    `,
+        }
+      });
 
-    dialogRef.afterClosed().subscribe(resultado => {
-      if (resultado === 'ok') {
-        // DELETE
-        this.processos.forEach(({id}) => {
-          this._httpClient.delete(`processos/${id}/pautar`).subscribe({
-            next: () => {
-              console.log('excluido');
-            }
+      dialogRef.afterClosed().subscribe(resultado => {
+        if (resultado === 'ok') {
+          // DELETE
+          this.processos.forEach(({id}) => {
+            this._httpClient.delete(`processos/${id}/pautar`).subscribe({
+              next: () => {
+                this._processoService.setCarregarProcessos(true);
+
+                this._fuseAlertService.show('sucesso');
+                setTimeout(() => {
+                  this._fuseAlertService.dismiss('sucesso');
+                }, 5000);
+              }
+            });
           });
-        });
-      } else {
-        dialogRef.close();
-      }
-    });
+        } else {
+          dialogRef.close();
+        }
+      });
+    }
   }
 
-  exibeDescricaoDosProcessos(): string {
-    let descricoes = ``;
+  alertaDeErro(titulo: string, mensagem: string): void {
+    this.alerta = {
+      titulo,
+      mensagem,
+    };
 
-    this.processos.forEach(processo => {
-      descricoes += `\n${processo.classe} ${processo.numero} - ${processo.descricao}\n`;
-    });
+    this._fuseAlertService.show('alertBox');
 
-    return descricoes;
+    setTimeout(() => {
+      this._fuseAlertService.dismiss('alertBox');
+    }, 5000);
+  }
+
+  abrirModalDeReanalizar(): void {
+    if (!this.verificaProcesso()) {
+      this.mostrarAlerta();
+    } else if (this.processos.some(p => p.situacao !== SituacaoDoProcesso['Apto a Julgar'])) {
+      this.alertaDeErro('Erro nos processos selecionados', 'Selecione apenas os processos com a situação: Apto a ser Julgado.');
+    } else {
+      const dialogRef = this._matDialog.open(ReanalizarComponent, {
+        data: this.processos,
+      });
+  
+      dialogRef.afterClosed().subscribe((resultado) => {
+        if (resultado === 'ok') {
+          this._processoService.setCarregarProcessos(true);
+        }
+      });
+    }
   }
 
 }

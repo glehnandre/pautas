@@ -26,6 +26,7 @@ import { GerenciarListasComponent } from './agrupar-emlista/gerenciar-listas/ger
 import { PautarComponent } from './pautar/pautar.component';
 import { SessaoExtraordinariaComponent } from './pautar/sessao-extraordinaria/sessao-extraordinaria.component';
 import { AlertaComponent } from './agrupar-emlista/gerenciar-listas/alerta/alerta.component';
+import { ReanalizarComponent } from './reanalizar/reanalizar.component';
 
 const routes = [
   {
@@ -44,6 +45,7 @@ const routes = [
     SessaoExtraordinariaComponent,
     AlertaComponent,
     SessoesPipe,
+    ReanalizarComponent,
   ],
   imports: [
     CommonModule,
