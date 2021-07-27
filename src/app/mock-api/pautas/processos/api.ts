@@ -137,6 +137,20 @@ export class ProcessoMockApi {
     
               return [201, [this._processo]];
             });
+
+        this._fuseMockApiService
+            .onPut('/processos/:id/reanalisar')
+            .reply(({urlParams}) => {
+              const id = +urlParams.id;
+              
+              this._processo.map(processo => {
+                  if (processo.id === id) {
+                      processo.situacao = SituacaoDoProcesso['Retirado de pauta'];
+                  }
+              });
+    
+              return [201, [this._processo]];
+            });
     }
 
     private _obterTagsPelosIds(tags: Tag[]): Tag[] {

@@ -9,8 +9,8 @@ import { Processo } from '../acervo/tabela/tabela.component';
 })
 export class ProcessoService {
   
-  // Informa se os processos foram retirados da pauta (true) ao não (false)
-  private isProcessosRemovidos: Subject<boolean> = new Subject<boolean>();
+  // Informa se os processos precisam ser carregados novamente
+  private isCarregarProcessos: Subject<boolean> = new Subject<boolean>();
 
   constructor(
     private _httpClient: HttpClient,
@@ -27,12 +27,26 @@ export class ProcessoService {
     );
   }
 
-  public setProcessosRemovidosDaPauta(isRemovido: boolean): void {
-    this.isProcessosRemovidos.next(isRemovido);
+  public reanalizarProcesso(id: number, body: {descricao: string}): Observable<void> {
+    return this._httpClient.put<void>(`/processos/${id}/reanalisar`, body);
   }
 
-  public isProcessosRemovidosDaPauta(): Subject<boolean> {
-    return this.isProcessosRemovidos;
+  public setCarregarProcessos(carregarProcessos: boolean): void {
+    this.isCarregarProcessos.next(carregarProcessos);
+  }
+
+  public isCarregarProcesso(): Subject<boolean> {
+    return this.isCarregarProcessos;
+  }
+
+  public exibeDescricaoDosProcessos(processos: Processo[]): string {
+    let descricoes = ``;
+
+    processos.forEach(processo => {
+      descricoes += `${processo.classe} ${processo.numero} ${processo.nome}\n`;
+    });
+
+    return descricoes;
   }
 
 }

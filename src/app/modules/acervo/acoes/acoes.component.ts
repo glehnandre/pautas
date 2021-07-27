@@ -7,6 +7,7 @@ import { Processo, SituacaoDoProcesso } from '../tabela/tabela.component';
 import { AgruparEmlistaComponent } from './agrupar-emlista/agrupar-emlista.component';
 import { AlertaComponent } from './agrupar-emlista/gerenciar-listas/alerta/alerta.component';
 import { PautarComponent } from './pautar/pautar.component';
+import { ReanalizarComponent } from './reanalizar/reanalizar.component';
 
 @Component({
   selector: 'app-acoes',
@@ -119,8 +120,8 @@ export class AcoesComponent implements OnInit {
       const dialogRef = this._matDialog.open(AlertaComponent, {
         data: {
           titulo: 'Retirar processo',
-          mensagem: `Você tem certeza que deseja retirar esse(s) processo(s) de pauta? 
-                    ${this.exibeDescricaoDosProcessos()}
+          mensagem: `Você tem certeza que deseja retirar esse(s) processo(s) de pauta?\n
+                    ${this._processoService.exibeDescricaoDosProcessos(this.processos)}
                     `,
         }
       });
@@ -131,7 +132,7 @@ export class AcoesComponent implements OnInit {
           this.processos.forEach(({id}) => {
             this._httpClient.delete(`processos/${id}/pautar`).subscribe({
               next: () => {
-                this._processoService.setProcessosRemovidosDaPauta(true);
+                this._processoService.setCarregarProcessos(true);
 
                 this._fuseAlertService.show('sucesso');
                 setTimeout(() => {
@@ -147,16 +148,6 @@ export class AcoesComponent implements OnInit {
     }
   }
 
-  exibeDescricaoDosProcessos(): string {
-    let descricoes = `\n`;
-
-    this.processos.forEach(processo => {
-      descricoes += `${processo.classe} ${processo.numero} ${processo.nome}\n`;
-    });
-
-    return descricoes;
-  }
-
   alertaDeErro(titulo: string, mensagem: string): void {
     this.alerta = {
       titulo,
@@ -168,6 +159,22 @@ export class AcoesComponent implements OnInit {
     setTimeout(() => {
       this._fuseAlertService.dismiss('alertBox');
     }, 5000);
+  }
+
+  abrirModalDeReanalizar(): void {
+    if (!this.verificaProcesso()) {
+      this.mostrarAlerta();
+    } else if (this.processos.some(p => p.situacao !== SituacaoDoProcesso['Apto a Julgar'])) {
+      this.alertaDeErro('Erro nos processos selecionados', 'Selecione apenas os processos com a situação: Apto a ser Julgado.');
+    } else {
+      const dialogRef = this._matDialog.open(ReanalizarComponent, {
+        data: this.processos,
+      });
+  
+      dialogRef.afterClosed().subscribe(() => {
+        this._processoService.setCarregarProcessos(true);
+      });
+    }
   }
 
 }

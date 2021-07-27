@@ -71,7 +71,7 @@ export class TabelaComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this._processoService.isProcessosRemovidosDaPauta().subscribe(() => {
+    this._processoService.isCarregarProcesso().subscribe(() => {
       this.processos = [];
       this._buscarProcessos();
     });
