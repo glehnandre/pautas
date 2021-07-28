@@ -21,7 +21,7 @@ export class ReanalizarComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA) private _processos: Processo[],
   ) {
     this.reanalizeForm = this._fb.group({
-      descricao: ['', [Validators.required]],
+      descricao: [''],
     });
   }
 
@@ -35,7 +35,7 @@ export class ReanalizarComponent implements OnInit {
       this._processoService.reanalizarProcesso(id, this.reanalizeForm.value)
         .subscribe({
           next: () => {
-            
+
           }
         });
     });
