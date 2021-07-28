@@ -1,6 +1,7 @@
+import { Pauta } from "app/modules/acervo/acoes/pautar/pautar.component";
 import { processo } from "../processos/data";
 
-export const pautas: any[] = [
+export const pautas: Pauta[] = [
   {
     data_inicio: '06/25/2021',
     data_fim: '06/26/2021',
