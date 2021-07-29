@@ -3,7 +3,6 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { FuseAlertService } from '@fuse/components/alert';
-import { Observable } from 'rxjs';
 import { Processo } from '../../tabela/tabela.component';
 import { SessaoExtraordinariaComponent } from './sessao-extraordinaria/sessao-extraordinaria.component';
 import { SessaoJulgamento } from './sessaoJulgamento';

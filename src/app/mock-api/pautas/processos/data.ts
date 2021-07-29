@@ -1,4 +1,4 @@
-import { Processo, SituacaoDoProcesso, TipoDoProcesso} from "app/modules/acervo/tabela/tabela.component";
+import { Processo, TipoDoProcesso} from "app/modules/acervo/tabela/tabela.component";
 import { tags as tagData } from 'app/mock-api/pautas/tags/data';
 
 export const processo: Processo[] = [

@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { FuseMockApiService } from '@fuse/lib/mock-api/mock-api.service';
 import { Filtros } from 'app/modules/acervo/filtros/filtros';
-import { Processo, SituacaoDoProcesso } from 'app/modules/acervo/tabela/tabela.component';
+import { Processo } from 'app/modules/acervo/tabela/tabela.component';
 import { processo as processoData } from 'app/mock-api/pautas/processos/data';
 import { tags as tagData } from 'app/mock-api/pautas/tags/data';
 import { Tag } from 'app/modules/acervo/acoes/agrupar-emlista/agrupar-emlista.component';
@@ -131,7 +131,7 @@ export class ProcessoMockApi {
               
               this._processo.map(processo => {
                   if (processo.id === id) {
-                      processo.situacao = SituacaoDoProcesso['Apto a Julgar'];
+                      processo.situacao = 1;
                   }
               });
     
@@ -145,7 +145,7 @@ export class ProcessoMockApi {
               
               this._processo.map(processo => {
                   if (processo.id === id) {
-                      processo.situacao = SituacaoDoProcesso['Retirado de pauta'];
+                      processo.situacao = 6;
                   }
               });
     

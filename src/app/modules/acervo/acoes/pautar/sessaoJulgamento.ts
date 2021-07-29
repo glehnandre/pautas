@@ -1,5 +1,3 @@
-import { SituacaoDoProcesso } from "../../tabela/tabela.component";
-
 export interface SessaoJulgamento{
     id: number;
     numero: number;
@@ -20,13 +18,17 @@ export enum Colegiado{
 }
 
 export enum TipoSessao{ 
-    'Ordinária', 'Extraordinária'
+    'Ordinária', 
+    'Extraordinária'
 }
 
 export enum CategoriaSessao{
-    'Repercussão Geral', 'Judicial', 'Administrativa'
+    'Repercussão Geral', 
+    'Judicial', 
+    'Administrativa'
 }
 
 export enum ModalidadeSessao{
-    'Virtual', 'Em tempo real'
+    'Virtual', 
+    'Em tempo real'
 }

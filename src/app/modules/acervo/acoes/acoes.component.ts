@@ -3,7 +3,7 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { FuseAlertService } from '@fuse/components/alert';
 import { ProcessoService } from 'app/modules/services/processo.service';
-import { Processo, SituacaoDoProcesso } from '../tabela/tabela.component';
+import { Processo } from '../tabela/tabela.component';
 import { AgruparEmlistaComponent } from './agrupar-emlista/agrupar-emlista.component';
 import { AlertaComponent } from './agrupar-emlista/gerenciar-listas/alerta/alerta.component';
 import { PautarComponent } from './pautar/pautar.component';
@@ -118,7 +118,7 @@ export class AcoesComponent implements OnInit {
   retirarDePauta(): void {
     if (!this.verificaProcesso()) {
       this.mostrarAlerta();
-    } else if (this.processos.some(p => p.situacao !== SituacaoDoProcesso.Pautado)) {
+    } else if (this.processos.some(p => p.situacao !== 4)) {
       this.alertaDeErro('Erro nos processos selecionados', 'Selecione apenas os processos com a situação: Pautado.');
     } else {
       const dialogRef = this._matDialog.open(AlertaComponent, {
@@ -168,7 +168,7 @@ export class AcoesComponent implements OnInit {
   abrirModalDeReanalizar(): void {
     if (!this.verificaProcesso()) {
       this.mostrarAlerta();
-    } else if (this.processos.some(p => p.situacao !== SituacaoDoProcesso['Apto a Julgar'])) {
+    } else if (this.processos.some(p => p.situacao !== 1)) {
       this.alertaDeErro('Erro nos processos selecionados', 'Selecione apenas os processos com a situação: Apto a ser Julgado.');
     } else {
       const dialogRef = this._matDialog.open(ReanalizarComponent, {

@@ -4,7 +4,7 @@ import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
 import { MatChipInputEvent } from '@angular/material/chips';
-import { Processo, SituacaoDoProcesso } from 'app/modules/acervo/tabela/tabela.component';
+import { Processo } from 'app/modules/acervo/tabela/tabela.component';
 import { EMPTY, Observable } from 'rxjs';
 import { startWith, map, catchError } from 'rxjs/operators';
 
@@ -121,7 +121,7 @@ export class SessaoExtraordinariaComponent implements OnInit {
 
   private _obterProcessos(): Observable<Processo[]> {
     let params = new HttpParams();
-    params = params.set('situacao-processo', SituacaoDoProcesso['Apto a Julgar']);
+    params = params.set('situacao-processo', 1);
 
     return this._httpClient.get<Processo[]>('processos', { params }).pipe(
       catchError(error => {
