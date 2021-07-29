@@ -8,7 +8,7 @@ import { Processo } from '../acervo/tabela/tabela.component';
   providedIn: 'root'
 })
 export class ProcessoService {
-  
+
   // Informa se os processos precisam ser carregados novamente
   private isCarregarProcessos: Subject<boolean> = new Subject<boolean>();
   private processosSelecionados: Subject<Processo[]> = new Subject<Processo[]>();
@@ -28,8 +28,8 @@ export class ProcessoService {
     );
   }
 
-  public reanalizarProcesso(id: number, body: {descricao: string}): Observable<void> {
-    return this._httpClient.put<void>(`/processos/${id}/reanalisar`, body);
+  public reanalizarProcesso(id: number, body: {descricao: string, data: string}): Observable<void> {
+    return this._httpClient.post<void>(`/processos/${id}/reanalisar`, body);
   }
 
   public setCarregarProcessos(carregarProcessos: boolean): void {

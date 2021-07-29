@@ -32,7 +32,7 @@ export class ReanalizarComponent implements OnInit {
 
   public reanalizar(): void {
     this._processos.forEach(({id}) => {
-      this._processoService.reanalizarProcesso(id, this.reanalizeForm.value)
+      this._processoService.reanalizarProcesso(id, {...this.reanalizeForm.value, data: new Date().toISOString()})
         .subscribe({
           next: () => {
 

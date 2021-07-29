@@ -20,15 +20,15 @@ export class ProcessoMockApi {
         this._tag = tagData;
         this.registerHandlers();
     }
-    
+
     registerHandlers(): void {
         this._fuseMockApiService
             .onPut('processos/:id/tag')
             .reply(({request, urlParams}) => {
                 const id = Number(urlParams.id);
-                const { idsTags } = request.body; 
+                const { idsTags } = request.body;
                 const processosAtualizados = [];
-                
+
                 this._processo.map(processo => {
                     if (processo.id === id) {
                         processo.lista = this._obterTagsPelosIds(idsTags);
@@ -52,7 +52,7 @@ export class ProcessoMockApi {
                         }
                     });
                 });
-                
+
                 return [200, processos];
             });
 
@@ -82,7 +82,7 @@ export class ProcessoMockApi {
                     return [200, this._processo];
                 }
             });
-        
+
         this._fuseMockApiService
             .onGet('processos/paginacao')
             .reply(({ request }) => {
@@ -120,35 +120,35 @@ export class ProcessoMockApi {
                         processo = processoRef;
                     }
                 })
-                
+
                 return [200, processoRef];
             });
-        
+
         this._fuseMockApiService
             .onDelete('processos/:id/pautar')
             .reply(({urlParams}) => {
               const id = +urlParams.id;
-              
+
               this._processo.map(processo => {
                   if (processo.id === id) {
                       processo.situacao = SituacaoDoProcesso['Apto a Julgar'];
                   }
               });
-    
+
               return [201, [this._processo]];
             });
 
         this._fuseMockApiService
-            .onPut('/processos/:id/reanalisar')
+            .onPost('/processos/:id/reanalisar')
             .reply(({urlParams}) => {
               const id = +urlParams.id;
-              
+
               this._processo.map(processo => {
                   if (processo.id === id) {
                       processo.situacao = SituacaoDoProcesso['Retirado de pauta'];
                   }
               });
-    
+
               return [201, [this._processo]];
             });
     }
