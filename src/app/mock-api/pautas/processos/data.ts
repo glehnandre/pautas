@@ -13,7 +13,7 @@ export const processo: Processo[] = [
     numero:     100,
     cadeira:    1,
     descricao:  'Sessão de julgamento extraordinária para tratar da divisão de terras.',
-    situacao:   SituacaoDoProcesso["Apto a Julgar"],
+    situacao:   1,
     tipo:       TipoDoProcesso.Incidente,
     capitulos:  [
       {
@@ -53,7 +53,7 @@ export const processo: Processo[] = [
     numero:     200,
     cadeira:    1,
     descricao:  'Sessão de julgamento extraordinária para tratar da divisão de terras.',
-    situacao:   SituacaoDoProcesso.Pautado,
+    situacao:   2,
     tipo:       TipoDoProcesso.Incidente,
     capitulos:  [
       {
@@ -93,7 +93,7 @@ export const processo: Processo[] = [
     numero:     300,
     cadeira:    1,
     descricao:  'Sessão de julgamento extraordinária para tratar da divisão de terras.',
-    situacao:   SituacaoDoProcesso.Pautado,
+    situacao:   3,
     tipo:       TipoDoProcesso.Merito,
     capitulos:  [
       {
@@ -133,7 +133,7 @@ export const processo: Processo[] = [
     numero:     300,
     cadeira:    1,
     descricao:  'Sessão de julgamento extraordinária para tratar da divisão de terras.',
-    situacao:   SituacaoDoProcesso["Em julgamento"],
+    situacao:   4,
     tipo:       TipoDoProcesso.Merito,
     capitulos:  [
       {
@@ -175,7 +175,7 @@ export const processo: Processo[] = [
     numero:     300,
     cadeira:    1,
     descricao:  'Sessão de julgamento extraordinária para tratar da divisão de terras.',
-    situacao:   SituacaoDoProcesso["Apto a Julgar"],
+    situacao:   5,
     tipo:       TipoDoProcesso.Merito,
     capitulos:  [
       {

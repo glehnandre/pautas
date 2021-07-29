@@ -1,9 +1,11 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { ProcessoService } from 'app/modules/services/processo.service';
+import { StatusProcesso } from './situacaoProcesso';
 
 interface Status {
   id: number;
   color: string;
-  text: string;
+  status?: StatusProcesso;
 }
 
 @Component({
@@ -14,26 +16,37 @@ interface Status {
 export class StatusComponent implements OnInit {
   @Input() display: boolean;
   @Input() mobile: boolean;
-  @Input() idSituacao: number;
+  @Input() idProcesso: number;
 
   status: Status[] = [
-    { id: 1, color: "#3C8D40", text: "APTO A PAUTAR" },
-    { id: 2, color: "#FDC02F", text: "EM JULGAMENTO" },
-    { id: 3, color: "#BF221o", text: "VISTO MDT" },
-    { id: 4, color: "#1170A6", text: "PAUTADO" },
-    { id: 6, color: "#3434AC", text: "RETIRADO DE PAUTA" },
+    { id: 1, color: "#3C8D40",  },
+    { id: 2, color: "#FDC02F",  },
+    { id: 3, color: "#BF221o",  },
+    { id: 4, color: "#872FA6",  },
+    { id: 5, color: "#1170A6",  },
+    { id: 6, color: "#3434AC",  },
+    { id: 7, color: "#A3F4F6",  },
   ]
 
-  situacao: Status;
+  situacaoProcesso: Status;
 
-  constructor() {}
+  constructor(
+    private _processoService: ProcessoService,
+  ) {}
 
   ngOnInit(): void {
-    this.situacao = this.status
-      .find(status => status.id === this.idSituacao);
+    this._processoService.obterStatusDoProcesso(this.idProcesso).subscribe({
+      next: (status) => {
+        this.situacaoProcesso = {
+          id: status.situacao.id,
+          color: this.status.find(it => it.id === status.situacao.id).color,
+          status,
+        }
+      },
+    });
   }
 
-  print(){
+  print() {
     console.log(this.display)
   }
 }

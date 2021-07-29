@@ -44,7 +44,6 @@ export class AcoesComponent implements OnInit {
 
   ngOnInit(): void {
     this._processoService.obterProcessosSelecionados().subscribe(processos => {
-      console.log(processos)
       this.processos = processos;
     });
 

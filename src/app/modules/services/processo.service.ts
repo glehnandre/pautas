@@ -2,6 +2,7 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable, SimpleChange, SimpleChanges } from '@angular/core';
 import { Observable, EMPTY, Subject } from 'rxjs';
 import { catchError } from 'rxjs/operators';
+import { StatusProcesso } from '../acervo/tabela/status/situacaoProcesso';
 import { Processo } from '../acervo/tabela/tabela.component';
 
 @Injectable({
@@ -30,6 +31,16 @@ export class ProcessoService {
 
   public reanalizarProcesso(id: number, body: {descricao: string}): Observable<void> {
     return this._httpClient.put<void>(`/processos/${id}/reanalisar`, body);
+  }
+
+  public obterStatusDoProcesso(id: number): Observable<StatusProcesso> {
+    return this._httpClient.get<StatusProcesso>(`processos/${id}/situacao`)
+      .pipe(
+        catchError(error => {
+          console.log(error);
+          return EMPTY;
+        })
+      );
   }
 
   public setCarregarProcessos(carregarProcessos: boolean): void {
