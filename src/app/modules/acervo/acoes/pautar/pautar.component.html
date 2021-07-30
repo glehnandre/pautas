@@ -13,22 +13,22 @@
         class="flex flex-col flex-auto p-6 sm:p-8 overflow-y-auto"  
         [formGroup]="pautarForm" 
     >
-        <!-- <mat-chip-list #chipList class="content-center" aria-orientation="vertical">
-                <mat-chip [removable]="true">
-                    {{ this.idsProcessos }}
+        <div class="flex flex-row flex-wrap">
+            <mat-chip-list #chipList *ngFor="let processo of data.processos" class="m-1">
+                <mat-chip [removable]="true" class="flex-none" (removed)="removeChip(processo)">
+                    {{processo.classe}} {{processo.numero}} {{processo.nome}}
                     <mat-icon matChipRemove>cancel</mat-icon>
                 </mat-chip>
-            </mat-chip-list> -->
-
-        <div class="flex flex-auto flex-row space-x-4">
-            <mat-form-field class="w-full" appearance="fill">
-                <mat-label>Colegiado:</mat-label>
-                <mat-select name="colegiado" formControlName="colegiado">
-                    <mat-option *ngFor="let colegiado of colegiados" [value]="colegiado.viewValue" >
-                        {{colegiado.viewValue}}
-                    </mat-option>
-                </mat-select>
-            </mat-form-field>
+            </mat-chip-list>
+        </div>
+        <div>
+            <mat-radio-group
+              class="flex flex-col my-4"
+              formControlName="colegiado"
+              [(ngModel)]="colegiadoEscolhido"
+            >
+              <mat-radio-button class="mb-1" *ngFor="let colegiado of colegiados" [value]="colegiado.viewValue">{{colegiado.viewValue}}</mat-radio-button>
+            </mat-radio-group>
         </div>
 
         <div class="flex flex-auto flex-row space-x-4">
@@ -61,26 +61,26 @@
             </mat-form-field>
         </div>
 
-        <div class="flex flex-col sm:flex-row sm:items-center justify-between mt-4 sm:mt-6">
-            <div class="flex items-center mt-4 sm:mt-0">
+        <div class="justify-between mt-4 md:mt-6">
+            <div class="container flex flex-col md:flex-row justify-center gap-4 md:gap-0 mt-4 md:mt-0">
                 <!-- Discard -->
-                <button class="ml-auto sm:ml-0" mat-button (click)="sessaoExtraordinaria()">
+                <button class="flex-1 md:ml-0" mat-button (click)="sessaoExtraordinaria()">
                     SOLICITAR SESSÃO EXTRAORDINÁRIA
-                </button>
-                <!-- Save as draft -->
-                <button class="ml-auto sm:ml-0" mat-button mat-dialog-close (click)="fechar()">
-                    <span>CANCELAR</span>
                 </button>
                 <!-- Send -->
                 <button 
                     [disabled]="pautarForm.invalid"
                     mat-flat-button 
                     mat-dialog-close
-                    class="order-first sm:order-last" 
+                    class="flex-1 order-first md:order-last" 
                     [color]="'primary'" 
                     (click)="pautar()"
                 >
                     LIBERAR PARA JULGAMENTO
+                </button>
+                <!-- Save as draft -->
+                <button class="justify-center md:ml-0" mat-button mat-dialog-close (click)="fechar()">
+                    <span>CANCELAR</span>
                 </button>
             </div>
         </div>

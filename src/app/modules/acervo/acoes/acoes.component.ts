@@ -25,7 +25,7 @@ export class AcoesComponent implements OnInit {
   @Output() Allselected = new EventEmitter();
   @Output() colecaoIdsDasTags = new EventEmitter<Array<{id: number}>>();
 
-  processos: Processo[];
+  processos: Processo[] = [];
  
   constructor(
     private _httpClient: HttpClient,
@@ -92,7 +92,7 @@ export class AcoesComponent implements OnInit {
     else{
       this.fecharAlerta();
       // Open the dialog
-      const dialogRef = this._matDialog.open(PautarComponent);
+      const dialogRef = this._matDialog.open(PautarComponent, {data: {processos:this.processos}});
 
       dialogRef.afterClosed()
         .subscribe((result) => {

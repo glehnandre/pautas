@@ -12,7 +12,7 @@ export class SessoesPipe implements PipeTransform {
 
             return sessoes.filter(sessao => {
                 //incluir aqui a logica para que não seja necessário que todos os filtros estejam preechidos para serem utilizados. Outra alternativa é cirar um pipe para cada tipo de atributo e concatená-los
-                    return sessao.colegiado === colegiado && sessao.data_inicio >= new Date(dataInicio) && sessao.data_fim <= new Date(dataFim);
+                    return sessao.colegiado === colegiado;
             }
             );
     }

@@ -1,8 +1,11 @@
 import { HttpClient } from '@angular/common/http';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Inject } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
-import { MatDialog, MatDialogRef } from '@angular/material/dialog';
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { FuseAlertService } from '@fuse/components/alert';
+import { ProcessoService } from 'app/modules/services/processo.service';
+import { indexOf } from 'lodash';
+import { Observable } from 'rxjs';
 import { Processo } from '../../tabela/tabela.component';
 import { SessaoExtraordinariaComponent } from './sessao-extraordinaria/sessao-extraordinaria.component';
 import { SessaoJulgamento } from './sessaoJulgamento';
@@ -22,10 +25,18 @@ export interface Pauta {
 
 //remover julgamento. O correto é sessao de julgamento. A interface que está separada do código sessaoJulgamento.ts
 export interface Julgamento {
-    sessao: number;
+    numero: number;
+    ano: number;
     colegiado: string;
+    tipo: string;
+    categoria: string;
+    modalidade: string;
     data_inicio: string;
     data_fim: string;
+    secretario: {
+        id: number;
+        nome: string;
+    };
 }
 
 @Component({
@@ -58,7 +69,10 @@ export class PautarComponent implements OnInit {
     ];
 
 
-    chosenItem = this.colegiados[0].value;
+    colegiadoEscolhido = this.colegiados[0].value;
+    myControl: FormControl = new FormControl();
+    options: string[] = ['1000', '2000', '3000'];
+    filteredOptions: Observable<string[]>;
 
     constructor(
         public matDialogRef: MatDialogRef<PautarComponent>,
@@ -66,6 +80,8 @@ export class PautarComponent implements OnInit {
         private _dialog: MatDialog,
         private _httpClient: HttpClient,
         private _fuseAlertService: FuseAlertService,
+        private _processoService: ProcessoService,
+        @Inject(MAT_DIALOG_DATA) public data: any,
     ) {
 
     }
@@ -73,7 +89,7 @@ export class PautarComponent implements OnInit {
     ngOnInit(): void {
         // Create the form
         this.pautarForm = this._formBuilder.group({
-            sessao: [null, [Validators.required]],
+            sessao: ['', [Validators.required]],
             colegiado: [''],
             data_inicio: [''],
             data_fim: [''],
@@ -113,5 +129,12 @@ export class PautarComponent implements OnInit {
                     }   
                 });
         }
+    }
+
+    removeChip(processo: Processo): void {
+        processo.checked = false;
+        this.data.processos.splice(this.data.processos.indexOf(processo), 1);
+        this._processoService.setProcessosSelecionados(this.data.processos);
+        //console.log(this.data.processos);
     }
 }

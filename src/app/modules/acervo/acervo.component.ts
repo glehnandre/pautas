@@ -31,6 +31,7 @@ export class AcervoComponent implements OnInit {
     private _processoService: ProcessoService,
   ) {}
 
+
   ngOnInit(): void {
     this._processoService.obterProcessosSelecionados().subscribe(processos => {
       this.obterProcessosSelecionados(processos);
