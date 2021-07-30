@@ -1,0 +1,93 @@
+<div class="flex flex-col max-w-240 md:min-w-160 -m-6">
+
+  <!-- Header -->
+  <div class="flex flex-0 items-center justify-between h-16 pr-3 sm:pr-5 pl-6 sm:pl-8 bg-primary text-on-primary">
+      <div class="text-lg font-medium">Alterar sessão de julgamento</div>
+      <button mat-icon-button mat-dialog-close [tabIndex]="-1">
+          <mat-icon class="text-current" [svgIcon]="'heroicons_outline:x'"></mat-icon>
+      </button>
+  </div>
+
+  <!-- Compose form -->
+  <form 
+      class="flex flex-col flex-auto p-6 sm:p-8 overflow-y-auto"  
+      [formGroup]="alterarSessaoForm"
+  >
+      <div class="flex flex-row flex-wrap">
+          <mat-chip-list #chipList *ngFor="let processo of processos" class="m-1">
+              <mat-chip 
+                [removable]="true" 
+                class="flex-none" 
+                (removed)="removeChip(processo)"
+              >
+                  {{processo.classe}} {{processo.numero}} {{processo.nome}}
+                  <mat-icon matChipRemove>cancel</mat-icon>
+              </mat-chip>
+          </mat-chip-list>
+      </div>
+
+      <div>
+          <mat-radio-group
+            class="flex flex-col my-4"
+            formControlName="colegiado"
+            [(ngModel)]="colegiadoEscolhido"
+            [disabled]="true"
+          >
+            <mat-radio-button 
+                class="mb-1" 
+                *ngFor="let colegiado of colegiados" 
+                [value]="colegiado.viewValue"
+            >{{colegiado.viewValue}}</mat-radio-button>
+          </mat-radio-group>
+      </div>
+
+      <div class="flex flex-auto flex-row space-x-4">
+          <mat-form-field class="w-full" appearance="fill">
+              <mat-label>Filtre por período</mat-label>
+              <mat-date-range-input [rangePicker]="picker">
+                  <input matStartDate placeholder="Data de início" name="data_inicio" formControlName="data_inicio">
+                  <input matEndDate placeholder="Data do fim" name="data_fim" formControlName="data_fim">
+              </mat-date-range-input>
+  
+              <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+              <mat-date-range-picker #picker></mat-date-range-picker>
+          </mat-form-field>
+      </div>
+
+      <div class="flex flex-auto flex-row space-x-4">
+          <mat-form-field class="w-full" appearance="fill">
+              <mat-label>Sessão:</mat-label>
+              <mat-select [disabled]="true" [formControlName]="'sessao'" placeholder="Escolha uma sessão" required>
+                  <mat-option 
+                      *ngFor="let sessaoJulgamento of (sessoes | filtroSessoes: this.alterarSessaoForm.get('colegiado').value : this.alterarSessaoForm.get('data_inicio').value : this.alterarSessaoForm.get('data_fim').value )" 
+                      [value]="sessaoJulgamento.id"
+                  >
+                      Sessão {{sessaoJulgamento.modalidade}}, <b>{{sessaoJulgamento.colegiado}}</b>, nº {{sessaoJulgamento.numero}}/{{sessaoJulgamento.ano}} de {{sessaoJulgamento.data_inicio | date:'dd/MM/yyyy'}} a {{sessaoJulgamento.data_fim  | date:'dd/MM/yyyy'}}
+                  </mat-option>
+              </mat-select>
+              <mat-error class="mb-1" *ngIf="'sessao.errors?.required'">
+                  A sessão é obrigatória
+              </mat-error>
+          </mat-form-field>
+      </div>
+
+      <div class="flex flex-col sm:flex-row sm:items-center justify-between mt-4 sm:mt-6">
+        <div mat-dialog-actions class="flex items-center mt-4 sm:mt-0 ml-auto">
+          <button class="ml-auto sm:ml-0 mr-2" mat-button mat-dialog-close>
+            <span>Cancelar</span>
+          </button>
+    
+          <button 
+            class="ml-auto"
+            color="primary" 
+            mat-raised-button 
+            mat-dialog-close
+            [disabled]="false"
+            mat-dialog-close
+          >
+            Alterar a data de julgamento  
+          </button>
+        </div>
+      </div>
+  </form>
+</div>

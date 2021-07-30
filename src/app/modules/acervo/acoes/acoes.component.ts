@@ -6,6 +6,7 @@ import { ProcessoService } from 'app/modules/services/processo.service';
 import { Processo } from '../tabela/tabela.component';
 import { AgruparEmlistaComponent } from './agrupar-emlista/agrupar-emlista.component';
 import { AlertaComponent } from './agrupar-emlista/gerenciar-listas/alerta/alerta.component';
+import { AlterarSessaoComponent } from './alterar-sessao/alterar-sessao.component';
 import { PautarComponent } from './pautar/pautar.component';
 import { ReanalizarComponent } from './reanalizar/reanalizar.component';
 
@@ -180,6 +181,19 @@ export class AcoesComponent implements OnInit {
           this._processoService.setCarregarProcessos(true);
         }
       });
+    }
+  }
+
+  abrirModalDeAlterarSessao(): void {
+    if (!this.verificaProcesso()) {
+      this.mostrarAlerta();
+    } else if (this.processos.some(p => p.situacao !== 4)) {
+      this.alertaDeErro('Erro nos processos selecionados', 'Alguns processos ainda não foram paltados');
+    } else {
+      const dialogRef = this._matDialog.open(AlterarSessaoComponent, {
+        data: this.processos,
+      });
+      dialogRef.afterClosed().subscribe(resultado => {});
     }
   }
 
