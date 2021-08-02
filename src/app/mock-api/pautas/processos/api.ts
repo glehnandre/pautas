@@ -1,11 +1,12 @@
 import { Injectable } from '@angular/core';
 import { FuseMockApiService } from '@fuse/lib/mock-api/mock-api.service';
 import { Filtros } from 'app/modules/acervo/filtros/filtros';
-import { Processo, SituacaoDoProcesso } from 'app/modules/acervo/tabela/tabela.component';
 import { processo as processoData } from 'app/mock-api/pautas/processos/data';
 import { tags as tagData } from 'app/mock-api/pautas/tags/data';
-import { Tag } from 'app/modules/acervo/acoes/agrupar-emlista/agrupar-emlista.component';
 import { Paginacao } from 'app/modules/acervo/tabela/paginacao/paginacao.component';
+import { Processo } from 'app/modules/acervo/model/interfaces/processo.interface';
+import { Tag } from 'app/modules/acervo/model/interfaces/tag.interface';
+import { SituacaoDoProcesso } from 'app/modules/acervo/model/enums/situacaoDoProcesso.enum';
 
 @Injectable({
     providedIn: 'root'

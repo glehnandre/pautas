@@ -1,15 +1,16 @@
-import { Julgamento } from "app/modules/acervo/acoes/pautar/pautar.component";
+import { SessaoDeJulgamento } from "app/modules/acervo/model/interfaces/sessaoDeJulgamento.interface";
 
-export const julgamentos: Julgamento[] = [
+export const julgamentos: SessaoDeJulgamento[] = [
   {
+    id: 1,
     numero: 1000,
     ano: 2021,
     colegiado: "Primeira turma",
     tipo: "ORDINARIA",
     categoria: "REPERCUSSAO_GERAL",
     modalidade: "VIRTUAL",
-    data_inicio: "2016-08-29T09:12:33.001Z",
-    data_fim: "2016-08-29T09:12:33.001Z",
+    data_inicio: new Date(2021, 7, 1),
+    data_fim: new Date(2021, 8, 1),
     secretario: {
       id: 19,
       nome: "Carmen",

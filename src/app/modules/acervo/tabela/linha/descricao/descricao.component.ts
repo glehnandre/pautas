@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { Capitulo } from '../tabela.component';
+import { Capitulo } from 'app/modules/acervo/model/interfaces/capitulo.interface';
+
 
 @Component({
   selector: 'app-descricao',

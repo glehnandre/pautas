@@ -1,11 +1,12 @@
 import { Pipe, PipeTransform } from "@angular/core";
-import { SessaoJulgamento } from "./sessaoJulgamento";
+import { SessaoDeJulgamento } from "../../model/interfaces/sessaoDeJulgamento.interface";
+
 
 @Pipe({
     name: 'filtroSessoes'
 })
 export class SessoesPipe implements PipeTransform {
-    transform(sessoes: SessaoJulgamento[], colegiado: string, dataInicio: Date, dataFim: Date) {
+    transform(sessoes: SessaoDeJulgamento[], colegiado: string, dataInicio: Date, dataFim: Date) {
         console.log('%c Data Inicio', 'color:blue; font-weight: bold; font-size: 20px;');
         console.log({colegiado, dataInicio, dataFim });
         if (!colegiado && !dataInicio && !dataFim) {
