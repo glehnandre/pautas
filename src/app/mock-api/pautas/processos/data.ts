@@ -1,6 +1,6 @@
 import { tags as tagData } from 'app/mock-api/pautas/tags/data';
 import { SituacaoDoProcesso } from 'app/modules/acervo/model/enums/situacaoDoProcesso.enum';
-import { TipoDoProcesso } from 'app/modules/acervo/model/enums/tipodoprocesso.enum';
+import { TipoDoProcesso } from 'app/modules/acervo/model/enums/tipoDoProcesso.enum';
 import { Processo } from 'app/modules/acervo/model/interfaces/processo.interface';
 
 export const processo: Processo[] = [

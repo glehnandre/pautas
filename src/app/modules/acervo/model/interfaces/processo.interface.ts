@@ -1,5 +1,5 @@
 import { SituacaoDoProcesso } from "../enums/situacaoDoProcesso.enum";
-import { TipoDoProcesso } from "../enums/tipodoprocesso.enum";
+import { TipoDoProcesso } from "../enums/tipoDoProcesso.enum";
 import { Capitulo } from "./capitulo.interface";
 import { Tag } from "./tag.interface";
 
