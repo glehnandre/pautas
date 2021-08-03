@@ -9,8 +9,8 @@
                 <mat-select class="flex-1" style="height: 10px;" placeholder="Escolha sua ação">
                     <mat-option value="pautar" (click)="openComposeDialog()" class="bg-primary text-white">Pautar
                     </mat-option>
-                    <mat-option value="devolverVista">Devolver Vista</mat-option>
-                    <mat-option value="retirarDePauta">Retirar de Pauta</mat-option>
+                    <mat-option value="reanalisar" (click)="abrirModalDeReanalizar()">Reanalisar</mat-option>
+                    <mat-option value="retirarDePauta" (click)="retirarDePauta()">Retirar de Pauta</mat-option>
                     <mat-option value="alterarSessao">Alterar Sessão</mat-option>
                     <mat-option value="agruparEmLista" (click)="abrirModalAgruparTags()">Agrupar em Lista</mat-option>
                 </mat-select>
@@ -36,9 +36,9 @@
     </div>
     <div class="absolute top-0 right-0 z-10">
         <fuse-alert class="max-w-120 mx-auto"
-                    [type]="'error'" 
-                    [appearance]="'soft'" 
-                    [dismissible]=true 
+                    [type]="'error'"
+                    [appearance]="'soft'"
+                    [dismissible]=true
                     [dismissed]=true
                     [name]="'alertBox'">
             <span fuseAlertTitle>{{alerta.titulo}}</span>
@@ -48,7 +48,7 @@
         <fuse-alert
             class="max-w-120 mx-auto z-40"
             [dismissed]=true
-            [dismissible]=true 
+            [dismissible]=true
             [name]="'sucesso'"
             [type]="'success'"
             [appearance]="'soft'">

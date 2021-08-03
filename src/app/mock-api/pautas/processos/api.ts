@@ -144,10 +144,8 @@ export class ProcessoMockApi {
             .reply(({urlParams}) => {
               const id = +urlParams.id;
 
-              this._processo.map(processo => {
-                  if (processo.id === id) {
-                      processo.situacao = SituacaoDoProcesso['Retirado de pauta'];
-                  }
+              this._processo = this._processo.filter(processo => {
+                  return processo.id !== id;
               });
 
               return [201, [this._processo]];
