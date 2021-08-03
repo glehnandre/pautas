@@ -1,16 +1,23 @@
+import { HttpClient } from '@angular/common/http';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { JulgamentoService } from 'app/modules/services/julgamento.service';
 
 import { AlterarSessaoComponent } from './alterar-sessao.component';
 
 describe('AlterarSessaoComponent', () => {
   let component: AlterarSessaoComponent;
   let fixture: ComponentFixture<AlterarSessaoComponent>;
+  let httpClient: HttpClient;
+  let service: JulgamentoService;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       declarations: [ AlterarSessaoComponent ]
     })
-    .compileComponents();
+    .compileComponents().then(() => {
+      httpClient = TestBed.inject(HttpClient);
+      service = TestBed.inject(JulgamentoService);
+    });
   });
 
   beforeEach(() => {
@@ -20,6 +27,7 @@ describe('AlterarSessaoComponent', () => {
   });
 
   it('should create', () => {
+    service = new JulgamentoService(httpClient);
     expect(component).toBeTruthy();
   });
 });

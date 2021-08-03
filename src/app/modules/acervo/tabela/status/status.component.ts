@@ -39,7 +39,7 @@ export class StatusComponent implements OnInit {
       next: (status) => {
         this.situacaoProcesso = {
           id: status.situacao.id,
-          color: this.status.find(it => it.id === status.situacao.id).color,
+          color: this.status.find(situacao => situacao.id === status.situacao.id).color,
           status,
         }
       },
