@@ -1,44 +1,9 @@
 import { HttpParams } from '@angular/common/http';
 import { Component, Input, OnInit, Output, SimpleChange, EventEmitter } from '@angular/core';
 import { ProcessoService } from 'app/modules/services/processo.service';
-import { Tag } from '../acoes/agrupar-emlista/agrupar-emlista.component';
+import { Processo } from '../model/interfaces/processo.interface';
 import { Paginacao } from './paginacao/paginacao.component';
 
-export enum SituacaoDoProcesso {
-  'Apto a Julgar' = 1, 
-  'Em julgamento', 
-  'Vista', 
-  'Pautado', 
-  'Suspenso', 
-  'Retirado de pauta', 
-  'Retorno de Vista',
-}
-
-export enum TipoDoProcesso {
-  'Merito' = 1, 
-  'Incidente',
-}
-
-export interface Capitulo {
-  id: number;
-  descricao: string;
-  ordem: number;
-  tipo: string;
-}
-
-export interface Processo {
-  id: number;
-  nome: string;
-  lista: Tag[];
-  classe: string;
-  numero: number;
-  cadeira: number;
-  descricao: string;
-  situacao: SituacaoDoProcesso;
-  tipo: TipoDoProcesso;
-  capitulos: Capitulo[];
-  checked?: boolean;
-}
 
 @Component({
   selector: 'app-tabela',

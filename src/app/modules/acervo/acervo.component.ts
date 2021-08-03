@@ -3,7 +3,7 @@ import { Component, OnInit, Output } from '@angular/core';
 import { EMPTY, Observable } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { ProcessoService } from '../services/processo.service';
-import { Processo } from './tabela/tabela.component';
+import { Processo } from './model/interfaces/processo.interface';
 
 interface ProcessosTags {
   idsProcessos: Array<number>;

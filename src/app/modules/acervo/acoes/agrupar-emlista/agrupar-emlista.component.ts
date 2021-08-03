@@ -4,15 +4,9 @@ import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { FuseAlertService } from '@fuse/components/alert';
 import { EMPTY, Observable } from 'rxjs';
 import { catchError } from 'rxjs/operators';
+import { Tag } from '../../model/interfaces/tag.interface';
 import { GerenciarListasComponent } from './gerenciar-listas/gerenciar-listas.component';
 import { NovaListaComponent } from './nova-lista/nova-lista.component';
-
-export interface Tag {
-  id: number;
-  descricao?: string;
-  publica?: boolean;
-  checked?: boolean;
-}
 
 @Component({
   selector: 'app-agrupar-emlista',
