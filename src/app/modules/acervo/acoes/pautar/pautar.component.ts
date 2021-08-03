@@ -3,11 +3,11 @@ import { Component, OnInit, Inject } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { FuseAlertService } from '@fuse/components/alert';
-import { indexOf } from 'lodash';
 import { Observable } from 'rxjs';
 import { Processo } from '../../tabela/tabela.component';
 import { SessaoExtraordinariaComponent } from './sessao-extraordinaria/sessao-extraordinaria.component';
 import { SessaoJulgamento } from './sessaoJulgamento';
+import { ProcessoService } from 'app/modules/services/processo.service';
 
 interface Colegiado {
     value: string;
@@ -44,6 +44,7 @@ export interface Julgamento {
     styleUrls: ['./pautar.component.scss'],
 })
 export class PautarComponent implements OnInit {
+
     pautarForm: FormGroup;
 
     //O valor do colegiado é a própria string Primeira Turma e assim por diante.
@@ -80,6 +81,7 @@ export class PautarComponent implements OnInit {
         private _httpClient: HttpClient,
         private _fuseAlertService: FuseAlertService,
         @Inject(MAT_DIALOG_DATA) public data: any,
+        private _processoService: ProcessoService,
     ) {
 
     }
@@ -129,9 +131,12 @@ export class PautarComponent implements OnInit {
         }
     }
 
-    removeChip(processo){
-        processo.checked = false;
+    removeChip(processo: Processo){
         this.data.processos.splice(this.data.processos.indexOf(processo), 1);
-        console.log(this.data.processos);
+        this._processoService.desmarcarProcesso(processo);
+
+        if(this.data.processos.length == 0){
+            this.fechar();
+        }
     }
 }

@@ -64,7 +64,7 @@
         <div class="justify-between mt-4 md:mt-6">
             <div class="container flex flex-col md:flex-row justify-center gap-4 md:gap-0 mt-4 md:mt-0">
                 <!-- Discard -->
-                <button class="flex-1 md:ml-0" mat-button (click)="sessaoExtraordinaria()">
+                <button class=" md:ml-0" mat-button (click)="sessaoExtraordinaria()">
                     SOLICITAR SESSÃO EXTRAORDINÁRIA
                 </button>
                 <!-- Send -->
@@ -72,7 +72,7 @@
                     [disabled]="pautarForm.invalid"
                     mat-flat-button 
                     mat-dialog-close
-                    class="flex-1 order-first md:order-last" 
+                    class="order-first md:order-last" 
                     [color]="'primary'" 
                     (click)="pautar()"
                 >

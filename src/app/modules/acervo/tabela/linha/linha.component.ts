@@ -1,5 +1,6 @@
 import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
 import { MatCheckboxChange } from '@angular/material/checkbox';
+import { ProcessoService } from 'app/modules/services/processo.service';
 import { Processo } from '../tabela.component';
 
 @Component({
@@ -17,14 +18,19 @@ export class LinhaComponent implements OnInit {
   
   panelOpenState = false;
 
-  constructor() {
+  constructor(private _processoService: ProcessoService) {
+    
 
     if (document.body.clientWidth <= 1000) {
       this.mobile = !this.mobile
     }
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this._processoService.obterProcessoDesmarcado().subscribe((processo) => {
+      //console.log(processo);
+    });
+  }
 
   emiteStatusDoCheckbox(status: MatCheckboxChange) {
     this.processo.checked = status.checked;
