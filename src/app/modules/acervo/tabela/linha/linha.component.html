@@ -4,7 +4,7 @@
             <div class="w-screen container flex sm:mt-4">
                 <div>
                     <div (click)="$event.stopPropagation()">
-                        <mat-checkbox color="primary" (change)="emiteStatusDoCheckbox($event)" [checked]="Selected">
+                        <mat-checkbox color="primary" (change)="emiteStatusDoCheckbox($event)" [checked]="processo.checked">
                         </mat-checkbox>
                     </div>
                 </div>

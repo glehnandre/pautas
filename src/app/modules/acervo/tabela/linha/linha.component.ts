@@ -14,7 +14,6 @@ export class LinhaComponent implements OnInit {
   @Output() mobile: boolean = false;
   @Output() checked = new EventEmitter<Processo>();
 
-  @Input() Selected: boolean;
   @Input() processo: Processo;
   
   panelOpenState = false;
@@ -27,11 +26,7 @@ export class LinhaComponent implements OnInit {
     }
   }
 
-  ngOnInit(): void {
-    this._processoService.obterProcessoDesmarcado().subscribe((processo) => {
-      //console.log(processo);
-    });
-  }
+  ngOnInit(): void {}
 
   emiteStatusDoCheckbox(status: MatCheckboxChange) {
     this.processo.checked = status.checked;

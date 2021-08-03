@@ -7,7 +7,6 @@ import { Observable } from 'rxjs';
 import { Processo } from '../../model/interfaces/processo.interface';
 import { SessaoDeJulgamento } from '../../model/interfaces/sessaoDeJulgamento.interface';
 import { SessaoExtraordinariaComponent } from './sessao-extraordinaria/sessao-extraordinaria.component';
-import { ProcessoService } from 'app/modules/services/processo.service';
 
 
 interface Colegiado {
@@ -58,7 +57,6 @@ export class PautarComponent implements OnInit {
         private _httpClient: HttpClient,
         private _fuseAlertService: FuseAlertService,
         @Inject(MAT_DIALOG_DATA) public data: any,
-        private _processoService: ProcessoService,
     ) {
 
     }
@@ -110,7 +108,7 @@ export class PautarComponent implements OnInit {
 
     removeChip(processo: Processo){
         this.data.processos.splice(this.data.processos.indexOf(processo), 1);
-        this._processoService.desmarcarProcesso(processo);
+        processo.checked = false;
 
         if(this.data.processos.length == 0){
             this.fechar();
