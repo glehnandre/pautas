@@ -2,7 +2,7 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { ProcessoService } from 'app/modules/services/processo.service';
-import { Processo } from '../../tabela/tabela.component';
+import { Processo } from '../../model/interfaces/processo.interface';
 
 @Component({
   selector: 'app-reanalizar',

@@ -4,38 +4,15 @@ import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms'
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { FuseAlertService } from '@fuse/components/alert';
 import { Observable } from 'rxjs';
-import { Processo } from '../../tabela/tabela.component';
+import { Processo } from '../../model/interfaces/processo.interface';
+import { SessaoDeJulgamento } from '../../model/interfaces/sessaoDeJulgamento.interface';
 import { SessaoExtraordinariaComponent } from './sessao-extraordinaria/sessao-extraordinaria.component';
-import { SessaoJulgamento } from './sessaoJulgamento';
 import { ProcessoService } from 'app/modules/services/processo.service';
+
 
 interface Colegiado {
     value: string;
     viewValue: string;
-}
-
-export interface Pauta {
-    data_inicio: string;
-    data_fim: string;
-    assunto: string;
-    colegiado: string;
-    pautas: Processo[],
-}
-
-//remover julgamento. O correto é sessao de julgamento. A interface que está separada do código sessaoJulgamento.ts
-export interface Julgamento {
-    numero: number;
-    ano: number;
-    colegiado: string;
-    tipo: string;
-    categoria: string;
-    modalidade: string;
-    data_inicio: string;
-    data_fim: string;
-    secretario: {
-        id: number;
-        nome: string;
-    };
 }
 
 @Component({
@@ -55,7 +32,7 @@ export class PautarComponent implements OnInit {
     ];
 
     //Deve recuperar o valor da Sessoes de Julgamento Integralmente para aquele ano por meio de serviço
-    sessoes: SessaoJulgamento[] = [
+    sessoes: SessaoDeJulgamento[] = [
         {id: 1, ano: 2021, numero: 1, colegiado: 'Primeira Turma', modalidade: 'Virtual', categoria: 'Judicial', tipo: 'Ordinária', data_inicio: new Date(2021, 7, 1), data_fim: new Date(2021, 7, 5)},
         {id: 2, ano: 2021, numero: 2, colegiado: 'Primeira Turma', modalidade: 'Virtual', categoria: 'Judicial', tipo: 'Ordinária', data_inicio: new Date(2021, 7, 6), data_fim: new Date(2021, 7, 11)},
         {id: 3, ano: 2021, numero: 3, colegiado: 'Segunda Turma', modalidade: 'Virtual', categoria: 'Judicial', tipo: 'Ordinária', data_inicio: new Date(2021, 7, 13), data_fim: new Date(2021, 7, 18)},
@@ -118,7 +95,7 @@ export class PautarComponent implements OnInit {
      */
     pautar(): void {
         if (this.pautarForm.valid) {
-            this._httpClient.post('julgamentos', this.pautarForm.value as Julgamento)
+            this._httpClient.post('julgamentos', this.pautarForm.value as SessaoDeJulgamento)
                 .subscribe({
                     next: (data) => {
                         console.log(data)

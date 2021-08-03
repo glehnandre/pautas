@@ -1,10 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-
-interface Status {
-  id: number;
-  color: string;
-  text: string;
-}
+import { Status } from 'app/modules/acervo/model/interfaces/status.interface';
 
 @Component({
   selector: 'app-status',

@@ -7,9 +7,9 @@ import { MatChipInputEvent } from '@angular/material/chips';
 import { EMPTY, Observable } from 'rxjs';
 import { catchError, map, startWith } from 'rxjs/operators';
 import { HttpClient } from '@angular/common/http';
-import { Processo } from 'app/modules/acervo/tabela/tabela.component';
-import { Tag } from '../agrupar-emlista.component';
 import { AlertaComponent } from './alerta/alerta.component';
+import { Processo } from 'app/modules/acervo/model/interfaces/processo.interface';
+import { Tag } from 'app/modules/acervo/model/interfaces/tag.interface';
 
 @Component({
   selector: 'app-gerenciar-listas',

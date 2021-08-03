@@ -2,9 +2,9 @@ import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
+import { Tag } from 'app/modules/acervo/model/interfaces/tag.interface';
 import { EMPTY, Observable } from 'rxjs';
 import { catchError } from 'rxjs/operators';
-import { Tag } from '../agrupar-emlista.component';
 
 @Component({
   selector: 'app-nova-lista',

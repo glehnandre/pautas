@@ -1,4 +1,5 @@
-import { Tag } from "app/modules/acervo/acoes/agrupar-emlista/agrupar-emlista.component";
+import { Tag } from "app/modules/acervo/model/interfaces/tag.interface";
+
 
 export const tags: Tag[] = [
   {

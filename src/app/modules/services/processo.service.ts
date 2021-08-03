@@ -2,7 +2,7 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable, SimpleChange, SimpleChanges } from '@angular/core';
 import { Observable, EMPTY, Subject } from 'rxjs';
 import { catchError } from 'rxjs/operators';
-import { Processo } from '../acervo/tabela/tabela.component';
+import { Processo } from '../acervo/model/interfaces/processo.interface';
 
 @Injectable({
   providedIn: 'root'
