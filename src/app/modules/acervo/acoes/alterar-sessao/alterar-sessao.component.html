@@ -11,7 +11,6 @@
   <!-- Compose form -->
   <form 
       class="flex flex-col flex-auto p-6 sm:p-8 overflow-y-auto"  
-      [formGroup]="alterarSessaoForm"
   >
       <div class="flex flex-row flex-wrap">
           <mat-chip-list #chipList *ngFor="let processo of processos" class="m-1">
@@ -29,37 +28,46 @@
       <div>
           <mat-radio-group
             class="flex flex-col my-4"
-            formControlName="colegiado"
-            [(ngModel)]="colegiadoEscolhido"
-            [disabled]="true"
+           
+            [value]="colegiadoEscolhido"
           >
             <mat-radio-button 
                 class="mb-1" 
                 *ngFor="let colegiado of colegiados" 
-                [value]="colegiado.viewValue"
-            >{{colegiado.viewValue}}</mat-radio-button>
+                [value]="colegiado.value"
+                disabled
+            >
+              {{colegiado.viewValue}}
+            </mat-radio-button>
           </mat-radio-group>
       </div>
 
       <div class="flex flex-auto flex-row space-x-4">
-          <mat-form-field class="w-full" appearance="fill">
-              <mat-label>Filtre por período</mat-label>
-              <mat-date-range-input [rangePicker]="picker">
-                  <input matStartDate placeholder="Data de início" name="data_inicio" formControlName="data_inicio">
-                  <input matEndDate placeholder="Data do fim" name="data_fim" formControlName="data_fim">
-              </mat-date-range-input>
-  
-              <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-              <mat-date-range-picker #picker></mat-date-range-picker>
-          </mat-form-field>
+        <mat-form-field class="w-full" color="accent" appearance="fill">
+          <mat-label>Data de inicio</mat-label>
+          <input matInput [(ngModel)]="pauta.data_inicio" (dateChange)="isDataDeInicioValida($event)" name="data_inicio" [matDatepicker]="picker1" required>
+          <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+          <mat-datepicker #picker1 color="primary"></mat-datepicker>
+        </mat-form-field>
+
+        <mat-form-field class="w-full" color="accent" appearance="fill">
+          <mat-label>Data de fim</mat-label>
+          <input disabled matInput [value]="pauta.data_fim" name="data_fim" [matDatepicker]="picker2">
+          <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+          <mat-datepicker #picker2 color="primary"></mat-datepicker>
+        </mat-form-field>
       </div>
 
       <div class="flex flex-auto flex-row space-x-4">
           <mat-form-field class="w-full" appearance="fill">
               <mat-label>Sessão:</mat-label>
-              <mat-select [disabled]="true" [formControlName]="'sessao'" placeholder="Escolha uma sessão" required>
+              <mat-select 
+                [value]="pauta.sessao"
+                placeholder="Escolha uma sessão" 
+                disabled
+              >
                   <mat-option 
-                      *ngFor="let sessaoJulgamento of (sessoes | filtroSessoes: this.alterarSessaoForm.get('colegiado').value : this.alterarSessaoForm.get('data_inicio').value : this.alterarSessaoForm.get('data_fim').value )" 
+                      *ngFor="let sessaoJulgamento of sessoes" 
                       [value]="sessaoJulgamento.id"
                   >
                       Sessão {{sessaoJulgamento.modalidade}}, <b>{{sessaoJulgamento.colegiado}}</b>, nº {{sessaoJulgamento.numero}}/{{sessaoJulgamento.ano}} de {{sessaoJulgamento.data_inicio | date:'dd/MM/yyyy'}} a {{sessaoJulgamento.data_fim  | date:'dd/MM/yyyy'}}
@@ -82,8 +90,8 @@
             color="primary" 
             mat-raised-button 
             mat-dialog-close
-            [disabled]="false"
-            mat-dialog-close
+            [disabled]="!isFormValido"
+            (click)="alterarDataDeJulgamento()"
           >
             Alterar a data de julgamento  
           </button>

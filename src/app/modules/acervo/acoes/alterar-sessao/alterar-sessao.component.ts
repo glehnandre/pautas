@@ -1,10 +1,12 @@
 import { Component, Inject, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { MatDatepicker, MatDatepickerInputEvent } from '@angular/material/datepicker';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { FuseAlertService } from '@fuse/components/alert';
 import { JulgamentoService } from 'app/modules/services/julgamento.service';
+import { Moment } from 'moment';
 import { Processo } from '../../tabela/tabela.component';
-import { Colegiado } from '../pautar/pautar.component';
+import { Colegiado, Julgamento, Pauta } from '../pautar/pautar.component';
 import { SessaoJulgamento } from '../pautar/sessaoJulgamento';
 
 @Component({
@@ -14,7 +16,14 @@ import { SessaoJulgamento } from '../pautar/sessaoJulgamento';
 })
 export class AlterarSessaoComponent implements OnInit {
 
-  alterarSessaoForm: FormGroup;
+  pauta: Pauta = {
+    assunto: '',
+    colegiado: '',
+    data_inicio: '',
+    data_fim: '',
+    sessao: 0,
+    pautas: [],
+  };
 
   colegiados: Colegiado[] = [
     { value: 'primeira-turma', viewValue: 'Primeira Turma' },
@@ -37,35 +46,49 @@ export class AlterarSessaoComponent implements OnInit {
   ];
 
 
-  colegiadoEscolhido = this.colegiados[0].value;
+  colegiadoEscolhido: string = this.colegiados[0].value;
+  isFormValido: boolean = true;
 
   constructor(
-    private _fb: FormBuilder,
     private _julgamentoService: JulgamentoService,
     private _fuseAlertService: FuseAlertService,
     @Inject(MAT_DIALOG_DATA) public processos: Processo[], 
-  ) { }
+  ) {}
 
   ngOnInit(): void {
-    this.alterarSessaoForm = this._fb.group({
-      sessao: ['', [Validators.required]],
-      colegiado: [''],
-      data_inicio: [''],
-      data_fim: [''],
-  });
+    const { id } = this.processos[0];
+
+    this._julgamentoService.obterDadosDaPautaPeloProcesso(id).subscribe({
+      next: (data) => {
+        this.pauta = data;
+        this.colegiadoEscolhido = this.pauta.colegiado;
+      }
+    });
+  }
+
+  isDataDeInicioValida(event: MatDatepickerInputEvent<Date>): void {
+    const dataInicial = new Date(event.value);
+    const dataFinal = new Date(this.pauta.data_fim);
+
+    if (dataInicial > dataFinal) {
+      alert('A data inicial não pode ser maior que a data final');
+      this.pauta.data_inicio = '';
+      this.isFormValido = false;
+    } else {
+      this.isFormValido = true;
+    }
   }
 
   alterarDataDeJulgamento(): void {
-    if (this.alterarSessaoForm.valid) {
-      this._julgamentoService.pautarProcesso(this.alterarSessaoForm.value).subscribe({
-          next: () => {
-              this._fuseAlertService.show('sucesso');
-              setTimeout(() => {
-                  this._fuseAlertService.dismiss('sucesso');
-              }, 5000);
-          }   
-      });
-  }
+    console.log(this.pauta);
+    this._julgamentoService.pautarProcesso(this.pauta).subscribe({
+        next: () => {
+            this._fuseAlertService.show('sucesso');
+            setTimeout(() => {
+                this._fuseAlertService.dismiss('sucesso');
+            }, 5000);
+        }   
+    });
   }
 
 }

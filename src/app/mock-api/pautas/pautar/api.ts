@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import { FuseMockApiUtils } from '@fuse/lib/mock-api';
 import { FuseMockApiService } from '@fuse/lib/mock-api/mock-api.service';
 import { Pauta } from 'app/modules/acervo/acoes/pautar/pautar.component';
 import { pautas as pautaData } from './data';
@@ -24,6 +23,18 @@ export class PautaMockApi {
           this._pauta.push(pauta);
 
           return [201, [this._pauta]];
+        });
+
+      this._fuseMockApiService
+        .onGet('pautas/:id')
+        .reply(({urlParams}) => {
+          const id = +urlParams.id;
+
+          const pauta = this._pauta
+            .find(pauta => pauta.pautas
+              .find(processo => processo.id === id));
+
+          return [201, pauta];
         });
     }
 }
