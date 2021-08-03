@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { Tag } from '../../acoes/agrupar-emlista/agrupar-emlista.component';
+import { Tag } from 'app/modules/acervo/model/interfaces/tag.interface';
 
 @Component({
   selector: 'app-tags',

@@ -1,12 +1,11 @@
 import { Component, Inject, OnInit } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { MatDatepicker, MatDatepickerInputEvent } from '@angular/material/datepicker';
+import { MatDatepickerInputEvent } from '@angular/material/datepicker';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { FuseAlertService } from '@fuse/components/alert';
 import { JulgamentoService } from 'app/modules/services/julgamento.service';
-import { Moment } from 'moment';
-import { Processo } from '../../tabela/tabela.component';
-import { Colegiado, Julgamento, Pauta } from '../pautar/pautar.component';
+import { Pauta } from '../../model/interfaces/pauta.interface';
+import { Processo } from '../../model/interfaces/processo.interface';
+import { Colegiado } from '../pautar/pautar.component';
 import { SessaoJulgamento } from '../pautar/sessaoJulgamento';
 
 @Component({

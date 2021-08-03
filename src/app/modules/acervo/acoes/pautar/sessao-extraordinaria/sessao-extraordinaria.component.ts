@@ -4,7 +4,8 @@ import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
 import { MatChipInputEvent } from '@angular/material/chips';
-import { Processo } from 'app/modules/acervo/tabela/tabela.component';
+import { SituacaoDoProcesso } from 'app/modules/acervo/model/enums/situacaoDoProcesso.enum';
+import { Processo } from 'app/modules/acervo/model/interfaces/processo.interface';
 import { EMPTY, Observable } from 'rxjs';
 import { startWith, map, catchError } from 'rxjs/operators';
 

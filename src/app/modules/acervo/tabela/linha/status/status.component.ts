@@ -1,12 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { Status } from 'app/modules/acervo/model/interfaces/status.interface';
 import { ProcessoService } from 'app/modules/services/processo.service';
-import { StatusProcesso } from './situacaoProcesso';
-
-interface Status {
-  id: number;
-  color: string;
-  status?: StatusProcesso;
-}
 
 @Component({
   selector: 'app-status',
@@ -19,13 +13,13 @@ export class StatusComponent implements OnInit {
   @Input() idProcesso: number;
 
   status: Status[] = [
-    { id: 1, color: "#3C8D40",  },
-    { id: 2, color: "#FDC02F",  },
-    { id: 3, color: "#BF221o",  },
-    { id: 4, color: "#872FA6",  },
-    { id: 5, color: "#1170A6",  },
-    { id: 6, color: "#3434AC",  },
-    { id: 7, color: "#A3F4F6",  },
+    { id: 1, color: "#3C8D40", text: '' },
+    { id: 2, color: "#FDC02F", text: '' },
+    { id: 3, color: "#BF221o", text: '' },
+    { id: 4, color: "#872FA6", text: '' },
+    { id: 5, color: "#1170A6", text: '' },
+    { id: 6, color: "#3434AC", text: '' },
+    { id: 7, color: "#A3F4F6", text: '' },
   ]
 
   situacaoProcesso: Status;
@@ -40,7 +34,7 @@ export class StatusComponent implements OnInit {
         this.situacaoProcesso = {
           id: status.situacao.id,
           color: this.status.find(situacao => situacao.id === status.situacao.id).color,
-          status,
+          text: status.situacao.nome,
         }
       },
     });

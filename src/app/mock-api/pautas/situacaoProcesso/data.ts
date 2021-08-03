@@ -1,4 +1,3 @@
-import { Pauta } from "app/modules/acervo/acoes/pautar/pautar.component";
 import { StatusProcesso } from "app/modules/acervo/tabela/status/situacaoProcesso";
 
 export const situacao: StatusProcesso[] = [

@@ -1,6 +1,7 @@
 import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
 import { MatCheckboxChange } from '@angular/material/checkbox';
-import { Processo } from '../tabela.component';
+import { Processo } from '../../model/interfaces/processo.interface';
+
 
 @Component({
   selector: 'app-linha',

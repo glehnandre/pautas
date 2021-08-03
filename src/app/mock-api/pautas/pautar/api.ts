@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { FuseMockApiService } from '@fuse/lib/mock-api/mock-api.service';
-import { Pauta } from 'app/modules/acervo/acoes/pautar/pautar.component';
+import { Pauta } from 'app/modules/acervo/model/interfaces/pauta.interface';
 import { pautas as pautaData } from './data';
 
 @Injectable({

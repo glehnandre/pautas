@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { EMPTY, Observable } from 'rxjs';
 import { catchError } from 'rxjs/operators';
-import { Julgamento, Pauta } from '../acervo/acoes/pautar/pautar.component';
+import { Pauta } from '../acervo/model/interfaces/pauta.interface';
 
 @Injectable({
   providedIn: 'root'

@@ -3,7 +3,7 @@ import { FuseMockApiService } from '@fuse/lib/mock-api/mock-api.service';
 import { StatusProcesso } from 'app/modules/acervo/tabela/status/situacaoProcesso';
 import { situacao as situacaoData } from './data';
 import { processo as processoData } from 'app/mock-api/pautas/processos/data';
-import { Processo } from 'app/modules/acervo/tabela/tabela.component';
+import { Processo } from 'app/modules/acervo/model/interfaces/processo.interface';
 
 @Injectable({
     providedIn: 'root'

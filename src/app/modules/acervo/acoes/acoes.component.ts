@@ -3,7 +3,7 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { FuseAlertService } from '@fuse/components/alert';
 import { ProcessoService } from 'app/modules/services/processo.service';
-import { Processo } from '../tabela/tabela.component';
+import { Processo } from '../model/interfaces/processo.interface';
 import { AgruparEmlistaComponent } from './agrupar-emlista/agrupar-emlista.component';
 import { AlertaComponent } from './agrupar-emlista/gerenciar-listas/alerta/alerta.component';
 import { AlterarSessaoComponent } from './alterar-sessao/alterar-sessao.component';

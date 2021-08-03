@@ -2,7 +2,7 @@
     <button 
         class="absolute right-8 h-12 w-2 rounded-full my-auto sm:hidden"
         [style]="'background-color:' + situacaoProcesso?.color"
-        [matTooltip]="situacaoProcesso?.status.situacao.nome"
+        [matTooltip]="situacaoProcesso?.text"
         matTooltipPosition="left"
         matTooltipShowDelay="100"
     ></button>
@@ -15,6 +15,6 @@
         [style]="'background-color:' + situacaoProcesso?.color"
         selected 
     >
-        {{situacaoProcesso?.status.situacao.nome}}
+        {{situacaoProcesso?.text}}
     </mat-chip>
 </div>

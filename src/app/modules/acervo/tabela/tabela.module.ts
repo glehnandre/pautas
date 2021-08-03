@@ -6,12 +6,9 @@ import { LinhaComponent } from './linha/linha.component';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatIconModule } from '@angular/material/icon';
-import { ClasseComponent } from './classe/classe.component';
-import { DescricaoComponent } from './descricao/descricao.component';
-import { StatusComponent } from './status/status.component';
-import { TagsComponent } from './tags/tags.component';
+import { StatusComponent } from './linha/status/status.component';
+import { TagsComponent } from './linha/tags/tags.component';
 import { MatGridListModule } from '@angular/material/grid-list';
-import { CapitulosComponent } from './capitulos/capitulos.component';
 import { MatTooltipModule } from '@angular/material/tooltip';
 
 import { MatChipsModule } from '@angular/material/chips';
@@ -31,11 +28,8 @@ const routes = [
   declarations: [
     TabelaComponent,
     LinhaComponent,
-    ClasseComponent,
-    DescricaoComponent,
     StatusComponent,
     TagsComponent,
-    CapitulosComponent,
     PaginacaoComponent,
   ],
   imports: [
