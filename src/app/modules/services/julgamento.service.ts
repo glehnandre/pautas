@@ -1,8 +1,9 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { EMPTY, Observable } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { Pauta } from '../acervo/model/interfaces/pauta.interface';
+import { SessaoDeJulgamento } from '../acervo/model/interfaces/sessaoDeJulgamento.interface';
 
 @Injectable({
   providedIn: 'root'
@@ -26,8 +27,13 @@ export class JulgamentoService {
     );
   }
 
-  public socilitarSessaoExtraordinaria(): Observable<any> {
-    return null;
+  public socilitarSessaoExtraordinaria(sessaoExtraordinaria: any): Observable<SessaoDeJulgamento> {
+    let params = new HttpParams();
+    params = params.set('extraordinaria', true);
+
+    return this._httpClient.post<SessaoDeJulgamento>('sessoes-de-julgamento', sessaoExtraordinaria, {
+      params,
+    });
   }
 
 }

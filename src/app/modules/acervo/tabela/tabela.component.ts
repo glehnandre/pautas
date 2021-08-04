@@ -48,7 +48,7 @@ export class TabelaComponent implements OnInit {
       this.processosSelecionados = [...this.processos];
     } else {
       this.processosSelecionados = [];
-      this._processoService.setProcessosSelecionados([]);
+      this._processoService.setProcessosSelecionados(this.processosSelecionados);
     }
   }
 
