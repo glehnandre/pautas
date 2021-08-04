@@ -26,5 +26,12 @@ export class JulgamentoMockApi {
             msg: 'Processo pautado com sucesso!'
           }];
         });
+
+      this._fuseMockApiService
+        .onPost('sessoes-de-julgamento')
+        .reply(({request, urlParams}) => {
+
+          return [200, this._julgamentos[0]];
+        });
     }
 }
