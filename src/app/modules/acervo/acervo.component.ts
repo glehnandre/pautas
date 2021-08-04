@@ -1,8 +1,7 @@
 import { HttpClient } from '@angular/common/http';
-import { Component, OnInit, Output } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { EMPTY, Observable, Subject } from 'rxjs';
 import { catchError } from 'rxjs/operators';
-import { EventEmitter } from 'stream';
 import { ProcessoService } from '../services/processo.service';
 import { Processo } from './model/interfaces/processo.interface';
 
@@ -39,11 +38,13 @@ export class AcervoComponent implements OnInit {
       this.obterProcessosSelecionados(processos);
     });
   }
+  
 
-  eventsSubject: Subject<void> = new Subject<void>();
+  eventsSubject: Subject<any> = new Subject<any>();
 
-  emitEventToChild() {
-    this.eventsSubject.next();
+  
+  filtrarPorTags(data) {
+    this.eventsSubject.next({data});
   }
   reciverFeedback(CheckboxStatus) {
     this.SelectAllLines = CheckboxStatus;

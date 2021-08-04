@@ -16,16 +16,18 @@ export class FiltroComponent implements OnInit {
   termo: string = '';
   private eventsSubscription: Subscription;
 
-  @Input() tag: Observable<void>;
+  @Input() tag: Observable<any>;
   constructor(private dialog: MatDialog) {
   }
   ngOnInit() {
-    this.eventsSubscription = this.tag.subscribe(() => console.log(this.tag, "humm"));
+    this.eventsSubscription = this.tag.subscribe(({ data }) => this.filtros.tags.indexOf(data) ? this.filtros.tags.push(data) : console.log("Este filtro já está sendo aplicado!!") );
+
   }
 
   ngOnDestroy() {
     this.eventsSubscription.unsubscribe();
   }
+
   //Abrir dialog
   openDialog(): void {
     const dialogConfig = new MatDialogConfig();
@@ -47,6 +49,7 @@ export class FiltroComponent implements OnInit {
   //Remove a specfic filter from the Filtros interface
   removeFiltro(nome_campo: string, valor: string): void {
     this.filtros[nome_campo].splice(this.filtros[nome_campo].indexOf(valor), 1);
+    console.log(this.filtros.tags)
   }
 
   //Remove the filters os an boolean (checkbox for exemple) attribute in Filtros interface.
