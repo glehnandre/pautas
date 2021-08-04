@@ -1,13 +1,13 @@
 import { HttpClient } from '@angular/common/http';
-import { Component, OnInit, Output } from '@angular/core';
-import { EMPTY, Observable } from 'rxjs';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { EMPTY, Observable, Subject } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { ProcessoService } from '../services/processo.service';
 import { Processo } from './model/interfaces/processo.interface';
 
 interface ProcessosTags {
   idsProcessos: Array<number>;
-  idsTags: Array<{id: number}>;
+  idsTags: Array<{ id: number }>;
 };
 
 @Component({
@@ -17,7 +17,8 @@ interface ProcessosTags {
 })
 
 export class AcervoComponent implements OnInit {
-  @Output() SelectAllLines:any;
+  @Output() SelectAllLines: any;
+  @Output() tagSelecionada = new EventEmitter();
 
   processo: ProcessosTags = {
     idsTags: [],
@@ -29,7 +30,7 @@ export class AcervoComponent implements OnInit {
   constructor(
     private _httpClient: HttpClient,
     private _processoService: ProcessoService,
-  ) {}
+  ) { }
 
 
   ngOnInit(): void {
@@ -37,12 +38,19 @@ export class AcervoComponent implements OnInit {
       this.obterProcessosSelecionados(processos);
     });
   }
+  
 
+  eventsSubject: Subject<any> = new Subject<any>();
+
+  
+  filtrarPorTags(data) {
+    this.eventsSubject.next({data});
+  }
   reciverFeedback(CheckboxStatus) {
     this.SelectAllLines = CheckboxStatus;
   }
 
-  obterIdsDasTagsSelecionadas(idsTags: Array<{id: number}>) {
+  obterIdsDasTagsSelecionadas(idsTags: Array<{ id: number }>) {
     if (idsTags) {
       this.processo.idsTags = idsTags;
     }
@@ -58,7 +66,7 @@ export class AcervoComponent implements OnInit {
   }
 
   obterProcessosSelecionados(data: Processo[]): void {
-    data.forEach(({id}) => {
+    data.forEach(({ id }) => {
       this.processo.idsProcessos.push(id);
     });
 
@@ -74,10 +82,10 @@ export class AcervoComponent implements OnInit {
     return this._httpClient.put<any>(`processos/${id}/tag`, {
       idsTags: this.processo.idsTags,
     }).pipe(
-        catchError(error => {
-          console.log(error);
-          return EMPTY;
-        }),
+      catchError(error => {
+        console.log(error);
+        return EMPTY;
+      }),
     );
-}
+  }
 }

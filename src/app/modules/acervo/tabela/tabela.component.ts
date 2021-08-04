@@ -1,5 +1,5 @@
 import { HttpParams } from '@angular/common/http';
-import { Component, Input, OnInit, Output, SimpleChange } from '@angular/core';
+import { Component, Input, OnInit, Output, SimpleChange, EventEmitter } from '@angular/core';
 import { ProcessoService } from 'app/modules/services/processo.service';
 import { Processo } from '../model/interfaces/processo.interface';
 import { Paginacao } from './paginacao/paginacao.component';
@@ -12,6 +12,7 @@ import { Paginacao } from './paginacao/paginacao.component';
 export class TabelaComponent implements OnInit {
   @Input() Allselected: any;
   @Output() SelectAll: any;
+  @Output() tagSelecionada = new EventEmitter();
   @Output() data: {
     checked: Boolean,
     nome: String,
@@ -54,6 +55,10 @@ export class TabelaComponent implements OnInit {
 
   check(){
     //this.SelectAll = this.Allselected
+  } 
+  
+  filtrarPorTags(tag) {
+    this.tagSelecionada.emit(tag)
   }
 
   trataEventoDeChecked(data: Processo) {

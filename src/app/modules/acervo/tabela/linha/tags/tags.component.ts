@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, Output, OnInit, EventEmitter } from '@angular/core';
 import { Tag } from 'app/modules/acervo/model/interfaces/tag.interface';
 
 @Component({
@@ -9,10 +9,15 @@ import { Tag } from 'app/modules/acervo/model/interfaces/tag.interface';
 export class TagsComponent implements OnInit {
 
   @Input() tags: Tag[] = [];
+  @Output() tagSelecionada = new EventEmitter();
+
 
   constructor() { }
 
   ngOnInit(): void {
   }
 
+  filtrarPorTags(tag) {
+    this.tagSelecionada.emit(tag)
+  }
 }

@@ -41,6 +41,10 @@
                     {{ classe }}
                     <mat-icon matChipRemove>cancel</mat-icon>
                 </mat-chip>
+                <mat-chip *ngFor="let tag of this.filtros.tags" [removable] ="true" (removed)="removeFiltro('tags', tag)">
+                    {{ tag.descricao }}
+                    <mat-icon matChipRemove>cancel</mat-icon>
+                </mat-chip>
             </mat-chip-list>
     </div>
 </div>
