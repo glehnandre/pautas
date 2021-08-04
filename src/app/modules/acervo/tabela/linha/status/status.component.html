@@ -1,8 +1,8 @@
 <div>
     <button 
         class="absolute right-8 h-12 w-2 rounded-full my-auto sm:hidden"
-        [style]="'background-color:' + situacaoProcesso?.color"
-        [matTooltip]="situacaoProcesso?.text"
+        [style]="'background-color:' + getCorDoStatus()"
+        [matTooltip]="getStatus()"
         matTooltipPosition="left"
         matTooltipShowDelay="100"
     ></button>
@@ -12,9 +12,9 @@
     <mat-chip
         id="status-processo" 
         class="absolute right-8 w-40 text-center hidden sm:block"
-        [style]="'background-color:' + situacaoProcesso?.color"
+        [style]="'background-color:' + getCorDoStatus()"
         selected 
     >
-        {{situacaoProcesso?.text}}
+        {{getStatus()}}
     </mat-chip>
 </div>
