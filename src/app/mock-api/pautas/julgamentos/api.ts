@@ -22,7 +22,9 @@ export class JulgamentoMockApi {
 
           this._julgamentos.push(julgamento);
 
-          return [201, [this._julgamentos]];
+          return [201, {
+            msg: 'Processo pautado com sucesso!'
+          }];
         });
     }
 }

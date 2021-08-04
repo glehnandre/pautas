@@ -1,9 +1,8 @@
 import { HttpParams } from '@angular/common/http';
-import { Component, Input, OnInit, Output, SimpleChange, EventEmitter } from '@angular/core';
+import { Component, Input, OnInit, Output, SimpleChange } from '@angular/core';
 import { ProcessoService } from 'app/modules/services/processo.service';
 import { Processo } from '../model/interfaces/processo.interface';
 import { Paginacao } from './paginacao/paginacao.component';
-
 
 @Component({
   selector: 'app-tabela',

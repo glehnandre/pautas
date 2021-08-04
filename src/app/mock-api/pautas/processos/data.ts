@@ -1,6 +1,5 @@
 import { tags as tagData } from 'app/mock-api/pautas/tags/data';
-import { SituacaoDoProcesso } from 'app/modules/acervo/model/enums/situacaoDoProcesso.enum';
-import { TipoDoProcesso } from 'app/modules/acervo/model/enums/tipodoprocesso.enum';
+import { TipoDoProcesso } from 'app/modules/acervo/model/enums/tipoDoProcesso.enum';
 import { Processo } from 'app/modules/acervo/model/interfaces/processo.interface';
 
 export const processo: Processo[] = [
@@ -15,7 +14,7 @@ export const processo: Processo[] = [
     numero:     100,
     cadeira:    1,
     descricao:  'Sessão de julgamento extraordinária para tratar da divisão de terras.',
-    situacao:   SituacaoDoProcesso["Apto a Julgar"],
+    situacao:   1,
     tipo:       TipoDoProcesso.Incidente,
     capitulos:  [
       {
@@ -55,7 +54,7 @@ export const processo: Processo[] = [
     numero:     200,
     cadeira:    1,
     descricao:  'Sessão de julgamento extraordinária para tratar da divisão de terras.',
-    situacao:   SituacaoDoProcesso.Pautado,
+    situacao:   2,
     tipo:       TipoDoProcesso.Incidente,
     capitulos:  [
       {
@@ -95,7 +94,7 @@ export const processo: Processo[] = [
     numero:     300,
     cadeira:    1,
     descricao:  'Sessão de julgamento extraordinária para tratar da divisão de terras.',
-    situacao:   SituacaoDoProcesso.Pautado,
+    situacao:   3,
     tipo:       TipoDoProcesso.Merito,
     capitulos:  [
       {
@@ -135,7 +134,7 @@ export const processo: Processo[] = [
     numero:     300,
     cadeira:    1,
     descricao:  'Sessão de julgamento extraordinária para tratar da divisão de terras.',
-    situacao:   SituacaoDoProcesso["Em julgamento"],
+    situacao:   4,
     tipo:       TipoDoProcesso.Merito,
     capitulos:  [
       {
@@ -177,7 +176,7 @@ export const processo: Processo[] = [
     numero:     300,
     cadeira:    1,
     descricao:  'Sessão de julgamento extraordinária para tratar da divisão de terras.',
-    situacao:   SituacaoDoProcesso["Apto a Julgar"],
+    situacao:   5,
     tipo:       TipoDoProcesso.Merito,
     capitulos:  [
       {
