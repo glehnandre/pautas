@@ -4,8 +4,9 @@ import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
 import { MatChipInputEvent } from '@angular/material/chips';
-import { SituacaoDoProcesso } from 'app/modules/acervo/model/enums/situacaoDoProcesso.enum';
+import { MatDialogRef } from '@angular/material/dialog';
 import { Processo } from 'app/modules/acervo/model/interfaces/processo.interface';
+import { JulgamentoService } from 'app/modules/services/julgamento.service';
 import { EMPTY, Observable } from 'rxjs';
 import { startWith, map, catchError } from 'rxjs/operators';
 
@@ -32,6 +33,8 @@ export class SessaoExtraordinariaComponent implements OnInit {
   constructor(
     private _fb: FormBuilder,
     private _httpClient: HttpClient,
+    private _julgamentoSerivce: JulgamentoService,
+    private _dialogRef: MatDialogRef<SessaoExtraordinariaComponent>
   ) {
     this.sessaoExtraordinariaForm = this._fb.group({
       data_inicio: ['', [Validators.required]],
@@ -91,8 +94,9 @@ export class SessaoExtraordinariaComponent implements OnInit {
         .subscribe({
           next: (data) => {
             console.log(data);
+            this._dialogRef.close();
           }
-        })
+        });
     }
   }
   

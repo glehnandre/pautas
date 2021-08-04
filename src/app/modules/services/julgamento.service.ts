@@ -26,4 +26,8 @@ export class JulgamentoService {
     );
   }
 
+  public socilitarSessaoExtraordinaria(): Observable<any> {
+    return null;
+  }
+
 }

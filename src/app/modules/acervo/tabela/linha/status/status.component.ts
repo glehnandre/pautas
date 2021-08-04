@@ -42,11 +42,11 @@ export class StatusComponent implements OnInit {
   }
 
   public getStatus(): string {
-    return this.situacaoProcesso.situacao.nome;
+    return this.situacaoProcesso?.situacao.nome;
   }
 
   public getCorDoStatus(): string {
-    return this.status.find(it => it.id === this.situacaoProcesso.situacao.id).color;
+    return this.status.find(it => it.id === this.situacaoProcesso?.situacao.id)?.color;
   }
 
   print() {
