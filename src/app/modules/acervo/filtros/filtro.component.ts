@@ -1,5 +1,6 @@
-import { Component, OnInit, Output, ViewChild, ViewEncapsulation, Inject } from '@angular/core';
+import { Component, OnInit, Output, ViewChild, ViewEncapsulation, Inject, Input } from '@angular/core';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
+import { Observable, Subscription } from 'rxjs';
 import { FiltroDialogComponent } from './filtro-dialog.component';
 import { Filtros } from './filtros';
 
@@ -13,10 +14,18 @@ import { Filtros } from './filtros';
 export class FiltroComponent implements OnInit {
   filtros: Filtros = { termo: '', classes: [], situacoes: [], tags: [], pleno: false, primeira_turma: false, segunda_turma: false };
   termo: string = '';
+  private eventsSubscription: Subscription;
 
+  @Input() tag: Observable<void>;
   constructor(private dialog: MatDialog) {
   }
+  ngOnInit() {
+    this.eventsSubscription = this.tag.subscribe(() => console.log(this.tag, "humm"));
+  }
 
+  ngOnDestroy() {
+    this.eventsSubscription.unsubscribe();
+  }
   //Abrir dialog
   openDialog(): void {
     const dialogConfig = new MatDialogConfig();
@@ -45,13 +54,11 @@ export class FiltroComponent implements OnInit {
     this.filtros[nome_filtro] = false;
   }
 
-   //Remove the filters of a single term
-    removeFiltroTermo(): void {
-      this.filtros['termo'] = '';
-      this.termo = '';
+  //Remove the filters of a single term
+  removeFiltroTermo(): void {
+    this.filtros['termo'] = '';
+    this.termo = '';
   }
 
-  ngOnInit(): void {
 
-  }
 }

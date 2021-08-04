@@ -13,6 +13,7 @@ import { Paginacao } from './paginacao/paginacao.component';
 export class TabelaComponent implements OnInit {
   @Input() Allselected: any;
   @Output() SelectAll: any;
+  @Output() tagSelecionada = new EventEmitter();
   @Output() data: {
     checked: Boolean,
     nome: String,
@@ -55,6 +56,10 @@ export class TabelaComponent implements OnInit {
 
   check(){
     //this.SelectAll = this.Allselected
+  } 
+  
+  filtrarPorTags(tag) {
+    this.tagSelecionada.emit(tag)
   }
 
   trataEventoDeChecked(data: Processo) {

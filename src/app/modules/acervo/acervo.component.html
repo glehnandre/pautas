@@ -3,7 +3,9 @@
     <!-- Header -->
     <div class="sm:items-center sm:justify-between p-3 pb-11 sm:pt-2 sm:pb-10 sm:px-5 bg-default dark:bg-transparent">
         <div>
-            <app-filtro></app-filtro>
+            <app-filtro
+            [tag]="eventsSubject.asObservable()"
+            ></app-filtro>
         </div>
         <div>
             <app-acoes 
@@ -20,6 +22,7 @@
         <div>
             <app-tabela 
                 [Allselected]="SelectAllLines"
+                (tagSelecionada)="filtrarPorTags($event)"
             ></app-tabela>
         </div>
     </div>
