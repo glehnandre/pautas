@@ -36,4 +36,32 @@ export class JulgamentoService {
     });
   }
 
+  public listarSessoesDeJulgamento(numero: number, ano: number): Observable<SessaoDeJulgamento> {
+    const numeroAno = `${numero}-${ano}`;
+    return this._httpClient.get<SessaoDeJulgamento>(`sessoes-de-julgamento/${numeroAno}`).pipe(
+      catchError(error => {
+        console.log(error);
+        return EMPTY;
+      }),
+    );
+  }
+
+  public listarProcessosPautadosNasSessoes(numero: number, ano: number, 
+      situacao: string, inicio: string, fim: string): Observable<any> {
+    const numeroAno = `${numero}-${ano}`;
+    let params = new HttpParams();
+    params = params.set('situacao', situacao);
+    params = params.set('inicio', inicio);
+    params = params.set('fim', fim);
+
+    return this._httpClient.get<any>(`sessoes-de-julgamento/${numeroAno}/pauta`, {
+      params,
+    }).pipe(
+      catchError(error => {
+        console.log(error);
+        return EMPTY;
+      }),
+    ); 
+  }
+
 }
