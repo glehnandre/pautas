@@ -7,10 +7,12 @@ import { Component, OnInit } from '@angular/core';
 })
 export class JulgamentoExtraordinarioComponent implements OnInit {
 
+  tags: string[] = ['Virtual', 'Segunda Turma'];
+
   constructor() { }
 
   ngOnInit(): void {
-    console.log('julgamento')
+    
   }
 
 }

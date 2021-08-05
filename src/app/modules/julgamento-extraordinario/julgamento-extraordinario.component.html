@@ -1,16 +1,32 @@
 <div class="absolute inset-0 flex flex-col min-w-0 overflow-hidden">
 
     <!-- Header -->
-    <div class="sm:items-center sm:justify-between p-3 pb-11 sm:pt-2 sm:pb-10 sm:px-5 bg-default dark:bg-transparent">
-        <h1 class="mt-4">Resposta de Solicitação de Sessão de Julgamento Extraordinária MMA</h1>
+    <div class="flex flex-row justify-center items-center sm:justify-between pl-8 bg-default dark:bg-transparent">
+        <h1 class="mt-4">
+            Resposta de Solicitação de Sessão de Julgamento Extraordinária MMA
+        </h1>
     </div>
 
+    <hr class="m-0 p-0 mb-4" />
+
     <!-- Main -->
-    <div class="flex-auto  overflow-y-auto px-5" cdkScrollable>
+    <div class="flex-auto  overflow-y-auto px-8 pb-8" cdkScrollable>
         <!-- CONTENT GOES HERE -->
         <div>
             <div class="mb-8">
-                <p>|Virtual| &nbsp;&nbsp;&nbsp; |Segunda Turma|</p>
+                <mat-chip-list
+                    class="example-chip"
+                    cdkDropList 
+                    cdkDropListOrientation="horizontal"
+                >
+                    <mat-chip
+                        class="example-box"
+                        cdkDrag
+                        *ngFor="let tag of tags"
+                    >
+                        {{tag}}
+                    </mat-chip>
+                </mat-chip-list>
             </div>
 
             <p>
@@ -21,7 +37,7 @@
 
             <h2>Processos</h2>
             <div>
-                <h3>ADC 700 - Mérito</h3>
+                <h3 class="font-medium">ADC 700 - Mérito</h3>
                 <p>
                     Lorem ipsum dolor sit amet consectetur adipisicing elit. 
                     Quae quibusdam delectus alias? Eaque accusantium esse placeat eum 
@@ -31,7 +47,7 @@
             </div>
 
             <div>
-                <h3>ADI 6524 - Mérito</h3>
+                <h3 class="font-medium">ADI 6524 - Mérito</h3>
                 <p>
                     Lorem ipsum dolor sit amet consectetur adipisicing elit. 
                     Quae quibusdam delectus alias? Eaque accusantium esse placeat eum 
@@ -48,11 +64,25 @@
             </div>
         </div>
 
-        <div>
-            <button>Cancelar</button>
-            <button>Ciente</button>
-            <button>Ciente e Pautar na Sessão</button>
-        </div>
-    </div>
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between mt-4 sm:mt-6">
+            <div mat-dialog-actions class="flex items-center mt-4 sm:mt-0 ml-auto">
+              <button class="ml-auto sm:ml-0 mr-2" mat-button mat-dialog-close>
+                <span>Cancelar</span>
+              </button>
 
+              <button class="ml-auto sm:ml-0 mr-2" mat-button mat-dialog-close>
+                <span>Cliente</span>
+              </button>
+        
+              <button 
+                class="ml-auto"
+                color="primary" 
+                mat-raised-button 
+                mat-dialog-close
+              >
+                Ciente e Pautar na Sessão  
+              </button>
+            </div>
+          </div>
+    </div>
 </div>
