@@ -4,8 +4,10 @@ import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
 import { MatChipInputEvent } from '@angular/material/chips';
-import { SituacaoDoProcesso } from 'app/modules/acervo/model/enums/situacaoDoProcesso.enum';
+import { MatDialogRef } from '@angular/material/dialog';
 import { Processo } from 'app/modules/acervo/model/interfaces/processo.interface';
+import { AlertaService } from 'app/modules/services/alerta.service';
+import { JulgamentoService } from 'app/modules/services/julgamento.service';
 import { EMPTY, Observable } from 'rxjs';
 import { startWith, map, catchError } from 'rxjs/operators';
 
@@ -32,19 +34,33 @@ export class SessaoExtraordinariaComponent implements OnInit {
   constructor(
     private _fb: FormBuilder,
     private _httpClient: HttpClient,
+    private _julgamentoSerivce: JulgamentoService,
+    private _dialogRef: MatDialogRef<SessaoExtraordinariaComponent>,
+    private _alertService: AlertaService,
   ) {
     this.sessaoExtraordinariaForm = this._fb.group({
       data_inicio: ['', [Validators.required]],
       data_fim: ['', [Validators.required]],
-      assunto: ['', [Validators.required]],
       colegiado: ['', [Validators.required]],
-      pautas: [[], [Validators.required]],
+      processos: [[], [Validators.required]],
     });
 
     this.recuperarProcessos();    
   }
 
   ngOnInit() {}
+
+  public solicitarSessaoExtraordinaria(): void {
+    if (this.sessaoExtraordinariaForm.valid) {
+      this._julgamentoSerivce.socilitarSessaoExtraordinaria(this.sessaoExtraordinariaForm.value).subscribe({
+        next: (data) => {
+          console.log(data);
+          this._alertService.exibirAlertaDeSucesso();
+          this._dialogRef.close();
+        }
+      });
+    }
+  }
 
   public add(event: MatChipInputEvent): void {
     const value = (event.value || '').toLocaleLowerCase();
@@ -57,7 +73,7 @@ export class SessaoExtraordinariaComponent implements OnInit {
     
     if (processo) {
       this.processosSelecionados.push(processo);
-      this.sessaoExtraordinariaForm.controls.pautas.setValue(this.processosSelecionados);
+      this.sessaoExtraordinariaForm.controls.processos.setValue(this.processosSelecionados);
       this._adicionarProcessoAosRemovidos(processo);
     }
 
@@ -71,7 +87,7 @@ export class SessaoExtraordinariaComponent implements OnInit {
 
     if (index >= 0) {
       this.processosSelecionados.splice(index, 1);
-      this.sessaoExtraordinariaForm.controls.pautas.setValue(this.processosSelecionados);
+      this.sessaoExtraordinariaForm.controls.processos.setValue(this.processosSelecionados);
       this._retirarProcessoDosRemovidos(processo);
     }
   }
@@ -79,21 +95,10 @@ export class SessaoExtraordinariaComponent implements OnInit {
   public selected(event: MatAutocompleteSelectedEvent): void {
     const processo: Processo = event.option.value;
     this.processosSelecionados.push(processo);
-    this.sessaoExtraordinariaForm.controls.pautas.setValue(this.processosSelecionados);
+    this.sessaoExtraordinariaForm.controls.processos.setValue(this.processosSelecionados);
     this._adicionarProcessoAosRemovidos(processo);
     this.processoInput.nativeElement.value = '';
     this.processoCtrl.setValue(null);
-  }
-
-  public solicitarSessaoExtraordinaria(): void {
-    if (this.sessaoExtraordinariaForm.valid) {
-      this._httpClient.post('pautas', this.sessaoExtraordinariaForm.value)
-        .subscribe({
-          next: (data) => {
-            console.log(data);
-          }
-        })
-    }
   }
   
   private _filter(value: Processo | string): Processo[] {

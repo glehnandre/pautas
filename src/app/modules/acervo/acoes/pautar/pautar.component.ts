@@ -3,6 +3,7 @@ import { Component, OnInit, Inject } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { FuseAlertService } from '@fuse/components/alert';
+import { AlertaService } from 'app/modules/services/alerta.service';
 import { JulgamentoService } from 'app/modules/services/julgamento.service';
 import { ProcessoService } from 'app/modules/services/processo.service';
 import { Observable } from 'rxjs';
@@ -58,6 +59,7 @@ export class PautarComponent implements OnInit {
         private _julgamentoService: JulgamentoService,
         private _fuseAlertService: FuseAlertService,
         private _processoService: ProcessoService,
+        private _alertService: AlertaService,
         @Inject(MAT_DIALOG_DATA) public data: any,
     ) {
 
@@ -91,13 +93,9 @@ export class PautarComponent implements OnInit {
             this._julgamentoService.pautarProcesso(this.pautarForm.value).subscribe({
                 next: (data) => {
                     console.log(data)
-                    this._fuseAlertService.show('sucesso');
-                    setTimeout(() => {
-                        this._fuseAlertService.dismiss('sucesso');
-                    }, 5000);
+                    this._alertService.exibirAlertaDeSucesso();
                 }   
-            });
-                
+            });   
         }
     }
 

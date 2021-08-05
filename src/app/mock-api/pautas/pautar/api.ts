@@ -31,7 +31,7 @@ export class PautaMockApi {
           const id = +urlParams.id;
 
           const pauta = this._pauta
-            .find(pauta => pauta.pautas
+            .find(pauta => pauta.processos
               .find(processo => processo.id === id));
 
           return [201, pauta];

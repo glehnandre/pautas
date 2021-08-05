@@ -30,14 +30,14 @@
             </mat-error>
         </mat-form-field>
 
-        <mat-form-field appearance="fill">
+        <!--<mat-form-field appearance="fill">
           <mat-label>Trata-se de:</mat-label>
           <textarea matInput name="assunto" formControlName="assunto"></textarea>
           <mat-hint class="mb-1">Preencha com os motivos pelos quais a criação de uma Sessão de Julgamento Extraordinário foi solicitada.</mat-hint>
           <mat-error class="mb-1" *ngIf="sessaoExtraordinariaForm.controls.assunto.errors?.required">
             O assunto é obrigatório
           </mat-error>
-        </mat-form-field>
+        </mat-form-field>-->
 
         <mat-form-field appearance="fill">
           <mat-label>Selecione o colegiado:</mat-label>
@@ -60,13 +60,13 @@
 
         <mat-form-field class="example-chip-list" appearance="fill">
           <mat-label>Processos:</mat-label>
-          <mat-chip-list #chipList formControlName="pautas">
+          <mat-chip-list #chipList formControlName="processos">
             <mat-chip
               *ngFor="let processo of processosSelecionados"
               [selectable]="selectable"
               [removable]="removable"
               (removed)="remove(processo)">
-                {{processo.classe + ' ' + processo.numero}}
+                {{processo.classe}} {{processo.numero}}
               <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
             </mat-chip>
             <input
@@ -84,10 +84,10 @@
               *ngFor="let processo of processosFiltrados | async" 
               [value]="processo"
             >
-              {{processo.classe + ' ' + processo.numero}}
+              {{processo.classe}} {{processo.numero}}
             </mat-option>
           </mat-autocomplete>
-          <mat-error class="mb-1" *ngIf="sessaoExtraordinariaForm.controls.pautas.errors?.required">
+          <mat-error class="mb-1" *ngIf="sessaoExtraordinariaForm.controls.processos.errors?.required">
             Escolha pelo menos um processo
           </mat-error>
         </mat-form-field>

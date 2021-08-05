@@ -15,6 +15,13 @@ export const defaultNavigation: FuseNavigationItem[] = [
         type : 'basic',
         icon : 'heroicons_outline:chart-pie',
         link : '/acervo'
+    },
+    {
+        id   : 'julgamento-extraordinario',
+        title: 'Julgamento Extraordinario',
+        type : 'basic',
+        icon : 'heroicons_outline:chart-pie',
+        link : '/julgamento-extraordinario'
     }
 ];
 export const compactNavigation: FuseNavigationItem[] = [
@@ -31,6 +38,13 @@ export const compactNavigation: FuseNavigationItem[] = [
         type : 'basic',
         icon : 'heroicons_outline:chart-pie',
         link : '/acervo'
+    },
+    {
+        id   : 'julgamento-extraordinario',
+        title: 'Julgamento Extraordinario',
+        type : 'basic',
+        icon : 'heroicons_outline:chart-pie',
+        link : '/julgamento-extraordinario'
     }
 ];
 export const futuristicNavigation: FuseNavigationItem[] = [
@@ -47,6 +61,13 @@ export const futuristicNavigation: FuseNavigationItem[] = [
         type : 'basic',
         icon : 'heroicons_outline:chart-pie',
         link : '/acervo'
+    },
+    {
+        id   : 'julgamento-extraordinario',
+        title: 'Julgamento Extraordinario',
+        type : 'basic',
+        icon : 'heroicons_outline:chart-pie',
+        link : '/julgamento-extraordinario'
     }
 ];
 export const horizontalNavigation: FuseNavigationItem[] = [
@@ -57,11 +78,18 @@ export const horizontalNavigation: FuseNavigationItem[] = [
         icon : 'heroicons_outline:chart-pie',
         link : '/example'
     },
-    {
+        {
         id   : 'acervo',
         title: 'Acervo',
         type : 'basic',
         icon : 'heroicons_outline:chart-pie',
         link : '/acervo'
+    },
+        {
+        id   : 'julgamento-extraordinario',
+        title: 'Julgamento Extraordinario',
+        type : 'basic',
+        icon : 'heroicons_outline:chart-pie',
+        link : '/julgamento-extraordinario'
     }
 ];

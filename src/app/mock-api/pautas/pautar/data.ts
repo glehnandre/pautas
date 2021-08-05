@@ -8,7 +8,7 @@ export const pautas: Pauta[] = [
     assunto: 'Teste dos dados da pauta',
     colegiado: 'segunda-turma',
     sessao: 1,
-    pautas: [
+    processos: [
       processo[0],
       processo[3],
     ],

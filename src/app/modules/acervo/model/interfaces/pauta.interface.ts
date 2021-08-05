@@ -6,5 +6,5 @@ export interface Pauta {
     assunto: string;
     colegiado: string;
     sessao: number;
-    pautas: Processo[],
+    processos: Processo[],
 }
