@@ -2,6 +2,7 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { MatDatepickerInputEvent } from '@angular/material/datepicker';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { FuseAlertService } from '@fuse/components/alert';
+import { AlertaService } from 'app/modules/services/alerta.service';
 import { JulgamentoService } from 'app/modules/services/julgamento.service';
 import { Pauta } from '../../model/interfaces/pauta.interface';
 import { Processo } from '../../model/interfaces/processo.interface';
@@ -21,7 +22,7 @@ export class AlterarSessaoComponent implements OnInit {
     data_inicio: '',
     data_fim: '',
     sessao: 0,
-    pautas: [],
+    processos: [],
   };
 
   colegiados: Colegiado[] = [
@@ -51,6 +52,7 @@ export class AlterarSessaoComponent implements OnInit {
   constructor(
     private _julgamentoService: JulgamentoService,
     private _fuseAlertService: FuseAlertService,
+    private _alertService: AlertaService,
     @Inject(MAT_DIALOG_DATA) public processos: Processo[], 
   ) {}
 
@@ -82,10 +84,7 @@ export class AlterarSessaoComponent implements OnInit {
     console.log(this.pauta);
     this._julgamentoService.pautarProcesso(this.pauta).subscribe({
         next: () => {
-            this._fuseAlertService.show('sucesso');
-            setTimeout(() => {
-                this._fuseAlertService.dismiss('sucesso');
-            }, 5000);
+            this._alertService.exibirAlertaDeSucesso();
         }   
     });
   }

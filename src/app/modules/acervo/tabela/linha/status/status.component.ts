@@ -1,6 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Status } from 'app/modules/acervo/model/interfaces/status.interface';
 import { ProcessoService } from 'app/modules/services/processo.service';
+import { StatusProcesso } from '../../status/situacaoProcesso';
 
 @Component({
   selector: 'app-status',
@@ -22,7 +23,7 @@ export class StatusComponent implements OnInit {
     { id: 7, color: "#A3F4F6", text: '' },
   ]
 
-  situacaoProcesso: Status;
+  situacaoProcesso: StatusProcesso;
 
   constructor(
     private _processoService: ProcessoService,
@@ -32,12 +33,20 @@ export class StatusComponent implements OnInit {
     this._processoService.obterStatusDoProcesso(this.idProcesso).subscribe({
       next: (status) => {
         this.situacaoProcesso = {
-          id: status.situacao.id,
-          color: this.status.find(situacao => situacao.id === status.situacao.id).color,
-          text: status.situacao.nome,
+          situacao: status.situacao,
+          complemento: status.complemento,
+          descricao: status.descricao,
         }
       },
     });
+  }
+
+  public getStatus(): string {
+    return this.situacaoProcesso?.situacao.nome;
+  }
+
+  public getCorDoStatus(): string {
+    return this.status.find(it => it.id === this.situacaoProcesso?.situacao.id)?.color;
   }
 
   print() {

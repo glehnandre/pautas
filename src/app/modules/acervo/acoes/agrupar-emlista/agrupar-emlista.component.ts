@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { FuseAlertService } from '@fuse/components/alert';
+import { AlertaService } from 'app/modules/services/alerta.service';
 import { EMPTY, Observable } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { Tag } from '../../model/interfaces/tag.interface';
@@ -26,6 +27,7 @@ export class AgruparEmlistaComponent implements OnInit {
   constructor(
     private _httpClient: HttpClient,
     private _fuseAlertService: FuseAlertService,
+    private _alertService: AlertaService,
     public dialogRef: MatDialogRef<AgruparEmlistaComponent>,
     public dialog: MatDialog,
   ) {}
@@ -39,7 +41,7 @@ export class AgruparEmlistaComponent implements OnInit {
     
     dialogRef.afterClosed().subscribe((result) => {
       if (result === 'ok') {
-        this._exibeAlertaSucesso();
+        this._alertService.exibirAlertaDeSucesso();
         this.carregaTodasAsTags();
       }
     });
@@ -52,17 +54,9 @@ export class AgruparEmlistaComponent implements OnInit {
     
     dialogRef.afterClosed().subscribe((data) => {
       if (data === 'ok') {
-        this._exibeAlertaSucesso();
+        this._alertService.exibirAlertaDeSucesso();
       }
     });
-  }
-
-  private _exibeAlertaSucesso(tempo: number = 5000): void {
-    this._fuseAlertService.show('sucesso');
-
-    setTimeout(() => {
-      this._fuseAlertService.dismiss('sucesso');
-    }, tempo);
   }
 
   obterTagsSelecionadas(): Array<{id: number}> {
