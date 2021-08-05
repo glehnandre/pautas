@@ -3,10 +3,10 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { FuseAlertService } from '@fuse/components/alert';
 import { ProcessoService } from 'app/modules/services/processo.service';
-import { SituacaoDoProcesso } from '../model/enums/situacaoDoProcesso.enum';
 import { Processo } from '../model/interfaces/processo.interface';
 import { AgruparEmlistaComponent } from './agrupar-emlista/agrupar-emlista.component';
 import { AlertaComponent } from './agrupar-emlista/gerenciar-listas/alerta/alerta.component';
+import { AlterarSessaoComponent } from './alterar-sessao/alterar-sessao.component';
 import { PautarComponent } from './pautar/pautar.component';
 import { ReanalizarComponent } from './reanalizar/reanalizar.component';
 
@@ -45,7 +45,6 @@ export class AcoesComponent implements OnInit {
 
   ngOnInit(): void {
     this._processoService.obterProcessosSelecionados().subscribe(processos => {
-      console.log(processos)
       this.processos = processos;
     });
 
@@ -120,7 +119,7 @@ export class AcoesComponent implements OnInit {
   retirarDePauta(): void {
     if (!this.verificaProcesso()) {
       this.mostrarAlerta();
-    } else if (this.processos.some(p => p.situacao !== SituacaoDoProcesso.Pautado)) {
+    } else if (this.processos.some(p => p.situacao !== 4)) {
       this.alertaDeErro('Erro nos processos selecionados', 'Selecione apenas os processos com a situação: Pautado.');
     } else {
       const dialogRef = this._matDialog.open(AlertaComponent, {
@@ -170,7 +169,7 @@ export class AcoesComponent implements OnInit {
   abrirModalDeReanalizar(): void {
     if (!this.verificaProcesso()) {
       this.mostrarAlerta();
-    } else if (this.processos.some(p => p.situacao !== SituacaoDoProcesso['Apto a Julgar'])) {
+    } else if (this.processos.some(p => p.situacao !== 1)) {
       this.alertaDeErro('Erro nos processos selecionados', 'Selecione apenas os processos com a situação: Apto a ser Julgado.');
     } else {
       const dialogRef = this._matDialog.open(ReanalizarComponent, {
@@ -182,6 +181,19 @@ export class AcoesComponent implements OnInit {
           this._processoService.setCarregarProcessos(true);
         }
       });
+    }
+  }
+
+  abrirModalDeAlterarSessao(): void {
+    if (!this.verificaProcesso()) {
+      this.mostrarAlerta();
+    } else if (this.processos.some(p => p.situacao !== 4)) {
+      this.alertaDeErro('Erro nos processos selecionados', 'Alguns processos ainda não foram paltados');
+    } else {
+      const dialogRef = this._matDialog.open(AlterarSessaoComponent, {
+        data: this.processos,
+      });
+      dialogRef.afterClosed().subscribe(resultado => {});
     }
   }
 

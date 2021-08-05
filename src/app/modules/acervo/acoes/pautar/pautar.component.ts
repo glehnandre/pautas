@@ -3,13 +3,15 @@ import { Component, OnInit, Inject } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { FuseAlertService } from '@fuse/components/alert';
+import { JulgamentoService } from 'app/modules/services/julgamento.service';
+import { ProcessoService } from 'app/modules/services/processo.service';
 import { Observable } from 'rxjs';
 import { Processo } from '../../model/interfaces/processo.interface';
 import { SessaoDeJulgamento } from '../../model/interfaces/sessaoDeJulgamento.interface';
 import { SessaoExtraordinariaComponent } from './sessao-extraordinaria/sessao-extraordinaria.component';
 
 
-interface Colegiado {
+export interface Colegiado {
     value: string;
     viewValue: string;
 }
@@ -44,7 +46,6 @@ export class PautarComponent implements OnInit {
         {id: 10, ano: 2021, numero: 10, colegiado: 'Pleno', modalidade: 'Virtual', categoria: 'Judicial', tipo: 'Ordinária', data_inicio: new Date(2021, 8, 20), data_fim: new Date(2021, 8, 25)}
     ];
 
-
     colegiadoEscolhido = this.colegiados[0].value;
     myControl: FormControl = new FormControl();
     options: string[] = ['1000', '2000', '3000'];
@@ -54,8 +55,9 @@ export class PautarComponent implements OnInit {
         public matDialogRef: MatDialogRef<PautarComponent>,
         private _formBuilder: FormBuilder,
         private _dialog: MatDialog,
-        private _httpClient: HttpClient,
+        private _julgamentoService: JulgamentoService,
         private _fuseAlertService: FuseAlertService,
+        private _processoService: ProcessoService,
         @Inject(MAT_DIALOG_DATA) public data: any,
     ) {
 
@@ -76,9 +78,6 @@ export class PautarComponent implements OnInit {
         this.matDialogRef.close();
     }
 
-    /**
-     * Discard the message
-     */
     sessaoExtraordinaria(): void {
         const dialogRef = this._dialog.open(SessaoExtraordinariaComponent, {});
 
@@ -87,28 +86,25 @@ export class PautarComponent implements OnInit {
         });
     }
 
-
-    /**
-     * Send the message
-     */
     pautar(): void {
         if (this.pautarForm.valid) {
-            this._httpClient.post('julgamentos', this.pautarForm.value as SessaoDeJulgamento)
-                .subscribe({
-                    next: (data) => {
-                        console.log(data)
-                        this._fuseAlertService.show('sucesso');
-                        setTimeout(() => {
-                            this._fuseAlertService.dismiss('sucesso');
-                        }, 5000);
-                    }   
-                });
+            this._julgamentoService.pautarProcesso(this.pautarForm.value).subscribe({
+                next: (data) => {
+                    console.log(data)
+                    this._fuseAlertService.show('sucesso');
+                    setTimeout(() => {
+                        this._fuseAlertService.dismiss('sucesso');
+                    }, 5000);
+                }   
+            });
+                
         }
     }
 
     removeChip(processo: Processo){
         this.data.processos.splice(this.data.processos.indexOf(processo), 1);
         processo.checked = false;
+        this._processoService.setProcessosSelecionados(this.data.processos);
 
         if(this.data.processos.length == 0){
             this.fechar();

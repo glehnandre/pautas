@@ -2,8 +2,9 @@
     <mat-chip 
         selected
         class="ml-4"
-        color="default"
+        color="primary"
         *ngFor="let tag of tags"
+        (click)="filtrarPorTags(tag)"
     >
         {{tag.descricao}}
     </mat-chip>

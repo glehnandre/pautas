@@ -13,6 +13,7 @@ export class LinhaComponent implements OnInit {
   @Output() display: boolean = false;
   @Output() mobile: boolean = false;
   @Output() checked = new EventEmitter<Processo>();
+  @Output() tagSelecionada = new EventEmitter();
 
   @Input() processo: Processo;
   
@@ -31,6 +32,10 @@ export class LinhaComponent implements OnInit {
   emiteStatusDoCheckbox(status: MatCheckboxChange) {
     this.processo.checked = status.checked;
     this.checked.emit(this.processo);
+  }
+  
+  filtrarPorTags(tag) {
+    this.tagSelecionada.emit(tag)
   }
   
   onResize() {

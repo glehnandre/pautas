@@ -122,7 +122,7 @@ export class SessaoExtraordinariaComponent implements OnInit {
 
   private _obterProcessos(): Observable<Processo[]> {
     let params = new HttpParams();
-    params = params.set('situacao-processo', SituacaoDoProcesso['Apto a Julgar']);
+    params = params.set('situacao-processo', 1);
 
     return this._httpClient.get<Processo[]>('processos', { params }).pipe(
       catchError(error => {
