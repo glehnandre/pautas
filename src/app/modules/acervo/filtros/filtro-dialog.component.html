@@ -12,7 +12,7 @@
     <div class="flex flex-col flex-auto p-4 overflow-y-auto">
         <section [formGroup]="form">
             <div class="space-y-4">
-                <div class="w-full"  *ngIf="filtros.termo">
+                <div class="w-full" *ngIf="filtros.termo">
                     <label>Termo para pesquisa</label>
                     <div>
                         <mat-chip>{{ filtros.termo }}</mat-chip>
@@ -40,6 +40,16 @@
                                 <mat-option *ngFor="let classe of classesLista" [value]="classe">{{classe}}</mat-option>
                             </mat-select>
                         </mat-form-field>
+                        <label>Tags</label>
+                        <div>
+                            <mat-form-field appearance="fill" class="w-full object-top" >
+                                <mat-select multiple formControlName="tags" disableOptionCentering>
+                                    <mat-option *ngFor="let tag of tags" [value]="tag">
+                                        {{tag.descricao}}
+                                    </mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </div>
                     </div>
                 </div>
                 <div class="w-full">
@@ -47,7 +57,8 @@
                     <div>
                         <mat-form-field appearance="fill" class="w-full">
                             <mat-select multiple formControlName="situacoes" disableOptionCentering>
-                                <mat-option *ngFor="let situacao of situacaoLista" [value]="situacao">{{situacao}}</mat-option>
+                                <mat-option *ngFor="let situacao of situacaoLista" [value]="situacao">{{situacao}}
+                                </mat-option>
                             </mat-select>
                         </mat-form-field>
                     </div>

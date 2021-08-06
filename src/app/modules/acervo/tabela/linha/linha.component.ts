@@ -38,6 +38,7 @@ export class LinhaComponent implements OnInit {
   
   filtrarPorTags(tag) {
     this.tagSelecionada.emit(tag)
+
   }
   
   onResize() {
