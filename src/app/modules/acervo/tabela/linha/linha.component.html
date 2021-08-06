@@ -7,7 +7,7 @@
                         <mat-checkbox 
                             color="primary" 
                             (change)="emiteStatusDoCheckbox($event)" 
-                            [checked]="processo.checked"
+                            [checked]="Selected || processo.checked"
                         >
                         </mat-checkbox>
                     </div>

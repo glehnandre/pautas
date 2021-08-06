@@ -76,6 +76,7 @@ export const appRoutes: Route[] = [
             {path: 'example', loadChildren: () => import('app/modules/admin/example/example.module').then(m => m.ExampleModule)},
             {path: 'acervo', loadChildren: () => import('app/modules/acervo/acervo.module').then(m => m.AcervoModule)},
             {path: 'julgamento-extraordinario', loadChildren: () => import('app/modules/julgamento-extraordinario/julgamento-extraordinario.module').then(m => m.JulgamentoExtraordinarioModule)},
+            {path: 'sessaoExtraordinaria', loadChildren: () => import('app/modules/sessaoExtraordinaria/sessao-extraordinaria/sessao-extraordinaria.module').then(m => m.SessaoExtraordinariaModule)}
         ]
     }
 ];

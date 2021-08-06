@@ -26,7 +26,7 @@ export class AcoesComponent implements OnInit {
   @Output() Allselected = new EventEmitter();
   @Output() colecaoIdsDasTags = new EventEmitter<Array<{id: number}>>();
 
-  processos: Processo[] = [];
+  @Input() processos: Processo[] = [];
  
   constructor(
     private _httpClient: HttpClient,
@@ -55,6 +55,11 @@ export class AcoesComponent implements OnInit {
   }
 
   selectAll(completed) {
+    //console.log(this.processos);
+    
+    this.processos.forEach((processo) => {
+      processo.checked = completed.checked;
+    });
     this.Allselected.emit(completed)
 
   }
