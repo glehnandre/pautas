@@ -25,10 +25,6 @@ export class FiltroComponent implements OnInit {
         this.filtros.tags.push(data)
 
       }
-      else {
-        console.log("Este filtro já está sendo aplicado!!")
-      }
-
     }
   )}
 
