@@ -1,0 +1,12 @@
+<div class="flex flex-row flex-wrap">
+    <mat-chip-list #chipList *ngFor="let processo of processos" class="m-1">
+        <mat-chip 
+            class="flex-none" 
+            [removable]="isRemovable" 
+            (removed)="removeChip(processo)"
+        >
+            {{processo.classe}} {{processo.numero}} {{processo.nome}}
+            <mat-icon *ngIf="isRemovable" matChipRemove>cancel</mat-icon>
+        </mat-chip>
+    </mat-chip-list>
+</div>

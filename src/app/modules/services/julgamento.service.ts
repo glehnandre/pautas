@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { EMPTY, Observable } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { Pauta } from '../acervo/model/interfaces/pauta.interface';
+import { Processo } from '../acervo/model/interfaces/processo.interface';
 import { SessaoDeJulgamento } from '../acervo/model/interfaces/sessaoDeJulgamento.interface';
 
 @Injectable({
@@ -47,14 +48,14 @@ export class JulgamentoService {
   }
 
   public listarProcessosPautadosNasSessoes(numero: number, ano: number, 
-      situacao: string, inicio: string, fim: string): Observable<any> {
+      situacao: number, inicio: string, fim: string): Observable<Processo[]> {
     const numeroAno = `${numero}-${ano}`;
     let params = new HttpParams();
     params = params.set('situacao', situacao);
     params = params.set('inicio', inicio);
     params = params.set('fim', fim);
-
-    return this._httpClient.get<any>(`sessoes-de-julgamento/${numeroAno}/pauta`, {
+        
+    return this._httpClient.get<Processo[]>(`sessoes-de-julgamento/${numeroAno}/pauta`, {
       params,
     }).pipe(
       catchError(error => {

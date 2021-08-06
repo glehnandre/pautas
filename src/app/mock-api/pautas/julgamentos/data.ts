@@ -1,3 +1,6 @@
+import { SituacaoDoProcesso } from "app/modules/acervo/model/enums/situacaoDoProcesso.enum";
+import { TipoDoProcesso } from "app/modules/acervo/model/enums/tipoDoProcesso.enum";
+import { Processo } from "app/modules/acervo/model/interfaces/processo.interface";
 import { SessaoDeJulgamento } from "app/modules/acervo/model/interfaces/sessaoDeJulgamento.interface";
 
 export const julgamentos: SessaoDeJulgamento[] = [
@@ -9,8 +12,8 @@ export const julgamentos: SessaoDeJulgamento[] = [
     tipo: "ORDINARIA",
     categoria: "REPERCUSSAO_GERAL",
     modalidade: "VIRTUAL",
-    data_inicio: new Date(2021, 7, 1),
-    data_fim: new Date(2021, 8, 1),
+    data_inicio: '2016-08-29T09:12:33.001Z',
+    data_fim: '2016-08-29T09:12:33.001Z',
     secretario: {
       id: 19,
       nome: "Carmen",
@@ -18,11 +21,11 @@ export const julgamentos: SessaoDeJulgamento[] = [
   },
 ];
 
-export const processos: any[] = [
+export const processos: Processo[] = [
   {
     id: 123455,
     ementa: "Sessão de julgamento extraordinária para tratar da divisão de terras.",
-    lista: {
+    lista: [{
       descricao: "Semelhante a ADI 100",
       id: 123445,
       gestor: {
@@ -33,18 +36,15 @@ export const processos: any[] = [
           abreviacao: "MLF",
           cadeira: "string"
         },
-        criação: "2016-08-29T09:12:33.001Z",
+        criacao: "2016-08-29T09:12:33.001Z",
       },
       publica: false
-    },
+    }],
     classe: "ADI",
     numero: 100,
     nome: "Embargo de declaração",
-    situacao: {
-      id: 1,
-      nome: "Apto a Julgar"
-    },
-    tipo: "Merito",
+    situacao: SituacaoDoProcesso.Pautado,
+    tipo: TipoDoProcesso.Merito,
     relator: {
       numero: 19,
       ocupante: {
@@ -53,7 +53,7 @@ export const processos: any[] = [
         abreviacao: "MLF",
         cadeira: "string"
       },
-      criação: "2016-08-29T09:12:33.001Z"
+      criacao: "2016-08-29T09:12:33.001Z"
     },
     redator: {
       numero: 19,
@@ -63,7 +63,7 @@ export const processos: any[] = [
         abreviacao: "MLF",
         cadeira: "string"
       },
-      criação: "2016-08-29T09:12:33.001Z"
+      criacao: "2016-08-29T09:12:33.001Z"
     },
     capitulos: [
       {
@@ -73,5 +73,58 @@ export const processos: any[] = [
         tipo: "Mérito"
       }
     ]
-  }
+  },
+
+  {
+    id: 123455,
+    ementa: "Sessão de julgamento extraordinária para tratar da divisão de terras.",
+    lista: [{
+      descricao: "Semelhante a ADI 100",
+      id: 123445,
+      gestor: {
+        numero: 19,
+        ocupante: {
+          id: 12314441,
+          nome: "Luiz Fux",
+          abreviacao: "MLF",
+          cadeira: "string"
+        },
+        criacao: "2016-08-29T09:12:33.001Z",
+      },
+      publica: false
+    }],
+    classe: "ADI",
+    numero: 100,
+    nome: "Embargo de declaração",
+    situacao: SituacaoDoProcesso.Pautado,
+    tipo: TipoDoProcesso.Merito,
+    relator: {
+      numero: 19,
+      ocupante: {
+        id: 12314441,
+        nome: "Luiz Fux",
+        abreviacao: "MLF",
+        cadeira: "string"
+      },
+      criacao: "2016-08-29T09:12:33.001Z"
+    },
+    redator: {
+      numero: 19,
+      ocupante: {
+        id: 12314441,
+        nome: "Luiz Fux",
+        abreviacao: "MLF",
+        cadeira: "string"
+      },
+      criacao: "2016-08-29T09:12:33.001Z"
+    },
+    capitulos: [
+      {
+        id: 123455,
+        descricao: "",
+        ordem: 1,
+        tipo: "Mérito"
+      }
+    ]
+  },
 ]

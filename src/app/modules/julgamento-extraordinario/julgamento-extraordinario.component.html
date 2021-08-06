@@ -14,19 +14,11 @@
         <!-- CONTENT GOES HERE -->
         <div>
             <div class="mb-8">
-                <mat-chip-list
-                    class="example-chip"
-                    cdkDropList 
-                    cdkDropListOrientation="horizontal"
-                >
-                    <mat-chip
-                        class="example-box"
-                        cdkDrag
-                        *ngFor="let tag of tags"
-                    >
-                        {{tag}}
-                    </mat-chip>
-                </mat-chip-list>
+                <app-processo-chip
+                    [processos]="processos"
+                    [isRemovable]="false"
+                    [isEmitRemoveEvent]="false"
+                ></app-processo-chip>
             </div>
 
             <p>
@@ -36,41 +28,99 @@
             </p>
 
             <h2>Processos</h2>
-            <div>
-                <h3 class="font-medium">ADC 700 - Mérito</h3>
-                <p>
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit. 
-                    Quae quibusdam delectus alias? Eaque accusantium esse placeat eum 
-                    reprehenderit! Ut dolor odio aut neque? Enim necessitatibus 
-                    reprehenderit suscipit saepe facere neque!
-                </p>
+            <div class="mb-4">
+                <mat-expansion-panel 
+                    (opened)="panelOpenState = true" 
+                    (closed)="panelOpenState = false"
+                >
+                    <mat-expansion-panel-header 
+                        [collapsedHeight]="'40px'" 
+                        class="p-4 h-20 sm:h-16"
+                    >
+                        <div class="my-4 ml-3">
+                            <div class="w-screen container flex sm:mt-4">
+                                <div class="flex-none">
+                                    <div class="flex flex-row">
+                                        <h2 class="font-medium">
+                                            ADC 700 - Mérito
+                                        </h2>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </mat-expansion-panel-header>
+                    <!--Conteúdo de dentro da área expansível-->
+                    <div class="container">
+                        <div class="min-w-full justify-between">
+                            <h2>Capítulos</h2>
+                            
+                            <div
+                                *ngFor="let capitulo of [{tipo: 'tipo', descricao: 'desc'}]"
+                            >
+                                <h3 class="text-lg">Mérito</h3>
+                                <p>
+                                    Lorem ipsum dolor sit amet consectetur adipisicing elit. 
+                                    Quae quibusdam delectus alias? Eaque accusantium esse placeat eum 
+                                    reprehenderit! Ut dolor odio aut neque? Enim necessitatibus 
+                                    reprehenderit suscipit saepe facere neque!
+                                </p>
+                                <hr/>
+                            </div>
+                        </div>
+                    </div>
+                </mat-expansion-panel>
             </div>
 
-            <div>
-                <h3 class="font-medium">ADI 6524 - Mérito</h3>
-                <p>
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit. 
-                    Quae quibusdam delectus alias? Eaque accusantium esse placeat eum 
-                    reprehenderit! Ut dolor odio aut neque? Enim necessitatibus 
-                    reprehenderit suscipit saepe facere neque!
-                </p>
-            </div>
+            <mat-card>
+                <mat-card-header>
+                    <mat-card-title class="mt-4">
+                        Preencha para recolocar a pauta em outra sessão
+                    </mat-card-title>
+                </mat-card-header>
+                
+                <mat-card-content class="p-4">
+                    <form [formGroup]="formJulgamento" class="flex flex-col">
+                        <mat-form-field appearance="fill" class="sm:w-3/6 w-full">
+                            <mat-label>Informe o mês e ano:</mat-label>
+                            <input [formControlName]="'nova_data'" matInput [matDatepicker]="dp">
+                            <mat-datepicker-toggle matSuffix [for]="dp"></mat-datepicker-toggle>
+                            <mat-datepicker #dp
+                                startView="multi-year"
+                                (yearSelected)="chosenYearHandler($event)"
+                                (monthSelected)="chosenMonthHandler($event, dp)"
+                            ></mat-datepicker>
+                            <mat-hint>Mês e ano da adicionar em uma nova sessão</mat-hint>
+                        </mat-form-field>
 
-            <div>
-                <h2>Preencha para recolocar a pauta em outra sessão</h2>
-                <p>Ano: 2020</p>
-                <p>Mês: Novembro</p>
-                <p>Sessão: 89/2020 - Qui 28/11 a Sex 04/12</p>
-            </div>
+                        <mat-form-field appearance="fill" class="sm:w-3/6 w-full">
+                            <mat-label>Sessão:</mat-label>
+                            <mat-select [formControlName]="'sessao'" placeholder="Escolha uma sessão" required>
+                                <mat-option 
+                                    *ngFor="let sessaoJulgamento of sessoes" 
+                                    [value]="sessaoJulgamento.id"
+                                >
+                                    Sessão {{sessaoJulgamento.modalidade}}, <b>{{sessaoJulgamento.colegiado}}</b>, nº {{sessaoJulgamento.numero}}/{{sessaoJulgamento.ano}} de {{sessaoJulgamento.data_inicio | date:'dd/MM/yyyy'}} a {{sessaoJulgamento.data_fim  | date:'dd/MM/yyyy'}}
+                                </mat-option>
+                            </mat-select>
+                            <mat-error class="mb-1" *ngIf="'sessao.errors?.required'">
+                                A sessão é obrigatória
+                            </mat-error>
+                            <mat-hint>
+                                Informe a nova sessão
+                            </mat-hint>
+                        </mat-form-field>
+                    </form>
+                </mat-card-content>
+            </mat-card>
         </div>
 
         <div class="flex flex-col sm:flex-row sm:items-center justify-between mt-4 sm:mt-6">
             <div mat-dialog-actions class="flex items-center mt-4 sm:mt-0 ml-auto">
-              <button class="ml-auto sm:ml-0 mr-2" mat-button mat-dialog-close>
+              <button class="ml-auto sm:ml-0 mr-2" mat-button>
                 <span>Cancelar</span>
               </button>
 
-              <button class="ml-auto sm:ml-0 mr-2" mat-button mat-dialog-close>
+              <button class="ml-auto sm:ml-0 mr-2" mat-button>
                 <span>Cliente</span>
               </button>
         
@@ -78,7 +128,8 @@
                 class="ml-auto"
                 color="primary" 
                 mat-raised-button 
-                mat-dialog-close
+                [disabled]="formJulgamento.invalid"
+                (click)="pautarNaSessao()"
               >
                 Ciente e Pautar na Sessão  
               </button>
