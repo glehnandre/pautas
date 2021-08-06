@@ -1,5 +1,7 @@
 import { Injectable } from '@angular/core';
 import { FuseMockApiService } from '@fuse/lib/mock-api/mock-api.service';
+import { SituacaoDoProcesso } from 'app/modules/acervo/model/enums/situacaoDoProcesso.enum';
+import { Processo } from 'app/modules/acervo/model/interfaces/processo.interface';
 import { SessaoDeJulgamento } from 'app/modules/acervo/model/interfaces/sessaoDeJulgamento.interface';
 import { julgamentos as julgamentoData, processos as processosData } from './data';
 
@@ -8,7 +10,7 @@ import { julgamentos as julgamentoData, processos as processosData } from './dat
 })
 export class JulgamentoMockApi {
     private _julgamentos: SessaoDeJulgamento[] = julgamentoData;
-    private _processos: any[] = processosData;
+    private _processos: Processo[] = processosData;
 
     constructor(private _fuseMockApiService: FuseMockApiService) {
         this._julgamentos = julgamentoData;
@@ -60,12 +62,12 @@ export class JulgamentoMockApi {
           const numeroAno = urlParams['numero-ano'];
           const { params } = request;
 
-          const situacao = params.get('situacao');
+          const situacao = +params.get('situacao');
           const inicio = params.get('inicio');
           const fim = params.get('fim'); 
 
           const processos = this._processos
-            .filter(processo => (situacao) ? (processo.situacao.nome === situacao) : true);
+            .filter(processo => (situacao) ? (processo.situacao === situacao) : true);
             // Filtrar por data de inicio e fim 
 
           if (processos.length > 0) {

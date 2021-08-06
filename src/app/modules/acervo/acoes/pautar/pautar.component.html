@@ -13,14 +13,12 @@
         class="flex flex-col flex-auto p-6 sm:p-8 overflow-y-auto"  
         [formGroup]="pautarForm" 
     >
-        <div class="flex flex-row flex-wrap">
-            <mat-chip-list #chipList *ngFor="let processo of data.processos" class="m-1">
-                <mat-chip [removable]="true" class="flex-none" (removed)="removeChip(processo)">
-                    {{processo.classe}} {{processo.numero}} {{processo.nome}}
-                    <mat-icon matChipRemove>cancel</mat-icon>
-                </mat-chip>
-            </mat-chip-list>
-        </div>
+        <app-processo-chip
+            [processos]="data.processos"
+            [isRemovable]="true"
+            [isEmitRemoveEvent]="true"
+        ></app-processo-chip>
+        
         <div>
             <mat-radio-group
               class="flex flex-col my-4"

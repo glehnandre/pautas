@@ -1,0 +1,40 @@
+<mat-expansion-panel 
+    (opened)="panelOpenState = true" 
+    (closed)="panelOpenState = false"
+>
+    <mat-expansion-panel-header 
+        [collapsedHeight]="'40px'" 
+        class="p-4 h-20 sm:h-16"
+    >
+        <div class="my-4 ml-3">
+            <div class="w-screen container flex sm:mt-4">
+                <div class="flex-none">
+                    <div class="flex flex-row">
+                        <h2 class="font-medium">
+                            {{processo.classe}} {{processo.numero}} - {{getTipoProcesso()}}
+                        </h2>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </mat-expansion-panel-header>
+
+    <!--Conteúdo de dentro da área expansível-->
+    <div class="container">
+        <div class="min-w-full justify-between">
+            <h2>Capítulos</h2>
+            
+            <div
+                *ngFor="let capitulo of processo.capitulos"
+            >
+                <h3 class="text-lg">
+                    {{capitulo.tipo}}
+                </h3>
+                <p>
+                    {{capitulo.descricao}}
+                </p>
+                <hr/>
+            </div>
+        </div>
+    </div>
+</mat-expansion-panel>
