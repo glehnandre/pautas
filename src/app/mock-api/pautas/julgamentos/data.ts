@@ -68,7 +68,7 @@ export const processos: Processo[] = [
     capitulos: [
       {
         id: 123455,
-        descricao: "",
+        descricao: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Repellendus omnis eum ratione, impedit, consequuntur laborum amet tempore iure accusamus in nulla voluptates odit. Eum fugit eius, assumenda distinctio quidem quia?",
         ordem: 1,
         tipo: "Mérito"
       }
@@ -121,7 +121,7 @@ export const processos: Processo[] = [
     capitulos: [
       {
         id: 123455,
-        descricao: "",
+        descricao: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Repellendus omnis eum ratione, impedit, consequuntur laborum amet tempore iure accusamus in nulla voluptates odit. Eum fugit eius, assumenda distinctio quidem quia?",
         ordem: 1,
         tipo: "Mérito"
       }

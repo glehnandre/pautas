@@ -29,46 +29,10 @@
 
             <h2>Processos</h2>
             <div class="mb-4">
-                <mat-expansion-panel 
-                    (opened)="panelOpenState = true" 
-                    (closed)="panelOpenState = false"
-                >
-                    <mat-expansion-panel-header 
-                        [collapsedHeight]="'40px'" 
-                        class="p-4 h-20 sm:h-16"
-                    >
-                        <div class="my-4 ml-3">
-                            <div class="w-screen container flex sm:mt-4">
-                                <div class="flex-none">
-                                    <div class="flex flex-row">
-                                        <h2 class="font-medium">
-                                            ADC 700 - Mérito
-                                        </h2>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </mat-expansion-panel-header>
-                    <!--Conteúdo de dentro da área expansível-->
-                    <div class="container">
-                        <div class="min-w-full justify-between">
-                            <h2>Capítulos</h2>
-                            
-                            <div
-                                *ngFor="let capitulo of [{tipo: 'tipo', descricao: 'desc'}]"
-                            >
-                                <h3 class="text-lg">Mérito</h3>
-                                <p>
-                                    Lorem ipsum dolor sit amet consectetur adipisicing elit. 
-                                    Quae quibusdam delectus alias? Eaque accusantium esse placeat eum 
-                                    reprehenderit! Ut dolor odio aut neque? Enim necessitatibus 
-                                    reprehenderit suscipit saepe facere neque!
-                                </p>
-                                <hr/>
-                            </div>
-                        </div>
-                    </div>
-                </mat-expansion-panel>
+                <app-processo-painel-expansivo
+                    *ngFor="let processo of processos"
+                    [processo]="processo"
+                ></app-processo-painel-expansivo>
             </div>
 
             <mat-card>
