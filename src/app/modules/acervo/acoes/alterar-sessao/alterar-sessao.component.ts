@@ -53,7 +53,7 @@ export class AlterarSessaoComponent implements OnInit {
     private _julgamentoService: JulgamentoService,
     private _fuseAlertService: FuseAlertService,
     private _alertService: AlertaService,
-    @Inject(MAT_DIALOG_DATA) public processos: Processo[], 
+    @Inject(MAT_DIALOG_DATA) public processos: Processo[],
   ) {}
 
   ngOnInit(): void {
@@ -80,12 +80,25 @@ export class AlterarSessaoComponent implements OnInit {
     }
   }
 
+  isDataDeFimValida(event: MatDatepickerInputEvent<Date>): void {
+      const dataInicial = new Date(this.pauta.data_inicio);
+      const dataFinal = new Date(event.value);
+
+      if (dataFinal < dataInicial) {
+          alert("A data final não pode ser menor que a data inicial");
+          this.pauta.data_fim = '';
+          this.isFormValido = false;
+      } else {
+          this.isFormValido = true;
+      }
+  }
+
   alterarDataDeJulgamento(): void {
     console.log(this.pauta);
     this._julgamentoService.pautarProcesso(this.pauta).subscribe({
         next: () => {
             this._alertService.exibirAlertaDeSucesso();
-        }   
+        }
     });
   }
 

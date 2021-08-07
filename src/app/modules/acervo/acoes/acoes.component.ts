@@ -27,10 +27,10 @@ export class AcoesComponent implements OnInit {
   @Output() colecaoIdsDasTags = new EventEmitter<Array<{id: number}>>();
 
   @Input() processos: Processo[] = [];
- 
+
   constructor(
     private _httpClient: HttpClient,
-    private _matDialog: MatDialog, 
+    private _matDialog: MatDialog,
     private _fuseAlertService: FuseAlertService,
     private _processoService: ProcessoService,
   ) {
@@ -56,7 +56,7 @@ export class AcoesComponent implements OnInit {
 
   selectAll(completed) {
     //console.log(this.processos);
-    
+
     this.processos.forEach((processo) => {
       processo.checked = completed.checked;
     });
@@ -82,13 +82,13 @@ export class AcoesComponent implements OnInit {
       const dialogRef = this._matDialog.open(AgruparEmlistaComponent, {
         maxHeight: '560px',
       });
-    
+
       dialogRef.afterClosed().subscribe((tags: Array<{id :number}>) => {
         if (tags.length) {
           this.colecaoIdsDasTags.emit(tags);
         }
       });
-    } 
+    }
   }
 
   openComposeDialog(): void {
@@ -180,7 +180,7 @@ export class AcoesComponent implements OnInit {
       const dialogRef = this._matDialog.open(ReanalizarComponent, {
         data: this.processos,
       });
-  
+
       dialogRef.afterClosed().subscribe((resultado) => {
         if (resultado === 'ok') {
           this._processoService.setCarregarProcessos(true);
@@ -193,7 +193,7 @@ export class AcoesComponent implements OnInit {
     if (!this.verificaProcesso()) {
       this.mostrarAlerta();
     } else if (this.processos.some(p => p.situacao !== 4)) {
-      this.alertaDeErro('Erro nos processos selecionados', 'Alguns processos ainda não foram paltados');
+      this.alertaDeErro('Erro nos processos selecionados', 'Alguns processos ainda não foram pautados');
     } else {
       const dialogRef = this._matDialog.open(AlterarSessaoComponent, {
         data: this.processos,
