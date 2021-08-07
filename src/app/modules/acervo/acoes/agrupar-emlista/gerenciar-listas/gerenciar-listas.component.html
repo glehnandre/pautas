@@ -1,117 +1,114 @@
-<div class="flex flex-col max-w-240 md:min-w-160 -m-6">
-  <div class="flex flex-0 items-center justify-between h-16 pr-3 sm:pr-5 pl-6 sm:pl-8 bg-primary text-on-primary">
-    <div class="text-lg font-medium">
-      Gerenciar listas
-    </div>
-    <button mat-icon-button mat-dialog-close [tabIndex]="-1">
-        <mat-icon class="text-current" [svgIcon]="'heroicons_outline:x'"></mat-icon>
-    </button>
-  </div>
-
-  <div class="flex flex-col flex-auto p-6 sm:p-8 overflow-y-auto ng-pristine ng-invalid ng-touched">
-    <div class="overflow-y-auto max-h-36 mb-4">
-      <label id="example-radio-group-label">Escolha a lista:</label>
-      <mat-form-field appearance="fill" class="w-full">
-        <mat-select
-          [(value)]="tagEscolhida"
-          (selectionChange)="buscarProcessosDaLista();"
-        >
-          <mat-option
-            *ngFor="let tag of tags"
-            [value]="tag"
-            color="primary"
-          >{{tag.descricao}}</mat-option>
-        </mat-select>
-      </mat-form-field>
-    </div>
-
-    <form [formGroup]="tagForm">
-      <div mat-dialog-content>
-        <p>
-          <mat-form-field class="w-full" appearance="fill">
-            <mat-label>Nome da lista:<span class="text-red-500">*</span></mat-label>
-            <input class="sm" matInput name="descricao" formControlName="descricao" placeholder="Nome da lista">
-            <mat-hint class="pb-1">Coloque um nome sugestivo para sua nova lista</mat-hint>
-            <mat-error class="pb-1" *ngIf="tagForm.controls.descricao.errors?.required">Nome da lista é obrigatório</mat-error>
-          </mat-form-field>
-        </p>
-
-        <div>
-          <mat-radio-group
-            class="flex flex-col my-4 mx-0"
-            formControlName="publica"
-          >
-            <mat-radio-button class="mb-1" [value]="false">Visível somente dentro do gabinete</mat-radio-button>
-            <mat-radio-button class="mb-1" [value]="true">Visível fora do gabinete</mat-radio-button>
-          </mat-radio-group>
+<div class="flex flex-col md:min-w-160 -m-6">
+    <div class="flex flex-0 items-center justify-between h-16 pr-3 sm:pr-5 pl-6 sm:pl-8 bg-primary text-on-primary">
+        <div class="text-lg font-medium">
+            Gerenciar listas
         </div>
-        </div>
-    </form>
-
-    <form [formGroup]="processoForm">
-      <mat-form-field class="example-chip-list">
-        <mat-label>Adicionar processos:</mat-label>
-        <mat-chip-list #chipList aria-label="Fruit selection" formControlName="processos">
-          <mat-chip
-            *ngFor="let processo of processosSelecionados"
-            [selectable]="selectable"
-            [removable]="removable"
-            (removed)="remove(processo)"
-          >
-            {{processo.classe + ' ' + processo.numero}}
-            <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
-          </mat-chip>
-          <input
-            placeholder="Novo processo"
-            #processoInput
-            [formControl]="processoCtrl"
-            [matAutocomplete]="auto"
-            [matChipInputFor]="chipList"
-            [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
-            (matChipInputTokenEnd)="add($event)"
-          >
-        </mat-chip-list>
-        <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selected($event)">
-          <mat-option
-            *ngFor="let processo of processosFiltrados | async"
-            [value]="processo"
-          >
-            {{processo.classe + ' ' + processo.numero}}
-          </mat-option>
-        </mat-autocomplete>
-        <mat-error class="mb-1" *ngIf="processoForm.controls.processos.errors?.required">Escolha pelo menos um processo</mat-error>
-      </mat-form-field>
-    </form>
-
-    <div class="flex flex-col md:flex-row-reverse lg:flex-row-reverse md:justify-between">
-
-
-
-        <div class="flex flex-col md:flex-row-reverse lg:flex-row-reverse">
-            <button
-                class="my-1 mx-1"
-                color="primary"
-                [disabled]="tagForm.invalid || processoForm.invalid"
-                mat-raised-button
-                mat-dialog-close
-                (click)="atualizar()"
-            >
-                Atualizar lista
-            </button>
-
-            <button
-                class="my-1 mx-1"
-                color="warn"
-                mat-raised-button
-                (click)="excluirLista()"
-            >
-                Excluir lista
-            </button>
-        </div>
-
-        <button class="my-1" mat-button mat-dialog-close>
-            <span>Cancelar</span>
+        <button mat-icon-button mat-dialog-close [tabIndex]="-1">
+            <mat-icon class="text-current" [svgIcon]="'heroicons_outline:x'"></mat-icon>
         </button>
     </div>
-  </div>
+
+    <div class="flex flex-col flex-auto p-6 sm:p-8 overflow-y-auto ng-pristine ng-invalid ng-touched">
+        <div class="overflow-y-auto max-h-36 mb-4">
+            <label id="example-radio-group-label">Escolha a lista:</label>
+            <mat-form-field appearance="fill" class="w-full">
+                <mat-select
+                    [(value)]="tagEscolhida"
+                    (selectionChange)="buscarProcessosDaLista();"
+                >
+                    <mat-option
+                        *ngFor="let tag of tags"
+                        [value]="tag"
+                        color="primary"
+                    >{{tag.descricao}}</mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+
+        <form [formGroup]="tagForm">
+            <div mat-dialog-content>
+                <p>
+                    <mat-form-field class="w-full" appearance="fill">
+                        <mat-label>Nome da lista:<span class="text-red-500">*</span></mat-label>
+                        <input class="sm" matInput name="descricao" formControlName="descricao" placeholder="Nome da lista">
+                        <mat-hint class="pb-1">Coloque um nome sugestivo para sua nova lista</mat-hint>
+                        <mat-error class="pb-1" *ngIf="tagForm.controls.descricao.errors?.required">Nome da lista é obrigatório</mat-error>
+                    </mat-form-field>
+                </p>
+
+                <div>
+                    <mat-radio-group
+                        class="flex flex-col my-4 mx-0"
+                        formControlName="publica"
+                    >
+                        <mat-radio-button class="mb-1" [value]="false">Visível somente dentro do gabinete</mat-radio-button>
+                        <mat-radio-button class="mb-1" [value]="true">Visível fora do gabinete</mat-radio-button>
+                    </mat-radio-group>
+                </div>
+            </div>
+        </form>
+
+        <form [formGroup]="processoForm">
+            <mat-form-field class="example-chip-list">
+                <mat-label>Adicionar processos:</mat-label>
+                <mat-chip-list #chipList aria-label="Fruit selection" formControlName="processos">
+                    <mat-chip
+                        *ngFor="let processo of processosSelecionados"
+                        [selectable]="selectable"
+                        [removable]="removable"
+                        (removed)="remove(processo)"
+                    >
+                        {{processo.classe + ' ' + processo.numero}}
+                        <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
+                    </mat-chip>
+                    <input
+                        placeholder="Novo processo"
+                        #processoInput
+                        [formControl]="processoCtrl"
+                        [matAutocomplete]="auto"
+                        [matChipInputFor]="chipList"
+                        [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+                        (matChipInputTokenEnd)="add($event)"
+                    >
+                </mat-chip-list>
+                <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selected($event)">
+                    <mat-option
+                        *ngFor="let processo of processosFiltrados | async"
+                        [value]="processo"
+                    >
+                        {{processo.classe + ' ' + processo.numero}}
+                    </mat-option>
+                </mat-autocomplete>
+                <mat-error class="mb-1" *ngIf="processoForm.controls.processos.errors?.required">Escolha pelo menos um processo</mat-error>
+            </mat-form-field>
+        </form>
+
+        <div class="flex flex-col md:flex-row-reverse lg:flex-row-reverse md:justify-between">
+            <div class="flex flex-col md:flex-row-reverse lg:flex-row-reverse">
+                <button
+                    class="my-1 mx-1"
+                    color="primary"
+                    [disabled]="tagForm.invalid || processoForm.invalid"
+                    mat-raised-button
+                    mat-dialog-close
+                    (click)="atualizar()"
+                >
+                    Atualizar lista
+                </button>
+
+                <button
+                    class="my-1 mx-1"
+                    color="warn"
+                    mat-raised-button
+                    (click)="excluirLista()"
+                >
+                    Excluir lista
+                </button>
+            </div>
+
+            <button class="my-1" mat-button mat-dialog-close>
+                <span>Cancelar</span>
+            </button>
+        </div>
+    </div>
 </div>

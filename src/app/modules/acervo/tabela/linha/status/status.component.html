@@ -1,5 +1,5 @@
 <div>
-    <button 
+    <button
         class="absolute right-8 h-12 w-2 rounded-full my-auto sm:hidden"
         [style]="'background-color:' + getCorDoStatus()"
         [matTooltip]="getStatus()"
@@ -10,10 +10,10 @@
 
 <div>
     <mat-chip
-        id="status-processo" 
-        class="absolute right-8 w-40 text-center hidden sm:block"
+        id="status-processo"
+        class="absolute right-8 flex w-max min-w-40 text-center hidden sm:block"
         [style]="'background-color:' + getCorDoStatus()"
-        selected 
+        selected
     >
         {{getStatus()}}
     </mat-chip>
