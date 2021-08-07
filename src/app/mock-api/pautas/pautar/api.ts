@@ -24,5 +24,17 @@ export class PautaMockApi {
 
           return [201, [this._pauta]];
         });
+
+      this._fuseMockApiService
+        .onGet('pautas/:id')
+        .reply(({urlParams}) => {
+          const id = +urlParams.id;
+
+          const pauta = this._pauta
+            .find(pauta => pauta.processos
+              .find(processo => processo.id === id));
+
+          return [201, pauta];
+        });
     }
 }

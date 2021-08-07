@@ -5,5 +5,6 @@ export interface Pauta {
     data_fim: string;
     assunto: string;
     colegiado: string;
-    pautas: Processo[],
+    sessao: number;
+    processos: Processo[],
 }

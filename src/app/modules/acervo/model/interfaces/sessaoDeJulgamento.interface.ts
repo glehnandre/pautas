@@ -6,8 +6,8 @@ export interface SessaoDeJulgamento {
     tipo: string;
     categoria: string;
     modalidade: string;
-    data_inicio: Date;
-    data_fim: Date;
+    data_inicio: string;
+    data_fim: string;
     secretario?: {
         id: number;
         nome: string;

@@ -1,0 +1,88 @@
+<div class="absolute inset-0 flex flex-col min-w-0 overflow-hidden">
+
+    <!-- Header -->
+    <div class="flex flex-row text-primary justify-center items-center sm:justify-between pl-8 bg-default dark:bg-transparent">
+        <h1 class="mt-4">
+            Solicitação de Sessão de Julgamento Extraordinária MMA
+        </h1>
+    </div>
+
+    <hr class="m-0 p-0 mb-4" />
+
+    <!-- Main -->
+    <div class="flex-auto  overflow-y-auto px-8 pb-8" cdkScrollable>
+        <!-- CONTENT GOES HERE -->
+        <div>
+            <div class="mb-8">
+                <mat-chip-list
+                    class="example-chip"
+                    cdkDropList 
+                    cdkDropListOrientation="horizontal"
+                >
+                    <mat-chip
+                        class="example-box"
+                        cdkDrag
+                        *ngFor="let tag of tags"
+                    >
+                        {{tag}}
+                    </mat-chip>
+                </mat-chip-list>
+            </div>
+
+            <p class="text-primary">
+                Ministro Gilmar Mendes, presidente da Primeira Turma, informa
+                que não há possibilidade de agenda para a criação da Sessão de 
+                Julgamento Extraordinária para a data solicitada de 21/04/2021.
+            </p>
+
+            <h2 class="text-primary mt-16">Processos</h2>
+            <div>
+                <h3 class="font-medium">ADC 700 - Mérito</h3>
+                <p>
+                    Lorem ipsum dolor sit amet consectetur adipisicing elit. 
+                    Quae quibusdam delectus alias? Eaque accusantium esse placeat eum 
+                    reprehenderit! Ut dolor odio aut neque? Enim necessitatibus 
+                    reprehenderit suscipit saepe facere neque!
+                </p>
+            </div>
+
+            <div>
+                <h3 class="font-medium">ADI 6524 - Mérito</h3>
+                <p>
+                    Lorem ipsum dolor sit amet consectetur adipisicing elit. 
+                    Quae quibusdam delectus alias? Eaque accusantium esse placeat eum 
+                    reprehenderit! Ut dolor odio aut neque? Enim necessitatibus 
+                    reprehenderit suscipit saepe facere neque!
+                </p>
+            </div>
+
+            <div class="mt-16">
+                <h2 class="text-primary">Observações</h2>
+                <p>
+                    {{observacoes}}
+                </p>
+            </div>
+        </div>
+
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between mt-16 sm:mt-6">
+            <div mat-dialog-actions class="flex items-center mt-4 sm:mt-0 ml-auto">
+              <button class="ml-auto sm:ml-0 mr-4" mat-button mat-dialog-close>
+                <span>Cancelar</span>
+              </button>
+
+              <button class="ml-auto sm:ml-0 mr-4 bg-red-600 text-white" mat-raised-button mat-dialog-close>
+                <span>Recusar</span>
+              </button>
+        
+              <button 
+                class="ml-auto"
+                color="primary" 
+                mat-raised-button 
+                mat-dialog-close
+              >
+                Confirmar  
+              </button>
+            </div>
+          </div>
+    </div>
+</div>

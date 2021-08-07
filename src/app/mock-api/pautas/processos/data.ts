@@ -1,5 +1,4 @@
 import { tags as tagData } from 'app/mock-api/pautas/tags/data';
-import { SituacaoDoProcesso } from 'app/modules/acervo/model/enums/situacaoDoProcesso.enum';
 import { TipoDoProcesso } from 'app/modules/acervo/model/enums/tipoDoProcesso.enum';
 import { Processo } from 'app/modules/acervo/model/interfaces/processo.interface';
 
@@ -7,15 +6,14 @@ export const processo: Processo[] = [
   {
     id:         1,
     nome:       'Mérito',
+    ementa:     'Sessão de julgamento extraordinária para tratar da divisão de terras.',
     lista:      [
                   tagData[0],
                   tagData[1],
                 ],
     classe:     'ADI',
     numero:     100,
-    cadeira:    1,
-    descricao:  'Sessão de julgamento extraordinária para tratar da divisão de terras.',
-    situacao:   SituacaoDoProcesso["Apto a Julgar"],
+    situacao:   1,
     tipo:       TipoDoProcesso.Incidente,
     capitulos:  [
       {
@@ -47,15 +45,14 @@ export const processo: Processo[] = [
 
   {
     id:         2,
+    ementa:     'Sessão de julgamento extraordinária para tratar da divisão de terras.',
     nome:     'Agravo Regimental',
     lista:      [
                   tagData[2],
                 ],
     classe:     'ADI',
     numero:     200,
-    cadeira:    1,
-    descricao:  'Sessão de julgamento extraordinária para tratar da divisão de terras.',
-    situacao:   SituacaoDoProcesso.Pautado,
+    situacao:   2,
     tipo:       TipoDoProcesso.Incidente,
     capitulos:  [
       {
@@ -87,15 +84,14 @@ export const processo: Processo[] = [
 
   {
     id:         3,
+    ementa:     'Sessão de julgamento extraordinária para tratar da divisão de terras.',
     nome:     'Terceiro Agravo',
     lista:      [
                   tagData[3],
                 ],
     classe:     'ADI',
     numero:     300,
-    cadeira:    1,
-    descricao:  'Sessão de julgamento extraordinária para tratar da divisão de terras.',
-    situacao:   SituacaoDoProcesso.Pautado,
+    situacao:   3,
     tipo:       TipoDoProcesso.Merito,
     capitulos:  [
       {
@@ -127,15 +123,14 @@ export const processo: Processo[] = [
 
   {
     id:         4,
+    ementa:     'Sessão de julgamento extraordinária para tratar da divisão de terras.',
     nome:     'Quarto agravo',
     lista:      [
                   tagData[3],
                 ],
     classe:     'ADI',
     numero:     300,
-    cadeira:    1,
-    descricao:  'Sessão de julgamento extraordinária para tratar da divisão de terras.',
-    situacao:   SituacaoDoProcesso["Em julgamento"],
+    situacao:   4,
     tipo:       TipoDoProcesso.Merito,
     capitulos:  [
       {
@@ -168,16 +163,15 @@ export const processo: Processo[] = [
   {
     id:         5,
     nome:     'Quinto agravo',
-    lista:      [
+    ementa:   'Sessão de julgamento extraordinária para tratar da divisão de terras.',
+    lista:        [
                   tagData[1],
                   tagData[2],
                   tagData[3],
                 ],
     classe:     'ADI',
     numero:     300,
-    cadeira:    1,
-    descricao:  'Sessão de julgamento extraordinária para tratar da divisão de terras.',
-    situacao:   SituacaoDoProcesso["Apto a Julgar"],
+    situacao:   5,
     tipo:       TipoDoProcesso.Merito,
     capitulos:  [
       {

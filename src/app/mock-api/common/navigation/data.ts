@@ -15,6 +15,20 @@ export const defaultNavigation: FuseNavigationItem[] = [
         type : 'basic',
         icon : 'heroicons_outline:chart-pie',
         link : '/acervo'
+    },
+    {
+        id   : 'julgamento-extraordinario',
+        title: 'Julgamento Extraordinario',
+        type : 'basic',
+        icon : 'heroicons_outline:chart-pie',
+        link : '/julgamento-extraordinario'
+    },
+    {
+        id   : 'sessaoExtraordinaria',
+        title: 'Solicitar Sessao Extraordinaria',
+        type : 'basic',
+        icon : 'heroicons_outline:chart-pie',
+        link : '/sessaoExtraordinaria'
     }
 ];
 export const compactNavigation: FuseNavigationItem[] = [
@@ -31,6 +45,20 @@ export const compactNavigation: FuseNavigationItem[] = [
         type : 'basic',
         icon : 'heroicons_outline:chart-pie',
         link : '/acervo'
+    },
+    {
+        id   : 'julgamento-extraordinario',
+        title: 'Julgamento Extraordinario',
+        type : 'basic',
+        icon : 'heroicons_outline:chart-pie',
+        link : '/julgamento-extraordinario'
+    },
+    {
+        id   : 'sessaoExtraordinaria',
+        title: 'Solicitar Sessao Extraordinaria',
+        type : 'basic',
+        icon : 'heroicons_outline:chart-pie',
+        link : '/sessaoExtraordinaria'
     }
 ];
 export const futuristicNavigation: FuseNavigationItem[] = [
@@ -47,6 +75,20 @@ export const futuristicNavigation: FuseNavigationItem[] = [
         type : 'basic',
         icon : 'heroicons_outline:chart-pie',
         link : '/acervo'
+    },
+    {
+        id   : 'julgamento-extraordinario',
+        title: 'Julgamento Extraordinario',
+        type : 'basic',
+        icon : 'heroicons_outline:chart-pie',
+        link : '/julgamento-extraordinario'
+    },
+    {
+        id   : 'sessaoExtraordinaria',
+        title: 'Solicitar Sessao Extraordinaria',
+        type : 'basic',
+        icon : 'heroicons_outline:chart-pie',
+        link : '/sessaoExtraordinaria'
     }
 ];
 export const horizontalNavigation: FuseNavigationItem[] = [
@@ -63,5 +105,19 @@ export const horizontalNavigation: FuseNavigationItem[] = [
         type : 'basic',
         icon : 'heroicons_outline:chart-pie',
         link : '/acervo'
+    },
+    {
+        id   : 'julgamento-extraordinario',
+        title: 'Julgamento Extraordinario',
+        type : 'basic',
+        icon : 'heroicons_outline:chart-pie',
+        link : '/julgamento-extraordinario'
+    },
+    {
+        id   : 'sessaoExtraordinaria',
+        title: 'Solicitar Sessao Extraordinaria',
+        type : 'basic',
+        icon : 'heroicons_outline:chart-pie',
+        link : '/sessaoExtraordinaria'
     }
 ];

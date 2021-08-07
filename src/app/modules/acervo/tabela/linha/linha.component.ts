@@ -1,5 +1,7 @@
 import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
 import { MatCheckboxChange } from '@angular/material/checkbox';
+import { processo } from 'app/mock-api/pautas/processos/data';
+import { ProcessoService } from 'app/modules/services/processo.service';
 import { Processo } from '../../model/interfaces/processo.interface';
 
 
@@ -12,13 +14,15 @@ export class LinhaComponent implements OnInit {
   @Output() display: boolean = false;
   @Output() mobile: boolean = false;
   @Output() checked = new EventEmitter<Processo>();
+  @Output() tagSelecionada = new EventEmitter();
 
   @Input() Selected: boolean;
   @Input() processo: Processo;
   
   panelOpenState = false;
 
-  constructor() {
+  constructor(private _processoService: ProcessoService) {
+    
 
     if (document.body.clientWidth <= 1000) {
       this.mobile = !this.mobile
@@ -30,6 +34,11 @@ export class LinhaComponent implements OnInit {
   emiteStatusDoCheckbox(status: MatCheckboxChange) {
     this.processo.checked = status.checked;
     this.checked.emit(this.processo);
+  }
+  
+  filtrarPorTags(tag) {
+    this.tagSelecionada.emit(tag)
+
   }
   
   onResize() {

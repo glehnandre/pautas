@@ -34,11 +34,10 @@ export class ReanalizarComponent implements OnInit {
     this._processos.forEach(({id}) => {
       this._processoService.reanalizarProcesso(id, {...this.reanalizeForm.value, data: new Date().toISOString()})
         .subscribe({
-          next: () => {
-
-          }
+          next: () => {}
         });
     });
+
     this._dialogRef.close('ok');
   }
 

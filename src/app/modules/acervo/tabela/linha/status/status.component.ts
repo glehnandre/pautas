@@ -1,5 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Status } from 'app/modules/acervo/model/interfaces/status.interface';
+import { ProcessoService } from 'app/modules/services/processo.service';
+import { StatusProcesso } from '../../status/situacaoProcesso';
 
 @Component({
   selector: 'app-status',
@@ -8,26 +10,46 @@ import { Status } from 'app/modules/acervo/model/interfaces/status.interface';
 })
 export class StatusComponent implements OnInit {
   @Input() display: boolean;
-  @Input() idSituacao: number;
+  @Input() mobile: boolean;
+  @Input() idProcesso: number;
 
   status: Status[] = [
-    { id: 1, color: "#3C8D40", text: "APTO A PAUTAR" },
-    { id: 2, color: "#FDC02F", text: "EM JULGAMENTO" },
-    { id: 3, color: "#BF221o", text: "VISTO MDT" },
-    { id: 4, color: "#1170A6", text: "PAUTADO" },
-    { id: 6, color: "#3434AC", text: "RETIRADO DE PAUTA" },
+    { id: 1, color: "#3C8D40", text: '' },
+    { id: 2, color: "#FDC02F", text: '' },
+    { id: 3, color: "#BF221o", text: '' },
+    { id: 4, color: "#872FA6", text: '' },
+    { id: 5, color: "#1170A6", text: '' },
+    { id: 6, color: "#3434AC", text: '' },
+    { id: 7, color: "#A3F4F6", text: '' },
   ]
 
-  situacao: Status;
+  situacaoProcesso: StatusProcesso;
 
-  constructor() {}
+  constructor(
+    private _processoService: ProcessoService,
+  ) {}
 
   ngOnInit(): void {
-    this.situacao = this.status
-      .find(status => status.id === this.idSituacao);
+    this._processoService.obterStatusDoProcesso(this.idProcesso).subscribe({
+      next: (status) => {
+        this.situacaoProcesso = {
+          situacao: status.situacao,
+          complemento: status.complemento,
+          descricao: status.descricao,
+        }
+      },
+    });
   }
 
-  print(){
+  public getStatus(): string {
+    return this.situacaoProcesso?.situacao.nome;
+  }
+
+  public getCorDoStatus(): string {
+    return this.status.find(it => it.id === this.situacaoProcesso?.situacao.id)?.color;
+  }
+
+  print() {
     console.log(this.display)
   }
 }

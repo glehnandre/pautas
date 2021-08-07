@@ -27,6 +27,8 @@ import { PautarComponent } from './pautar/pautar.component';
 import { SessaoExtraordinariaComponent } from './pautar/sessao-extraordinaria/sessao-extraordinaria.component';
 import { AlertaComponent } from './agrupar-emlista/gerenciar-listas/alerta/alerta.component';
 import { ReanalizarComponent } from './reanalizar/reanalizar.component';
+import { AlterarSessaoComponent } from './alterar-sessao/alterar-sessao.component';
+import { SharedModule } from 'app/shared/shared.module';
 
 const routes = [
   {
@@ -46,6 +48,7 @@ const routes = [
     AlertaComponent,
     SessoesPipe,
     ReanalizarComponent,
+    AlterarSessaoComponent,
   ],
   imports: [
     CommonModule,
@@ -70,6 +73,7 @@ const routes = [
     ReactiveFormsModule,
     MatSnackBarModule,
     FuseAlertModule,
+    SharedModule,
   ],
   providers: [{ provide: MAT_DATE_LOCALE, useValue: 'pt-BR' }],
   exports: [

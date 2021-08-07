@@ -6,7 +6,6 @@ import { LinhaComponent } from './linha/linha.component';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatIconModule } from '@angular/material/icon';
-import { DescricaoComponent } from './linha/descricao/descricao.component';
 import { StatusComponent } from './linha/status/status.component';
 import { TagsComponent } from './linha/tags/tags.component';
 import { MatGridListModule } from '@angular/material/grid-list';
@@ -29,7 +28,6 @@ const routes = [
   declarations: [
     TabelaComponent,
     LinhaComponent,
-    DescricaoComponent,
     StatusComponent,
     TagsComponent,
     PaginacaoComponent,

@@ -3,12 +3,16 @@ import { Component, OnInit, Inject } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { FuseAlertService } from '@fuse/components/alert';
+import { AlertaService } from 'app/modules/services/alerta.service';
+import { JulgamentoService } from 'app/modules/services/julgamento.service';
+import { ProcessoService } from 'app/modules/services/processo.service';
 import { Observable } from 'rxjs';
+import { Processo } from '../../model/interfaces/processo.interface';
 import { SessaoDeJulgamento } from '../../model/interfaces/sessaoDeJulgamento.interface';
 import { SessaoExtraordinariaComponent } from './sessao-extraordinaria/sessao-extraordinaria.component';
 
 
-interface Colegiado {
+export interface Colegiado {
     value: string;
     viewValue: string;
 }
@@ -19,6 +23,7 @@ interface Colegiado {
     styleUrls: ['./pautar.component.scss'],
 })
 export class PautarComponent implements OnInit {
+
     pautarForm: FormGroup;
 
     //O valor do colegiado é a própria string Primeira Turma e assim por diante.
@@ -30,18 +35,17 @@ export class PautarComponent implements OnInit {
 
     //Deve recuperar o valor da Sessoes de Julgamento Integralmente para aquele ano por meio de serviço
     sessoes: SessaoDeJulgamento[] = [
-        {id: 1, ano: 2021, numero: 1, colegiado: 'Primeira Turma', modalidade: 'Virtual', categoria: 'Judicial', tipo: 'Ordinária', data_inicio: new Date(2021, 7, 1), data_fim: new Date(2021, 7, 5)},
-        {id: 2, ano: 2021, numero: 2, colegiado: 'Primeira Turma', modalidade: 'Virtual', categoria: 'Judicial', tipo: 'Ordinária', data_inicio: new Date(2021, 7, 6), data_fim: new Date(2021, 7, 11)},
-        {id: 3, ano: 2021, numero: 3, colegiado: 'Segunda Turma', modalidade: 'Virtual', categoria: 'Judicial', tipo: 'Ordinária', data_inicio: new Date(2021, 7, 13), data_fim: new Date(2021, 7, 18)},
-        {id: 4, ano: 2021, numero: 4, colegiado: 'Segunda Turma', modalidade: 'Virtual', categoria: 'Judicial', tipo: 'Ordinária', data_inicio: new Date(2021, 7, 20), data_fim: new Date(2021, 7, 25)},
-        {id: 5, ano: 2021, numero: 5, colegiado: 'Segunda Turma', modalidade: 'Virtual', categoria: 'Judicial', tipo: 'Ordinária', data_inicio: new Date(2021, 7, 27), data_fim: new Date(2021, 8, 3)},
-        {id: 6, ano: 2021, numero: 6, colegiado: 'Segunda Turma', modalidade: 'Virtual', categoria: 'Judicial', tipo: 'Ordinária', data_inicio: new Date(2021, 8, 5), data_fim: new Date(2021, 8, 10)},
-        {id: 7, ano: 2021, numero: 7, colegiado: 'Segunda Turma', modalidade: 'Virtual', categoria: 'Judicial', tipo: 'Ordinária', data_inicio: new Date(2021, 8, 12), data_fim: new Date(2021, 8, 17)},
-        {id: 8, ano: 2021, numero: 8, colegiado: 'Pleno', modalidade: 'Virtual', categoria: 'Judicial', tipo: 'Ordinária', data_inicio: new Date(2021, 8, 12), data_fim: new Date(2021, 8, 17)},
-        {id: 9, ano: 2021, numero: 9, colegiado: 'Pleno', modalidade: 'Virtual', categoria: 'Judicial', tipo: 'Ordinária', data_inicio: new Date(2021, 8, 12), data_fim: new Date(2021, 8, 17)},
-        {id: 10, ano: 2021, numero: 10, colegiado: 'Pleno', modalidade: 'Virtual', categoria: 'Judicial', tipo: 'Ordinária', data_inicio: new Date(2021, 8, 20), data_fim: new Date(2021, 8, 25)}
+        {id: 1, ano: 2021, numero: 1, colegiado: 'Primeira Turma', modalidade: 'Virtual', categoria: 'Judicial', tipo: 'Ordinária', data_inicio: '2021-06-29T09:12:33.001Z', data_fim: '2021-12-29T09:12:33.001Z'},
+        {id: 2, ano: 2021, numero: 2, colegiado: 'Primeira Turma', modalidade: 'Virtual', categoria: 'Judicial', tipo: 'Ordinária', data_inicio: '2021-06-29T09:12:33.001Z', data_fim: '2021-12-29T09:12:33.001Z'},
+        {id: 3, ano: 2021, numero: 3, colegiado: 'Segunda Turma', modalidade: 'Virtual', categoria: 'Judicial', tipo: 'Ordinária', data_inicio: '2021-04-29T09:12:33.001Z', data_fim: '2021-11-29T09:12:33.001Z'},
+        {id: 4, ano: 2021, numero: 4, colegiado: 'Segunda Turma', modalidade: 'Virtual', categoria: 'Judicial', tipo: 'Ordinária', data_inicio: '2021-04-29T09:12:33.001Z', data_fim: '2021-11-29T09:12:33.001Z'},
+        {id: 5, ano: 2021, numero: 5, colegiado: 'Segunda Turma', modalidade: 'Virtual', categoria: 'Judicial', tipo: 'Ordinária', data_inicio: '2021-03-29T09:12:33.001Z', data_fim: '2021-10-29T09:12:33.001Z'},
+        {id: 6, ano: 2021, numero: 6, colegiado: 'Segunda Turma', modalidade: 'Virtual', categoria: 'Judicial', tipo: 'Ordinária', data_inicio: '2021-03-29T09:12:33.001Z', data_fim: '2021-10-29T09:12:33.001Z'},
+        {id: 7, ano: 2021, numero: 7, colegiado: 'Segunda Turma', modalidade: 'Virtual', categoria: 'Judicial', tipo: 'Ordinária', data_inicio: '2021-03-29T09:12:33.001Z', data_fim: '2021-10-29T09:12:33.001Z'},
+        {id: 8, ano: 2021, numero: 8, colegiado: 'Pleno', modalidade: 'Virtual', categoria: 'Judicial', tipo: 'Ordinária', data_inicio: '2021-07-29T09:12:33.001Z', data_fim: '2021-10-29T09:12:33.001Z'},
+        {id: 9, ano: 2021, numero: 9, colegiado: 'Pleno', modalidade: 'Virtual', categoria: 'Judicial', tipo: 'Ordinária', data_inicio: '2021-01-29T09:12:33.001Z', data_fim: '2021-12-29T09:12:33.001Z'},
+        {id: 10, ano: 2021, numero: 10, colegiado: 'Pleno', modalidade: 'Virtual', categoria: 'Judicial', tipo: 'Ordinária', data_inicio: '2021-09-29T09:12:33.001Z', data_fim: '2021-12-29T09:12:33.001Z'}
     ];
-
 
     colegiadoEscolhido = this.colegiados[0].value;
     myControl: FormControl = new FormControl();
@@ -52,8 +56,10 @@ export class PautarComponent implements OnInit {
         public matDialogRef: MatDialogRef<PautarComponent>,
         private _formBuilder: FormBuilder,
         private _dialog: MatDialog,
-        private _httpClient: HttpClient,
+        private _julgamentoService: JulgamentoService,
         private _fuseAlertService: FuseAlertService,
+        private _processoService: ProcessoService,
+        private _alertService: AlertaService,
         @Inject(MAT_DIALOG_DATA) public data: any,
     ) {
 
@@ -74,9 +80,6 @@ export class PautarComponent implements OnInit {
         this.matDialogRef.close();
     }
 
-    /**
-     * Discard the message
-     */
     sessaoExtraordinaria(): void {
         const dialogRef = this._dialog.open(SessaoExtraordinariaComponent, {});
 
@@ -85,28 +88,24 @@ export class PautarComponent implements OnInit {
         });
     }
 
-
-    /**
-     * Send the message
-     */
     pautar(): void {
         if (this.pautarForm.valid) {
-            this._httpClient.post('julgamentos', this.pautarForm.value as SessaoDeJulgamento)
-                .subscribe({
-                    next: (data) => {
-                        console.log(data)
-                        this._fuseAlertService.show('sucesso');
-                        setTimeout(() => {
-                            this._fuseAlertService.dismiss('sucesso');
-                        }, 5000);
-                    }   
-                });
+            this._julgamentoService.pautarProcesso(this.pautarForm.value).subscribe({
+                next: (data) => {
+                    console.log(data)
+                    this._alertService.exibirAlertaDeSucesso();
+                }   
+            });   
         }
     }
 
-    removeChip(processo){
-        processo.checked = false;
+    removeChip(processo: Processo){
         this.data.processos.splice(this.data.processos.indexOf(processo), 1);
-        console.log(this.data.processos);
+        processo.checked = false;
+        this._processoService.setProcessosSelecionados(this.data.processos);
+
+        if(this.data.processos.length == 0){
+            this.fechar();
+        }
     }
 }

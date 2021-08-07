@@ -1,18 +1,20 @@
 import { SituacaoDoProcesso } from "../enums/situacaoDoProcesso.enum";
 import { TipoDoProcesso } from "../enums/tipoDoProcesso.enum";
+import { Cadeira } from "./cadeira.interface";
 import { Capitulo } from "./capitulo.interface";
 import { Tag } from "./tag.interface";
 
 export interface Processo {
     id: number;
-    nome: string;
+    ementa: string;
     lista: Tag[];
     classe: string;
     numero: number;
-    cadeira: number;
-    descricao: string;
+    nome: string;
     situacao: SituacaoDoProcesso;
     tipo: TipoDoProcesso;
     capitulos: Capitulo[];
+    relator?: Cadeira;
+    redator?: Cadeira;
     checked?: boolean;
   }

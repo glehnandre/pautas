@@ -13,14 +13,12 @@
         class="flex flex-col flex-auto p-6 sm:p-8 overflow-y-auto"  
         [formGroup]="pautarForm" 
     >
-        <div class="flex flex-row flex-wrap">
-            <mat-chip-list #chipList *ngFor="let processo of data.processos" class="m-1">
-                <mat-chip [removable]="true" class="flex-none" (removed)="removeChip(processo)">
-                    {{processo.classe}} {{processo.numero}} {{processo.nome}}
-                    <mat-icon matChipRemove>cancel</mat-icon>
-                </mat-chip>
-            </mat-chip-list>
-        </div>
+        <app-processo-chip
+            [processos]="data.processos"
+            [isRemovable]="true"
+            [isEmitRemoveEvent]="true"
+        ></app-processo-chip>
+        
         <div>
             <mat-radio-group
               class="flex flex-col my-4"
@@ -64,7 +62,7 @@
         <div class="justify-between mt-4 md:mt-6">
             <div class="container flex flex-col md:flex-row justify-center gap-4 md:gap-0 mt-4 md:mt-0">
                 <!-- Discard -->
-                <button class="flex-1 md:ml-0" mat-button (click)="sessaoExtraordinaria()">
+                <button class=" md:ml-0" mat-button (click)="sessaoExtraordinaria()">
                     SOLICITAR SESSÃO EXTRAORDINÁRIA
                 </button>
                 <!-- Send -->
@@ -72,7 +70,7 @@
                     [disabled]="pautarForm.invalid"
                     mat-flat-button 
                     mat-dialog-close
-                    class="flex-1 order-first md:order-last" 
+                    class="order-first md:order-last" 
                     [color]="'primary'" 
                     (click)="pautar()"
                 >

@@ -132,7 +132,7 @@ export class ProcessoMockApi {
 
               this._processo.map(processo => {
                   if (processo.id === id) {
-                      processo.situacao = SituacaoDoProcesso['Apto a Julgar'];
+                      processo.situacao = 1;
                   }
               });
 
