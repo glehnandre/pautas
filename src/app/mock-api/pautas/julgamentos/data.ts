@@ -16,7 +16,7 @@ export const julgamentos: SessaoDeJulgamento[] = [
     data_fim: '2016-08-29T09:12:33.001Z',
     secretario: {
       id: 19,
-      nome: "Carmen",
+      nome: "Ministro Gilmar Mendes",
     },
   },
 ];

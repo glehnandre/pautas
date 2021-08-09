@@ -2,7 +2,7 @@
 
     <!-- Header -->
     <div class="flex flex-row justify-center items-center sm:justify-between pl-8 bg-default dark:bg-transparent">
-        <h1 class="mt-4">
+        <h1 class="mt-4 text-primary font-medium">
             Resposta de Solicitação de Sessão de Julgamento Extraordinária MMA
         </h1>
     </div>
@@ -22,12 +22,13 @@
             </div>
 
             <p>
-                Ministro Gilmar Mendes, presidente da Primeira Turma, informa
-                que não há possibilidade de agenda para a criação da Sessão de 
-                Julgamento Extraordinária para a data solicitada de 21/04/2021.
+                {{sessao?.secretario.nome}}, presidente {{sessao?.colegiado}},
+                informa que não há possibilidade de agenda para a criação da Sessão 
+                de Julgamento Extraordinária para a data solicitada de 
+                {{sessao?.data_inicio | date: 'dd/MM/yyyy'}}
             </p>
 
-            <h2>Processos</h2>
+            <h2 class="text-primary">Processos</h2>
             <div class="mb-4">
                 <app-processo-painel-expansivo
                     *ngFor="let processo of processos"
