@@ -25,7 +25,7 @@ export const defaultNavigation: FuseNavigationItem[] = [
     },
     {
         id   : 'sessaoExtraordinaria',
-        title: 'Solicitar Sessao Extraordinaria',
+        title: 'Solicitar Sessão Extraordinária',
         type : 'basic',
         icon : 'heroicons_outline:chart-pie',
         link : '/sessaoExtraordinaria'
@@ -55,7 +55,7 @@ export const compactNavigation: FuseNavigationItem[] = [
     },
     {
         id   : 'sessaoExtraordinaria',
-        title: 'Solicitar Sessao Extraordinaria',
+        title: 'Solicitar Sessão Extraordinária',
         type : 'basic',
         icon : 'heroicons_outline:chart-pie',
         link : '/sessaoExtraordinaria'
@@ -85,7 +85,7 @@ export const futuristicNavigation: FuseNavigationItem[] = [
     },
     {
         id   : 'sessaoExtraordinaria',
-        title: 'Solicitar Sessao Extraordinaria',
+        title: 'Solicitar Sessão Extraordinária',
         type : 'basic',
         icon : 'heroicons_outline:chart-pie',
         link : '/sessaoExtraordinaria'
@@ -115,7 +115,7 @@ export const horizontalNavigation: FuseNavigationItem[] = [
     },
     {
         id   : 'sessaoExtraordinaria',
-        title: 'Solicitar Sessao Extraordinaria',
+        title: 'Solicitar Sessão Extraordinária',
         type : 'basic',
         icon : 'heroicons_outline:chart-pie',
         link : '/sessaoExtraordinaria'
