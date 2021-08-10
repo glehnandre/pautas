@@ -1,6 +1,7 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { MatDatepickerInputEvent } from '@angular/material/datepicker';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MatRadioChange } from '@angular/material/radio';
 import { FuseAlertService } from '@fuse/components/alert';
 import { AlertaService } from 'app/modules/services/alerta.service';
 import { JulgamentoService } from 'app/modules/services/julgamento.service';
@@ -44,7 +45,6 @@ export class AlterarSessaoComponent implements OnInit {
       {id: 9, ano: 2021, numero: 9, colegiado: 'Pleno', modalidade: 'Virtual', categoria: 'Judicial', tipo: 'Ordinária', data_inicio: new Date(2021, 8, 12), data_fim: new Date(2021, 8, 17)},
       {id: 10, ano: 2021, numero: 10, colegiado: 'Pleno', modalidade: 'Virtual', categoria: 'Judicial', tipo: 'Ordinária', data_inicio: new Date(2021, 8, 20), data_fim: new Date(2021, 8, 25)}
   ];
-
 
   colegiadoEscolhido: string = this.colegiados[0].value;
   isFormValido: boolean = true;
@@ -91,6 +91,14 @@ export class AlterarSessaoComponent implements OnInit {
       } else {
           this.isFormValido = true;
       }
+  }
+
+  mudarColegiado(event: MatRadioChange): void {
+        this.pauta.colegiado = event.value;
+  }
+
+  mudarSessao(event): void {
+      this.pauta.sessao = event.value;
   }
 
   alterarDataDeJulgamento(): void {

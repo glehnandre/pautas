@@ -28,14 +28,13 @@
       <div>
           <mat-radio-group
             class="flex flex-col my-4"
-
             [value]="colegiadoEscolhido"
+            (change)="mudarColegiado($event)"
           >
             <mat-radio-button
                 class="mb-1"
                 *ngFor="let colegiado of colegiados"
                 [value]="colegiado.value"
-                disabled
             >
               {{colegiado.viewValue}}
             </mat-radio-button>
@@ -64,7 +63,7 @@
               <mat-select
                 [value]="pauta.sessao"
                 placeholder="Escolha uma sessão"
-                disabled
+                (selectionChange)="mudarSessao($event)"
               >
                   <mat-option
                       *ngFor="let sessaoJulgamento of sessoes"
