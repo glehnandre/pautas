@@ -29,7 +29,14 @@ export const defaultNavigation: FuseNavigationItem[] = [
         type : 'basic',
         icon : 'heroicons_outline:chart-pie',
         link : '/sessaoExtraordinaria'
-    }
+    },
+    {
+        id   : 'criacao-colegiado',
+        title: 'Criação do Colegiado',
+        type : 'basic',
+        icon : 'heroicons_outline:chart-pie',
+        link : '/criacao-colegiado',
+    },
 ];
 export const compactNavigation: FuseNavigationItem[] = [
     {
@@ -59,7 +66,14 @@ export const compactNavigation: FuseNavigationItem[] = [
         type : 'basic',
         icon : 'heroicons_outline:chart-pie',
         link : '/sessaoExtraordinaria'
-    }
+    },
+    {
+        id   : 'criacao-colegiado',
+        title: 'Criação do Colegiado',
+        type : 'basic',
+        icon : 'heroicons_outline:chart-pie',
+        link : '/criacao-colegiado',
+    },
 ];
 export const futuristicNavigation: FuseNavigationItem[] = [
     {
@@ -89,7 +103,14 @@ export const futuristicNavigation: FuseNavigationItem[] = [
         type : 'basic',
         icon : 'heroicons_outline:chart-pie',
         link : '/sessaoExtraordinaria'
-    }
+    },
+    {
+        id   : 'criacao-colegiado',
+        title: 'Criação do Colegiado',
+        type : 'basic',
+        icon : 'heroicons_outline:chart-pie',
+        link : '/criacao-colegiado',
+    },
 ];
 export const horizontalNavigation: FuseNavigationItem[] = [
     {
@@ -119,5 +140,12 @@ export const horizontalNavigation: FuseNavigationItem[] = [
         type : 'basic',
         icon : 'heroicons_outline:chart-pie',
         link : '/sessaoExtraordinaria'
+    },
+    {
+        id   : 'criacao-colegiado',
+        title: 'Criação do Colegiado',
+        type : 'basic',
+        icon : 'heroicons_outline:chart-pie',
+        link : '/criacao-colegiado'
     }
 ];

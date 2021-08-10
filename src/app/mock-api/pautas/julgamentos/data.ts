@@ -2,23 +2,33 @@ import { SituacaoDoProcesso } from "app/modules/acervo/model/enums/situacaoDoPro
 import { TipoDoProcesso } from "app/modules/acervo/model/enums/tipoDoProcesso.enum";
 import { Processo } from "app/modules/acervo/model/interfaces/processo.interface";
 import { SessaoDeJulgamento } from "app/modules/acervo/model/interfaces/sessaoDeJulgamento.interface";
+import { SessaoJulgamento } from "app/modules/services/julgamento.service";
 
-export const julgamentos: SessaoDeJulgamento[] = [
+export const julgamentos: SessaoJulgamento[] = [
   {
-    id: 1,
-    numero: 1000,
-    ano: 2021,
-    colegiado: "Primeira turma",
-    tipo: "ORDINARIA",
-    categoria: "REPERCUSSAO_GERAL",
-    modalidade: "VIRTUAL",
-    data_inicio: '2016-08-29T09:12:33.001Z',
-    data_fim: '2016-08-29T09:12:33.001Z',
-    secretario: {
-      id: 19,
-      nome: "Ministro Gilmar Mendes",
+    observacao: '',
+    ministro: {
+      id: 1,
+      nome: 'Ministro X',
+      abreviacao: 'MX',
+      cadeira: "cadeira que ocupa"
     },
-  },
+    sessao: {
+      id: 1,
+      numero: 1000,
+      ano: 2021,
+      colegiado: "Primeira turma",
+      tipo: "ORDINARIA",
+      categoria: "REPERCUSSAO_GERAL",
+      modalidade: "VIRTUAL",
+      data_inicio: '2016-08-29T09:12:33.001Z',
+      data_fim: '2016-08-29T09:12:33.001Z',
+      secretario: {
+        id: 19,
+        nome: "Ministro Gilmar Mendes",
+      },
+    },
+  }
 ];
 
 export const processos: Processo[] = [
