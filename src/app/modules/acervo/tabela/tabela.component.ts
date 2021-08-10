@@ -13,6 +13,7 @@ export class TabelaComponent implements OnInit {
   @Input() Allselected: any;
   @Output() SelectAll: any;
   @Output() tagSelecionada = new EventEmitter();
+  @Output() statusSelecionado = new EventEmitter();
   @Output() data: {
     checked: Boolean,
     nome: String,
@@ -60,6 +61,10 @@ export class TabelaComponent implements OnInit {
   
   filtrarPorTags(tag) {
     this.tagSelecionada.emit(tag)
+  }
+
+  filtrarPorStatus(status) {
+    this.statusSelecionado.emit(status)
   }
 
   trataEventoDeChecked(data: Processo) {

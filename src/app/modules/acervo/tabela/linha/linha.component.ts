@@ -15,6 +15,7 @@ export class LinhaComponent implements OnInit {
   @Output() mobile: boolean = false;
   @Output() checked = new EventEmitter<Processo>();
   @Output() tagSelecionada = new EventEmitter();
+  @Output() statusSelecionado = new EventEmitter();
 
   @Input() Selected: boolean;
   @Input() processo: Processo;
@@ -35,7 +36,10 @@ export class LinhaComponent implements OnInit {
     this.processo.checked = status.checked;
     this.checked.emit(this.processo);
   }
-  
+  filtrarPorStatus(status) {
+    this.statusSelecionado.emit(status)
+
+  }
   filtrarPorTags(tag) {
     this.tagSelecionada.emit(tag)
 
