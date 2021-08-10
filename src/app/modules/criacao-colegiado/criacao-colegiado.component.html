@@ -1,1 +1,142 @@
-<p>criacao-colegiado works!</p>
+<div class="absolute inset-0 flex flex-col min-w-0 overflow-hidden">
+
+    <!-- Header -->
+    <div class="flex flex-row justify-center items-center sm:justify-between pl-8 bg-default dark:bg-transparent">
+        <h1 class="mt-4 text-primary font-medium">
+            Colegiado para a ADI 100 Sessão 90/2020 Virtual Primeira Turma
+        </h1>
+    </div>
+
+    <hr class="m-0 p-0 mb-4" />
+
+    <!-- Main -->
+    <div class="flex-auto  overflow-y-auto px-8 pb-8" cdkScrollable>
+        <!-- CONTENT GOES HERE -->
+        <div>
+            <header>
+                <h3>Topo</h3>
+            </header>
+
+            <main class="grid grid-cols-3 gap-4 align-middle justify-items-center">
+                <div class="">
+                    <h3 class="text-primary">Primeira Turma</h3>
+                    
+                    <div class="mb-4">
+                        <div class="flex flex-row justify-items-center align-middle">
+                            <img class="w-12 h-12 mr-2" [src]="image.data" alt="imagem do presidente">
+                            
+                            <div>
+                                <h3 class="font-semibold m-0 p-0">Carmém Lucia</h3>
+                                <p class="text-hint m-0 p-0">Presidente</p>
+                            </div>
+                        </div>
+    
+                        <form [formGroup]="formCriacaoColegiado">
+                            <section class="mt-2">
+                                <p><mat-checkbox formControlName="incluir_voto">Incluir na votação</mat-checkbox></p>
+                                <p><mat-checkbox formControlName="ja_votou">Já votou</mat-checkbox></p>
+                                <p><mat-checkbox formControlName="pode_votar">Pode votar</mat-checkbox></p>
+                            </section>
+                        </form>
+                    </div>
+                    <div class="mb-4">
+                        <div class="flex flex-row justify-items-center align-middle">
+                            <img class="w-12 h-12 mr-2" [src]="image.data" alt="imagem do presidente">
+                            
+                            <div>
+                                <h3 class="font-semibold m-0 p-0">Carmém Lucia</h3>
+                                <p class="text-hint m-0 p-0">Presidente</p>
+                            </div>
+                        </div>
+    
+                        <form [formGroup]="formCriacaoColegiado">
+                            <section class="mt-2">
+                                <p><mat-checkbox formControlName="incluir_voto">Incluir na votação</mat-checkbox></p>
+                                <p><mat-checkbox formControlName="ja_votou">Já votou</mat-checkbox></p>
+                                <p><mat-checkbox formControlName="pode_votar">Pode votar</mat-checkbox></p>
+                            </section>
+                        </form>
+                    </div>
+                </div>
+                <div class="">
+                    <h3 class="text-primary">Segunda Turma</h3>
+
+                    <div class="mb-4">
+                        <div class="flex flex-row justify-items-center align-middle">
+                            <img class="w-12 h-12 mr-2" [src]="image.data" alt="imagem do presidente">
+                            
+                            <div>
+                                <h3 class="font-semibold m-0 p-0">Carmém Lucia</h3>
+                                <p class="text-hint m-0 p-0">Presidente</p>
+                            </div>
+                        </div>
+    
+                        <form [formGroup]="formCriacaoColegiado">
+                            <section class="mt-2">
+                                <p><mat-checkbox formControlName="incluir_voto">Incluir na votação</mat-checkbox></p>
+                                <p><mat-checkbox formControlName="ja_votou">Já votou</mat-checkbox></p>
+                                <p><mat-checkbox formControlName="pode_votar">Pode votar</mat-checkbox></p>
+                            </section>
+                        </form>
+                    </div>
+                    <div class="mb-4">
+                        <div class="flex flex-row justify-items-center align-middle">
+                            <img class="w-12 h-12 mr-2" [src]="image.data" alt="imagem do presidente">
+                            
+                            <div>
+                                <h3 class="font-semibold m-0 p-0">Carmém Lucia</h3>
+                                <p class="text-hint m-0 p-0">Presidente</p>
+                            </div>
+                        </div>
+    
+                        <form [formGroup]="formCriacaoColegiado">
+                            <section class="mt-2">
+                                <p><mat-checkbox formControlName="incluir_voto">Incluir na votação</mat-checkbox></p>
+                                <p><mat-checkbox formControlName="ja_votou">Já votou</mat-checkbox></p>
+                                <p><mat-checkbox formControlName="pode_votar">Pode votar</mat-checkbox></p>
+                            </section>
+                        </form>
+                    </div>
+                </div>
+                <div class="">
+                    <h3 class="text-primary">Presidente do STF</h3>
+
+                    <div class="mb-4">
+                        <div class="flex flex-row justify-items-center align-middle">
+                            <img class="w-12 h-12 mr-2" [src]="image.data" alt="imagem do presidente">
+                            
+                            <div>
+                                <h3 class="font-semibold m-0 p-0">Carmém Lucia</h3>
+                                <p class="text-hint m-0 p-0">Presidente</p>
+                            </div>
+                        </div>
+    
+                        <form [formGroup]="formCriacaoColegiado">
+                            <section class="mt-2">
+                                <p><mat-checkbox formControlName="incluir_voto">Incluir na votação</mat-checkbox></p>
+                                <p><mat-checkbox formControlName="ja_votou">Já votou</mat-checkbox></p>
+                                <p><mat-checkbox formControlName="pode_votar">Pode votar</mat-checkbox></p>
+                            </section>
+                        </form>
+                    </div>
+                </div>
+            </main>
+        </div>
+
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between mt-4 sm:mt-6">
+            <div class="flex items-center mt-4 sm:mt-0 ml-auto">
+              <button class="ml-auto sm:ml-0 mr-2" mat-button>
+                <span>Cancelar</span>
+              </button>
+        
+              <button 
+                class="ml-auto"
+                color="primary" 
+                mat-raised-button 
+              >
+                Finalizar 
+              </button>
+            </div>
+          </div>
+    </div>
+</div>
