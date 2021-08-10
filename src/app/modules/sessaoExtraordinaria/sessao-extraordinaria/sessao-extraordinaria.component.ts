@@ -26,8 +26,8 @@ export class SessaoExtraordinariaComponent implements OnInit {
 
   ngOnInit(): void {
     this._julgamentoService.listarSessoesDeJulgamento(1000, 2021).subscribe({
-      next: (sessao) => {
-        this.sessao = sessao;
+      next: (julg) => {
+        this.sessao = julg.sessao;
         const { numero, ano, data_inicio, data_fim } = this.sessao;
         this._julgamentoService.listarProcessosPautadosNasSessoes(numero, ano, SituacaoDoProcesso.Pautado, data_inicio, data_fim).subscribe({
           next: (processos) => {
