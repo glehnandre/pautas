@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Ministro } from '../acervo/model/interfaces/ministro.interface';
+import { MinistroService } from '../services/ministro.service';
 
 @Component({
   selector: 'app-criacao-colegiado',
@@ -14,18 +16,29 @@ export class CriacaoColegiadoComponent implements OnInit {
   }
 
   formCriacaoColegiado: FormGroup;
+  ministros: Ministro[] = [];
 
   constructor(
     private _fb: FormBuilder,
+    private _ministroService: MinistroService,
   ) { 
     this.formCriacaoColegiado = this._fb.group({
-      incluir_voto: ['', [Validators.required]],
-      ja_votou: ['', [Validators.required]],
-      pode_votar: ['', [Validators.required]],
+      incluir_voto: [false, [Validators.required]],
+      ja_votou: [false, [Validators.required]],
+      pode_votar: [false, [Validators.required]],
     });
   }
 
   ngOnInit(): void {
+    this._ministroService.listarMinistros().subscribe({
+      next: (ministros) => {
+        console.log(ministros);
+      }
+    });
+  }
+
+  finalizar(): void {
+    console.log(this.formCriacaoColegiado.value);
   }
 
 }

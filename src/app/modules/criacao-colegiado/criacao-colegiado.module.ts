@@ -6,6 +6,8 @@ import { MatButtonModule } from '@angular/material/button';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
 import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatIconModule } from '@angular/material/icon';
+import { FuseCardModule } from '@fuse/components/card';
 
 const CriacaoColegiadoRoutes: Routes = [
   { path: '', component: CriacaoColegiadoComponent },
@@ -23,6 +25,8 @@ const CriacaoColegiadoRoutes: Routes = [
     MatInputModule,
     MatButtonModule,
     MatCheckboxModule,
+    MatIconModule,
+    FuseCardModule,
   ],
   exports: [
     CriacaoColegiadoComponent,
