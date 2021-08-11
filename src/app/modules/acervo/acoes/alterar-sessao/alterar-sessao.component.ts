@@ -93,14 +93,6 @@ export class AlterarSessaoComponent implements OnInit {
       }
   }
 
-  mudarColegiado(event: MatRadioChange): void {
-        this.pauta.colegiado = event.value;
-  }
-
-  mudarSessao(event): void {
-      this.pauta.sessao = event.value;
-  }
-
   alterarDataDeJulgamento(): void {
     console.log(this.pauta);
     this._julgamentoService.pautarProcesso(this.pauta).subscribe({
