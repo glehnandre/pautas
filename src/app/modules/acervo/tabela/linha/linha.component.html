@@ -14,18 +14,18 @@
                 </div>
                 <div class="flex-none">
                     <div>
-                        <h3>
+                        <h3 class="text-xl font-bold ">
                             {{processo.classe}} {{processo.numero}}
                         </h3>
                     </div>
 
                 </div>
-                <div class="flex-1 mt-1 ml-4 mr-24 sm:mr-56" style="font-size: 16px;">
+                <div class="flex-1 mt-1 ml-4 mr-24 sm:mr-56 font-semibold text-lg">
                     {{processo.nome}}
                 </div>
                 <div>
                     <app-status 
-                        [idProcesso]="processo.id"
+                        [idProcesso]="processo.id" (statusSelecionado)="filtrarPorStatus($event)"
                     ></app-status>
                 </div>
             </div>
@@ -34,9 +34,10 @@
             </div>
         </div>
     </mat-expansion-panel-header>
+    
     <!--Conteúdo de dentro da área expansível-->
     <div class="container">
-        <div class="min-w-full justify-between">
+        <div class="min-w-full justify-between prose">
             <h2>Capítulos</h2>
             
             <div

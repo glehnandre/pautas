@@ -23,6 +23,7 @@
             <app-tabela 
                 [Allselected]="SelectAllLines"
                 (tagSelecionada)="filtrarPorTags($event)"
+                (statusSelecionado)="filtrarPorStatus($event)"
             ></app-tabela>
         </div>
     </div>
