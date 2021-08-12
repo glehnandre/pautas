@@ -6,6 +6,7 @@ import { JulgamentoService, SessaoJulgamento } from 'app/modules/services/julgam
 import { registerLocaleData } from '@angular/common';
 import localePT from '@angular/common/locales/pt';
 import { DatePipe } from '@angular/common';
+import { FuseAlertService } from '@fuse/components/alert';
 
 registerLocaleData(localePT);
 
@@ -30,6 +31,7 @@ export class SessaoExtraordinariaComponent implements OnInit {
 
   constructor(
     private _julgamentoService: JulgamentoService,
+    private _fuseAlertService: FuseAlertService,
   ) {}
 
   ngOnInit(): void {
@@ -39,6 +41,9 @@ export class SessaoExtraordinariaComponent implements OnInit {
         const { numero, ano, data_inicio, data_fim } = this.sessao;
         this._julgamentoService.listarProcessosPautadosNasSessoes(numero, ano, SituacaoDoProcesso.Pautado, data_inicio, data_fim).subscribe({
           next: (processos) => {
+            if(processos.length == 0){
+              this.mostrarAlerta();
+            }
             this.processos = processos;
           }
         });
@@ -63,6 +68,13 @@ export class SessaoExtraordinariaComponent implements OnInit {
     else{
       this.texto = `${this.solicitante} solicitou a criação de uma Sessão de Julgamento Extraordinária para ${this.colegiado} no dia ${this.data_inicio} até o dia ${this.data_fim}.`
     }
+  }
+
+  mostrarAlerta(){
+    this._fuseAlertService.show('alertBox');
+  }
+  fecharAlerta(){
+    this._fuseAlertService.dismiss('alertBox');
   }
 
   aprovarSessao(){

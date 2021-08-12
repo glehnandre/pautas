@@ -68,4 +68,15 @@
             </div>
           </div>
     </div>
+    <div class="absolute top-0 right-0 z-10">
+        <fuse-alert class="max-w-120 mx-auto"
+                    [type]="'error'"
+                    [appearance]="'soft'"
+                    [dismissible]=true
+                    [dismissed]=true
+                    [name]="'alertBox'">
+            <span fuseAlertTitle>Pauta vazia</span>
+            Nenhuma sessão de julgamento aberta para o periodo encontrada. Pode haver sessão de julgamento fechadas para o período.
+        </fuse-alert>
+    </div>
 </div>
