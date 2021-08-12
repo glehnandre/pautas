@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { map } from 'rxjs/operators';
+import { Colegiado } from '../acervo/model/interfaces/colegiado.interface';
 import { Ministro } from '../acervo/model/interfaces/ministro.interface';
 import { MinistroService } from '../services/ministro.service';
 
@@ -17,6 +19,7 @@ export class CriacaoColegiadoComponent implements OnInit {
 
   formCriacaoColegiado: FormGroup;
   ministros: Ministro[] = [];
+  colegiado: Colegiado;
 
   constructor(
     private _fb: FormBuilder,
@@ -32,7 +35,15 @@ export class CriacaoColegiadoComponent implements OnInit {
   ngOnInit(): void {
     this._ministroService.listarMinistros().subscribe({
       next: (ministros) => {
+        this.ministros = ministros;
         console.log(ministros);
+      }
+    });
+
+    this._ministroService.listarColegiado().subscribe({
+      next: (colegiado) => {
+        console.log(colegiado)
+        this.colegiado = colegiado;
       }
     });
   }
