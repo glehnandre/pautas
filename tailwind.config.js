@@ -133,7 +133,7 @@ const config = {
             },
             fontFamily: {
                 sans: `"Inter var", ${defaultTheme.fontFamily.sans.join(',')}`,
-                mono: `"IBM Plex Mono", ${defaultTheme.fontFamily.mono.join(',')}`
+                mono: `"IBM Plex Mono", ${defaultTheme.fontFamily.mono.join(',')}`,
             },
             opacity   : {
                 12: '0.12',
