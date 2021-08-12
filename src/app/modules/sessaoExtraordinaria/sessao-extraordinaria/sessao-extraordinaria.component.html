@@ -21,10 +21,8 @@
                 ></app-processo-chip>
             </div>
 
-            <p class="text-primary">
-                Ministro Gilmar Mendes, presidente da Primeira Turma, informa
-                que não há possibilidade de agenda para a criação da Sessão de 
-                Julgamento Extraordinária para a data solicitada de 21/04/2021.
+            <p class="text-xl">
+                {{texto}}
             </p>
 
             <h2 class="text-primary mt-8">Processos</h2>
@@ -37,7 +35,7 @@
 
             <div class="mt-8">
                 <h2 class="text-primary">Observações</h2>
-                <p>
+                <p class="text-justify">
                     {{observacoes}}
                 </p>
             </div>
@@ -49,7 +47,12 @@
                 <span>Cancelar</span>
               </button>
 
-              <button class="ml-auto sm:ml-0 mr-4 bg-red-600 text-white" mat-raised-button mat-dialog-close>
+              <button 
+              class="ml-auto sm:ml-0 mr-4 bg-red-600 text-white" 
+              mat-raised-button 
+              mat-dialog-close
+              (click)="recusarSessao()"
+              >
                 <span>Recusar</span>
               </button>
         
@@ -58,6 +61,7 @@
                 color="primary" 
                 mat-raised-button 
                 mat-dialog-close
+                (click)="aprovarSessao()"
               >
                 Confirmar  
               </button>

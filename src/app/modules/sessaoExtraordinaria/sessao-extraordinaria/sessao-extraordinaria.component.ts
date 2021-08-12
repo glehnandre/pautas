@@ -1,10 +1,13 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup } from '@angular/forms';
 import { SituacaoDoProcesso } from 'app/modules/acervo/model/enums/situacaoDoProcesso.enum';
 import { Processo } from 'app/modules/acervo/model/interfaces/processo.interface';
 import { SessaoDeJulgamento } from 'app/modules/acervo/model/interfaces/sessaoDeJulgamento.interface';
-import { JulgamentoService } from 'app/modules/services/julgamento.service';
-import { HttpClient } from '@angular/common/http';
+import { JulgamentoService, SessaoJulgamento } from 'app/modules/services/julgamento.service';
+import { registerLocaleData } from '@angular/common';
+import localePT from '@angular/common/locales/pt';
+import { DatePipe } from '@angular/common';
+
+registerLocaleData(localePT);
 
 @Component({
   selector: 'app-sessao-extraordinaria',
@@ -13,15 +16,20 @@ import { HttpClient } from '@angular/common/http';
 })
 export class SessaoExtraordinariaComponent implements OnInit {
 
-  formJulgamento: FormGroup;
   tags: string[] = ['Virtual', 'Segunda Turma', 'Inicio e fim no dia 21/04/2021'];
-  observacoes: string = "Lorem ipsum dolor sit amet consectetur adipisicing elit. Porro minima quibusdam perspiciatis aliquid iste quo deleniti  ducimus nulla minus rerum expedita tenetur, dicta saepe error unde,  labore cum, aperiam nisi. Lorem ipsum dolor sit amet consectetur adipisicing elit.  Odit sequi magni, modi reprehenderit sit ipsa tempora natus  harum voluptatem iure molestias, veniam nemo quam odio qui laboriosam.  Pariatur, praesentium molestiae?";
+  observacoes: string;
   processos: Processo[] = [];
   sessao: SessaoDeJulgamento;
+  objeto: SessaoJulgamento;
+  solicitante: string;
+  colegiado: string;
+  data_inicio: string;
+  data_fim: string;
+  texto: string;
+
 
   constructor(
     private _julgamentoService: JulgamentoService,
-    private _httpClient: HttpClient,
   ) {}
 
   ngOnInit(): void {
@@ -36,11 +44,43 @@ export class SessaoExtraordinariaComponent implements OnInit {
         });
       }
     });
+
+    this._julgamentoService.listarSessoesDeJulgamento(1000, 2021).subscribe(data=>{
+      this.observacoes = data.observacao;
+      this.solicitante = data.ministro.nome;
+      this.colegiado = data.sessao.colegiado;
+      this.setTexto(data.sessao.data_inicio, data.sessao.data_fim);
+    });
   }
 
-  /*teste(){
+  setTexto(inicio: string, fim: string){
+    const datepipe: DatePipe = new DatePipe('pt-BR')
+    this.data_inicio = datepipe.transform(inicio, 'dd/MM/YYYY, EEEE');
+    this.data_fim = datepipe.transform(fim, 'dd/MM/YYYY, EEEE');
+    if(inicio==fim){
+      this.texto = `${this.solicitante} solicitou a criação de uma Sessão de Julgamento Extraordinária para ${this.colegiado} no dia ${this.data_inicio}.`
+    }
+    else{
+      this.texto = `${this.solicitante} solicitou a criação de uma Sessão de Julgamento Extraordinária para ${this.colegiado} no dia ${this.data_inicio} até o dia ${this.data_fim}.`
+    }
+  }
+
+  aprovarSessao(){
     let ano: number = 2021;
-    console.log(this._httpClient.get(`/sessoes-de-julgamento/${ano}`));
-  }*/
+    let numero: number = 1000;
+
+    this._julgamentoService.aprovarSessaoDeJulgamento(numero, ano).subscribe(data=>{
+      console.log(data);
+    })
+  }
+
+  recusarSessao(){
+    let ano: number = 2021;
+    let numero: number = 1000;
+
+    this._julgamentoService.rejeitarSessaoDeJulgamento(numero, ano).subscribe(data=>{
+      console.log(data);
+    })
+  }
 
 }

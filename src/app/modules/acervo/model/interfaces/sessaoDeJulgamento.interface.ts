@@ -12,4 +12,5 @@ export interface SessaoDeJulgamento {
         id: number;
         nome: string;
     };
+    situacao?: "PUBLICADA" | "APROVADA" | "FECHADA" | "ABERTA" | "FINALIZADA" | "REJEITADA";
 }
