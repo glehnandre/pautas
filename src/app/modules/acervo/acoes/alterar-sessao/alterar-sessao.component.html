@@ -97,4 +97,26 @@
         </div>
       </div>
   </form>
+
+  <div class="absolute top-0 right-0 z-10">
+        <fuse-alert class="max-w-120 mx-auto"
+                    [type]="'error'"
+                    [appearance]="'soft'"
+                    [dismissible]=true
+                    [dismissed]=true
+                    [name]="'alertBoxFinalDate'">
+            <span fuseAlertTitle>Erro de validação</span>
+            A data final não pode ser menor que a data inicial
+        </fuse-alert>
+
+        <fuse-alert class="max-w-120 mx-auto"
+                    [type]="'error'"
+                    [appearance]="'soft'"
+                    [dismissible]=true
+                    [dismissed]=true
+                    [name]="'alertBoxInitialDate'">
+            <span fuseAlertTitle>Erro de validação</span>
+            A data inicial não pode ser maior que a data final
+        </fuse-alert>
+    </div>
 </div>

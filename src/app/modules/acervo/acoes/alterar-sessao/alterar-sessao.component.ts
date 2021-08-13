@@ -72,7 +72,12 @@ export class AlterarSessaoComponent implements OnInit {
     const dataFinal = new Date(this.pauta.data_fim);
 
     if (dataInicial > dataFinal) {
-      alert('A data inicial não pode ser maior que a data final');
+        this._fuseAlertService.show('alertBoxInitialDate');
+
+        setTimeout(() => {
+            this._fuseAlertService.dismiss('alertBoxInitialDate');
+        }, 5000);
+
       this.pauta.data_inicio = '';
       this.isFormValido = false;
     } else {
@@ -85,7 +90,12 @@ export class AlterarSessaoComponent implements OnInit {
       const dataFinal = new Date(event.value);
 
       if (dataFinal < dataInicial) {
-          alert("A data final não pode ser menor que a data inicial");
+         this._fuseAlertService.show('alertBoxFinalDate');
+
+         setTimeout(() => {
+           this._fuseAlertService.dismiss('alertBoxFinalDate');
+         }, 5000);
+
           this.pauta.data_fim = '';
           this.isFormValido = false;
       } else {

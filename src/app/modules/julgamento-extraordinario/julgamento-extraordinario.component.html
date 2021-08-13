@@ -23,7 +23,7 @@
 
             <p>
                 Ministro Gilmar Mendes, presidente da Primeira Turma, informa
-                que não há possibilidade de agenda para a criação da Sessão de 
+                que não há possibilidade de agenda para a criação da Sessão de
                 Julgamento Extraordinária para a data solicitada de 21/04/2021.
             </p>
 
@@ -41,7 +41,7 @@
                         Preencha para recolocar a pauta em outra sessão
                     </mat-card-title>
                 </mat-card-header>
-                
+
                 <mat-card-content class="p-4">
                     <form [formGroup]="formJulgamento" class="flex flex-col">
                         <mat-form-field appearance="fill" class="sm:w-3/6 w-full">
@@ -59,8 +59,8 @@
                         <mat-form-field appearance="fill" class="sm:w-3/6 w-full">
                             <mat-label>Sessão:</mat-label>
                             <mat-select [formControlName]="'sessao'" placeholder="Escolha uma sessão" required>
-                                <mat-option 
-                                    *ngFor="let sessaoJulgamento of sessoes" 
+                                <mat-option
+                                    *ngFor="let sessaoJulgamento of sessoes"
                                     [value]="sessaoJulgamento.id"
                                 >
                                     Sessão {{sessaoJulgamento.modalidade}}, <b>{{sessaoJulgamento.colegiado}}</b>, nº {{sessaoJulgamento.numero}}/{{sessaoJulgamento.ano}} de {{sessaoJulgamento.data_inicio | date:'dd/MM/yyyy'}} a {{sessaoJulgamento.data_fim  | date:'dd/MM/yyyy'}}
@@ -87,15 +87,15 @@
               <button class="ml-auto sm:ml-0 mr-2" mat-button>
                 <span>Cliente</span>
               </button>
-        
-              <button 
+
+              <button
                 class="ml-auto"
-                color="primary" 
-                mat-raised-button 
+                color="primary"
+                mat-raised-button
                 [disabled]="formJulgamento.invalid"
                 (click)="pautarNaSessao()"
               >
-                Ciente e Pautar na Sessão  
+                Ciente e Pautar na Sessão
               </button>
             </div>
           </div>
