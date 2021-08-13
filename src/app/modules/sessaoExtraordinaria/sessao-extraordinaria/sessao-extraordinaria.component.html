@@ -41,23 +41,27 @@
             </div>
         </div>
 
-        <div class="flex flex-col sm:flex-row sm:items-center justify-between mt-8">
-            <div mat-dialog-actions class="flex items-center mt-4 sm:mt-0 ml-auto">
-              <button class="ml-auto sm:ml-0 mr-4" mat-button mat-dialog-close>
-                <span>Cancelar</span>
+        <div class="flex flex-col sm:items-center justify-between mt-8">
+            <div mat-dialog-actions class="container flex flex-col sm:flex-row items-center mt-4 sm:mt-0 sm:ml-auto">
+              <button 
+                class="w-full ml-auto sm:ml-0 mr-4 order-last sm:order-none" 
+                mat-button 
+                mat-dialog-close
+              >
+                Cancelar
               </button>
 
               <button 
-              class="ml-auto sm:ml-0 mr-4 bg-red-600 text-white" 
-              mat-raised-button 
-              mat-dialog-close
-              (click)="recusarSessao()"
+                class="w-full ml-auto sm:ml-0 mr-4 my-4 bg-red-600 text-white" 
+                mat-raised-button 
+                mat-dialog-close
+                (click)="recusarSessao()"
               >
-                <span>Recusar</span>
+                Recusar
               </button>
         
               <button 
-                class="ml-auto"
+                class="w-full order-first sm:order-last"
                 color="primary" 
                 mat-raised-button 
                 mat-dialog-close
