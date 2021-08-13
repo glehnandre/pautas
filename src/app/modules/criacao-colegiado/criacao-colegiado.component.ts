@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { map } from 'rxjs/operators';
 import { Colegiado } from '../acervo/model/interfaces/colegiado.interface';
 import { Ministro } from '../acervo/model/interfaces/ministro.interface';
+import { Voto, VotoDoMinistro } from '../acervo/model/interfaces/voto.interface';
 import { MinistroService } from '../services/ministro.service';
 
 @Component({
@@ -46,6 +47,10 @@ export class CriacaoColegiadoComponent implements OnInit {
         this.colegiado = colegiado;
       }
     });
+  }
+
+  obterStatusDoVoto(votoDoMinistro: VotoDoMinistro): void {
+    console.table(votoDoMinistro);
   }
 
   finalizar(): void {

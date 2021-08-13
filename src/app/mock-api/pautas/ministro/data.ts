@@ -1,4 +1,4 @@
-import { Colegiado } from "app/modules/acervo/model/interfaces/colegiado.interface";
+import { Colegiado, NomeDoColegiado } from "app/modules/acervo/model/interfaces/colegiado.interface";
 import { Ministro } from "app/modules/acervo/model/interfaces/ministro.interface";
 
 export const ministro: Ministro[] = [
@@ -116,7 +116,7 @@ export const ministro: Ministro[] = [
 
 export const colegiado: Colegiado[] = [
   {
-    nome: 'Primeira Turma',
+    nome: NomeDoColegiado["Primeira Turma"],
     presidente: ministro[0],
     composicao: [
       ministro[1],
@@ -129,7 +129,7 @@ export const colegiado: Colegiado[] = [
   },
 
   {
-    nome: 'Segunda Turma',
+    nome: NomeDoColegiado["Segunda Turma"],
     presidente: ministro[0],
     composicao: [
       ministro[6],

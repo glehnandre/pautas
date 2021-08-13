@@ -1,0 +1,37 @@
+<div class="mb-4">
+    <fuse-card class="flex flex-col items-center max-w-80 w-full p-4 filter-info ng-tns-c129-57 ng-star-inserted mb-4">
+        <div class="flex flex-row">
+            <img 
+                [src]="minsitro?.imagem" 
+                alt="Imagem de perfil" 
+                class="w-14 h-14 mr-6 rounded-full ng-tns-c129-57 ng-star-inserted"
+            >
+
+            <div class="flex flex-col ng-tns-c129-56 ng-star-inserted">
+                <div class="text-lg font-semibold leading-tight">
+                    {{minsitro?.nome}}
+                </div>
+                <div class="text-md leading-tight text-primary">
+                    {{minsitro?.abreviacao | uppercase}}
+                </div>
+                <div class="text-md text-secondary mt-2">
+                    Presidente
+                </div>
+            </div>
+        </div>
+
+        <hr class="w-full border-t my-2">
+
+        <div class="flex items-center justify-between">
+            <div class="text-md font-medium text-secondary mr-3">
+                <form [formGroup]="formCriacaoColegiado">
+                    <section class="mt-2">
+                        <p><mat-checkbox color="primary" formControlName="incluir_voto">Incluir na votação</mat-checkbox></p>
+                        <p><mat-checkbox color="primary" formControlName="ja_votou">Já votou</mat-checkbox></p>
+                        <p><mat-checkbox color="primary" formControlName="pode_votar">Pode votar</mat-checkbox></p>
+                    </section>
+                </form>
+            </div>
+        </div>
+    </fuse-card>
+</div>

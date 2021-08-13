@@ -21,140 +21,30 @@
                 <div class="">
                     <h3 class="text-primary">Primeira Turma</h3>
 
-                    <div class="mb-4">
-                        <fuse-card class="flex items-center max-w-80 w-full p-4 filter-info ng-tns-c129-57 ng-star-inserted mb-4">
-                            <img 
-                                [src]="image.data" 
-                                alt="Imagem de perfil" 
-                                class="w-12 h-12 mr-6 rounded-full ng-tns-c129-57 ng-star-inserted"
-                            >
-                            <div class="flex flex-col ng-tns-c129-57 ng-star-inserted">
-                                <div class="text-lg font-semibold leading-tight">
-                                    Carmém Lucia
-                                </div>
-                                <div class="text-md text-secondary">
-                                    Presidente
-                                </div>
-                            </div>
-                        </fuse-card>
-    
-                        <form [formGroup]="formCriacaoColegiado">
-                            <section class="mt-2">
-                                <p><mat-checkbox color="primary" formControlName="incluir_voto">Incluir na votação</mat-checkbox></p>
-                                <p><mat-checkbox color="primary" formControlName="ja_votou">Já votou</mat-checkbox></p>
-                                <p><mat-checkbox color="primary" formControlName="pode_votar">Pode votar</mat-checkbox></p>
-                            </section>
-                        </form>
-                    </div>
-
-                    <div class="mb-4">
-                        <fuse-card class="flex items-center max-w-80 w-full p-4 filter-info ng-tns-c129-57 ng-star-inserted mb-4">
-                            <img 
-                                [src]="image.data" 
-                                alt="Imagem de perfil" 
-                                class="w-12 h-12 mr-6 rounded-full ng-tns-c129-57 ng-star-inserted"
-                            >
-                            <div class="flex flex-col ng-tns-c129-57 ng-star-inserted">
-                                <div class="text-lg font-semibold leading-tight">
-                                    Carmém Lucia
-                                </div>
-                                <div class="text-md text-secondary">
-                                    Presidente
-                                </div>
-                            </div>
-                        </fuse-card>
-    
-                        <form [formGroup]="formCriacaoColegiado">
-                            <section class="mt-2">
-                                <p><mat-checkbox color="primary" formControlName="incluir_voto">Incluir na votação</mat-checkbox></p>
-                                <p><mat-checkbox color="primary" formControlName="ja_votou">Já votou</mat-checkbox></p>
-                                <p><mat-checkbox color="primary" formControlName="pode_votar">Pode votar</mat-checkbox></p>
-                            </section>
-                        </form>
-                    </div>
+                    <app-card-ministro
+                        *ngFor="let ministro of colegiado?.composicao"
+                        [minsitro]="ministro"
+                        (statusVotacao)="obterStatusDoVoto($event)"
+                    ></app-card-ministro>
                 </div>
+                    
                 <div class="">
                     <h3 class="text-primary">Segunda Turma</h3>
 
-                    <div class="mb-4">
-                        <fuse-card class="flex items-center max-w-80 w-full p-4 filter-info ng-tns-c129-57 ng-star-inserted mb-4">
-                            <img 
-                                [src]="image.data" 
-                                alt="Imagem de perfil" 
-                                class="w-12 h-12 mr-6 rounded-full ng-tns-c129-57 ng-star-inserted"
-                            >
-                            <div class="flex flex-col ng-tns-c129-57 ng-star-inserted">
-                                <div class="text-lg font-semibold leading-tight">
-                                    Carmém Lucia
-                                </div>
-                                <div class="text-md text-secondary">
-                                    Presidente
-                                </div>
-                            </div>
-                        </fuse-card>
-    
-                        <form [formGroup]="formCriacaoColegiado">
-                            <section class="mt-2">
-                                <p><mat-checkbox color="primary" formControlName="incluir_voto">Incluir na votação</mat-checkbox></p>
-                                <p><mat-checkbox color="primary" formControlName="ja_votou">Já votou</mat-checkbox></p>
-                                <p><mat-checkbox color="primary" formControlName="pode_votar">Pode votar</mat-checkbox></p>
-                            </section>
-                        </form>
-                    </div>
-                    <div class="mb-4">
-                        <fuse-card class="flex items-center max-w-80 w-full p-4 filter-info ng-tns-c129-57 ng-star-inserted mb-4">
-                            <img 
-                                [src]="image.data" 
-                                alt="Imagem de perfil" 
-                                class="w-12 h-12 mr-6 rounded-full ng-tns-c129-57 ng-star-inserted"
-                            >
-                            <div class="flex flex-col ng-tns-c129-57 ng-star-inserted">
-                                <div class="text-lg font-semibold leading-tight">
-                                    Carmém Lucia
-                                </div>
-                                <div class="text-md text-secondary">
-                                    Presidente
-                                </div>
-                            </div>
-                        </fuse-card>
-    
-                        <form [formGroup]="formCriacaoColegiado">
-                            <section class="mt-2">
-                                <p><mat-checkbox color="primary" formControlName="incluir_voto">Incluir na votação</mat-checkbox></p>
-                                <p><mat-checkbox color="primary" formControlName="ja_votou">Já votou</mat-checkbox></p>
-                                <p><mat-checkbox color="primary" formControlName="pode_votar">Pode votar</mat-checkbox></p>
-                            </section>
-                        </form>
-                    </div>
+                    <app-card-ministro
+                        *ngFor="let ministro of colegiado?.composicao"
+                        [minsitro]="ministro"
+                        (statusVotacao)="obterStatusDoVoto($event)"
+                    ></app-card-ministro>
                 </div>
+
                 <div class="">
                     <h3 class="text-primary">Presidente do STF</h3>
 
-                    <div class="mb-4">
-                        <fuse-card class="flex items-center max-w-80 w-full p-4 filter-info ng-tns-c129-57 ng-star-inserted mb-4">
-                            <img 
-                                [src]="image.data" 
-                                alt="Imagem de perfil" 
-                                class="w-12 h-12 mr-6 rounded-full ng-tns-c129-57 ng-star-inserted"
-                            >
-                            <div class="flex flex-col ng-tns-c129-57 ng-star-inserted">
-                                <div class="text-lg font-semibold leading-tight">
-                                    Carmém Lucia
-                                </div>
-                                <div class="text-md text-secondary">
-                                    Presidente
-                                </div>
-                            </div>
-                        </fuse-card>
-    
-                        <form [formGroup]="formCriacaoColegiado">
-                            <section class="mt-2">
-                                <p><mat-checkbox color="primary" formControlName="incluir_voto">Incluir na votação</mat-checkbox></p>
-                                <p><mat-checkbox color="primary" formControlName="ja_votou">Já votou</mat-checkbox></p>
-                                <p><mat-checkbox color="primary" formControlName="pode_votar">Pode votar</mat-checkbox></p>
-                            </section>
-                        </form>
-                    </div>
+                    <app-card-ministro
+                        [minsitro]="colegiado?.presidente"
+                        (statusVotacao)="obterStatusDoVoto($event)"
+                    ></app-card-ministro>
                 </div>
             </main>
         </div>

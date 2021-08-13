@@ -8,6 +8,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatIconModule } from '@angular/material/icon';
 import { FuseCardModule } from '@fuse/components/card';
+import { CardMinistroComponent } from './card-ministro/card-ministro.component';
 
 const CriacaoColegiadoRoutes: Routes = [
   { path: '', component: CriacaoColegiadoComponent },
@@ -16,6 +17,7 @@ const CriacaoColegiadoRoutes: Routes = [
 @NgModule({
   declarations: [
     CriacaoColegiadoComponent,
+    CardMinistroComponent,
   ],
   imports: [
     CommonModule,

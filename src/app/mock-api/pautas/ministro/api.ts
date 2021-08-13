@@ -23,8 +23,11 @@ export class MinistroMockApi {
           return [200, this._ministros];
         });
 
-        this._fuseMockApiService.onGet('/colegiado')
-        .reply(() => {
+      this._fuseMockApiService.onGet('/colegiado')
+        .reply(({request}) => {
+          const { params } = request;
+          const colegiado = params.get('colegiado');
+          console.log(colegiado)
           return [200, this._colegiado[0]];
         });
     }
