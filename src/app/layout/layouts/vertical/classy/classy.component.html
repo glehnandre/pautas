@@ -69,7 +69,10 @@
 
         <!-- Components -->
         <div class="flex items-center pl-2 ml-auto space-x-2">
-            <button mat-raised-button color="primary">INICIAR ATIVIDADE</button>
+            <button mat-raised-button color="primary" class="hidden md:flex">INICIAR ATIVIDADE</button>
+            <button mat-icon-button class="md:hidden">
+                <mat-icon [svgIcon]="'heroicons_outline:document-add'"></mat-icon>
+            </button>
             <fuse-fullscreen></fuse-fullscreen>
             <search [appearance]="'bar'"></search>
             <shortcuts [shortcuts]="data.shortcuts"></shortcuts>
