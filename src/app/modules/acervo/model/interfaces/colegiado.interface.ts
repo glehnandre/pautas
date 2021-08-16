@@ -6,9 +6,16 @@ export enum NomeDoColegiado {
     'Pleno' = 'pleno',
 }
 
+export interface ComposicaoColegiado {
+    ministro: Ministro;
+    incluir_voto: boolean;
+    ja_votou: boolean;
+    pode_votar: boolean;
+}
+
 export interface Colegiado {
     nome: NomeDoColegiado;
     presidente: Ministro;
-    composicao: Ministro[];
+    composicao: Array<ComposicaoColegiado>;
     data: string;
 }

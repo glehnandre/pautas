@@ -26,9 +26,13 @@ export class MinistroMockApi {
       this._fuseMockApiService.onGet('/colegiado')
         .reply(({request}) => {
           const { params } = request;
+          const data = params?.get('data');
           const colegiado = params.get('colegiado');
-          console.log(colegiado)
-          return [200, this._colegiado[0]];
+          
+          const colegiadoEncontrado = this._colegiado
+            .filter(coleg => (colegiado) ? coleg.nome === colegiado : true);
+            
+          return [200, colegiadoEncontrado[0]];
         });
     }
 }

@@ -23,7 +23,7 @@ export class MinistroService {
     );
   }
 
-  listarColegiado(processo?: string, data?: string, colegiado: NomeDoColegiado = NomeDoColegiado.Pleno): Observable<Colegiado> {
+  listarColegiado(processo?: string, data?: string, colegiado: NomeDoColegiado = NomeDoColegiado['Primeira Turma']): Observable<Colegiado> {
     let params = new HttpParams();
     params = params.set('processo', processo);
     params = params.set('data', data);

@@ -9,6 +9,7 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatIconModule } from '@angular/material/icon';
 import { FuseCardModule } from '@fuse/components/card';
 import { CardMinistroComponent } from './card-ministro/card-ministro.component';
+import { FuseMasonryModule } from '@fuse/components/masonry';
 
 const CriacaoColegiadoRoutes: Routes = [
   { path: '', component: CriacaoColegiadoComponent },
@@ -29,6 +30,7 @@ const CriacaoColegiadoRoutes: Routes = [
     MatCheckboxModule,
     MatIconModule,
     FuseCardModule,
+    FuseMasonryModule,
   ],
   exports: [
     CriacaoColegiadoComponent,
