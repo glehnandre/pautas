@@ -15,8 +15,7 @@ import { DenseLayoutModule } from 'app/layout/layouts/vertical/dense/dense.modul
 import { FuturisticLayoutModule } from 'app/layout/layouts/vertical/futuristic/futuristic.module';
 import { ThinLayoutModule } from 'app/layout/layouts/vertical/thin/thin.module';
 import { SharedModule } from 'app/shared/shared.module';
-import { StartActivityComponent } from './common/start-activity/start-activity.component';
-import { StartActivityModule } from './common/start-activity/start-activity.module';
+import { SearchComponent } from './common/search/search.component';
 
 const layoutModules = [
     // Empty
@@ -39,14 +38,13 @@ const layoutModules = [
 
 @NgModule({
     declarations: [
-        LayoutComponent
+        LayoutComponent,
     ],
     imports     : [
         MatIconModule,
         MatTooltipModule,
         FuseDrawerModule,
         SharedModule,
-        StartActivityModule,
         ...layoutModules
     ],
     exports     : [
