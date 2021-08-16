@@ -11,6 +11,9 @@ export interface ComposicaoColegiado {
     incluir_voto: boolean;
     ja_votou: boolean;
     pode_votar: boolean;
+    presidente?: boolean;
+    relator?: boolean;
+    redator?: boolean;
 }
 
 export interface Colegiado {

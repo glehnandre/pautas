@@ -16,7 +16,7 @@ export class CriacaoColegiadoComponent implements OnInit {
 
   formCriacaoColegiado: FormGroup;
   ministros: Ministro[] = [];
-  colegiado: Colegiado;
+  colegiados: Colegiado[] = [];
   votosDosMinistros: ComposicaoColegiado[] = [];
 
   post: {
@@ -69,23 +69,44 @@ export class CriacaoColegiadoComponent implements OnInit {
       }
     });
 
-    this._ministroService.listarColegiado().subscribe({
-      next: (colegiado) => {
-        console.log(colegiado)
-        this.colegiado = colegiado;
+    this._ministroService.listarColegiados().subscribe({
+      next: (colegiados) => {
+        console.log(colegiados)
+        this.colegiados = colegiados;
+        this.columns = this.colegiados.length;
       }
     });
   }
 
   obterStatusDoVoto(votoDoMinistro: VotoDoMinistro): void {
-    this.votosDosMinistros.push({
-      ministro: votoDoMinistro.ministro,
-      ...votoDoMinistro.voto
-    });
-
-    this.votosDosMinistros = [...new Set(this.votosDosMinistros)];
+    const index = this.votosDosMinistros
+      .findIndex(m => m.ministro.id === votoDoMinistro.ministro.id);
+    
+    if (index !== -1) {
+      this.votosDosMinistros.splice(index, 1);
+      const {incluir_voto, ja_votou, pode_votar} = votoDoMinistro.voto;
+      if (incluir_voto || ja_votou || pode_votar) {
+        this.votosDosMinistros.push({
+          ministro: votoDoMinistro.ministro,
+          ...votoDoMinistro.voto
+        });
+      }
+    } else {
+      this.votosDosMinistros.push({
+        ministro: votoDoMinistro.ministro,
+        ...votoDoMinistro.voto
+      });
+    }
 
     console.table(this.votosDosMinistros);
+  }
+
+  obterColegiado(index: number): Colegiado {
+    return this.colegiados[index];
+  }
+
+  obterPresidente(index: number): Ministro {
+    return this.colegiados[index].presidente;
   }
 
   finalizar(): void {

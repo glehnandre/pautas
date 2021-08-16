@@ -23,13 +23,17 @@ export class MinistroService {
     );
   }
 
-  listarColegiado(processo?: string, data?: string, colegiado: NomeDoColegiado = NomeDoColegiado['Primeira Turma']): Observable<Colegiado> {
+  listarColegiados(
+    processo?: string, 
+    data?: string, 
+    colegiado?: string,
+  ): Observable<Colegiado[]> {
     let params = new HttpParams();
     params = params.set('processo', processo);
     params = params.set('data', data);
     params = params.set('colegiado', colegiado);
 
-    return this._httpClient.get<Colegiado>('/colegiado', {
+    return this._httpClient.get<Colegiado[]>('/colegiado', {
       params,
     }).pipe(
       catchError(error => {
