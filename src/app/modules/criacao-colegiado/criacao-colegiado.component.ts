@@ -31,12 +31,9 @@ export class CriacaoColegiadoComponent implements OnInit {
     },
   };
 
-  columns: number = 3;
-
   constructor(
     private _fb: FormBuilder,
     private _ministroService: MinistroService,
-    private _fuseMediaWatcherService: FuseMediaWatcherService,
   ) { 
     this.formCriacaoColegiado = this._fb.group({
       incluir_voto: [false, [Validators.required]],
@@ -46,22 +43,6 @@ export class CriacaoColegiadoComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    
-    this._fuseMediaWatcherService.onMediaChange$
-      .subscribe(({matchingAliases}) => {
-        if ( matchingAliases.includes('xl') ) {
-          this.columns = 3;
-        } else if ( matchingAliases.includes('lg') ) {
-          this.columns = 3;
-        } else if ( matchingAliases.includes('md') ) {
-          this.columns = 3;
-        } else if ( matchingAliases.includes('sm') ) {
-          this.columns = 2;
-        } else {
-          this.columns = 1;
-        }
-      });
-
     this._ministroService.listarMinistros().subscribe({
       next: (ministros) => {
         this.ministros = ministros;
@@ -71,9 +52,7 @@ export class CriacaoColegiadoComponent implements OnInit {
 
     this._ministroService.listarColegiados().subscribe({
       next: (colegiados) => {
-        console.log(colegiados)
         this.colegiados = colegiados;
-        this.columns = this.colegiados.length;
       }
     });
   }
@@ -99,14 +78,6 @@ export class CriacaoColegiadoComponent implements OnInit {
     }
 
     console.table(this.votosDosMinistros);
-  }
-
-  obterColegiado(index: number): Colegiado {
-    return this.colegiados[index];
-  }
-
-  obterPresidente(index: number): Ministro {
-    return this.colegiados[index].presidente;
   }
 
   finalizar(): void {

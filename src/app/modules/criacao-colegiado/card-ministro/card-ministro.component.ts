@@ -13,6 +13,9 @@ export class CardMinistroComponent implements OnInit {
   formCriacaoColegiado: FormGroup;
 
   @Input() minsitro: Ministro;
+  @Input() isPresidente: boolean;
+  @Input() isRelator: boolean;
+  @Input() isRedator: boolean;
   @Output() statusVotacao = new EventEmitter<VotoDoMinistro>();
 
   votoDoMinistro: VotoDoMinistro;
@@ -34,6 +37,18 @@ export class CardMinistroComponent implements OnInit {
         voto: this.formCriacaoColegiado.value,
       });
     });
+  }
+
+  obterDescricao(): string {
+    if (this.isPresidente) {
+      return 'Presidente';
+    } else if (this.isRelator) {
+      return 'Relator';
+    } else if (this.isRedator) {
+      return 'Redator';
+    } else {
+      return '';
+    }
   }
 
 }
