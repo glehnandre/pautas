@@ -1,5 +1,6 @@
 import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ComposicaoColegiado } from 'app/modules/acervo/model/interfaces/colegiado.interface';
 import { Ministro } from 'app/modules/acervo/model/interfaces/ministro.interface';
 import { Voto, VotoDoMinistro } from 'app/modules/acervo/model/interfaces/voto.interface';
 
@@ -11,14 +12,10 @@ import { Voto, VotoDoMinistro } from 'app/modules/acervo/model/interfaces/voto.i
 export class CardMinistroComponent implements OnInit {
 
   formCriacaoColegiado: FormGroup;
+  minsitro: Ministro;
 
-  @Input() minsitro: Ministro;
-  @Input() isPresidente: boolean;
-  @Input() isRelator: boolean;
-  @Input() isRedator: boolean;
-  @Output() statusVotacao = new EventEmitter<VotoDoMinistro>();
-
-  votoDoMinistro: VotoDoMinistro;
+  @Input() composicao: ComposicaoColegiado;
+  @Output() statusVotacao = new EventEmitter<ComposicaoColegiado>();
 
   constructor(
     private _fb: FormBuilder,
@@ -31,20 +28,21 @@ export class CardMinistroComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.minsitro = this.composicao.ministro;
     this.formCriacaoColegiado.valueChanges.subscribe(() => {
       this.statusVotacao.emit({
-        ministro: this.minsitro,
-        voto: this.formCriacaoColegiado.value,
+        ...this.composicao,
+        ...this.formCriacaoColegiado.value,
       });
     });
   }
 
   obterDescricao(): string {
-    if (this.isPresidente) {
+    if (this.composicao.presidente) {
       return 'Presidente';
-    } else if (this.isRelator) {
+    } else if (this.composicao.relator) {
       return 'Relator';
-    } else if (this.isRedator) {
+    } else if (this.composicao.redator) {
       return 'Redator';
     } else {
       return '';

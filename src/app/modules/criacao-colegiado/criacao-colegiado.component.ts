@@ -14,13 +14,13 @@ import { MinistroService } from '../services/ministro.service';
 })
 export class CriacaoColegiadoComponent implements OnInit {
 
-  formCriacaoColegiado: FormGroup;
+  formVotacao: FormGroup;
   ministros: Ministro[] = [];
   colegiados: Colegiado[] = [];
   votosDosMinistros: ComposicaoColegiado[] = [];
 
   post: {
-    processo: 'ADI100-Ag-Ag-A',
+    processo: '',
     anoSessao: '2021',
     numeroSessao: '100',
     julgados: [1, 2, 3],
@@ -34,12 +34,13 @@ export class CriacaoColegiadoComponent implements OnInit {
   constructor(
     private _fb: FormBuilder,
     private _ministroService: MinistroService,
-    private _fuseMediaWatcherService: FuseMediaWatcherService,
   ) { 
-    this.formCriacaoColegiado = this._fb.group({
-      incluir_voto: [false, [Validators.required]],
-      ja_votou: [false, [Validators.required]],
-      pode_votar: [false, [Validators.required]],
+    this.formVotacao = this._fb.group({
+      processo: ['ADI100-Ag-Ag-A', Validators.required],
+      anoSessao: ['2021', Validators.required],
+      numeroSessao: [100, Validators.required],
+      julgados: [[1, 2, 3], Validators.required],
+      items: [this.votosDosMinistros],
     });
   }
 
@@ -70,31 +71,59 @@ export class CriacaoColegiadoComponent implements OnInit {
     });
   }
 
-  obterStatusDoVoto(votoDoMinistro: VotoDoMinistro): void {
+  obterStatusDoVoto(votoDoMinistro: ComposicaoColegiado): void {
     const index = this.votosDosMinistros
       .findIndex(m => m.ministro.id === votoDoMinistro.ministro.id);
     
     if (index !== -1) {
       this.votosDosMinistros.splice(index, 1);
-      const {incluir_voto, ja_votou, pode_votar} = votoDoMinistro.voto;
+      const {incluir_voto, ja_votou, pode_votar} = votoDoMinistro;
       if (incluir_voto || ja_votou || pode_votar) {
         this.votosDosMinistros.push({
-          ministro: votoDoMinistro.ministro,
-          ...votoDoMinistro.voto
+          ...votoDoMinistro,
+          incluir_voto,
+          ja_votou,
+          pode_votar,
         });
       }
     } else {
-      this.votosDosMinistros.push({
-        ministro: votoDoMinistro.ministro,
-        ...votoDoMinistro.voto
-      });
+      this.votosDosMinistros.push(votoDoMinistro);
     }
 
-    console.table(this.votosDosMinistros);
+    console.table(this.votosDosMinistros)
+  }
+
+  isSelecoesValidas(): boolean {
+    const MIN_VOTOS: number = 5;
+    const MAX_VOTOS: number = 10;
+
+    if (this.votosDosMinistros.length === 0) {
+      alert('Nunhum voto selecionado!');
+      return false;
+    }
+
+    if (this.votosDosMinistros.length < MIN_VOTOS) {
+      alert('Número minimo de votos: ' + MIN_VOTOS);
+      return false;
+    }
+
+    if (this.votosDosMinistros.length > MAX_VOTOS) {
+      alert('Número maximo de votos atingido! Maximo: ' + MAX_VOTOS);
+      return false;
+    }
+
+    if (!this.votosDosMinistros.some(ministro => ministro.relator)) {
+      alert('Não há relatores selecionados!');
+      return false;
+    }
+
+    return true;
   }
 
   finalizar(): void {
-    console.log(this.formCriacaoColegiado.value);
+    if (this.isSelecoesValidas()) {
+      console.table(this.formVotacao.value);
+    }
   }
 
 }
