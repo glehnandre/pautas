@@ -24,11 +24,11 @@ export const defaultNavigation: FuseNavigationItem[] = [
         link : '/julgamento-extraordinario'
     },
     {
-        id   : 'sessaoExtraordinaria',
+        id   : 'sessao-extraordinaria',
         title: 'Solicitar Sessão Extraordinária',
         type : 'basic',
         icon : 'heroicons_outline:chart-pie',
-        link : '/sessaoExtraordinaria'
+        link : '/sessao-extraordinaria'
     },
     {
         id   : 'criacao-colegiado',
@@ -61,11 +61,11 @@ export const compactNavigation: FuseNavigationItem[] = [
         link : '/julgamento-extraordinario'
     },
     {
-        id   : 'sessaoExtraordinaria',
+        id   : 'sessao-extraordinaria',
         title: 'Solicitar Sessão Extraordinária',
         type : 'basic',
         icon : 'heroicons_outline:chart-pie',
-        link : '/sessaoExtraordinaria'
+        link : '/sessao-extraordinaria'
     },
     {
         id   : 'criacao-colegiado',
@@ -98,11 +98,11 @@ export const futuristicNavigation: FuseNavigationItem[] = [
         link : '/julgamento-extraordinario'
     },
     {
-        id   : 'sessaoExtraordinaria',
+        id   : 'sessao-extraordinaria',
         title: 'Solicitar Sessão Extraordinária',
         type : 'basic',
         icon : 'heroicons_outline:chart-pie',
-        link : '/sessaoExtraordinaria'
+        link : '/sessao-extraordinaria'
     },
     {
         id   : 'criacao-colegiado',
@@ -135,11 +135,11 @@ export const horizontalNavigation: FuseNavigationItem[] = [
         link : '/julgamento-extraordinario'
     },
     {
-        id   : 'sessaoExtraordinaria',
+        id   : 'sessao-extraordinaria',
         title: 'Solicitar Sessão Extraordinária',
         type : 'basic',
         icon : 'heroicons_outline:chart-pie',
-        link : '/sessaoExtraordinaria'
+        link : '/sessao-extraordinaria'
     },
     {
         id   : 'criacao-colegiado',

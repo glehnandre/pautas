@@ -68,7 +68,6 @@ export class SessaoExtraordinariaComponent implements OnInit {
       this.solicitante = data.ministro.nome;
       this.colegiado = data.sessao.colegiado;
       this.setTexto(data.sessao.data_inicio, data.sessao.data_fim);
-      this.teste(data);
     });
   }
 
@@ -107,10 +106,5 @@ export class SessaoExtraordinariaComponent implements OnInit {
     this._julgamentoService.rejeitarSessaoDeJulgamento(numero, ano).subscribe(data=>{
       console.log(data);
     })
-  }
-
-  teste(data){
-    console.log(this.sessao);
-    
   }
 }
