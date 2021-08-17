@@ -25,7 +25,7 @@
                 </div>
                 <div>
                     <app-status 
-                        [idProcesso]="processo.id"
+                        [idProcesso]="processo.id" (statusSelecionado)="filtrarPorStatus($event)"
                     ></app-status>
                 </div>
             </div>

@@ -5,6 +5,7 @@ import { SessaoExtraordinariaComponent } from './sessao-extraordinaria.component
 import { MatChipsModule } from '@angular/material/chips';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
+import { SharedModule } from 'app/shared/shared.module';
 
 const sessaoExtraordinariaRoutes: Route[] = [
   {
@@ -23,6 +24,7 @@ const sessaoExtraordinariaRoutes: Route[] = [
     MatChipsModule,
     MatButtonModule,
     MatIconModule,
+    SharedModule
   ],
   exports: [
     SessaoExtraordinariaComponent

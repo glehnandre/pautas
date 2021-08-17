@@ -16,6 +16,17 @@ describe('ProcessoPainelExpansivoComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(ProcessoPainelExpansivoComponent);
     component = fixture.componentInstance;
+    component.processo = {
+      id: 0,
+      classe: '',
+      ementa: '',
+      nome: '',
+      numero: 0,
+      situacao: 0,
+      tipo: 0,
+      lista: [],
+      capitulos: [],
+    };
     fixture.detectChanges();
   });
 

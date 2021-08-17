@@ -12,7 +12,6 @@ export class ProcessoChipComponent implements OnInit {
   @Input() isRemovable: boolean = false;
   @Input() isEmitRemoveEvent: boolean = false;
   @Input() processos: Processo[] = [];
-  // camila, rosana, monica, denise e estela
 
   constructor(
     private _processoService: ProcessoService,

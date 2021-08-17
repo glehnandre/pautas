@@ -19,6 +19,7 @@ interface ProcessosTags {
 export class AcervoComponent implements OnInit {
   @Output() SelectAllLines: any;
   @Output() tagSelecionada = new EventEmitter();
+  @Output() statusSelecionado = new EventEmitter();
 
   processo: ProcessosTags = {
     idsTags: [],
@@ -46,6 +47,12 @@ export class AcervoComponent implements OnInit {
   filtrarPorTags(data) {
     this.eventsSubject.next({data});
   }
+
+  filtrarPorStatus(data) {
+    this.eventsSubject.next({data});
+  }
+
+  
   reciverFeedback(CheckboxStatus) {
     this.SelectAllLines = CheckboxStatus;
   }

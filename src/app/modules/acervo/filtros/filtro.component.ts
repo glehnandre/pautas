@@ -21,12 +21,19 @@ export class FiltroComponent implements OnInit {
   }
   ngOnInit() {
     this.eventsSubscription = this.tag.subscribe(({ data }) => {
-      if (this.filtros.tags.indexOf(data) === -1) {
-        this.filtros.tags.push(data)
-
+      if (typeof data === 'object') {
+        if (this.filtros.tags.indexOf(data) === -1) {
+          this.filtros.tags.push(data)
+        }
+      }
+      else {
+        if (this.filtros.situacoes.indexOf(data) === -1) {
+          this.filtros.situacoes.push(data)
+        }
       }
     }
-  )}
+    )
+  }
 
   ngOnDestroy() {
     this.eventsSubscription.unsubscribe();

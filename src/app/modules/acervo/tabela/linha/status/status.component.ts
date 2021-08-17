@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Status } from 'app/modules/acervo/model/interfaces/status.interface';
 import { ProcessoService } from 'app/modules/services/processo.service';
 import { StatusProcesso } from '../../status/situacaoProcesso';
@@ -12,6 +12,7 @@ export class StatusComponent implements OnInit {
   @Input() display: boolean;
   @Input() mobile: boolean;
   @Input() idProcesso: number;
+  @Output() statusSelecionado = new EventEmitter();
 
   status: Status[] = [
     { id: 1, color: "#3C8D40", text: '' },
@@ -47,6 +48,10 @@ export class StatusComponent implements OnInit {
 
   public getCorDoStatus(): string {
     return this.status.find(it => it.id === this.situacaoProcesso?.situacao.id)?.color;
+  }
+
+  selecionaStatus(status){
+    this.statusSelecionado.emit(status)
   }
 
   print() {

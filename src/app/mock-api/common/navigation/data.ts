@@ -25,10 +25,17 @@ export const defaultNavigation: FuseNavigationItem[] = [
     },
     {
         id   : 'sessaoExtraordinaria',
-        title: 'Solicitar Sessao Extraordinaria',
+        title: 'Solicitar Sessão Extraordinária',
         type : 'basic',
         icon : 'heroicons_outline:chart-pie',
         link : '/sessaoExtraordinaria'
+    },
+    {
+        id   : 'sessoes-julgamento',
+        title: 'Sessões de Julgamento',
+        type : 'basic',
+        icon : 'heroicons_outline:chart-pie',
+        link : '/sessoes-julgamento'
     }
 ];
 export const compactNavigation: FuseNavigationItem[] = [
@@ -55,10 +62,17 @@ export const compactNavigation: FuseNavigationItem[] = [
     },
     {
         id   : 'sessaoExtraordinaria',
-        title: 'Solicitar Sessao Extraordinaria',
+        title: 'Solicitar Sessão Extraordinária',
         type : 'basic',
         icon : 'heroicons_outline:chart-pie',
         link : '/sessaoExtraordinaria'
+    },
+    {
+        id   : 'sessoes-julgamento',
+        title: 'Sessões de Julgamento',
+        type : 'basic',
+        icon : 'heroicons_outline:chart-pie',
+        link : '/sessoes-julgamento'
     }
 ];
 export const futuristicNavigation: FuseNavigationItem[] = [
@@ -85,10 +99,17 @@ export const futuristicNavigation: FuseNavigationItem[] = [
     },
     {
         id   : 'sessaoExtraordinaria',
-        title: 'Solicitar Sessao Extraordinaria',
+        title: 'Solicitar Sessão Extraordinária',
         type : 'basic',
         icon : 'heroicons_outline:chart-pie',
         link : '/sessaoExtraordinaria'
+    },
+    {
+        id   : 'sessoes-julgamento',
+        title: 'Sessões de Julgamento',
+        type : 'basic',
+        icon : 'heroicons_outline:chart-pie',
+        link : '/sessoes-julgamento'
     }
 ];
 export const horizontalNavigation: FuseNavigationItem[] = [
@@ -115,9 +136,16 @@ export const horizontalNavigation: FuseNavigationItem[] = [
     },
     {
         id   : 'sessaoExtraordinaria',
-        title: 'Solicitar Sessao Extraordinaria',
+        title: 'Solicitar Sessão Extraordinária',
         type : 'basic',
         icon : 'heroicons_outline:chart-pie',
         link : '/sessaoExtraordinaria'
+    },
+    {
+        id   : 'sessoes-julgamento',
+        title: 'Sessões de Julgamento',
+        type : 'basic',
+        icon : 'heroicons_outline:chart-pie',
+        link : '/sessoes-julgamento'
     }
 ];
