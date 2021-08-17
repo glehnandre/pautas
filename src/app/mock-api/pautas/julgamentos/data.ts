@@ -11,7 +11,10 @@ export const julgamentos: SessaoJulgamento[] = [
       id: 1,
       nome: 'Ministro X',
       abreviacao: 'MX',
-      cadeira: "cadeira que ocupa"
+      cadeira: {
+        criacao: '2021-08-02T03:00:00.000Z',
+        numero: 100,
+      },
     },
     sessao: {
       id: 1,
@@ -45,7 +48,10 @@ export const processos: Processo[] = [
           id: 12314441,
           nome: "Luiz Fux",
           abreviacao: "MLF",
-          cadeira: "string"
+          cadeira: {
+            criacao: '2021-08-02T03:00:00.000Z',
+            numero: 100,
+          }
         },
         criacao: "2016-08-29T09:12:33.001Z",
       },
@@ -62,7 +68,10 @@ export const processos: Processo[] = [
         id: 12314441,
         nome: "Luiz Fux",
         abreviacao: "MLF",
-        cadeira: "string"
+        cadeira: {
+            criacao: '2021-08-02T03:00:00.000Z',
+            numero: 100,
+          }
       },
       criacao: "2016-08-29T09:12:33.001Z"
     },
@@ -72,7 +81,10 @@ export const processos: Processo[] = [
         id: 12314441,
         nome: "Luiz Fux",
         abreviacao: "MLF",
-        cadeira: "string"
+        cadeira: {
+            criacao: '2021-08-02T03:00:00.000Z',
+            numero: 100,
+          }
       },
       criacao: "2016-08-29T09:12:33.001Z"
     },
@@ -98,7 +110,10 @@ export const processos: Processo[] = [
           id: 12314441,
           nome: "Luiz Fux",
           abreviacao: "MLF",
-          cadeira: "string"
+          cadeira: {
+            criacao: '2021-08-02T03:00:00.000Z',
+            numero: 100,
+          }
         },
         criacao: "2016-08-29T09:12:33.001Z",
       },
@@ -115,7 +130,10 @@ export const processos: Processo[] = [
         id: 12314441,
         nome: "Luiz Fux",
         abreviacao: "MLF",
-        cadeira: "string"
+        cadeira: {
+            criacao: '2021-08-02T03:00:00.000Z',
+            numero: 100,
+          }
       },
       criacao: "2016-08-29T09:12:33.001Z"
     },
@@ -125,7 +143,10 @@ export const processos: Processo[] = [
         id: 12314441,
         nome: "Luiz Fux",
         abreviacao: "MLF",
-        cadeira: "string"
+        cadeira: {
+            criacao: '2021-08-02T03:00:00.000Z',
+            numero: 100,
+          }
       },
       criacao: "2016-08-29T09:12:33.001Z"
     },

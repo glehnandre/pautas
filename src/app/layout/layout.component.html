@@ -45,7 +45,8 @@
 <!-- Settings drawer - Remove this to remove the drawer and its button -->
 <!-- ----------------------------------------------------------------------------------------------------- -->
 <div
-    class="fixed flex items-center justify-center right-0 w-10 h-10 shadow-lg 
+    class="fixed flex items-center justify-center -right-8 w-10 h-10 shadow-lg
+    group transition transform duration-500 hover:-translate-x-8
     rounded-l-lg z-999 cursor-pointer bg-red-600 bg-opacity-90"
     style="top: 275px"
     (click)="settingsDrawer.toggle()">
