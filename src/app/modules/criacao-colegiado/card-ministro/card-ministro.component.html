@@ -1,5 +1,5 @@
 <div class="mb-4">
-    <fuse-card class="flex flex-col items-center mx-auto max-w-80 w-full p-4 filter-info ng-tns-c129-57 ng-star-inserted mb-4">
+    <fuse-card class="flex flex-col items-center mx-auto w-full p-4 filter-info ng-tns-c129-57 ng-star-inserted mb-4">
         <div class="flex flex-row">
             <img 
                 [src]="minsitro?.imagem" 
@@ -15,7 +15,7 @@
                     {{minsitro?.abreviacao | uppercase}}
                 </div>
                 <div class="text-md text-secondary mt-2">
-                    Presidente
+                    {{obterDescricao()}}
                 </div>
             </div>
         </div>

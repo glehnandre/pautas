@@ -17,9 +17,11 @@
                 <h3>Topo</h3>
             </header>
 
-            <main class="grid grid-cols-3 gap-4 align-middle justify-items-center">
+            <main class="grid grid-cols-1 gap-4 align-middle justify-items-center
+                        sm:grid-cols-2 
+                        md:grid-cols-3">
                 <div 
-                    class="" 
+                    class="w-full max-w-80" 
                     *ngFor="let colegiado of colegiados"
                 >
                     <h3 class="text-primary">
@@ -29,6 +31,9 @@
                     <app-card-ministro
                         *ngFor="let comp of colegiado.composicao"
                         [minsitro]="comp.ministro"
+                        [isPresidente]="comp.presidente"
+                        [isRelator]="comp.relator"
+                        [isRedator]="comp.redator"
                         (statusVotacao)="obterStatusDoVoto($event)"
                     ></app-card-ministro>
                 </div>
