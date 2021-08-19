@@ -1,0 +1,89 @@
+<div class="absolute inset-0 flex flex-col min-w-0 overflow-hidden">
+
+    <!-- Header -->
+    <div class="flex flex-row justify-center items-center sm:justify-between pl-8 bg-default dark:bg-transparent">
+        <h1 class="mt-4 text-primary font-medium">
+            Colegiado para a ADI 100 Sessão 90/2020 Virtual Primeira Turma
+        </h1>
+    </div>
+
+    <hr class="m-0 p-0 mb-4" />
+
+    <!-- Main -->
+    <div class="flex-auto  overflow-y-auto px-8 pb-8" cdkScrollable>
+        <!-- CONTENT GOES HERE -->
+        <div class="flex flex-col justify-center align-middle justify-items-center">
+            <header>
+                <h3>Topo</h3>
+            </header>
+
+            <main class="grid grid-cols-1 gap-4 align-middle justify-items-center w-full mx-auto
+                        sm:grid-cols-2 
+                        md:grid-cols-3 md:max-w-280">
+                <div 
+                    class="w-full max-w-72" 
+                    *ngFor="let colegiado of colegiados"
+                >
+                    <h3 class="text-primary">
+                        {{colegiado.nome | uppercase}}
+                    </h3>
+
+                    <app-card-ministro
+                        *ngFor="let comp of colegiado.composicao"
+                        [composicao]="comp"
+                        (statusVotacao)="obterStatusDoVoto($event)"
+                    ></app-card-ministro>
+                </div>
+            </main>
+
+            <!--
+            <fuse-masonry
+                class="-mx-2"
+                [items]="colegiados || []"
+                [columns]="columns"
+                [columnsTemplate]="columnsTemplate">
+            </fuse-masonry>
+
+            <ng-template
+                #columnsTemplate
+                let-columns>
+                <ng-container *ngFor="let column of columns;">
+                    <div class="flex-1 mx-2 p-2 border rounded space-y-2">
+                        <h3 class="text-primary ml-2">
+                            {{obterColegiado(columns.indexOf(column))?.nome | uppercase}}
+                        </h3>
+                        
+                        <ng-container 
+                            *ngFor="let item of obterColegiado(columns.indexOf(column))?.composicao"
+                        >
+                            <div class="p-2 rounded text-on-primary">
+                                <app-card-ministro
+                                    [minsitro]="item.ministro"
+                                    (statusVotacao)="obterStatusDoVoto($event)"
+                                ></app-card-ministro>
+                            </div>
+                        </ng-container>
+                    </div>
+                </ng-container>
+            </ng-template>
+            -->
+        </div>
+
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between mt-4 sm:mt-6">
+            <div class="flex items-center mt-4 sm:mt-0 ml-auto">
+              <button class="ml-auto sm:ml-0 mr-2" mat-button>
+                <span>Cancelar</span>
+              </button>
+        
+              <button 
+                class="ml-auto"
+                color="primary" 
+                (click)="finalizar()"
+                mat-raised-button 
+              >
+                Finalizar 
+              </button>
+            </div>
+          </div>
+    </div>
+</div>

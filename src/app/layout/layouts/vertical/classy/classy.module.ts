@@ -15,6 +15,7 @@ import { ShortcutsModule } from 'app/layout/common/shortcuts/shortcuts.module';
 import { UserMenuModule } from 'app/layout/common/user-menu/user-menu.module';
 import { SharedModule } from 'app/shared/shared.module';
 import { ClassyLayoutComponent } from 'app/layout/layouts/vertical/classy/classy.component';
+import { StartActivityModule } from 'app/layout/common/start-activity/start-activity.module';
 
 @NgModule({
     declarations: [
@@ -34,6 +35,7 @@ import { ClassyLayoutComponent } from 'app/layout/layouts/vertical/classy/classy
         NotificationsModule,
         SearchModule,
         ShortcutsModule,
+        StartActivityModule,
         UserMenuModule,
         SharedModule
     ],

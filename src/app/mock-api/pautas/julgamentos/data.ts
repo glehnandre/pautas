@@ -2,6 +2,7 @@ import { SituacaoDoProcesso } from "app/modules/acervo/model/enums/situacaoDoPro
 import { TipoDoProcesso } from "app/modules/acervo/model/enums/tipoDoProcesso.enum";
 import { Processo } from "app/modules/acervo/model/interfaces/processo.interface";
 import { SessaoDeJulgamento } from "app/modules/acervo/model/interfaces/sessaoDeJulgamento.interface";
+import { SessaoJulgamento } from "app/modules/services/julgamento.service";
 
 export const julgamentos: SessaoDeJulgamento[] = [
   {
@@ -14,14 +15,20 @@ export const julgamentos: SessaoDeJulgamento[] = [
         id: 1,
         nome: "Dias Toffoli",
         abreviacao: "MDT",
-        cadeira: "9"
+        cadeira: {
+          numero: 9,
+          criacao:'2016-08-29T09:12:33.001Z'
+        }
       },
       composicao: [{
         ministro: {
           id: 1,
           nome: "Dias Toffoli",
           abreviacao: "MDT",
-          cadeira: "9"
+          cadeira: {
+            numero: 9,
+            criacao:'2016-08-29T09:12:33.001Z'
+          }
         },
         pode_votar: true,
         votou: false
@@ -48,16 +55,6 @@ export const processos: Processo[] = [
     lista: [{
       descricao: "Semelhante a ADI 100",
       id: 123445,
-      gestor: {
-        numero: 19,
-        ocupante: {
-          id: 12314441,
-          nome: "Luiz Fux",
-          abreviacao: "MLF",
-          cadeira: "string"
-        },
-        criacao: "2016-08-29T09:12:33.001Z",
-      },
       publica: false
     }],
     classe: "ADI",
@@ -66,24 +63,22 @@ export const processos: Processo[] = [
     situacao: SituacaoDoProcesso.Pautado,
     tipo: TipoDoProcesso.Merito,
     relator: {
-      numero: 19,
-      ocupante: {
         id: 12314441,
         nome: "Luiz Fux",
         abreviacao: "MLF",
-        cadeira: "string"
-      },
-      criacao: "2016-08-29T09:12:33.001Z"
+        cadeira: {
+            criacao: '2021-08-02T03:00:00.000Z',
+            numero: 100,
+          }
     },
     redator: {
-      numero: 19,
-      ocupante: {
         id: 12314441,
         nome: "Luiz Fux",
         abreviacao: "MLF",
-        cadeira: "string"
-      },
-      criacao: "2016-08-29T09:12:33.001Z"
+        cadeira: {
+            criacao: '2021-08-02T03:00:00.000Z',
+            numero: 100,
+          }
     },
     capitulos: [
       {
@@ -102,14 +97,8 @@ export const processos: Processo[] = [
       descricao: "Semelhante a ADI 100",
       id: 123445,
       gestor: {
-        numero: 19,
-        ocupante: {
-          id: 12314441,
-          nome: "Luiz Fux",
-          abreviacao: "MLF",
-          cadeira: "string"
-        },
-        criacao: "2016-08-29T09:12:33.001Z",
+          numero: 19,
+          criacao: '2021-08-02T03:00:00.000Z',
       },
       publica: false
     }],
@@ -119,24 +108,22 @@ export const processos: Processo[] = [
     situacao: SituacaoDoProcesso.Pautado,
     tipo: TipoDoProcesso.Merito,
     relator: {
-      numero: 19,
-      ocupante: {
         id: 12314441,
         nome: "Luiz Fux",
         abreviacao: "MLF",
-        cadeira: "string"
-      },
-      criacao: "2016-08-29T09:12:33.001Z"
+        cadeira: {
+            criacao: '2021-08-02T03:00:00.000Z',
+            numero: 100,
+          }
     },
     redator: {
-      numero: 19,
-      ocupante: {
         id: 12314441,
         nome: "Luiz Fux",
         abreviacao: "MLF",
-        cadeira: "string"
-      },
-      criacao: "2016-08-29T09:12:33.001Z"
+        cadeira: {
+            criacao: '2021-08-02T03:00:00.000Z',
+            numero: 100,
+          }
     },
     capitulos: [
       {
