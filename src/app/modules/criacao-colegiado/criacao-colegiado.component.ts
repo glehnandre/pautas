@@ -18,6 +18,10 @@ export class CriacaoColegiadoComponent implements OnInit {
   ministros: Ministro[] = [];
   colegiados: Colegiado[] = [];
   votosDosMinistros: ComposicaoColegiado[] = [];
+  relator: Ministro;
+  texto: string = "Informe os 5 ministros que devem estar no colegiado da Primeira Turma para o processo se podem votar";
+  tags: string[] = ["Primeira Turma", "Público", "Liminar", "Lista de 0001 MAM", "Possível Impedimento no Julgamento"];
+  pdfs: string[] = ["Relatório", "Íntegra do Voto do Relator", "Voto Divergente"];
 
   post: {
     processo: '',
@@ -55,6 +59,12 @@ export class CriacaoColegiadoComponent implements OnInit {
     this._ministroService.listarColegiados().subscribe({
       next: (colegiados) => {
         colegiados.map(c => c.composicao.sort((a, b) => {
+          c.composicao.map(data => {
+            if(data.relator == true){
+              this.relator = data.ministro
+            }
+          })
+
           if (a.presidente) {
             return -1;
           }
@@ -125,5 +135,4 @@ export class CriacaoColegiadoComponent implements OnInit {
       console.table(this.formVotacao.value);
     }
   }
-
 }
