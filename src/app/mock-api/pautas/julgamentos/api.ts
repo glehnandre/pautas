@@ -1,14 +1,14 @@
 import { Injectable } from '@angular/core';
 import { FuseMockApiService } from '@fuse/lib/mock-api/mock-api.service';
 import { Processo } from 'app/modules/acervo/model/interfaces/processo.interface';
-import { SessaoJulgamento } from 'app/modules/services/julgamento.service';
+import { SessaoDeJulgamento } from 'app/modules/acervo/model/interfaces/sessaoDeJulgamento.interface';
 import { julgamentos as julgamentoData, processos as processosData } from './data';
 
 @Injectable({
     providedIn: 'root'
 })
 export class JulgamentoMockApi {
-    private _julgamentos: SessaoJulgamento[] = julgamentoData;
+    private _julgamentos: SessaoDeJulgamento[] = julgamentoData;
     private _processos: Processo[] = processosData;
 
     constructor(private _fuseMockApiService: FuseMockApiService) {
@@ -44,7 +44,7 @@ export class JulgamentoMockApi {
 
           const sessaoDeJulgamento = this._julgamentos
             .find(julg => {
-              const sessaoNumeroAno = `${julg.sessao.numero}-${julg.sessao.ano}`;
+              const sessaoNumeroAno = `${julg.numero}-${julg.ano}`;
               return sessaoNumeroAno === numeroAno;
             });
 

@@ -300,6 +300,9 @@ export class FuseVerticalNavigationComponent implements OnChanges, OnInit, After
         // Register the navigation component
         this._fuseNavigationService.registerComponent(this.name, this);
 
+        // Nav close by default
+        this.opened = false;
+
         // Subscribe to the 'NavigationEnd' event
         this._router.events
             .pipe(
