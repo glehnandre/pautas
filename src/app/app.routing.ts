@@ -77,6 +77,8 @@ export const appRoutes: Route[] = [
             {path: 'acervo', loadChildren: () => import('app/modules/acervo/acervo.module').then(m => m.AcervoModule)},
             {path: 'julgamento-extraordinario', loadChildren: () => import('app/modules/julgamento-extraordinario/julgamento-extraordinario.module').then(m => m.JulgamentoExtraordinarioModule)},
             {path: 'sessaoExtraordinaria', loadChildren: () => import('app/modules/sessaoExtraordinaria/sessao-extraordinaria/sessao-extraordinaria.module').then(m => m.SessaoExtraordinariaModule)},
+            {path: 'sessoes-julgamento', loadChildren: () => import('app/modules/sessoes-julgamentos/sessoes-julgamentos.module').then(m => m.SessoesJulgamentosModule)}
+
             {path: 'criacao-colegiado', loadChildren: () => import('app/modules/criacao-colegiado/criacao-colegiado.module').then(m => m.CriacaoColegiadoModule)},
         ]
     }

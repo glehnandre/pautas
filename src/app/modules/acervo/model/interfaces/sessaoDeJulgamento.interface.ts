@@ -1,8 +1,16 @@
+import { Composicao } from "./composicao.interface";
+import { Ministro } from "./ministro.interface";
+
 export interface SessaoDeJulgamento {
     id: number;
     numero: number;
     ano: number;
-    colegiado: string;
+    colegiado: {
+        nome: string;
+        presidente: Ministro;
+        composicao: Composicao[],
+        data: string;
+    }
     tipo: string;
     categoria: string;
     modalidade: string;
@@ -12,4 +20,5 @@ export interface SessaoDeJulgamento {
         id: number;
         nome: string;
     };
+    situacao: string;
 }

@@ -6,20 +6,46 @@ import { SessaoJulgamento } from "app/modules/services/julgamento.service";
 
 export const julgamentos: SessaoDeJulgamento[] = [
   {
-      id: 1,
-      numero: 1000,
-      ano: 2021,
-      colegiado: "Primeira turma",
-      tipo: "ORDINARIA",
-      categoria: "REPERCUSSAO_GERAL",
-      modalidade: "VIRTUAL",
-      data_inicio: '2016-08-29T09:12:33.001Z',
-      data_fim: '2016-08-29T09:12:33.001Z',
-      secretario: {
-        id: 19,
-        nome: "Beatriz Cunha",
+    id: 1,
+    numero: 1000,
+    ano: 2021,
+    colegiado: {
+      nome: "Primeira Turma",
+      presidente: {
+        id: 1,
+        nome: "Dias Toffoli",
+        abreviacao: "MDT",
+        cadeira: {
+          numero: 9,
+          criacao:'2016-08-29T09:12:33.001Z'
+        }
       },
-  }
+      composicao: [{
+        ministro: {
+          id: 1,
+          nome: "Dias Toffoli",
+          abreviacao: "MDT",
+          cadeira: {
+            numero: 9,
+            criacao:'2016-08-29T09:12:33.001Z'
+          }
+        },
+        pode_votar: true,
+        votou: false
+      }],
+      data: "string",
+    },
+    tipo: "ORDINARIA",
+    categoria: "REPERCUSSAO_GERAL",
+    modalidade: "VIRTUAL",
+    data_inicio: '2016-08-29T09:12:33.001Z',
+    data_fim: '2016-08-29T09:12:33.001Z',
+    secretario: {
+      id: 19,
+      nome: "Ministro Gilmar Mendes",
+    },
+    situacao: "Apto a Julgar"
+  },
 ];
 
 export const processos: Processo[] = [
