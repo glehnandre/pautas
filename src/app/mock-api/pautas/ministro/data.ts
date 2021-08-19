@@ -116,8 +116,9 @@ export const ministro: Ministro[] = [
 
 export const colegiado: Colegiado[] = [
   {
-    nome: NomeDoColegiado["Primeira Turma"],
-    presidente: ministro[0],
+    colegiado: NomeDoColegiado["Primeira Turma"],
+    anoSessao: 2021,
+    numeroSessao: 1000,
     composicao: [
       {ministro: ministro[1], incluir_voto: false, pode_votar: false, ja_votou: false, presidente: false, redator: false, relator: false},
       {ministro: ministro[2], incluir_voto: false, pode_votar: false, ja_votou: false, presidente: true, redator: false, relator: false},
@@ -127,8 +128,9 @@ export const colegiado: Colegiado[] = [
   },
 
   {
-    nome: NomeDoColegiado["Segunda Turma"],
-    presidente: ministro[7],
+    colegiado: NomeDoColegiado["Segunda Turma"],
+    anoSessao: 2021,
+    numeroSessao: 900,
     composicao: [
       {ministro: ministro[4], incluir_voto: false, pode_votar: false, ja_votou: false, presidente: false, redator: false, relator: false},
       {ministro: ministro[5], incluir_voto: false, pode_votar: false, ja_votou: false, presidente: false, redator: false, relator: false},
@@ -138,8 +140,9 @@ export const colegiado: Colegiado[] = [
   },
 
   {
-    nome: NomeDoColegiado.Pleno,
-    presidente: ministro[9],
+    colegiado: NomeDoColegiado.Pleno,
+    anoSessao: 2021,
+    numeroSessao: 800,
     composicao: [
       {ministro: ministro[7], incluir_voto: false, pode_votar: false, ja_votou: false, presidente: false, redator: false, relator: true},
       {ministro: ministro[8], incluir_voto: false, pode_votar: false, ja_votou: false, presidente: false, redator: false, relator: false},
@@ -149,3 +152,5 @@ export const colegiado: Colegiado[] = [
     data: '2016-08-29T09:12:33.001Z',
   },
 ];
+
+export const colegiadoPost: any[] = [];

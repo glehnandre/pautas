@@ -17,60 +17,21 @@
                 <h3>Topo</h3>
             </header>
 
-            <main class="grid grid-cols-1 gap-4 align-middle justify-items-center w-full mx-auto
-                        sm:grid-cols-2 
-                        md:grid-cols-3 md:max-w-280">
+            <main [class]="'grid grid-cols-1 gap-4 align-middle justify-items-center w-full mx-auto' +
+                        ' sm:grid-cols-' + (colegiados.length) +  
+                        ' md:grid-rows-' + (colegiados.length) +  'md:grid-cols-' + (colegiados.length) + ' md:max-w-280 '">
                 <div 
                     class="w-full max-w-72" 
                     *ngFor="let colegiado of colegiados"
                 >
-                    <h3 class="text-primary">
-                        {{colegiado.nome | uppercase}}
-                    </h3>
-
                     <app-card-ministro
                         *ngFor="let comp of colegiado.composicao"
-                        [minsitro]="comp.ministro"
-                        [isPresidente]="comp.presidente"
-                        [isRelator]="comp.relator"
-                        [isRedator]="comp.redator"
                         [composicao]="comp"
+                        [colegiado]="colegiado.colegiado"
                         (statusVotacao)="obterStatusDoVoto($event)"
                     ></app-card-ministro>
                 </div>
             </main>
-
-            <!--
-            <fuse-masonry
-                class="-mx-2"
-                [items]="colegiados || []"
-                [columns]="columns"
-                [columnsTemplate]="columnsTemplate">
-            </fuse-masonry>
-
-            <ng-template
-                #columnsTemplate
-                let-columns>
-                <ng-container *ngFor="let column of columns;">
-                    <div class="flex-1 mx-2 p-2 border rounded space-y-2">
-                        <h3 class="text-primary ml-2">
-                            {{obterColegiado(columns.indexOf(column))?.nome | uppercase}}
-                        </h3>
-                        
-                        <ng-container 
-                            *ngFor="let item of obterColegiado(columns.indexOf(column))?.composicao"
-                        >
-                            <div class="p-2 rounded text-on-primary">
-                                <app-card-ministro
-                                    [minsitro]="item.ministro"
-                                    (statusVotacao)="obterStatusDoVoto($event)"
-                                ></app-card-ministro>
-                            </div>
-                        </ng-container>
-                    </div>
-                </ng-container>
-            </ng-template>
-            -->
         </div>
 
         <div class="flex flex-col sm:flex-row sm:items-center justify-between mt-4 sm:mt-6">
