@@ -35,7 +35,7 @@ const DATE_FORMATS = {
       deps: [MAT_DATE_LOCALE, MAT_MOMENT_DATE_ADAPTER_OPTIONS]
     },
 
-    {provide: MAT_DATE_FORMATS, useValue: DATE_FORMATS},
+    { provide: MAT_DATE_FORMATS, useValue: DATE_FORMATS },
   ],
 })
 export class JulgamentoExtraordinarioComponent implements OnInit {
@@ -45,24 +45,43 @@ export class JulgamentoExtraordinarioComponent implements OnInit {
   tags: string[] = ['Virtual', 'Segunda Turma'];
   sessao: SessaoDeJulgamento;
   processos: Processo[] = [];
-
+  colegiado_ = {
+    nome: "Primeira Turma",
+    presidente: {
+      id: 1,
+      nome: "Dias Toffoli",
+      abreviacao: "MDT",
+      cadeira: "9"
+    },
+    composicao: [{
+      ministro: {
+        id: 1,
+        nome: "Dias Toffoli",
+        abreviacao: "MDT",
+        cadeira: "9"
+      },
+      pode_votar: true,
+      votou: false
+    }],
+    data: "string",
+  }
   sessoes: SessaoDeJulgamento[] = [
-    {id: 1, ano: 2021, numero: 1, colegiado: 'Primeira Turma', modalidade: 'Virtual', categoria: 'Judicial', tipo: 'Ordinária', data_inicio: '2016-08-29T09:12:33.001Z', data_fim: '2016-08-29T09:12:33.001Z'},
-    {id: 2, ano: 2021, numero: 2, colegiado: 'Primeira Turma', modalidade: 'Virtual', categoria: 'Judicial', tipo: 'Ordinária', data_inicio: '2016-08-29T09:12:33.001Z', data_fim: '2016-08-29T09:12:33.001Z'},
-    {id: 3, ano: 2021, numero: 3, colegiado: 'Segunda Turma', modalidade: 'Virtual', categoria: 'Judicial', tipo: 'Ordinária', data_inicio: '2016-08-29T09:12:33.001Z', data_fim: '2016-08-29T09:12:33.001Z'},
-    {id: 4, ano: 2021, numero: 4, colegiado: 'Segunda Turma', modalidade: 'Virtual', categoria: 'Judicial', tipo: 'Ordinária', data_inicio: '2016-08-29T09:12:33.001Z', data_fim: '2016-08-29T09:12:33.001Z'},
-    {id: 5, ano: 2021, numero: 5, colegiado: 'Segunda Turma', modalidade: 'Virtual', categoria: 'Judicial', tipo: 'Ordinária', data_inicio: '2016-08-29T09:12:33.001Z', data_fim: '2016-08-29T09:12:33.001Z'},
-    {id: 6, ano: 2021, numero: 6, colegiado: 'Segunda Turma', modalidade: 'Virtual', categoria: 'Judicial', tipo: 'Ordinária', data_inicio: '2016-08-29T09:12:33.001Z', data_fim: '2016-08-29T09:12:33.001Z'},
-    {id: 7, ano: 2021, numero: 7, colegiado: 'Segunda Turma', modalidade: 'Virtual', categoria: 'Judicial', tipo: 'Ordinária', data_inicio: '2016-08-29T09:12:33.001Z', data_fim: '2016-08-29T09:12:33.001Z'},
-    {id: 8, ano: 2021, numero: 8, colegiado: 'Pleno', modalidade: 'Virtual', categoria: 'Judicial', tipo: 'Ordinária', data_inicio: '2016-08-29T09:12:33.001Z', data_fim: '2016-08-29T09:12:33.001Z'},
-    {id: 9, ano: 2021, numero: 9, colegiado: 'Pleno', modalidade: 'Virtual', categoria: 'Judicial', tipo: 'Ordinária', data_inicio: '2016-08-29T09:12:33.001Z', data_fim: '2016-08-29T09:12:33.001Z'},
-    {id: 10, ano: 2021, numero: 10, colegiado: 'Pleno', modalidade: 'Virtual', categoria: 'Judicial', tipo: 'Ordinária', data_inicio: '2016-08-29T09:12:33.001Z', data_fim: '2016-08-29T09:12:33.001Z'}
+    { id: 1, ano: 2021, numero: 1, colegiado: this.colegiado_, modalidade: 'Virtual', categoria: 'Judicial', tipo: 'Ordinária', data_inicio: '2016-08-29T09:12:33.001Z', data_fim: '2016-08-29T09:12:33.001Z', situacao: "Apto a julgar" },
+    { id: 2, ano: 2021, numero: 2, colegiado: this.colegiado_, modalidade: 'Virtual', categoria: 'Judicial', tipo: 'Ordinária', data_inicio: '2016-08-29T09:12:33.001Z', data_fim: '2016-08-29T09:12:33.001Z', situacao: "Apto a julgar" },
+    { id: 3, ano: 2021, numero: 3, colegiado: this.colegiado_, modalidade: 'Virtual', categoria: 'Judicial', tipo: 'Ordinária', data_inicio: '2016-08-29T09:12:33.001Z', data_fim: '2016-08-29T09:12:33.001Z', situacao: "Apto a julgar" },
+    { id: 4, ano: 2021, numero: 4, colegiado: this.colegiado_, modalidade: 'Virtual', categoria: 'Judicial', tipo: 'Ordinária', data_inicio: '2016-08-29T09:12:33.001Z', data_fim: '2016-08-29T09:12:33.001Z', situacao: "Apto a julgar" },
+    { id: 5, ano: 2021, numero: 5, colegiado: this.colegiado_, modalidade: 'Virtual', categoria: 'Judicial', tipo: 'Ordinária', data_inicio: '2016-08-29T09:12:33.001Z', data_fim: '2016-08-29T09:12:33.001Z', situacao: "Apto a julgar" },
+    { id: 6, ano: 2021, numero: 6, colegiado: this.colegiado_, modalidade: 'Virtual', categoria: 'Judicial', tipo: 'Ordinária', data_inicio: '2016-08-29T09:12:33.001Z', data_fim: '2016-08-29T09:12:33.001Z', situacao: "Apto a julgar" },
+    { id: 7, ano: 2021, numero: 7, colegiado: this.colegiado_, modalidade: 'Virtual', categoria: 'Judicial', tipo: 'Ordinária', data_inicio: '2016-08-29T09:12:33.001Z', data_fim: '2016-08-29T09:12:33.001Z', situacao: "Apto a julgar" },
+    { id: 8, ano: 2021, numero: 8, colegiado: this.colegiado_, modalidade: 'Virtual', categoria: 'Judicial', tipo: 'Ordinária', data_inicio: '2016-08-29T09:12:33.001Z', data_fim: '2016-08-29T09:12:33.001Z', situacao: "Apto a julgar" },
+    { id: 9, ano: 2021, numero: 9, colegiado: this.colegiado_, modalidade: 'Virtual', categoria: 'Judicial', tipo: 'Ordinária', data_inicio: '2016-08-29T09:12:33.001Z', data_fim: '2016-08-29T09:12:33.001Z', situacao: "Apto a julgar" },
+    { id: 10, ano: 2021, numero: 10, colegiado: this.colegiado_, modalidade: 'Virtual', categoria: 'Judicial', tipo: 'Ordinária', data_inicio: '2016-08-29T09:12:33.001Z', data_fim: '2016-08-29T09:12:33.001Z', situacao: "Apto a julgar" }
   ];
 
   constructor(
     private _fb: FormBuilder,
     private _julgamentoService: JulgamentoService,
-  ) { 
+  ) {
     this.formJulgamento = this._fb.group({
       nova_data: [moment(), Validators.required],
       sessao: ['', Validators.required],

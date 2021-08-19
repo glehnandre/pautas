@@ -8,7 +8,26 @@ export const julgamentos: SessaoDeJulgamento[] = [
     id: 1,
     numero: 1000,
     ano: 2021,
-    colegiado: "Primeira turma",
+    colegiado: {
+      nome: "Primeira Turma",
+      presidente: {
+        id: 1,
+        nome: "Dias Toffoli",
+        abreviacao: "MDT",
+        cadeira: "9"
+      },
+      composicao: [{
+        ministro: {
+          id: 1,
+          nome: "Dias Toffoli",
+          abreviacao: "MDT",
+          cadeira: "9"
+        },
+        pode_votar: true,
+        votou: false
+      }],
+      data: "string",
+    },
     tipo: "ORDINARIA",
     categoria: "REPERCUSSAO_GERAL",
     modalidade: "VIRTUAL",
@@ -18,6 +37,7 @@ export const julgamentos: SessaoDeJulgamento[] = [
       id: 19,
       nome: "Ministro Gilmar Mendes",
     },
+    situacao: "Apto a Julgar"
   },
 ];
 

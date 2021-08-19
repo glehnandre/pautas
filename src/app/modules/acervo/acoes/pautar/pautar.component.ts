@@ -32,19 +32,38 @@ export class PautarComponent implements OnInit {
         { value: 'segunda-turma', viewValue: 'Segunda Turma' },
         { value: 'colegiado-pleno', viewValue: 'Pleno' }
     ];
-
+    colegiado_ = {
+        nome: "Primeira Turma",
+        presidente: {
+            id: 1,
+            nome: "Dias Toffoli",
+            abreviacao: "MDT",
+            cadeira: "9"
+        },
+        composicao: [{
+            ministro: {
+                id: 1,
+                nome: "Dias Toffoli",
+                abreviacao: "MDT",
+                cadeira: "9"
+            },
+            pode_votar: true,
+            votou: false
+        }],
+        data: "string",
+    }
     //Deve recuperar o valor da Sessoes de Julgamento Integralmente para aquele ano por meio de serviço
     sessoes: SessaoDeJulgamento[] = [
-        {id: 1, ano: 2021, numero: 1, colegiado: 'Primeira Turma', modalidade: 'Virtual', categoria: 'Judicial', tipo: 'Ordinária', data_inicio: '2021-06-29T09:12:33.001Z', data_fim: '2021-12-29T09:12:33.001Z'},
-        {id: 2, ano: 2021, numero: 2, colegiado: 'Primeira Turma', modalidade: 'Virtual', categoria: 'Judicial', tipo: 'Ordinária', data_inicio: '2021-06-29T09:12:33.001Z', data_fim: '2021-12-29T09:12:33.001Z'},
-        {id: 3, ano: 2021, numero: 3, colegiado: 'Segunda Turma', modalidade: 'Virtual', categoria: 'Judicial', tipo: 'Ordinária', data_inicio: '2021-04-29T09:12:33.001Z', data_fim: '2021-11-29T09:12:33.001Z'},
-        {id: 4, ano: 2021, numero: 4, colegiado: 'Segunda Turma', modalidade: 'Virtual', categoria: 'Judicial', tipo: 'Ordinária', data_inicio: '2021-04-29T09:12:33.001Z', data_fim: '2021-11-29T09:12:33.001Z'},
-        {id: 5, ano: 2021, numero: 5, colegiado: 'Segunda Turma', modalidade: 'Virtual', categoria: 'Judicial', tipo: 'Ordinária', data_inicio: '2021-03-29T09:12:33.001Z', data_fim: '2021-10-29T09:12:33.001Z'},
-        {id: 6, ano: 2021, numero: 6, colegiado: 'Segunda Turma', modalidade: 'Virtual', categoria: 'Judicial', tipo: 'Ordinária', data_inicio: '2021-03-29T09:12:33.001Z', data_fim: '2021-10-29T09:12:33.001Z'},
-        {id: 7, ano: 2021, numero: 7, colegiado: 'Segunda Turma', modalidade: 'Virtual', categoria: 'Judicial', tipo: 'Ordinária', data_inicio: '2021-03-29T09:12:33.001Z', data_fim: '2021-10-29T09:12:33.001Z'},
-        {id: 8, ano: 2021, numero: 8, colegiado: 'Pleno', modalidade: 'Virtual', categoria: 'Judicial', tipo: 'Ordinária', data_inicio: '2021-07-29T09:12:33.001Z', data_fim: '2021-10-29T09:12:33.001Z'},
-        {id: 9, ano: 2021, numero: 9, colegiado: 'Pleno', modalidade: 'Virtual', categoria: 'Judicial', tipo: 'Ordinária', data_inicio: '2021-01-29T09:12:33.001Z', data_fim: '2021-12-29T09:12:33.001Z'},
-        {id: 10, ano: 2021, numero: 10, colegiado: 'Pleno', modalidade: 'Virtual', categoria: 'Judicial', tipo: 'Ordinária', data_inicio: '2021-09-29T09:12:33.001Z', data_fim: '2021-12-29T09:12:33.001Z'}
+        { id: 1, ano: 2021, numero: 1, colegiado: this.colegiado_, modalidade: 'Virtual', categoria: 'Judicial', tipo: 'Ordinária', data_inicio: '2021-06-29T09:12:33.001Z', data_fim: '2021-12-29T09:12:33.001Z', situacao: "Apto a julgar" },
+        { id: 2, ano: 2021, numero: 2, colegiado: this.colegiado_, modalidade: 'Virtual', categoria: 'Judicial', tipo: 'Ordinária', data_inicio: '2021-06-29T09:12:33.001Z', data_fim: '2021-12-29T09:12:33.001Z', situacao: "Apto a julgar" },
+        { id: 3, ano: 2021, numero: 3, colegiado: this.colegiado_, modalidade: 'Virtual', categoria: 'Judicial', tipo: 'Ordinária', data_inicio: '2021-04-29T09:12:33.001Z', data_fim: '2021-11-29T09:12:33.001Z', situacao: "Apto a julgar" },
+        { id: 4, ano: 2021, numero: 4, colegiado: this.colegiado_, modalidade: 'Virtual', categoria: 'Judicial', tipo: 'Ordinária', data_inicio: '2021-04-29T09:12:33.001Z', data_fim: '2021-11-29T09:12:33.001Z', situacao: "Apto a julgar" },
+        { id: 5, ano: 2021, numero: 5, colegiado: this.colegiado_, modalidade: 'Virtual', categoria: 'Judicial', tipo: 'Ordinária', data_inicio: '2021-03-29T09:12:33.001Z', data_fim: '2021-10-29T09:12:33.001Z', situacao: "Apto a julgar" },
+        { id: 6, ano: 2021, numero: 6, colegiado: this.colegiado_, modalidade: 'Virtual', categoria: 'Judicial', tipo: 'Ordinária', data_inicio: '2021-03-29T09:12:33.001Z', data_fim: '2021-10-29T09:12:33.001Z', situacao: "Apto a julgar" },
+        { id: 7, ano: 2021, numero: 7, colegiado: this.colegiado_, modalidade: 'Virtual', categoria: 'Judicial', tipo: 'Ordinária', data_inicio: '2021-03-29T09:12:33.001Z', data_fim: '2021-10-29T09:12:33.001Z', situacao: "Apto a julgar" },
+        { id: 8, ano: 2021, numero: 8, colegiado: this.colegiado_, modalidade: 'Virtual', categoria: 'Judicial', tipo: 'Ordinária', data_inicio: '2021-07-29T09:12:33.001Z', data_fim: '2021-10-29T09:12:33.001Z', situacao: "Apto a julgar" },
+        { id: 9, ano: 2021, numero: 9, colegiado: this.colegiado_, modalidade: 'Virtual', categoria: 'Judicial', tipo: 'Ordinária', data_inicio: '2021-01-29T09:12:33.001Z', data_fim: '2021-12-29T09:12:33.001Z', situacao: "Apto a julgar" },
+        { id: 10, ano: 2021, numero: 10, colegiado: this.colegiado_, modalidade: 'Virtual', categoria: 'Judicial', tipo: 'Ordinária', data_inicio: '2021-09-29T09:12:33.001Z', data_fim: '2021-12-29T09:12:33.001Z', situacao: "Apto a julgar" }
     ];
 
     colegiadoEscolhido = this.colegiados[0].value;
@@ -64,7 +83,7 @@ export class PautarComponent implements OnInit {
     ) {
 
     }
-    
+
     ngOnInit(): void {
         // Create the form
         this.pautarForm = this._formBuilder.group({
@@ -74,7 +93,7 @@ export class PautarComponent implements OnInit {
             data_fim: [''],
         });
     }
-    
+
     fechar(): void {
         // Close the dialog
         this.matDialogRef.close();
@@ -84,7 +103,7 @@ export class PautarComponent implements OnInit {
         const dialogRef = this._dialog.open(SessaoExtraordinariaComponent, {});
 
         dialogRef.afterClosed().subscribe(resultado => {
-            
+
         });
     }
 
@@ -94,17 +113,17 @@ export class PautarComponent implements OnInit {
                 next: (data) => {
                     console.log(data)
                     this._alertService.exibirAlertaDeSucesso();
-                }   
-            });   
+                }
+            });
         }
     }
 
-    removeChip(processo: Processo){
+    removeChip(processo: Processo) {
         this.data.processos.splice(this.data.processos.indexOf(processo), 1);
         processo.checked = false;
         this._processoService.setProcessosSelecionados(this.data.processos);
 
-        if(this.data.processos.length == 0){
+        if (this.data.processos.length == 0) {
             this.fechar();
         }
     }
