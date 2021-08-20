@@ -36,6 +36,7 @@ export class CriacaoColegiadoComponent implements OnInit {
   constructor(
     private _fb: FormBuilder,
     private _ministroService: MinistroService,
+    private _route: ActivatedRoute,
   ) { 
     this.formVotacao = this._fb.group({
       processo: ['ADI100-Ag-Ag-A', Validators.required],
@@ -47,10 +48,12 @@ export class CriacaoColegiadoComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    const merito = 'ADI100';
-    const sessao = '1000-2021';
+    let colegiado;
+    this._route.queryParams.subscribe((data) => {
+      colegiado = data.colegiado;
+    })
 
-    this._ministroService.listarColegiados().subscribe({
+    this._ministroService.listarColegiados(colegiado).subscribe({
       next: (colegiados) => {
         colegiados.map(c => c.composicao.sort((a, b) => {
           if (a.presidente) {

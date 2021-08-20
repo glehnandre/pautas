@@ -18,19 +18,16 @@
             </header>
 
             <main [class]="'grid grid-cols-1 gap-4 align-middle justify-items-center w-full mx-auto' +
-                        ' sm:grid-cols-' + (colegiados.length) +  
-                        ' md:grid-rows-' + (colegiados.length) +  'md:grid-cols-' + (colegiados.length) + ' md:max-w-280 '">
-                <div 
-                    class="w-full max-w-72" 
-                    *ngFor="let colegiado of colegiados"
-                >
-                    <app-card-ministro
-                        *ngFor="let comp of colegiado.composicao"
-                        [composicao]="comp"
-                        [colegiado]="colegiado.colegiado"
-                        (statusVotacao)="obterStatusDoVoto($event)"
-                    ></app-card-ministro>
-                </div>
+                        ' sm:grid-cols-2' +  
+                        ' md:grid-cols-3 md:max-w-280'"
+            >
+              <app-card-ministro
+                  class="w-full"
+                  *ngFor="let comp of colegiados[0]?.composicao"
+                  [composicao]="comp"
+                  [colegiado]="colegiados[0]?.colegiado"
+                  (statusVotacao)="obterStatusDoVoto($event)"
+              ></app-card-ministro>
             </main>
         </div>
 

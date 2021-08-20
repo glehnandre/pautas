@@ -10,6 +10,7 @@
         *ngIf="item.link && !item.externalLink && !item.function && !item.disabled"
         [ngClass]="{'fuse-vertical-navigation-item-active-forced': item.active}"
         [routerLink]="[item.link]"
+        [queryParams]="item?.queryParams"
         [routerLinkActive]="'fuse-vertical-navigation-item-active'"
         [routerLinkActiveOptions]="isActiveMatchOptions">
         <ng-container *ngTemplateOutlet="itemTemplate"></ng-container>

@@ -29,16 +29,17 @@ export class MinistroMockApi {
         .reply(({request}) => {
           const { params } = request;
 
-          const merito = params.get('merito');
-          const sessao = params.get('sessao');
-          const recurso = params.get('recurso');
-          const colegiado = params.get('cadeira');
+          const processo = params.get('processo');
+          const data = params.get('data');
+          const colegiado = params.get('colegiado');
           
-          if (merito === 'undefined' && sessao === 'undefined') {
-            return [200, this._colegiado];
+          console.log(colegiado)
+          if (colegiado === 'pleno') {
+            const pleno = this._colegiado.filter(col => col.colegiado === 'pleno');
+            return [200, pleno];
           } else {
             const colegiados = this._colegiado
-              .filter(col => `${col.numeroSessao}-${col.anoSessao}` === sessao);
+              .filter(col => col.colegiado === colegiado);
             return [200, colegiados];
           }
         });

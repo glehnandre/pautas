@@ -33,6 +33,7 @@ export interface FuseNavigationItem
     };
     children?: FuseNavigationItem[];
     meta?: any;
+    queryParams?: any;
 }
 
 export type FuseVerticalNavigationAppearance =
