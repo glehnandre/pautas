@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Subject } from 'rxjs';
 
 @Component({
   selector: 'app-sessoes-julgamentos',
@@ -11,5 +12,7 @@ export class SessoesJulgamentosComponent implements OnInit {
 
   ngOnInit(): void {
   }
+
+  eventsSubject: Subject<any> = new Subject<any>();
 
 }
