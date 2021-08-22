@@ -35,25 +35,54 @@
                         <div class="ml-2 text-xl">
                             Mérito
                         </div>
-                        <div class="flex flex-row">
-                            <mat-chip-list #chipList *ngFor="let tag of tags" class="m-1">
-                                <mat-chip 
-                                    class="flex-none" 
-                                    cdkDrag
-                                >
-                                    {{tag}}
-                                </mat-chip>
-                            </mat-chip-list>
+                        <div class="container flex flex-row mb-8 mt-4">
+                            <div class="mr-2 my-auto">
+                                <button (click)="scrollLeft()">
+                                    <mat-icon>
+                                        navigate_before
+                                    </mat-icon>
+                                </button>
+                            </div>
+                            <div #widgetsContent class="flex flex-row max-w-3/5 overflow-hidden">
+                                    <mat-chip-list #chipList *ngFor="let tag of tags" class="m-1 flex-none">
+                                        <mat-chip>
+                                            {{tag}}
+                                        </mat-chip>
+                                    </mat-chip-list>
+                                </div>
+                            <div class="ml-2 my-auto">
+                                <button (click)="scrollRight()">
+                                    <mat-icon>
+                                        navigate_next
+                                    </mat-icon>
+                                </button>
+                            </div>
                         </div>
                     </div>
                 </div>
-                <div class="flex flex-row mb-8 mt-4">
-                    <mat-chip-list #chipList *ngFor="let pdf of pdfs" class="m-1">
-                        <mat-chip class="flex-none border-primary border-solid border-2 bg-transparent text-primary">
-                            <mat-icon class="mr-2" style="color:red">picture_as_pdf</mat-icon>
-                            {{pdf}}
-                        </mat-chip>
-                    </mat-chip-list>
+                <div class="container flex flex-row mb-8 mt-4">
+                    <div class="mr-2 my-auto">
+                        <button (click)="scrollLeft1()">
+                            <mat-icon>
+                                navigate_before
+                            </mat-icon>
+                        </button>
+                    </div>
+                    <div #widgetsContent1 class="flex flex-row max-w-3/5 overflow-hidden">
+                        <mat-chip-list #chipList *ngFor="let pdf of pdfs" class="m-1 flex-none">
+                            <mat-chip class="flex-none border-primary border-solid border-2 bg-transparent text-primary">
+                                <mat-icon class="mr-2" style="color:red">picture_as_pdf</mat-icon>
+                                {{pdf}}
+                            </mat-chip>
+                        </mat-chip-list>
+                    </div>
+                    <div class="ml-2 my-auto">
+                        <button (click)="scrollRight1()">
+                            <mat-icon>
+                                navigate_next
+                            </mat-icon>
+                        </button>
+                    </div>
                 </div>
                 <div class="my-4 text-primary font-medium text-lg">
                     {{texto}}

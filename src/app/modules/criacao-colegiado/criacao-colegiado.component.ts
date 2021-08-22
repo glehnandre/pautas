@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef  } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { FuseMediaWatcherService } from '@fuse/services/media-watcher';
 import { map, takeUntil } from 'rxjs/operators';
@@ -13,6 +13,9 @@ import { MinistroService } from '../services/ministro.service';
   styleUrls: ['./criacao-colegiado.component.scss']
 })
 export class CriacaoColegiadoComponent implements OnInit {
+
+  @ViewChild('widgetsContent', { read: ElementRef }) public widgetsContent: ElementRef<any>;
+  @ViewChild('widgetsContent1', { read: ElementRef }) public widgetsContent1: ElementRef<any>;
 
   formVotacao: FormGroup;
   ministros: Ministro[] = [];
@@ -79,6 +82,20 @@ export class CriacaoColegiadoComponent implements OnInit {
         this.colegiados = colegiados;
       }
     });
+  }
+
+  public scrollLeft(): void {
+    this.widgetsContent.nativeElement.scrollTo({ left: (this.widgetsContent.nativeElement.scrollLeft - 150), behavior: 'smooth' });
+  }
+  public scrollRight(): void {
+    this.widgetsContent.nativeElement.scrollTo({ left: (this.widgetsContent.nativeElement.scrollLeft + 150), behavior: 'smooth' });
+  }
+
+  public scrollLeft1(): void {
+    this.widgetsContent1.nativeElement.scrollTo({ left: (this.widgetsContent1.nativeElement.scrollLeft - 150), behavior: 'smooth' });
+  }
+  public scrollRight1(): void {
+    this.widgetsContent1.nativeElement.scrollTo({ left: (this.widgetsContent1.nativeElement.scrollLeft + 150), behavior: 'smooth' });
   }
 
   obterStatusDoVoto(votoDoMinistro: ComposicaoColegiado): void {
