@@ -84,18 +84,17 @@ export class CriacaoColegiadoComponent implements OnInit {
     });
   }
 
-  public scrollLeft(): void {
-    this.widgetsContent.nativeElement.scrollTo({ left: (this.widgetsContent.nativeElement.scrollLeft - 150), behavior: 'smooth' });
+  /**
+   * 
+   * @param id o id do elemento que eu quero fazer o scrollLeft
+   */
+  public scrollLeft(id): void {
+    let el = document.getElementById(id);
+    el.scrollTo({ left: (el.scrollLeft - 150), behavior: 'smooth' });
   }
-  public scrollRight(): void {
-    this.widgetsContent.nativeElement.scrollTo({ left: (this.widgetsContent.nativeElement.scrollLeft + 150), behavior: 'smooth' });
-  }
-
-  public scrollLeft1(): void {
-    this.widgetsContent1.nativeElement.scrollTo({ left: (this.widgetsContent1.nativeElement.scrollLeft - 150), behavior: 'smooth' });
-  }
-  public scrollRight1(): void {
-    this.widgetsContent1.nativeElement.scrollTo({ left: (this.widgetsContent1.nativeElement.scrollLeft + 150), behavior: 'smooth' });
+  public scrollRight(id): void {
+    let el = document.getElementById(id);
+    document.getElementById(id).scrollTo({ left: (el.scrollLeft + 150), behavior: 'smooth' });
   }
 
   obterStatusDoVoto(votoDoMinistro: ComposicaoColegiado): void {
