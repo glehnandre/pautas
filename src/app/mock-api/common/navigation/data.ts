@@ -44,13 +44,6 @@ export const defaultNavigation: FuseNavigationItem[] = [
     },
     {
         id   : 'sessoes-julgamento',
-        title: 'Sessões de Julgamento',
-        type : 'basic',
-        icon : 'heroicons_outline:chart-pie',
-        link : '/sessoes-julgamento'
-    },
-    {
-        id   : 'sessoes-julgamento',
         title: 'Sessões de julgamento',
         type : 'basic',
         icon : 'heroicons_outline:chart-pie',
@@ -105,13 +98,6 @@ export const compactNavigation: FuseNavigationItem[] = [
         icon : 'heroicons_outline:chart-pie',
         link : '/sessoes-julgamento'
     },
-    {
-        id   : 'sessoes-julgamento',
-        title: 'Sessões de julgamento',
-        type : 'basic',
-        icon : 'heroicons_outline:chart-pie',
-        link : '/sessoes-julgamento',
-    },
 ];
 export const futuristicNavigation: FuseNavigationItem[] = [
     {
@@ -160,13 +146,6 @@ export const futuristicNavigation: FuseNavigationItem[] = [
         type : 'basic',
         icon : 'heroicons_outline:chart-pie',
         link : '/sessoes-julgamento'
-    },
-    {
-        id   : 'sessoes-julgamento',
-        title: 'Sessões de julgamento',
-        type : 'basic',
-        icon : 'heroicons_outline:chart-pie',
-        link : '/sessoes-julgamento',
     },
 ];
 export const horizontalNavigation: FuseNavigationItem[] = [
