@@ -1,6 +1,7 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { MatDatepickerInputEvent } from '@angular/material/datepicker';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MatRadioChange } from '@angular/material/radio';
 import { FuseAlertService } from '@fuse/components/alert';
 import { AlertaService } from 'app/modules/services/alerta.service';
 import { JulgamentoService } from 'app/modules/services/julgamento.service';
@@ -45,7 +46,6 @@ export class AlterarSessaoComponent implements OnInit {
       {id: 10, ano: 2021, numero: 10, colegiado: 'Pleno', modalidade: 'Virtual', categoria: 'Judicial', tipo: 'Ordinária', data_inicio: new Date(2021, 8, 20), data_fim: new Date(2021, 8, 25)}
   ];
 
-
   colegiadoEscolhido: string = this.colegiados[0].value;
   isFormValido: boolean = true;
 
@@ -53,7 +53,7 @@ export class AlterarSessaoComponent implements OnInit {
     private _julgamentoService: JulgamentoService,
     private _fuseAlertService: FuseAlertService,
     private _alertService: AlertaService,
-    @Inject(MAT_DIALOG_DATA) public processos: Processo[], 
+    @Inject(MAT_DIALOG_DATA) public processos: Processo[],
   ) {}
 
   ngOnInit(): void {
@@ -72,7 +72,12 @@ export class AlterarSessaoComponent implements OnInit {
     const dataFinal = new Date(this.pauta.data_fim);
 
     if (dataInicial > dataFinal) {
-      alert('A data inicial não pode ser maior que a data final');
+        this._fuseAlertService.show('alertBoxInitialDate');
+
+        setTimeout(() => {
+            this._fuseAlertService.dismiss('alertBoxInitialDate');
+        }, 5000);
+
       this.pauta.data_inicio = '';
       this.isFormValido = false;
     } else {
@@ -80,12 +85,30 @@ export class AlterarSessaoComponent implements OnInit {
     }
   }
 
+  isDataDeFimValida(event: MatDatepickerInputEvent<Date>): void {
+      const dataInicial = new Date(this.pauta.data_inicio);
+      const dataFinal = new Date(event.value);
+
+      if (dataFinal < dataInicial) {
+         this._fuseAlertService.show('alertBoxFinalDate');
+
+         setTimeout(() => {
+           this._fuseAlertService.dismiss('alertBoxFinalDate');
+         }, 5000);
+
+          this.pauta.data_fim = '';
+          this.isFormValido = false;
+      } else {
+          this.isFormValido = true;
+      }
+  }
+
   alterarDataDeJulgamento(): void {
     console.log(this.pauta);
     this._julgamentoService.pautarProcesso(this.pauta).subscribe({
         next: () => {
             this._alertService.exibirAlertaDeSucesso();
-        }   
+        }
     });
   }
 
