@@ -1,14 +1,14 @@
 import { Injectable } from '@angular/core';
 import { FuseMockApiService } from '@fuse/lib/mock-api/mock-api.service';
 import { Processo } from 'app/modules/acervo/model/interfaces/processo.interface';
-import { SessaoDeJulgamento } from 'app/modules/acervo/model/interfaces/sessaoDeJulgamento.interface';
+import { SessaoJulgamento } from 'app/modules/acervo/model/interfaces/sessao-julgamento';
 import { julgamentos as julgamentoData, processos as processosData } from './data';
 
 @Injectable({
     providedIn: 'root'
 })
 export class JulgamentoMockApi {
-    private _julgamentos: SessaoDeJulgamento[] = julgamentoData;
+    private _julgamentos: SessaoJulgamento[] = julgamentoData;
     private _processos: Processo[] = processosData;
 
     constructor(private _fuseMockApiService: FuseMockApiService) {
@@ -42,13 +42,22 @@ export class JulgamentoMockApi {
         .reply(({request, urlParams}) => {
           const numeroAno = urlParams['numero-ano'];
 
-          const sessaoDeJulgamento = this._julgamentos
+          let sessaoDeJulgamento: any = this._julgamentos
             .find(julg => {
               const sessaoNumeroAno = `${julg.numero}-${julg.ano}`;
               return sessaoNumeroAno === numeroAno;
             });
 
           if (sessaoDeJulgamento) {
+            sessaoDeJulgamento = {...sessaoDeJulgamento, ministro: {
+              id: 12314441,
+              nome: "Luiz Fux",
+              abreviacao: "MLF",
+              cadeira: {
+                criacao: '2021-08-02T03:00:00.000Z',
+                numero: 100,
+              }
+            }, observacao: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Porro minima quibusdam perspiciatis aliquid iste quo deleniti  ducimus nulla minus rerum expedita tenetur, dicta saepe error unde,  labore cum, aperiam nisi. Lorem ipsum dolor sit amet consectetur adipisicing elit.  Odit sequi magni, modi reprehenderit sit ipsa tempora natus  harum voluptatem iure molestias, veniam nemo quam odio qui laboriosam.  Pariatur, praesentium molestiae?",};
             return [200, sessaoDeJulgamento];
           } else {
             return [404, { description: 'Sessao de julgamento não foi encontrada' }];

@@ -5,13 +5,7 @@ import { catchError } from 'rxjs/operators';
 import { Ministro } from '../acervo/model/interfaces/ministro.interface';
 import { Pauta } from '../acervo/model/interfaces/pauta.interface';
 import { Processo } from '../acervo/model/interfaces/processo.interface';
-import { SessaoDeJulgamento } from '../acervo/model/interfaces/sessaoDeJulgamento.interface';
-
-export interface SessaoJulgamento {
-  observacao: string;
-  ministro?: Ministro;
-  sessao: SessaoDeJulgamento;
-}
+import { SessaoJulgamento } from '../acervo/model/interfaces/sessao-julgamento';
 
 @Injectable({
   providedIn: 'root'
@@ -35,11 +29,11 @@ export class JulgamentoService {
     );
   }
 
-  public socilitarSessaoExtraordinaria(sessaoExtraordinaria: any): Observable<SessaoDeJulgamento> {
+  public socilitarSessaoExtraordinaria(sessaoExtraordinaria: any): Observable<SessaoJulgamento> {
     let params = new HttpParams();
     params = params.set('extraordinaria', true);
 
-    return this._httpClient.post<SessaoDeJulgamento>('sessoes-de-julgamento', sessaoExtraordinaria, {
+    return this._httpClient.post<SessaoJulgamento>('sessoes-de-julgamento', sessaoExtraordinaria, {
       params,
     });
   }

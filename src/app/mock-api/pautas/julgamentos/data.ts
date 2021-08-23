@@ -1,12 +1,10 @@
 import { SituacaoDoProcesso } from "app/modules/acervo/model/enums/situacaoDoProcesso.enum";
 import { TipoDoProcesso } from "app/modules/acervo/model/enums/tipoDoProcesso.enum";
 import { Processo } from "app/modules/acervo/model/interfaces/processo.interface";
-import { SessaoDeJulgamento } from "app/modules/acervo/model/interfaces/sessaoDeJulgamento.interface";
-import { SessaoJulgamento } from "app/modules/services/julgamento.service";
+import { SessaoJulgamento } from "app/modules/acervo/model/interfaces/sessao-julgamento";
 
-export const julgamentos: SessaoDeJulgamento[] = [
+export const julgamentos: SessaoJulgamento[] = [
   {
-      id: 1,
       numero: 1000,
       ano: 2021,
       colegiado: "Primeira turma",
@@ -19,6 +17,7 @@ export const julgamentos: SessaoDeJulgamento[] = [
         id: 19,
         nome: "Beatriz Cunha",
       },
+      situacao: 'ABERTA',
   }
 ];
 

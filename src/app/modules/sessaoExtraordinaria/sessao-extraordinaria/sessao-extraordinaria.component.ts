@@ -2,9 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { SituacaoDoProcesso } from 'app/modules/acervo/model/enums/situacaoDoProcesso.enum';
 import { Processo } from 'app/modules/acervo/model/interfaces/processo.interface';
-import { SessaoDeJulgamento } from 'app/modules/acervo/model/interfaces/sessaoDeJulgamento.interface';
+import { SessaoJulgamento } from 'app/modules/acervo/model/interfaces/sessao-julgamento';
 import { JulgamentoService } from 'app/modules/services/julgamento.service';
 import { HttpClient } from '@angular/common/http';
+import { Ministro } from 'app/modules/acervo/model/interfaces/ministro.interface';
 
 @Component({
   selector: 'app-sessao-extraordinaria',
@@ -15,9 +16,10 @@ export class SessaoExtraordinariaComponent implements OnInit {
 
   formJulgamento: FormGroup;
   tags: string[] = ['Virtual', 'Segunda Turma', 'Inicio e fim no dia 21/04/2021'];
-  observacoes: string = "Lorem ipsum dolor sit amet consectetur adipisicing elit. Porro minima quibusdam perspiciatis aliquid iste quo deleniti  ducimus nulla minus rerum expedita tenetur, dicta saepe error unde,  labore cum, aperiam nisi. Lorem ipsum dolor sit amet consectetur adipisicing elit.  Odit sequi magni, modi reprehenderit sit ipsa tempora natus  harum voluptatem iure molestias, veniam nemo quam odio qui laboriosam.  Pariatur, praesentium molestiae?";
   processos: Processo[] = [];
-  sessao: SessaoDeJulgamento;
+  sessao: SessaoJulgamento;
+  observacao = '';
+  ministro: Ministro;
 
   constructor(
     private _julgamentoService: JulgamentoService,
@@ -26,9 +28,13 @@ export class SessaoExtraordinariaComponent implements OnInit {
 
   ngOnInit(): void {
     this._julgamentoService.listarSessoesDeJulgamento(1000, 2021).subscribe({
-      next: (julg) => {
-        this.sessao = julg.sessao;
+      next: (sessao) => {
+        this.sessao = sessao;
+        this.observacao = sessao['observacao'];
+        this.ministro = sessao['ministro'];
+        
         const { numero, ano, data_inicio, data_fim } = this.sessao;
+        
         this._julgamentoService.listarProcessosPautadosNasSessoes(numero, ano, SituacaoDoProcesso.Pautado, data_inicio, data_fim).subscribe({
           next: (processos) => {
             this.processos = processos;
