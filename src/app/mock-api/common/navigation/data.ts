@@ -36,6 +36,18 @@ export const defaultNavigation: FuseNavigationItem[] = [
         type : 'basic',
         icon : 'heroicons_outline:chart-pie',
         link : '/criacao-colegiado',
+        queryParams: {
+            processo: 'ADI100-Ag-Ag-Ag',
+            data: '2016-08-29T09%3A12%3A33.001Z',
+            colegiado: 'pleno',
+        }
+    },
+    {
+        id   : 'sessoes-julgamento',
+        title: 'Sessões de Julgamento',
+        type : 'basic',
+        icon : 'heroicons_outline:chart-pie',
+        link : '/sessoes-julgamento'
     },
     {
         id   : 'sessoes-julgamento',
@@ -80,6 +92,18 @@ export const compactNavigation: FuseNavigationItem[] = [
         type : 'basic',
         icon : 'heroicons_outline:chart-pie',
         link : '/criacao-colegiado',
+        queryParams: {
+            processo: 'ADI100-Ag-Ag-Ag',
+            data: '2016-08-29T09%3A12%3A33.001Z',
+            colegiado: 'pleno',
+        }
+    },
+    {
+        id   : 'sessoes-julgamento',
+        title: 'Sessões de Julgamento',
+        type : 'basic',
+        icon : 'heroicons_outline:chart-pie',
+        link : '/sessoes-julgamento'
     },
     {
         id   : 'sessoes-julgamento',
@@ -124,6 +148,18 @@ export const futuristicNavigation: FuseNavigationItem[] = [
         type : 'basic',
         icon : 'heroicons_outline:chart-pie',
         link : '/criacao-colegiado',
+        queryParams: {
+            processo: 'ADI100-Ag-Ag-Ag',
+            data: '2016-08-29T09%3A12%3A33.001Z',
+            colegiado: 'pleno',
+        }
+    },
+    {
+        id   : 'sessoes-julgamento',
+        title: 'Sessões de Julgamento',
+        type : 'basic',
+        icon : 'heroicons_outline:chart-pie',
+        link : '/sessoes-julgamento'
     },
     {
         id   : 'sessoes-julgamento',

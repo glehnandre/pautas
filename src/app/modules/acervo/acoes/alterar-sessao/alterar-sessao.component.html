@@ -9,14 +9,14 @@
   </div>
 
   <!-- Compose form -->
-  <form 
-      class="flex flex-col flex-auto p-6 sm:p-8 overflow-y-auto"  
+  <form
+      class="flex flex-col flex-auto p-6 sm:p-8 overflow-y-auto"
   >
       <div class="flex flex-row flex-wrap">
           <mat-chip-list #chipList *ngFor="let processo of processos" class="m-1">
-              <mat-chip 
-                [removable]="true" 
-                class="flex-none" 
+              <mat-chip
+                [removable]="true"
+                class="flex-none"
                 (removed)="removeChip(processo)"
               >
                   {{processo.classe}} {{processo.numero}} {{processo.nome}}
@@ -28,14 +28,13 @@
       <div>
           <mat-radio-group
             class="flex flex-col my-4"
-           
-            [value]="colegiadoEscolhido"
+            [(ngModel)]="pauta.colegiado"
+            name="colegiado"
           >
-            <mat-radio-button 
-                class="mb-1" 
-                *ngFor="let colegiado of colegiados" 
+            <mat-radio-button
+                class="mb-1"
+                *ngFor="let colegiado of colegiados"
                 [value]="colegiado.value"
-                disabled
             >
               {{colegiado.viewValue}}
             </mat-radio-button>
@@ -52,7 +51,7 @@
 
         <mat-form-field class="w-full" color="accent" appearance="fill">
           <mat-label>Data de fim</mat-label>
-          <input disabled matInput [value]="pauta.data_fim" name="data_fim" [matDatepicker]="picker2">
+          <input matInput [(ngModel)]="pauta.data_fim" (dateChange)="isDataDeFimValida($event)" name="data_fim" [matDatepicker]="picker2">
           <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
           <mat-datepicker #picker2 color="primary"></mat-datepicker>
         </mat-form-field>
@@ -61,13 +60,13 @@
       <div class="flex flex-auto flex-row space-x-4">
           <mat-form-field class="w-full" appearance="fill">
               <mat-label>Sessão:</mat-label>
-              <mat-select 
-                [value]="pauta.sessao"
-                placeholder="Escolha uma sessão" 
-                disabled
+              <mat-select
+                [(ngModel)]="pauta.sessao"
+                placeholder="Escolha uma sessão"
+                name="sessao"
               >
-                  <mat-option 
-                      *ngFor="let sessaoJulgamento of sessoes" 
+                  <mat-option
+                      *ngFor="let sessaoJulgamento of sessoes"
                       [value]="sessaoJulgamento.id"
                   >
                       Sessão {{sessaoJulgamento.modalidade}}, <b>{{sessaoJulgamento.colegiado}}</b>, nº {{sessaoJulgamento.numero}}/{{sessaoJulgamento.ano}} de {{sessaoJulgamento.data_inicio | date:'dd/MM/yyyy'}} a {{sessaoJulgamento.data_fim  | date:'dd/MM/yyyy'}}
@@ -84,18 +83,40 @@
           <button class="ml-auto sm:ml-0 mr-2" mat-button mat-dialog-close>
             <span>Cancelar</span>
           </button>
-    
-          <button 
+
+          <button
             class="ml-auto"
-            color="primary" 
-            mat-raised-button 
+            color="primary"
+            mat-raised-button
             mat-dialog-close
             [disabled]="!isFormValido"
             (click)="alterarDataDeJulgamento()"
           >
-            Alterar a data de julgamento  
+            Alterar a data de julgamento
           </button>
         </div>
       </div>
   </form>
+
+  <div class="absolute top-0 right-0 z-10">
+        <fuse-alert class="max-w-120 mx-auto"
+                    [type]="'error'"
+                    [appearance]="'soft'"
+                    [dismissible]=true
+                    [dismissed]=true
+                    [name]="'alertBoxFinalDate'">
+            <span fuseAlertTitle>Erro de validação</span>
+            A data final não pode ser menor que a data inicial
+        </fuse-alert>
+
+        <fuse-alert class="max-w-120 mx-auto"
+                    [type]="'error'"
+                    [appearance]="'soft'"
+                    [dismissible]=true
+                    [dismissed]=true
+                    [name]="'alertBoxInitialDate'">
+            <span fuseAlertTitle>Erro de validação</span>
+            A data inicial não pode ser maior que a data final
+        </fuse-alert>
+    </div>
 </div>
