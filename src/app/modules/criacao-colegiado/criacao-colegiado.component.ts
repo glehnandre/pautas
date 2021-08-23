@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ActivatedRoute } from '@angular/router';
 import { FuseMediaWatcherService } from '@fuse/services/media-watcher';
 import { map, takeUntil } from 'rxjs/operators';
 import { Colegiado, ComposicaoColegiado, NomeDoColegiado } from '../acervo/model/interfaces/colegiado.interface';
@@ -17,6 +18,7 @@ export class CriacaoColegiadoComponent implements OnInit {
   formVotacao: FormGroup;
   ministros: Ministro[] = [];
   colegiados: Colegiado[] = [];
+  composicao: ComposicaoColegiado[] = [];
   votosDosMinistros: ComposicaoColegiado[] = [];
 
   post: {
@@ -34,6 +36,7 @@ export class CriacaoColegiadoComponent implements OnInit {
   constructor(
     private _fb: FormBuilder,
     private _ministroService: MinistroService,
+    private _route: ActivatedRoute,
   ) { 
     this.formVotacao = this._fb.group({
       processo: ['ADI100-Ag-Ag-A', Validators.required],
@@ -45,14 +48,12 @@ export class CriacaoColegiadoComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this._ministroService.listarMinistros().subscribe({
-      next: (ministros) => {
-        this.ministros = ministros;
-        console.log(ministros);
-      }
-    });
+    let colegiado;
+    this._route.queryParams.subscribe((data) => {
+      colegiado = data.colegiado;
+    })
 
-    this._ministroService.listarColegiados().subscribe({
+    this._ministroService.listarColegiados(colegiado).subscribe({
       next: (colegiados) => {
         colegiados.map(c => c.composicao.sort((a, b) => {
           if (a.presidente) {
@@ -95,7 +96,6 @@ export class CriacaoColegiadoComponent implements OnInit {
 
   isSelecoesValidas(): boolean {
     const MIN_VOTOS: number = 5;
-    const MAX_VOTOS: number = 10;
 
     if (this.votosDosMinistros.length === 0) {
       alert('Nunhum voto selecionado!');
@@ -104,11 +104,6 @@ export class CriacaoColegiadoComponent implements OnInit {
 
     if (this.votosDosMinistros.length < MIN_VOTOS) {
       alert('Número minimo de votos: ' + MIN_VOTOS);
-      return false;
-    }
-
-    if (this.votosDosMinistros.length > MAX_VOTOS) {
-      alert('Número maximo de votos atingido! Maximo: ' + MAX_VOTOS);
       return false;
     }
 
@@ -123,6 +118,11 @@ export class CriacaoColegiadoComponent implements OnInit {
   finalizar(): void {
     if (this.isSelecoesValidas()) {
       console.table(this.formVotacao.value);
+      this._ministroService.criarColegiado(this.formVotacao.value).subscribe({
+        next: (data) => {
+          console.log(data);
+        }
+      });
     }
   }
 

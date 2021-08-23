@@ -9,7 +9,7 @@ import { Ministro } from '../acervo/model/interfaces/ministro.interface';
   providedIn: 'root'
 })
 export class MinistroService {
-
+  
   constructor(
     private _httpClient: HttpClient,
   ) { }
@@ -24,15 +24,15 @@ export class MinistroService {
   }
 
   listarColegiados(
-    processo?: string, 
-    data?: string, 
     colegiado?: string,
+    processo?: string,
+    data?: string,
   ): Observable<Colegiado[]> {
     let params = new HttpParams();
     params = params.set('processo', processo);
     params = params.set('data', data);
     params = params.set('colegiado', colegiado);
-
+    
     return this._httpClient.get<Colegiado[]>('/colegiado', {
       params,
     }).pipe(
@@ -41,6 +41,15 @@ export class MinistroService {
         return EMPTY;
       }),
     )
+  }
+
+  criarColegiado(value: any): Observable<any[]> {
+    return this._httpClient.post<any[]>('/colegiado', value).pipe(
+      catchError(error => {
+        console.log(error);
+        return EMPTY;
+      })
+    );
   }
 
 }

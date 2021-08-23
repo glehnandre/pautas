@@ -36,6 +36,11 @@ export const defaultNavigation: FuseNavigationItem[] = [
         type : 'basic',
         icon : 'heroicons_outline:chart-pie',
         link : '/criacao-colegiado',
+        queryParams: {
+            processo: 'ADI100-Ag-Ag-Ag',
+            data: '2016-08-29T09%3A12%3A33.001Z',
+            colegiado: 'pleno',
+        }
     },
 ];
 export const compactNavigation: FuseNavigationItem[] = [
@@ -73,6 +78,11 @@ export const compactNavigation: FuseNavigationItem[] = [
         type : 'basic',
         icon : 'heroicons_outline:chart-pie',
         link : '/criacao-colegiado',
+        queryParams: {
+            processo: 'ADI100-Ag-Ag-Ag',
+            data: '2016-08-29T09%3A12%3A33.001Z',
+            colegiado: 'pleno',
+        }
     },
 ];
 export const futuristicNavigation: FuseNavigationItem[] = [
@@ -110,6 +120,11 @@ export const futuristicNavigation: FuseNavigationItem[] = [
         type : 'basic',
         icon : 'heroicons_outline:chart-pie',
         link : '/criacao-colegiado',
+        queryParams: {
+            processo: 'ADI100-Ag-Ag-Ag',
+            data: '2016-08-29T09%3A12%3A33.001Z',
+            colegiado: 'pleno',
+        }
     },
 ];
 export const horizontalNavigation: FuseNavigationItem[] = [

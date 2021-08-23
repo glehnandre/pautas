@@ -15,6 +15,7 @@ export class CardMinistroComponent implements OnInit {
   minsitro: Ministro;
 
   @Input() composicao: ComposicaoColegiado;
+  @Input() colegiado: string = '';
   @Output() statusVotacao = new EventEmitter<ComposicaoColegiado>();
 
   constructor(
