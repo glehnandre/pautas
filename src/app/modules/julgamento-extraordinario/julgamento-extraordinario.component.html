@@ -23,8 +23,8 @@
 
             <p>
                 {{sessao?.secretario.nome}}, presidente {{sessao?.colegiado}},
-                informa que não há possibilidade de agenda para a criação da Sessão 
-                de Julgamento Extraordinária para a data solicitada de 
+                informa que não há possibilidade de agenda para a criação da Sessão
+                de Julgamento Extraordinária para a data solicitada de
                 {{sessao?.data_inicio | date: 'dd/MM/yyyy'}}
             </p>
 
@@ -36,13 +36,58 @@
                 ></app-processo-painel-expansivo>
             </div>
 
-            <mat-card>
+            <fuse-card class="flex w-full">
+                <mat-card class="w-full">
+                    <mat-card-header>
+                        <mat-card-title class="mt-4">
+                            Preencha para recolocar a pauta em outra sessão
+                        </mat-card-title>
+                    </mat-card-header>
+
+                    <mat-card-content class="p-4">
+                        <form [formGroup]="formJulgamento" class="flex flex-col">
+                            <mat-form-field appearance="fill" class="sm:w-3/6 w-full">
+                                <mat-label>Informe o mês e ano:</mat-label>
+                                <input [formControlName]="'nova_data'" matInput [matDatepicker]="dp">
+                                <mat-datepicker-toggle matSuffix [for]="dp"></mat-datepicker-toggle>
+                                <mat-datepicker #dp
+                                    startView="multi-year"
+                                    (yearSelected)="chosenYearHandler($event)"
+                                    (monthSelected)="chosenMonthHandler($event, dp)"
+                                ></mat-datepicker>
+                                <mat-hint>Mês e ano da adicionar em uma nova sessão</mat-hint>
+                            </mat-form-field>
+
+                            <mat-form-field appearance="fill" class="sm:w-3/6 w-full">
+                                <mat-label>Sessão:</mat-label>
+                                <mat-select [formControlName]="'sessao'" placeholder="Escolha uma sessão" required>
+                                    <mat-option
+                                        *ngFor="let sessaoJulgamento of sessoes"
+                                        [value]="sessaoJulgamento.id"
+                                    >
+                                        Sessão {{sessaoJulgamento.modalidade}}, <b>{{sessaoJulgamento.colegiado}}</b>, nº {{sessaoJulgamento.numero}}/{{sessaoJulgamento.ano}} de {{sessaoJulgamento.data_inicio | date:'dd/MM/yyyy'}} a {{sessaoJulgamento.data_fim  | date:'dd/MM/yyyy'}}
+                                    </mat-option>
+                                </mat-select>
+                                <mat-error class="mb-1" *ngIf="'sessao.errors?.required'">
+                                    A sessão é obrigatória
+                                </mat-error>
+                                <mat-hint>
+                                    Informe a nova sessão
+                                </mat-hint>
+                            </mat-form-field>
+                        </form>
+                    </mat-card-content>
+                </mat-card>
+            </fuse-card>
+
+
+          <!--   <fuse-card class="" #fuseCard>
                 <mat-card-header>
                     <mat-card-title class="mt-4">
                         Preencha para recolocar a pauta em outra sessão
                     </mat-card-title>
                 </mat-card-header>
-                
+
                 <mat-card-content class="p-4">
                     <form [formGroup]="formJulgamento" class="flex flex-col">
                         <mat-form-field appearance="fill" class="sm:w-3/6 w-full">
@@ -60,8 +105,8 @@
                         <mat-form-field appearance="fill" class="sm:w-3/6 w-full">
                             <mat-label>Sessão:</mat-label>
                             <mat-select [formControlName]="'sessao'" placeholder="Escolha uma sessão" required>
-                                <mat-option 
-                                    *ngFor="let sessaoJulgamento of sessoes" 
+                                <mat-option
+                                    *ngFor="let sessaoJulgamento of sessoes"
                                     [value]="sessaoJulgamento.id"
                                 >
                                     Sessão {{sessaoJulgamento.modalidade}}, <b>{{sessaoJulgamento.colegiado}}</b>, nº {{sessaoJulgamento.numero}}/{{sessaoJulgamento.ano}} de {{sessaoJulgamento.data_inicio | date:'dd/MM/yyyy'}} a {{sessaoJulgamento.data_fim  | date:'dd/MM/yyyy'}}
@@ -76,7 +121,7 @@
                         </mat-form-field>
                     </form>
                 </mat-card-content>
-            </mat-card>
+            </fuse-card> -->
         </div>
 
         <div class="flex flex-col sm:flex-row sm:items-center justify-between mt-4 sm:mt-6">
@@ -88,15 +133,15 @@
               <button class="ml-auto sm:ml-0 mr-2" mat-button>
                 <span>Cliente</span>
               </button>
-        
-              <button 
+
+              <button
                 class="ml-auto"
-                color="primary" 
-                mat-raised-button 
+                color="primary"
+                mat-raised-button
                 [disabled]="formJulgamento.invalid"
                 (click)="pautarNaSessao()"
               >
-                Ciente e Pautar na Sessão  
+                Ciente e Pautar na Sessão
               </button>
             </div>
           </div>

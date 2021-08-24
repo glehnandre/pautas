@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { MatDialogRef } from '@angular/material/dialog';
 import { Processo } from 'app/modules/acervo/model/interfaces/processo.interface';
 import { ProcessoService } from 'app/modules/services/processo.service';
 
@@ -12,6 +13,7 @@ export class ProcessoChipComponent implements OnInit {
   @Input() isRemovable: boolean = false;
   @Input() isEmitRemoveEvent: boolean = false;
   @Input() processos: Processo[] = [];
+  @Input() dialogRef: MatDialogRef<any>;
 
   constructor(
     private _processoService: ProcessoService,
@@ -26,6 +28,10 @@ export class ProcessoChipComponent implements OnInit {
 
     if (this.isEmitRemoveEvent) {
       this._processoService.setProcessosSelecionados(this.processos);
+    }
+
+    if (this.processos.length === 0) {
+      this.dialogRef.close();
     }
   }
 

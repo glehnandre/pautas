@@ -12,114 +12,22 @@
     <!-- Main -->
     <div class="flex-auto  overflow-y-auto px-8 pb-8" cdkScrollable>
         <!-- CONTENT GOES HERE -->
-        <div>
+        <div class="flex flex-col justify-center align-middle justify-items-center">
             <header>
                 <h3>Topo</h3>
             </header>
 
-            <main class="grid grid-cols-3 gap-4 align-middle justify-items-center">
-                <div class="">
-                    <h3 class="text-primary">Primeira Turma</h3>
-                    
-                    <div class="mb-4">
-                        <div class="flex flex-row justify-items-center align-middle">
-                            <img class="w-12 h-12 mr-2" [src]="image.data" alt="imagem do presidente">
-                            
-                            <div>
-                                <h3 class="font-semibold m-0 p-0">Carmém Lucia</h3>
-                                <p class="text-hint m-0 p-0">Presidente</p>
-                            </div>
-                        </div>
-    
-                        <form [formGroup]="formCriacaoColegiado">
-                            <section class="mt-2">
-                                <p><mat-checkbox formControlName="incluir_voto">Incluir na votação</mat-checkbox></p>
-                                <p><mat-checkbox formControlName="ja_votou">Já votou</mat-checkbox></p>
-                                <p><mat-checkbox formControlName="pode_votar">Pode votar</mat-checkbox></p>
-                            </section>
-                        </form>
-                    </div>
-                    <div class="mb-4">
-                        <div class="flex flex-row justify-items-center align-middle">
-                            <img class="w-12 h-12 mr-2" [src]="image.data" alt="imagem do presidente">
-                            
-                            <div>
-                                <h3 class="font-semibold m-0 p-0">Carmém Lucia</h3>
-                                <p class="text-hint m-0 p-0">Presidente</p>
-                            </div>
-                        </div>
-    
-                        <form [formGroup]="formCriacaoColegiado">
-                            <section class="mt-2">
-                                <p><mat-checkbox formControlName="incluir_voto">Incluir na votação</mat-checkbox></p>
-                                <p><mat-checkbox formControlName="ja_votou">Já votou</mat-checkbox></p>
-                                <p><mat-checkbox formControlName="pode_votar">Pode votar</mat-checkbox></p>
-                            </section>
-                        </form>
-                    </div>
-                </div>
-                <div class="">
-                    <h3 class="text-primary">Segunda Turma</h3>
-
-                    <div class="mb-4">
-                        <div class="flex flex-row justify-items-center align-middle">
-                            <img class="w-12 h-12 mr-2" [src]="image.data" alt="imagem do presidente">
-                            
-                            <div>
-                                <h3 class="font-semibold m-0 p-0">Carmém Lucia</h3>
-                                <p class="text-hint m-0 p-0">Presidente</p>
-                            </div>
-                        </div>
-    
-                        <form [formGroup]="formCriacaoColegiado">
-                            <section class="mt-2">
-                                <p><mat-checkbox formControlName="incluir_voto">Incluir na votação</mat-checkbox></p>
-                                <p><mat-checkbox formControlName="ja_votou">Já votou</mat-checkbox></p>
-                                <p><mat-checkbox formControlName="pode_votar">Pode votar</mat-checkbox></p>
-                            </section>
-                        </form>
-                    </div>
-                    <div class="mb-4">
-                        <div class="flex flex-row justify-items-center align-middle">
-                            <img class="w-12 h-12 mr-2" [src]="image.data" alt="imagem do presidente">
-                            
-                            <div>
-                                <h3 class="font-semibold m-0 p-0">Carmém Lucia</h3>
-                                <p class="text-hint m-0 p-0">Presidente</p>
-                            </div>
-                        </div>
-    
-                        <form [formGroup]="formCriacaoColegiado">
-                            <section class="mt-2">
-                                <p><mat-checkbox formControlName="incluir_voto">Incluir na votação</mat-checkbox></p>
-                                <p><mat-checkbox formControlName="ja_votou">Já votou</mat-checkbox></p>
-                                <p><mat-checkbox formControlName="pode_votar">Pode votar</mat-checkbox></p>
-                            </section>
-                        </form>
-                    </div>
-                </div>
-                <div class="">
-                    <h3 class="text-primary">Presidente do STF</h3>
-
-                    <div class="mb-4">
-                        <div class="flex flex-row justify-items-center align-middle">
-                            <img class="w-12 h-12 mr-2" [src]="image.data" alt="imagem do presidente">
-                            
-                            <div>
-                                <h3 class="font-semibold m-0 p-0">Carmém Lucia</h3>
-                                <p class="text-hint m-0 p-0">Presidente</p>
-                            </div>
-                        </div>
-    
-                        <form [formGroup]="formCriacaoColegiado">
-                            <section class="mt-2">
-                                <p><mat-checkbox formControlName="incluir_voto">Incluir na votação</mat-checkbox></p>
-                                <p><mat-checkbox formControlName="ja_votou">Já votou</mat-checkbox></p>
-                                <p><mat-checkbox formControlName="pode_votar">Pode votar</mat-checkbox></p>
-                            </section>
-                        </form>
-                    </div>
-                </div>
+            <main [class]="'grid grid-cols-1 gap-4 align-middle justify-items-center w-full mx-auto' +
+                        ' sm:grid-cols-2' +  
+                        ' md:grid-cols-3 md:max-w-280'"
+            >
+              <app-card-ministro
+                  class="w-full"
+                  *ngFor="let comp of colegiados[0]?.composicao"
+                  [composicao]="comp"
+                  [colegiado]="colegiados[0]?.colegiado"
+                  (statusVotacao)="obterStatusDoVoto($event)"
+              ></app-card-ministro>
             </main>
         </div>
 
@@ -132,6 +40,7 @@
               <button 
                 class="ml-auto"
                 color="primary" 
+                (click)="finalizar()"
                 mat-raised-button 
               >
                 Finalizar 
