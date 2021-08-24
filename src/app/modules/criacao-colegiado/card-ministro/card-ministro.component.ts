@@ -21,14 +21,16 @@ export class CardMinistroComponent implements OnInit {
   constructor(
     private _fb: FormBuilder,
   ) { 
-    this.formCriacaoColegiado = this._fb.group({
-      incluir_voto: [false, [Validators.required]],
-      ja_votou: [false, [Validators.required]],
-      pode_votar: [false, [Validators.required]],
-    });
+    
   }
 
   ngOnInit(): void {
+    this.formCriacaoColegiado = this._fb.group({
+      incluir_voto: [false, [Validators.required]],
+      ja_votou: [false, [Validators.required]],
+      pode_votar: [(this.colegiado === 'pleno') ? true : false, [Validators.required]],
+    });
+
     this.minsitro = this.composicao.ministro;
     this.formCriacaoColegiado.valueChanges.subscribe(() => {
       this.statusVotacao.emit({

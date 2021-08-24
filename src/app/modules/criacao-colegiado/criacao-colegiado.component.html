@@ -3,7 +3,8 @@
     <!-- Header -->
     <div class="flex flex-row justify-center items-center sm:justify-between pl-8 bg-default dark:bg-transparent">
         <h1 class="mt-4 text-primary font-medium">
-            Colegiado para a ADI 100 Sessão 90/2020 Virtual Primeira Turma
+            Colegiado para a {{queryParams.processo | uppercase}} Sessão {{queryParams.sessao}} 
+            {{queryParams.colegiado | titlecase}}
         </h1>
     </div>
 
@@ -17,12 +18,12 @@
                 <h3>Topo</h3>
             </header>
 
-            <main [class]="'grid grid-cols-1 gap-4 align-middle justify-items-center w-full mx-auto' +
-                        ' sm:grid-cols-2' +  
-                        ' md:grid-cols-3 md:max-w-280'"
+            <main class="grid grid-cols-1 gap-4 align-middle justify-items-center w-full mx-auto
+                        sm:grid-cols-2 
+                        md:grid-cols-3 md:max-w-280"
             >
               <app-card-ministro
-                  class="w-full"
+                  class="w-full max-w-72"
                   *ngFor="let comp of colegiados[0]?.composicao"
                   [composicao]="comp"
                   [colegiado]="colegiados[0]?.colegiado"

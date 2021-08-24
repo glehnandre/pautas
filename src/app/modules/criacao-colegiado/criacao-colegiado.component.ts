@@ -15,6 +15,12 @@ import { MinistroService } from '../services/ministro.service';
 })
 export class CriacaoColegiadoComponent implements OnInit {
 
+  queryParams: {
+    processo: string,
+    data: string,
+    colegiado: string,
+    sessao: string,
+  };
   formVotacao: FormGroup;
   ministros: Ministro[] = [];
   colegiados: Colegiado[] = [];
@@ -48,27 +54,31 @@ export class CriacaoColegiadoComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    let colegiado;
     this._route.queryParams.subscribe((data) => {
-      colegiado = data.colegiado;
-    })
+      this.queryParams = {
+        colegiado: data.colegiado,
+        data: data.data,
+        processo: data.processo,
+        sessao: data.sessao,
+      };
 
-    this._ministroService.listarColegiados(colegiado).subscribe({
-      next: (colegiados) => {
-        colegiados.map(c => c.composicao.sort((a, b) => {
-          if (a.presidente) {
-            return -1;
-          }
-
-          if (b.presidente) {
-            return 1;
-          }
-
-          return 0;
-        }));
-        
-        this.colegiados = colegiados;
-      }
+      this._ministroService.listarColegiados(this.queryParams.colegiado).subscribe({
+        next: (colegiados) => {
+          colegiados.map(c => c.composicao.sort((a, b) => {
+            if (a.presidente) {
+              return -1;
+            }
+  
+            if (b.presidente) {
+              return 1;
+            }
+  
+            return 0;
+          }));
+          
+          this.colegiados = colegiados;
+        }
+      });
     });
   }
 

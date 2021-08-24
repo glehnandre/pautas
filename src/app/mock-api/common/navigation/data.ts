@@ -40,6 +40,7 @@ export const defaultNavigation: FuseNavigationItem[] = [
             processo: 'ADI100-Ag-Ag-Ag',
             data: '2016-08-29T09%3A12%3A33.001Z',
             colegiado: 'pleno',
+            sessao: '1000-2021',
         }
     },
 ];
@@ -82,6 +83,7 @@ export const compactNavigation: FuseNavigationItem[] = [
             processo: 'ADI100-Ag-Ag-Ag',
             data: '2016-08-29T09%3A12%3A33.001Z',
             colegiado: 'pleno',
+            sessao: '1000-2021',
         }
     },
 ];
@@ -124,6 +126,7 @@ export const futuristicNavigation: FuseNavigationItem[] = [
             processo: 'ADI100-Ag-Ag-Ag',
             data: '2016-08-29T09%3A12%3A33.001Z',
             colegiado: 'pleno',
+            sessao: '1000-2021',
         }
     },
 ];
