@@ -64,6 +64,7 @@ export class AcoesComponent implements OnInit {
     this.Allselected.emit(completed)
 
   }
+
   onResize() {
     if (document.body.clientWidth <= 800) {
       this.mobile = true
@@ -172,6 +173,29 @@ export class AcoesComponent implements OnInit {
     }, 5000);
   }
 
+  filtrarProcesso(situacao: string): string {
+    let processosRemovidos = [], processosSelecinados = [];
+    this.processos.forEach((processo, i) => {
+
+      if (processo.situacao !== SituacaoDoProcesso[situacao]) {
+          processosRemovidos.push(processo);
+          processo.checked = false;
+      }
+      else processosSelecinados.push(processo);
+    });
+
+    this._processoService.setProcessosSelecionados(processosSelecinados);
+
+    if(processosRemovidos.length) {
+      const titulo = processosRemovidos.length == 1 ?
+        `O processo precisa estar com situação de ${situacao}.`:
+        `Os processos precisam estar com situação de ${situacao}.`;
+      const removidos = this._processoService.exibeDescricaoDosProcessos(processosRemovidos);
+      this.alertaDeErro(titulo, removidos);
+      return removidos;
+    }
+  }
+
   abrirModalDeReanalizar(): void {
     this.filtrarProcesso('Apto a Pautar');
     if (!this.verificaProcesso()) {
@@ -198,28 +222,6 @@ export class AcoesComponent implements OnInit {
         data: this.processos,
       });
       dialogRef.afterClosed().subscribe(resultado => {});
-    }
-  }
-
-  filtrarProcesso(situacao: string): void {
-    let processosRemovidos = [], processosSelecinados = [];
-    this.processos.forEach((processo, i) => {
-
-      if (processo.situacao !== SituacaoDoProcesso[situacao]) {
-          processosRemovidos.push(processo);
-          processo.checked = false;
-      }
-      else processosSelecinados.push(processo);
-    });
-
-    this._processoService.setProcessosSelecionados(processosSelecinados);
-
-    if(processosRemovidos.length) {
-      const titulo = processosRemovidos.length == 1 ?
-        `O processo precisa estar com situação de ${situacao}.`:
-        `Os processos precisam estar com situação de ${situacao}.`;
-
-      this.alertaDeErro(titulo, this._processoService.exibeDescricaoDosProcessos(processosRemovidos))
     }
   }
 }
