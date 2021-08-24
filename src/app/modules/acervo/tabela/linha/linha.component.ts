@@ -19,18 +19,27 @@ export class LinhaComponent implements OnInit {
 
   @Input() Selected: boolean;
   @Input() processo: Processo;
-  
+
   panelOpenState = false;
 
   constructor(private _processoService: ProcessoService) {
-    
+
 
     if (document.body.clientWidth <= 1000) {
       this.mobile = !this.mobile
     }
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this._processoService.obterProcessosSelecionados().subscribe((p) => {
+        this.Selected = false;
+        const newList = new Set(p);
+        newList.forEach(p => {
+          if (p.id === this.processo.id)
+            this.processo.checked = true;
+        });
+    });
+  }
 
   emiteStatusDoCheckbox(status: MatCheckboxChange) {
     this.processo.checked = status.checked;
@@ -44,7 +53,7 @@ export class LinhaComponent implements OnInit {
     this.tagSelecionada.emit(tag)
 
   }
-  
+
   onResize() {
     if (document.body.clientWidth <= 1000) {
       this.mobile = true

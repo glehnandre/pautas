@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { FuseAlertService } from '@fuse/components/alert';
@@ -99,7 +99,6 @@ export class AcoesComponent implements OnInit {
       this.mostrarAlerta();
     }
     else{
-      this.fecharAlerta();
       // Open the dialog
       const dialogRef = this._matDialog.open(PautarComponent, {data: {processos: [...this.processos]}});
 
