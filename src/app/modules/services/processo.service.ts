@@ -2,6 +2,7 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, EMPTY, Subject } from 'rxjs';
 import { catchError } from 'rxjs/operators';
+import { Documento } from '../acervo/model/interfaces/documento.interface';
 import { Processo } from '../acervo/model/interfaces/processo.interface';
 import { StatusProcesso } from '../acervo/tabela/status/situacaoProcesso';
 
@@ -35,6 +36,16 @@ export class ProcessoService {
 
   public obterStatusDoProcesso(id: number): Observable<StatusProcesso> {
     return this._httpClient.get<StatusProcesso>(`processos/${id}/situacao`)
+      .pipe(
+        catchError(error => {
+          console.log(error);
+          return EMPTY;
+        })
+      );
+  }
+
+  public obterDocumentosDoProcesso(id: number): Observable<Documento> {
+    return this._httpClient.get<Documento>(`processos/${id}/documentos`)
       .pipe(
         catchError(error => {
           console.log(error);

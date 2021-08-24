@@ -1,11 +1,13 @@
-import { Component, OnInit, ViewChild, ElementRef  } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, Input  } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { FuseMediaWatcherService } from '@fuse/services/media-watcher';
 import { map, takeUntil } from 'rxjs/operators';
 import { Colegiado, ComposicaoColegiado, NomeDoColegiado } from '../acervo/model/interfaces/colegiado.interface';
 import { Ministro } from '../acervo/model/interfaces/ministro.interface';
+import { Processo } from '../acervo/model/interfaces/processo.interface';
 import { Voto, VotoDoMinistro } from '../acervo/model/interfaces/voto.interface';
 import { MinistroService } from '../services/ministro.service';
+import { ProcessoService } from '../services/processo.service';
 
 @Component({
   selector: 'app-criacao-colegiado',
@@ -16,7 +18,9 @@ export class CriacaoColegiadoComponent implements OnInit {
 
   @ViewChild('widgetsContent', { read: ElementRef }) public widgetsContent: ElementRef<any>;
   @ViewChild('widgetsContent1', { read: ElementRef }) public widgetsContent1: ElementRef<any>;
+  @Input() idProcesso: number;
 
+  processos: Processo[] = [];
   formVotacao: FormGroup;
   ministros: Ministro[] = [];
   colegiados: Colegiado[] = [];
@@ -41,6 +45,7 @@ export class CriacaoColegiadoComponent implements OnInit {
   constructor(
     private _fb: FormBuilder,
     private _ministroService: MinistroService,
+    private _processoService: ProcessoService
   ) { 
     this.formVotacao = this._fb.group({
       processo: ['ADI100-Ag-Ag-A', Validators.required],
@@ -82,6 +87,11 @@ export class CriacaoColegiadoComponent implements OnInit {
         this.colegiados = colegiados;
       }
     });
+    console.log(this.idProcesso);
+
+    /*this._processoService.obterDocumentosDoProcesso(0).subscribe(data=>{
+      console.log(this.idProcesso);
+    })*/
   }
 
   /**
