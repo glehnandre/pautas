@@ -2,7 +2,7 @@ import { SituacaoDoProcesso } from "app/modules/acervo/model/enums/situacaoDoPro
 import { TipoDoProcesso } from "app/modules/acervo/model/enums/tipoDoProcesso.enum";
 import { Processo } from "app/modules/acervo/model/interfaces/processo.interface";
 import { SessaoDeJulgamento } from "app/modules/acervo/model/interfaces/sessaoDeJulgamento.interface";
-import { SessaoJulgamento } from "app/modules/services/julgamento.service";
+import { JulgamentoService } from "app/modules/services/julgamento.service";
 
 export const sessao: SessaoDeJulgamento[] = [
   {
