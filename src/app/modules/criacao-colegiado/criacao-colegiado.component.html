@@ -18,6 +18,17 @@
                 <h3>Topo</h3>
             </header>
 
+            <div>
+              <p *ngIf="votosDosMinistros.length < 5">
+                Informe os {{calcularContador()}} ministros que irão compor o colegiado.
+              </p>
+
+              <p *ngIf="votosDosMinistros.length >= 5">
+                Já foram selecionados os 5 ministros para esse colegiado. 
+                Para selecionar outros ministros primeiro desmarque algum
+              </p>
+            </div>
+
             <main class="grid grid-cols-1 gap-4 align-middle justify-items-center w-full mx-auto
                         sm:grid-cols-2 
                         md:grid-cols-3 md:max-w-280"
@@ -27,26 +38,27 @@
                   *ngFor="let comp of colegiados[0]?.composicao"
                   [composicao]="comp"
                   [colegiado]="colegiados[0]?.colegiado"
+                  [disabled]="calcularContador() === 0"
                   (statusVotacao)="obterStatusDoVoto($event)"
               ></app-card-ministro>
             </main>
         </div>
 
         <div class="flex flex-col sm:flex-row sm:items-center justify-between mt-4 sm:mt-6">
-            <div class="flex items-center mt-4 sm:mt-0 ml-auto">
-              <button class="ml-auto sm:ml-0 mr-2" mat-button>
-                <span>Cancelar</span>
-              </button>
-        
-              <button 
-                class="ml-auto"
-                color="primary" 
-                (click)="finalizar()"
-                mat-raised-button 
-              >
-                Finalizar 
-              </button>
-            </div>
+          <div class="flex items-center mt-4 sm:mt-0 ml-auto">
+            <button class="ml-auto sm:ml-0 mr-2" mat-button>
+              <span>Cancelar</span>
+            </button>
+      
+            <button 
+              class="ml-auto"
+              color="primary" 
+              (click)="finalizar()"
+              mat-raised-button 
+            >
+              Finalizar 
+            </button>
           </div>
+        </div>
     </div>
 </div>

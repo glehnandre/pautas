@@ -125,6 +125,12 @@ export class CriacaoColegiadoComponent implements OnInit {
     return true;
   }
 
+  calcularContador(): number {
+    const MAX: number = 5;
+    const sub =( MAX - this.votosDosMinistros.length);
+    return (sub >= 0) ? sub : 0;
+  }
+
   finalizar(): void {
     if (this.isSelecoesValidas()) {
       console.table(this.formVotacao.value);
