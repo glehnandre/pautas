@@ -84,5 +84,45 @@ export class JulgamentoMockApi {
             return [404, { description: 'Nenhuma sessão de julgamento aberta para o periodo encontrada. Pode haver sessão de julgamento fechadas para o período.' }];
           }
         });
+
+        this._fuseMockApiService
+        .onGet('sessoes-de-julgamento/:numero-ano/aprovar')
+        .reply(({request, urlParams}) => {
+          const numeroAno = urlParams['numero-ano'];
+
+          const sessaoDeJulgamento = this._julgamentos
+            .find(julg => {
+              const sessaoNumeroAno = `${julg.numero}-${julg.ano}`;
+              return sessaoNumeroAno === numeroAno;
+            });
+
+          if (sessaoDeJulgamento) {
+            return [200, sessaoDeJulgamento];
+          } else {
+            return [404, { description: 'Sessao de julgamento não foi encontrada' }];
+          }
+        });
+
+        this._fuseMockApiService
+        .onPut('sessoes-de-julgamento/:numero-ano/rejeitar')
+        .reply(({request, urlParams}) => {
+          const numeroAno = urlParams['numero-ano'];
+          
+          let sessaoDeJulgamento;
+          this._julgamentos
+            .map(julg => {
+              let numeroano = `${julg.numero}-${julg.ano}`;
+              if(numeroano == numeroAno){
+                julg.situacao = "REJEITADA";
+                sessaoDeJulgamento = julg;
+              }
+            });
+
+          if (sessaoDeJulgamento) {
+            return [200, sessaoDeJulgamento];
+          } else {
+            return [404, { description: 'Sessao de julgamento não foi encontrada' }];
+          }
+        });
     }
 }

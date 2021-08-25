@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { FuseAlertService } from '@fuse/components/alert';
 import { AlertaService } from 'app/modules/services/alerta.service';
+import { ProcessoService } from 'app/modules/services/processo.service';
 import { EMPTY, Observable } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { Tag } from '../../model/interfaces/tag.interface';
@@ -30,6 +31,7 @@ export class AgruparEmlistaComponent implements OnInit {
     private _alertService: AlertaService,
     public dialogRef: MatDialogRef<AgruparEmlistaComponent>,
     public dialog: MatDialog,
+    private _processoService: ProcessoService
   ) {}
 
   ngOnInit() {
@@ -72,22 +74,12 @@ export class AgruparEmlistaComponent implements OnInit {
   }
 
   carregaTodasAsTags(): void {
-    this.recuperarTagsDaApi().subscribe({
+    this._processoService.recuperarTagsDaApi().subscribe({
       next: (data) => {
         this.tags = data;
         this.tags.map(tag => tag.checked = false);
       }
     });
   }
-
-  recuperarTagsDaApi(): Observable<Tag[]> {
-    return this._httpClient.get<Tag[]>('tags').pipe(
-      catchError(error => {
-        console.log(error);
-        return EMPTY;
-      })
-    );
-  }
-
 }
 

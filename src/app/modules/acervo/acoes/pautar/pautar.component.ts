@@ -1,11 +1,8 @@
-import { HttpClient } from '@angular/common/http';
 import { Component, OnInit, Inject } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { FuseAlertService } from '@fuse/components/alert';
 import { AlertaService } from 'app/modules/services/alerta.service';
 import { JulgamentoService } from 'app/modules/services/julgamento.service';
-import { ProcessoService } from 'app/modules/services/processo.service';
 import { Observable } from 'rxjs';
 import { Processo } from '../../model/interfaces/processo.interface';
 import { SessaoJulgamento } from '../../model/interfaces/sessao-julgamento.interface';
@@ -57,8 +54,6 @@ export class PautarComponent implements OnInit {
         private _formBuilder: FormBuilder,
         private _dialog: MatDialog,
         private _julgamentoService: JulgamentoService,
-        private _fuseAlertService: FuseAlertService,
-        private _processoService: ProcessoService,
         private _alertService: AlertaService,
         @Inject(MAT_DIALOG_DATA) public data: any,
     ) {
@@ -96,16 +91,6 @@ export class PautarComponent implements OnInit {
                     this._alertService.exibirAlertaDeSucesso();
                 }   
             });   
-        }
-    }
-
-    removeChip(processo: Processo){
-        this.data.processos.splice(this.data.processos.indexOf(processo), 1);
-        processo.checked = false;
-        this._processoService.setProcessosSelecionados(this.data.processos);
-
-        if(this.data.processos.length == 0){
-            this.fechar();
         }
     }
 }

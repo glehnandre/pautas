@@ -65,4 +65,24 @@ export class JulgamentoService {
     ); 
   }
 
+  public aprovarSessaoDeJulgamento(numero: number, ano: number): Observable<SessaoJulgamento> {
+    const numeroAno = `${numero}-${ano}`;
+    return this._httpClient.get<SessaoJulgamento>(`sessoes-de-julgamento/${numeroAno}/aprovar`).pipe(
+      catchError(error => {
+        console.log(error);
+        return EMPTY;
+      }),
+    );
+  }
+
+  public rejeitarSessaoDeJulgamento(numero: number, ano: number): Observable<SessaoJulgamento> {
+    const numeroAno = `${numero}-${ano}`;
+    return this._httpClient.put<SessaoJulgamento>(`sessoes-de-julgamento/${numeroAno}/rejeitar`, numeroAno).pipe(
+      catchError(error => {
+        console.log(error);
+        return EMPTY;
+      }),
+    );
+  }
+
 }

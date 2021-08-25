@@ -2,7 +2,9 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, EMPTY, Subject } from 'rxjs';
 import { catchError } from 'rxjs/operators';
+import { Documento } from '../acervo/model/interfaces/documento.interface';
 import { Processo } from '../acervo/model/interfaces/processo.interface';
+import { Tag } from '../acervo/model/interfaces/tag.interface';
 import { StatusProcesso } from '../acervo/tabela/status/situacaoProcesso';
 
 @Injectable({
@@ -41,6 +43,25 @@ export class ProcessoService {
           return EMPTY;
         })
       );
+  }
+
+  public obterDocumentosDoProcesso(id: number): Observable<Documento[]> {
+    return this._httpClient.get<Documento[]>(`processos/${id}/documentos`)
+      .pipe(
+        catchError(error => {
+          console.log(error);
+          return EMPTY;
+        })
+      );
+  }
+
+  public recuperarTagsDaApi(): Observable<Tag[]> {
+    return this._httpClient.get<Tag[]>('tags').pipe(
+      catchError(error => {
+        console.log(error);
+        return EMPTY;
+      })
+    );
   }
 
   public setCarregarProcessos(carregarProcessos: boolean): void {
