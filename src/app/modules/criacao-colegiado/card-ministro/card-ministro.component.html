@@ -8,15 +8,73 @@
             >
 
             <div class="flex flex-col ng-tns-c129-56 ng-star-inserted">
-                <div class="text-lg font-medium text-gray-800 leading-tight">
+                <mat-button-toggle-group role="group" class="mat-button-toggle-group flex flex-wrap -m-2 mat-button-toggle-group-appearance-standard ng-untouched ng-pristine ng-valid" aria-disabled="false">
+                    <mat-button-toggle role="presentation" class="mat-button-toggle m-2 mat-button-toggle-appearance-standard ng-star-inserted mat-button-toggle-checked" id="mat-button-toggle-1">
+                        <button type="button" class="p-0 mat-button-toggle-button mat-focus-indicator" id="mat-button-toggle-1-button" tabindex="0" aria-pressed="true" name="mat-button-toggle-group-0">
+                            <span class="mat-button-toggle-label-content p-0 m-0 flex justify-center align-middle">
+                                <span class="text-secondary p-0">
+                                    {{minsitro.nome}}
+                                </span>
+                            </span>
+                        </button>
+                        <span class="mat-button-toggle-focus-overlay">
+                        </span>
+                        <span matripple="" class="mat-ripple mat-button-toggle-ripple">
+                        </span>
+                    </mat-button-toggle>
+    
+                    <mat-button-toggle role="presentation" class="mat-button-toggle m-2 mat-button-toggle-appearance-standard ng-star-inserted mat-button-toggle-checked" id="mat-button-toggle-1">
+                        <button type="button" class="p-0 mat-button-toggle-button mat-focus-indicator" id="mat-button-toggle-1-button" tabindex="0" aria-pressed="true" name="mat-button-toggle-group-0">
+                            <span class="mat-button-toggle-label-content p-0">
+                                <span class="text-secondary p-0">
+                                    {{minsitro.abreviacao}}
+                                </span>
+                            </span>
+                        </button>
+                        <span class="mat-button-toggle-focus-overlay">
+                        </span>
+                        <span matripple="" class="mat-ripple mat-button-toggle-ripple">
+                        </span>
+                    </mat-button-toggle>
+    
+                    <mat-button-toggle role="presentation" class="mat-button-toggle m-2 mat-button-toggle-appearance-standard ng-star-inserted mat-button-toggle-checked" id="mat-button-toggle-1">
+                        <button type="button" class="p-0 mat-button-toggle-button mat-focus-indicator" id="mat-button-toggle-1-button" tabindex="0" aria-pressed="true" name="mat-button-toggle-group-0">
+                            <span class="mat-button-toggle-label-content p-0">
+                                <span class="text-secondary p-0">
+                                    {{colegiado}}
+                                </span>
+                            </span>
+                        </button>
+                        <span class="mat-button-toggle-focus-overlay">
+                        </span>
+                        <span matripple="" class="mat-ripple mat-button-toggle-ripple">
+                        </span>
+                    </mat-button-toggle>
+    
+                    <mat-button-toggle *ngIf="obterDescricao() !== ''" role="presentation" class="mat-button-toggle m-2 mat-button-toggle-appearance-standard ng-star-inserted mat-button-toggle-checked" id="mat-button-toggle-1">
+                        <button type="button" class="p-0 mat-button-toggle-button mat-focus-indicator" id="mat-button-toggle-1-button" tabindex="0" aria-pressed="true" name="mat-button-toggle-group-0">
+                            <span class="mat-button-toggle-label-content p-0">
+                                <span class="text-secondary p-0">
+                                    {{obterDescricao()}}
+                                </span>
+                            </span>
+                        </button>
+                        <span class="mat-button-toggle-focus-overlay">
+                        </span>
+                        <span matripple="" class="mat-ripple mat-button-toggle-ripple">
+                        </span>
+                    </mat-button-toggle>
+                </mat-button-toggle-group>
+
+                <!--<div class="text-lg font-medium text-gray-800 leading-tight">
                     {{minsitro?.nome}}
                 </div>
                 <div class="text-md leading-tight text-primary">
-                    {{minsitro?.abreviacao | uppercase}}
+                    {{minsitro?.abreviacao | uppercase}} <br/> {{colegiado}}
                 </div>
                 <div class="text-md text-secondary mt-2">
                     {{obterDescricao()}}
-                </div>
+                </div>-->
             </div>
         </div>
 
@@ -26,9 +84,9 @@
             <div class="text-md font-medium text-secondary mr-3">
                 <form [formGroup]="formCriacaoColegiado">
                     <section class="mt-2">
-                        <p><mat-checkbox color="primary" formControlName="incluir_voto">Incluir na votação</mat-checkbox></p>
-                        <p><mat-checkbox color="primary" formControlName="ja_votou">Já votou</mat-checkbox></p>
-                        <p><mat-checkbox color="primary" formControlName="pode_votar">Pode votar</mat-checkbox></p>
+                        <p><mat-checkbox [disabled]="disabled" color="primary" formControlName="incluir_voto">Incluir na votação</mat-checkbox></p>
+                        <p><mat-checkbox [disabled]="disabled" color="primary" formControlName="ja_votou">Já votou</mat-checkbox></p>
+                        <p *ngIf="colegiado !== 'pleno'"><mat-checkbox [disabled]="disabled" color="primary" formControlName="pode_votar">Pode votar</mat-checkbox></p>
                     </section>
                 </form>
             </div>

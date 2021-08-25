@@ -1,5 +1,4 @@
-export interface SessaoDeJulgamento {
-    id: number;
+export interface SessaoJulgamento {
     numero: number;
     ano: number;
     colegiado: string;
@@ -12,5 +11,5 @@ export interface SessaoDeJulgamento {
         id: number;
         nome: string;
     };
-    situacao?: "PUBLICADA" | "APROVADA" | "FECHADA" | "ABERTA" | "FINALIZADA" | "REJEITADA";
+    situacao: 'PUBLICADA' | 'APROVADA' | 'FECHADA' | 'ABERTA' | 'FINALIZADA' | 'REJEITADA';
 }

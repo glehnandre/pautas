@@ -12,6 +12,8 @@ import { CardMinistroComponent } from './card-ministro/card-ministro.component';
 import { FuseMasonryModule } from '@fuse/components/masonry';
 import { MatChipsModule } from '@angular/material/chips';
  
+import { MatButtonToggleModule } from '@angular/material/button-toggle';
+
 const CriacaoColegiadoRoutes: Routes = [
   { path: '', component: CriacaoColegiadoComponent },
 ];
@@ -33,6 +35,7 @@ const CriacaoColegiadoRoutes: Routes = [
     FuseCardModule,
     FuseMasonryModule,
     MatChipsModule,
+    MatButtonToggleModule,
   ],
   exports: [
     CriacaoColegiadoComponent,

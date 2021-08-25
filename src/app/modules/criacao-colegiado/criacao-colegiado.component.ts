@@ -1,12 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { FuseMediaWatcherService } from '@fuse/services/media-watcher';
-import { map, takeUntil } from 'rxjs/operators';
-import { Colegiado, ComposicaoColegiado, NomeDoColegiado } from '../acervo/model/interfaces/colegiado.interface';
+import { ActivatedRoute } from '@angular/router';
+import { Colegiado, ComposicaoColegiado } from '../acervo/model/interfaces/colegiado.interface';
 import { Documento } from '../acervo/model/interfaces/documento.interface';
 import { Ministro } from '../acervo/model/interfaces/ministro.interface';
 import { Tag } from '../acervo/model/interfaces/tag.interface';
-import { Voto, VotoDoMinistro } from '../acervo/model/interfaces/voto.interface';
 import { MinistroService } from '../services/ministro.service';
 import { ProcessoService } from '../services/processo.service';
 
@@ -17,12 +15,18 @@ import { ProcessoService } from '../services/processo.service';
 })
 export class CriacaoColegiadoComponent implements OnInit {
 
+  queryParams: {
+    processo: string,
+    data: string,
+    colegiado: string,
+    sessao: string,
+  };
   formVotacao: FormGroup;
   ministros: Ministro[] = [];
   colegiados: Colegiado[] = [];
+  composicao: ComposicaoColegiado[] = [];
   votosDosMinistros: ComposicaoColegiado[] = [];
   relator: Ministro;
-  texto: string = "Informe os 5 ministros que devem estar no colegiado da Primeira Turma para o processo se podem votar";
   tags: Tag[];
   documentos: Documento[];
 
@@ -41,7 +45,8 @@ export class CriacaoColegiadoComponent implements OnInit {
   constructor(
     private _fb: FormBuilder,
     private _ministroService: MinistroService,
-    private _processoService: ProcessoService
+    private _processoService: ProcessoService,
+    private _route: ActivatedRoute,
   ) { 
     this.formVotacao = this._fb.group({
       processo: ['ADI100-Ag-Ag-A', Validators.required],
@@ -53,35 +58,36 @@ export class CriacaoColegiadoComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this._ministroService.listarMinistros().subscribe({
-      next: (ministros) => {
-        this.ministros = ministros;
-        console.log(ministros);
-      }
-    });
+    this._route.queryParams.subscribe((data) => {
+      this.queryParams = {
+        colegiado: data.colegiado,
+        data: data.data,
+        processo: data.processo,
+        sessao: data.sessao,
+      };
 
-    this._ministroService.listarColegiados().subscribe({
-      next: (colegiados) => {
-        colegiados.map(c => c.composicao.sort((a, b) => {
-          c.composicao.map(data => {
-            if(data.relator == true){
-              this.relator = data.ministro
+      this._ministroService.listarColegiados(this.queryParams.colegiado).subscribe({
+        next: (colegiados) => {
+          colegiados.map(c => c.composicao.sort((a, b) => {
+            c.composicao.map(data => {
+              if(data.relator == true){
+                this.relator = data.ministro
+              }
+            })
+            if (a.presidente) {
+              return -1;
             }
-          })
-
-          if (a.presidente) {
-            return -1;
-          }
-
-          if (b.presidente) {
-            return 1;
-          }
-
-          return 0;
-        }));
-        
-        this.colegiados = colegiados;
-      }
+  
+            if (b.presidente) {
+              return 1;
+            }
+  
+            return 0;
+          }));
+          
+          this.colegiados = colegiados;
+        }
+      });
     });
 
     this._processoService.obterDocumentosDoProcesso(1).subscribe(data=>{
@@ -129,7 +135,6 @@ export class CriacaoColegiadoComponent implements OnInit {
 
   isSelecoesValidas(): boolean {
     const MIN_VOTOS: number = 5;
-    const MAX_VOTOS: number = 10;
 
     if (this.votosDosMinistros.length === 0) {
       alert('Nunhum voto selecionado!');
@@ -141,11 +146,6 @@ export class CriacaoColegiadoComponent implements OnInit {
       return false;
     }
 
-    if (this.votosDosMinistros.length > MAX_VOTOS) {
-      alert('Número maximo de votos atingido! Maximo: ' + MAX_VOTOS);
-      return false;
-    }
-
     if (!this.votosDosMinistros.some(ministro => ministro.relator)) {
       alert('Não há relatores selecionados!');
       return false;
@@ -154,9 +154,20 @@ export class CriacaoColegiadoComponent implements OnInit {
     return true;
   }
 
+  calcularContador(): number {
+    const MAX: number = 5;
+    const sub =( MAX - this.votosDosMinistros.length);
+    return (sub >= 0) ? sub : 0;
+  }
+
   finalizar(): void {
     if (this.isSelecoesValidas()) {
       console.table(this.formVotacao.value);
+      this._ministroService.criarColegiado(this.formVotacao.value).subscribe({
+        next: (data) => {
+          console.log(data);
+        }
+      });
     }
   }
 }
