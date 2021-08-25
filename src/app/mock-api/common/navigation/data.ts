@@ -43,6 +43,13 @@ export const defaultNavigation: FuseNavigationItem[] = [
             sessao: '1000-2021',
         }
     },
+    {
+        id   : 'sessoes-julgamento',
+        title: 'Sessões de julgamento',
+        type : 'basic',
+        icon : 'heroicons_outline:chart-pie',
+        link : '/sessoes-julgamento',
+    },
 ];
 export const compactNavigation: FuseNavigationItem[] = [
     {
@@ -85,6 +92,13 @@ export const compactNavigation: FuseNavigationItem[] = [
             colegiado: 'pleno',
             sessao: '1000-2021',
         }
+    },
+    {
+        id   : 'sessoes-julgamento',
+        title: 'Sessões de Julgamento',
+        type : 'basic',
+        icon : 'heroicons_outline:chart-pie',
+        link : '/sessoes-julgamento'
     },
 ];
 export const futuristicNavigation: FuseNavigationItem[] = [
@@ -129,6 +143,13 @@ export const futuristicNavigation: FuseNavigationItem[] = [
             sessao: '1000-2021',
         }
     },
+    {
+        id   : 'sessoes-julgamento',
+        title: 'Sessões de Julgamento',
+        type : 'basic',
+        icon : 'heroicons_outline:chart-pie',
+        link : '/sessoes-julgamento'
+    },
 ];
 export const horizontalNavigation: FuseNavigationItem[] = [
     {
@@ -165,5 +186,12 @@ export const horizontalNavigation: FuseNavigationItem[] = [
         type : 'basic',
         icon : 'heroicons_outline:chart-pie',
         link : '/criacao-colegiado'
-    }
+    },
+    {
+        id   : 'sessoes-julgamento',
+        title: 'Sessões de julgamento',
+        type : 'basic',
+        icon : 'heroicons_outline:chart-pie',
+        link : '/sessoes-julgamento',
+    },
 ];

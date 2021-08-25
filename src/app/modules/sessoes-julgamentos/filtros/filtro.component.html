@@ -2,7 +2,6 @@
     <div>
         <mat-form-field hintLabel="Informe um termo para pesquisar ou acesse as opções de filtro"
             class="fuse-mat-rounded">
-            <mat-label>Filtrar processos</mat-label>
             <mat-icon matPreffix>search</mat-icon>
             <input matInput (keyup)="filtros.termo = $event.target.value" autofocus
                 placeholder="Digite aqui seu filtro...">
@@ -31,20 +30,20 @@
                 Pleno
                 <mat-icon matChipRemove>cancel</mat-icon>
             </mat-chip>
-            <mat-chip *ngFor="let situacao of this.filtros.situacoes" [removable]="true"
+            <!-- <mat-chip *ngFor="let situacao of this.filtros.situacoes" [removable]="true"
                 (removed)="removeFiltro('situacoes', situacao)">
                 {{ situacao }}
                 <mat-icon matChipRemove>cancel</mat-icon>
-            </mat-chip>
-            <mat-chip *ngFor="let classe of this.filtros.classes" [removable]="true"
+            </mat-chip> -->
+            <!-- <mat-chip *ngFor="let classe of this.filtros.classes" [removable]="true"
                 (removed)="removeFiltro('classes', classe)">
                 {{ classe }}
                 <mat-icon matChipRemove>cancel</mat-icon>
-            </mat-chip>
-            <mat-chip *ngFor="let tag of this.filtros.tags" [removable]="true" (removed)="removeFiltro('tags', tag)">
-                {{ tag.descricao }}
+            </mat-chip> -->
+            <!-- <mat-chip *ngFor="let modalidade of this.filtros.modalidades" [removable]="true" (removed)="removeFiltro('modalidades', modalidade)">
+                {{ modalidade }}
                 <mat-icon matChipRemove>cancel</mat-icon>
-            </mat-chip>
+            </mat-chip> -->
         </mat-chip-list>
     </div>
 </div>
