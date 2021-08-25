@@ -11,14 +11,14 @@ export const defaultNavigation: FuseNavigationItem[] = [
     },
     {
         id   : 'acervo',
-        title: 'Acervo',
+        title: 'Acervo Efetivo',
         type : 'basic',
         icon : 'heroicons_outline:chart-pie',
         link : '/acervo'
     },
     {
         id   : 'julgamento-extraordinario',
-        title: 'Julgamento Extraordinario',
+        title: 'Resposta de Solicitação de Julgamento Extraordinario',
         type : 'basic',
         icon : 'heroicons_outline:chart-pie',
         link : '/julgamento-extraordinario'
@@ -45,7 +45,7 @@ export const defaultNavigation: FuseNavigationItem[] = [
     },
     {
         id   : 'sessoes-julgamento',
-        title: 'Sessões de julgamento',
+        title: 'Processos pautados',
         type : 'basic',
         icon : 'heroicons_outline:chart-pie',
         link : '/sessoes-julgamento',

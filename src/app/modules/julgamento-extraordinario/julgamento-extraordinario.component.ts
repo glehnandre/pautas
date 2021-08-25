@@ -7,7 +7,7 @@ import * as _moment from 'moment';
 import { default as _rollupMoment, Moment } from 'moment';
 import { SituacaoDoProcesso } from '../acervo/model/enums/situacaoDoProcesso.enum';
 import { Processo } from '../acervo/model/interfaces/processo.interface';
-import { SessaoJulgamento } from '../acervo/model/interfaces/sessao-julgamento';
+import { SessaoJulgamento } from '../acervo/model/interfaces/sessao-julgamento.interface';
 import { JulgamentoService } from '../services/julgamento.service';
 
 const moment = _rollupMoment || _moment;

@@ -5,7 +5,7 @@ import { AlertaService } from 'app/modules/services/alerta.service';
 import { JulgamentoService } from 'app/modules/services/julgamento.service';
 import { Observable } from 'rxjs';
 import { Processo } from '../../model/interfaces/processo.interface';
-import { SessaoJulgamento } from '../../model/interfaces/sessao-julgamento';
+import { SessaoJulgamento } from '../../model/interfaces/sessao-julgamento.interface';
 import { SessaoExtraordinariaComponent } from './sessao-extraordinaria/sessao-extraordinaria.component';
 
 

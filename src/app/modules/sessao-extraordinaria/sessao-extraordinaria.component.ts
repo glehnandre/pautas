@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { SituacaoDoProcesso } from 'app/modules/acervo/model/enums/situacaoDoProcesso.enum';
 import { Processo } from 'app/modules/acervo/model/interfaces/processo.interface';
-import { SessaoJulgamento } from 'app/modules/acervo/model/interfaces/sessao-julgamento';
+import { SessaoJulgamento } from 'app/modules/acervo/model/interfaces/sessao-julgamento.interface';
 import { JulgamentoService } from 'app/modules/services/julgamento.service';
 import { registerLocaleData } from '@angular/common';
 import localePT from '@angular/common/locales/pt';
@@ -27,6 +27,19 @@ export class SessaoExtraordinariaComponent implements OnInit {
   data_inicio: string;
   data_fim: string;
   texto: string;
+
+  sessoes: SessaoJulgamento[] = [
+    { ano: 2021, numero: 1, colegiado: 'Primeira Turma', modalidade: 'Virtual', categoria: 'Judicial', tipo: 'Ordinária', data_inicio: '2016-08-29T09:12:33.001Z', data_fim: '2016-08-29T09:12:33.001Z', situacao: 'ABERTA'},
+    { ano: 2021, numero: 2, colegiado: 'Primeira Turma', modalidade: 'Virtual', categoria: 'Judicial', tipo: 'Ordinária', data_inicio: '2016-08-29T09:12:33.001Z', data_fim: '2016-08-29T09:12:33.001Z', situacao: 'ABERTA'},
+    { ano: 2021, numero: 3, colegiado: 'Segunda Turma', modalidade: 'Virtual', categoria: 'Judicial', tipo: 'Ordinária', data_inicio: '2016-08-29T09:12:33.001Z', data_fim: '2016-08-29T09:12:33.001Z', situacao: 'ABERTA'},
+    { ano: 2021, numero: 4, colegiado: 'Segunda Turma', modalidade: 'Virtual', categoria: 'Judicial', tipo: 'Ordinária', data_inicio: '2016-08-29T09:12:33.001Z', data_fim: '2016-08-29T09:12:33.001Z', situacao: 'ABERTA'},
+    { ano: 2021, numero: 5, colegiado: 'Segunda Turma', modalidade: 'Virtual', categoria: 'Judicial', tipo: 'Ordinária', data_inicio: '2016-08-29T09:12:33.001Z', data_fim: '2016-08-29T09:12:33.001Z', situacao: 'ABERTA'},
+    { ano: 2021, numero: 6, colegiado: 'Segunda Turma', modalidade: 'Virtual', categoria: 'Judicial', tipo: 'Ordinária', data_inicio: '2016-08-29T09:12:33.001Z', data_fim: '2016-08-29T09:12:33.001Z', situacao: 'ABERTA'},
+    { ano: 2021, numero: 7, colegiado: 'Segunda Turma', modalidade: 'Virtual', categoria: 'Judicial', tipo: 'Ordinária', data_inicio: '2016-08-29T09:12:33.001Z', data_fim: '2016-08-29T09:12:33.001Z', situacao: 'ABERTA'},
+    { ano: 2021, numero: 8, colegiado: 'Pleno', modalidade: 'Virtual', categoria: 'Judicial', tipo: 'Ordinária', data_inicio: '2016-08-29T09:12:33.001Z', data_fim: '2016-08-29T09:12:33.001Z', situacao: 'ABERTA'},
+    { ano: 2021, numero: 9, colegiado: 'Pleno', modalidade: 'Virtual', categoria: 'Judicial', tipo: 'Ordinária', data_inicio: '2016-08-29T09:12:33.001Z', data_fim: '2016-08-29T09:12:33.001Z', situacao: 'ABERTA'},
+    { ano: 2021, numero: 10, colegiado: 'Pleno', modalidade: 'Virtual', categoria: 'Judicial', tipo: 'Ordinária', data_inicio: '2016-08-29T09:12:33.001Z', data_fim: '2016-08-29T09:12:33.001Z', situacao: 'ABERTA'}
+  ];
 
   constructor(
     private _julgamentoService: JulgamentoService,
