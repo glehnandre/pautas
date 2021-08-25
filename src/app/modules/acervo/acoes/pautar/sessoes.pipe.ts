@@ -1,5 +1,5 @@
 import { Pipe, PipeTransform } from "@angular/core";
-import { SessaoJulgamento } from "../../model/interfaces/sessao-julgamento";
+import { SessaoJulgamento } from "../../model/interfaces/sessao-julgamento.interface";
 
 
 @Pipe({

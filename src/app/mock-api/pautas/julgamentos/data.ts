@@ -1,7 +1,7 @@
 import { SituacaoDoProcesso } from "app/modules/acervo/model/enums/situacaoDoProcesso.enum";
 import { TipoDoProcesso } from "app/modules/acervo/model/enums/tipoDoProcesso.enum";
 import { Processo } from "app/modules/acervo/model/interfaces/processo.interface";
-import { SessaoJulgamento } from "app/modules/acervo/model/interfaces/sessao-julgamento";
+import { SessaoJulgamento } from "app/modules/acervo/model/interfaces/sessao-julgamento.interface";
 
 export const julgamentos: SessaoJulgamento[] = [
   {

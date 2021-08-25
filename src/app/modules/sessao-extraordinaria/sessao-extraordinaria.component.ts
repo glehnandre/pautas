@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { SituacaoDoProcesso } from 'app/modules/acervo/model/enums/situacaoDoProcesso.enum';
 import { Processo } from 'app/modules/acervo/model/interfaces/processo.interface';
-import { SessaoJulgamento } from 'app/modules/acervo/model/interfaces/sessao-julgamento';
+import { SessaoJulgamento } from 'app/modules/acervo/model/interfaces/sessao-julgamento.interface';
 import { JulgamentoService } from 'app/modules/services/julgamento.service';
 import { HttpClient } from '@angular/common/http';
 import { Ministro } from 'app/modules/acervo/model/interfaces/ministro.interface';

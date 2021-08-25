@@ -8,7 +8,7 @@ import { JulgamentoService } from 'app/modules/services/julgamento.service';
 import { ProcessoService } from 'app/modules/services/processo.service';
 import { Observable } from 'rxjs';
 import { Processo } from '../../model/interfaces/processo.interface';
-import { SessaoJulgamento } from '../../model/interfaces/sessao-julgamento';
+import { SessaoJulgamento } from '../../model/interfaces/sessao-julgamento.interface';
 import { SessaoExtraordinariaComponent } from './sessao-extraordinaria/sessao-extraordinaria.component';
 
 

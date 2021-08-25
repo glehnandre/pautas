@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { FuseMockApiService } from '@fuse/lib/mock-api/mock-api.service';
 import { Processo } from 'app/modules/acervo/model/interfaces/processo.interface';
-import { SessaoJulgamento } from 'app/modules/acervo/model/interfaces/sessao-julgamento';
+import { SessaoJulgamento } from 'app/modules/acervo/model/interfaces/sessao-julgamento.interface'
 import { julgamentos as julgamentoData, processos as processosData } from './data';
 
 @Injectable({
