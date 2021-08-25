@@ -34,11 +34,12 @@
                         md:grid-cols-3 md:max-w-280"
             >
               <app-card-ministro
-                  class="w-full max-w-72"
+                  [class]="'w-full max-w-72'"
                   *ngFor="let comp of colegiados[0]?.composicao"
                   [composicao]="comp"
                   [colegiado]="colegiados[0]?.colegiado"
-                  [disabled]="calcularContador() === 0"
+                  [disabled]="isMinistroParticipadandoDaVotacao(comp)"
+                  [disativarForm]="calcularContador() === 0"
                   (statusVotacao)="obterStatusDoVoto($event)"
               ></app-card-ministro>
             </main>

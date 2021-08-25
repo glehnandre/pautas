@@ -131,6 +131,16 @@ export class CriacaoColegiadoComponent implements OnInit {
     return (sub >= 0) ? sub : 0;
   }
 
+  isMinistroParticipadandoDaVotacao(colegiado: ComposicaoColegiado) {
+    if (this.calcularContador() === 0) {
+      const index = this.votosDosMinistros
+        .findIndex(voto => voto.ministro.id === colegiado.ministro.id);
+      return (index === -1);
+    } else {
+      return false;
+    }
+  }
+
   finalizar(): void {
     if (this.isSelecoesValidas()) {
       console.table(this.formVotacao.value);
