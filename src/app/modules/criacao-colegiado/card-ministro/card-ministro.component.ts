@@ -1,5 +1,5 @@
 import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ComposicaoColegiado } from 'app/modules/acervo/model/interfaces/colegiado.interface';
 import { Ministro } from 'app/modules/acervo/model/interfaces/ministro.interface';
 import { Voto, VotoDoMinistro } from 'app/modules/acervo/model/interfaces/voto.interface';
@@ -17,6 +17,7 @@ export class CardMinistroComponent implements OnInit {
   @Input() composicao: ComposicaoColegiado;
   @Input() colegiado: string = '';
   @Input() disabled: boolean = false;
+  @Input() desativarForm: boolean = false;
   @Output() statusVotacao = new EventEmitter<ComposicaoColegiado>();
 
   constructor(
@@ -27,18 +28,24 @@ export class CardMinistroComponent implements OnInit {
 
   ngOnInit(): void {
     this.formCriacaoColegiado = this._fb.group({
-      incluir_voto: [false, [Validators.required]],
-      ja_votou: [false, [Validators.required]],
-      pode_votar: [(this.colegiado === 'pleno') ? true : false, [Validators.required]],
+      incluir_voto: new FormControl({value: false, disabled: this.disabled}, Validators.required),
+      ja_votou: new FormControl({value: false, disabled: this.disabled}, Validators.required),
+      pode_votar: new FormControl({value: false, disabled: this.disabled}, Validators.required),
     });
 
     this.minsitro = this.composicao.ministro;
+
     this.formCriacaoColegiado.valueChanges.subscribe(() => {
       this.statusVotacao.emit({
         ...this.composicao,
         ...this.formCriacaoColegiado.value,
       });
     });
+
+    console.log(this.desativarForm)
+    if (this.desativarForm) {
+      this.formCriacaoColegiado.controls.incluir_voto.disable();
+    }
   }
 
   obterDescricao(): string {
