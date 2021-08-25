@@ -27,8 +27,8 @@ export class CriacaoColegiadoComponent implements OnInit {
   composicao: ComposicaoColegiado[] = [];
   votosDosMinistros: ComposicaoColegiado[] = [];
   relator: Ministro;
-  tags: Tag[];
-  documentos: Documento[];
+  tags: string[] = [];
+  documentos: string[] = [];
 
   post: {
     processo: '',
@@ -91,24 +91,15 @@ export class CriacaoColegiadoComponent implements OnInit {
     });
 
     this._processoService.obterDocumentosDoProcesso(1).subscribe(data=>{
-      this.documentos = data;
+      data.forEach(documento=>{
+        this.documentos.push(documento.nome);
+      })
     })
     this._processoService.recuperarTagsDaApi().subscribe(data=>{
-      this.tags = data;
+      data.forEach(tag=>{
+        this.tags.push(tag.descricao);
+      })
     })
-  }
-
-  /**
-   * 
-   * @param id o id do elemento que eu quero fazer o scrollLeft
-   */
-  public scrollLeft(id): void {
-    let el = document.getElementById(id);
-    el.scrollTo({ left: (el.scrollLeft - 150), behavior: 'smooth' });
-  }
-  public scrollRight(id): void {
-    let el = document.getElementById(id);
-    document.getElementById(id).scrollTo({ left: (el.scrollLeft + 150), behavior: 'smooth' });
   }
 
   obterStatusDoVoto(votoDoMinistro: ComposicaoColegiado): void {
