@@ -1,10 +1,11 @@
-import { Component, OnInit, ViewChild, ElementRef, Input  } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { FuseMediaWatcherService } from '@fuse/services/media-watcher';
 import { map, takeUntil } from 'rxjs/operators';
 import { Colegiado, ComposicaoColegiado, NomeDoColegiado } from '../acervo/model/interfaces/colegiado.interface';
+import { Documento } from '../acervo/model/interfaces/documento.interface';
 import { Ministro } from '../acervo/model/interfaces/ministro.interface';
-import { Processo } from '../acervo/model/interfaces/processo.interface';
+import { Tag } from '../acervo/model/interfaces/tag.interface';
 import { Voto, VotoDoMinistro } from '../acervo/model/interfaces/voto.interface';
 import { MinistroService } from '../services/ministro.service';
 import { ProcessoService } from '../services/processo.service';
@@ -16,19 +17,14 @@ import { ProcessoService } from '../services/processo.service';
 })
 export class CriacaoColegiadoComponent implements OnInit {
 
-  @ViewChild('widgetsContent', { read: ElementRef }) public widgetsContent: ElementRef<any>;
-  @ViewChild('widgetsContent1', { read: ElementRef }) public widgetsContent1: ElementRef<any>;
-  @Input() idProcesso: number;
-
-  processos: Processo[] = [];
   formVotacao: FormGroup;
   ministros: Ministro[] = [];
   colegiados: Colegiado[] = [];
   votosDosMinistros: ComposicaoColegiado[] = [];
   relator: Ministro;
   texto: string = "Informe os 5 ministros que devem estar no colegiado da Primeira Turma para o processo se podem votar";
-  tags: string[] = ["Primeira Turma", "Público", "Liminar", "Lista de 0001 MAM", "Possível Impedimento no Julgamento"];
-  pdfs: string[] = ["Relatório", "Íntegra do Voto do Relator", "Voto Divergente"];
+  tags: Tag[];
+  documentos: Documento[];
 
   post: {
     processo: '',
@@ -87,11 +83,13 @@ export class CriacaoColegiadoComponent implements OnInit {
         this.colegiados = colegiados;
       }
     });
-    console.log(this.idProcesso);
 
-    /*this._processoService.obterDocumentosDoProcesso(0).subscribe(data=>{
-      console.log(this.idProcesso);
-    })*/
+    this._processoService.obterDocumentosDoProcesso(1).subscribe(data=>{
+      this.documentos = data;
+    })
+    this._processoService.recuperarTagsDaApi().subscribe(data=>{
+      this.tags = data;
+    })
   }
 
   /**
