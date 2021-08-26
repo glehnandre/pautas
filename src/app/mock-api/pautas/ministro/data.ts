@@ -140,8 +140,15 @@ export const colegiado: Colegiado[] = [
   {
     nome: NomeDoColegiado.Pleno,
     presidente: ministro[9],
-    composicao: [
-      {ministro: ministro[7], incluir_voto: false, pode_votar: false, ja_votou: false, presidente: false, redator: false, relator: true},
+    composicao:  [
+      {ministro: ministro[0], incluir_voto: false, pode_votar: false, ja_votou: false, presidente: false, redator: false, relator: false},
+      {ministro: ministro[1], incluir_voto: false, pode_votar: false, ja_votou: false, presidente: false, redator: false, relator: false},
+      {ministro: ministro[2], incluir_voto: false, pode_votar: false, ja_votou: false, presidente: true, redator: false, relator: false},
+      {ministro: ministro[3], incluir_voto: false, pode_votar: false, ja_votou: false, presidente: false, redator: true, relator: false},
+      {ministro: ministro[4], incluir_voto: false, pode_votar: false, ja_votou: false, presidente: false, redator: false, relator: true},
+      {ministro: ministro[5], incluir_voto: false, pode_votar: false, ja_votou: false, presidente: false, redator: false, relator: false},
+      {ministro: ministro[6], incluir_voto: false, pode_votar: false, ja_votou: false, presidente: true, redator: false, relator: false},
+      {ministro: ministro[7], incluir_voto: false, pode_votar: false, ja_votou: false, presidente: false, redator: false, relator: false},
       {ministro: ministro[8], incluir_voto: false, pode_votar: false, ja_votou: false, presidente: false, redator: false, relator: false},
       {ministro: ministro[9], incluir_voto: false, pode_votar: false, ja_votou: false, presidente: true, redator: false, relator: false},
       {ministro: ministro[10], incluir_voto: false, pode_votar: false, ja_votou: false, presidente: false, redator: false, relator: false},
