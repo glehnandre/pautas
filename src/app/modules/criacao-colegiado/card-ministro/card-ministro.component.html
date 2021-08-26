@@ -1,0 +1,62 @@
+<div class="mb-4">
+    <fuse-card  
+        [class]="(disabled) ? 'flex flex-col items-center mx-auto w-full p-4 filter-info ng-tns-c129-57 ng-star-inserted mb-4 bg-gray-300 opacity-50' : 'flex flex-col items-center mx-auto w-full p-4 filter-info ng-tns-c129-57 ng-star-inserted mb-4'">
+        
+            <div class="flex flex-row w-full items-center justify-center mb-4">
+                <img 
+                    [src]="minsitro?.imagem"
+                    alt="Imagem de perfil" 
+                    [class]="(disabled) ? 'w-14 h-14 mr-6 rounded-full ng-tns-c129-57 ng-star-inserted bg-gray-300 opacity-50': 'w-14 h-14 mr-6 rounded-full ng-tns-c129-57 ng-star-inserted'"
+                >
+                <div class="flex flex-col">
+                    <div class="text-lg font-medium text-gray-800 leading-tight">
+                        {{minsitro?.nome}}
+                    </div>
+                    <div class="text-md leading-tight text-primary">
+                        {{minsitro?.abreviacao | uppercase}}
+                    </div>
+                </div>
+            </div>
+
+            <div class="flex flex-col ng-star-inserted w-full sm:px-8 md:px-8">
+                <mat-button-toggle-group role="group" class="w-full mt-1 mb-2 mat-button-toggle-group flex flex-wrap flex-initial -m-2 mat-button-toggle-group-appearance-standard ng-untouched ng-pristine ng-valid" aria-disabled="false">
+                    <div class="ml-2">
+                        <button aria-haspopup="true" mat-button="" class="mat-focus-indicator mat-menu-trigger h-8 min-h-8 px-2 rounded-full bg-hover mat-button mat-button-base">
+                            <span class="mat-button-wrapper">
+                                <span class="font-medium text-sm text-secondary">
+                                    {{colegiado | titlecase}}
+                                </span>
+                            </span>
+                            <span matripple="" class="mat-ripple mat-button-ripple"></span>
+                        </button>
+                    </div>
+
+                    <div class="ml-2" *ngIf="obterDescricao() !== ''">
+                        <button aria-haspopup="true" mat-button="" class="mat-focus-indicator mat-menu-trigger h-8 min-h-8 px-2 rounded-full bg-hover mat-button mat-button-base">
+                            <span class="mat-button-wrapper">
+                                <span class="font-medium text-sm text-secondary">
+                                    {{obterDescricao()}}
+                                </span>
+                            </span>
+                            <span matripple="" class="mat-ripple mat-button-ripple"></span>
+                        </button>
+                    </div>
+                </mat-button-toggle-group>
+            </div>
+        
+
+        <hr class="w-full border-t my-2">
+
+        <div class="flex items-center justify-between">
+            <div class="text-md font-medium text-secondary mr-3">
+                <form [formGroup]="formCriacaoColegiado">
+                    <section class="mt-2">
+                        <p><mat-checkbox [disabled]="disabled" color="primary" formControlName="incluir_voto">Incluir na votação</mat-checkbox></p>
+                        <p><mat-checkbox [disabled]="disabled" color="primary" formControlName="ja_votou">Já votou</mat-checkbox></p>
+                        <p *ngIf="colegiado !== 'pleno'"><mat-checkbox [disabled]="disabled" color="primary" formControlName="pode_votar">Pode votar</mat-checkbox></p>
+                    </section>
+                </form>
+            </div>
+        </div>
+    </fuse-card>
+</div>

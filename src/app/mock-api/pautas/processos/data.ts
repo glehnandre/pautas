@@ -1,5 +1,6 @@
 import { tags as tagData } from 'app/mock-api/pautas/tags/data';
 import { TipoDoProcesso } from 'app/modules/acervo/model/enums/tipoDoProcesso.enum';
+import { Documento } from 'app/modules/acervo/model/interfaces/documento.interface';
 import { Processo } from 'app/modules/acervo/model/interfaces/processo.interface';
 
 export const processo: Processo[] = [
@@ -201,3 +202,24 @@ export const processo: Processo[] = [
     ],
   },
 ];
+
+export const documentos: Documento[] = [
+  {
+    id: 1,
+    nome: "Relatório",
+    tipo: "pdf",
+    url: "/digital/documento/123"
+  },
+  {
+    id: 2,
+    nome: "Íntegra do Voto do Relator",
+    tipo: "pdf",
+    url: "/digital/documento/1234"
+  },
+  {
+    id: 3,
+    nome: "Voto Divergente",
+    tipo: "pdf",
+    url: "/digital/documento/12345"
+  },
+]

@@ -17,7 +17,7 @@
             <!-- Components -->
             <div class="flex items-center ml-auto">
                 <notifications [notifications]="data.notifications"></notifications>
-                <user-menu [showAvatar]="false"></user-menu>
+                <user-menu [showAvatar]="true"></user-menu>
             </div>
         </div>
         <!-- User -->
@@ -37,6 +37,7 @@
                 <div class="w-full whitespace-nowrap overflow-ellipsis overflow-hidden text-center leading-normal font-medium">
                     {{data.user.name}}
                 </div>
+                <div class="text-secondary">{{data.user.matricula}}</div>
                 <div class="w-full mt-0.5 whitespace-nowrap overflow-ellipsis overflow-hidden text-center text-md leading-normal font-medium text-secondary">
                     {{data.user.email}}
                 </div>
@@ -65,8 +66,10 @@
             <mat-icon [svgIcon]="'heroicons_outline:menu'"></mat-icon>
         </button>
         <img class="max-w-40 content-center mt-2 ml-2" src="assets/images/logo/logo_digital_alternativo.png">
+
         <!-- Components -->
         <div class="flex items-center pl-2 ml-auto space-x-2">
+            <start-activity></start-activity>
             <fuse-fullscreen></fuse-fullscreen>
             <search [appearance]="'bar'"></search>
             <shortcuts [shortcuts]="data.shortcuts"></shortcuts>
