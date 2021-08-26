@@ -11,7 +11,8 @@
     <hr class="m-0 p-0" />
 
     <header class="px-8 pt-4 bg-white">
-        <div class="flex flex-row flex-wrap">
+        <div class="flex flex-col lg:flex-row lg:justify-start">
+        <div class="flex flex-row flex-wrap lg:max-w-3/5">
             <div class="flex flex-nowrap flex-row">
                 <img [src]="relator?.imagem" alt="Imagem de perfil"
                     class="w-14 h-14 mr-6 mb-4 rounded-full ng-tns-c129-57 ng-star-inserted">
@@ -39,15 +40,16 @@
                 </div>
             </div>
         </div>
-        <div class="hidden md:block">
+        <div class="hidden md:block lg:ml-4 lg:mt-8">
             <app-carrossel
                 [idChip]="'idDocs'"
                 [chips]="documentos"
                 [hasIcon]="true"
-                [class]="['flex-none border-primary border-solid border-2 bg-transparent text-primary']"
+                [class]="['border-primary border-solid border-2 bg-transparent text-primary']"
             ></app-carrossel>
         </div>
-
+        </div>
+        
         <mat-expansion-panel 
             class="md:hidden mt-4"
             (opened)="panelOpenState = true" 
