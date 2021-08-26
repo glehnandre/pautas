@@ -15,6 +15,15 @@
             {{observacao}}
         </p>
     </div>
+    <div class="mb-8 items-start">
+        <h2 class="text-primary">Processos</h2>
+        <app-processo-chip
+            class="md:block"
+            [processos]="processos"
+            [isRemovable]="false"
+            [isEmitRemoveEvent]="false"
+        ></app-processo-chip>
+    </div>
   </div>
 
   <hr class="m-0 p-0 mb-4" />
@@ -22,23 +31,12 @@
   <!-- Main -->
   <div class="flex-auto overflow-y-auto px-8 pb-8 min-h-full" cdkScrollable>
       <!-- CONTENT GOES HERE -->
-      <div>
-          <div class="mb-8">
-              <app-processo-chip
-                  [processos]="processos"
-                  [isRemovable]="false"
-                  [isEmitRemoveEvent]="false"
-              ></app-processo-chip>
-          </div>
-
-          <h2 class="text-primary mt-8">Processos</h2>
-          <div class="mb-4">
-              <app-processo-painel-expansivo
-                  *ngFor="let processo of processos"
-                  [processo]="processo"
-              ></app-processo-painel-expansivo>
-          </div>
-      </div>
+        <div class="mb-4">
+            <app-processo-painel-expansivo
+                *ngFor="let processo of processos"
+                [processo]="processo"
+            ></app-processo-painel-expansivo>
+        </div>
 
       <div class="flex flex-col sm:items-center justify-between mt-8">
           <div mat-dialog-actions class="container flex flex-col sm:flex-row items-center mt-4 sm:mt-0 sm:ml-auto">
