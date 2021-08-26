@@ -146,7 +146,7 @@ body .light {
             warn: map.get(map.get($base-light-theme, color), warn),
             is-dark: map.get(map.get($base-light-theme, color), is-dark),
             foreground: $foreground-light,
-            background: $background-light
+            background: $background-light,
         )
     );
 

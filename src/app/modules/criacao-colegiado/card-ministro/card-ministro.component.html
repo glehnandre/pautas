@@ -18,9 +18,9 @@
                 </div>
             </div>
 
-            <div class="flex flex-col ng-star-inserted w-full sm:px-8 md:px-8">
-                <mat-button-toggle-group role="group" class="w-full mt-1 mb-2 mat-button-toggle-group flex flex-wrap flex-initial -m-2 mat-button-toggle-group-appearance-standard ng-untouched ng-pristine ng-valid" aria-disabled="false">
-                    <div class="ml-2">
+            <div class="flex flex-row ng-star-inserted w-full justify-center align-middle">
+                
+                    <div class="ml-2 justify-self-start">
                         <button aria-haspopup="true" mat-button="" class="mat-focus-indicator mat-menu-trigger h-8 min-h-8 px-2 rounded-full bg-hover mat-button mat-button-base">
                             <span class="mat-button-wrapper">
                                 <span class="font-medium text-sm text-secondary">
@@ -31,7 +31,7 @@
                         </button>
                     </div>
 
-                    <div class="ml-2" *ngIf="obterDescricao() !== ''">
+                    <div class="ml-2 justify-self-start" *ngIf="obterDescricao() !== ''">
                         <button aria-haspopup="true" mat-button="" class="mat-focus-indicator mat-menu-trigger h-8 min-h-8 px-2 rounded-full bg-hover mat-button mat-button-base">
                             <span class="mat-button-wrapper">
                                 <span class="font-medium text-sm text-secondary">
@@ -41,7 +41,7 @@
                             <span matripple="" class="mat-ripple mat-button-ripple"></span>
                         </button>
                     </div>
-                </mat-button-toggle-group>
+              
             </div>
         
 

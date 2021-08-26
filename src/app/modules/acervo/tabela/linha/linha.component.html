@@ -36,14 +36,17 @@
     </mat-expansion-panel-header>
     
     <!--Conteúdo de dentro da área expansível-->
-    <div class="container">
+    <div class="container ">
         <div class="min-w-full justify-between prose">
-            <h2>Capítulos</h2>
-            
+           
             <div
                 *ngFor="let capitulo of processo.capitulos"
             >
-                <h3 class="text-lg">{{capitulo.tipo}}</h3>
+                <div class="flex flex-row">
+                    <h2 class="text-lg mr-4">{{capitulo.tipo}}</h2>
+                    <mat-chip class="bg-green-600" selected>{{capitulo.dispositivo}}</mat-chip>
+                </div>
+                
                 <p>{{capitulo.descricao}}</p>
                 <hr/>
             </div>
