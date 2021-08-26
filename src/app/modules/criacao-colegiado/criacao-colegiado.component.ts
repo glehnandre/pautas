@@ -1,12 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
-import { FuseMediaWatcherService } from '@fuse/services/media-watcher';
-import { map, takeUntil } from 'rxjs/operators';
-import { Colegiado, ComposicaoColegiado, NomeDoColegiado } from '../acervo/model/interfaces/colegiado.interface';
+import { Colegiado, ComposicaoColegiado } from '../acervo/model/interfaces/colegiado.interface';
+import { Documento } from '../acervo/model/interfaces/documento.interface';
 import { Ministro } from '../acervo/model/interfaces/ministro.interface';
-import { Voto, VotoDoMinistro } from '../acervo/model/interfaces/voto.interface';
+import { Tag } from '../acervo/model/interfaces/tag.interface';
 import { MinistroService } from '../services/ministro.service';
+import { ProcessoService } from '../services/processo.service';
 
 @Component({
   selector: 'app-criacao-colegiado',
@@ -14,6 +14,8 @@ import { MinistroService } from '../services/ministro.service';
   styleUrls: ['./criacao-colegiado.component.scss']
 })
 export class CriacaoColegiadoComponent implements OnInit {
+
+  panelOpenState: boolean = false;
 
   queryParams: {
     processo: string,
@@ -26,6 +28,9 @@ export class CriacaoColegiadoComponent implements OnInit {
   colegiados: Colegiado[] = [];
   composicao: ComposicaoColegiado[] = [];
   votosDosMinistros: ComposicaoColegiado[] = [];
+  relator: Ministro;
+  tags: string[] = [];
+  documentos: string[] = [];
 
   post: {
     processo: '',
@@ -42,6 +47,7 @@ export class CriacaoColegiadoComponent implements OnInit {
   constructor(
     private _fb: FormBuilder,
     private _ministroService: MinistroService,
+    private _processoService: ProcessoService,
     private _route: ActivatedRoute,
   ) { 
     this.formVotacao = this._fb.group({
@@ -65,6 +71,11 @@ export class CriacaoColegiadoComponent implements OnInit {
       this._ministroService.listarColegiados(this.queryParams.colegiado).subscribe({
         next: (colegiados) => {
           colegiados.map(c => c.composicao.sort((a, b) => {
+            c.composicao.map(data => {
+              if(data.relator == true){
+                this.relator = data.ministro
+              }
+            })
             if (a.presidente) {
               return -1;
             }
@@ -77,9 +88,21 @@ export class CriacaoColegiadoComponent implements OnInit {
           }));
           
           this.colegiados = colegiados;
+          console.log(this.colegiados)
         }
       });
     });
+
+    this._processoService.obterDocumentosDoProcesso(1).subscribe(data=>{
+      data.forEach(documento=>{
+        this.documentos.push(documento.nome);
+      })
+    })
+    this._processoService.recuperarTagsDaApi().subscribe(data=>{
+      data.forEach(tag=>{
+        this.tags.push(tag.descricao);
+      })
+    })
   }
 
   obterStatusDoVoto(votoDoMinistro: ComposicaoColegiado): void {
@@ -151,5 +174,4 @@ export class CriacaoColegiadoComponent implements OnInit {
       });
     }
   }
-
 }

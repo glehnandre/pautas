@@ -1,50 +1,32 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { MomentDateAdapter, MAT_MOMENT_DATE_ADAPTER_OPTIONS } from '@angular/material-moment-adapter';
-import { DateAdapter, MAT_DATE_LOCALE, MAT_DATE_FORMATS } from '@angular/material/core';
-import { MatDatepicker } from '@angular/material/datepicker';
-import * as _moment from 'moment';
-import { default as _rollupMoment, Moment } from 'moment';
-import { SituacaoDoProcesso } from '../acervo/model/enums/situacaoDoProcesso.enum';
-import { Processo } from '../acervo/model/interfaces/processo.interface';
-import { SessaoJulgamento } from '../acervo/model/interfaces/sessao-julgamento.interface';
-import { JulgamentoService } from '../services/julgamento.service';
+import { SituacaoDoProcesso } from 'app/modules/acervo/model/enums/situacaoDoProcesso.enum';
+import { Processo } from 'app/modules/acervo/model/interfaces/processo.interface';
+import { SessaoJulgamento } from 'app/modules/acervo/model/interfaces/sessao-julgamento.interface';
+import { JulgamentoService } from 'app/modules/services/julgamento.service';
+import { registerLocaleData } from '@angular/common';
+import localePT from '@angular/common/locales/pt';
+import { DatePipe } from '@angular/common';
+import { FuseAlertService } from '@fuse/components/alert';
+import { Ministro } from 'app/modules/acervo/model/interfaces/ministro.interface';
 
-const moment = _rollupMoment || _moment;
-
-const DATE_FORMATS = {
-  parse: {
-    dateInput: 'MM/YYYY',
-  },
-  display: {
-    dateInput: 'MM/YYYY',
-    monthYearLabel: 'MMM YYYY',
-    dateA11yLabel: 'LL',
-    monthYearA11yLabel: 'MMMM YYYY',
-  },
-};
+registerLocaleData(localePT);
 
 @Component({
-  selector: 'app-julgamento-extraordinario',
-  templateUrl: './julgamento-extraordinario.component.html',
-  styleUrls: ['./julgamento-extraordinario.component.scss'],
-  providers: [
-    {
-      provide: DateAdapter,
-      useClass: MomentDateAdapter,
-      deps: [MAT_DATE_LOCALE, MAT_MOMENT_DATE_ADAPTER_OPTIONS]
-    },
-
-    {provide: MAT_DATE_FORMATS, useValue: DATE_FORMATS},
-  ],
+  selector: 'app-sessao-extraordinaria',
+  templateUrl: './sessao-extraordinaria.component.html',
+  styleUrls: ['./sessao-extraordinaria.component.scss']
 })
-export class JulgamentoExtraordinarioComponent implements OnInit {
+export class SessaoExtraordinariaComponent implements OnInit {
 
-  formJulgamento: FormGroup;
-  panelOpenState: boolean = false;
-  tags: string[] = ['Virtual', 'Segunda Turma'];
-  sessao: SessaoJulgamento;
+  tags: string[] = ['Virtual', 'Segunda Turma', 'Inicio e fim no dia 21/04/2021'];
+  observacao: string;
   processos: Processo[] = [];
+  sessao: SessaoJulgamento;
+  solicitante: Ministro;
+  colegiado: string;
+  data_inicio: string;
+  data_fim: string;
+  texto: string;
 
   sessoes: SessaoJulgamento[] = [
     { ano: 2021, numero: 1, colegiado: 'Primeira Turma', modalidade: 'Virtual', categoria: 'Judicial', tipo: 'Ordinária', data_inicio: '2016-08-29T09:12:33.001Z', data_fim: '2016-08-29T09:12:33.001Z', situacao: 'ABERTA'},
@@ -60,21 +42,22 @@ export class JulgamentoExtraordinarioComponent implements OnInit {
   ];
 
   constructor(
-    private _fb: FormBuilder,
     private _julgamentoService: JulgamentoService,
-  ) { 
-    this.formJulgamento = this._fb.group({
-      nova_data: [moment(), Validators.required],
-      sessao: ['', Validators.required],
-    });
-  }
+    private _fuseAlertService: FuseAlertService,
+  ) {}
 
   ngOnInit(): void {
     this._julgamentoService.listarSessoesDeJulgamento(1000, 2021).subscribe({
       next: (sessao) => {
-        console.log(sessao)
         this.sessao = sessao;
+        this.observacao = sessao['observacao'];
+        this.solicitante = sessao['ministro'];
+        this.colegiado = sessao['colegiado'];
+        
         const { numero, ano, data_inicio, data_fim } = this.sessao;
+
+        this.setTexto(data_inicio, data_fim);
+        
         this._julgamentoService.listarProcessosPautadosNasSessoes(numero, ano, SituacaoDoProcesso.Pautado, data_inicio, data_fim).subscribe({
           next: (processos) => {
             this.processos = processos;
@@ -82,33 +65,44 @@ export class JulgamentoExtraordinarioComponent implements OnInit {
         });
       }
     });
+
+    
   }
 
-  public pautarNaSessao(): void {
-    if (this.formJulgamento.valid) {
-      console.log(this.formJulgamento.value);
+  setTexto(inicio: string, fim: string){
+    const datepipe: DatePipe = new DatePipe('pt-BR')
+    this.data_inicio = datepipe.transform(inicio, 'dd/MM/YYYY, EEEE');
+    this.data_fim = datepipe.transform(fim, 'dd/MM/YYYY, EEEE');
+    if(inicio==fim){
+      this.texto = `${this.solicitante.nome} solicitou a criação de uma Sessão de Julgamento Extraordinária para ${this.colegiado} no dia ${this.data_inicio}.`
+    }
+    else{
+      this.texto = `${this.solicitante.nome} solicitou a criação de uma Sessão de Julgamento Extraordinária para ${this.colegiado} no dia ${this.data_inicio} até o dia ${this.data_fim}.`
     }
   }
 
-  chosenYearHandler(normalizedYear: Moment) {
-    const ctrlValue = this.getDataInicio();
-    ctrlValue.year(normalizedYear.year());
-    this.setDataInicio(ctrlValue);
+  mostrarAlerta(){
+    this._fuseAlertService.show('alertBox');
+  }
+  fecharAlerta(){
+    this._fuseAlertService.dismiss('alertBox');
   }
 
-  chosenMonthHandler(normalizedMonth: Moment, datepicker: MatDatepicker<Moment>) {
-    const ctrlValue = this.getDataInicio();
-    ctrlValue.month(normalizedMonth.month());
-    this.setDataInicio(ctrlValue);
-    datepicker.close();
+  aprovarSessao(){
+    let ano: number = 2021;
+    let numero: number = 1000;
+
+    this._julgamentoService.aprovarSessaoDeJulgamento(numero, ano).subscribe(data=>{
+      console.log(data);
+    })
   }
 
-  getDataInicio(): _moment.Moment {
-    return this.formJulgamento.controls.nova_data.value;
-  }
+  recusarSessao(){
+    let ano: number = 2021;
+    let numero: number = 1000;
 
-  setDataInicio(value: _moment.Moment): void {
-    this.formJulgamento.controls.nova_data.setValue(value);
+    this._julgamentoService.rejeitarSessaoDeJulgamento(numero, ano).subscribe(data=>{
+      console.log(data);
+    })
   }
-
 }

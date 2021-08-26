@@ -1,0 +1,73 @@
+<div class="sm:items-center w-screen sm:justify-between p-3 pb-11 sm:pt-2 sm:pb-10 sm:px-5 bg-default dark:bg-transparent">
+    <div>
+        <app-filtro
+        ></app-filtro>
+    </div>
+
+    <mat-expansion-panel class="flex flex-row">
+        <mat-expansion-panel-header [collapsedHeight]="'80px'" class="h-full w-full specific-class">
+            <div class="flex flex-row items-center">
+                <div class="flex">
+                    <div>
+                        <mat-checkbox
+                            color="primary"
+                        >
+                        </mat-checkbox>
+                    </div>
+                </div>
+                <img
+                    src="https://source.unsplash.com/random/300x300"
+                    alt="Imagem de perfil"
+                    class="w-14 h-14 mr-6 rounded-full"
+                >
+                <div class="flex flex-col">
+                    <div class="text-xl font-medium text-primary leading-tight">
+                        RE 99913
+                    </div>
+                    <div class="flex flex-row">
+                        <div class="text-md leading-tight font-bold">
+                            DT
+                        </div>
+                        <div class="text-md text-secondary ml-2 leading-tight">
+                            Relator
+                        </div>
+                    </div>
+                    <mat-chip-list #chipList class="mt-2">
+                        <mat-chip class="flex-none border-green-700 border-solid border-2 bg-transparent text-green-700">
+                            DEFERIDO
+                        </mat-chip>
+                    </mat-chip-list>
+                </div>
+                <div class="flex flex-col ml-14 mt-6">
+                    <mat-chip-list #chipList class="m-1">
+                        <mat-chip class="flex-none">
+                            Petróleo Royalts Rio (4 processos)
+                        </mat-chip>
+                    </mat-chip-list>
+                    <div class="flex flex-row mb-8 items-center">
+                        <mat-chip-list #chipList class="mt-3">
+                            <mat-chip class="flex-none border-primary border-solid border-2 bg-transparent text-primary">
+                                <mat-icon class="mr-2" style="color:red">
+                                    picture_as_pdf
+                                </mat-icon>
+                                Voto Relator
+                            </mat-chip>
+                            <mat-chip class="flex-none border-primary border-solid border-2 bg-transparent text-primary">
+                                <mat-icon class="mr-2" style="color:red">
+                                    picture_as_pdf
+                                </mat-icon>
+                                Relatório
+                            </mat-chip>
+                        </mat-chip-list>
+                    </div>
+                </div>
+                <div class="ml-14 self-start mt-8">
+                    <div class="ml-2 text-xl">
+                        Mérito
+                    </div>
+                </div>
+            </div>
+        </mat-expansion-panel-header>
+    </mat-expansion-panel>
+
+</div>

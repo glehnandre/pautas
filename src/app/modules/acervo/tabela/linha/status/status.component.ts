@@ -17,7 +17,7 @@ export class StatusComponent implements OnInit {
   status: Status[] = [
     { id: 1, color: "#3C8D40", text: '' },
     { id: 2, color: "#FDC02F", text: '' },
-    { id: 3, color: "#BF221o", text: '' },
+    { id: 3, color: "#BF2210", text: '' },
     { id: 4, color: "#872FA6", text: '' },
     { id: 5, color: "#1170A6", text: '' },
     { id: 6, color: "#3434AC", text: '' },

@@ -1,25 +1,90 @@
 <div class="absolute inset-0 flex flex-col min-w-0 overflow-hidden">
 
     <!-- Header -->
-    <div class="flex flex-row justify-center items-center sm:justify-between pl-8 bg-default dark:bg-transparent">
+    <div class="flex flex-row justify-center items-center sm:justify-between pl-8 bg-white dark:bg-transparent">
         <h1 class="mt-4 text-primary font-medium">
             Colegiado para a {{queryParams.processo | uppercase}} Sessão {{queryParams.sessao}} 
             {{queryParams.colegiado | titlecase}}
         </h1>
     </div>
 
-    <hr class="m-0 p-0 mb-4" />
+    <hr class="m-0 p-0" />
 
-    <!-- Main -->
-    <div class="flex-auto  overflow-y-auto px-8 pb-8" cdkScrollable>
-        <!-- CONTENT GOES HERE -->
-        <div class="flex flex-col justify-center align-middle justify-items-center">
-            <header>
-                <h3>Topo</h3>
-            </header>
+    <header class="px-8 pt-4 bg-white">
+        <div class="flex flex-col lg:flex-row lg:justify-start">
+        <div class="flex flex-row flex-wrap lg:max-w-3/5">
+            <div class="flex flex-nowrap flex-row">
+                <img [src]="relator?.imagem" alt="Imagem de perfil"
+                    class="w-14 h-14 mr-6 mb-4 rounded-full ng-tns-c129-57 ng-star-inserted">
+                <div class="flex flex-col flex-none mr-14 ng-tns-c129-56 ng-star-inserted">
+                    <div class="text-lg font-medium text-primary leading-tight">
+                        {{queryParams.processo | uppercase}}
+                    </div>
+                    <div class="text-md leading-tight font-bold">
+                        {{relator?.abreviacao | uppercase}}
+                    </div>
+                    <div class="text-md text-secondary mt-2">
+                        Relator
+                    </div>
+                </div>
+            </div>
+            <div class="flex flex-1 flex-col min-w-20 overflow-x-auto">
+                <div class="flex-1 ml-2 text-xl">
+                    Mérito
+                </div>
+                <div class="hidden md:block">
+                    <app-carrossel 
+                        [idChip]="'idTags'"
+                        [chips]="tags"
+                    ></app-carrossel>
+                </div>
+            </div>
+        </div>
+        <div class="hidden md:block lg:ml-4 lg:mt-8">
+            <app-carrossel
+                [idChip]="'idDocs'"
+                [chips]="documentos"
+                [hasIcon]="true"
+                [class]="['border-primary border-solid border-2 bg-transparent text-primary']"
+            ></app-carrossel>
+        </div>
+        </div>
+        
+        <mat-expansion-panel 
+            class="md:hidden mt-4"
+            (opened)="panelOpenState = true" 
+            (closed)="panelOpenState = false"
+        >
+            <mat-expansion-panel-header 
+                [collapsedHeight]="'40px'" 
+                class="p-4 h-15"
+            >
+                <div class="flex flex-none flex-row my-auto ml-3 w-screen container mt-4">
+                    <h2 class="font-medium">
+                        Documentos e tags
+                    </h2>
+                </div>
+            </mat-expansion-panel-header>
 
-            <div>
-              <p *ngIf="votosDosMinistros.length < 5">
+            <!--Conteúdo de dentro da área expansível-->
+            <div class="container">
+                <div class="flex flex-col min-w-full justify-between">
+                    <app-carrossel 
+                        [idChip]="'idTagsExp'"
+                        [chips]="tags"
+                    ></app-carrossel>
+                    <app-carrossel 
+                        [idChip]="'idDocExp'"
+                        [chips]="documentos"
+                        [hasIcon]="true"
+                        [class]="['flex-none border-primary border-solid border-2 bg-transparent text-primary']"
+                    ></app-carrossel>
+                </div>
+            </div>
+        </mat-expansion-panel>
+
+        <div class="my-4 text-primary font-medium text-lg">
+            <p *ngIf="votosDosMinistros.length < 5">
                 Informe os {{calcularContador()}} ministros que irão compor o colegiado.
               </p>
 
@@ -27,9 +92,14 @@
                 Já foram selecionados os 5 ministros para esse colegiado. 
                 Para selecionar outros ministros primeiro desmarque algum
               </p>
-            </div>
+        </div>
+    </header>
 
-            <main class="grid grid-cols-1 gap-4 align-middle justify-items-center w-full mx-auto
+    <!-- Main -->
+    <div class="flex-auto  overflow-y-auto px-8 pb-8" cdkScrollable>
+        <!-- CONTENT GOES HERE -->
+        <div class="flex flex-col justify-center align-middle justify-items-center">
+            <main class="mt-4 grid grid-cols-1 gap-4 align-middle justify-items-center w-full mx-auto
                         sm:grid-cols-2 
                         md:grid-cols-3 md:max-w-280"
             >
@@ -37,7 +107,7 @@
                   [class]="'w-full max-w-72'"
                   *ngFor="let comp of colegiados[0]?.composicao"
                   [composicao]="comp"
-                  [colegiado]="colegiados[0]?.colegiado"
+                  [colegiado]="colegiados[0]?.nome"
                   [disabled]="isMinistroParticipadandoDaVotacao(comp)"
                   (statusVotacao)="obterStatusDoVoto($event)"
               ></app-card-ministro>
