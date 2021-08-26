@@ -15,6 +15,8 @@ import { ProcessoService } from '../services/processo.service';
 })
 export class CriacaoColegiadoComponent implements OnInit {
 
+  panelOpenState: boolean = false;
+
   queryParams: {
     processo: string,
     data: string,

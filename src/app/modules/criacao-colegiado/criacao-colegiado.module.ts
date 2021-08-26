@@ -12,6 +12,7 @@ import { CardMinistroComponent } from './card-ministro/card-ministro.component';
 import { FuseMasonryModule } from '@fuse/components/masonry';
 import { MatChipsModule } from '@angular/material/chips';
 import { CarrosselComponent } from './carrossel/carrossel.component'; 
+import { MatExpansionModule } from '@angular/material/expansion';
 
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
 
@@ -38,6 +39,7 @@ const CriacaoColegiadoRoutes: Routes = [
     FuseMasonryModule,
     MatChipsModule,
     MatButtonToggleModule,
+    MatExpansionModule,
   ],
   exports: [
     CriacaoColegiadoComponent,
