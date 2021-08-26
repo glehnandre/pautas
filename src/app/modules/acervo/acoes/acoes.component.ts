@@ -79,7 +79,6 @@ export class AcoesComponent implements OnInit {
       this.mostrarAlerta();
     }
     else{
-      this.fecharAlerta();
 
       const dialogRef = this._matDialog.open(AgruparEmlistaComponent, {
         maxHeight: '560px',
@@ -116,11 +115,8 @@ export class AcoesComponent implements OnInit {
     return true;
   }
 
-  mostrarAlerta(){
-      this._fuseAlertService.show('alertBox');
-  }
-  fecharAlerta(){
-    this._fuseAlertService.dismiss('alertBox');
+  mostrarAlerta(): void{
+    this.alertaDeErro('Erro de validação', 'Selecione um ou mais processos');
   }
 
   retirarDePauta(): void {
@@ -173,6 +169,13 @@ export class AcoesComponent implements OnInit {
   }
 
   filtrarProcesso(situacao: string): string {
+    /**
+     * @param {string} situacao
+     * Filtra os processos selecionados, para que remova e alerte ao usuário,
+     * que aquela ação só pode ser feita para processos com a situação passada,
+     * as ações possiveis esta em acervo/model/enums/situacaoDoProcesso.enum.ts
+     */
+
     let processosRemovidos = [], processosSelecinados = [];
     this.processos.forEach((processo, i) => {
 
