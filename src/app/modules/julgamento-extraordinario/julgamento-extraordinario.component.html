@@ -9,17 +9,13 @@
 
     <hr class="m-0 p-0 mb-4" />
 
-    <!-- Main -->
-    <div class="flex-auto  overflow-y-auto px-8 pb-8" cdkScrollable>
-        <!-- CONTENT GOES HERE -->
-        <div>
-            <div class="mb-8">
-                <app-processo-chip
-                    [processos]="processos"
-                    [isRemovable]="false"
-                    [isEmitRemoveEvent]="false"
-                ></app-processo-chip>
-            </div>
+    <div class="flex-1 min-w-0 px-8">
+        <div class="mb-8">
+            <app-processo-chip
+                [processos]="processos"
+                [isRemovable]="false"
+                [isEmitRemoveEvent]="false"
+            ></app-processo-chip>
 
             <p>
                 {{sessao?.secretario.nome}}, presidente {{sessao?.colegiado}},
@@ -29,6 +25,13 @@
             </p>
 
             <h2 class="text-primary">Processos</h2>
+        </div>
+    </div>
+
+    <!-- Main -->
+    <div class="flex-auto  overflow-y-auto px-8 pb-8" cdkScrollable>
+        <!-- CONTENT GOES HERE -->
+        <div>
             <div class="mb-4">
                 <app-processo-painel-expansivo
                     *ngFor="let processo of processos"
