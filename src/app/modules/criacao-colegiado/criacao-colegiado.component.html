@@ -29,12 +29,14 @@
                 <div class="ml-2 text-xl">
                     Mérito
                 </div>
-                <app-carrossel
+                <app-carrossel 
+                    [idChip]="'idTags'"
                     [chips]="tags"
                 ></app-carrossel>
             </div>
         </div>
         <app-carrossel
+            [idChip]="'idDocs'"
             [chips]="documentos"
             [hasIcon]="true"
             [class]="['flex-none border-primary border-solid border-2 bg-transparent text-primary']"

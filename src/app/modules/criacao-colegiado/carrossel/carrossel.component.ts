@@ -11,6 +11,7 @@ export class CarrosselComponent implements OnInit {
   @Input() chips: string[] = [];
   @Input() hasIcon: boolean = false;
   @Input() class: string[] = [];
+  @Input() idChip:string;
 
   constructor() { }
 

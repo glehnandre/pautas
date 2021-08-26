@@ -1,12 +1,12 @@
-<div class="hidden md:flex flex-row mb-8 mt-4">
+<div class="flex flex-row mb-8 mt-4">
     <div class="mr-2 my-auto">
-        <button (click)="scrollLeft('div_tags')">
+        <button (click)="scrollLeft(idChip)">
             <mat-icon>
                 navigate_before
             </mat-icon>
         </button>
     </div>
-    <div id="div_tags" class="flex flex-1 flex-row overflow-hidden">
+    <div [id]="idChip" class="flex flex-1 flex-row overflow-hidden">
         <mat-chip-list *ngFor="let chip of chips" class="m-1 flex-none">
             <mat-chip [ngClass]="class">
                 <mat-icon *ngIf="hasIcon" class="mr-2" style="color:red">picture_as_pdf</mat-icon>
@@ -15,7 +15,7 @@
         </mat-chip-list>
     </div>
     <div class="ml-2 my-auto justify-self-end">
-        <button (click)="scrollRight('div_tags')">
+        <button (click)="scrollRight(idChip)">
             <mat-icon>
                 navigate_next
             </mat-icon>
