@@ -1,16 +1,26 @@
-<div class="absolute inset-0 flex flex-col min-w-0 overflow-hidden">
+<div class="absolute inset-0 flex flex-col min-w-0 overflow-auto md:overflow-hidden">
 
   <!-- Header -->
-  <div class="flex flex-row text-primary justify-center items-center sm:justify-between pl-8 bg-default dark:bg-transparent">
-      <h1 class="mt-4">
+  <div class="flex flex-wrap justify-center items-center sm:justify-between
+              pl-8 bg-default dark:bg-transparent">
+      <h1 class="mt-4 text-primary">
           Solicitação de Sessão de Julgamento Extraordinária MMA
       </h1>
+      <div>
+        <p class="text-xl">
+            {{texto}}
+        </p>
+        <h2 class="text-primary">Observações</h2>
+        <p>
+            {{observacao}}
+        </p>
+    </div>
   </div>
 
   <hr class="m-0 p-0 mb-4" />
 
   <!-- Main -->
-  <div class="flex-auto  overflow-y-auto px-8 pb-8" cdkScrollable>
+  <div class="flex-auto overflow-y-auto px-8 pb-8 min-h-full" cdkScrollable>
       <!-- CONTENT GOES HERE -->
       <div>
           <div class="mb-8">
@@ -21,10 +31,6 @@
               ></app-processo-chip>
           </div>
 
-          <p class="text-xl">
-              {{texto}}
-          </p>
-
           <h2 class="text-primary mt-8">Processos</h2>
           <div class="mb-4">
               <app-processo-painel-expansivo
@@ -32,42 +38,35 @@
                   [processo]="processo"
               ></app-processo-painel-expansivo>
           </div>
-
-          <div class="mt-8">
-              <h2 class="text-primary">Observações</h2>
-              <p>
-                  {{observacao}}
-              </p>
-          </div>
       </div>
 
       <div class="flex flex-col sm:items-center justify-between mt-8">
           <div mat-dialog-actions class="container flex flex-col sm:flex-row items-center mt-4 sm:mt-0 sm:ml-auto">
-            <button 
-              class="w-full ml-auto sm:ml-0 mr-4 order-last sm:order-none" 
-              mat-button 
+            <button
+              class="w-full ml-auto sm:ml-0 mr-4 order-last sm:order-none"
+              mat-button
               mat-dialog-close
             >
               Cancelar
             </button>
 
-            <button 
-              class="w-full ml-auto sm:ml-0 mr-4 my-4 bg-red-600 text-white" 
-              mat-raised-button 
+            <button
+              class="w-full ml-auto sm:ml-0 mr-4 my-4 bg-red-600 text-white"
+              mat-raised-button
               mat-dialog-close
               (click)="recusarSessao()"
             >
               Recusar
             </button>
-      
-            <button 
+
+            <button
               class="w-full order-first sm:order-last"
-              color="primary" 
-              mat-raised-button 
+              color="primary"
+              mat-raised-button
               mat-dialog-close
               (click)="aprovarSessao()"
             >
-              Confirmar  
+              Confirmar
             </button>
           </div>
         </div>
