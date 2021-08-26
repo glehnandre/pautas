@@ -22,4 +22,9 @@ export const tags: Tag[] = [
     descricao:    'Semelhante a ADI 400',
     publica:      false,
   },
+  {
+    id:           5,
+    descricao:    'Tema de repercussão geral 1137',
+    publica:      false,
+  },
 ];
