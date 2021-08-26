@@ -17,8 +17,8 @@ export interface ComposicaoColegiado {
 }
 
 export interface Colegiado {
-    nome: NomeDoColegiado;
-    presidente: Ministro;
     composicao: Array<ComposicaoColegiado>;
     data: string;
+    nome: NomeDoColegiado;
+    presidente: Ministro;
 }

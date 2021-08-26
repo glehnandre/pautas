@@ -1,36 +1,32 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { FormBuilder } from '@angular/forms';
 import { EMPTY, Observable } from 'rxjs';
-import { JulgamentoService } from '../services/julgamento.service';
+import { JulgamentoService } from 'app/modules/services/julgamento.service'; 
 
-import { JulgamentoExtraordinarioComponent } from './julgamento-extraordinario.component';
+import { SessaoExtraordinariaComponent } from './sessao-extraordinaria.component';
 
 class MockJulgamentoService {
   public listarSessoesDeJulgamento(): Observable<any> { return EMPTY };
 }
 
-describe('JulgamentoExtraordinarioComponent', () => {
-  let component: JulgamentoExtraordinarioComponent;
-  let fixture: ComponentFixture<JulgamentoExtraordinarioComponent>;
+describe('SessaoExtraordinariaComponent', () => {
+  let component: SessaoExtraordinariaComponent;
+  let fixture: ComponentFixture<SessaoExtraordinariaComponent>;
   let julgamentoService: JulgamentoService;
-  let fb: FormBuilder;
-  
+
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ JulgamentoExtraordinarioComponent ],
+      declarations: [ SessaoExtraordinariaComponent ],
       providers: [
         { provide: JulgamentoService, useClass: MockJulgamentoService },
-        { provide: FormBuilder, useClass: FormBuilder },
-      ],
+      ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(JulgamentoExtraordinarioComponent);
+    fixture = TestBed.createComponent(SessaoExtraordinariaComponent);
     component = fixture.componentInstance;
     julgamentoService = TestBed.inject(JulgamentoService);
-    fb = TestBed.inject(FormBuilder);
     fixture.detectChanges();
   });
 
@@ -50,7 +46,6 @@ describe('JulgamentoExtraordinarioComponent', () => {
 
   it('Deve encontrar a sessão de julgamento com numero e ano', () => {
     component.sessoes = [{
-      id: 0,
       numero: 1000,
       ano: 2021,
       categoria: '',
@@ -59,6 +54,7 @@ describe('JulgamentoExtraordinarioComponent', () => {
       data_fim: '',
       modalidade: '',
       tipo: '',
+      situacao: 'ABERTA',
     }];
     fixture.detectChanges();
     
@@ -68,17 +64,12 @@ describe('JulgamentoExtraordinarioComponent', () => {
     expect(isNumeroAno).toEqual(true);
   });
 
-  it(`Deve fazer a validação de sessão escolhida (Ciente e pautar na sessão - 
-    Esta opção só pode estar ativa se foi escolhida uma sessão 
-    de julgamento.)`, () => {
-    component.formJulgamento.setValue({
-      nova_data: '',
-      sessao: '',
-    });
+  it('Não deve haver sessão de julgamento sem pauta (vazia)', () => {
+    component.sessoes = [];
     fixture.detectChanges();
     
-    const isValid = component.formJulgamento.valid;
+    const isPauta = (component.sessoes.length === 0);
 
-    expect(isValid).toEqual(false);
+    expect(isPauta).toEqual(true);
   });
 });

@@ -11,24 +11,24 @@ export const defaultNavigation: FuseNavigationItem[] = [
     },
     {
         id   : 'acervo',
-        title: 'Acervo',
+        title: 'Acervo Efetivo',
         type : 'basic',
         icon : 'heroicons_outline:chart-pie',
         link : '/acervo'
     },
     {
         id   : 'julgamento-extraordinario',
-        title: 'Julgamento Extraordinario',
+        title: 'Resposta de Solicitação de Julgamento Extraordinario',
         type : 'basic',
         icon : 'heroicons_outline:chart-pie',
         link : '/julgamento-extraordinario'
     },
     {
-        id   : 'sessaoExtraordinaria',
+        id   : 'sessao-extraordinaria',
         title: 'Solicitar Sessão Extraordinária',
         type : 'basic',
         icon : 'heroicons_outline:chart-pie',
-        link : '/sessaoExtraordinaria'
+        link : '/sessao-extraordinaria'
     },
     {
         id   : 'criacao-colegiado',
@@ -36,6 +36,19 @@ export const defaultNavigation: FuseNavigationItem[] = [
         type : 'basic',
         icon : 'heroicons_outline:chart-pie',
         link : '/criacao-colegiado',
+        queryParams: {
+            processo: 'ADI100-Ag-Ag-Ag',
+            data: '2016-08-29T09%3A12%3A33.001Z',
+            colegiado: 'pleno',
+            sessao: '1000-2021',
+        }
+    },
+    {
+        id   : 'sessoes-julgamento',
+        title: 'Processos pautados',
+        type : 'basic',
+        icon : 'heroicons_outline:chart-pie',
+        link : '/sessoes-julgamento',
     },
 ];
 export const compactNavigation: FuseNavigationItem[] = [
@@ -61,11 +74,11 @@ export const compactNavigation: FuseNavigationItem[] = [
         link : '/julgamento-extraordinario'
     },
     {
-        id   : 'sessaoExtraordinaria',
+        id   : 'sessao-extraordinaria',
         title: 'Solicitar Sessão Extraordinária',
         type : 'basic',
         icon : 'heroicons_outline:chart-pie',
-        link : '/sessaoExtraordinaria'
+        link : '/sessao-extraordinaria'
     },
     {
         id   : 'criacao-colegiado',
@@ -73,6 +86,19 @@ export const compactNavigation: FuseNavigationItem[] = [
         type : 'basic',
         icon : 'heroicons_outline:chart-pie',
         link : '/criacao-colegiado',
+        queryParams: {
+            processo: 'ADI100-Ag-Ag-Ag',
+            data: '2016-08-29T09%3A12%3A33.001Z',
+            colegiado: 'pleno',
+            sessao: '1000-2021',
+        }
+    },
+    {
+        id   : 'sessoes-julgamento',
+        title: 'Sessões de Julgamento',
+        type : 'basic',
+        icon : 'heroicons_outline:chart-pie',
+        link : '/sessoes-julgamento'
     },
 ];
 export const futuristicNavigation: FuseNavigationItem[] = [
@@ -98,11 +124,11 @@ export const futuristicNavigation: FuseNavigationItem[] = [
         link : '/julgamento-extraordinario'
     },
     {
-        id   : 'sessaoExtraordinaria',
+        id   : 'sessao-extraordinaria',
         title: 'Solicitar Sessão Extraordinária',
         type : 'basic',
         icon : 'heroicons_outline:chart-pie',
-        link : '/sessaoExtraordinaria'
+        link : '/sessao-extraordinaria'
     },
     {
         id   : 'criacao-colegiado',
@@ -110,6 +136,19 @@ export const futuristicNavigation: FuseNavigationItem[] = [
         type : 'basic',
         icon : 'heroicons_outline:chart-pie',
         link : '/criacao-colegiado',
+        queryParams: {
+            processo: 'ADI100-Ag-Ag-Ag',
+            data: '2016-08-29T09%3A12%3A33.001Z',
+            colegiado: 'pleno',
+            sessao: '1000-2021',
+        }
+    },
+    {
+        id   : 'sessoes-julgamento',
+        title: 'Sessões de Julgamento',
+        type : 'basic',
+        icon : 'heroicons_outline:chart-pie',
+        link : '/sessoes-julgamento'
     },
 ];
 export const horizontalNavigation: FuseNavigationItem[] = [
@@ -135,11 +174,11 @@ export const horizontalNavigation: FuseNavigationItem[] = [
         link : '/julgamento-extraordinario'
     },
     {
-        id   : 'sessaoExtraordinaria',
+        id   : 'sessao-extraordinaria',
         title: 'Solicitar Sessão Extraordinária',
         type : 'basic',
         icon : 'heroicons_outline:chart-pie',
-        link : '/sessaoExtraordinaria'
+        link : '/sessao-extraordinaria'
     },
     {
         id   : 'criacao-colegiado',
@@ -147,5 +186,12 @@ export const horizontalNavigation: FuseNavigationItem[] = [
         type : 'basic',
         icon : 'heroicons_outline:chart-pie',
         link : '/criacao-colegiado'
-    }
+    },
+    {
+        id   : 'sessoes-julgamento',
+        title: 'Sessões de julgamento',
+        type : 'basic',
+        icon : 'heroicons_outline:chart-pie',
+        link : '/sessoes-julgamento',
+    },
 ];

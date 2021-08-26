@@ -23,7 +23,8 @@ export class MinistroMockApi {
           return [200, this._ministros];
         });
 
-      this._fuseMockApiService.onGet('/colegiado')
+      this._fuseMockApiService
+        .onGet('/colegiado')
         .reply(({request}) => {
           const { params } = request;
 
@@ -31,11 +32,25 @@ export class MinistroMockApi {
           const data = params.get('data');
           const colegiado = params.get('colegiado');
           
-          if (processo === 'undefined' && data === 'undefined' && colegiado === 'undefined') {
-            return [200, this._colegiado];
+          console.log(colegiado)
+          if (colegiado === 'pleno') {
+            const pleno = this._colegiado.filter(col => col.nome === 'pleno');
+            return [200, pleno];
+          } else {
+            const colegiados = this._colegiado
+              .filter(col => col.nome === colegiado);
+            return [200, colegiados];
           }
-            
-          return [200, [this._colegiado[0]]];
+        });
+
+      this._fuseMockApiService
+        .onPost('/colegiado')
+        .reply(({request}) => {
+          const { body } = request;
+          
+          this._colegiado.push(body);
+
+          return [200, this._colegiado];
         });
     }
 }
