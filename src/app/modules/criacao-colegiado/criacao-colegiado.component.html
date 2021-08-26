@@ -39,7 +39,6 @@
                   [composicao]="comp"
                   [colegiado]="colegiados[0]?.colegiado"
                   [disabled]="isMinistroParticipadandoDaVotacao(comp)"
-                  [disativarForm]="calcularContador() === 0"
                   (statusVotacao)="obterStatusDoVoto($event)"
               ></app-card-ministro>
             </main>
