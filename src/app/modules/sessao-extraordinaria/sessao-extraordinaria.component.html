@@ -1,8 +1,8 @@
-<div class="absolute inset-0 flex flex-col min-w-0 overflow-auto md:overflow-hidden">
+<div class="absolute inset-0 flex flex-col min-w-0 overflow-y-auto">
 
   <!-- Header -->
   <div class="flex flex-wrap justify-center items-center sm:justify-between
-              pl-8 bg-default dark:bg-transparent">
+              pl-8 pr-8 bg-default dark:bg-transparent">
       <h1 class="mt-4 text-primary">
           Solicitação de Sessão de Julgamento Extraordinária MMA
       </h1>
@@ -26,19 +26,17 @@
     </div>
   </div>
 
-  <hr class="m-0 p-0 mb-4" />
-
   <!-- Main -->
-  <div class="flex-auto overflow-y-auto px-8 pb-8 min-h-full" cdkScrollable>
+  <div class="flex-auto max-h-4/5 px-8" cdkScrollable>
       <!-- CONTENT GOES HERE -->
-        <div class="mb-4">
-            <app-processo-painel-expansivo
-                *ngFor="let processo of processos"
-                [processo]="processo"
-            ></app-processo-painel-expansivo>
-        </div>
+      <div class="min-h-1/5 max-h-3/5 overflow-auto">
+          <app-processo-painel-expansivo
+              *ngFor="let processo of processos"
+              [processo]="processo"
+          ></app-processo-painel-expansivo>
+      </div>
 
-      <div class="flex flex-col sm:items-center justify-between mt-8">
+      <div class="flex flex-col sm:items-center justify-between mt-4">
           <div mat-dialog-actions class="container flex flex-col sm:flex-row items-center mt-4 sm:mt-0 sm:ml-auto">
             <button
               class="w-full ml-auto sm:ml-0 mr-4 order-last sm:order-none"
