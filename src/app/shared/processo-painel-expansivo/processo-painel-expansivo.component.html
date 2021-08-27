@@ -1,9 +1,9 @@
-<mat-expansion-panel 
-    (opened)="panelOpenState = true" 
+<mat-expansion-panel
+    (opened)="panelOpenState = true"
     (closed)="panelOpenState = false"
 >
-    <mat-expansion-panel-header 
-        [collapsedHeight]="'40px'" 
+    <mat-expansion-panel-header
+        [collapsedHeight]="'40px'"
         class="p-4 h-20 sm:h-16"
     >
         <div class="my-4 ml-3">
@@ -23,7 +23,7 @@
     <div class="container">
         <div class="min-w-full justify-between">
             <h2>Capítulos</h2>
-            
+
             <div
                 *ngFor="let capitulo of processo.capitulos"
             >
