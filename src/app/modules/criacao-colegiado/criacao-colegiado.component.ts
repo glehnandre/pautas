@@ -88,6 +88,7 @@ export class CriacaoColegiadoComponent implements OnInit {
           }));
           
           this.colegiados = colegiados;
+          console.log(this.colegiados)
         }
       });
     });
