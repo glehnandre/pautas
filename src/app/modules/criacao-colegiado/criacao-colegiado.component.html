@@ -67,7 +67,7 @@
         </div>
         
         <mat-expansion-panel 
-            class="md:hidden mt-4"
+            class="md:hidden my-4"
             (opened)="panelOpenState = true" 
             (closed)="panelOpenState = false"
         >
@@ -99,7 +99,7 @@
             </div>
         </mat-expansion-panel>
 
-        <div class="my-4 text-primary font-medium text-lg">
+        <div class="my-2 text-primary font-medium text-lg">
             <p *ngIf="votosDosMinistros.length < 5">
                 Informe os {{calcularContador()}} ministros que irão compor o colegiado.
               </p>
