@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { Colegiado, ComposicaoColegiado } from '../acervo/model/interfaces/colegiado.interface';
@@ -11,7 +11,7 @@ import { ProcessoService } from '../services/processo.service';
 @Component({
   selector: 'app-criacao-colegiado',
   templateUrl: './criacao-colegiado.component.html',
-  styleUrls: ['./criacao-colegiado.component.scss']
+  styleUrls: ['./criacao-colegiado.component.scss'],
 })
 export class CriacaoColegiadoComponent implements OnInit {
 
@@ -31,6 +31,7 @@ export class CriacaoColegiadoComponent implements OnInit {
   relator: Ministro;
   tags: string[] = [];
   documentos: string[] = [];
+  lastId: string = "idTags";
 
   post: {
     processo: '',
@@ -174,4 +175,9 @@ export class CriacaoColegiadoComponent implements OnInit {
       });
     }
   }
+
+  setId(id: string){
+    this.lastId = id;
+  }
+
 }

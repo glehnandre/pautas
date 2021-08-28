@@ -52,6 +52,8 @@
                     <app-carrossel 
                         [idChip]="'idTags'"
                         [chips]="tags"
+                        [lastId]="lastId"
+                        (click)="setId('idTags')"
                     ></app-carrossel>
                 </div>
             </div>
@@ -60,6 +62,8 @@
             <app-carrossel
                 [idChip]="'idDocs'"
                 [chips]="documentos"
+                [lastId]="lastId"
+                (click)="setId('idDocs')"
                 [hasIcon]="true"
                 [class]="['border-primary border-solid border-2 bg-transparent text-primary']"
             ></app-carrossel>
@@ -67,8 +71,8 @@
         </div>
         
         <mat-expansion-panel 
-            class="md:hidden my-4"
-            (opened)="panelOpenState = true" 
+            class="md:hidden my-4 md:setId()"
+            (opened)="panelOpenState = true; setId('idTagsExp')"
             (closed)="panelOpenState = false"
         >
             <mat-expansion-panel-header 
@@ -88,10 +92,14 @@
                     <app-carrossel 
                         [idChip]="'idTagsExp'"
                         [chips]="tags"
+                        [lastId]="lastId"
+                        (click)="setId('idTagsExp')"
                     ></app-carrossel>
                     <app-carrossel 
                         [idChip]="'idDocExp'"
                         [chips]="documentos"
+                        [lastId]="lastId"
+                        (click)="setId('idDocExp')"
                         [hasIcon]="true"
                         [class]="['flex-none border-primary border-solid border-2 bg-transparent text-primary']"
                     ></app-carrossel>
