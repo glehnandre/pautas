@@ -3,4 +3,5 @@ export interface Capitulo {
     descricao: string;
     ordem: number;
     tipo: string;
+    dispositivo: string;
 }

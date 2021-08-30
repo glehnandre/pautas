@@ -30,21 +30,16 @@ export class PautarComponent implements OnInit {
         { value: 'colegiado-pleno', viewValue: 'Pleno' }
     ];
 
-    //Deve recuperar o valor da Sessoes de Julgamento Integralmente para aquele ano por meio de serviço
-    sessoes: SessaoJulgamento[] = [
-        { ano: 2021, numero: 1, colegiado: 'Primeira Turma', modalidade: 'Virtual', categoria: 'Judicial', tipo: 'Ordinária', data_inicio: '2021-06-29T09:12:33.001Z', data_fim: '2021-12-29T09:12:33.001Z', situacao: 'ABERTA'},
-        { ano: 2021, numero: 2, colegiado: 'Primeira Turma', modalidade: 'Virtual', categoria: 'Judicial', tipo: 'Ordinária', data_inicio: '2021-06-29T09:12:33.001Z', data_fim: '2021-12-29T09:12:33.001Z', situacao: 'ABERTA'},
-        { ano: 2021, numero: 3, colegiado: 'Segunda Turma', modalidade: 'Virtual', categoria: 'Judicial', tipo: 'Ordinária', data_inicio: '2021-04-29T09:12:33.001Z', data_fim: '2021-11-29T09:12:33.001Z', situacao: 'ABERTA'},
-        { ano: 2021, numero: 4, colegiado: 'Segunda Turma', modalidade: 'Virtual', categoria: 'Judicial', tipo: 'Ordinária', data_inicio: '2021-04-29T09:12:33.001Z', data_fim: '2021-11-29T09:12:33.001Z', situacao: 'ABERTA'},
-        { ano: 2021, numero: 5, colegiado: 'Segunda Turma', modalidade: 'Virtual', categoria: 'Judicial', tipo: 'Ordinária', data_inicio: '2021-03-29T09:12:33.001Z', data_fim: '2021-10-29T09:12:33.001Z', situacao: 'ABERTA'},
-        { ano: 2021, numero: 6, colegiado: 'Segunda Turma', modalidade: 'Virtual', categoria: 'Judicial', tipo: 'Ordinária', data_inicio: '2021-03-29T09:12:33.001Z', data_fim: '2021-10-29T09:12:33.001Z', situacao: 'ABERTA'},
-        { ano: 2021, numero: 7, colegiado: 'Segunda Turma', modalidade: 'Virtual', categoria: 'Judicial', tipo: 'Ordinária', data_inicio: '2021-03-29T09:12:33.001Z', data_fim: '2021-10-29T09:12:33.001Z', situacao: 'ABERTA'},
-        { ano: 2021, numero: 8, colegiado: 'Pleno', modalidade: 'Virtual', categoria: 'Judicial', tipo: 'Ordinária', data_inicio: '2021-07-29T09:12:33.001Z', data_fim: '2021-10-29T09:12:33.001Z', situacao: 'ABERTA'},
-        { ano: 2021, numero: 9, colegiado: 'Pleno', modalidade: 'Virtual', categoria: 'Judicial', tipo: 'Ordinária', data_inicio: '2021-01-29T09:12:33.001Z', data_fim: '2021-12-29T09:12:33.001Z', situacao: 'ABERTA'},
-        { ano: 2021, numero: 10, colegiado: 'Pleno', modalidade: 'Virtual', categoria: 'Judicial', tipo: 'Ordinária', data_inicio: '2021-09-29T09:12:33.001Z', data_fim: '2021-12-29T09:12:33.001Z', situacao: 'ABERTA'}
+    modalidades = [
+        {value: 'Virtual'},
+        {value: 'Presencial'}
     ];
 
-    colegiadoEscolhido = this.colegiados[0].value;
+    //Deve recuperar o valor da Sessoes de Julgamento Integralmente para aquele ano por meio de serviço
+    sessoes: SessaoJulgamento[] = [];
+
+    modalidadeEscolhida = this.modalidades[0].value;
+    colegiadoEscolhido = this.colegiados[0].viewValue;
     myControl: FormControl = new FormControl();
     options: string[] = ['1000', '2000', '3000'];
     filteredOptions: Observable<string[]>;
@@ -65,9 +60,15 @@ export class PautarComponent implements OnInit {
         this.pautarForm = this._formBuilder.group({
             sessao: ['', [Validators.required]],
             colegiado: [''],
+            modalidade: [''],
             data_inicio: [''],
             data_fim: [''],
         });
+        for (let i = 1; i <= 16; i++) {
+            this._julgamentoService.listarSessoesDeJulgamento(i,2021).subscribe(data=>{
+                this.sessoes.push(data);
+            });
+        }
     }
     
     fechar(): void {

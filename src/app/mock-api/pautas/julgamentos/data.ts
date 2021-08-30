@@ -18,7 +18,183 @@ export const julgamentos: SessaoJulgamento[] = [
         nome: "Beatriz Cunha",
       },
       situacao: 'ABERTA',
-  }
+  },
+  { 
+    ano: 2021, 
+    numero: 1, 
+    colegiado: 'Primeira Turma', 
+    modalidade: 'Virtual', 
+    categoria: 'Judicial', 
+    tipo: 'Ordinária', 
+    data_inicio: '2021-06-29T09:12:33.001Z', 
+    data_fim: '2021-12-29T09:12:33.001Z', 
+    situacao: 'ABERTA'
+  },
+  { 
+    ano: 2021, 
+    numero: 2, 
+    colegiado: 'Primeira Turma', 
+    modalidade: 'Virtual', 
+    categoria: 'Judicial', 
+    tipo: 'Ordinária', 
+    data_inicio: '2021-06-29T09:12:33.001Z', 
+    data_fim: '2021-12-29T09:12:33.001Z', 
+    situacao: 'ABERTA'
+  },
+  { 
+    ano: 2021, 
+    numero: 3, 
+    colegiado: 'Segunda Turma', 
+    modalidade: 'Virtual', 
+    categoria: 'Judicial', 
+    tipo: 'Ordinária', 
+    data_inicio: '2021-04-29T09:12:33.001Z', 
+    data_fim: '2021-11-29T09:12:33.001Z', 
+    situacao: 'ABERTA'
+  },
+  { 
+    ano: 2021, 
+    numero: 4, 
+    colegiado: 'Segunda Turma', 
+    modalidade: 'Virtual', 
+    categoria: 'Judicial', 
+    tipo: 'Ordinária', 
+    data_inicio: '2021-04-29T09:12:33.001Z', 
+    data_fim: '2021-11-29T09:12:33.001Z', 
+    situacao: 'ABERTA'
+  },
+  { 
+    ano: 2021, 
+    numero: 5, 
+    colegiado: 'Segunda Turma', 
+    modalidade: 'Virtual', 
+    categoria: 'Judicial', 
+    tipo: 'Ordinária', 
+    data_inicio: '2021-03-29T09:12:33.001Z', 
+    data_fim: '2021-10-29T09:12:33.001Z', 
+    situacao: 'ABERTA'
+  },
+  { 
+    ano: 2021, 
+    numero: 6, 
+    colegiado: 'Segunda Turma', 
+    modalidade: 'Virtual', 
+    categoria: 'Judicial', 
+    tipo: 'Ordinária', 
+    data_inicio: '2021-03-29T09:12:33.001Z', 
+    data_fim: '2021-10-29T09:12:33.001Z', 
+    situacao: 'ABERTA'
+  },
+  { 
+    ano: 2021, 
+    numero: 7, 
+    colegiado: 'Segunda Turma', 
+    modalidade: 'Virtual', 
+    categoria: 'Judicial', 
+    tipo: 'Ordinária', 
+    data_inicio: '2021-03-29T09:12:33.001Z', 
+    data_fim: '2021-10-29T09:12:33.001Z', 
+    situacao: 'ABERTA'
+  },
+  { 
+    ano: 2021, 
+    numero: 8, 
+    colegiado: 'Pleno', 
+    modalidade: 'Virtual', 
+    categoria: 'Judicial', 
+    tipo: 'Ordinária', 
+    data_inicio: '2021-07-29T09:12:33.001Z', 
+    data_fim: '2021-10-29T09:12:33.001Z', 
+    situacao: 'ABERTA'
+  },
+  { 
+    ano: 2021, 
+    numero: 9, 
+    colegiado: 'Pleno', 
+    modalidade: 'Virtual', 
+    categoria: 'Judicial', 
+    tipo: 'Ordinária', 
+    data_inicio: '2021-01-29T09:12:33.001Z', 
+    data_fim: '2021-12-29T09:12:33.001Z', 
+    situacao: 'ABERTA'
+  },
+  { 
+    ano: 2021, 
+    numero: 10,
+    colegiado: 'Pleno', 
+    modalidade: 'Virtual', 
+    categoria: 'Judicial', 
+    tipo: 'Ordinária', 
+    data_inicio: '2021-09-29T09:12:33.001Z', 
+    data_fim: '2021-12-29T09:12:33.001Z', 
+    situacao: 'ABERTA'
+  },
+  { 
+    ano: 2021, 
+    numero: 11, 
+    colegiado: 'Primeira Turma', 
+    modalidade: 'Presencial', 
+    categoria: 'Judicial', 
+    tipo: 'Ordinária', 
+    data_inicio: '2021-06-29T09:12:33.001Z', 
+    data_fim: '2021-12-29T09:12:33.001Z', 
+    situacao: 'ABERTA'
+  },
+  { 
+    ano: 2021, 
+    numero: 12, 
+    colegiado: 'Primeira Turma', 
+    modalidade: 'Presencial', 
+    categoria: 'Judicial', 
+    tipo: 'Ordinária', 
+    data_inicio: '2021-06-29T09:12:33.001Z', 
+    data_fim: '2021-12-29T09:12:33.001Z', 
+    situacao: 'ABERTA'
+  },
+  { 
+    ano: 2021, 
+    numero: 13, 
+    colegiado: 'Segunda Turma', 
+    modalidade: 'Presencial', 
+    categoria: 'Judicial', 
+    tipo: 'Ordinária', 
+    data_inicio: '2021-04-29T09:12:33.001Z', 
+    data_fim: '2021-11-29T09:12:33.001Z', 
+    situacao: 'ABERTA'
+  },
+  { 
+    ano: 2021, 
+    numero: 14, 
+    colegiado: 'Segunda Turma', 
+    modalidade: 'Presencial', 
+    categoria: 'Judicial', 
+    tipo: 'Ordinária', 
+    data_inicio: '2021-04-29T09:12:33.001Z', 
+    data_fim: '2021-11-29T09:12:33.001Z', 
+    situacao: 'ABERTA'
+  },
+  { 
+    ano: 2021, 
+    numero: 15, 
+    colegiado: 'Pleno', 
+    modalidade: 'Presencial', 
+    categoria: 'Judicial', 
+    tipo: 'Ordinária', 
+    data_inicio: '2021-03-29T09:12:33.001Z', 
+    data_fim: '2021-10-29T09:12:33.001Z', 
+    situacao: 'ABERTA'
+  },
+  { 
+    ano: 2021, 
+    numero: 16, 
+    colegiado: 'Pleno', 
+    modalidade: 'Presencial', 
+    categoria: 'Judicial', 
+    tipo: 'Ordinária', 
+    data_inicio: '2021-03-29T09:12:33.001Z', 
+    data_fim: '2021-10-29T09:12:33.001Z', 
+    situacao: 'ABERTA'
+  },
 ];
 
 export const processos: Processo[] = [
@@ -58,8 +234,9 @@ export const processos: Processo[] = [
         id: 123455,
         descricao: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Repellendus omnis eum ratione, impedit, consequuntur laborum amet tempore iure accusamus in nulla voluptates odit. Eum fugit eius, assumenda distinctio quidem quia?",
         ordem: 1,
-        tipo: "Mérito"
-      }
+        tipo: "Mérito",
+        dispositivo: "Deferido",
+      },
     ]
   },
 
@@ -103,7 +280,8 @@ export const processos: Processo[] = [
         id: 123455,
         descricao: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Repellendus omnis eum ratione, impedit, consequuntur laborum amet tempore iure accusamus in nulla voluptates odit. Eum fugit eius, assumenda distinctio quidem quia?",
         ordem: 1,
-        tipo: "Mérito"
+        tipo: "Mérito",
+        dispositivo: "Deferido"
       }
     ]
   },

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { Colegiado, ComposicaoColegiado } from '../acervo/model/interfaces/colegiado.interface';
@@ -11,9 +11,11 @@ import { ProcessoService } from '../services/processo.service';
 @Component({
   selector: 'app-criacao-colegiado',
   templateUrl: './criacao-colegiado.component.html',
-  styleUrls: ['./criacao-colegiado.component.scss']
+  styleUrls: ['./criacao-colegiado.component.scss'],
 })
 export class CriacaoColegiadoComponent implements OnInit {
+
+  panelOpenState: boolean = false;
 
   queryParams: {
     processo: string,
@@ -27,8 +29,9 @@ export class CriacaoColegiadoComponent implements OnInit {
   composicao: ComposicaoColegiado[] = [];
   votosDosMinistros: ComposicaoColegiado[] = [];
   relator: Ministro;
-  tags: Tag[];
-  documentos: Documento[];
+  tags: string[] = [];
+  documentos: string[] = [];
+  lastId: string = "idTags";
 
   post: {
     processo: '',
@@ -86,29 +89,21 @@ export class CriacaoColegiadoComponent implements OnInit {
           }));
           
           this.colegiados = colegiados;
+          console.log(this.colegiados)
         }
       });
     });
 
     this._processoService.obterDocumentosDoProcesso(1).subscribe(data=>{
-      this.documentos = data;
+      data.forEach(documento=>{
+        this.documentos.push(documento.nome);
+      })
     })
     this._processoService.recuperarTagsDaApi().subscribe(data=>{
-      this.tags = data;
+      data.forEach(tag=>{
+        this.tags.push(tag.descricao);
+      })
     })
-  }
-
-  /**
-   * 
-   * @param id o id do elemento que eu quero fazer o scrollLeft
-   */
-  public scrollLeft(id): void {
-    let el = document.getElementById(id);
-    el.scrollTo({ left: (el.scrollLeft - 150), behavior: 'smooth' });
-  }
-  public scrollRight(id): void {
-    let el = document.getElementById(id);
-    document.getElementById(id).scrollTo({ left: (el.scrollLeft + 150), behavior: 'smooth' });
   }
 
   obterStatusDoVoto(votoDoMinistro: ComposicaoColegiado): void {
@@ -180,4 +175,9 @@ export class CriacaoColegiadoComponent implements OnInit {
       });
     }
   }
+
+  setId(id: string){
+    this.lastId = id;
+  }
+
 }

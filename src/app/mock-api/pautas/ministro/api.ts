@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { FuseMockApiService } from '@fuse/lib/mock-api/mock-api.service';
 import { Colegiado } from 'app/modules/acervo/model/interfaces/colegiado.interface';
 import { Ministro } from 'app/modules/acervo/model/interfaces/ministro.interface';
-import { ministro as ministroData, colegiado as colegiadoData, colegiadoPost } from './data';
+import { ministro as ministroData, colegiado as colegiadoData } from './data';
 
 @Injectable({
     providedIn: 'root'
@@ -10,7 +10,6 @@ import { ministro as ministroData, colegiado as colegiadoData, colegiadoPost } f
 export class MinistroMockApi {
     private _ministros: Ministro[] = ministroData;
     private _colegiado: Colegiado[] = colegiadoData;
-    private _colegiadoPost: any[] = colegiadoPost;
 
     constructor(private _fuseMockApiService: FuseMockApiService) {
         this._ministros = ministroData;
@@ -35,11 +34,11 @@ export class MinistroMockApi {
           
           console.log(colegiado)
           if (colegiado === 'pleno') {
-            const pleno = this._colegiado.filter(col => col.colegiado === 'pleno');
+            const pleno = this._colegiado.filter(col => col.nome === 'pleno');
             return [200, pleno];
           } else {
             const colegiados = this._colegiado
-              .filter(col => col.colegiado === colegiado);
+              .filter(col => col.nome === colegiado);
             return [200, colegiados];
           }
         });
@@ -49,9 +48,9 @@ export class MinistroMockApi {
         .reply(({request}) => {
           const { body } = request;
           
-          this._colegiadoPost.push(body);
+          this._colegiado.push(body);
 
-          return [200, this._colegiadoPost];
+          return [200, this._colegiado];
         });
     }
 }

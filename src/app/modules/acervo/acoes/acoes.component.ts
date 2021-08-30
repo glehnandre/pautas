@@ -1,8 +1,9 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { FuseAlertService } from '@fuse/components/alert';
 import { ProcessoService } from 'app/modules/services/processo.service';
+import { SituacaoDoProcesso } from '../model/enums/situacaoDoProcesso.enum';
 import { Processo } from '../model/interfaces/processo.interface';
 import { AgruparEmlistaComponent } from './agrupar-emlista/agrupar-emlista.component';
 import { AlertaComponent } from './agrupar-emlista/gerenciar-listas/alerta/alerta.component';
@@ -63,6 +64,7 @@ export class AcoesComponent implements OnInit {
     this.Allselected.emit(completed)
 
   }
+
   onResize() {
     if (document.body.clientWidth <= 800) {
       this.mobile = true
@@ -77,7 +79,6 @@ export class AcoesComponent implements OnInit {
       this.mostrarAlerta();
     }
     else{
-      this.fecharAlerta();
 
       const dialogRef = this._matDialog.open(AgruparEmlistaComponent, {
         maxHeight: '560px',
@@ -92,13 +93,13 @@ export class AcoesComponent implements OnInit {
   }
 
   openComposeDialog(): void {
+    this.filtrarProcesso('Apto a Pautar');
     if(!this.verificaProcesso()){
       this.mostrarAlerta();
     }
     else{
-      this.fecharAlerta();
       // Open the dialog
-      const dialogRef = this._matDialog.open(PautarComponent, {data: {processos:this.processos}});
+      const dialogRef = this._matDialog.open(PautarComponent, {data: {processos: [...this.processos]}});
 
       dialogRef.afterClosed()
         .subscribe((result) => {
@@ -114,18 +115,14 @@ export class AcoesComponent implements OnInit {
     return true;
   }
 
-  mostrarAlerta(){
-      this._fuseAlertService.show('alertBox');
-  }
-  fecharAlerta(){
-    this._fuseAlertService.dismiss('alertBox');
+  mostrarAlerta(): void{
+    this.alertaDeErro('Erro de validação', 'Selecione um ou mais processos');
   }
 
   retirarDePauta(): void {
+    this.filtrarProcesso('Pautado');
     if (!this.verificaProcesso()) {
       this.mostrarAlerta();
-    } else if (this.processos.some(p => p.situacao !== 4)) {
-      this.alertaDeErro('Erro nos processos selecionados', 'Selecione apenas os processos com a situação: Pautado.');
     } else {
       const dialogRef = this._matDialog.open(AlertaComponent, {
         data: {
@@ -171,11 +168,40 @@ export class AcoesComponent implements OnInit {
     }, 5000);
   }
 
+  filtrarProcesso(situacao: string): string {
+    /**
+     * @param {string} situacao
+     * Filtra os processos selecionados, para que remova e alerte ao usuário,
+     * que aquela ação só pode ser feita para processos com a situação passada,
+     * as ações possiveis esta em acervo/model/enums/situacaoDoProcesso.enum.ts
+     */
+
+    let processosRemovidos = [], processosSelecinados = [];
+    this.processos.forEach((processo, i) => {
+
+      if (processo.situacao !== SituacaoDoProcesso[situacao]) {
+          processosRemovidos.push(processo);
+          processo.checked = false;
+      }
+      else processosSelecinados.push(processo);
+    });
+
+    this._processoService.setProcessosSelecionados(processosSelecinados);
+
+    if(processosRemovidos.length) {
+      const titulo = processosRemovidos.length == 1 ?
+        `O processo precisa estar com situação de ${situacao}.`:
+        `Os processos precisam estar com situação de ${situacao}.`;
+      const removidos = this._processoService.exibeDescricaoDosProcessos(processosRemovidos);
+      this.alertaDeErro(titulo, removidos);
+      return removidos;
+    }
+  }
+
   abrirModalDeReanalizar(): void {
+    this.filtrarProcesso('Apto a Pautar');
     if (!this.verificaProcesso()) {
       this.mostrarAlerta();
-    } else if (this.processos.some(p => p.situacao !== 1)) {
-      this.alertaDeErro('Erro nos processos selecionados', 'Selecione apenas os processos com a situação: Apto a ser Julgado.');
     } else {
       const dialogRef = this._matDialog.open(ReanalizarComponent, {
         data: this.processos,
@@ -190,10 +216,9 @@ export class AcoesComponent implements OnInit {
   }
 
   abrirModalDeAlterarSessao(): void {
+    this.filtrarProcesso('Pautado')
     if (!this.verificaProcesso()) {
       this.mostrarAlerta();
-    } else if (this.processos.some(p => p.situacao !== 4)) {
-      this.alertaDeErro('Erro nos processos selecionados', 'Alguns processos ainda não foram pautados');
     } else {
       const dialogRef = this._matDialog.open(AlterarSessaoComponent, {
         data: this.processos,
@@ -201,5 +226,4 @@ export class AcoesComponent implements OnInit {
       dialogRef.afterClosed().subscribe(resultado => {});
     }
   }
-
 }

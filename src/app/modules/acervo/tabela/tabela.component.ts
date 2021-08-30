@@ -29,7 +29,7 @@ export class TabelaComponent implements OnInit {
 
   processosSelecionados: Processo[] = [];
   processos: Processo[];
-  
+
   constructor(
     private _processoService: ProcessoService,
   ) {}
@@ -43,7 +43,7 @@ export class TabelaComponent implements OnInit {
 
   ngOnChanges(changes: SimpleChange) {
     // Extract changes to the input property by its name
-    let change: SimpleChange = changes['Allselected']; 
+    let change: SimpleChange = changes['Allselected'];
     this.SelectAll = changes['Allselected'].currentValue?.checked;
     if (this.SelectAll) {
       this._processoService.setProcessosSelecionados(this.processos);
@@ -57,8 +57,8 @@ export class TabelaComponent implements OnInit {
 
   check(){
     //this.SelectAll = this.Allselected
-  } 
-  
+  }
+
   filtrarPorTags(tag) {
     this.tagSelecionada.emit(tag)
   }
@@ -81,7 +81,7 @@ export class TabelaComponent implements OnInit {
       const index = this.processosSelecionados.findIndex(({id}) => id === data.id);
       this.processosSelecionados.splice(index, 1);
     }
-    
+
     this._processoService.setProcessosSelecionados(this.processosSelecionados);
   }
 
@@ -98,6 +98,7 @@ export class TabelaComponent implements OnInit {
     this._processoService.listarProcessos(params).subscribe({
       next: (data) => {
         this.processos = data;
+        this.processos.map(p => p.checked=false);
       }
     });
   }
