@@ -15,6 +15,7 @@ import { CarrosselComponent } from './carrossel/carrossel.component';
 import { MatExpansionModule } from '@angular/material/expansion';
 
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
+import { FuseAlertModule } from '@fuse/components/alert';
 
 const CriacaoColegiadoRoutes: Routes = [
   { path: '', component: CriacaoColegiadoComponent },
@@ -40,6 +41,7 @@ const CriacaoColegiadoRoutes: Routes = [
     MatChipsModule,
     MatButtonToggleModule,
     MatExpansionModule,
+    FuseAlertModule,
   ],
   exports: [
     CriacaoColegiadoComponent,

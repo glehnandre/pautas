@@ -5,6 +5,7 @@ import { Colegiado, ComposicaoColegiado } from '../acervo/model/interfaces/coleg
 import { Documento } from '../acervo/model/interfaces/documento.interface';
 import { Ministro } from '../acervo/model/interfaces/ministro.interface';
 import { Tag } from '../acervo/model/interfaces/tag.interface';
+import { AlertaService } from '../services/alerta.service';
 import { MinistroService } from '../services/ministro.service';
 import { ProcessoService } from '../services/processo.service';
 
@@ -23,6 +24,12 @@ export class CriacaoColegiadoComponent implements OnInit {
     colegiado: string,
     sessao: string,
   };
+
+  alerta: {
+    titulo: string,
+    mensagem: string,
+  }
+
   formVotacao: FormGroup;
   ministros: Ministro[] = [];
   colegiados: Colegiado[] = [];
@@ -32,41 +39,36 @@ export class CriacaoColegiadoComponent implements OnInit {
   tags: string[] = [];
   documentos: string[] = [];
 
-  post: {
-    processo: '',
-    anoSessao: '2021',
-    numeroSessao: '100',
-    julgados: [1, 2, 3],
-    items: {
-      ministro: {},
-      jaVotou: false,
-      podeVotar: false,
-    },
-  };
-
   constructor(
     private _fb: FormBuilder,
     private _ministroService: MinistroService,
     private _processoService: ProcessoService,
     private _route: ActivatedRoute,
+    private _alertaService: AlertaService,
   ) { 
     this.formVotacao = this._fb.group({
-      processo: ['ADI100-Ag-Ag-A', Validators.required],
-      anoSessao: ['2021', Validators.required],
-      numeroSessao: [100, Validators.required],
-      julgados: [[1, 2, 3], Validators.required],
-      items: [this.votosDosMinistros],
+      processo: ['', Validators.required],
+      anoSessao: ['', Validators.required],
+      numeroSessao: ['', Validators.required],
+      julgados: [this.votosDosMinistros],
     });
   }
 
   ngOnInit(): void {
-    this._route.queryParams.subscribe((data) => {
+    this._route.queryParams.subscribe(({colegiado, data, processo, sessao}) => {
       this.queryParams = {
-        colegiado: data.colegiado,
-        data: data.data,
-        processo: data.processo,
-        sessao: data.sessao,
+        colegiado,
+        data,
+        processo,
+        sessao,
       };
+
+      this.formVotacao.setValue({
+        processo,
+        numeroSessao: sessao.slice(0, sessao.indexOf('-')),
+        anoSessao: sessao.slice(sessao.indexOf('-')+1, sessao.length),
+        julgados: this.votosDosMinistros,
+      });
 
       this._ministroService.listarColegiados(this.queryParams.colegiado).subscribe({
         next: (colegiados) => {
@@ -88,7 +90,6 @@ export class CriacaoColegiadoComponent implements OnInit {
           }));
           
           this.colegiados = colegiados;
-          console.log(this.colegiados)
         }
       });
     });
@@ -123,25 +124,23 @@ export class CriacaoColegiadoComponent implements OnInit {
     } else {
       this.votosDosMinistros.push(votoDoMinistro);
     }
-
-    console.table(this.votosDosMinistros)
   }
 
   isSelecoesValidas(): boolean {
     const MIN_VOTOS: number = 5;
 
     if (this.votosDosMinistros.length === 0) {
-      alert('Nunhum voto selecionado!');
+      this._exibeAlerta('Erro ao verificar votos', 'Nunhum ministro está participando da votação!');
       return false;
     }
 
     if (this.votosDosMinistros.length < MIN_VOTOS) {
-      alert('Número minimo de votos: ' + MIN_VOTOS);
+      this._exibeAlerta('Erro na qunatidade de votos', `O número mínimo de votos é ${MIN_VOTOS}`);
       return false;
     }
 
     if (!this.votosDosMinistros.some(ministro => ministro.relator)) {
-      alert('Não há relatores selecionados!');
+      this._exibeAlerta('Erro ao verificar relator', 'Adicione algum relator para participar do colegiado');
       return false;
     }
 
@@ -173,5 +172,10 @@ export class CriacaoColegiadoComponent implements OnInit {
         }
       });
     }
+  }
+
+  private _exibeAlerta(titulo: string, mensagem: string): void {
+    this.alerta = { titulo, mensagem };
+    this._alertaService.exibirAlertaDeErro('alertaDeErroNoColegiado');
   }
 }

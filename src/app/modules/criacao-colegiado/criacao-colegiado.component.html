@@ -18,7 +18,7 @@
                     class="w-14 h-14 mr-6 mb-4 rounded-full ng-tns-c129-57 ng-star-inserted">
                 <div class="flex flex-col flex-none mr-14 ng-tns-c129-56 ng-star-inserted">
                     <div class="text-lg font-medium text-primary leading-tight">
-                        {{queryParams.processo | uppercase}}
+                        {{relator?.nome | titlecase}}
                     </div>
                     <div class="text-md leading-tight font-bold">
                         {{relator?.abreviacao | uppercase}}
@@ -132,3 +132,16 @@
         </div>
     </div>
 </div>
+
+<fuse-alert 
+    *ngIf="alerta"
+    class="max-w-120 ml-auto"
+    [type]="'error'"
+    [appearance]="'soft'"
+    [dismissible]=true
+    [dismissed]=true
+    [name]="'alertaDeErroNoColegiado'"
+>
+    <span fuseAlertTitle>{{alerta.titulo}}</span>
+    {{alerta.mensagem}}
+</fuse-alert>

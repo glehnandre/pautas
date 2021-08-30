@@ -6,7 +6,6 @@ import { tags as tagData } from 'app/mock-api/pautas/tags/data';
 import { Paginacao } from 'app/modules/acervo/tabela/paginacao/paginacao.component';
 import { Processo } from 'app/modules/acervo/model/interfaces/processo.interface';
 import { Tag } from 'app/modules/acervo/model/interfaces/tag.interface';
-import { SituacaoDoProcesso } from 'app/modules/acervo/model/enums/situacaoDoProcesso.enum';
 import { Documento } from 'app/modules/acervo/model/interfaces/documento.interface';
 
 @Injectable({
