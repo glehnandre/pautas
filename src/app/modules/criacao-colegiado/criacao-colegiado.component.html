@@ -6,6 +6,22 @@
             Colegiado para a {{queryParams.processo | uppercase}} Sessão {{queryParams.sessao}} 
             {{queryParams.colegiado | titlecase}}
         </h1>
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between mr-4 my-2">
+            <div class="flex items-center mt-4 sm:mt-0 ml-auto">
+              <button class="ml-auto sm:ml-0 mr-2" mat-button>
+                <span>Cancelar</span>
+              </button>
+        
+              <button 
+                class="ml-auto"
+                color="primary" 
+                (click)="finalizar()"
+                mat-raised-button 
+              >
+                Finalizar 
+              </button>
+            </div>
+          </div>
     </div>
 
     <hr class="m-0 p-0" />
@@ -51,7 +67,7 @@
         </div>
         
         <mat-expansion-panel 
-            class="md:hidden mt-4"
+            class="md:hidden my-4"
             (opened)="panelOpenState = true" 
             (closed)="panelOpenState = false"
         >
@@ -83,7 +99,7 @@
             </div>
         </mat-expansion-panel>
 
-        <div class="my-4 text-primary font-medium text-lg">
+        <div class="my-2 text-primary font-medium text-lg">
             <p *ngIf="votosDosMinistros.length < 5">
                 Informe os {{calcularContador()}} ministros que irão compor o colegiado.
               </p>
