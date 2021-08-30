@@ -15,7 +15,7 @@ export const processo: Processo[] = [
     classe:     'ADI',
     numero:     100,
     situacao:   1,
-    tipo:       TipoDoProcesso.Incidente,
+    tipo:       TipoDoProcesso.Cadeira,
     capitulos:  [
       {
         id:     1,
@@ -186,6 +186,28 @@ export const processo: Processo[] = [
                 ],
     classe:     'RE',
     numero:     1311742,
+    situacao:   1,
+    tipo:       TipoDoProcesso.Merito,
+    capitulos:  [
+      {
+        id:     1,
+        descricao: 'É constitucional o artigo 8º da Lei Complementar 173/2020, editado no âmbito do Programa Federativo de Enfrentamento ao Coronavírus SARS-CoV-2 (Covid-19).',
+        ordem:  1,
+        tipo:   'Tese',
+        dispositivo: 'Reconhecida'
+      }
+    ],
+  },
+
+  {
+    id:         6,
+    nome:     'Tese',
+    ementa:   'Sessão de julgamento extraordinária para tratar da divisão de terras.',
+    lista:        [
+                  tagData[4],
+                ],
+    classe:     'RE',
+    numero:     143255,
     situacao:   1,
     tipo:       TipoDoProcesso.Merito,
     capitulos:  [

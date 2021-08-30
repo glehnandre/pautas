@@ -1,4 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
+import { Tag } from 'app/modules/acervo/model/interfaces/tag.interface';
 
 @Component({
   selector: 'app-carrossel',

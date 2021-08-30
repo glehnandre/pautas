@@ -8,7 +8,7 @@
         </h1>
         <div class="flex flex-col sm:flex-row sm:items-center justify-between mr-4 my-2">
             <div class="flex items-center mt-4 sm:mt-0 ml-auto">
-              <button class="ml-auto sm:ml-0 mr-2" mat-button>
+              <button class="z-0 ml-auto sm:ml-0 mr-2" mat-button>
                 <span>Cancelar</span>
               </button>
         
@@ -46,7 +46,7 @@
             </div>
             <div class="flex flex-1 flex-col min-w-20 overflow-x-auto">
                 <div class="flex-1 ml-2 text-xl">
-                    Mérito
+                    {{obterTipoDoProcesso()}}
                 </div>
                 <div class="hidden md:block">
                     <app-carrossel 
@@ -128,23 +128,6 @@
                   (statusVotacao)="obterStatusDoVoto($event)"
               ></app-card-ministro>
             </main>
-        </div>
-
-        <div class="flex flex-col sm:flex-row sm:items-center justify-between mt-4 sm:mt-6">
-          <div class="flex items-center mt-4 sm:mt-0 ml-auto">
-            <button class="ml-auto sm:ml-0 mr-2" mat-button>
-              <span>Cancelar</span>
-            </button>
-      
-            <button 
-              class="ml-auto"
-              color="primary" 
-              (click)="finalizar()"
-              mat-raised-button 
-            >
-              Finalizar 
-            </button>
-          </div>
         </div>
     </div>
 </div>

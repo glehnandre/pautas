@@ -1,6 +1,8 @@
+import { HttpParams } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
+import { TipoDoProcesso } from '../acervo/model/enums/tipoDoProcesso.enum';
 import { Colegiado, ComposicaoColegiado } from '../acervo/model/interfaces/colegiado.interface';
 import { Documento } from '../acervo/model/interfaces/documento.interface';
 import { Ministro } from '../acervo/model/interfaces/ministro.interface';
@@ -38,6 +40,7 @@ export class CriacaoColegiadoComponent implements OnInit {
   relator: Ministro;
   tags: string[] = [];
   documentos: string[] = [];
+  tipo: TipoDoProcesso;
 
   constructor(
     private _fb: FormBuilder,
@@ -92,18 +95,26 @@ export class CriacaoColegiadoComponent implements OnInit {
           this.colegiados = colegiados;
         }
       });
-    });
 
-    this._processoService.obterDocumentosDoProcesso(1).subscribe(data=>{
-      data.forEach(documento=>{
-        this.documentos.push(documento.nome);
-      })
-    })
-    this._processoService.recuperarTagsDaApi().subscribe(data=>{
-      data.forEach(tag=>{
-        this.tags.push(tag.descricao);
-      })
-    })
+      this._processoService.listarProcessos(new HttpParams().set('processo', processo)).subscribe({
+        next: ([processo]) => {
+          const { id, tipo, lista } = processo;
+          this.tipo = tipo;
+
+          this.tags = [];
+          lista.forEach(tag => {
+            this.tags.push(tag.descricao);
+          });
+
+          this._processoService.obterDocumentosDoProcesso(id).subscribe(data => {
+            this.documentos = [];
+            data.forEach(documento => {
+              this.documentos.push(documento.nome);
+            });
+          });
+        }
+      });
+    });
   }
 
   obterStatusDoVoto(votoDoMinistro: ComposicaoColegiado): void {
@@ -161,6 +172,10 @@ export class CriacaoColegiadoComponent implements OnInit {
     } else {
       return false;
     }
+  }
+
+  obterTipoDoProcesso(): string {
+    return TipoDoProcesso[this.tipo];
   }
 
   finalizar(): void {
