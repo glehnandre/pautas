@@ -47,6 +47,15 @@ export class JulgamentoService {
     );
   }
 
+  public listarTodasAsSessoesDeJulgamento(): Observable<SessaoJulgamento[]> {
+    return this._httpClient.get<SessaoJulgamento[]>(`sessoes-de-julgamento`).pipe(
+      catchError(error => {
+        console.log(error);
+        return EMPTY;
+      }),
+    );
+  }
+
   public listarProcessosPautadosNasSessoes(numero: number, ano: number, 
       situacao: number, inicio: string, fim: string): Observable<Processo[]> {
     const numeroAno = `${numero}-${ano}`;

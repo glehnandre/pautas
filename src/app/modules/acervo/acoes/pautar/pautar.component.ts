@@ -4,7 +4,6 @@ import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dial
 import { AlertaService } from 'app/modules/services/alerta.service';
 import { JulgamentoService } from 'app/modules/services/julgamento.service';
 import { Observable } from 'rxjs';
-import { Processo } from '../../model/interfaces/processo.interface';
 import { SessaoJulgamento } from '../../model/interfaces/sessao-julgamento.interface';
 import { SessaoExtraordinariaComponent } from './sessao-extraordinaria/sessao-extraordinaria.component';
 
@@ -64,11 +63,9 @@ export class PautarComponent implements OnInit {
             data_inicio: [''],
             data_fim: [''],
         });
-        for (let i = 1; i <= 16; i++) {
-            this._julgamentoService.listarSessoesDeJulgamento(i,2021).subscribe(data=>{
-                this.sessoes.push(data);
-            });
-        }
+        this._julgamentoService.listarTodasAsSessoesDeJulgamento().subscribe(data=>{
+            this.sessoes = data;
+        })
     }
     
     fechar(): void {

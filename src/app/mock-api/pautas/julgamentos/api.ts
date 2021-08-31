@@ -38,6 +38,13 @@ export class JulgamentoMockApi {
         });
 
       this._fuseMockApiService
+        .onGet('sessoes-de-julgamento')
+        .reply(({request, urlParams}) => {
+
+          return [200, this._julgamentos];
+        });
+
+      this._fuseMockApiService
         .onGet('sessoes-de-julgamento/:numero-ano')
         .reply(({request, urlParams}) => {
           const numeroAno = urlParams['numero-ano'];
