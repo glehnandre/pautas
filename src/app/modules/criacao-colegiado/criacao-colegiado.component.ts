@@ -58,62 +58,62 @@ export class CriacaoColegiadoComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this._route.queryParams.subscribe(({colegiado, data, processo, sessao}) => {
-      this.queryParams = {
-        colegiado,
-        data,
-        processo,
-        sessao,
-      };
+    const { colegiado, data, processo, sessao } = this._route.snapshot.queryParams;
+    
+    this.queryParams = {
+      colegiado,
+      data,
+      processo,
+      sessao,
+    };
 
-      this.formVotacao.setValue({
-        processo,
-        numeroSessao: sessao.slice(0, sessao.indexOf('-')),
-        anoSessao: sessao.slice(sessao.indexOf('-')+1, sessao.length),
-        julgados: this.votosDosMinistros,
-      });
+    this.formVotacao.setValue({
+      processo,
+      numeroSessao: sessao.slice(0, sessao.indexOf('-')),
+      anoSessao: sessao.slice(sessao.indexOf('-')+1, sessao.length),
+      julgados: this.votosDosMinistros,
+    });
 
-      this._ministroService.listarColegiados(this.queryParams.colegiado).subscribe({
-        next: (colegiados) => {
-          colegiados.map(c => c.composicao.sort((a, b) => {
-            c.composicao.map(data => {
-              if(data.relator == true){
-                this.relator = data.ministro
-              }
-            })
-            if (a.presidente) {
-              return -1;
+    this._ministroService.listarColegiados(this.queryParams.colegiado).subscribe({
+      next: (colegiados) => {
+        colegiados.map(c => c.composicao.sort((a, b) => {
+          c.composicao.map(data => {
+            if(data.relator == true){
+              this.relator = data.ministro
             }
-  
-            if (b.presidente) {
-              return 1;
-            }
-  
-            return 0;
-          }));
-          
-          this.colegiados = colegiados;
-        }
-      });
+          })
+          if (a.presidente) {
+            return -1;
+          }
 
-      this._processoService.listarProcessos(new HttpParams().set('processo', processo)).subscribe({
-        next: ([processo]) => {
-          const { id, tipo, lista } = processo;
-          this.tipo = tipo;
+          if (b.presidente) {
+            return 1;
+          }
 
-          this.tags = [];
-          lista.forEach(tag => {
-            this.tags.push(tag.descricao);
+          return 0;
+        }));
+        
+        this.colegiados = colegiados;
+      }
+    });
+
+    this._processoService.listarProcessos(new HttpParams().set('processo', processo)).subscribe({
+      next: ([processo]) => {
+        const { id, tipo, lista } = processo;
+        this.tipo = tipo;
+
+        this.tags = [];
+        lista.forEach(tag => {
+          this.tags.push(tag.descricao);
+        });
+
+        this._processoService.obterDocumentosDoProcesso(id).subscribe(data => {
+          this.documentos = [];
+          data.forEach(documento => {
+            this.documentos.push(documento.nome);
           });
-
-          this._processoService.obterDocumentosDoProcesso(id).subscribe(data => {
-            this.documentos = [];
-            data.forEach(documento => {
-              this.documentos.push(documento.nome);
-            });
-          });
-        }
-      });
+        });
+      }
     });
   }
 
