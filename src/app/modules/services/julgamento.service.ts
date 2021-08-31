@@ -56,14 +56,14 @@ export class JulgamentoService {
     );
   }
 
-  public listarProcessosPautadosNasSessoes(numero: number, ano: number, 
+  public listarProcessosPautadosNasSessoes(numero: number, ano: number,
       situacao: number, inicio: string, fim: string): Observable<Processo[]> {
     const numeroAno = `${numero}-${ano}`;
     let params = new HttpParams();
     params = params.set('situacao', situacao);
     params = params.set('inicio', inicio);
     params = params.set('fim', fim);
-        
+
     return this._httpClient.get<Processo[]>(`sessoes-de-julgamento/${numeroAno}/pauta`, {
       params,
     }).pipe(
@@ -71,12 +71,12 @@ export class JulgamentoService {
         console.log(error);
         return EMPTY;
       }),
-    ); 
+    );
   }
 
-  public aprovarSessaoDeJulgamento(numero: number, ano: number): Observable<SessaoJulgamento> {
+  public aprovarSessaoDeJulgamento(numero: number, ano: number, resposta: string): Observable<SessaoJulgamento> {
     const numeroAno = `${numero}-${ano}`;
-    return this._httpClient.get<SessaoJulgamento>(`sessoes-de-julgamento/${numeroAno}/aprovar`).pipe(
+    return this._httpClient.put<SessaoJulgamento>(`sessoes-de-julgamento/${numeroAno}/aprovar`, resposta).pipe(
       catchError(error => {
         console.log(error);
         return EMPTY;
@@ -84,9 +84,9 @@ export class JulgamentoService {
     );
   }
 
-  public rejeitarSessaoDeJulgamento(numero: number, ano: number): Observable<SessaoJulgamento> {
+  public rejeitarSessaoDeJulgamento(numero: number, ano: number, resposta: string): Observable<SessaoJulgamento> {
     const numeroAno = `${numero}-${ano}`;
-    return this._httpClient.put<SessaoJulgamento>(`sessoes-de-julgamento/${numeroAno}/rejeitar`, numeroAno).pipe(
+    return this._httpClient.put<SessaoJulgamento>(`sessoes-de-julgamento/${numeroAno}/rejeitar`, {numeroAno, resposta}).pipe(
       catchError(error => {
         console.log(error);
         return EMPTY;

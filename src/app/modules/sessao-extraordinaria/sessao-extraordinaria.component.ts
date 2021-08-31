@@ -8,7 +8,6 @@ import localePT from '@angular/common/locales/pt';
 import { DatePipe } from '@angular/common';
 import { FuseAlertService } from '@fuse/components/alert';
 import { Ministro } from 'app/modules/acervo/model/interfaces/ministro.interface';
-
 registerLocaleData(localePT);
 
 @Component({
@@ -27,6 +26,8 @@ export class SessaoExtraordinariaComponent implements OnInit {
   data_inicio: string;
   data_fim: string;
   texto: string;
+  nome_solicitante: string;
+  resposta: string;
 
   sessoes: SessaoJulgamento[] = [];
 
@@ -42,11 +43,12 @@ export class SessaoExtraordinariaComponent implements OnInit {
         this.observacao = sessao['observacao'];
         this.solicitante = sessao['ministro'];
         this.colegiado = sessao['colegiado'];
-        
+        this.nome_solicitante = this.solicitante.nome;
+
         const { numero, ano, data_inicio, data_fim } = this.sessao;
 
         this.setTexto(data_inicio, data_fim);
-        
+
         this._julgamentoService.listarProcessosPautadosNasSessoes(numero, ano, SituacaoDoProcesso.Pautado, data_inicio, data_fim).subscribe({
           next: (processos) => {
             this.processos = processos;
@@ -59,6 +61,7 @@ export class SessaoExtraordinariaComponent implements OnInit {
       this.sessoes = data;
     })
     
+
   }
 
   setTexto(inicio: string, fim: string){
@@ -84,8 +87,8 @@ export class SessaoExtraordinariaComponent implements OnInit {
     let ano: number = 2021;
     let numero: number = 1000;
 
-    this._julgamentoService.aprovarSessaoDeJulgamento(numero, ano).subscribe(data=>{
-      console.log(data);
+    this._julgamentoService.aprovarSessaoDeJulgamento(numero, ano, this.resposta).subscribe(data=>{
+      console.log(data,this.resposta);
     })
   }
 
@@ -93,8 +96,8 @@ export class SessaoExtraordinariaComponent implements OnInit {
     let ano: number = 2021;
     let numero: number = 1000;
 
-    this._julgamentoService.rejeitarSessaoDeJulgamento(numero, ano).subscribe(data=>{
-      console.log(data);
+    this._julgamentoService.rejeitarSessaoDeJulgamento(numero, ano, this.resposta).subscribe(data=>{
+      console.log({resposta:this.resposta, data});
     })
   }
 }
