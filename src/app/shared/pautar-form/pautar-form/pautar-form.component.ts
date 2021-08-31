@@ -1,10 +1,6 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { SessaoJulgamento } from 'app/modules/acervo/model/interfaces/sessao-julgamento.interface';
-
-export interface Colegiado {
-  value: string;
-  viewValue: string;
-}
+import { Colegiado } from 'app/modules/acervo/acoes/pautar/pautar.component';
 
 @Component({
   selector: 'app-pautar-form',
