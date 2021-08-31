@@ -20,59 +20,10 @@
             [dialogRef]="matDialogRef"
         ></app-processo-chip>
         
-        <div class="flex flex-row">
-            <div class="w-2/4">
-                <mat-radio-group
-                color="primary"
-                class="flex flex-col my-4 w-2/4"
-                formControlName="colegiado"
-                [(ngModel)]="colegiadoEscolhido"
-                >
-                <mat-radio-button class="mb-1" *ngFor="let colegiado of colegiados" [value]="colegiado.viewValue">{{colegiado.viewValue}}</mat-radio-button>
-                </mat-radio-group>
-            </div>
-
-            <div class="w-2/4">
-                <mat-radio-group
-                color="primary"
-                class="flex flex-col my-4"
-                formControlName="modalidade"
-                [(ngModel)]="modalidadeEscolhida"
-                >
-                <mat-radio-button class="mb-1" *ngFor="let modalidade of modalidades" [value]="modalidade.value">{{modalidade.value}}</mat-radio-button>
-            </mat-radio-group>
-            </div>
-        </div>
-
-        <div class="flex flex-auto flex-row space-x-4">
-            <mat-form-field class="w-full" appearance="fill">
-                <mat-label>Filtre por período</mat-label>
-                <mat-date-range-input [rangePicker]="picker">
-                    <input matStartDate placeholder="Data de início" name="data_inicio" formControlName="data_inicio">
-                    <input matEndDate placeholder="Data do fim" name="data_fim" formControlName="data_fim">
-                </mat-date-range-input>
-    
-                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-                <mat-date-range-picker #picker></mat-date-range-picker>
-            </mat-form-field>
-        </div>
-
-        <div class="flex flex-auto flex-row space-x-4">
-            <mat-form-field class="w-full" appearance="fill">
-                <mat-label>Sessão:</mat-label>
-                <mat-select [formControlName]="'sessao'" placeholder="Escolha uma sessão" required>
-                    <mat-option 
-                        *ngFor="let sessaoJulgamento of (sessoes | filtroSessoes: this.pautarForm.get('colegiado').value : this.pautarForm.get('modalidade').value : this.pautarForm.get('data_inicio').value : this.pautarForm.get('data_fim').value )" 
-                        [value]="sessaoJulgamento.numero"
-                    >
-                        Sessão {{sessaoJulgamento.modalidade}}, <b>{{sessaoJulgamento.colegiado}}</b>, nº {{sessaoJulgamento.numero}}/{{sessaoJulgamento.ano}} de {{sessaoJulgamento.data_inicio | date:'dd/MM/yyyy'}} a {{sessaoJulgamento.data_fim  | date:'dd/MM/yyyy'}}
-                    </mat-option>
-                </mat-select>
-                <mat-error class="mb-1" *ngIf="'sessao.errors?.required'">
-                    A sessão é obrigatória
-                </mat-error>
-            </mat-form-field>
-        </div>
+        <app-pautar-form
+            [sessoes]="sessoes"
+            (statusPautarForm)="atualizaPautarForm($event)"
+        ></app-pautar-form>
 
         <div class="justify-between mt-4 md:mt-6">
             <div class="container flex flex-col md:flex-row justify-center gap-4 md:gap-0 mt-4 md:mt-0">

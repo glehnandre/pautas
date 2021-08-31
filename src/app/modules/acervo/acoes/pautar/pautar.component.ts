@@ -91,4 +91,7 @@ export class PautarComponent implements OnInit {
             });   
         }
     }
+    atualizaPautarForm(form: any){
+        this.pautarForm.setValue(form);
+    }
 }
