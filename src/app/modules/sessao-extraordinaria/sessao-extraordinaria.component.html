@@ -1,81 +1,88 @@
 <div class="absolute inset-0 flex flex-col min-w-0 overflow-y-auto">
 
   <!-- Header -->
-  <div class="flex flex-wrap justify-center items-center sm:justify-between
-              pl-8 pr-8 bg-default dark:bg-transparent">
-      <h1 class="mt-4 text-primary">
-          Solicitação de Sessão de Julgamento Extraordinária MMA
-      </h1>
-      <div>
-        <p class="text-xl">
-            {{texto}}
-        </p>
-        <h2 class="text-primary">Observações</h2>
-        <p>
-            {{observacao}}
-        </p>
-    </div>
-    <div class="mb-8 items-start">
-        <h2 class="text-primary">Processos</h2>
-        <app-processo-chip
-            class="md:block"
-            [processos]="processos"
-            [isRemovable]="false"
-            [isEmitRemoveEvent]="false"
-        ></app-processo-chip>
-    </div>
-  </div>
+    <div class="flex w-screen">
+        <h1 class="mt-4 text-primary">
+            Solicitação de Sessão de Julgamento Extraordinária
+        </h1>
+        <div class="absolute top-0 right-2 flex flex-col sm:items-center justify-between">
+            <div mat-dialog-actions class="container flex flex-col sm:flex-row items-center mt-4 sm:mt-0 sm:ml-auto">
+                <button
+                    class="w-full ml-auto sm:ml-0 mr-4 order-last sm:order-none"
+                    mat-button
+                    mat-dialog-close
+                >
+                    Cancelar
+                </button>
 
-  <!-- Main -->
-  <div class="flex-auto max-h-4/5 px-8" cdkScrollable>
-      <!-- CONTENT GOES HERE -->
-      <div class="min-h-1/5 max-h-3/5 overflow-auto">
-          <app-processo-painel-expansivo
-              *ngFor="let processo of processos"
-              [processo]="processo"
-          ></app-processo-painel-expansivo>
-      </div>
+                <button
+                    class="w-full ml-auto sm:ml-0 mr-4 my-4 bg-red-600 text-white"
+                    mat-raised-button
+                    mat-dialog-close
+                    (click)="recusarSessao()"
+                >
+                    Recusar
+                </button>
 
-      <div class="flex flex-col sm:items-center justify-between mt-4">
-          <div mat-dialog-actions class="container flex flex-col sm:flex-row items-center mt-4 sm:mt-0 sm:ml-auto">
-            <button
-              class="w-full ml-auto sm:ml-0 mr-4 order-last sm:order-none"
-              mat-button
-              mat-dialog-close
-            >
-              Cancelar
-            </button>
-
-            <button
-              class="w-full ml-auto sm:ml-0 mr-4 my-4 bg-red-600 text-white"
-              mat-raised-button
-              mat-dialog-close
-              (click)="recusarSessao()"
-            >
-              Recusar
-            </button>
-
-            <button
-              class="w-full order-first sm:order-last"
-              color="primary"
-              mat-raised-button
-              mat-dialog-close
-              (click)="aprovarSessao()"
-            >
-              Confirmar
-            </button>
-          </div>
+                <button
+                    class="w-full order-first sm:order-last"
+                    color="primary"
+                    mat-raised-button
+                    mat-dialog-close
+                    (click)="aprovarSessao()"
+                >
+                    Confirmar
+                </button>
+            </div>
         </div>
-  </div>
-  <div class="absolute top-0 right-0 z-10">
-      <fuse-alert class="max-w-120 mx-auto"
-                  [type]="'error'"
-                  [appearance]="'soft'"
-                  [dismissible]=true
-                  [dismissed]=true
-                  [name]="'alertBox'">
-          <span fuseAlertTitle>Pauta vazia</span>
-          Nenhuma sessão de julgamento aberta para o periodo encontrada. Pode haver sessão de julgamento fechadas para o período.
-      </fuse-alert>
-  </div>
+    </div>
+    <hr class="m-0 p-0 mb-4">
+
+    <!-- Main -->
+    <div class="px-8">
+        <div class="flex flex-row">
+            <mat-chip-list #chipList *ngFor="let tag of tags">
+                <mat-chip>
+                    {{tag}}
+                </mat-chip>
+            </mat-chip-list>
+        </div>
+
+        <p class="mt-4 text-primary">{{texto}}</p>
+
+        <h2 class="text-primary">Processos</h2>
+
+        <div class="min-h-0 max-h-2/5 overflow-auto p-2" cdkScrollable>
+            <app-processo-painel-expansivo
+                *ngFor="let processo of processos"
+                [processo]="processo"
+            ></app-processo-painel-expansivo>
+        </div>
+
+        <form class="py-2">
+            <h2 class="text-primary">Observações do Ministro {{nome_solicitante}}</h2>
+            <p>{{observacao}}</p>
+            <h2 class="text-primary">Resposta</h2>
+            <textarea
+                id="resposta"
+                [(ngModel)]="resposta"
+                [ngModelOptions]="{standalone:true}"
+                placeholder="Escreva sua Resposta aqui"
+                class="w-full md:w-1/2 p-2 h-32 bg-white dark:bg-opacity-5 overflow-auto
+                focus:border-blue-400 border-4 rounded-xl"
+            ></textarea>
+        </form>
+
+        <div class="absolute top-0 right-0 z-10">
+            <fuse-alert class="max-w-120 mx-auto"
+                        [type]="'error'"
+                        [appearance]="'soft'"
+                        [dismissible]=true
+                        [dismissed]=true
+                        [name]="'alertBox'">
+                <span fuseAlertTitle>Pauta vazia</span>
+                Nenhuma sessão de julgamento aberta para o periodo encontrada. Pode haver sessão de julgamento fechadas para o período.
+            </fuse-alert>
+        </div>
+    </div>
 </div>
