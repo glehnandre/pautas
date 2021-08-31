@@ -16,7 +16,7 @@ export class JulgamentoMockApi {
         this._processos = processosData;
         this.registerHandlers();
     }
-    
+
     registerHandlers(): void {
       this._fuseMockApiService
         .onPost('julgamentos')
@@ -72,11 +72,11 @@ export class JulgamentoMockApi {
 
           const situacao = +params.get('situacao');
           const inicio = params.get('inicio');
-          const fim = params.get('fim'); 
+          const fim = params.get('fim');
 
           const processos = this._processos
             .filter(processo => (situacao) ? (processo.situacao === situacao) : true);
-            // Filtrar por data de inicio e fim 
+            // Filtrar por data de inicio e fim
 
           if (processos.length > 0) {
             return [200, processos];
@@ -86,7 +86,7 @@ export class JulgamentoMockApi {
         });
 
         this._fuseMockApiService
-        .onGet('sessoes-de-julgamento/:numero-ano/aprovar')
+        .onPut('sessoes-de-julgamento/:numero-ano/aprovar')
         .reply(({request, urlParams}) => {
           const numeroAno = urlParams['numero-ano'];
 
@@ -107,7 +107,7 @@ export class JulgamentoMockApi {
         .onPut('sessoes-de-julgamento/:numero-ano/rejeitar')
         .reply(({request, urlParams}) => {
           const numeroAno = urlParams['numero-ano'];
-          
+
           let sessaoDeJulgamento;
           this._julgamentos
             .map(julg => {
