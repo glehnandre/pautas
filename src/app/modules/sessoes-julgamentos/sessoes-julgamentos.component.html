@@ -4,7 +4,18 @@
         ></app-filtro>
     </div>
 
-    <mat-expansion-panel class="flex flex-col">
+    <div class="m-2 sm:mx-0.5">
+        <app-linha
+            *ngFor="let processo of processos"
+            [processo]="processo"
+            (checked)="trataEventoDeChecked($event)"
+            [Selected]="SelectAll"
+            (tagSelecionada)="filtrarPorTags($event)"
+            (statusSelecionado)="filtrarPorStatus($event)"
+        ></app-linha>
+    </div>
+
+    <!-- <mat-expansion-panel class="flex flex-col">
         <mat-expansion-panel-header [collapsedHeight]="'80px'" class="h-full w-full specific-class" *ngFor="let processo of processos">
             <div class="flex flex-col">
                 <div class="flex flex-row items-center">
@@ -72,6 +83,6 @@
             </div>
 
         </mat-expansion-panel-header>
-    </mat-expansion-panel>
+    </mat-expansion-panel> -->
 
 </div>

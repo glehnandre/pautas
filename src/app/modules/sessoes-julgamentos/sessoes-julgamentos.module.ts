@@ -7,6 +7,7 @@ import { MatExpansionModule } from '@angular/material/expansion';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { SessoesJulgamentosComponent } from './sessoes-julgamentos.component';
 import { FiltroModule } from './filtros/filtro.module';
+import { SharedModule } from '../../shared/shared.module';
 
 const SessoesJulgamentoRoutes: Route[] = [
   { path: '', component: SessoesJulgamentosComponent, pathMatch: 'full' },
@@ -23,6 +24,7 @@ const SessoesJulgamentoRoutes: Route[] = [
     MatExpansionModule,
     MatCheckboxModule,
     FiltroModule,
+    SharedModule,
     RouterModule.forChild(SessoesJulgamentoRoutes),
   ]
 })
