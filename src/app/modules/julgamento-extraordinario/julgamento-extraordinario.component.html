@@ -20,49 +20,16 @@
                         {{sessao?.data_inicio | date: 'dd/MM/yyyy'}}
                     </p>
                     <mat-card-header class="m-0">
-                        <mat-card-title class="">
+                        <mat-card-title class="text-base">
                             Preencha para recolocar a pauta em outra sessão
                         </mat-card-title>
                     </mat-card-header>
 
-                    <mat-card-content class="flex">
-                        <form [formGroup]="formJulgamento" class="flex flex-col w-full">
-                            <mat-form-field appearance="fill" class="sm:w-3/6 w-full">
-                                <mat-label>Informe o mês e ano:</mat-label>
-                                <input [formControlName]="'nova_data'" matInput [matDatepicker]="dp">
-                                <mat-datepicker-toggle matSuffix [for]="dp"></mat-datepicker-toggle>
-                                <mat-datepicker #dp
-                                    startView="multi-year"
-                                    (yearSelected)="chosenYearHandler($event)"
-                                    (monthSelected)="chosenMonthHandler($event, dp)"
-                                ></mat-datepicker>
-                                <mat-hint>Mês e ano da adicionar em uma nova sessão</mat-hint>
-                            </mat-form-field>
+                    <app-pautar-form
+                        [sessoes]="sessoes"
+                    >
+                    </app-pautar-form>
 
-                            <mat-form-field appearance="fill" class="sm:w-3/6 w-full">
-                                <mat-label>Sessão:</mat-label>
-                                <mat-select [formControlName]="'sessao'" placeholder="Escolha uma sessão" required>
-                                    <mat-option
-                                        *ngFor="let sessaoJulgamento of sessoes"
-                                        [value]="sessaoJulgamento.id"
-                                    >
-                                        Sessão {{sessaoJulgamento.modalidade}}, <b>{{sessaoJulgamento.colegiado}}</b>, nº {{sessaoJulgamento.numero}}/{{sessaoJulgamento.ano}} de {{sessaoJulgamento.data_inicio | date:'dd/MM/yyyy'}} a {{sessaoJulgamento.data_fim  | date:'dd/MM/yyyy'}}
-                                    </mat-option>
-                                </mat-select>
-                                <mat-error class="mb-0" *ngIf="'sessao.errors?.required'">
-                                    A sessão é obrigatória
-                                </mat-error>
-                                <mat-hint>
-                                    Informe a nova sessão
-                                </mat-hint>
-                            </mat-form-field>
-                        </form>
-                        <app-processo-chip
-                            [processos]="processos"
-                            [isRemovable]="false"
-                            [isEmitRemoveEvent]="false"
-                        ></app-processo-chip>
-                    </mat-card-content>
                 </mat-card>
             </fuse-card>
 
