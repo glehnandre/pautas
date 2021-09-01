@@ -64,22 +64,20 @@
                                     </mat-option>
                                 </mat-select>
                             </mat-form-field>
+                            <label>Modalidades</label>
+                            <div>
+                                <mat-form-field appearance="fill" class="w-full object-top">
+                                    <mat-select multiple formControlName="modalidades" disableOptionCentering>
+                                        <mat-option *ngFor="let modalidade of modalidadesLista" [value]="modalidade">
+                                            {{ modalidade }}
+                                        </mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+                            </div>
                         </div>
                     </div>
                 </div>
-                <div class="w-full">
-                    <label>Modalidades</label>
-                    <div>
-                        <mat-form-field appearance="fill" class="w-full">
-                            <mat-select multiple formControlName="modalidades" disableOptionCentering>
-                                <mat-option *ngFor="let modalidade of modalidadesLista" [value]="modalidade">{{situacao}}
-                                </mat-option>
-                            </mat-select>
-                        </mat-form-field>
-                    </div>
-                </div>
             </div>
-
         </section>
     </div>
 

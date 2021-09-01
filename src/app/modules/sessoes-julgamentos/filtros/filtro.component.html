@@ -30,20 +30,20 @@
                 Pleno
                 <mat-icon matChipRemove>cancel</mat-icon>
             </mat-chip>
-            <!-- <mat-chip *ngFor="let situacao of this.filtros.situacoes" [removable]="true"
-                (removed)="removeFiltro('situacoes', situacao)">
-                {{ situacao }}
+            <mat-chip *ngFor="let tipo of this.filtros.tipos" [removable]="true"
+                (removed)="removeFiltro('tipos', tipo)">
+                {{ tipo }}
                 <mat-icon matChipRemove>cancel</mat-icon>
-            </mat-chip> -->
-            <!-- <mat-chip *ngFor="let classe of this.filtros.classes" [removable]="true"
-                (removed)="removeFiltro('classes', classe)">
-                {{ classe }}
+            </mat-chip>
+            <mat-chip *ngFor="let categoria of this.filtros.categorias" [removable]="true"
+                (removed)="removeFiltro('categorias', categoria)">
+                {{ categoria }}
                 <mat-icon matChipRemove>cancel</mat-icon>
-            </mat-chip> -->
-            <!-- <mat-chip *ngFor="let modalidade of this.filtros.modalidades" [removable]="true" (removed)="removeFiltro('modalidades', modalidade)">
+            </mat-chip>
+            <mat-chip *ngFor="let modalidade of this.filtros.modalidades" [removable]="true" (removed)="removeFiltro('modalidades', modalidade)">
                 {{ modalidade }}
                 <mat-icon matChipRemove>cancel</mat-icon>
-            </mat-chip> -->
+            </mat-chip>
         </mat-chip-list>
     </div>
 </div>
