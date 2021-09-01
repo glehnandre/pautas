@@ -8,12 +8,12 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatRadioModule } from '@angular/material/radio';
 import { ProcessoPainelExpansivoComponent } from './processo-painel-expansivo/processo-painel-expansivo.component';
 import { MatExpansionModule } from '@angular/material/expansion';
-import { PautarFormComponent } from './pautar-form/pautar-form/pautar-form.component';
+import { PautarFormComponent } from './pautar-form/pautar-form.component';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatMomentDateModule } from '@angular/material-moment-adapter';
-import { SessoesPipe } from './pautar-form/pautar-form/sessoes.pipe';
+import { SessoesPipe } from './pautar-form/sessoes.pipe';
 
 
 @NgModule({
