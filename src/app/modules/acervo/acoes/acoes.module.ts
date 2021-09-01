@@ -18,7 +18,6 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MAT_DATE_LOCALE } from '@angular/material/core';
 import { FuseAlertModule } from '@fuse/components/alert';
-import { SessoesPipe } from './pautar/sessoes.pipe';
 
 import { AgruparEmlistaComponent } from './agrupar-emlista/agrupar-emlista.component';
 import { NovaListaComponent } from './agrupar-emlista/nova-lista/nova-lista.component';
@@ -46,7 +45,6 @@ const routes = [
     PautarComponent,
     SessaoExtraordinariaComponent,
     AlertaComponent,
-    SessoesPipe,
     ReanalizarComponent,
     AlterarSessaoComponent,
   ],
@@ -55,7 +53,6 @@ const routes = [
     RouterModule.forChild(routes),
     ReactiveFormsModule,
     FormsModule,
-    MatFormFieldModule,
     MatInputModule,
     MatButtonModule,
     MatDialogModule,

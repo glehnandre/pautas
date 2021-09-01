@@ -71,11 +71,9 @@ export class JulgamentoExtraordinarioComponent implements OnInit {
         });
       }
     });
-    for (let i = 1; i <= 16; i++) {
-      this._julgamentoService.listarSessoesDeJulgamento(i,2021).subscribe(data=>{
-          this.sessoes.push(data);
-      });
-    }
+    this._julgamentoService.listarTodasAsSessoesDeJulgamento().subscribe(data=>{
+      this.sessoes = data;
+    })
   }
 
   public pautarNaSessao(): void {

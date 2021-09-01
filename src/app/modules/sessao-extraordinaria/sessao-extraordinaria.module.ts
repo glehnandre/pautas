@@ -7,6 +7,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { SharedModule } from 'app/shared/shared.module';
 import { FuseAlertModule } from '@fuse/components/alert';
+import { FormsModule } from '@angular/forms';
 
 const sessaoExtraordinariaRoutes: Route[] = [
   {
@@ -22,6 +23,7 @@ const sessaoExtraordinariaRoutes: Route[] = [
   imports: [
     CommonModule,
     RouterModule.forChild(sessaoExtraordinariaRoutes),
+    FormsModule,
     MatChipsModule,
     MatButtonModule,
     MatIconModule,
