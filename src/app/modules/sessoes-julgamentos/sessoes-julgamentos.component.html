@@ -15,8 +15,8 @@
         ></app-linha>
     </div>
 
-    <!-- <mat-expansion-panel class="flex flex-col">
-        <mat-expansion-panel-header [collapsedHeight]="'80px'" class="h-full w-full specific-class" *ngFor="let processo of processos">
+    <mat-expansion-panel class="flex flex-col" *ngFor="let processo of processos">
+        <mat-expansion-panel-header [collapsedHeight]="'80px'" class="h-full w-full specific-class">
             <div class="flex flex-col">
                 <div class="flex flex-row items-center">
                     <div class="flex">
@@ -47,29 +47,23 @@
                         </div>
                         <mat-chip-list #chipList class="mt-2">
                             <mat-chip class="flex-none border-green-700 border-solid border-2 bg-transparent text-green-700">
-                                DEFERIDO
+                                {{ processo.capitulos[0].dispositivo }}
                             </mat-chip>
                         </mat-chip-list>
                     </div>
                     <div class="flex flex-col ml-14 mt-6">
                         <mat-chip-list #chipList class="m-1">
-                            <mat-chip class="flex-none">
-                                Petróleo Royalts Rio (4 processos)
+                            <mat-chip class="mr-2" *ngFor="let tags of processo.lista">
+                                {{tags.descricao}}
                             </mat-chip>
                         </mat-chip-list>
                         <div class="flex flex-row mb-8 items-center">
-                            <mat-chip-list #chipList class="mt-3">
+                            <mat-chip-list #chipList class="mt-3" *ngFor="let documento of processo.documentos">
                                 <mat-chip class="flex-none border-primary border-solid border-2 bg-transparent text-primary">
                                     <mat-icon class="mr-2" style="color:red">
                                         picture_as_pdf
                                     </mat-icon>
-                                    Voto Relator
-                                </mat-chip>
-                                <mat-chip class="flex-none border-primary border-solid border-2 bg-transparent text-primary">
-                                    <mat-icon class="mr-2" style="color:red">
-                                        picture_as_pdf
-                                    </mat-icon>
-                                    Relatório
+                                    {{documento.nome}}
                                 </mat-chip>
                             </mat-chip-list>
                         </div>
@@ -83,6 +77,6 @@
             </div>
 
         </mat-expansion-panel-header>
-    </mat-expansion-panel> -->
-
+        <app-processo-capitulo [processo]="processo"></app-processo-capitulo>
+    </mat-expansion-panel>
 </div>

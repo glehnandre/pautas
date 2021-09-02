@@ -50,7 +50,7 @@ export class CriacaoColegiadoComponent implements OnInit {
     private _ministroService: MinistroService,
     private _processoService: ProcessoService,
     private _route: ActivatedRoute,
-  ) { 
+  ) {
     this.formVotacao = this._fb.group({
       processo: ['ADI100-Ag-Ag-A', Validators.required],
       anoSessao: ['2021', Validators.required],
@@ -80,14 +80,14 @@ export class CriacaoColegiadoComponent implements OnInit {
             if (a.presidente) {
               return -1;
             }
-  
+
             if (b.presidente) {
               return 1;
             }
-  
+
             return 0;
           }));
-          
+
           this.colegiados = colegiados;
           console.log(this.colegiados)
         }
@@ -109,7 +109,7 @@ export class CriacaoColegiadoComponent implements OnInit {
   obterStatusDoVoto(votoDoMinistro: ComposicaoColegiado): void {
     const index = this.votosDosMinistros
       .findIndex(m => m.ministro.id === votoDoMinistro.ministro.id);
-    
+
     if (index !== -1) {
       this.votosDosMinistros.splice(index, 1);
       const {incluir_voto, ja_votou, pode_votar} = votoDoMinistro;
@@ -132,7 +132,7 @@ export class CriacaoColegiadoComponent implements OnInit {
     const MIN_VOTOS: number = 5;
 
     if (this.votosDosMinistros.length === 0) {
-      alert('Nunhum voto selecionado!');
+      alert('Nenhum voto selecionado!');
       return false;
     }
 
