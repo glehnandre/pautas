@@ -8,12 +8,15 @@ import { Processo } from 'app/modules/acervo/model/interfaces/processo.interface
 import { Tag } from 'app/modules/acervo/model/interfaces/tag.interface';
 import { SituacaoDoProcesso } from 'app/modules/acervo/model/enums/situacaoDoProcesso.enum';
 import { Documento } from 'app/modules/acervo/model/interfaces/documento.interface';
+import { SessaoJulgamento } from 'app/modules/acervo/model/interfaces/sessao-julgamento.interface';
+import { julgamentos } from '../julgamentos/data';
 
 @Injectable({
     providedIn: 'root'
 })
 export class ProcessoMockApi {
     private _processo: Processo[] = processoData;
+    private _julgamentos: SessaoJulgamento[] = julgamentos;
     private _documentos: Documento[] = documentos;
     private _tag: Tag[] = [];
 
@@ -128,15 +131,31 @@ export class ProcessoMockApi {
             });
 
         this._fuseMockApiService
-            .onDelete('processos/:id/pautar')
+            .onPost('processos/pautar')
+            .reply(({request}) => {
+                const processo = request.body;
+
+                this._processo.push(processo);
+
+                return [201, [this._processo]];
+            });
+
+        this._fuseMockApiService
+            .onDelete('processos/:id/sessao-de-julgamento/:numero-ano')
             .reply(({urlParams}) => {
               const id = +urlParams.id;
+              const numeroAno = urlParams['numero-ano'];
 
-              this._processo.map(processo => {
-                  if (processo.id === id) {
-                      processo.situacao = 1;
-                  }
-              });
+              this._julgamentos.map(sessao => {
+                const sessaoNumeroAno = `${sessao.numero}-${sessao.ano}`;
+                if(sessaoNumeroAno === numeroAno){
+                    this._processo.map(processo => {
+                        if (processo.id === id) {
+                            processo.situacao = 1;
+                        }
+                    });
+                }
+            })
 
               return [201, [this._processo]];
             });
