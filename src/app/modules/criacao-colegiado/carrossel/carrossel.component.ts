@@ -1,4 +1,5 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { FuseDrawerService } from '@fuse/components/drawer';
 import { Tag } from 'app/modules/acervo/model/interfaces/tag.interface';
 
 @Component({
@@ -13,10 +14,14 @@ export class CarrosselComponent implements OnInit {
   @Input() hasIcon: boolean = false;
   @Input() class: string[] = [];
   @Input() idChip:string;
+  @Input() links: string[] = [];
+
+  @Output() linkDoPdfSelecionado = new EventEmitter<string>();
 
   constructor() { }
 
   ngOnInit(): void {
+    
   }
 
   /**
@@ -30,6 +35,12 @@ export class CarrosselComponent implements OnInit {
   public scrollRight(id): void {
     let el = document.getElementById(id);
     document.getElementById(id).scrollTo({ left: (el.scrollLeft + 150), behavior: 'smooth' });
+  }
+
+  abrirLink(index: number): void {
+    if (this.links[index]) {
+      this.linkDoPdfSelecionado.emit(this.links[index]);
+    }
   }
 
 }

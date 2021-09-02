@@ -2,6 +2,7 @@ import { HttpParams } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
+import { FuseDrawerService } from '@fuse/components/drawer';
 import { TipoDoProcesso } from '../acervo/model/enums/tipoDoProcesso.enum';
 import { Colegiado, ComposicaoColegiado } from '../acervo/model/interfaces/colegiado.interface';
 import { Documento } from '../acervo/model/interfaces/documento.interface';
@@ -10,6 +11,7 @@ import { Tag } from '../acervo/model/interfaces/tag.interface';
 import { AlertaService } from '../services/alerta.service';
 import { MinistroService } from '../services/ministro.service';
 import { ProcessoService } from '../services/processo.service';
+import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-criacao-colegiado',
@@ -39,8 +41,12 @@ export class CriacaoColegiadoComponent implements OnInit {
   votosDosMinistros: ComposicaoColegiado[] = [];
   relator: Ministro;
   tags: string[] = [];
-  documentos: string[] = [];
+  documentos: {
+    nomes: string[],
+    links: string[],
+  }
   tipo: TipoDoProcesso;
+  link: SafeResourceUrl;
 
   constructor(
     private _fb: FormBuilder,
@@ -48,7 +54,10 @@ export class CriacaoColegiadoComponent implements OnInit {
     private _processoService: ProcessoService,
     private _route: ActivatedRoute,
     private _alertaService: AlertaService,
+    private _fuseDrawerService: FuseDrawerService,
+    public sanitizer: DomSanitizer,
   ) { 
+    this.link = this.sanitizer.bypassSecurityTrustResourceUrl('');
     this.formVotacao = this._fb.group({
       processo: ['', Validators.required],
       anoSessao: ['', Validators.required],
@@ -108,9 +117,10 @@ export class CriacaoColegiadoComponent implements OnInit {
         });
 
         this._processoService.obterDocumentosDoProcesso(id).subscribe(data => {
-          this.documentos = [];
+          this.documentos = { nomes: [], links: [] };
           data.forEach(documento => {
-            this.documentos.push(documento.nome);
+            this.documentos.nomes.push(documento.nome);
+            this.documentos.links.push(documento.url);
           });
         });
       }
@@ -189,8 +199,26 @@ export class CriacaoColegiadoComponent implements OnInit {
     }
   }
 
+  /**
+  * Abre o menu que exibe o pdf
+  *
+  * @param drawerName
+  */
+  toggleDrawerOpen(drawerName: string): void {
+    const drawer = this._fuseDrawerService.getComponent(drawerName);
+    drawer.toggle();
+  }
+
+  abrirLink(link: string): void {
+    if (link !== this.link) {
+      this.link = this.sanitizer.bypassSecurityTrustResourceUrl(link);
+      this.toggleDrawerOpen('telaDoPdfDeColegiado');
+    }
+  }
+
   private _exibeAlerta(titulo: string, mensagem: string): void {
     this.alerta = { titulo, mensagem };
     this._alertaService.exibirAlertaDeErro('alertaDeErroNoColegiado');
   }
+
 }

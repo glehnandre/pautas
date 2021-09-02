@@ -227,18 +227,18 @@ export const documentos: Documento[] = [
     id: 1,
     nome: "Relatório",
     tipo: "pdf",
-    url: "/digital/documento/123"
+    url: "http://redir.stf.jus.br/paginadorpub/paginador.jsp?docTP=TP&docID=752545388"
   },
   {
     id: 2,
     nome: "Íntegra do Voto do Relator",
     tipo: "pdf",
-    url: "/digital/documento/1234"
+    url: "https://www.conjur.com.br/dl/voto-gilmar-mendes-adi-reeleicao.pdf"
   },
   {
     id: 3,
     nome: "Voto Divergente",
     tipo: "pdf",
-    url: "/digital/documento/12345"
+    url: "https://www.cjf.jus.br/publico/pdfs/00732619720144036301.pdf"
   },
 ]

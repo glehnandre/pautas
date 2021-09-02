@@ -13,6 +13,7 @@ import { FuseMasonryModule } from '@fuse/components/masonry';
 import { MatChipsModule } from '@angular/material/chips';
 import { CarrosselComponent } from './carrossel/carrossel.component'; 
 import { MatExpansionModule } from '@angular/material/expansion';
+import { FuseDrawerModule } from '@fuse/components/drawer';
 
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { FuseAlertModule } from '@fuse/components/alert';
@@ -42,6 +43,7 @@ const CriacaoColegiadoRoutes: Routes = [
     MatButtonToggleModule,
     MatExpansionModule,
     FuseAlertModule,
+    FuseDrawerModule,
   ],
   exports: [
     CriacaoColegiadoComponent,

@@ -59,9 +59,11 @@
         <div class="hidden md:block lg:ml-4 lg:mt-8">
             <app-carrossel
                 [idChip]="'idDocs'"
-                [chips]="documentos"
+                [chips]="documentos?.nomes"
+                [links]="documentos?.links"
                 [hasIcon]="true"
                 [class]="['border-primary', 'border-solid', 'border-2', 'bg-transparent', 'text-primary']"
+                (linkDoPdfSelecionado)="abrirLink($event)"
             ></app-carrossel>
         </div>
         </div>
@@ -91,9 +93,11 @@
                     ></app-carrossel>
                     <app-carrossel 
                         [idChip]="'idDocExp'"
-                        [chips]="documentos"
+                        [chips]="documentos?.nomes"
+                        [links]="documentos?.links"
                         [hasIcon]="true"
                         [class]="['flex-none', 'border-primary', 'border-solid', 'border-2', 'bg-transparent', 'text-primary']"
+                        (linkDoPdfSelecionado)="abrirLink($event)"
                     ></app-carrossel>
                 </div>
             </div>
@@ -109,6 +113,31 @@
                 Para selecionar outros ministros primeiro desmarque algum
               </p>
         </div>
+
+       <fuse-drawer
+            id="visualisador-pdf"
+            [name]="'telaDoPdfDeColegiado'"
+            [opened]="false"
+            [position]="'right'"
+            [mode]="'over'">
+            <div class="w-screen">
+                <button 
+                    class="bg-primary-500 mt-9 position-left-90 absolute" 
+                    mat-icon-button 
+                    [tabIndex]="-1"
+                    (click)="toggleDrawerOpen('telaDoPdfDeColegiado')"
+                >
+                    <mat-icon class="text-current text-white" [svgIcon]="'heroicons_outline:x'"></mat-icon>
+                </button> 
+                <object 
+                    class="w-full h-full e2e-trusted-url" 
+                    [data]="link" 
+                    type="application/pdf"
+                >
+                    <p>Seu navegador não tem um plugin pra PDF</p>
+                </object>               
+            </div>
+        </fuse-drawer>
     </header>
 
     <!-- Main -->
