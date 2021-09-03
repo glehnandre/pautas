@@ -13,9 +13,12 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatMomentDateModule } from '@angular/material-moment-adapter';
+import { MatExpansionModule } from '@angular/material/expansion';
+import {ScrollingModule} from '@angular/cdk/scrolling';
 
 import { FiltroDialogComponent } from './filtro-dialog.component';
-import { FiltroComponent } from './filtro.component'
+import { FiltroComponent } from './filtro.component';
+import { ExpansionPanelComponent } from './expansion-panel/expansion-panel.component'
 
 
 const routes = [
@@ -29,7 +32,8 @@ const routes = [
 @NgModule({
   declarations: [
     FiltroComponent,
-    FiltroDialogComponent
+    FiltroDialogComponent,
+    ExpansionPanelComponent
 
   ],
   imports: [
@@ -46,7 +50,9 @@ const routes = [
     ReactiveFormsModule,
     MatChipsModule,
     MatDatepickerModule,
-    MatMomentDateModule
+    MatMomentDateModule,
+    MatExpansionModule,
+    ScrollingModule
   ],
   exports: [
     FiltroComponent

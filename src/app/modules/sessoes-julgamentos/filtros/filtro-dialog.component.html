@@ -9,9 +9,10 @@
     </div>
 
     <!-- Corpo -->
-    <div class="flex flex-col flex-auto p-4 overflow-y-auto">
+    <div class="overflow-y-auto" cdkScrollable>
+    <div class="flex flex-col flex-auto p-4">
         <section [formGroup]="form">
-            <div class="space-y-4">
+            <!-- <div class="space-y-4">
                 <div class="w-full" *ngIf="filtros.termo">
                     <label>Termo para pesquisa</label>
                     <div>
@@ -78,8 +79,31 @@
                         </mat-form-field>
                     </div>
                 </div>
-            </div>
+            </div> -->
 
+            <app-expansion-panel
+                [label]="'Relatoria'"
+                [conteudos]="ministros"
+                [hasImage]="true"
+            ></app-expansion-panel>
+            
+            <app-expansion-panel
+                [label]="'Listas'"
+                [conteudos]="lista"
+                [Selected]="Selected"
+            ></app-expansion-panel>
+
+            <app-expansion-panel
+                [label]="'Temas'"
+                [conteudos]="['Tema 1', 'Tema 2']"
+                [Selected]="Selected"
+            ></app-expansion-panel>
+
+            <app-expansion-panel
+                [label]="'Classe Processual'"
+                [conteudos]="classes"
+                [Selected]="Selected"
+            ></app-expansion-panel>
         </section>
     </div>
 
@@ -89,5 +113,6 @@
             <button mat-button color="secondary" (click)="fechar()" class="justify-end mr-4">Cancel</button>
             <button mat-raised-button color="primary" (click)="filtrar()" class="justify-end">Filtrar</button>
         </div>
+    </div>
     </div>
 </div>
