@@ -1,9 +1,9 @@
 import { Ministro } from "app/modules/acervo/model/interfaces/ministro.interface";
 
 export interface Filtros {
-    termos: string;
+    termos: string[];
     relatoria: Ministro[];
     listas: string[];
     temas: string[];
-    classe: string[];
+    classes: string[];
 }

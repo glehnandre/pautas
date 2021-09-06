@@ -55,11 +55,11 @@ export class FiltroDialogComponent implements OnInit {
 
   ngOnInit(): void {
     this.form = this.fb.group({
-      filtros: this.filtros.termos,
+      termos: this.filtros.termos,
       relatoria: [this.filtros.relatoria],
       listas: [this.filtros.listas],
       temas: [this.filtros.temas],
-      classe: [this.filtros.classe],
+      classes: [this.filtros.classes],
     });
 
     this._processoService.listarProcessos().subscribe(data=>{
@@ -119,12 +119,12 @@ export class FiltroDialogComponent implements OnInit {
       if(status==true) this.classeEscolhida.push(value);
       else this.classeEscolhida.splice(this.classeEscolhida.indexOf(value), 1);
 
-      this.form.patchValue({classe: this.classeEscolhida})
+      this.form.patchValue({classes: this.classeEscolhida})
     }
 
     if(status==true) this.filtrosEscolhidos.push(value);
     else this.filtrosEscolhidos.splice(this.filtrosEscolhidos.indexOf(value), 1);
 
-    this.form.patchValue({filtros: this.filtrosEscolhidos})
+    this.form.patchValue({termos: this.filtrosEscolhidos})
   }
 }

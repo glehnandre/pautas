@@ -12,10 +12,23 @@
     </div>
     <div class="content-start p-2">
         <mat-chip-list #chipList class="content-center" aria-orientation="vertical">
-            <!-- <mat-chip [removable]="true" (removed)="removeFiltroTermo()" *ngIf="this.filtros.termos">
-                {{ this.filtros.termos }}
+            <mat-chip *ngFor="let ministro of filtros.relatoria" [removable]="true" (removed)="removeFiltro('relatoria', ministro)">
+                {{ ministro.nome }}
                 <mat-icon matChipRemove>cancel</mat-icon>
-            </mat-chip> -->
+            </mat-chip> 
+            <mat-chip *ngFor="let lista of filtros.listas" [removable]="true" (removed)="removeFiltro('listas', lista)">
+                {{ lista }}
+                <mat-icon matChipRemove>cancel</mat-icon>
+            </mat-chip> 
+            <mat-chip *ngFor="let tema of filtros.temas" [removable]="true" (removed)="removeFiltro('temas', tema)">
+                {{ tema }}
+                <mat-icon matChipRemove>cancel</mat-icon>
+            </mat-chip> 
+            <mat-chip *ngFor="let classe of filtros.classes" [removable]="true" (removed)="removeFiltro('classes', classe)">
+                {{ classe }}
+                <mat-icon matChipRemove>cancel</mat-icon>
+            </mat-chip> 
+            
             <!-- <mat-chip *ngFor="let situacao of this.filtros.situacoes" [removable]="true"
                 (removed)="removeFiltro('situacoes', situacao)">
                 {{ situacao }}

@@ -12,7 +12,7 @@ import { Filtros } from './filtros';
   encapsulation: ViewEncapsulation.None,
 })
 export class FiltroComponent implements OnInit {
-  filtros: Filtros = { termos: '', relatoria: [], listas: [], temas: [], classe: []};
+  filtros: Filtros = { termos: [], relatoria: [], listas: [], temas: [], classes: []};
 //   private eventsSubscription: Subscription;
 
   @Input() tag: Observable<any>;
@@ -59,15 +59,6 @@ export class FiltroComponent implements OnInit {
   //Remove a specfic filter from the Filtros interface
   removeFiltro(nome_campo: string, valor: string): void {
     this.filtros[nome_campo].splice(this.filtros[nome_campo].indexOf(valor), 1);
-  }
-
-  //Remove the filters os an boolean (checkbox for exemple) attribute in Filtros interface.
-  removeFiltroBooleano(nome_filtro: string): void {
-    this.filtros[nome_filtro] = false;
-  }
-
-  //Remove the filters of a single term
-  removeFiltroTermo(): void {
-    this.filtros['termo'] = '';
+    this.filtros['termos'].splice(this.filtros['termos'].indexOf(valor), 1);
   }
 }
