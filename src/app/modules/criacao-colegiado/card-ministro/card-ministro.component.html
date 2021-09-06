@@ -1,6 +1,6 @@
 <div class="mb-4">
     <fuse-card  
-        [class]="(disabled) ? 'flex flex-col items-center mx-auto w-full p-4 filter-info ng-tns-c129-57 ng-star-inserted mb-4 bg-gray-300 opacity-50' : 'flex flex-col items-center mx-auto w-full p-4 filter-info ng-tns-c129-57 ng-star-inserted mb-4'">
+        [class]="(disabled) ? 'flex flex-col items-center mx-auto w-full p-4 filter-info ng-tns-c129-57 ng-star-inserted mb-4 bg-bue-300 opacity-50 text-disabled' : 'flex flex-col items-center mx-auto w-full p-4 filter-info ng-tns-c129-57 ng-star-inserted mb-4'">
         
             <div class="flex flex-row w-full items-center justify-center mb-4">
                 <img 
@@ -49,11 +49,11 @@
 
         <div class="flex items-center justify-between">
             <div class="text-md font-medium text-secondary mr-3">
-                <form [formGroup]="formCriacaoColegiado">
+                <form>
                     <section class="mt-2">
-                        <p><mat-checkbox [disabled]="disabled" color="primary" formControlName="incluir_voto">Incluir na votação</mat-checkbox></p>
-                        <p><mat-checkbox [disabled]="disabled" color="primary" formControlName="ja_votou">Já votou</mat-checkbox></p>
-                        <p *ngIf="colegiado !== 'pleno'"><mat-checkbox [disabled]="disabled" color="primary" formControlName="pode_votar">Pode votar</mat-checkbox></p>
+                        <p><mat-checkbox (change)="emiteVoto()" [(ngModel)]="voto.incluir_voto" [disabled]="disabled" color="primary" name="incluir_voto">Incluir na votação</mat-checkbox></p>
+                        <p><mat-checkbox (change)="emiteVoto()" [(ngModel)]="voto.ja_votou" [disabled]="disabled" color="primary" name="ja_votou">Já votou</mat-checkbox></p>
+                        <p *ngIf="colegiado !== 'pleno'"><mat-checkbox (change)="emiteVoto()" [(ngModel)]="voto.pode_votar" [disabled]="disabled" color="primary" name="pode_votar">Pode votar</mat-checkbox></p>
                     </section>
                 </form>
             </div>

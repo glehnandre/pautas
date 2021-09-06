@@ -1,12 +1,17 @@
+import { HttpParams } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
+import { FuseDrawerService } from '@fuse/components/drawer';
+import { TipoDoProcesso } from '../acervo/model/enums/tipoDoProcesso.enum';
 import { Colegiado, ComposicaoColegiado } from '../acervo/model/interfaces/colegiado.interface';
 import { Documento } from '../acervo/model/interfaces/documento.interface';
 import { Ministro } from '../acervo/model/interfaces/ministro.interface';
 import { Tag } from '../acervo/model/interfaces/tag.interface';
+import { AlertaService } from '../services/alerta.service';
 import { MinistroService } from '../services/ministro.service';
 import { ProcessoService } from '../services/processo.service';
+import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-criacao-colegiado',
@@ -23,6 +28,12 @@ export class CriacaoColegiadoComponent implements OnInit {
     colegiado: string,
     sessao: string,
   };
+
+  alerta: {
+    titulo: string,
+    mensagem: string,
+  }
+
   formVotacao: FormGroup;
   ministros: Ministro[] = [];
   colegiados: Colegiado[] = [];
@@ -30,79 +41,90 @@ export class CriacaoColegiadoComponent implements OnInit {
   votosDosMinistros: ComposicaoColegiado[] = [];
   relator: Ministro;
   tags: string[] = [];
-  documentos: string[] = [];
-
-  post: {
-    processo: '',
-    anoSessao: '2021',
-    numeroSessao: '100',
-    julgados: [1, 2, 3],
-    items: {
-      ministro: {},
-      jaVotou: false,
-      podeVotar: false,
-    },
-  };
+  documentos: {
+    nomes: string[],
+    links: string[],
+  }
+  tipo: TipoDoProcesso;
+  link: SafeResourceUrl;
 
   constructor(
     private _fb: FormBuilder,
     private _ministroService: MinistroService,
     private _processoService: ProcessoService,
     private _route: ActivatedRoute,
+    private _alertaService: AlertaService,
+    private _fuseDrawerService: FuseDrawerService,
+    public sanitizer: DomSanitizer,
   ) { 
+    this.link = this.sanitizer.bypassSecurityTrustResourceUrl('');
     this.formVotacao = this._fb.group({
-      processo: ['ADI100-Ag-Ag-A', Validators.required],
-      anoSessao: ['2021', Validators.required],
-      numeroSessao: [100, Validators.required],
-      julgados: [[1, 2, 3], Validators.required],
-      items: [this.votosDosMinistros],
+      processo: ['', Validators.required],
+      anoSessao: ['', Validators.required],
+      numeroSessao: ['', Validators.required],
+      julgados: [this.votosDosMinistros],
     });
   }
 
   ngOnInit(): void {
-    this._route.queryParams.subscribe((data) => {
-      this.queryParams = {
-        colegiado: data.colegiado,
-        data: data.data,
-        processo: data.processo,
-        sessao: data.sessao,
-      };
+    const { colegiado, data, processo, sessao } = this._route.snapshot.queryParams;
+    
+    this.queryParams = {
+      colegiado,
+      data,
+      processo,
+      sessao,
+    };
 
-      this._ministroService.listarColegiados(this.queryParams.colegiado).subscribe({
-        next: (colegiados) => {
-          colegiados.map(c => c.composicao.sort((a, b) => {
-            c.composicao.map(data => {
-              if(data.relator == true){
-                this.relator = data.ministro
-              }
-            })
-            if (a.presidente) {
-              return -1;
-            }
-  
-            if (b.presidente) {
-              return 1;
-            }
-  
-            return 0;
-          }));
-          
-          this.colegiados = colegiados;
-          console.log(this.colegiados)
-        }
-      });
+    this.formVotacao.setValue({
+      processo,
+      numeroSessao: sessao.slice(0, sessao.indexOf('-')),
+      anoSessao: sessao.slice(sessao.indexOf('-')+1, sessao.length),
+      julgados: this.votosDosMinistros,
     });
 
-    this._processoService.obterDocumentosDoProcesso(1).subscribe(data=>{
-      data.forEach(documento=>{
-        this.documentos.push(documento.nome);
-      })
-    })
-    this._processoService.recuperarTagsDaApi().subscribe(data=>{
-      data.forEach(tag=>{
-        this.tags.push(tag.descricao);
-      })
-    })
+    this._ministroService.listarColegiados(this.queryParams.colegiado).subscribe({
+      next: (colegiados) => {
+        colegiados.map(c => c.composicao.sort((a, b) => {
+          c.composicao.map(data => {
+            if(data.relator == true){
+              this.relator = data.ministro
+            }
+          })
+          if (a.presidente) {
+            return -1;
+          }
+
+          if (b.presidente) {
+            return 1;
+          }
+
+          return 0;
+        }));
+        
+        this.colegiados = colegiados;
+      }
+    });
+
+    this._processoService.listarProcessos(new HttpParams().set('processo', processo)).subscribe({
+      next: ([processo]) => {
+        const { id, tipo, lista } = processo;
+        this.tipo = tipo;
+
+        this.tags = [];
+        lista.forEach(tag => {
+          this.tags.push(tag.descricao);
+        });
+
+        this._processoService.obterDocumentosDoProcesso(id).subscribe(data => {
+          this.documentos = { nomes: [], links: [] };
+          data.forEach(documento => {
+            this.documentos.nomes.push(documento.nome);
+            this.documentos.links.push(documento.url);
+          });
+        });
+      }
+    });
   }
 
   obterStatusDoVoto(votoDoMinistro: ComposicaoColegiado): void {
@@ -123,25 +145,23 @@ export class CriacaoColegiadoComponent implements OnInit {
     } else {
       this.votosDosMinistros.push(votoDoMinistro);
     }
-
-    console.table(this.votosDosMinistros)
   }
 
   isSelecoesValidas(): boolean {
     const MIN_VOTOS: number = 5;
 
     if (this.votosDosMinistros.length === 0) {
-      alert('Nunhum voto selecionado!');
+      this._exibeAlerta('Erro ao verificar votos', 'Nunhum ministro está participando da votação!');
       return false;
     }
 
     if (this.votosDosMinistros.length < MIN_VOTOS) {
-      alert('Número minimo de votos: ' + MIN_VOTOS);
+      this._exibeAlerta('Erro na qunatidade de votos', `O número mínimo de votos é ${MIN_VOTOS}`);
       return false;
     }
 
     if (!this.votosDosMinistros.some(ministro => ministro.relator)) {
-      alert('Não há relatores selecionados!');
+      this._exibeAlerta('Erro ao verificar relator', 'Adicione algum relator para participar do colegiado');
       return false;
     }
 
@@ -164,6 +184,10 @@ export class CriacaoColegiadoComponent implements OnInit {
     }
   }
 
+  obterTipoDoProcesso(): string {
+    return TipoDoProcesso[this.tipo];
+  }
+
   finalizar(): void {
     if (this.isSelecoesValidas()) {
       console.table(this.formVotacao.value);
@@ -174,4 +198,27 @@ export class CriacaoColegiadoComponent implements OnInit {
       });
     }
   }
+
+  /**
+  * Abre o menu que exibe o pdf
+  *
+  * @param drawerName
+  */
+  toggleDrawerOpen(drawerName: string): void {
+    const drawer = this._fuseDrawerService.getComponent(drawerName);
+    drawer.toggle();
+  }
+
+  abrirLink(link: string): void {
+    if (link !== this.link) {
+      this.link = this.sanitizer.bypassSecurityTrustResourceUrl(link);
+      this.toggleDrawerOpen('telaDoPdfDeColegiado');
+    }
+  }
+
+  private _exibeAlerta(titulo: string, mensagem: string): void {
+    this.alerta = { titulo, mensagem };
+    this._alertaService.exibirAlertaDeErro('alertaDeErroNoColegiado');
+  }
+
 }

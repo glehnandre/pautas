@@ -32,7 +32,6 @@ export class MinistroMockApi {
           const data = params.get('data');
           const colegiado = params.get('colegiado');
           
-          console.log(colegiado)
           if (colegiado === 'pleno') {
             const pleno = this._colegiado.filter(col => col.nome === 'pleno');
             return [200, pleno];
