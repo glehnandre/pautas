@@ -1,8 +1,11 @@
-import { Component, OnInit, Inject } from '@angular/core';
+import { query } from '@angular/animations';
+import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
-import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MatDialog } from '@angular/material/dialog';
+import { ActivatedRoute } from '@angular/router';
 import { AlertaService } from 'app/modules/services/alerta.service';
 import { JulgamentoService } from 'app/modules/services/julgamento.service';
+import { ProcessoService } from 'app/modules/services/processo.service';
 import { Observable } from 'rxjs';
 import { Processo } from '../../model/interfaces/processo.interface';
 import { SessaoJulgamento } from '../../model/interfaces/sessao-julgamento.interface';
@@ -20,6 +23,8 @@ export interface Colegiado {
     styleUrls: ['./pautar.component.scss'],
 })
 export class PautarComponent implements OnInit {
+
+    processos: Processo[]
 
     pautarForm: FormGroup;
 
@@ -50,16 +55,16 @@ export class PautarComponent implements OnInit {
     filteredOptions: Observable<string[]>;
 
     constructor(
-        public matDialogRef: MatDialogRef<PautarComponent>,
         private _formBuilder: FormBuilder,
         private _dialog: MatDialog,
         private _julgamentoService: JulgamentoService,
         private _alertService: AlertaService,
-        @Inject(MAT_DIALOG_DATA) public data: any,
+        private _processoService: ProcessoService,
+        private _route: ActivatedRoute,
     ) {
 
     }
-    
+
     ngOnInit(): void {
         // Create the form
         this.pautarForm = this._formBuilder.group({
@@ -68,18 +73,16 @@ export class PautarComponent implements OnInit {
             data_inicio: [''],
             data_fim: [''],
         });
-    }
-    
-    fechar(): void {
-        // Close the dialog
-        this.matDialogRef.close();
+            this._processoService.obterProcessos().
+                subscribe(processos => this.processos = processos);
+            console.log(this.processos);
     }
 
     sessaoExtraordinaria(): void {
         const dialogRef = this._dialog.open(SessaoExtraordinariaComponent, {});
 
         dialogRef.afterClosed().subscribe(resultado => {
-            
+
         });
     }
 
@@ -89,8 +92,8 @@ export class PautarComponent implements OnInit {
                 next: (data) => {
                     console.log(data)
                     this._alertService.exibirAlertaDeSucesso();
-                }   
-            });   
+                }
+            });
         }
     }
 }

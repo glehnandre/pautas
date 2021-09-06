@@ -80,6 +80,18 @@ export class ProcessoService {
     this.processosSelecionados.next(processos);
   }
 
+  public obterProcessos(): Observable<Processo[]> {
+    let params = new HttpParams();
+    params = params.set('situacao-processo', 1);
+
+    return this._httpClient.get<Processo[]>('processos', { params }).pipe(
+      catchError(error => {
+        console.log(error);
+        return EMPTY;
+      }),
+    )
+  }
+
   public exibeDescricaoDosProcessos(processos: Processo[]): string {
     let descricoes = ``;
 
