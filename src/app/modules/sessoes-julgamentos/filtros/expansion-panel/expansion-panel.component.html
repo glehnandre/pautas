@@ -5,7 +5,7 @@
             >
                 <mat-expansion-panel-header 
                     [collapsedHeight]="'40px'" 
-                    class="p-4 h-15"
+                    class="p-4 min-h-15"
                 >
                     <div class="flex flex-none flex-row my-auto ml-3 w-screen container mt-4">
                         <h2 class="font-medium">
@@ -15,23 +15,65 @@
                 </mat-expansion-panel-header>
 
                 <!--Conteúdo de dentro da área expansível-->
-                <div class="container">
-                    <div class="flex flex-col min-w-full justify-between" *ngFor="let conteudo of conteudos">
-                        <div *ngIf="!hasImage">
-                            <mat-checkbox
-                                color="primary" 
-                                [checked]="Selected"
-                            >
-                            </mat-checkbox>
-                            {{conteudo}}
+                <div class="flex flex-col min-w-full justify-between">
+                    <!-- <div *ngIf="!hasImage">
+                        <mat-checkbox
+                            color="primary" 
+                            [checked]="Selected"
+                        >
+                        </mat-checkbox>
+                        {{conteudo}}
+                    </div>
+                    <div *ngIf="hasImage">
+                        <img
+                            [src]="conteudo?.imagem"
+                            alt="Imagem de perfil"
+                            class="w-14 h-14 mr-6 rounded-full object-cover"
+                        >
+                    </div> -->
+
+
+                    <div class="flex flex-row my-2">
+                        <div class="mr-2 my-auto">
+                            <button (click)="scrollLeft(id)">
+                                <mat-icon>
+                                    navigate_before
+                                </mat-icon>
+                            </button>
                         </div>
-                        <div *ngIf="hasImage">
-                            <img
-                                [src]="conteudo?.imagem"
-                                alt="Imagem de perfil"
-                                class="w-14 h-14 mr-6 rounded-full object-cover"
-                            >
+                        <div [id]="id" [class]="(conteudos.length>=3) ? 'grid grid-flow-col grid-rows-3 w-screen gap-x-16 overflow-hidden' : 'grid grid-flow-row w-screen gap-x-16 overflow-hidden'">
+                            <div *ngFor="let conteudo of conteudos" class="flex my-auto">
+                            <div *ngIf="!hasImage" class="flex-none">
+                                <mat-checkbox
+                                    color="primary" 
+                                    [checked]="Selected"
+                                    [value]="conteudo"
+                                    [name]="id"
+                                    (change)="emiteObjeto($event)"
+                                >
+                                {{conteudo}}
+                                </mat-checkbox>
+                            </div>
+                            <div *ngIf="hasImage">
+                                <img
+                                    [src]="conteudo?.imagem"
+                                    [value]="id"
+                                    alt="Imagem de perfil"
+                                    [class]="'w-14 h-14 mr-6 rounded-full object-cover ' + filter"
+                                    (click)="emiteMinistro(conteudo, id)"
+                                >
+                            </div>
+                            </div>
+                        </div>
+                        <div class="ml-2 my-auto">
+                            <button (click)="scrollRight(id)">
+                                <mat-icon>
+                                    navigate_next
+                                </mat-icon>
+                            </button>
                         </div>
                     </div>
+
+
                 </div>
             </mat-expansion-panel>

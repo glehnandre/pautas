@@ -12,8 +12,7 @@ import { Filtros } from './filtros';
   encapsulation: ViewEncapsulation.None,
 })
 export class FiltroComponent implements OnInit {
-  filtros: Filtros = { termo: '', tipos: [], categorias: [], modalidades: [], pleno: false, primeira_turma: false, segunda_turma: false, data_inicio: '', data_fim: '' };
-  termo: string = '';
+  filtros: Filtros = { termos: '', relatoria: [], listas: [], temas: [], classe: []};
 //   private eventsSubscription: Subscription;
 
   @Input() tag: Observable<any>;
@@ -70,6 +69,5 @@ export class FiltroComponent implements OnInit {
   //Remove the filters of a single term
   removeFiltroTermo(): void {
     this.filtros['termo'] = '';
-    this.termo = '';
   }
 }

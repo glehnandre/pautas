@@ -3,7 +3,7 @@
         <mat-form-field hintLabel="Informe um termo para pesquisar ou acesse as opções de filtro"
             class="fuse-mat-rounded">
             <mat-icon matPreffix>search</mat-icon>
-            <input matInput (keyup)="filtros.termo = $event.target.value" autofocus
+            <input matInput (keyup)="filtros.termos = $event.target.value" autofocus
                 placeholder="Digite aqui seu filtro...">
             <button mat-icon-button matSuffix (click)="openDialog()">
                 <mat-icon matSuffix>filter_alt</mat-icon>
@@ -12,24 +12,10 @@
     </div>
     <div class="content-start p-2">
         <mat-chip-list #chipList class="content-center" aria-orientation="vertical">
-            <mat-chip [removable]="true" (removed)="removeFiltroTermo()" *ngIf="this.filtros.termo">
-                {{ this.filtros.termo }}
+            <!-- <mat-chip [removable]="true" (removed)="removeFiltroTermo()" *ngIf="this.filtros.termos">
+                {{ this.filtros.termos }}
                 <mat-icon matChipRemove>cancel</mat-icon>
-            </mat-chip>
-            <mat-chip [removable]="true" (removed)="removeFiltroBooleano('primeira_turma')"
-                *ngIf="this.filtros.primeira_turma">
-                Primeira Turma
-                <mat-icon matChipRemove>cancel</mat-icon>
-            </mat-chip>
-            <mat-chip [removable]="true" (removed)="removeFiltroBooleano('segunda_turma')"
-                *ngIf="this.filtros.segunda_turma">
-                Segunda Turma
-                <mat-icon matChipRemove>cancel</mat-icon>
-            </mat-chip>
-            <mat-chip [removable]="true" (removed)="removeFiltroBooleano('pleno')" *ngIf="this.filtros.pleno">
-                Pleno
-                <mat-icon matChipRemove>cancel</mat-icon>
-            </mat-chip>
+            </mat-chip> -->
             <!-- <mat-chip *ngFor="let situacao of this.filtros.situacoes" [removable]="true"
                 (removed)="removeFiltro('situacoes', situacao)">
                 {{ situacao }}
@@ -44,6 +30,6 @@
                 {{ modalidade }}
                 <mat-icon matChipRemove>cancel</mat-icon>
             </mat-chip> -->
-        </mat-chip-list>
+        </mat-chip-list> 
     </div>
 </div>

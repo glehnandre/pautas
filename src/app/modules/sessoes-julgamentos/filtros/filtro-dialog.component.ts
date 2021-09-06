@@ -19,6 +19,13 @@ export class FiltroDialogComponent implements OnInit {
   imagens: string[] = [];
   ministros: Ministro[] = [];
   classes: string[] = [];
+  temas: string[] = ["Tema 1", "Tema 2", "Tema 3", "Tema 4", "Tema 5", "Tema 6"]
+
+  filtrosEscolhidos: string[] = [];
+  listaEscolhida: string[] = [];
+  ministroEscolhido: Ministro[] = [];
+  classeEscolhida: string[] = [];
+  temaEscolhida: string[] = []
 
   processos: Processo[] = [];
   form: FormGroup;
@@ -48,13 +55,11 @@ export class FiltroDialogComponent implements OnInit {
 
   ngOnInit(): void {
     this.form = this.fb.group({
-      filtros: this.filtros.termo,
-      primeira_turma: [this.filtros.primeira_turma],
-      segunda_turma: [this.filtros.segunda_turma],
-      pleno: [this.filtros.pleno],
-      tipos: [this.filtros.tipos],
-      categorias: [this.filtros.categorias],
-      modalidades: [this.filtros.modalidades]
+      filtros: this.filtros.termos,
+      relatoria: [this.filtros.relatoria],
+      listas: [this.filtros.listas],
+      temas: [this.filtros.temas],
+      classe: [this.filtros.classe],
     });
 
     this._processoService.listarProcessos().subscribe(data=>{
@@ -80,5 +85,46 @@ export class FiltroDialogComponent implements OnInit {
 
   filtrar() {
     this.dialogRef.close(Object.assign(this.filtros, this.form.value));
+  }
+
+  atualizaForm(form){
+    
+    const name = form.conteudo.source.name;
+    const status = form.conteudo.checked;
+    const value = form.conteudo.source.value;
+
+    if(name=="Relatoria"){
+
+      if(status==true) this.ministroEscolhido.push(value);
+      else this.ministroEscolhido.splice(this.ministroEscolhido.indexOf(value), 1);
+
+      this.form.patchValue({relatoria: this.ministroEscolhido})
+    }
+    else if(name=="Listas"){
+
+      if(status==true) this.listaEscolhida.push(value);
+      else this.listaEscolhida.splice(this.listaEscolhida.indexOf(value), 1);
+
+      this.form.patchValue({listas: this.listaEscolhida})
+    }
+    else if(name=="Temas"){
+
+      if(status==true) this.temaEscolhida.push(value);
+      else this.temaEscolhida.splice(this.temaEscolhida.indexOf(value), 1);
+
+      this.form.patchValue({temas: this.temaEscolhida})
+    }
+    else if(name=="Classe Processual"){
+
+      if(status==true) this.classeEscolhida.push(value);
+      else this.classeEscolhida.splice(this.classeEscolhida.indexOf(value), 1);
+
+      this.form.patchValue({classe: this.classeEscolhida})
+    }
+
+    if(status==true) this.filtrosEscolhidos.push(value);
+    else this.filtrosEscolhidos.splice(this.filtrosEscolhidos.indexOf(value), 1);
+
+    this.form.patchValue({filtros: this.filtrosEscolhidos})
   }
 }

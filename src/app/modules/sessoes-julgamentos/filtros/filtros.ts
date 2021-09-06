@@ -1,11 +1,9 @@
+import { Ministro } from "app/modules/acervo/model/interfaces/ministro.interface";
+
 export interface Filtros {
-    termo: string;
-    primeira_turma: boolean;
-    segunda_turma: boolean;
-    pleno: boolean;
-    tipos: string[];
-    categorias: string[];
-    modalidades: string[];
-    data_inicio: string;
-    data_fim: string;
+    termos: string;
+    relatoria: Ministro[];
+    listas: string[];
+    temas: string[];
+    classe: string[];
 }

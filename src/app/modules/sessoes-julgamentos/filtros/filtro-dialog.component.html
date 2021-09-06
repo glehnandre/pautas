@@ -82,27 +82,35 @@
             </div> -->
 
             <app-expansion-panel
+                [id]="'Relatoria'"
                 [label]="'Relatoria'"
                 [conteudos]="ministros"
                 [hasImage]="true"
+                (statusFiltroForm)="atualizaForm($event)"
             ></app-expansion-panel>
             
             <app-expansion-panel
+                [id]="'Listas'"
                 [label]="'Listas'"
                 [conteudos]="lista"
                 [Selected]="Selected"
+                (statusFiltroForm)="atualizaForm($event)"
             ></app-expansion-panel>
 
             <app-expansion-panel
+                [id]="'Temas'"
                 [label]="'Temas'"
-                [conteudos]="['Tema 1', 'Tema 2']"
+                [conteudos]="temas"
                 [Selected]="Selected"
+                (statusFiltroForm)="atualizaForm($event)"
             ></app-expansion-panel>
 
             <app-expansion-panel
+                [id]="'Classe Processual'"
                 [label]="'Classe Processual'"
                 [conteudos]="classes"
                 [Selected]="Selected"
+                (statusFiltroForm)="atualizaForm($event)"
             ></app-expansion-panel>
         </section>
     </div>
