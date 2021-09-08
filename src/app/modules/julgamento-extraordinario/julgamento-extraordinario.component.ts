@@ -51,7 +51,7 @@ export class JulgamentoExtraordinarioComponent implements OnInit {
   constructor(
     private _fb: FormBuilder,
     private _julgamentoService: JulgamentoService,
-  ) { 
+  ) {
     this.formJulgamento = this._fb.group({
       nova_data: [moment(), Validators.required],
       sessao: ['', Validators.required],
