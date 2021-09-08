@@ -6,10 +6,10 @@ import { tags as tagData } from 'app/mock-api/pautas/tags/data';
 import { Paginacao } from 'app/modules/acervo/tabela/paginacao/paginacao.component';
 import { Processo } from 'app/modules/acervo/model/interfaces/processo.interface';
 import { Tag } from 'app/modules/acervo/model/interfaces/tag.interface';
-import { SituacaoDoProcesso } from 'app/modules/acervo/model/enums/situacaoDoProcesso.enum';
 import { Documento } from 'app/modules/acervo/model/interfaces/documento.interface';
 import { SessaoJulgamento } from 'app/modules/acervo/model/interfaces/sessao-julgamento.interface';
 import { julgamentos } from '../julgamentos/data';
+import { TipoDoProcesso } from 'app/modules/acervo/model/enums/tipoDoProcesso.enum';
 
 @Injectable({
     providedIn: 'root'
@@ -66,43 +66,57 @@ export class ProcessoMockApi {
             .onGet('processos')
             .reply(({ request }) => {
                 const { params } = request;
-                const filtros: Filtros = {
-                    situacoes: params.getAll('situacao-processo'),
-                    termo: params.get('termo'),
-                    primeira_turma: (params.get('colegiado') === 'primeira-turma'),
-                    segunda_turma: (params.get('colegiado') === 'segunda-turma'),
-                    pleno: (params.get('colegiado') === 'pleno'),
-                    classes: params.getAll('classe'),
-                    tags: params.getAll('tag'),
-                };
 
-                if (params.keys().length > 0) {
-                    const processosFiltrados = this._processo
-                        .filter(processo => (filtros.situacoes) ? filtros.situacoes.find((situacao) => Number(situacao) === processo.situacao) : true)
-                        .filter(processo => (filtros.classes) ? filtros.classes.find(classe => classe === processo.classe) : true)
-                        .filter(processo => (filtros.tags) ? filtros.tags.find(tag => processo.lista.find(lista => lista.id === Number(tag))) : true)
-                        .filter(processo => (filtros.termo) ? filtros.termo.includes(processo.classe) && filtros.termo.includes(processo.numero.toString()) : true);
-
-                    return [200, processosFiltrados];
+                if (params.get('itensPorPagina') && params.get('itensPorPagina') !== 'undefined') {
+                    const paginacao: Paginacao = {
+                        itensPorPagina: +params.get('itensPorPagina') || 5,
+                        numeroDaPagina: +params.get('numeroDaPagina') || 0,
+                        offset: +params.get('offset') || 0,
+                    }
+    
+                    const processosPaginados = this._processo
+                        .slice(paginacao.offset, paginacao.offset+paginacao.itensPorPagina);
+    
+                    return [200, processosPaginados];
                 } else {
-                    return [200, this._processo];
+                    const filtros: Filtros = {
+                        processo: params.get('processo'),
+                        situacoes: params.getAll('situacao-processo'),
+                        termo: params.get('termo'),
+                        primeira_turma: (params.get('colegiado') === 'primeira-turma'),
+                        segunda_turma: (params.get('colegiado') === 'segunda-turma'),
+                        pleno: (params.get('colegiado') === 'pleno'),
+                        classes: params.getAll('classe'),
+                        tags: params.getAll('tag'),
+                    };
+
+                    if (params.keys().length > 0) {
+                        const processosFiltrados = this._processo
+                            .filter((processo) => {
+                                if (filtros.processo) {
+                                   let query = `${processo.classe}${processo.numero}`;
+                                   
+                                   if (processo.tipo === TipoDoProcesso.Recurso) {
+                                        query = query + '-Ag';
+                                   } else if (processo.tipo === TipoDoProcesso.Cadeira) {
+                                        query = query + '-Ag-Ag-Ag';
+                                   }
+                                   
+                                   return (query === filtros.processo);
+                                } else {
+                                    return true;
+                                }
+                            })
+                            .filter(processo => (filtros.situacoes) ? filtros.situacoes.find((situacao) => Number(situacao) === processo.situacao) : true)
+                            .filter(processo => (filtros.classes) ? filtros.classes.find(classe => classe === processo.classe) : true)
+                            .filter(processo => (filtros.tags) ? filtros.tags.find(tag => processo.lista.find(lista => lista.id === Number(tag))) : true)
+                            .filter(processo => (filtros.termo) ? filtros.termo.includes(processo.classe) && filtros.termo.includes(processo.numero.toString()) : true);
+
+                        return [200, processosFiltrados];
+                    } else {
+                        return [200, this._processo];
+                    }
                 }
-            });
-
-        this._fuseMockApiService
-            .onGet('processos/paginacao')
-            .reply(({ request }) => {
-                const { params } = request;
-                const paginacao: Paginacao = {
-                    itensPorPagina: +params.get('itensPorPagina') || 5,
-                    numeroDaPagina: +params.get('numeroDaPagina') || 0,
-                    offset: +params.get('offset') || 0,
-                }
-
-                const processosPaginados = this._processo
-                    .slice(paginacao.offset, paginacao.offset+paginacao.itensPorPagina);
-
-                return [200, processosPaginados];
             });
 
         this._fuseMockApiService
@@ -172,7 +186,7 @@ export class ProcessoMockApi {
               return [201, [this._processo]];
             });
 
-            this._fuseMockApiService
+        this._fuseMockApiService
             .onGet('processos/:id/documentos')
             .reply(({urlParams}) => {
               const id = +urlParams.id;

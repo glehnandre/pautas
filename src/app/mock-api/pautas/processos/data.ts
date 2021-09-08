@@ -15,7 +15,7 @@ export const processo: Processo[] = [
     classe:     'ADI',
     numero:     100,
     situacao:   1,
-    tipo:       TipoDoProcesso.Incidente,
+    tipo:       TipoDoProcesso.Cadeira,
     capitulos:  [
       {
         id:     1,
@@ -209,6 +209,28 @@ export const processo: Processo[] = [
       }
     ],
   },
+
+  {
+    id:         6,
+    nome:     'Tese',
+    ementa:   'Sessão de julgamento extraordinária para tratar da divisão de terras.',
+    lista:        [
+                  tagData[4],
+                ],
+    classe:     'RE',
+    numero:     143255,
+    situacao:   1,
+    tipo:       TipoDoProcesso.Merito,
+    capitulos:  [
+      {
+        id:     1,
+        descricao: 'É constitucional o artigo 8º da Lei Complementar 173/2020, editado no âmbito do Programa Federativo de Enfrentamento ao Coronavírus SARS-CoV-2 (Covid-19).',
+        ordem:  1,
+        tipo:   'Tese',
+        dispositivo: 'Reconhecida'
+      }
+    ],
+  },
 ];
 
 export const documentos: Documento[] = [
@@ -216,18 +238,18 @@ export const documentos: Documento[] = [
     id: 1,
     nome: "Relatório",
     tipo: "pdf",
-    url: "/digital/documento/123"
+    url: "http://redir.stf.jus.br/paginadorpub/paginador.jsp?docTP=TP&docID=752545388"
   },
   {
     id: 2,
     nome: "Íntegra do Voto do Relator",
     tipo: "pdf",
-    url: "/digital/documento/1234"
+    url: "https://www.conjur.com.br/dl/voto-gilmar-mendes-adi-reeleicao.pdf"
   },
   {
     id: 3,
     nome: "Voto Divergente",
     tipo: "pdf",
-    url: "/digital/documento/12345"
+    url: "https://www.cjf.jus.br/publico/pdfs/00732619720144036301.pdf"
   },
 ]

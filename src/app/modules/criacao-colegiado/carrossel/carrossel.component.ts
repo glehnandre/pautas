@@ -16,10 +16,14 @@ export class CarrosselComponent implements OnInit {
   @Input() class: string[] = [];
   @Input() idChip:string;
   @Input() lastId:string;
+  @Input() links: string[] = [];
+
+  @Output() linkDoPdfSelecionado = new EventEmitter<string>();
 
   constructor() { }
 
   ngOnInit(): void {
+    
   }
 
   handleKeyboardEvent(event: KeyboardEvent) {
@@ -41,6 +45,12 @@ export class CarrosselComponent implements OnInit {
     if(id){
       let el = document.getElementById(id);
       document.getElementById(id).scrollTo({ left: (el.scrollLeft + 150), behavior: 'smooth' });
+    }
+  }
+
+  abrirLink(index: number): void {
+    if (this.links[index]) {
+      this.linkDoPdfSelecionado.emit(this.links[index]);
     }
   }
 

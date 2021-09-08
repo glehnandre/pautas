@@ -21,7 +21,7 @@ export class ProcessoService {
   ) { }
 
   public listarProcessos(params?: HttpParams): Observable<Processo[]> {
-    return this._httpClient.get<Processo[]>('processos/paginacao', {
+    return this._httpClient.get<Processo[]>('processos', {
       params
     }).pipe(
       catchError(error => {

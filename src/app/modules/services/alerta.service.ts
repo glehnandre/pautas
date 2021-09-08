@@ -18,11 +18,11 @@ export class AlertaService {
     }, tempo);
   }
 
-  public exibirAlertaDeErro(tempo: number = 5000): void {
-    this._fuseAlertService.show('alertBox');
+  public exibirAlertaDeErro(nomeDoAlerta: string, tempo: number = 5000): void {
+    this._fuseAlertService.show(nomeDoAlerta);
 
     setTimeout(() => {
-        this._fuseAlertService.dismiss('alertBox');
+        this._fuseAlertService.dismiss(nomeDoAlerta);
     }, tempo);
   }
 

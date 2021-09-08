@@ -50,7 +50,6 @@ describe('JulgamentoExtraordinarioComponent', () => {
 
   it('Deve encontrar a sessão de julgamento com numero e ano', () => {
     component.sessoes = [{
-      id: 0,
       numero: 1000,
       ano: 2021,
       categoria: '',
@@ -59,6 +58,7 @@ describe('JulgamentoExtraordinarioComponent', () => {
       data_fim: '',
       modalidade: '',
       tipo: '',
+      situacao: 'ABERTA',
     }];
     fixture.detectChanges();
     

@@ -6,4 +6,5 @@ export interface Filtros {
     situacoes: string[];
     classes: string[];
     tags: string[];
+    processo?: string;
 }

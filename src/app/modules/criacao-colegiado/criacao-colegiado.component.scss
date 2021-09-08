@@ -1,0 +1,11 @@
+$fuse-drawer-width: 720;
+
+#visualisador-pdf {
+    width: #{$fuse-drawer-width}px;
+    min-width: #{$fuse-drawer-width}px;
+    max-width: #{$fuse-drawer-width}px;
+}
+
+.position-left-90 {
+    margin-left: 90%;
+}
