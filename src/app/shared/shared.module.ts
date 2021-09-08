@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MatCheckboxModule } from '@angular/material/checkbox';
 import { ProcessoChipComponent } from './processo-chip/processo-chip.component';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatIconModule } from '@angular/material/icon';
@@ -8,6 +9,8 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatRadioModule } from '@angular/material/radio';
 import { ProcessoPainelExpansivoComponent } from './processo-painel-expansivo/processo-painel-expansivo.component';
 import { MatExpansionModule } from '@angular/material/expansion';
+import { MatTooltipModule } from '@angular/material/tooltip';
+import { ProcessoCapituloComponent } from './processo-capitulo/processo-capitulo.component';
 import { PautarFormComponent } from './pautar-form/pautar-form.component';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -20,6 +23,7 @@ import { SessoesPipe } from './pautar-form/sessoes.pipe';
     declarations: [
         ProcessoChipComponent,
         ProcessoPainelExpansivoComponent,
+        ProcessoCapituloComponent,
         PautarFormComponent,
         SessoesPipe,
     ],
@@ -30,11 +34,13 @@ import { SessoesPipe } from './pautar-form/sessoes.pipe';
         MatChipsModule,
         MatIconModule,
         MatExpansionModule,
+        MatCheckboxModule,
+        MatTooltipModule,
         MatFormFieldModule,
         MatDatepickerModule,
         MatMomentDateModule,
         MatSelectModule,
-        MatRadioModule, 
+        MatRadioModule,
         MatAutocompleteModule,
     ],
     exports: [
@@ -43,6 +49,7 @@ import { SessoesPipe } from './pautar-form/sessoes.pipe';
         ReactiveFormsModule,
         ProcessoChipComponent,
         ProcessoPainelExpansivoComponent,
+        ProcessoCapituloComponent,
         PautarFormComponent,
     ],
 })

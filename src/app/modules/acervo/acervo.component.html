@@ -11,19 +11,19 @@
             ></app-filtro>
         </div>
         <div>
-            <app-acoes 
+            <app-acoes
                 (Allselected)="reciverFeedback($event)"
-                (colecaoIdsDasTags)="obterIdsDasTagsSelecionadas($event)"   
+                (colecaoIdsDasTags)="obterIdsDasTagsSelecionadas($event)"
             ></app-acoes>
         </div>
     </div>
 
     <!-- Main -->
-    <div class="flex-auto  overflow-y-auto" cdkScrollable>
+    <div class="flex-auto  overflow-y-auto px-8 py-4" cdkScrollable>
 
         <!-- CONTENT GOES HERE -->
         <div>
-            <app-tabela 
+            <app-tabela
                 [Allselected]="SelectAllLines"
                 (tagSelecionada)="filtrarPorTags($event)"
                 (statusSelecionado)="filtrarPorStatus($event)"
