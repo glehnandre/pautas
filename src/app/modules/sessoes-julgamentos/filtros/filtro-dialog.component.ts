@@ -4,8 +4,9 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { SituacaoDoProcesso } from 'app/modules/acervo/model/enums/situacaoDoProcesso.enum';
 import { Ministro } from 'app/modules/acervo/model/interfaces/ministro.interface';
 import { Processo } from 'app/modules/acervo/model/interfaces/processo.interface';
-import { ProcessoService } from 'app/modules/services/processo.service';
+import { JulgamentoService } from 'app/modules/services/julgamento.service';
 import { Filtros } from './filtros';
+import { MinistroService } from 'app/modules/services/ministro.service';
 
 @Component({
   selector: 'filtro-dialog.component',
@@ -41,7 +42,8 @@ export class FiltroDialogComponent implements OnInit {
    * @param data data injetada com a chave de pesquisa vinda do input text
    */
   constructor(
-    private _processoService: ProcessoService,
+    private _julgamentoService: JulgamentoService,
+    private _ministroService: MinistroService,
     public dialogRef: MatDialogRef<FiltroDialogComponent>,
     private fb: FormBuilder,
     @Inject(MAT_DIALOG_DATA) data
@@ -62,21 +64,28 @@ export class FiltroDialogComponent implements OnInit {
       classes: [this.filtros.classes],
     });
 
-    this._processoService.listarProcessos().subscribe(data=>{
-      data.forEach(processo=>{
-        if(processo.situacao==SituacaoDoProcesso.Pautado){
-          if(processo.redator)this.ministros.push(processo.redator);
-          else if(processo.relator)this.ministros.push(processo.relator);
-          if(this.classes.indexOf(processo.classe)==-1){
-            this.classes.push(processo.classe);
-          }
-          this.processos.push(processo);
-          processo.lista.forEach(lista=>{
-            this.lista.push(lista.descricao);
-          })
-        }
-      })
-    })
+    this._julgamentoService.listarSessoesDeJulgamento(1000, 2021).subscribe({
+      next: (sessao) => {
+        const colegiado = (sessao.colegiado=="Primeira turma") ? "primeira-turma" : 
+                          (sessao.colegiado=="Segunda turma") ? "segunda-turma" :
+                          "pleno";
+        this._ministroService.listarMinistrosDoColegiado(colegiado).subscribe(ministros=>{
+          this.ministros = ministros;
+        })
+        const { numero, ano, data_inicio, data_fim } = sessao;
+        this._julgamentoService.listarProcessosPautadosNasSessoes(numero, ano, SituacaoDoProcesso.Pautado, data_inicio, data_fim).subscribe(processos=>{
+          processos.forEach(processo=>{
+            this.processos.push(processo);
+            if(this.classes.indexOf(processo.classe)==-1){
+              this.classes.push(processo.classe);
+            }
+            processo.lista.forEach(lista=>{
+              this.lista.push(lista.descricao);
+            })
+          });
+        });
+      }
+    });
   }
 
   fechar(): void {
