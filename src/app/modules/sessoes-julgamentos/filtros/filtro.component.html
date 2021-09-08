@@ -15,34 +15,34 @@
             <mat-chip *ngFor="let ministro of filtros.relatoria" [removable]="true" (removed)="removeFiltro('relatoria', ministro)">
                 {{ ministro.nome }}
                 <mat-icon matChipRemove>cancel</mat-icon>
-            </mat-chip> 
+            </mat-chip>
             <mat-chip *ngFor="let lista of filtros.listas" [removable]="true" (removed)="removeFiltro('listas', lista)">
                 {{ lista }}
                 <mat-icon matChipRemove>cancel</mat-icon>
-            </mat-chip> 
+            </mat-chip>
             <mat-chip *ngFor="let tema of filtros.temas" [removable]="true" (removed)="removeFiltro('temas', tema)">
                 {{ tema }}
                 <mat-icon matChipRemove>cancel</mat-icon>
-            </mat-chip> 
+            </mat-chip>
             <mat-chip *ngFor="let classe of filtros.classes" [removable]="true" (removed)="removeFiltro('classes', classe)">
                 {{ classe }}
                 <mat-icon matChipRemove>cancel</mat-icon>
-            </mat-chip> 
-            
+            </mat-chip>
+
             <!-- <mat-chip *ngFor="let situacao of this.filtros.situacoes" [removable]="true"
                 (removed)="removeFiltro('situacoes', situacao)">
                 {{ situacao }}
                 <mat-icon matChipRemove>cancel</mat-icon>
-            </mat-chip> -->
-            <!-- <mat-chip *ngFor="let classe of this.filtros.classes" [removable]="true"
-                (removed)="removeFiltro('classes', classe)">
-                {{ classe }}
+            </mat-chip>
+            <mat-chip *ngFor="let categoria of this.filtros.categorias" [removable]="true"
+                (removed)="removeFiltro('categorias', categoria)">
+                {{ categoria }}
                 <mat-icon matChipRemove>cancel</mat-icon>
-            </mat-chip> -->
-            <!-- <mat-chip *ngFor="let modalidade of this.filtros.modalidades" [removable]="true" (removed)="removeFiltro('modalidades', modalidade)">
+            </mat-chip>
+            <mat-chip *ngFor="let modalidade of this.filtros.modalidades" [removable]="true" (removed)="removeFiltro('modalidades', modalidade)">
                 {{ modalidade }}
                 <mat-icon matChipRemove>cancel</mat-icon>
             </mat-chip> -->
-        </mat-chip-list> 
+        </mat-chip-list>
     </div>
 </div>

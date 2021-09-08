@@ -1,25 +1,24 @@
-<div class="flex flex-col max-w-240 md:min-w-160 -m-6">
+<div class="flex flex-col md:min-w-160">
 
     <!-- Header -->
-    <div class="flex flex-0 items-center justify-between h-16 pr-3 sm:pr-5 pl-6 sm:pl-8 bg-primary text-on-primary">
-        <div class="text-lg font-medium">Liberar processo para julgamento</div>
-        <button mat-icon-button (click)="fechar()" [tabIndex]="-1">
-            <mat-icon class="text-current" [svgIcon]="'heroicons_outline:x'"></mat-icon>
+    <div class="flex text-primary">
+        <button mat-icon-button routerLink='../' [tabIndex]="-1">
+            <mat-icon class="text-current" [svgIcon]="'heroicons_outline:chevron-left'"></mat-icon>
         </button>
+        <h1>Liberar processo para julgamento</h1>
     </div>
 
     <!-- Compose form -->
-    <form 
-        class="flex flex-col flex-auto p-6 sm:p-8 overflow-y-auto"  
-        [formGroup]="pautarForm" 
+    <form
+        class="flex flex-col flex-auto p-6 sm:p-8 overflow-y-auto"
+        [formGroup]="pautarForm"
     >
         <app-processo-chip
-            [processos]="data.processos"
+            [processos]="processos"
             [isRemovable]="true"
             [isEmitRemoveEvent]="true"
-            [dialogRef]="matDialogRef"
         ></app-processo-chip>
-        
+
         <app-pautar-form
             [sessoes]="sessoes"
             (statusPautarForm)="atualizaPautarForm($event)"
@@ -32,18 +31,17 @@
                     SOLICITAR SESSÃO EXTRAORDINÁRIA
                 </button>
                 <!-- Send -->
-                <button 
+                <button
                     [disabled]="pautarForm.invalid"
-                    mat-flat-button 
-                    mat-dialog-close
-                    class="order-first md:order-last" 
-                    [color]="'primary'" 
+                    mat-flat-button
+                    class="order-first md:order-last"
+                    [color]="'primary'"
                     (click)="pautar()"
                 >
                     LIBERAR PARA JULGAMENTO
                 </button>
                 <!-- Save as draft -->
-                <button class="justify-center md:ml-0" mat-button mat-dialog-close (click)="fechar()">
+                <button class="justify-center md:ml-0" mat-button routerLink="../">
                     <span>CANCELAR</span>
                 </button>
             </div>

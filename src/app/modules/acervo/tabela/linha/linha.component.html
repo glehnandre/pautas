@@ -4,9 +4,9 @@
             <div class="w-screen container flex sm:mt-4">
                 <div>
                     <div (click)="$event.stopPropagation()">
-                        <mat-checkbox 
-                            color="primary" 
-                            (change)="emiteStatusDoCheckbox($event)" 
+                        <mat-checkbox
+                            color="primary"
+                            (change)="emiteStatusDoCheckbox($event)"
                             [checked]="Selected || processo.checked"
                         >
                         </mat-checkbox>
@@ -24,7 +24,7 @@
                     {{processo.nome}}
                 </div>
                 <div>
-                    <app-status 
+                    <app-status
                         [idProcesso]="processo.id" (statusSelecionado)="filtrarPorStatus($event)"
                     ></app-status>
                 </div>
@@ -34,22 +34,7 @@
             </div>
         </div>
     </mat-expansion-panel-header>
-    
+
     <!--Conteúdo de dentro da área expansível-->
-    <div class="container ">
-        <div class="min-w-full justify-between prose">
-           
-            <div
-                *ngFor="let capitulo of processo.capitulos"
-            >
-                <div class="flex flex-row">
-                    <h2 class="text-lg mr-4">{{capitulo.tipo}}</h2>
-                    <mat-chip class="bg-green-600" selected>{{capitulo.dispositivo}}</mat-chip>
-                </div>
-                
-                <p>{{capitulo.descricao}}</p>
-                <hr/>
-            </div>
-        </div>
-    </div>
+    <app-processo-capitulo [processo]="processo"></app-processo-capitulo>
 </mat-expansion-panel>
