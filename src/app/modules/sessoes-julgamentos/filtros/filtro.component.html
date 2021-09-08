@@ -3,7 +3,7 @@
         <mat-form-field hintLabel="Informe um termo para pesquisar ou acesse as opções de filtro"
             class="fuse-mat-rounded">
             <mat-icon matPreffix>search</mat-icon>
-            <input matInput (keyup)="filtros.termos = $event.target.value" autofocus
+            <input matInput (keyup)="filtros.termo = $event.target.value" autofocus
                 placeholder="Digite aqui seu filtro...">
             <button mat-icon-button matSuffix (click)="openDialog()">
                 <mat-icon matSuffix>filter_alt</mat-icon>
