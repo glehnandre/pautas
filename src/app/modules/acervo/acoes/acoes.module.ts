@@ -33,7 +33,11 @@ const routes = [
   {
     path: 'acoes',
     component: AcoesComponent
-  }
+  },
+  {
+    path: 'pautar',
+    component: PautarComponent,
+  },
 ];
 
 @NgModule({

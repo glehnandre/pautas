@@ -1,6 +1,7 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
+import { ActivatedRoute, Router } from '@angular/router';
 import { FuseAlertService } from '@fuse/components/alert';
 import { ProcessoService } from 'app/modules/services/processo.service';
 import { SituacaoDoProcesso } from '../model/enums/situacaoDoProcesso.enum';
@@ -8,7 +9,6 @@ import { Processo } from '../model/interfaces/processo.interface';
 import { AgruparEmlistaComponent } from './agrupar-emlista/agrupar-emlista.component';
 import { AlertaComponent } from './agrupar-emlista/gerenciar-listas/alerta/alerta.component';
 import { AlterarSessaoComponent } from './alterar-sessao/alterar-sessao.component';
-import { PautarComponent } from './pautar/pautar.component';
 import { ReanalizarComponent } from './reanalizar/reanalizar.component';
 
 @Component({
@@ -34,6 +34,8 @@ export class AcoesComponent implements OnInit {
     private _matDialog: MatDialog,
     private _fuseAlertService: FuseAlertService,
     private _processoService: ProcessoService,
+    private _router: Router,
+    private _route: ActivatedRoute,
   ) {
     if (document.body.clientWidth <= 800) {
       this.mobile = true
@@ -99,12 +101,7 @@ export class AcoesComponent implements OnInit {
     }
     else{
       // Open the dialog
-      const dialogRef = this._matDialog.open(PautarComponent, {data: {processos: [...this.processos]}});
-
-      dialogRef.afterClosed()
-        .subscribe((result) => {
-          console.log('Compose dialog was closed!');
-        });
+      this._router.navigate(['pautar'], {relativeTo: this._route});
     }
   }
 
