@@ -59,5 +59,6 @@ export class FiltroComponent implements OnInit {
   //Remove a specfic filter from the Filtros interface
   removeFiltro(nome_campo: string, valor: string): void {
     this.filtros[nome_campo].splice(this.filtros[nome_campo].indexOf(valor), 1);
+    this.filtros["filtros"].splice(this.filtros["filtros"].indexOf(valor), 1);
   }
 }

@@ -9,16 +9,21 @@ import { Filtros } from './filtros';
 import { MinistroService } from 'app/modules/services/ministro.service';
 import { ActivatedRoute } from '@angular/router';
 
+interface ministros {
+  ministro: Ministro,
+  filter: string
+}
+
 @Component({
   selector: 'filtro-dialog.component',
   templateUrl: 'filtro-dialog.component.html',
 })
 export class FiltroDialogComponent implements OnInit {
 
+  ministros: ministros[] = [];
   lista: string[] = [];
   panelOpenState: boolean = false;
   Selected = false;
-  ministros: Ministro[]= [];
   classes: string[] = [];
   temas: string[] = ["Tema 1", "Tema 2", "Tema 3", "Tema 4", "Tema 5", "Tema 6"]
 
@@ -84,8 +89,8 @@ export class FiltroDialogComponent implements OnInit {
                           "pleno";
         this._ministroService.listarMinistrosDoColegiado(colegiado).subscribe(ministros=>{
           ministros.forEach(ministro=>{
-            ministro.filter="filter grayscale";
-            this.ministros.push(ministro);
+            const filter = "filter grayscale";
+            this.ministros.push({ministro, filter});
           });
         })
         const { numero, ano, data_inicio, data_fim } = sessao;
@@ -124,40 +129,45 @@ export class FiltroDialogComponent implements OnInit {
 
       if(this.ministros[this.ministros.indexOf(value)].filter=="filter grayscale"){
         this.ministros[this.ministros.indexOf(value)].filter="filter-none";
-        this.ministroEscolhido.push(value);
+        this.ministroEscolhido.push(value.ministro);
+        this.filtrosEscolhidos.push(value.ministro);
       }
       else{
         this.ministros[this.ministros.indexOf(value)].filter="filter grayscale";
-        this.ministroEscolhido.splice(this.ministroEscolhido.indexOf(value), 1);
+        this.ministroEscolhido.splice(this.ministroEscolhido.indexOf(value.ministro), 1);
+        this.filtrosEscolhidos.splice(this.filtrosEscolhidos.indexOf(value.ministro), 1);
       }
 
-      this.form.patchValue({relatoria: this.ministroEscolhido})
+      this.form.patchValue({relatoria: this.ministroEscolhido});
+      this.form.patchValue({filtros: this.filtrosEscolhidos});
     }
-    else if(name=="Listas"){
+    else{
+      if(name=="Listas"){
 
-      if(status==true) this.listaEscolhida.push(value);
-      else this.listaEscolhida.splice(this.listaEscolhida.indexOf(value), 1);
+        if(status==true) this.listaEscolhida.push(value);
+        else this.listaEscolhida.splice(this.listaEscolhida.indexOf(value), 1);
 
-      this.form.patchValue({listas: this.listaEscolhida})
+        this.form.patchValue({listas: this.listaEscolhida})
+      }
+      else if(name=="Temas"){
+
+        if(status==true) this.temaEscolhida.push(value);
+        else this.temaEscolhida.splice(this.temaEscolhida.indexOf(value), 1);
+
+        this.form.patchValue({temas: this.temaEscolhida})
+      }
+      else if(name=="Classe Processual"){
+
+        if(status==true) this.classeEscolhida.push(value);
+        else this.classeEscolhida.splice(this.classeEscolhida.indexOf(value), 1);
+
+        this.form.patchValue({classes: this.classeEscolhida})
+      }
+
+      if(status==true) this.filtrosEscolhidos.push(value);
+      else this.filtrosEscolhidos.splice(this.filtrosEscolhidos.indexOf(value), 1);
+
+      this.form.patchValue({filtros: this.filtrosEscolhidos});
     }
-    else if(name=="Temas"){
-
-      if(status==true) this.temaEscolhida.push(value);
-      else this.temaEscolhida.splice(this.temaEscolhida.indexOf(value), 1);
-
-      this.form.patchValue({temas: this.temaEscolhida})
-    }
-    else if(name=="Classe Processual"){
-
-      if(status==true) this.classeEscolhida.push(value);
-      else this.classeEscolhida.splice(this.classeEscolhida.indexOf(value), 1);
-
-      this.form.patchValue({classes: this.classeEscolhida})
-    }
-
-    if(status==true || value.filter=="filter-none") this.filtrosEscolhidos.push(value);
-    else this.filtrosEscolhidos.splice(this.filtrosEscolhidos.indexOf(value), 1);
-
-    this.form.patchValue({filtros: this.filtrosEscolhidos})
   }
 }

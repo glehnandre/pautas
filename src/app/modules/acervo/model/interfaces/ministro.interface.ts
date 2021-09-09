@@ -6,5 +6,4 @@ export interface Ministro {
     abreviacao: string;
     cadeira: Cadeira;
     imagem?: string;
-    filter?: string;
 }

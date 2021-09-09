@@ -41,8 +41,8 @@
                                 </mat-icon>
                             </button>
                         </div>
-                        <div [id]="id" [class]="(hasImage) ? 'grid grid-flow-col w-screen gap-x-16 overflow-hidden':(conteudos.length>=3) ? 'grid grid-flow-col grid-rows-3 w-screen gap-x-16 overflow-hidden' : 'grid grid-flow-row w-screen gap-x-16 overflow-hidden'">
-                            <div *ngFor="let conteudo of conteudos" class="flex my-auto">
+                        <div [id]="id" [class]="(hasImage) ? 'flex flex-row w-screen space-x-4 overflow-hidden':(conteudos.length>=3) ? 'grid grid-flow-col grid-rows-3 w-screen gap-x-16 overflow-hidden' : 'grid grid-flow-row w-screen gap-x-16 overflow-hidden'">
+                            <div *ngFor="let conteudo of conteudos" class="flex flex-shrink-0 my-auto">
                                 <div *ngIf="!hasImage" class="flex-none">
                                     <mat-checkbox
                                         color="primary" 
@@ -56,9 +56,9 @@
                                 </div>
                                 <div *ngIf="hasImage" class="flex-none">
                                     <img
-                                        [src]="conteudo?.imagem"
+                                        [src]="conteudo.ministro?.imagem"
                                         alt="Imagem de perfil"
-                                        [class]="'w-14 h-14 mr-6 rounded-full object-cover ' + conteudo?.filter"
+                                        [class]="'w-14 h-14 mr-6 rounded-full object-cover ' + conteudo.filter"
                                         (click)="emiteMinistro(conteudo, id)"
                                     >
                                 </div>
