@@ -17,6 +17,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatMomentDateModule } from '@angular/material-moment-adapter';
 import { SessoesPipe } from './pautar-form/sessoes.pipe';
+import { CarrosselComponent } from './carrossel/carrossel.component';
 
 
 @NgModule({
@@ -26,6 +27,7 @@ import { SessoesPipe } from './pautar-form/sessoes.pipe';
         ProcessoCapituloComponent,
         PautarFormComponent,
         SessoesPipe,
+        CarrosselComponent,
     ],
     imports: [
         CommonModule,
@@ -51,6 +53,7 @@ import { SessoesPipe } from './pautar-form/sessoes.pipe';
         ProcessoPainelExpansivoComponent,
         ProcessoCapituloComponent,
         PautarFormComponent,
+        CarrosselComponent,
     ],
 })
 export class SharedModule
