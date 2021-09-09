@@ -9,7 +9,6 @@ import { Processo } from 'app/modules/acervo/model/interfaces/processo.interface
 export class ExpansionPanelComponent implements OnInit {
 
   panelOpenState: boolean = false;
-  filter: string = "filter grayscale"
   
   @Input() id: string;
   @Input() hasImage: boolean = false;
@@ -39,16 +38,8 @@ export class ExpansionPanelComponent implements OnInit {
    * @param value conteúdo que será emitido para outro componente
    */
   emiteMinistro(value, name: string){
-    let checked = false;
+    const checked = false;
     const source = {value, name};
-    if(this.filter=="filter-none"){
-      this.filter="filter grayscale";
-      checked = false;
-    }
-    else{
-      this.filter="filter-none";
-      checked = true;
-    }
 
     this.statusFiltroForm.emit({
       conteudo: {checked, source}

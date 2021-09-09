@@ -17,8 +17,7 @@ export class FiltroDialogComponent implements OnInit {
   lista: string[] = [];
   panelOpenState: boolean = false;
   Selected = false;
-  imagens: string[] = [];
-  ministros: Ministro[] = [];
+  ministros: Ministro[]= [];
   classes: string[] = [];
   temas: string[] = ["Tema 1", "Tema 2", "Tema 3", "Tema 4", "Tema 5", "Tema 6"]
 
@@ -70,7 +69,10 @@ export class FiltroDialogComponent implements OnInit {
                           (sessao.colegiado=="Segunda turma") ? "segunda-turma" :
                           "pleno";
         this._ministroService.listarMinistrosDoColegiado(colegiado).subscribe(ministros=>{
-          this.ministros = ministros;
+          ministros.forEach(ministro=>{
+            ministro.filter="filter grayscale";
+            this.ministros.push(ministro);
+          });
         })
         const { numero, ano, data_inicio, data_fim } = sessao;
         this._julgamentoService.listarProcessosPautadosNasSessoes(numero, ano, SituacaoDoProcesso.Pautado, data_inicio, data_fim).subscribe(processos=>{
@@ -80,7 +82,9 @@ export class FiltroDialogComponent implements OnInit {
               this.classes.push(processo.classe);
             }
             processo.lista.forEach(lista=>{
-              this.lista.push(lista.descricao);
+              if(this.lista.indexOf(lista.descricao)==-1){
+                this.lista.push(lista.descricao);
+              }
             })
           });
         });
@@ -104,8 +108,14 @@ export class FiltroDialogComponent implements OnInit {
 
     if(name=="Relatoria"){
 
-      if(status==true) this.ministroEscolhido.push(value);
-      else this.ministroEscolhido.splice(this.ministroEscolhido.indexOf(value), 1);
+      if(this.ministros[this.ministros.indexOf(value)].filter=="filter grayscale"){
+        this.ministros[this.ministros.indexOf(value)].filter="filter-none";
+        this.ministroEscolhido.push(value);
+      }
+      else{
+        this.ministros[this.ministros.indexOf(value)].filter="filter grayscale";
+        this.ministroEscolhido.splice(this.ministroEscolhido.indexOf(value), 1);
+      }
 
       this.form.patchValue({relatoria: this.ministroEscolhido})
     }
@@ -131,9 +141,9 @@ export class FiltroDialogComponent implements OnInit {
       this.form.patchValue({classes: this.classeEscolhida})
     }
 
-    if(status==true) this.filtrosEscolhidos.push(value);
+    if(status==true || value.filter=="filter-none") this.filtrosEscolhidos.push(value);
     else this.filtrosEscolhidos.splice(this.filtrosEscolhidos.indexOf(value), 1);
 
-    this.form.patchValue({termos: this.filtrosEscolhidos})
+    this.form.patchValue({filtros: this.filtrosEscolhidos})
   }
 }
