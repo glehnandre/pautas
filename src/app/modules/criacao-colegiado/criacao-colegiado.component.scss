@@ -9,3 +9,15 @@ $fuse-drawer-width: 720;
 .position-left-90 {
     margin-left: 90%;
 }
+
+@media (max-width: 800px) {
+    #visualisador-pdf {
+        width: 100% !important;
+        min-width: 100% !important;
+        max-width: 100% !important;
+    }
+    
+    .position-left-90 {
+        margin-left: 88%;
+    }
+}
