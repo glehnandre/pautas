@@ -49,6 +49,10 @@ export const defaultNavigation: FuseNavigationItem[] = [
         type : 'basic',
         icon : 'heroicons_outline:chart-pie',
         link : '/sessoes-julgamento',
+        queryParams: {
+            numero: 1000,
+            ano: 2021,
+        }
     },
 ];
 export const compactNavigation: FuseNavigationItem[] = [
@@ -98,7 +102,11 @@ export const compactNavigation: FuseNavigationItem[] = [
         title: 'Sessões de Julgamento',
         type : 'basic',
         icon : 'heroicons_outline:chart-pie',
-        link : '/sessoes-julgamento'
+        link : '/sessoes-julgamento',
+        queryParams: {
+            numero: 1000,
+            ano: 2021,
+        }
     },
 ];
 export const futuristicNavigation: FuseNavigationItem[] = [
@@ -148,7 +156,11 @@ export const futuristicNavigation: FuseNavigationItem[] = [
         title: 'Sessões de Julgamento',
         type : 'basic',
         icon : 'heroicons_outline:chart-pie',
-        link : '/sessoes-julgamento'
+        link : '/sessoes-julgamento',
+        queryParams: {
+            numero: 1000,
+            ano: 2021,
+        }
     },
 ];
 export const horizontalNavigation: FuseNavigationItem[] = [

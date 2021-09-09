@@ -7,6 +7,7 @@ import { Processo } from 'app/modules/acervo/model/interfaces/processo.interface
 import { JulgamentoService } from 'app/modules/services/julgamento.service';
 import { Filtros } from './filtros';
 import { MinistroService } from 'app/modules/services/ministro.service';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'filtro-dialog.component',
@@ -33,6 +34,11 @@ export class FiltroDialogComponent implements OnInit {
   tiposLista: string[] = ['ORDINARIA'];
   categoriasLista: string[] = ['REPERCUSSAO_GERAL'];
   modalidadesLista: string[] = ['VIRTUAL'];
+
+  queryParams: {
+    numero: number,
+    ano: number,
+  };
   /**
    *
    * @param _processoService instancia dos servicos dos Processos
@@ -45,6 +51,7 @@ export class FiltroDialogComponent implements OnInit {
     private _ministroService: MinistroService,
     public dialogRef: MatDialogRef<FiltroDialogComponent>,
     private fb: FormBuilder,
+    private _route: ActivatedRoute,
     @Inject(MAT_DIALOG_DATA) data
   ) {
     this.filtros = data.filtros;
@@ -63,7 +70,14 @@ export class FiltroDialogComponent implements OnInit {
       classes: [this.filtros.classes],
     });
 
-    this._julgamentoService.listarSessoesDeJulgamento(1000, 2021).subscribe({
+    const { numero, ano } = this._route.snapshot.queryParams;
+
+    this.queryParams = {
+      numero,
+      ano,
+    };
+
+    this._julgamentoService.listarSessoesDeJulgamento(this.queryParams.numero, this.queryParams.ano).subscribe({
       next: (sessao) => {
         const colegiado = (sessao.colegiado=="Primeira turma") ? "primeira-turma" : 
                           (sessao.colegiado=="Segunda turma") ? "segunda-turma" :
