@@ -17,6 +17,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatMomentDateModule } from '@angular/material-moment-adapter';
 import { SessoesPipe } from './pautar-form/sessoes.pipe';
+import { ProcessosSolicitacaoExtraordinariaComponent } from './processos-solicitacao-extraordinaria/processos-solicitacao-extraordinaria.component';
 
 
 @NgModule({
@@ -26,6 +27,7 @@ import { SessoesPipe } from './pautar-form/sessoes.pipe';
         ProcessoCapituloComponent,
         PautarFormComponent,
         SessoesPipe,
+        ProcessosSolicitacaoExtraordinariaComponent,
     ],
     imports: [
         CommonModule,
@@ -50,6 +52,7 @@ import { SessoesPipe } from './pautar-form/sessoes.pipe';
         ProcessoChipComponent,
         ProcessoPainelExpansivoComponent,
         ProcessoCapituloComponent,
+        ProcessosSolicitacaoExtraordinariaComponent,
         PautarFormComponent,
     ],
 })

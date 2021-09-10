@@ -1,6 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { SituacaoDoProcesso } from 'app/modules/acervo/model/enums/situacaoDoProcesso.enum';
-import { Processo } from 'app/modules/acervo/model/interfaces/processo.interface';
 import { SessaoJulgamento } from 'app/modules/acervo/model/interfaces/sessao-julgamento.interface';
 import { JulgamentoService } from 'app/modules/services/julgamento.service';
 import { registerLocaleData } from '@angular/common';
@@ -19,7 +17,6 @@ export class SessaoExtraordinariaComponent implements OnInit {
 
   tags: string[] = ['Virtual', 'Segunda Turma', 'Inicio e fim no dia 21/04/2021'];
   observacao: string;
-  processos: Processo[] = [];
   sessao: SessaoJulgamento;
   solicitante: Ministro;
   colegiado: string;
@@ -45,22 +42,16 @@ export class SessaoExtraordinariaComponent implements OnInit {
         this.colegiado = sessao['colegiado'];
         this.nome_solicitante = this.solicitante.nome;
 
-        const { numero, ano, data_inicio, data_fim } = this.sessao;
+        const { data_inicio, data_fim } = this.sessao;
 
         this.setTexto(data_inicio, data_fim);
-
-        this._julgamentoService.listarProcessosPautadosNasSessoes(numero, ano, SituacaoDoProcesso.Pautado, data_inicio, data_fim).subscribe({
-          next: (processos) => {
-            this.processos = processos;
-          }
-        });
       }
     });
 
     this._julgamentoService.listarTodasAsSessoesDeJulgamento().subscribe(data=>{
       this.sessoes = data;
     })
-    
+
 
   }
 

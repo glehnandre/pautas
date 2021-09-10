@@ -5,8 +5,6 @@ import { DateAdapter, MAT_DATE_LOCALE, MAT_DATE_FORMATS } from '@angular/materia
 import { MatDatepicker } from '@angular/material/datepicker';
 import * as _moment from 'moment';
 import { default as _rollupMoment, Moment } from 'moment';
-import { SituacaoDoProcesso } from '../acervo/model/enums/situacaoDoProcesso.enum';
-import { Processo } from '../acervo/model/interfaces/processo.interface';
 import { SessaoJulgamento } from '../acervo/model/interfaces/sessao-julgamento.interface';
 import { JulgamentoService } from '../services/julgamento.service';
 
@@ -44,8 +42,6 @@ export class RespostaSolicitacaoSessaoExtraordinariaoComponent implements OnInit
   panelOpenState: boolean = false;
   tags: string[] = ['Virtual', 'Segunda Turma'];
   sessao: SessaoJulgamento;
-  processos: Processo[] = [];
-
   sessoes: SessaoJulgamento[] = [];
 
   constructor(
@@ -63,12 +59,6 @@ export class RespostaSolicitacaoSessaoExtraordinariaoComponent implements OnInit
       next: (sessao) => {
         console.log(sessao)
         this.sessao = sessao;
-        const { numero, ano, data_inicio, data_fim } = this.sessao;
-        this._julgamentoService.listarProcessosPautadosNasSessoes(numero, ano, SituacaoDoProcesso.Pautado, data_inicio, data_fim).subscribe({
-          next: (processos) => {
-            this.processos = processos;
-          }
-        });
       }
     });
     this._julgamentoService.listarTodasAsSessoesDeJulgamento().subscribe(data=>{
