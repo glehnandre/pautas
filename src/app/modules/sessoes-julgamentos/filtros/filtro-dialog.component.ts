@@ -55,7 +55,7 @@ export class FiltroDialogComponent implements OnInit {
 
   ngOnInit(): void {
     this.form = this.fb.group({
-      termos: this.filtros.termos,
+      filtros: this.filtros.termo,
       relatoria: [this.filtros.relatoria],
       listas: [this.filtros.listas],
       temas: [this.filtros.temas],

@@ -57,7 +57,7 @@ export class CriacaoColegiadoComponent implements OnInit {
     private _alertaService: AlertaService,
     private _fuseDrawerService: FuseDrawerService,
     public sanitizer: DomSanitizer,
-  ) { 
+  ) {
     this.link = this.sanitizer.bypassSecurityTrustResourceUrl('');
     this.formVotacao = this._fb.group({
       processo: ['', Validators.required],
@@ -69,7 +69,7 @@ export class CriacaoColegiadoComponent implements OnInit {
 
   ngOnInit(): void {
     const { colegiado, data, processo, sessao } = this._route.snapshot.queryParams;
-    
+
     this.queryParams = {
       colegiado,
       data,
@@ -102,7 +102,7 @@ export class CriacaoColegiadoComponent implements OnInit {
 
           return 0;
         }));
-        
+
         this.colegiados = colegiados;
       }
     });
@@ -131,7 +131,7 @@ export class CriacaoColegiadoComponent implements OnInit {
   obterStatusDoVoto(votoDoMinistro: ComposicaoColegiado): void {
     const index = this.votosDosMinistros
       .findIndex(m => m.ministro.id === votoDoMinistro.ministro.id);
-    
+
     if (index !== -1) {
       this.votosDosMinistros.splice(index, 1);
       const {incluir_voto, ja_votou, pode_votar} = votoDoMinistro;

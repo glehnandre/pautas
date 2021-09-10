@@ -1,53 +1,57 @@
 <div class="flex flex-row">
-    <div class="w-2/4">
+    <div class="w-1/4">
         <mat-radio-group
         color="primary"
         class="flex flex-col my-4 w-2/4"
         [(ngModel)]="colegiadoEscolhido"
         (change)=" setSessao(); emiteObjeto()"
         >
-        <mat-radio-button class="mb-1" *ngFor="let colegiado of colegiados" [value]="colegiado.viewValue">{{colegiado.viewValue}}</mat-radio-button>
+            <mat-radio-button class="mb-1" *ngFor="let colegiado of colegiados" [value]="colegiado.viewValue">{{colegiado.viewValue}}</mat-radio-button>
         </mat-radio-group>
     </div>
 
-    <div class="w-2/4">
+    <div class="w-1/4">
         <mat-radio-group
         color="primary"
         class="flex flex-col my-4"
         [(ngModel)]="modalidadeEscolhida"
         (change)=" setSessao(); emiteObjeto()"
         >
-        <mat-radio-button class="mb-1" *ngFor="let modalidade of modalidades" [value]="modalidade.value">{{modalidade.value}}</mat-radio-button>
-    </mat-radio-group>
+            <mat-radio-button class="mb-1" *ngFor="let modalidade of modalidades" [value]="modalidade.value">{{modalidade.value}}</mat-radio-button>
+        </mat-radio-group>
+    </div>
+
+    <div class="flex flex-row w-2/4">
+        <div class="flex flex-auto flex-row space-x-4 mr-1">
+            <mat-form-field class="w-full" appearance="fill">
+                <mat-label>Filtre por período</mat-label>
+                <mat-date-range-input [rangePicker]="picker">
+                    <input matStartDate placeholder="Data de início" name="data_inicio" [(ngModel)]="data_inicio" (dateChange)="emiteObjeto()">
+                    <input matEndDate placeholder="Data do fim" name="data_fim" [(ngModel)]="data_fim" (dateChange)="emiteObjeto()">
+                </mat-date-range-input>
+
+                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                <mat-date-range-picker #picker></mat-date-range-picker>
+            </mat-form-field>
+        </div>
+
+        <div class="flex flex-auto flex-row space-x-4">
+            <mat-form-field class="w-full" appearance="fill">
+                <mat-label>Sessão:</mat-label>
+                <mat-select [(ngModel)]="sessao" placeholder="Escolha uma sessão" required (selectionChange)="emiteObjeto()">
+                    <mat-option
+                        *ngFor="let sessaoJulgamento of (sessoes | filtroSessoes: this.colegiadoEscolhido : this.modalidadeEscolhida: this.data_inicio : this.data_fim )"
+                        [value]="sessaoJulgamento.numero"
+                    >
+                        Sessão {{sessaoJulgamento.modalidade}}, <b>{{sessaoJulgamento.colegiado}}</b>, nº {{sessaoJulgamento.numero}}/{{sessaoJulgamento.ano}} de {{sessaoJulgamento.data_inicio | date:'dd/MM/yyyy'}} a {{sessaoJulgamento.data_fim  | date:'dd/MM/yyyy'}}
+                    </mat-option>
+                </mat-select>
+                <mat-error class="mb-1" *ngIf="'sessao.errors?.required'">
+                    A sessão é obrigatória
+                </mat-error>
+            </mat-form-field>
+        </div>
     </div>
 </div>
 
-<div class="flex flex-auto flex-row space-x-4">
-    <mat-form-field class="w-full" appearance="fill">
-        <mat-label>Filtre por período</mat-label>
-        <mat-date-range-input [rangePicker]="picker">
-            <input matStartDate placeholder="Data de início" name="data_inicio" [(ngModel)]="data_inicio" (dateChange)="emiteObjeto()">
-            <input matEndDate placeholder="Data do fim" name="data_fim" [(ngModel)]="data_fim" (dateChange)="emiteObjeto()">
-        </mat-date-range-input>
 
-        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-        <mat-date-range-picker #picker></mat-date-range-picker>
-    </mat-form-field>
-</div>
-
-<div class="flex flex-auto flex-row space-x-4">
-    <mat-form-field class="w-full" appearance="fill">
-        <mat-label>Sessão:</mat-label>
-        <mat-select [(ngModel)]="sessao" placeholder="Escolha uma sessão" required (selectionChange)="emiteObjeto()">
-            <mat-option
-                *ngFor="let sessaoJulgamento of (sessoes | filtroSessoes: this.colegiadoEscolhido : this.modalidadeEscolhida: this.data_inicio : this.data_fim )" 
-                [value]="sessaoJulgamento.numero"
-            >
-                Sessão {{sessaoJulgamento.modalidade}}, <b>{{sessaoJulgamento.colegiado}}</b>, nº {{sessaoJulgamento.numero}}/{{sessaoJulgamento.ano}} de {{sessaoJulgamento.data_inicio | date:'dd/MM/yyyy'}} a {{sessaoJulgamento.data_fim  | date:'dd/MM/yyyy'}}
-            </mat-option>
-        </mat-select>
-        <mat-error class="mb-1" *ngIf="'sessao.errors?.required'">
-            A sessão é obrigatória
-        </mat-error>
-    </mat-form-field>
-</div>

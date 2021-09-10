@@ -27,8 +27,7 @@ const AcervoRoutes: Route[] = [
     TabelaModule,
     AcoesModule,
     MatIconModule,
-    EmptyLayoutModule
-
+    EmptyLayoutModule,
   ],
   exports:[
     AcervoComponent

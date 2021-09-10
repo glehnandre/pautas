@@ -16,6 +16,7 @@ import { AcoesModule } from '../acoes/acoes.module';
 import { MatPaginatorIntl, MatPaginatorModule } from '@angular/material/paginator';
 import { PaginacaoComponent } from './paginacao/paginacao.component';
 import { PaginacaoCustomizadaComponent } from './paginacao/paginacao-customizada.component';
+import { SharedModule } from '../../../shared/shared.module';
 
 const routes = [
   {
@@ -42,14 +43,15 @@ const routes = [
     AcoesModule,
     MatChipsModule,
     MatPaginatorModule,
-    MatTooltipModule
+    MatTooltipModule,
+    SharedModule,
   ],
   exports: [
     TabelaComponent
   ],
   providers: [
     {
-      provide: MatPaginatorIntl, 
+      provide: MatPaginatorIntl,
       useClass: PaginacaoCustomizadaComponent,
     }
   ]
