@@ -25,9 +25,9 @@ const DATE_FORMATS = {
 };
 
 @Component({
-  selector: 'app-julgamento-extraordinario',
-  templateUrl: './julgamento-extraordinario.component.html',
-  styleUrls: ['./julgamento-extraordinario.component.scss'],
+  selector: 'app-resposta-solicitacao-sessao-extraordinaria',
+  templateUrl: './resposta-solicitacao-sessao-extraordinaria.component.html',
+  styleUrls: ['./resposta-solicitacao-sessao-extraordinaria.component.scss'],
   providers: [
     {
       provide: DateAdapter,
@@ -38,7 +38,7 @@ const DATE_FORMATS = {
     {provide: MAT_DATE_FORMATS, useValue: DATE_FORMATS},
   ],
 })
-export class JulgamentoExtraordinarioComponent implements OnInit {
+export class RespostaSolicitacaoSessaoExtraordinariaoComponent implements OnInit {
 
   formJulgamento: FormGroup;
   panelOpenState: boolean = false;
