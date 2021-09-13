@@ -6,6 +6,7 @@ import { SessaoExtraordinariaComponent } from './sessao-extraordinaria.component
 
 class MockJulgamentoService {
   public listarSessoesDeJulgamento(): Observable<any> { return EMPTY };
+  public listarTodasAsSessoesDeJulgamento(): Observable<any> { return EMPTY };
 }
 
 describe('SessaoExtraordinariaComponent', () => {

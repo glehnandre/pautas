@@ -57,7 +57,7 @@ describe('CriacaoColegiadoComponent', () => {
     route = TestBed.inject(ActivatedRoute);
 
     component.composicao = [];
-    component.documentos = [];
+    component.documentos = {nomes: [''], links: ['']};
     component.alerta = {titulo: '', mensagem: ''};
     component.colegiados = [];
     component.ministros = [];

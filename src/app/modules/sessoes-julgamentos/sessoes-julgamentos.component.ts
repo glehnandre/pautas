@@ -11,14 +11,13 @@ import { ProcessoService } from '../services/processo.service';
 })
 export class SessoesJulgamentosComponent implements OnInit {
 
-  processos: Processo[];
+  processos: Processo[] = [];
 
   constructor(
     private _processoService: ProcessoService,
   ) { }
 
   ngOnInit(): void {
-      this.processos = [];
       this._processoService.listarProcessos().subscribe({
         next: (data) => {
             this.processos = data.map(processo => {

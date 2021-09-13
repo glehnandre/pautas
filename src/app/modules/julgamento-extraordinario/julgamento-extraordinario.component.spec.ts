@@ -7,6 +7,7 @@ import { JulgamentoExtraordinarioComponent } from './julgamento-extraordinario.c
 
 class MockJulgamentoService {
   public listarSessoesDeJulgamento(): Observable<any> { return EMPTY };
+  public listarTodasAsSessoesDeJulgamento(): Observable<any> { return EMPTY };
 }
 
 describe('JulgamentoExtraordinarioComponent', () => {
