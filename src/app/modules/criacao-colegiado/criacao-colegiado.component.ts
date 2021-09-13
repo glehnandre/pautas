@@ -39,14 +39,6 @@ export class CriacaoColegiadoComponent implements OnInit {
   colegiados: Colegiado[] = [];
   composicao: ComposicaoColegiado[] = [];
   votosDosMinistros: ComposicaoColegiado[] = [];
-  relator: Ministro;
-  tags: string[] = [];
-  documentos: {
-    nomes: string[],
-    links: string[],
-  }
-  tipo: TipoDoProcesso;
-  link: SafeResourceUrl;
 
   constructor(
     private _fb: FormBuilder,
@@ -57,7 +49,6 @@ export class CriacaoColegiadoComponent implements OnInit {
     private _fuseDrawerService: FuseDrawerService,
     public sanitizer: DomSanitizer,
   ) { 
-    this.link = this.sanitizer.bypassSecurityTrustResourceUrl('');
     this.formVotacao = this._fb.group({
       processo: ['', Validators.required],
       anoSessao: ['', Validators.required],
@@ -86,11 +77,6 @@ export class CriacaoColegiadoComponent implements OnInit {
     this._ministroService.listarColegiados(this.queryParams.colegiado).subscribe({
       next: (colegiados) => {
         colegiados.map(c => c.composicao.sort((a, b) => {
-          c.composicao.map(data => {
-            if(data.relator == true){
-              this.relator = data.ministro
-            }
-          })
           if (a.presidente) {
             return -1;
           }
@@ -103,26 +89,6 @@ export class CriacaoColegiadoComponent implements OnInit {
         }));
         
         this.colegiados = colegiados;
-      }
-    });
-
-    this._processoService.listarProcessos(new HttpParams().set('processo', processo)).subscribe({
-      next: ([processo]) => {
-        const { id, tipo, lista } = processo;
-        this.tipo = tipo;
-
-        this.tags = [];
-        lista.forEach(tag => {
-          this.tags.push(tag.descricao);
-        });
-
-        this._processoService.obterDocumentosDoProcesso(id).subscribe(data => {
-          this.documentos = { nomes: [], links: [] };
-          data.forEach(documento => {
-            this.documentos.nomes.push(documento.nome);
-            this.documentos.links.push(documento.url);
-          });
-        });
       }
     });
   }
@@ -184,10 +150,6 @@ export class CriacaoColegiadoComponent implements OnInit {
     }
   }
 
-  obterTipoDoProcesso(): string {
-    return TipoDoProcesso[this.tipo];
-  }
-
   finalizar(): void {
     if (this.isSelecoesValidas()) {
       console.table(this.formVotacao.value);
@@ -197,27 +159,6 @@ export class CriacaoColegiadoComponent implements OnInit {
         }
       });
     }
-  }
-
-  /**
-  * Abre o menu que exibe o pdf
-  *
-  * @param drawerName
-  */
-  toggleDrawerOpen(drawerName: string): void {
-    const drawer = this._fuseDrawerService.getComponent(drawerName);
-    drawer.toggle();
-  }
-
-  abrirLink(link: string): void {
-    if (link !== this.link) {
-      this.link = this.sanitizer.bypassSecurityTrustResourceUrl(link);
-      this.toggleDrawerOpen('telaDoPdfDeColegiado');
-    }
-  }
-
-  abrirNovaAba(): void {
-    window.open(this.link['changingThisBreaksApplicationSecurity'], "_blank");
   }
 
   private _exibeAlerta(titulo: string, mensagem: string): void {

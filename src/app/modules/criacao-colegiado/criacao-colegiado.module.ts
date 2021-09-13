@@ -17,6 +17,7 @@ import { FuseDrawerModule } from '@fuse/components/drawer';
 
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { FuseAlertModule } from '@fuse/components/alert';
+import { SharedModule } from 'app/shared/shared.module';
 
 const CriacaoColegiadoRoutes: Routes = [
   { path: '', component: CriacaoColegiadoComponent },
@@ -44,6 +45,7 @@ const CriacaoColegiadoRoutes: Routes = [
     MatExpansionModule,
     FuseAlertModule,
     FuseDrawerModule,
+    SharedModule,
   ],
   exports: [
     CriacaoColegiadoComponent,
