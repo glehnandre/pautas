@@ -1,27 +1,25 @@
 <div class="absolute inset-0 flex flex-col min-w-0 overflow-hidden">
 
     <!-- Header -->
-    <div class="flex flex-row justify-center items-center sm:justify-between pl-8 bg-white dark:bg-transparent">
-        <h1 class="mt-4 text-primary font-medium">
+    <div class="flex flex-col sm:flex-row justify-center items-center sm:justify-between pl-8 bg-white dark:bg-transparent">
+        <h1 class="mt-4 text-primary font-medium text-xl sm:text-2xl">
             Colegiado para a {{queryParams.processo | uppercase}} Sessão {{queryParams.sessao}} 
             {{queryParams.colegiado | titlecase}}
         </h1>
-        <div class="flex flex-col sm:flex-row sm:items-center justify-between mr-4 my-2">
-            <div class="flex items-center mt-4 sm:mt-0 ml-auto">
-              <button class="z-0 ml-auto sm:ml-0 mr-2" mat-button>
+        <div class="flex flex-row items-end mb-4 sm:my-4 ml-auto">
+            <button class="z-0 mr-4" mat-button>
                 <span>Cancelar</span>
-              </button>
-        
-              <button 
-                class="ml-auto"
+            </button>
+    
+            <button 
+                class="mr-8"
                 color="primary" 
                 (click)="finalizar()"
                 mat-raised-button 
-              >
+            >
                 Finalizar 
-              </button>
-            </div>
-          </div>
+            </button>
+        </div>
     </div>
 
     <hr class="m-0 p-0" />
