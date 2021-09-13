@@ -17,11 +17,11 @@ export const defaultNavigation: FuseNavigationItem[] = [
         link : '/acervo'
     },
     {
-        id   : 'julgamento-extraordinario',
+        id   : 'resposta-solicitacao-sessao-extraordinaria',
         title: 'Resposta de Solicitação de Julgamento Extraordinario',
         type : 'basic',
         icon : 'heroicons_outline:chart-pie',
-        link : '/julgamento-extraordinario'
+        link : '/resposta-solicitacao-sessao-extraordinaria'
     },
     {
         id   : 'sessao-extraordinaria',

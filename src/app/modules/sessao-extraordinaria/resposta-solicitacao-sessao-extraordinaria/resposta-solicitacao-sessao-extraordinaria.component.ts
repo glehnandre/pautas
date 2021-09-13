@@ -5,8 +5,8 @@ import { DateAdapter, MAT_DATE_LOCALE, MAT_DATE_FORMATS } from '@angular/materia
 import { MatDatepicker } from '@angular/material/datepicker';
 import * as _moment from 'moment';
 import { default as _rollupMoment, Moment } from 'moment';
-import { SessaoJulgamento } from '../acervo/model/interfaces/sessao-julgamento.interface';
-import { JulgamentoService } from '../services/julgamento.service';
+import { SessaoJulgamento } from '../../acervo/model/interfaces/sessao-julgamento.interface';
+import { JulgamentoService } from '../../services/julgamento.service';
 
 const moment = _rollupMoment || _moment;
 

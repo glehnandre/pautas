@@ -1,7 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormBuilder } from '@angular/forms';
 import { EMPTY, Observable } from 'rxjs';
-import { JulgamentoService } from '../services/julgamento.service';
+import { JulgamentoService } from '../../services/julgamento.service';
 
 import { RespostaSolicitacaoSessaoExtraordinariaoComponent } from './resposta-solicitacao-sessao-extraordinaria.component';
 
