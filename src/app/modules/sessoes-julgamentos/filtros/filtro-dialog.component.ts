@@ -35,7 +35,7 @@ export class FiltroDialogComponent implements OnInit {
 
   processos: Processo[] = [];
   form: FormGroup;
-  filtros: Filtros;
+  filtros: Filtros = { termo: '', relatoria: [], listas: [], temas: [], classes: []};;
   tiposLista: string[] = ['ORDINARIA'];
   categoriasLista: string[] = ['REPERCUSSAO_GERAL'];
   modalidadesLista: string[] = ['VIRTUAL'];
@@ -59,7 +59,7 @@ export class FiltroDialogComponent implements OnInit {
     private _route: ActivatedRoute,
     @Inject(MAT_DIALOG_DATA) data
   ) {
-    this.filtros = data.filtros;
+    this.filtros.termo = data.filtros;
   }
 
   /**

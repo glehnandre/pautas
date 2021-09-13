@@ -45,7 +45,7 @@ export class FiltroComponent implements OnInit {
     dialogConfig.autoFocus = true;
     dialogConfig.panelClass;
     dialogConfig.data = {
-      filtros: this.filtros
+      filtros: this.filtros.termo
     };
 
     const dialogRef = this.dialog.open(FiltroDialogComponent, dialogConfig);
