@@ -30,7 +30,6 @@ export class CabecalhoRelatorComponent implements OnInit {
   constructor(
     private _processoService: ProcessoService,
     private _ministroService: MinistroService,
-    private _fuseDrawerService: FuseDrawerService,
     private _sanitizer: DomSanitizer, 
   ) { }
 
@@ -44,25 +43,10 @@ export class CabecalhoRelatorComponent implements OnInit {
     return TipoDoProcesso[this.tipo];
   }
 
-  /**
-  * Abre o menu que exibe o pdf
-  *
-  * @param drawerName
-  */
-   toggleDrawerOpen(drawerName: string): void {
-    const drawer = this._fuseDrawerService.getComponent(drawerName);
-    drawer.toggle();
-  }
-
   abrirLink(link: string): void {
     if (link !== this.link) {
       this.link = this._sanitizer.bypassSecurityTrustResourceUrl(link);
-      this.toggleDrawerOpen('telaDoPdfDeColegiado');
     }
-  }
-
-  abrirNovaAba(): void {
-    window.open(this.link['changingThisBreaksApplicationSecurity'], "_blank");
   }
 
   private _buscarProcessos(): void {

@@ -77,40 +77,7 @@
     </div>
 </mat-expansion-panel>
 
-<fuse-drawer
-    id="visualisador-pdf"
-    [name]="'telaDoPdfDeColegiado'"
-    [opened]="false"
-    [position]="'right'"
-    [mode]="'over'"
->
-    <div class="w-screen">
-        <button 
-            class="bg-red-500 mt-9 position-left-90 absolute" 
-            mat-icon-button 
-            [tabIndex]="-1"
-            (click)="toggleDrawerOpen('telaDoPdfDeColegiado')"
-        >
-            <mat-icon class="text-current text-white" [svgIcon]="'heroicons_outline:x'"></mat-icon>
-        </button> 
-
-        <button 
-            class="bg-primary-500 mt-20 position-left-90 absolute" 
-            mat-icon-button 
-            [tabIndex]="-1"
-            (click)="abrirNovaAba()"
-        >
-            <mat-icon 
-                class="text-current text-white"
-            >launch</mat-icon>
-        </button> 
-
-        <object 
-            class="w-full h-full e2e-trusted-url" 
-            [data]="link" 
-            type="application/pdf"
-        >
-            <p>Seu navegador não tem um plugin pra PDF</p>
-        </object>               
-    </div>
-</fuse-drawer>
+<app-visualizador-pdf
+    [nome]="'visualizador-pdf-do-colegiado'"
+    [link]="link"
+></app-visualizador-pdf>

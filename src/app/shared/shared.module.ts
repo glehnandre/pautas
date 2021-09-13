@@ -10,6 +10,7 @@ import { CabecalhoRelatorComponent } from './cabecalho-relator/cabecalho-relator
 import { CarrosselComponent } from 'app/shared/cabecalho-relator/carrossel/carrossel.component';
 import { FuseDrawerModule } from '@fuse/components/drawer';
 import { MatButtonModule } from '@angular/material/button';
+import { VisualizadorPdfComponent } from './visualizador-pdf/visualizador-pdf.component';
 
 @NgModule({
     declarations: [
@@ -17,6 +18,7 @@ import { MatButtonModule } from '@angular/material/button';
         ProcessoPainelExpansivoComponent,
         CabecalhoRelatorComponent,
         CarrosselComponent,
+        VisualizadorPdfComponent,
     ],
     imports: [
         CommonModule,
@@ -36,6 +38,7 @@ import { MatButtonModule } from '@angular/material/button';
         ProcessoPainelExpansivoComponent,
         CarrosselComponent,
         CabecalhoRelatorComponent,
+        VisualizadorPdfComponent,
     ],
 })
 export class SharedModule
