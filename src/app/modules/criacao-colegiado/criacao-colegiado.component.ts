@@ -12,7 +12,6 @@ import { AlertaService } from '../services/alerta.service';
 import { MinistroService } from '../services/ministro.service';
 import { ProcessoService } from '../services/processo.service';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
-import { DecisaoService } from '../services/decisao.service';
 
 @Component({
   selector: 'app-criacao-colegiado',

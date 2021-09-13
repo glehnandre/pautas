@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ResultadoJulgamentoService } from '../services/resultado-julgamento.service';
 
 @Component({
   selector: 'app-resultado-julgamento',
@@ -7,9 +8,16 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ResultadoJulgamentoComponent implements OnInit {
 
-  constructor() { }
+  constructor(
+    private resultadoJulgamento: ResultadoJulgamentoService,
+  ) { }
 
   ngOnInit(): void {
+    this.resultadoJulgamento.listarDecisoes().subscribe({
+      next: (data) => {
+        console.log(data)
+      }
+    });
   }
 
 }
