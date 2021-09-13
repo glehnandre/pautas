@@ -1,17 +1,12 @@
-import { HttpParams } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { FuseDrawerService } from '@fuse/components/drawer';
-import { TipoDoProcesso } from '../acervo/model/enums/tipoDoProcesso.enum';
 import { Colegiado, ComposicaoColegiado } from '../acervo/model/interfaces/colegiado.interface';
-import { Documento } from '../acervo/model/interfaces/documento.interface';
 import { Ministro } from '../acervo/model/interfaces/ministro.interface';
-import { Tag } from '../acervo/model/interfaces/tag.interface';
 import { AlertaService } from '../services/alerta.service';
 import { MinistroService } from '../services/ministro.service';
 import { ProcessoService } from '../services/processo.service';
-import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-criacao-colegiado',
@@ -43,11 +38,8 @@ export class CriacaoColegiadoComponent implements OnInit {
   constructor(
     private _fb: FormBuilder,
     private _ministroService: MinistroService,
-    private _processoService: ProcessoService,
     private _route: ActivatedRoute,
     private _alertaService: AlertaService,
-    private _fuseDrawerService: FuseDrawerService,
-    public sanitizer: DomSanitizer,
   ) { 
     this.formVotacao = this._fb.group({
       processo: ['', Validators.required],
