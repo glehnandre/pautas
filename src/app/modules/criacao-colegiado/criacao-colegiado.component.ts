@@ -57,7 +57,6 @@ export class CriacaoColegiadoComponent implements OnInit {
     private _alertaService: AlertaService,
     private _fuseDrawerService: FuseDrawerService,
     public sanitizer: DomSanitizer,
-    private dec: DecisaoService
   ) { 
     this.link = this.sanitizer.bypassSecurityTrustResourceUrl('');
     this.formVotacao = this._fb.group({
@@ -69,7 +68,6 @@ export class CriacaoColegiadoComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.dec.listarDecisoes().subscribe(data => console.log(data))
     const { colegiado, data, processo, sessao } = this._route.snapshot.queryParams;
     
     this.queryParams = {
