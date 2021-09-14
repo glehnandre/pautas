@@ -23,7 +23,7 @@ export class CarrosselComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
-    
+
   }
 
   handleKeyboardEvent(event: KeyboardEvent) {
@@ -32,7 +32,7 @@ export class CarrosselComponent implements OnInit {
   }
 
   /**
-   * 
+   *
    * @param id o id do elemento que eu quero fazer o scrollLeft
    */
   public scrollLeft(id): void {
