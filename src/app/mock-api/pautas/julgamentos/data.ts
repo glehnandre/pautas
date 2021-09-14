@@ -33,6 +33,7 @@ export const processos: Processo[] = [
     classe: "ADI",
     numero: 100,
     nome: "Embargo de declaração",
+    abreviacao: '',
     situacao: SituacaoDoProcesso.Pautado,
     tipo: TipoDoProcesso.Merito,
     relator: {
@@ -79,6 +80,7 @@ export const processos: Processo[] = [
     classe: "ADI",
     numero: 100,
     nome: "Embargo de declaração",
+    abreviacao: '',
     situacao: SituacaoDoProcesso.Pautado,
     tipo: TipoDoProcesso.Merito,
     relator: {

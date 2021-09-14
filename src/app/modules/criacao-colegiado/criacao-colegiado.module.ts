@@ -11,7 +11,6 @@ import { FuseCardModule } from '@fuse/components/card';
 import { CardMinistroComponent } from './card-ministro/card-ministro.component';
 import { FuseMasonryModule } from '@fuse/components/masonry';
 import { MatChipsModule } from '@angular/material/chips';
-import { CarrosselComponent } from './carrossel/carrossel.component'; 
 import { MatExpansionModule } from '@angular/material/expansion';
 import { FuseDrawerModule } from '@fuse/components/drawer';
 
@@ -27,7 +26,6 @@ const CriacaoColegiadoRoutes: Routes = [
   declarations: [
     CriacaoColegiadoComponent,
     CardMinistroComponent,
-    CarrosselComponent,
   ],
   imports: [
     CommonModule,
