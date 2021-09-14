@@ -220,6 +220,10 @@ export class CriacaoColegiadoComponent implements OnInit {
     }
   }
 
+  abrirNovaAba(): void {
+    window.open(this.link['changingThisBreaksApplicationSecurity'], "_blank");
+  }
+
   private _exibeAlerta(titulo: string, mensagem: string): void {
     this.alerta = { titulo, mensagem };
     this._alertaService.exibirAlertaDeErro('alertaDeErroNoColegiado');
