@@ -8,6 +8,8 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { SessoesJulgamentosComponent } from './sessoes-julgamentos.component';
 import { FiltroModule } from './filtros/filtro.module';
 import { SharedModule } from '../../shared/shared.module';
+import { ContadorComponent } from './contador/contador.component';
+import { FuseCardModule } from '@fuse/components/card';
 
 const SessoesJulgamentoRoutes: Route[] = [
   { path: '', component: SessoesJulgamentosComponent, pathMatch: 'full' },
@@ -16,6 +18,7 @@ const SessoesJulgamentoRoutes: Route[] = [
 @NgModule({
   declarations: [
     SessoesJulgamentosComponent,
+    ContadorComponent,
   ],
   imports: [
     CommonModule,
@@ -25,6 +28,7 @@ const SessoesJulgamentoRoutes: Route[] = [
     MatCheckboxModule,
     FiltroModule,
     SharedModule,
+    FuseCardModule,
     RouterModule.forChild(SessoesJulgamentoRoutes),
   ]
 })
