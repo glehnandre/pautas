@@ -17,8 +17,11 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatMomentDateModule } from '@angular/material-moment-adapter';
 import { SessoesPipe } from './pautar-form/sessoes.pipe';
+import { CabecalhoRelatorComponent } from './cabecalho-relator/cabecalho-relator.component';
+import { FuseDrawerModule } from '@fuse/components/drawer';
+import { MatButtonModule } from '@angular/material/button';
+import { VisualizadorPdfComponent } from './visualizador-pdf/visualizador-pdf.component';
 import { CarrosselComponent } from './carrossel/carrossel.component';
-
 
 @NgModule({
     declarations: [
@@ -28,11 +31,14 @@ import { CarrosselComponent } from './carrossel/carrossel.component';
         PautarFormComponent,
         SessoesPipe,
         CarrosselComponent,
+        CabecalhoRelatorComponent,
+        VisualizadorPdfComponent,
     ],
     imports: [
         CommonModule,
         FormsModule,
         ReactiveFormsModule,
+        MatButtonModule,
         MatChipsModule,
         MatIconModule,
         MatExpansionModule,
@@ -44,6 +50,7 @@ import { CarrosselComponent } from './carrossel/carrossel.component';
         MatSelectModule,
         MatRadioModule,
         MatAutocompleteModule,
+        FuseDrawerModule,
     ],
     exports: [
         CommonModule,
@@ -54,6 +61,8 @@ import { CarrosselComponent } from './carrossel/carrossel.component';
         ProcessoCapituloComponent,
         PautarFormComponent,
         CarrosselComponent,
+        CabecalhoRelatorComponent,
+        VisualizadorPdfComponent,
     ],
 })
 export class SharedModule

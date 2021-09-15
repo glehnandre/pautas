@@ -6,6 +6,6 @@
         *ngFor="let tag of tags"
         (click)="filtrarPorTags(tag)"
     >
-        {{tag.descricao}}
+        {{tag?.descricao}}
     </mat-chip>
 </mat-chip-list>
