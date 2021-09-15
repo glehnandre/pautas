@@ -1,4 +1,5 @@
 import { Colegiado, NomeDoColegiado } from "app/modules/acervo/model/interfaces/colegiado.interface";
+import { Impedimento } from "app/modules/acervo/model/interfaces/impedimento.interface";
 import { Ministro } from "app/modules/acervo/model/interfaces/ministro.interface";
 
 export const ministro: Ministro[] = [
@@ -157,5 +158,41 @@ export const colegiado: Colegiado[] = [
       {ministro: ministro[10], incluir_voto: false, pode_votar: false, ja_votou: false, presidente: false, redator: false, relator: false},
     ],
     data: '2016-08-29T09:12:33.001Z',
+  },
+];
+
+export const impedimentos: Impedimento[] = [
+  {
+    id: 1,
+    descricao: 'Voto divergente Ministra Cármen Lúcia',
+    tipo: 'Absoluto',
+    relacionamento: 'Advogado',
+    observacao: 'Lorem Ipsum'
+  },
+  {
+    id: 2,
+    descricao: 'Voto divergente Ministro Marco Aurélio',
+    tipo: 'Suspeição',
+    relacionamento: 'Advogado',
+    observacao: 'Lorem Ipsum'
+  },
+];
+
+export const listaImpedimentos = [
+  {
+    ministro: "DT",
+    lista: [{
+        processo: "Ag",
+        impedimento: [impedimentos[0]],
+      },
+      {
+        processo: "Mérito",
+        impedimento: [impedimentos[1]],
+      },
+      {
+        processo: "Ter-Ag",
+        impedimento: [impedimentos[0], impedimentos[1]],
+      },
+    ],
   },
 ];

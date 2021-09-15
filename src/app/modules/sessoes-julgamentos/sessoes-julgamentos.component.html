@@ -21,10 +21,10 @@
         ></app-linha>
     </div> -->
 
-    <mat-expansion-panel class="flex flex-col" *ngFor="let processo of processos">
+    <mat-expansion-panel class="flex flex-col" *ngFor="let processo of processos; let i = index">
         <mat-expansion-panel-header [collapsedHeight]="'80px'" class="h-full w-full specific-class">
             <div class="flex flex-col w-full">
-                <div class="flex flex-row flex-wrap py-2">
+                <div class="flex flex-row flex-wrap py-2 justify-between">
                     <div class="flex flex-nowrap flex-row">
                         <div class="flex">
                             <div>
@@ -66,6 +66,14 @@
                         <div class="flex flex-col text-xl">
                             {{ processo.nome }}
                         </div>
+                    </div>
+                    <div *ngIf="(impedimentos[i])" class="grid grid-flow-row justify-items-end mr-2">
+                        <mat-chip-list #chipList class="mt-2 flex-none" *ngFor="let impedimento of impedimentos[i]">
+                            <mat-chip [class]="(impedimento.tipo=='Suspeição') ? 'bg-primary-400 justify-self-end' : 'bg-red-300 justify-self-end'">
+                                <mat-icon class="mr-2 icon-size-4" style="color:firebrick">warning</mat-icon>
+                                {{(impedimento.tipo=='Suspeição') ? 'Possível motivo de suspeição' : 'Possível motivo de impedimento'}}
+                            </mat-chip>
+                        </mat-chip-list>   
                     </div>
                 </div>
                 <!-- <div class="flex flex-col items-start w-9/12">

@@ -6,6 +6,7 @@ import { Documento } from '../acervo/model/interfaces/documento.interface';
 import { Tag } from '../acervo/model/interfaces/tag.interface';
 import { ProcessoService } from '../services/processo.service';
 import { JulgamentoService } from '../services/julgamento.service';
+import { Impedimento } from '../acervo/model/interfaces/impedimento.interface';
 
 @Component({
   selector: 'app-sessoes-julgamentos',
@@ -14,6 +15,7 @@ import { JulgamentoService } from '../services/julgamento.service';
 })
 export class SessoesJulgamentosComponent implements OnInit {
 
+  impedimentos: Impedimento[][] = [];
   processos: Processo[] = [];
   sessao: SessaoJulgamento;
   tags: string[];
@@ -35,6 +37,10 @@ export class SessoesJulgamentosComponent implements OnInit {
 
                     processo.documentos = aux as Documento[];
                 });
+
+                this._processoService.obterImpedimentosDoMinistro(processo.abreviacao, "DT").subscribe(impedimentos=>{
+                  this.impedimentos.push(impedimentos);
+                })
 
                 this.tags = processo.lista.map(tag => tag.descricao);
 

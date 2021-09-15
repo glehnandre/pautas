@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable, EMPTY, Subject } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { Documento } from '../acervo/model/interfaces/documento.interface';
+import { Impedimento } from '../acervo/model/interfaces/impedimento.interface';
 import { Processo } from '../acervo/model/interfaces/processo.interface';
 import { Tag } from '../acervo/model/interfaces/tag.interface';
 import { StatusProcesso } from '../acervo/tabela/status/situacaoProcesso';
@@ -47,6 +48,16 @@ export class ProcessoService {
 
   public obterDocumentosDoProcesso(id: number): Observable<Documento[]> {
     return this._httpClient.get<Documento[]>(`processos/${id}/documentos`)
+      .pipe(
+        catchError(error => {
+          console.log(error);
+          return EMPTY;
+        })
+      );
+  }
+
+  public obterImpedimentosDoMinistro(processo: string, ministro: string): Observable<Impedimento[]> {
+    return this._httpClient.get<Impedimento[]>(`processos/${processo}/impedimentos/${ministro}`)
       .pipe(
         catchError(error => {
           console.log(error);

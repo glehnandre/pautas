@@ -10,6 +10,8 @@ import { Documento } from 'app/modules/acervo/model/interfaces/documento.interfa
 import { SessaoJulgamento } from 'app/modules/acervo/model/interfaces/sessao-julgamento.interface';
 import { julgamentos } from '../julgamentos/data';
 import { TipoDoProcesso } from 'app/modules/acervo/model/enums/tipoDoProcesso.enum';
+import { Impedimento } from 'app/modules/acervo/model/interfaces/impedimento.interface';
+import { listaImpedimentos } from '../ministro/data'
 
 @Injectable({
     providedIn: 'root'
@@ -19,6 +21,7 @@ export class ProcessoMockApi {
     private _julgamentos: SessaoJulgamento[] = julgamentos;
     private _documentos: Documento[] = documentos;
     private _tag: Tag[] = [];
+    private _impedimentos: any[] = listaImpedimentos;
 
     constructor(
         private _fuseMockApiService: FuseMockApiService,) {
@@ -192,6 +195,26 @@ export class ProcessoMockApi {
               const id = +urlParams.id;
 
               return [201, this._documentos];
+            });
+        
+        this._fuseMockApiService
+            .onGet('processos/:processo/impedimentos/:ministro')
+            .reply(({urlParams}) => {
+              const processo = urlParams.processo;
+              const ministro = urlParams.ministro;
+              let impedimentos: Impedimento[] = [];
+
+              this._impedimentos.forEach(data=>{
+                  if(ministro==data.ministro){
+                      data.lista.forEach(lista=>{
+                          if(processo==lista.processo){
+                            impedimentos=lista.impedimento;
+                          }
+                      })
+                  }
+              })
+
+              return [201, impedimentos];
             });
     }
 

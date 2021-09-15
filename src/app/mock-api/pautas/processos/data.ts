@@ -9,6 +9,7 @@ export const processo: Processo[] = [
   {
     id:         1,
     nome:       'Mérito',
+    abreviacao: 'Mérito',
     ementa:     'Sessão de julgamento extraordinária para tratar da divisão de terras.',
     lista:      [
                   tagData[0],
@@ -64,6 +65,7 @@ export const processo: Processo[] = [
     id:         2,
     ementa:     'Sessão de julgamento extraordinária para tratar da divisão de terras.',
     nome:     'Agravo Regimental',
+    abreviacao: 'Ag',
     lista:      [
                   tagData[2],
                 ],
@@ -117,6 +119,7 @@ export const processo: Processo[] = [
     id:         3,
     ementa:     'Sessão de julgamento extraordinária para tratar da divisão de terras.',
     nome:     'Terceiro Agravo',
+    abreviacao: 'Ter-Ag',
     lista:      [
                   tagData[3],
                 ],
@@ -170,6 +173,7 @@ export const processo: Processo[] = [
     id:         4,
     ementa:     'Sessão de julgamento extraordinária para tratar da divisão de terras.',
     nome:     'Quarto agravo',
+    abreviacao: 'Qua-Ag',
     lista:      [
                   tagData[3],
                   tagData[2]
@@ -223,6 +227,7 @@ export const processo: Processo[] = [
   {
     id:         5,
     nome:     'Tese',
+    abreviacao: 'Tese',
     ementa:   'Sessão de julgamento extraordinária para tratar da divisão de terras.',
     lista:        [
                   tagData[4],
@@ -255,6 +260,7 @@ export const processo: Processo[] = [
   {
     id:         6,
     nome:     'Tese',
+    abreviacao: 'Tese',
     ementa:   'Sessão de julgamento extraordinária para tratar da divisão de terras.',
     lista:        [
                   tagData[4],
