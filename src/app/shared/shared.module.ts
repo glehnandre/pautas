@@ -22,12 +22,14 @@ import { FuseDrawerModule } from '@fuse/components/drawer';
 import { MatButtonModule } from '@angular/material/button';
 import { VisualizadorPdfComponent } from './visualizador-pdf/visualizador-pdf.component';
 import { CarrosselComponent } from './carrossel/carrossel.component';
+import { ProcessosSolicitacaoExtraordinariaComponent } from './processos-solicitacao-extraordinaria/processos-solicitacao-extraordinaria.component';
 
 @NgModule({
     declarations: [
         ProcessoChipComponent,
         ProcessoPainelExpansivoComponent,
         ProcessoCapituloComponent,
+        ProcessosSolicitacaoExtraordinariaComponent,
         PautarFormComponent,
         SessoesPipe,
         CarrosselComponent,
@@ -59,6 +61,7 @@ import { CarrosselComponent } from './carrossel/carrossel.component';
         ProcessoChipComponent,
         ProcessoPainelExpansivoComponent,
         ProcessoCapituloComponent,
+        ProcessosSolicitacaoExtraordinariaComponent,
         PautarFormComponent,
         CarrosselComponent,
         CabecalhoRelatorComponent,

@@ -56,19 +56,10 @@
             </div>
 
             <h2 class="text-primary">Processos</h2>
-        </div>
-    </div>
-
-    <!-- Main -->
-    <div class="flex-1 overflow-y-auto min-w-0 px-8" cdkScrollable>
-        <!-- CONTENT GOES HERE -->
-        <div>
-            <div>
-                <app-processo-painel-expansivo
-                    *ngFor="let processo of processos"
-                    [processo]="processo"
-                ></app-processo-painel-expansivo>
-            </div>
+            <!-- Main -->
+            <app-processos-solicitacao-extraordinaria
+                [sessao]="sessao"
+            ></app-processos-solicitacao-extraordinaria>
         </div>
     </div>
 </div>

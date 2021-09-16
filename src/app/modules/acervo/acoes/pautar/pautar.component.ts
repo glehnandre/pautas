@@ -55,10 +55,9 @@ export class PautarComponent implements OnInit {
         });
         this._julgamentoService.listarTodasAsSessoesDeJulgamento().subscribe(data=>{
             this.sessoes = data;
-        })
-        this._processoService.obterProcessos().subscribe(processos => {
-            this.processos = processos
         });
+        this._processoService.obterProcessosSelecionados()
+            .subscribe(processos => this.processos = processos);
     }
 
     sessaoExtraordinaria(): void {
