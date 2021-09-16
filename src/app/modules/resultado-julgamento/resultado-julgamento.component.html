@@ -22,17 +22,16 @@
 
     <hr class="m-0 p-0" />
 
-    <header class="flex flex-row px-8 pt-4 bg-white">
+    <header class="flex flex-col sm:flex-row px-8 pt-4 bg-white">
         <app-cabecalho-relator
+            class="sm:min-w-80 sm:mr-4"
             [processo]="'ADI100-Ag-Ag-Ag'"
             [colegiado]="'pleno'"
         ></app-cabecalho-relator>
 
-        <!--<fuse-card class="w-100 mb-4 p-4">
-            Data inicio: {{data_inicio | date: 'dd/MM/yyyy HH:mm:ss'}}<br/>
-            Data fim: {{data_fim | date: 'dd/MM/yyyy HH:mm:ss'}}<br/>
-            Termina em: {{cont}}
-        </fuse-card>-->
+        <app-contador
+            [sessao]="dados?.sessao"
+        ></app-contador>
     </header>
 
     <!-- Main -->
