@@ -1,6 +1,6 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, EMPTY, Subject } from 'rxjs';
+import { Observable, EMPTY, Subject, BehaviorSubject } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { Documento } from '../acervo/model/interfaces/documento.interface';
 import { Processo } from '../acervo/model/interfaces/processo.interface';
@@ -14,7 +14,7 @@ export class ProcessoService {
 
   // Informa se os processos precisam ser carregados novamente
   private isCarregarProcessos: Subject<boolean> = new Subject<boolean>();
-  private processosSelecionados: Subject<Processo[]> = new Subject<Processo[]>();
+  private processosSelecionados = new BehaviorSubject<Processo[]>([]);
 
   constructor(
     private _httpClient: HttpClient,
@@ -72,8 +72,8 @@ export class ProcessoService {
     return this.isCarregarProcessos;
   }
 
-  public obterProcessosSelecionados(): Subject<Processo[]> {
-    return this.processosSelecionados;
+  public obterProcessosSelecionados(): Observable<Processo[]> {
+    return this.processosSelecionados.asObservable();
   }
 
   public setProcessosSelecionados(processos: Processo[]): void {

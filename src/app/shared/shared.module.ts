@@ -18,6 +18,7 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatMomentDateModule } from '@angular/material-moment-adapter';
 import { SessoesPipe } from './pautar-form/sessoes.pipe';
 import { CarrosselComponent } from './carrossel/carrossel.component';
+import { ProcessosSolicitacaoExtraordinariaComponent } from './processos-solicitacao-extraordinaria/processos-solicitacao-extraordinaria.component';
 
 
 @NgModule({
@@ -25,6 +26,7 @@ import { CarrosselComponent } from './carrossel/carrossel.component';
         ProcessoChipComponent,
         ProcessoPainelExpansivoComponent,
         ProcessoCapituloComponent,
+        ProcessosSolicitacaoExtraordinariaComponent,
         PautarFormComponent,
         SessoesPipe,
         CarrosselComponent,
@@ -52,6 +54,7 @@ import { CarrosselComponent } from './carrossel/carrossel.component';
         ProcessoChipComponent,
         ProcessoPainelExpansivoComponent,
         ProcessoCapituloComponent,
+        ProcessosSolicitacaoExtraordinariaComponent,
         PautarFormComponent,
         CarrosselComponent,
     ],
