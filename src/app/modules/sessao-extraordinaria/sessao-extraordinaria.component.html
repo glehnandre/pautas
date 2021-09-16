@@ -52,12 +52,9 @@
 
         <h2 class="text-primary">Processos</h2>
 
-        <div class="min-h-0 max-h-2/5 overflow-auto p-2" cdkScrollable>
-            <app-processo-painel-expansivo
-                *ngFor="let processo of processos"
-                [processo]="processo"
-            ></app-processo-painel-expansivo>
-        </div>
+        <app-processos-solicitacao-extraordinaria
+            [sessao]="sessao"
+        ></app-processos-solicitacao-extraordinaria>
 
         <form class="py-2">
             <h2 class="text-primary">Observações do Ministro {{nome_solicitante}}</h2>

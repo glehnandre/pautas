@@ -94,15 +94,13 @@ export class ProcessoMockApi {
                         const processosFiltrados = this._processo
                             .filter((processo) => {
                                 if (filtros.processo) {
-                                   let query = `${processo.classe}${processo.numero}`;
+                                    let query = `${processo.classe}${processo.numero}`;
+
+                                    if (processo.tipo !== TipoDoProcesso.Merito) {
+                                        query = `${query}-${processo.abreviacao}`;
+                                    }
                                    
-                                   if (processo.tipo === TipoDoProcesso.Recurso) {
-                                        query = query + '-Ag';
-                                   } else if (processo.tipo === TipoDoProcesso.Cadeira) {
-                                        query = query + '-Ag-Ag-Ag';
-                                   }
-                                   
-                                   return (query === filtros.processo);
+                                    return (query === filtros.processo);
                                 } else {
                                     return true;
                                 }

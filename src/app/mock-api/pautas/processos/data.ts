@@ -9,6 +9,7 @@ export const processo: Processo[] = [
   {
     id:         1,
     nome:       'Mérito',
+    abreviacao: 'Ag-Ag-Ag',
     ementa:     'Sessão de julgamento extraordinária para tratar da divisão de terras.',
     lista:      [
                   tagData[0],
@@ -17,7 +18,7 @@ export const processo: Processo[] = [
     classe:     'ADI',
     numero:     100,
     situacao:   1,
-    tipo:       TipoDoProcesso.Cadeira,
+    tipo:       TipoDoProcesso.Recurso,
     capitulos:  [
       {
         id:     1,
@@ -63,14 +64,15 @@ export const processo: Processo[] = [
   {
     id:         2,
     ementa:     'Sessão de julgamento extraordinária para tratar da divisão de terras.',
-    nome:     'Agravo Regimental',
+    nome:       'Agravo Regimental',
+    abreviacao: 'Ag',
     lista:      [
                   tagData[2],
                 ],
     classe:     'ADI',
     numero:     200,
     situacao:   2,
-    tipo:       TipoDoProcesso.Incidente,
+    tipo:       TipoDoProcesso.Recurso,
     capitulos:  [
       {
         id:     1,
@@ -116,7 +118,8 @@ export const processo: Processo[] = [
   {
     id:         3,
     ementa:     'Sessão de julgamento extraordinária para tratar da divisão de terras.',
-    nome:     'Terceiro Agravo',
+    nome:       'Terceiro Agravo',
+    abreviacao: '',
     lista:      [
                   tagData[3],
                 ],
@@ -169,7 +172,8 @@ export const processo: Processo[] = [
   {
     id:         4,
     ementa:     'Sessão de julgamento extraordinária para tratar da divisão de terras.',
-    nome:     'Quarto agravo',
+    nome:       'Quarto agravo',
+    abreviacao: 'Ag',
     lista:      [
                   tagData[3],
                   tagData[2]
@@ -177,7 +181,7 @@ export const processo: Processo[] = [
     classe:     'ADI',
     numero:     300,
     situacao:   4,
-    tipo:       TipoDoProcesso.Merito,
+    tipo:       TipoDoProcesso.Recurso,
     capitulos:  [
       {
         id:     1,
@@ -222,7 +226,8 @@ export const processo: Processo[] = [
 
   {
     id:         5,
-    nome:     'Tese',
+    nome:       'Tese',
+    abreviacao: '',
     ementa:   'Sessão de julgamento extraordinária para tratar da divisão de terras.',
     lista:        [
                   tagData[4],
@@ -254,7 +259,8 @@ export const processo: Processo[] = [
 
   {
     id:         6,
-    nome:     'Tese',
+    nome:       'Tese',
+    abreviacao: '',
     ementa:   'Sessão de julgamento extraordinária para tratar da divisão de terras.',
     lista:        [
                   tagData[4],
