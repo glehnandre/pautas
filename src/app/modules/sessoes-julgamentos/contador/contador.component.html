@@ -10,7 +10,7 @@
                 <!-- Quinta (19/11) - Sexta (27/11) -->
                 {{ recuperaDataDaSessao() }}
             </div>
-            <div class="flex flex-row border-secondary border-solid border-2 rounded-lg px-2 mb-4 items-center">
+            <div class="flex flex-row border-secondary border-solid border-2 rounded-lg px-2 mb-4 items-center" *ngIf="!comecou">
                 <mat-icon class="mr-2">timelapse</mat-icon>
                 <div class="text-sm text-secondary mr-2">Começa em:</div>
                 <div class="flex flex-col mr-2">
@@ -30,17 +30,9 @@
                     <div class="text-sm text-secondary">Seg</div>
                 </div>
             </div>
-
-            <div>
-                <mat-chip-list #chipList>
-                    <mat-chip>
-                        {{ sessao.modalidade }}
-                    </mat-chip>
-                    <mat-chip>
-                        {{ sessao.colegiado }}
-                    </mat-chip>
-                </mat-chip-list>
-            </div>
+            <mat-chip *ngIf="comecou" class="bg-green-700 text-white">
+                A sessão já começou
+            </mat-chip>
         </div>
     </fuse-card>
 </div>

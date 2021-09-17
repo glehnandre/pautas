@@ -9,10 +9,12 @@ import { SessaoJulgamento } from '../../acervo/model/interfaces/sessao-julgament
 export class ContadorComponent implements OnInit, OnDestroy {
   @Input() sessao: SessaoJulgamento;
 
-  dias: string;
-  horas: string;
-  minutos: string;
-  segundos: string;
+  dias: string = '00';
+  horas: string = '00';
+  minutos: string = '00';
+  segundos: string = '00';
+
+  comecou: boolean = false;
 
   timer: ReturnType<typeof setInterval>;
 
@@ -68,6 +70,12 @@ export class ContadorComponent implements OnInit, OnDestroy {
     const dataAtual = new Date();
 
     let tempoRestante = dataFim.getTime() - dataAtual.getTime();
+
+    if (tempoRestante <= 0) {
+        this.comecou = true;
+
+        return;
+    }
 
     const dias = Math.trunc(tempoRestante / 86400000);
     this.dias = dias > 0 ? ('00' + dias).slice(-2) : '00';
