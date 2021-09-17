@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, OnDestroy, Input } from '@angular/core';
 import { SessaoJulgamento } from '../../acervo/model/interfaces/sessao-julgamento.interface';
 
 @Component({
@@ -6,7 +6,7 @@ import { SessaoJulgamento } from '../../acervo/model/interfaces/sessao-julgament
   templateUrl: './contador.component.html',
   styleUrls: ['./contador.component.scss']
 })
-export class ContadorComponent implements OnInit {
+export class ContadorComponent implements OnInit, OnDestroy {
   @Input() sessao: SessaoJulgamento;
 
   dias: string;
@@ -21,7 +21,7 @@ export class ContadorComponent implements OnInit {
   ngOnInit(): void {
     this.timer = setInterval(() => {
         this.atualizaTempo();
-    }, 1000);
+    }, 500);
   }
 
   ngOnDestroy(): void {
@@ -33,55 +33,55 @@ export class ContadorComponent implements OnInit {
   recuperaDiaDaSemana(numeroDiaDaSemana: number): string {
     switch(numeroDiaDaSemana) {
       case 0:
-        return "Domingo";
+        return 'Domingo';
       case 1:
-        return "Segunda";
+        return 'Segunda';
       case 2:
-        return "Terça";
+        return 'Terça';
       case 3:
-        return "Quarta";
+        return 'Quarta';
       case 4:
-        return "Quinta";
+        return 'Quinta';
       case 5:
-        return "Sexta";
+        return 'Sexta';
       case 6:
-        return "Sábado";
+        return 'Sábado';
     }
   }
 
   formatarData(data: Date): string {
-    var diaDaSemana = this.recuperaDiaDaSemana(data.getDay());
-    var diaDoMes = ("00" + data.getDate()).slice(-2);
-    var mes = ("00" + (data.getMonth() + 1)).slice(-2);
+    const diaDaSemana = this.recuperaDiaDaSemana(data.getDay());
+    const diaDoMes = ('00' + data.getDate()).slice(-2);
+    const mes = ('00' + (data.getMonth() + 1)).slice(-2);
 
     return `${diaDaSemana} (${diaDoMes}/${mes})`;
   }
 
   recuperaDataDaSessao(): string {
-    var data_inicio = new Date(this.sessao.data_inicio);
-    var data_fim = new Date(this.sessao.data_fim);
+    const dataInicio = new Date(this.sessao.data_inicio);
+    const dataFim = new Date(this.sessao.data_fim);
 
-    return `${this.formatarData(data_inicio)} - ${this.formatarData(data_fim)}`;
+    return `${this.formatarData(dataInicio)} - ${this.formatarData(dataFim)}`;
   }
 
   atualizaTempo(dataFim: Date = new Date()): void {
-    var dataAtual = new Date();
+    const dataAtual = new Date();
 
-    var tempoRestante = dataFim.getTime() - dataAtual.getTime();
+    let tempoRestante = dataFim.getTime() - dataAtual.getTime();
 
-    var dias = Math.trunc(tempoRestante / 86400000);
-    this.dias = dias > 0 ? ("00" + dias).slice(-2) : "00";
+    const dias = Math.trunc(tempoRestante / 86400000);
+    this.dias = dias > 0 ? ('00' + dias).slice(-2) : '00';
     tempoRestante -= dias * 86400000;
 
-    var horas = Math.trunc(tempoRestante / 3600000);
-    this.horas = horas > 0 ? ("00" + horas).slice(-2) : "00";
+    const horas = Math.trunc(tempoRestante / 3600000);
+    this.horas = horas > 0 ? ('00' + horas).slice(-2) : '00';
     tempoRestante -= horas * 3600000;
 
-    var minutos = Math.trunc(tempoRestante / 60000);
-    this.minutos = minutos > 0 ? ("00" + minutos).slice(-2) : "00";
+    const minutos = Math.trunc(tempoRestante / 60000);
+    this.minutos = minutos > 0 ? ('00' + minutos).slice(-2) : '00';
     tempoRestante -= minutos * 60000;
 
-    var segundos = Math.trunc(tempoRestante / 1000);
-    this.segundos = segundos > 0 ? ("00" + segundos).slice(-2) : "00";
+    const segundos = Math.trunc(tempoRestante / 1000);
+    this.segundos = segundos > 0 ? ('00' + segundos).slice(-2) : '00';
   }
 }
