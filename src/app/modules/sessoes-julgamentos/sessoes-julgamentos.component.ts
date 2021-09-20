@@ -29,22 +29,13 @@ export class SessoesJulgamentosComponent implements OnInit {
       this.sessao = {} as SessaoJulgamento;
       this._processoService.listarProcessos().subscribe({
         next: (data) => {
-            this.processos = data.map(processo => {
+            this.processos = data;
+            data.forEach(processo => {
                 this._processoService.obterDocumentosDoProcesso(processo.id).subscribe(documentos => {
                     this.documentos = documentos.map(documento => documento.nome);
-
-                    var aux = this.documentos as unknown[];
-
-                    processo.documentos = aux as Documento[];
-                });
+                  });
 
                 this.tags = processo.lista.map(tag => tag.descricao);
-
-                var aux = this.tags as unknown[];
-
-                processo.lista = aux as Tag[];
-
-                return processo;
             });
         }
       });
@@ -54,7 +45,6 @@ export class SessoesJulgamentosComponent implements OnInit {
         }
       });
   }
-
   eventsSubject: Subject<any> = new Subject<any>();
 
 }
