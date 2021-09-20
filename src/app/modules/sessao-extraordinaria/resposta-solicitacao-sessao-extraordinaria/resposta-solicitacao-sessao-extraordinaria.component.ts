@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MomentDateAdapter, MAT_MOMENT_DATE_ADAPTER_OPTIONS } from '@angular/material-moment-adapter';
 import { DateAdapter, MAT_DATE_LOCALE, MAT_DATE_FORMATS } from '@angular/material/core';
 import { MatDatepicker } from '@angular/material/datepicker';
+import { ActivatedRoute } from '@angular/router';
 import * as _moment from 'moment';
 import { default as _rollupMoment, Moment } from 'moment';
 import { SessaoJulgamento } from '../../acervo/model/interfaces/sessao-julgamento.interface';
@@ -47,6 +48,7 @@ export class RespostaSolicitacaoSessaoExtraordinariaoComponent implements OnInit
   constructor(
     private _fb: FormBuilder,
     private _julgamentoService: JulgamentoService,
+    private _route: ActivatedRoute,
   ) {
     this.formJulgamento = this._fb.group({
       nova_data: [moment(), Validators.required],
@@ -55,7 +57,8 @@ export class RespostaSolicitacaoSessaoExtraordinariaoComponent implements OnInit
   }
 
   ngOnInit(): void {
-    this._julgamentoService.listarSessoesDeJulgamento(1000, 2021).subscribe({
+    const { numero, ano } = this._route.snapshot.queryParams;
+    this._julgamentoService.listarSessoesDeJulgamento(numero, ano).subscribe({
       next: (sessao) => {
         console.log(sessao)
         this.sessao = sessao;

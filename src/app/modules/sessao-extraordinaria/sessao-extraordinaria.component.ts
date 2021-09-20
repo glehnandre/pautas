@@ -6,6 +6,7 @@ import localePT from '@angular/common/locales/pt';
 import { DatePipe } from '@angular/common';
 import { FuseAlertService } from '@fuse/components/alert';
 import { Ministro } from 'app/modules/acervo/model/interfaces/ministro.interface';
+import { ActivatedRoute, Router } from '@angular/router';
 registerLocaleData(localePT);
 
 @Component({
@@ -31,10 +32,12 @@ export class SessaoExtraordinariaComponent implements OnInit {
   constructor(
     private _julgamentoService: JulgamentoService,
     private _fuseAlertService: FuseAlertService,
+    private _route: ActivatedRoute,
   ) {}
 
   ngOnInit(): void {
-    this._julgamentoService.listarSessoesDeJulgamento(1000, 2021).subscribe({
+    const { numero, ano } = this._route.snapshot.queryParams;
+    this._julgamentoService.listarSessoesDeJulgamento(numero, ano).subscribe({
       next: (sessao) => {
         this.sessao = sessao;
         this.observacao = sessao['observacao'];
