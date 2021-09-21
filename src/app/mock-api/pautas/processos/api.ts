@@ -87,7 +87,7 @@ export class ProcessoMockApi {
                         segunda_turma: (params.get('colegiado') === 'segunda-turma'),
                         pleno: (params.get('colegiado') === 'pleno'),
                         classes: params.getAll('classe'),
-                        tags: params.getAll('tag'),
+                        tags: (params.getAll('tag')) ? params.getAll('tag').toString().split(',') : null,
                     };
 
                     if (params.keys().length > 0) {
@@ -107,9 +107,8 @@ export class ProcessoMockApi {
                             })
                             .filter(processo => (filtros.situacoes) ? filtros.situacoes.find((situacao) => Number(situacao) === processo.situacao) : true)
                             .filter(processo => (filtros.classes) ? filtros.classes.find(classe => classe === processo.classe) : true)
-                            .filter(processo => (filtros.tags) ? filtros.tags.find(tag => processo.lista.find(lista => lista.id === Number(tag))) : true)
+                            .filter(processo => (filtros.tags) ? filtros.tags.find(tag => processo.lista.find(lista => lista.id === +tag)) : true)
                             .filter(processo => (filtros.termo) ? filtros.termo.includes(processo.classe) && filtros.termo.includes(processo.numero.toString()) : true);
-
                         return [200, processosFiltrados];
                     } else {
                         return [200, this._processo];

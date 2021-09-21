@@ -289,6 +289,72 @@ export const processo: Processo[] = [
         imagem: image,
       },
   },
+
+  {
+    id:         7,
+    nome:       'Tese',
+    abreviacao: '',
+    ementa:   'Sessão de julgamento extraordinária para tratar da divisão de terras.',
+    lista:        [
+                  tagData[0],
+                ],
+    classe:     'RE',
+    numero:     143255,
+    situacao:   1,
+    tipo:       TipoDoProcesso.Merito,
+    capitulos:  [
+      {
+        id:     1,
+        descricao: 'É constitucional o artigo 8º da Lei Complementar 173/2020, editado no âmbito do Programa Federativo de Enfrentamento ao Coronavírus SARS-CoV-2 (Covid-19).',
+        ordem:  1,
+        tipo:   'Tese',
+        dispositivo: 'Reconhecida'
+      }
+    ],
+    relator: {
+        id: 2,
+        nome: 'Dias Tofolli',
+        abreviacao: 'DT',
+        cadeira: {
+          criacao: '2021-08-02T03:00:00.000Z',
+          numero: 100,
+        },
+        imagem: image,
+      },
+  },
+
+  {
+    id:         8,
+    nome:       'Tese',
+    abreviacao: '',
+    ementa:   'Sessão de julgamento extraordinária para tratar da divisão de terras.',
+    lista:        [
+                  tagData[1],
+                ],
+    classe:     'RE',
+    numero:     142685,
+    situacao:   1,
+    tipo:       TipoDoProcesso.Merito,
+    capitulos:  [
+      {
+        id:     1,
+        descricao: 'É constitucional o artigo 8º da Lei Complementar 173/2020, editado no âmbito do Programa Federativo de Enfrentamento ao Coronavírus SARS-CoV-2 (Covid-19).',
+        ordem:  1,
+        tipo:   'Tese',
+        dispositivo: 'Reconhecida'
+      }
+    ],
+    relator: {
+        id: 2,
+        nome: 'Dias Tofolli',
+        abreviacao: 'DT',
+        cadeira: {
+          criacao: '2021-08-02T03:00:00.000Z',
+          numero: 100,
+        },
+        imagem: image,
+      },
+  },
 ];
 
 export const documentos: Documento[] = [

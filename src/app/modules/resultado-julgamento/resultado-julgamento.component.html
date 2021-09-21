@@ -37,10 +37,52 @@
     <!-- Main -->
     <div class="flex-auto  overflow-y-auto px-8 pb-8" cdkScrollable>
         <!-- CONTENT GOES HERE -->
-        <div class="flex flex-col justify-center align-middle justify-items-center">
-            <main class="">
-              
-            </main>
+        <div class="grid grid-cols-4 gap-4 mt-4">
+            <div class="col-span-3">
+                Principal
+            </div>
+
+            <div>
+                <fuse-card
+                    class="max-h-full p-4 my-2 flex flex-col"
+                >
+                    <section class="">
+                        <h3 class="font-medium text-md">
+                            Aplicar as mesmas decisões
+                        </h3>
+
+                        <div class="h-3/12 max-h-36 overflow-auto">
+                            <p *ngFor="let processo of processosPorTags">
+                                <mat-checkbox (change)="aplicarAsMesmasDecisoes(processo)" color="primary">
+                                    <span class="font-bold text-primary-600">
+                                        {{processo.classe}} {{processo.numero}}
+                                    </span>
+
+                                    <br/>
+
+                                    <span class="text-hint">
+                                        Relator prevaleceu
+                                    </span>
+                                </mat-checkbox>
+                            </p>
+
+                            <p>
+                                <mat-checkbox color="primary">
+                                    <span class="font-bold text-primary-600">
+                                        RE 744282
+                                    </span>
+
+                                    <br/>
+
+                                    <span class="text-red-600">
+                                        Relator vencido
+                                    </span>
+                                </mat-checkbox>
+                            </p>
+                        </div>
+                    </section>
+                </fuse-card>
+            </div>
         </div>
     </div>
 </div>

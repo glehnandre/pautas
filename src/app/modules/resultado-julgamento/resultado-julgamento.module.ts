@@ -5,6 +5,7 @@ import { ResultadoJulgamentoComponent } from './resultado-julgamento.component';
 import { MatButtonModule } from '@angular/material/button';
 import { SharedModule } from 'app/shared/shared.module';
 import { FuseCardModule } from '@fuse/components/card';
+import { MatCheckboxModule } from '@angular/material/checkbox';
 
 const ResultadoJulgamentoRoutes: Route[] = [
   {
@@ -23,6 +24,7 @@ const ResultadoJulgamentoRoutes: Route[] = [
     MatButtonModule,
     SharedModule,
     FuseCardModule,
+    MatCheckboxModule,
   ]
 })
 export class ResultadoJulgamentoModule { }
