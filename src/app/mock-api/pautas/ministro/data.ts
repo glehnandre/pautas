@@ -167,14 +167,14 @@ export const impedimentos: Impedimento[] = [
     descricao: 'Voto divergente Ministra Cármen Lúcia',
     tipo: 'Absoluto',
     relacionamento: 'Advogado',
-    observacao: 'Lorem Ipsum'
+    observacao: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec ac consequat est. Morbi luctus vel mi vel luctus. Sed suscipit nisl nec odio auctor, auctor maximus quam hendrerit. Ut ut pellentesque urna. Aliquam sit amet iaculis justo. Donec ornare ornare nisi id tincidunt. Nam faucibus consectetur aliquam. Orci varius natoque.'
   },
   {
     id: 2,
     descricao: 'Voto divergente Ministro Marco Aurélio',
     tipo: 'Suspeição',
     relacionamento: 'Advogado',
-    observacao: 'Lorem Ipsum'
+    observacao: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec ac consequat est. Morbi luctus vel mi vel luctus. Sed suscipit nisl nec odio auctor, auctor maximus quam hendrerit. Ut ut pellentesque urna. Aliquam sit amet iaculis justo. Donec ornare ornare nisi id tincidunt. Nam faucibus consectetur aliquam. Orci varius natoque.'
   },
 ];
 
@@ -182,15 +182,15 @@ export const listaImpedimentos = [
   {
     ministro: "DT",
     lista: [{
-        processo: "Ag",
+        processo: "ADI-Ag",
         impedimento: [impedimentos[0]],
       },
       {
-        processo: "Mérito",
+        processo: "ADI-100",
         impedimento: [impedimentos[1]],
       },
       {
-        processo: "Ter-Ag",
+        processo: "ADI-Ag-Ag-Ag",
         impedimento: [impedimentos[0], impedimentos[1]],
       },
     ],

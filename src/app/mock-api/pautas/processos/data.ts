@@ -119,7 +119,7 @@ export const processo: Processo[] = [
     id:         3,
     ementa:     'Sessão de julgamento extraordinária para tratar da divisão de terras.',
     nome:     'Terceiro Agravo',
-    abreviacao: 'Ter-Ag',
+    abreviacao: 'Ag-Ag-Ag',
     lista:      [
                   tagData[3],
                 ],
@@ -173,7 +173,7 @@ export const processo: Processo[] = [
     id:         4,
     ementa:     'Sessão de julgamento extraordinária para tratar da divisão de terras.',
     nome:     'Quarto agravo',
-    abreviacao: 'Qua-Ag',
+    abreviacao: 'Ag-Ag-Ag-Ag',
     lista:      [
                   tagData[3],
                   tagData[2]

@@ -7,6 +7,10 @@ import { Tag } from '../acervo/model/interfaces/tag.interface';
 import { ProcessoService } from '../services/processo.service';
 import { JulgamentoService } from '../services/julgamento.service';
 import { Impedimento } from '../acervo/model/interfaces/impedimento.interface';
+import { MatDialog } from '@angular/material/dialog';
+import { ImpedimentoComponent } from './impedimento/impedimento.component';
+import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
+import { FuseDrawerService } from '@fuse/components/drawer';
 
 @Component({
   selector: 'app-sessoes-julgamentos',
@@ -20,10 +24,14 @@ export class SessoesJulgamentosComponent implements OnInit {
   sessao: SessaoJulgamento;
   tags: string[];
   documentos: string[];
+  link: SafeResourceUrl;
 
   constructor(
     private _processoService: ProcessoService,
     private _julgamentoService: JulgamentoService,
+    private _matDialog: MatDialog,
+    public sanitizer: DomSanitizer,
+    private _fuseDrawerService: FuseDrawerService,
   ) { }
 
   ngOnInit(): void {
@@ -38,7 +46,12 @@ export class SessoesJulgamentosComponent implements OnInit {
                     processo.documentos = aux as Documento[];
                 });
 
-                this._processoService.obterImpedimentosDoMinistro(processo.abreviacao, "DT").subscribe(impedimentos=>{
+                let abreviacao: string;
+                if(processo.abreviacao=="Mérito"){
+                  abreviacao = `${processo.classe}-100`;
+                }
+                else abreviacao = `${processo.classe}-${processo.abreviacao}`;
+                this._processoService.obterImpedimentosDoMinistro(abreviacao, "DT").subscribe(impedimentos=>{
                   this.impedimentos.push(impedimentos);
                 })
 
@@ -57,6 +70,12 @@ export class SessoesJulgamentosComponent implements OnInit {
             this.sessao = data[0];
         }
       });
+  }
+
+  abrirModal(impedimento: Impedimento){
+    const dialogRef = this._matDialog.open(ImpedimentoComponent, {
+      data: impedimento,
+    });
   }
 
   eventsSubject: Subject<any> = new Subject<any>();

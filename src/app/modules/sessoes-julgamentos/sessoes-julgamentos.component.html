@@ -67,9 +67,9 @@
                             {{ processo.nome }}
                         </div>
                     </div>
-                    <div *ngIf="(impedimentos[i])" class="grid grid-flow-row justify-items-end mr-2">
-                        <mat-chip-list #chipList class="mt-2 flex-none" *ngFor="let impedimento of impedimentos[i]">
-                            <mat-chip [class]="(impedimento.tipo=='Suspeição') ? 'bg-primary-400 justify-self-end' : 'bg-red-300 justify-self-end'">
+                    <div *ngIf="(impedimentos[i])" class="flex flex-row mr-2 items-end space-x-2">
+                        <mat-chip-list [value]="impedimentos[i]" #chipList class="mt-2 flex-none" *ngFor="let impedimento of impedimentos[i]">
+                            <mat-chip (click)="abrirModal(impedimento)" [class]="(impedimento.tipo=='Suspeição') ? 'bg-primary-400' : 'bg-red-300'">
                                 <mat-icon class="mr-2 icon-size-4" style="color:firebrick">warning</mat-icon>
                                 {{(impedimento.tipo=='Suspeição') ? 'Possível motivo de suspeição' : 'Possível motivo de impedimento'}}
                             </mat-chip>

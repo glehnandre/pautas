@@ -10,6 +10,8 @@ import { FiltroModule } from './filtros/filtro.module';
 import { SharedModule } from '../../shared/shared.module';
 import { ContadorComponent } from './contador/contador.component';
 import { FuseCardModule } from '@fuse/components/card';
+import { MatDialogModule } from '@angular/material/dialog';
+import { ImpedimentoComponent } from './impedimento/impedimento.component';
 
 const SessoesJulgamentoRoutes: Route[] = [
   { path: '', component: SessoesJulgamentosComponent, pathMatch: 'full' },
@@ -19,6 +21,7 @@ const SessoesJulgamentoRoutes: Route[] = [
   declarations: [
     SessoesJulgamentosComponent,
     ContadorComponent,
+    ImpedimentoComponent,
   ],
   imports: [
     CommonModule,
@@ -29,6 +32,7 @@ const SessoesJulgamentoRoutes: Route[] = [
     FiltroModule,
     SharedModule,
     FuseCardModule,
+    MatDialogModule,
     RouterModule.forChild(SessoesJulgamentoRoutes),
   ]
 })
