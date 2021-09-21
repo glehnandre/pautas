@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Subject } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 import { Processo } from '../acervo/model/interfaces/processo.interface';
 import { SessaoJulgamento } from '../acervo/model/interfaces/sessao-julgamento.interface';
 import { Documento } from '../acervo/model/interfaces/documento.interface';
@@ -7,10 +7,9 @@ import { Tag } from '../acervo/model/interfaces/tag.interface';
 import { ProcessoService } from '../services/processo.service';
 import { JulgamentoService } from '../services/julgamento.service';
 import { Impedimento } from '../acervo/model/interfaces/impedimento.interface';
-import { MatDialog } from '@angular/material/dialog';
-import { ImpedimentoComponent } from './impedimento/impedimento.component';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { FuseDrawerService } from '@fuse/components/drawer';
+import { delay } from 'rxjs/operators'
 
 @Component({
   selector: 'app-sessoes-julgamentos',
@@ -19,7 +18,7 @@ import { FuseDrawerService } from '@fuse/components/drawer';
 })
 export class SessoesJulgamentosComponent implements OnInit {
 
-  impedimentos: Impedimento[][] = [];
+  impedimentos: Observable<Impedimento[]>[] = [];
   processos: Processo[] = [];
   sessao: SessaoJulgamento;
   tags: string[];
@@ -35,7 +34,6 @@ export class SessoesJulgamentosComponent implements OnInit {
   constructor(
     private _processoService: ProcessoService,
     private _julgamentoService: JulgamentoService,
-    private _matDialog: MatDialog,
     public sanitizer: DomSanitizer,
     private _fuseDrawerService: FuseDrawerService,
   ) { }
@@ -57,10 +55,8 @@ export class SessoesJulgamentosComponent implements OnInit {
                   abreviacao = `${processo.classe}-100`;
                 }
                 else abreviacao = `${processo.classe}-${processo.abreviacao}`;
-                this._processoService.obterImpedimentosDoMinistro(abreviacao, "DT").subscribe(impedimentos=>{
-                  this.impedimentos.push(impedimentos);
-                })
-
+                this.impedimentos.push(this._processoService.obterImpedimentosDoMinistro(abreviacao, "DT").pipe(delay(5000)));
+                
                 this.tags = processo.lista.map(tag => tag.descricao);
 
                 var aux = this.tags as unknown[];
@@ -91,7 +87,7 @@ export class SessoesJulgamentosComponent implements OnInit {
    *
    * @param impedimento objeto impedimento que será aberto
    */
-  abrirLink(impedimento: Impedimento): void {
+   abrirJanela(impedimento: Impedimento): void {
       this.label = (impedimento.tipo=="Suspeição") ? "Possível motivo de suspeição" : "Possível motivo de impedimento";
       this.tipo = impedimento.tipo;
       this.relacionamento = impedimento.relacionamento;
