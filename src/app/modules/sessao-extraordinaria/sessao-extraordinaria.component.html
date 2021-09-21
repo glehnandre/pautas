@@ -1,40 +1,21 @@
 <div class="absolute inset-0 flex flex-col min-w-0 overflow-y-auto">
 
   <!-- Header -->
-    <div class="px-8 pb-4 bg-white dark:bg-transparent">
-        <div class="flex flex-col w-full">
-            <h1 class="mt-4 text-primary font-medium">
+    <div class="px-8 py-4 bg-white dark:bg-transparent ">
+        <div class="flex flex-col w-full container flex flex-col sm:flex-row">
+            <h1 class="text-primary font-medium">
                 Solicitação de Sessão de Julgamento Extraordinária
             </h1>
-            <div class="md:absolute top-0 right-2 flex flex-col sm:items-center justify-between">
-                <div mat-dialog-actions class="container flex flex-col sm:flex-row items-center mt-4 sm:mt-0 sm:ml-auto">
-                    <button
-                        class="w-full ml-auto sm:ml-0 mr-4 order-last sm:order-none"
-                        mat-button
-                        mat-dialog-close
-                    >
-                        Cancelar
-                    </button>
-
-                    <button
-                        class="w-full ml-auto sm:ml-0 mr-4 my-4 bg-red-600 text-white"
-                        mat-raised-button
-                        mat-dialog-close
-                        (click)="recusarSessao()"
-                    >
-                        Recusar
-                    </button>
-
-                    <button
-                        class="w-full order-first sm:order-last"
-                        color="primary"
-                        mat-raised-button
-                        mat-dialog-close
-                        (click)="aprovarSessao()"
-                    >
-                        Confirmar
-                    </button>
-                </div>
+            <div mat-dialog-actions class="sm:ml-auto">
+                <button
+                    class="w-full order-first sm:order-last"
+                    color="primary"
+                    mat-raised-button
+                    mat-dialog-close
+                    (click)="abrirResposta()"
+                >
+                    Responder
+                </button>
             </div>
         </div>
         <div class="flex flex-row">
@@ -49,17 +30,6 @@
             <div>
                 <h2 class="text-primary">Observações do Ministro {{nome_solicitante}}</h2>
                 <p>{{observacao}}</p>
-            </div>
-            <div>
-                <h2 class="text-primary">Resposta</h2>
-                <textarea
-                    id="resposta"
-                    [(ngModel)]="resposta"
-                    [ngModelOptions]="{standalone:true}"
-                    placeholder="Escreva sua Resposta aqui"
-                    class="w-full p-2 h-16 bg-white dark:bg-opacity-5 overflow-auto
-                    focus:border-blue-400 border-4 rounded-xl"
-                ></textarea>
             </div>
         </form>
     </div>
