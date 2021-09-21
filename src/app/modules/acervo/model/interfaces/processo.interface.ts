@@ -1,9 +1,9 @@
-import { SituacaoDoProcesso } from "../enums/situacaoDoProcesso.enum";
-import { TipoDoProcesso } from "../enums/tipoDoProcesso.enum";
-import { Capitulo } from "./capitulo.interface";
-import { Ministro } from "./ministro.interface";
-import { Documento } from "./documento.interface";
-import { Tag } from "./tag.interface";
+import { SituacaoDoProcesso } from '../enums/situacaoDoProcesso.enum';
+import { TipoDoProcesso } from '../enums/tipoDoProcesso.enum';
+import { Capitulo } from './capitulo.interface';
+import { Ministro } from './ministro.interface';
+import { Documento } from './documento.interface';
+import { Tag } from './tag.interface';
 
 export interface Processo {
     id: number;

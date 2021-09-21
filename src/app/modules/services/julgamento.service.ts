@@ -21,7 +21,7 @@ export class JulgamentoService {
 
   public obterDadosDaPautaPeloProcesso(id: number): Observable<Pauta> {
     return this._httpClient.get<Pauta>(`pautas/${id}`).pipe(
-      catchError(error => {
+      catchError((error) => {
         console.log(error);
         return EMPTY;
       })
@@ -40,7 +40,7 @@ export class JulgamentoService {
   public listarSessoesDeJulgamento(numero: number, ano: number): Observable<SessaoJulgamento> {
     const numeroAno = `${numero}-${ano}`;
     return this._httpClient.get<SessaoJulgamento>(`sessoes-de-julgamento/${numeroAno}`).pipe(
-      catchError(error => {
+      catchError((error) => {
         console.log(error);
         return EMPTY;
       }),
@@ -48,8 +48,8 @@ export class JulgamentoService {
   }
 
   public listarTodasAsSessoesDeJulgamento(): Observable<SessaoJulgamento[]> {
-    return this._httpClient.get<SessaoJulgamento[]>(`sessoes-de-julgamento`).pipe(
-      catchError(error => {
+    return this._httpClient.get<SessaoJulgamento[]>('sessoes-de-julgamento').pipe(
+      catchError((error) => {
         console.log(error);
         return EMPTY;
       }),
@@ -67,7 +67,7 @@ export class JulgamentoService {
     return this._httpClient.get<Processo[]>(`sessoes-de-julgamento/${numeroAno}/pauta`, {
       params,
     }).pipe(
-      catchError(error => {
+      catchError((error) => {
         console.log(error);
         return EMPTY;
       }),
@@ -77,7 +77,7 @@ export class JulgamentoService {
   public aprovarSessaoDeJulgamento(numero: number, ano: number, resposta: string): Observable<SessaoJulgamento> {
     const numeroAno = `${numero}-${ano}`;
     return this._httpClient.put<SessaoJulgamento>(`sessoes-de-julgamento/${numeroAno}/aprovar`, resposta).pipe(
-      catchError(error => {
+      catchError((error) => {
         console.log(error);
         return EMPTY;
       }),
@@ -87,7 +87,7 @@ export class JulgamentoService {
   public rejeitarSessaoDeJulgamento(numero: number, ano: number, resposta: string): Observable<SessaoJulgamento> {
     const numeroAno = `${numero}-${ano}`;
     return this._httpClient.put<SessaoJulgamento>(`sessoes-de-julgamento/${numeroAno}/rejeitar`, {numeroAno, resposta}).pipe(
-      catchError(error => {
+      catchError((error) => {
         console.log(error);
         return EMPTY;
       }),

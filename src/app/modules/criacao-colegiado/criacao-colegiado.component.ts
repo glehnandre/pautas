@@ -23,16 +23,16 @@ export class CriacaoColegiadoComponent implements OnInit {
   panelOpenState: boolean = false;
 
   queryParams: {
-    processo: string,
-    data: string,
-    colegiado: string,
-    sessao: string,
+    processo: string;
+    data: string;
+    colegiado: string;
+    sessao: string;
   };
 
   alerta: {
-    titulo: string,
-    mensagem: string,
-  }
+    titulo: string;
+    mensagem: string;
+  };
 
   formVotacao: FormGroup;
   ministros: Ministro[] = [];
@@ -41,11 +41,11 @@ export class CriacaoColegiadoComponent implements OnInit {
   votosDosMinistros: ComposicaoColegiado[] = [];
   relator: Ministro;
   tags: string[] = [];
-  lastId: string = "idTags";
+  lastId: string = 'idTags';
   documentos: {
-    nomes: string[],
-    links: string[],
-  }
+    nomes: string[];
+    links: string[];
+  };
   tipo: TipoDoProcesso;
   link: SafeResourceUrl;
 
@@ -87,11 +87,11 @@ export class CriacaoColegiadoComponent implements OnInit {
     this._ministroService.listarColegiados(this.queryParams.colegiado).subscribe({
       next: (colegiados) => {
         colegiados.map(c => c.composicao.sort((a, b) => {
-          c.composicao.map(data => {
+          c.composicao.map((data) => {
             if(data.relator == true){
-              this.relator = data.ministro
+              this.relator = data.ministro;
             }
-          })
+          });
           if (a.presidente) {
             return -1;
           }
@@ -113,13 +113,13 @@ export class CriacaoColegiadoComponent implements OnInit {
         this.tipo = tipo;
 
         this.tags = [];
-        lista.forEach(tag => {
+        lista.forEach((tag) => {
           this.tags.push(tag.descricao);
         });
 
-        this._processoService.obterDocumentosDoProcesso(id).subscribe(data => {
+        this._processoService.obterDocumentosDoProcesso(id).subscribe((data) => {
           this.documentos = { nomes: [], links: [] };
-          data.forEach(documento => {
+          data.forEach((documento) => {
             this.documentos.nomes.push(documento.nome);
             this.documentos.links.push(documento.url);
           });
@@ -204,10 +204,10 @@ export class CriacaoColegiadoComponent implements OnInit {
     this.lastId = id;
   }
   /**
-  * Abre o menu que exibe o pdf
-  *
-  * @param drawerName
-  */
+   * Abre o menu que exibe o pdf
+   *
+   * @param drawerName
+   */
   toggleDrawerOpen(drawerName: string): void {
     const drawer = this._fuseDrawerService.getComponent(drawerName);
     drawer.toggle();

@@ -10,17 +10,6 @@
         ></app-contador>
     </div>
 
-    <!-- <div class="m-2 sm:mx-0.5">
-        <app-linha
-            *ngFor="let processo of processos"
-            [processo]="processo"
-            (checked)="trataEventoDeChecked($event)"
-            [Selected]="SelectAll"
-            (tagSelecionada)="filtrarPorTags($event)"
-            (statusSelecionado)="filtrarPorStatus($event)"
-        ></app-linha>
-    </div> -->
-
     <mat-expansion-panel class="flex flex-col" *ngFor="let processo of processos">
         <mat-expansion-panel-header [collapsedHeight]="'80px'" class="h-full w-full specific-class">
             <div class="flex flex-col w-full">
@@ -45,9 +34,6 @@
                                 <div class="text-lg font-medium text-primary leading-tight">
                                     {{ processo.classe }} {{ processo.numero }}
                                 </div>
-                                <!-- <div>
-                                    {{ processo.nome }}
-                                </div> -->
                             </div>
                             <div class="flex flex-row" *ngIf="processo.relator || processo.redator">
                                 <div class="text-md leading-tight font-bold">
@@ -68,17 +54,6 @@
                         </div>
                     </div>
                 </div>
-                <!-- <div class="flex flex-col items-start w-9/12">
-                    <div class="text-xl mt-3">
-                        {{ processo.nome }}
-                    </div>
-                </div> -->
-
-                <!-- <div class="flex flex-row flex-wrap lg:max-w-3/5 py-2 w-2/12">
-                    <div class="ml-2 text-xl">
-                        {{ processo.nome }}
-                    </div>
-                </div> -->
                 <div class="flex flex-row w-full">
                     <div class="w-1/2">
                         <app-carrossel
