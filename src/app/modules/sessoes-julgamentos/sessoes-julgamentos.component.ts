@@ -20,7 +20,7 @@ export class SessoesJulgamentosComponent implements OnInit {
 
   impedimentos: Observable<Impedimento[]>[] = [];
   processos: Processo[] = [];
-  sessao: SessaoJulgamento;
+  sessao: SessaoJulgamento = {} as SessaoJulgamento;;
   tags: string[];
   documentos: string[];
   link: SafeResourceUrl;
