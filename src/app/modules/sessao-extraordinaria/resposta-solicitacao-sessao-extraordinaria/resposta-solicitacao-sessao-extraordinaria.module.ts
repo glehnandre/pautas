@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { Route, RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
-import { JulgamentoExtraordinarioComponent } from './julgamento-extraordinario.component';
+import { RespostaSolicitacaoSessaoExtraordinariaoComponent } from './resposta-solicitacao-sessao-extraordinaria.component';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
@@ -22,12 +22,12 @@ import { SharedModule } from 'app/shared/shared.module';
 registerLocaleData(localePt);
 
 const JulgamentoExtraordinarioRoutes: Route[] = [
-  { path: '', component: JulgamentoExtraordinarioComponent, pathMatch: 'full' },
+  { path: '', component: RespostaSolicitacaoSessaoExtraordinariaoComponent, pathMatch: 'full' },
 ];
 
 @NgModule({
   declarations: [
-    JulgamentoExtraordinarioComponent
+    RespostaSolicitacaoSessaoExtraordinariaoComponent
   ],
   imports: [
     CommonModule,
@@ -48,7 +48,7 @@ const JulgamentoExtraordinarioRoutes: Route[] = [
     SharedModule,
   ],
   exports: [
-    JulgamentoExtraordinarioComponent,
+    RespostaSolicitacaoSessaoExtraordinariaoComponent,
   ],
   providers: [
     {provide: MAT_DATE_LOCALE, useValue: 'pt-BR'}

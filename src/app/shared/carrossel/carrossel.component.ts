@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, OnDestroy } from '@angular/core';
 
 @Component({
   selector: 'app-carrossel',
@@ -49,7 +49,7 @@ export class CarrosselComponent implements OnInit {
   }
 
   abrirLink(index: number): void {
-    if (this.links[index]) {
+    if (this.links.length > 0 && this.links[index]) {
       this.linkDoPdfSelecionado.emit(this.links[index]);
     }
   }

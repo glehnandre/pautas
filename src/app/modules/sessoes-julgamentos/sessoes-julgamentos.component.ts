@@ -51,7 +51,7 @@ export class SessoesJulgamentosComponent implements OnInit {
                 });
 
                 let abreviacao: string;
-                if(processo.abreviacao=="Mérito"){
+                if(processo.nome=="Mérito"){
                   abreviacao = `${processo.classe}-100`;
                 }
                 else abreviacao = `${processo.classe}-${processo.abreviacao}`;

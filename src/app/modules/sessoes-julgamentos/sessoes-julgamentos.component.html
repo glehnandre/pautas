@@ -34,20 +34,20 @@
                                 </mat-checkbox>
                             </div>
                         </div>
-                        <img
-                            *ngIf="(processo.relator && processo.relator.imagem) || (processo.redator && processo.redator.imagem)"
-                            [src]="processo?.relator?.imagem ? processo.relator.imagem : processo.redator.imagem"
-                            alt="Imagem de perfil"
-                            class="w-14 h-14 mr-6 mb-4 rounded-full"
-                        >
-                        <div class="flex flex-col flex-none mr-14">
-                            <div class="flex flex-row">
-                                <div class="text-lg font-medium text-primary leading-tight">
-                                    {{ processo.classe }} {{ processo.numero }}
-                                </div>
-                                <!-- <div>
-                                    {{ processo.nome }}
-                                </div> -->
+                    </div>
+                    <img
+                        *ngIf="(processo.relator && processo.relator.imagem)"
+                        src="processo.relator.imagem || processo.relator.imagem"
+                        alt="Imagem de perfil"
+                        class="w-14 h-14 mr-6 rounded-full"
+                    >
+                    <div class="flex flex-col">
+                        <div class="text-xl font-medium text-primary leading-tight">
+                            {{ processo.classe }} {{ processo.numero }}
+                        </div>
+                        <div class="flex flex-row" *ngIf="processo.relator || processo.redator">
+                            <div class="text-md leading-tight font-bold">
+                                {{ processo.relator.abreviacao || processo.redator.abreviacao }}
                             </div>
                             <div class="flex flex-row" *ngIf="processo.relator || processo.redator">
                                 <div class="text-md leading-tight font-bold">
@@ -96,14 +96,14 @@
                     <div class="w-1/2">
                         <app-carrossel
                             [idChip]="'idTags'"
-                            [chips]="processo.lista"
+                            [chips]="tags"
                             [lastId]="lastId"
                         ></app-carrossel>
                     </div>
                     <div class="w-1/2">
                         <app-carrossel
                             [idChip]="'idDocs'"
-                            [chips]="processo.documentos"
+                            [chips]="documentos"
                             [lastId]="lastId"
                             [hasIcon]="true"
                             [class]="['border-primary', 'border-solid', 'border-2', 'bg-transparent', 'text-primary']"

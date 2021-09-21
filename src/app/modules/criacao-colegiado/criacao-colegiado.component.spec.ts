@@ -1,7 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormBuilder } from '@angular/forms';
-import { ActivatedRoute, Params } from '@angular/router';
-import { EMPTY, Observable, Subject } from 'rxjs';
+import { ActivatedRoute } from '@angular/router';
+import { EMPTY, Observable } from 'rxjs';
 import { MinistroService } from '../services/ministro.service';
 import { ProcessoService } from '../services/processo.service';
 
@@ -57,7 +57,6 @@ describe('CriacaoColegiadoComponent', () => {
     route = TestBed.inject(ActivatedRoute);
 
     component.composicao = [];
-    component.documentos = {nomes: [''], links: ['']};
     component.alerta = {titulo: '', mensagem: ''};
     component.colegiados = [];
     component.ministros = [];

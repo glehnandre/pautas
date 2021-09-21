@@ -5,10 +5,8 @@ import { DateAdapter, MAT_DATE_LOCALE, MAT_DATE_FORMATS } from '@angular/materia
 import { MatDatepicker } from '@angular/material/datepicker';
 import * as _moment from 'moment';
 import { default as _rollupMoment, Moment } from 'moment';
-import { SituacaoDoProcesso } from '../acervo/model/enums/situacaoDoProcesso.enum';
-import { Processo } from '../acervo/model/interfaces/processo.interface';
-import { SessaoJulgamento } from '../acervo/model/interfaces/sessao-julgamento.interface';
-import { JulgamentoService } from '../services/julgamento.service';
+import { SessaoJulgamento } from '../../acervo/model/interfaces/sessao-julgamento.interface';
+import { JulgamentoService } from '../../services/julgamento.service';
 
 const moment = _rollupMoment || _moment;
 
@@ -25,9 +23,9 @@ const DATE_FORMATS = {
 };
 
 @Component({
-  selector: 'app-julgamento-extraordinario',
-  templateUrl: './julgamento-extraordinario.component.html',
-  styleUrls: ['./julgamento-extraordinario.component.scss'],
+  selector: 'app-resposta-solicitacao-sessao-extraordinaria',
+  templateUrl: './resposta-solicitacao-sessao-extraordinaria.component.html',
+  styleUrls: ['./resposta-solicitacao-sessao-extraordinaria.component.scss'],
   providers: [
     {
       provide: DateAdapter,
@@ -38,14 +36,12 @@ const DATE_FORMATS = {
     {provide: MAT_DATE_FORMATS, useValue: DATE_FORMATS},
   ],
 })
-export class JulgamentoExtraordinarioComponent implements OnInit {
+export class RespostaSolicitacaoSessaoExtraordinariaoComponent implements OnInit {
 
   formJulgamento: FormGroup;
   panelOpenState: boolean = false;
   tags: string[] = ['Virtual', 'Segunda Turma'];
   sessao: SessaoJulgamento;
-  processos: Processo[] = [];
-
   sessoes: SessaoJulgamento[] = [];
 
   constructor(
@@ -63,12 +59,6 @@ export class JulgamentoExtraordinarioComponent implements OnInit {
       next: (sessao) => {
         console.log(sessao)
         this.sessao = sessao;
-        const { numero, ano, data_inicio, data_fim } = this.sessao;
-        this._julgamentoService.listarProcessosPautadosNasSessoes(numero, ano, SituacaoDoProcesso.Pautado, data_inicio, data_fim).subscribe({
-          next: (processos) => {
-            this.processos = processos;
-          }
-        });
       }
     });
     this._julgamentoService.listarTodasAsSessoesDeJulgamento().subscribe(data=>{
