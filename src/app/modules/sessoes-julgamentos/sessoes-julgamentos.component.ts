@@ -26,6 +26,12 @@ export class SessoesJulgamentosComponent implements OnInit {
   documentos: string[];
   link: SafeResourceUrl;
 
+  label: string;
+  tipo: string;
+  relacionamento: string;
+  descricao: string;
+  observacao: string;
+
   constructor(
     private _processoService: ProcessoService,
     private _julgamentoService: JulgamentoService,
@@ -72,10 +78,26 @@ export class SessoesJulgamentosComponent implements OnInit {
       });
   }
 
-  abrirModal(impedimento: Impedimento){
-    const dialogRef = this._matDialog.open(ImpedimentoComponent, {
-      data: impedimento,
-    });
+  /**
+   *
+   * @param drawerName nome do fuse-drawer do html que será aberto
+   */
+  toggleDrawerOpen(drawerName: string): void {
+    const drawer = this._fuseDrawerService.getComponent(drawerName);
+    drawer.toggle();
+  }
+
+  /**
+   *
+   * @param impedimento objeto impedimento que será aberto
+   */
+  abrirLink(impedimento: Impedimento): void {
+      this.label = (impedimento.tipo=="Suspeição") ? "Possível motivo de suspeição" : "Possível motivo de impedimento";
+      this.tipo = impedimento.tipo;
+      this.relacionamento = impedimento.relacionamento;
+      this.descricao = impedimento.descricao;
+      this.observacao = impedimento.observacao;
+      this.toggleDrawerOpen('telaImpedimentos');
   }
 
   eventsSubject: Subject<any> = new Subject<any>();

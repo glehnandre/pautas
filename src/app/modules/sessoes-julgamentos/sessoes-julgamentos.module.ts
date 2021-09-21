@@ -12,6 +12,7 @@ import { ContadorComponent } from './contador/contador.component';
 import { FuseCardModule } from '@fuse/components/card';
 import { MatDialogModule } from '@angular/material/dialog';
 import { ImpedimentoComponent } from './impedimento/impedimento.component';
+import { FuseDrawerModule } from '@fuse/components/drawer';
 
 const SessoesJulgamentoRoutes: Route[] = [
   { path: '', component: SessoesJulgamentosComponent, pathMatch: 'full' },
@@ -33,6 +34,7 @@ const SessoesJulgamentoRoutes: Route[] = [
     SharedModule,
     FuseCardModule,
     MatDialogModule,
+    FuseDrawerModule,
     RouterModule.forChild(SessoesJulgamentoRoutes),
   ]
 })

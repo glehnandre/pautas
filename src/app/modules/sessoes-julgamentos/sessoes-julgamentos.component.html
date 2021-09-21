@@ -69,7 +69,7 @@
                     </div>
                     <div *ngIf="(impedimentos[i])" class="flex flex-row mr-2 items-end space-x-2">
                         <mat-chip-list [value]="impedimentos[i]" #chipList class="mt-2 flex-none" *ngFor="let impedimento of impedimentos[i]">
-                            <mat-chip (click)="abrirModal(impedimento)" [class]="(impedimento.tipo=='Suspeição') ? 'bg-primary-400' : 'bg-red-300'">
+                            <mat-chip (click)="abrirLink(impedimento)" [class]="(impedimento.tipo=='Suspeição') ? 'bg-primary-400' : 'bg-red-300'">
                                 <mat-icon class="mr-2 icon-size-4" style="color:firebrick">warning</mat-icon>
                                 {{(impedimento.tipo=='Suspeição') ? 'Possível motivo de suspeição' : 'Possível motivo de impedimento'}}
                             </mat-chip>
@@ -114,3 +114,40 @@
         <app-processo-capitulo [processo]="processo"></app-processo-capitulo>
     </mat-expansion-panel>
 </div>
+
+<fuse-drawer
+    id="visualisador"
+    [name]="'telaImpedimentos'"
+    [opened]="false"
+    [position]="'right'"
+    [mode]="'over'"
+>
+    <div class="w-screen mx-8">
+        <button 
+            class="bg-accent-200 mt-4 absolute right-8 rounded-full text-center h-8 w-8" 
+            mat-icon-button 
+            (click)="toggleDrawerOpen('telaImpedimentos')"
+        >
+            <mat-icon class="text-current mt-1 text-black" [svgIcon]="'heroicons_outline:x'"></mat-icon>
+        </button>
+        
+            <h2 class="mt-16 w-full">{{label}}</h2>
+        
+            <div class="mb-4 border-solid border-t-2 text-justify">
+              <h4 class="font-medium mb-0 pt-2">Tipo:</h4>
+              {{tipo}}
+            </div>
+            <div class="mb-4 border-solid border-t-2 text-justify">
+              <h4 class="font-medium mb-0 pt-2">Relacionamento:</h4>
+              {{relacionamento}}
+            </div>
+            <div class="mb-4 border-solid border-t-2 text-justify">
+              <h4 class="font-medium mb-0 pt-2">Descrição:</h4>
+              {{descricao}}
+            </div>
+            <div class="mb-4 border-solid border-t-2 text-justify">
+              <h4 class="font-medium mb-0 pt-2">Observação:</h4>
+              {{observacao}}
+            </div>             
+    </div>
+</fuse-drawer>
