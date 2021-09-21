@@ -57,7 +57,7 @@ export class JulgamentoService {
   }
 
   public listarProcessosPautadosNasSessoes(numero: number, ano: number,
-      situacao: number, inicio: string, fim: string): Observable<Processo[]> {
+      situacao?: number, inicio?: string, fim?: string): Observable<Processo[]> {
     const numeroAno = `${numero}-${ano}`;
     let params = new HttpParams();
     params = params.set('situacao', situacao);

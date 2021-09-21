@@ -48,7 +48,11 @@ export const defaultNavigation: FuseNavigationItem[] = [
         title: 'Processos pautados',
         type : 'basic',
         icon : 'heroicons_outline:chart-pie',
-        link : '/sessoes-julgamento/1000-2021',
+        link : '/sessoes-julgamento',
+        queryParams: {
+            numero: 1000,
+            ano: 2021
+        }
     },
 ];
 export const compactNavigation: FuseNavigationItem[] = [
