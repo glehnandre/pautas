@@ -2,6 +2,7 @@ import { HttpParams } from '@angular/common/http';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { Processo } from '../acervo/model/interfaces/processo.interface';
+import { Voto } from '../acervo/model/interfaces/voto.interface';
 import { ProcessoService } from '../services/processo.service';
 import { ResultadoJulgamentoService } from '../services/resultado-julgamento.service';
 
@@ -16,6 +17,7 @@ export class ResultadoJulgamentoComponent implements OnInit {
 
   processosPorTags: Processo[] = [];
   processosSelecioandos: Processo[] = [];
+  voto: Voto = {} as Voto;
 
   constructor(
     private _resultadoJulgamento: ResultadoJulgamentoService,
@@ -37,11 +39,19 @@ export class ResultadoJulgamentoComponent implements OnInit {
             setTimeout(() => {
               this.processosPorTags = processos;
             }, 3000)
-            
+          }
+        });
+
+        const { classe, numero, abreviacao } = this.dados.processo;
+
+        this._processoService.obterVotosDoProcesso(`${classe}${numero}-${abreviacao}`).subscribe({
+          next: (voto) => {
+            this.voto = voto;
           }
         });
       }
     });
+
   }
 
   public aplicarAsMesmasDecisoes(processo: Processo) {

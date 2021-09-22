@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { FuseMockApiService } from '@fuse/lib/mock-api/mock-api.service';
 import { Filtros } from 'app/modules/acervo/filtros/filtros';
-import { processo as processoData, documentos } from 'app/mock-api/pautas/processos/data';
+import { processo as processoData, documentos, votos } from 'app/mock-api/pautas/processos/data';
 import { tags as tagData } from 'app/mock-api/pautas/tags/data';
 import { Paginacao } from 'app/modules/acervo/tabela/paginacao/paginacao.component';
 import { Processo } from 'app/modules/acervo/model/interfaces/processo.interface';
@@ -10,6 +10,7 @@ import { Documento } from 'app/modules/acervo/model/interfaces/documento.interfa
 import { SessaoJulgamento } from 'app/modules/acervo/model/interfaces/sessao-julgamento.interface';
 import { julgamentos } from '../julgamentos/data';
 import { TipoDoProcesso } from 'app/modules/acervo/model/enums/tipoDoProcesso.enum';
+import { Voto } from 'app/modules/acervo/model/interfaces/voto.interface';
 
 @Injectable({
     providedIn: 'root'
@@ -19,6 +20,7 @@ export class ProcessoMockApi {
     private _julgamentos: SessaoJulgamento[] = julgamentos;
     private _documentos: Documento[] = documentos;
     private _tag: Tag[] = [];
+    private _votos: Voto[] = votos;
 
     constructor(
         private _fuseMockApiService: FuseMockApiService,) {
@@ -189,6 +191,16 @@ export class ProcessoMockApi {
               const id = +urlParams.id;
 
               return [201, this._documentos];
+            });
+
+        this._fuseMockApiService
+            .onGet('processos/:processo/votos')
+            .reply(({urlParams}) => {
+              const processo = urlParams.processo;
+
+
+
+              return [201, this._votos[0]];
             });
     }
 

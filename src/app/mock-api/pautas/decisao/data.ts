@@ -53,6 +53,7 @@ export const decisoes: any[] = [
         nome: "Apto a Julgar"
       },
       tipo: "Merito",
+      abreviacao: '',
       relator: {
         numero: 19,
         ocupante: {

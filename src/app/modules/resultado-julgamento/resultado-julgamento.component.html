@@ -40,7 +40,7 @@
         <div class="flex flex-col-reverse sm:grid sm:grid-cols-3 lg:grid-cols-4 gap-4 mt-4">
             <div class="sm:col-span-2 lg:col-span-3">
                 <fuse-card class="my-2 p-4">
-                    Principal
+                    <div [innerHtml]="voto.conteudo"></div>
                 </fuse-card>
             </div>
 
@@ -59,7 +59,7 @@
                             *ngIf="processosPorTags.length === 0; else processos"
                         ></mat-spinner>
 
-                        <div #processos class="max-h-36 overflow-auto">
+                        <ng-template #processos class="max-h-36 overflow-auto">
                             <p *ngFor="let processo of processosPorTags">
                                 <mat-checkbox (change)="aplicarAsMesmasDecisoes(processo)" color="primary">
                                     <span class="font-bold text-primary-600">
@@ -73,7 +73,7 @@
                                     </span>
                                 </mat-checkbox>
                             </p>
-                        </div>
+                        </ng-template>
                     </section>
                 </fuse-card>
             </div>
