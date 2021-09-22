@@ -1,11 +1,11 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { EMPTY, Observable } from 'rxjs';
-import { JulgamentoService } from 'app/modules/services/julgamento.service'; 
+import { JulgamentoService } from 'app/modules/services/julgamento.service';
 
 import { SessaoExtraordinariaComponent } from './sessao-extraordinaria.component';
 
 class MockJulgamentoService {
-  public listarSessoesDeJulgamento(): Observable<any> { return EMPTY };
+  public listarSessoesDeJulgamento(): Observable<any> { return EMPTY; };
 }
 
 describe('SessaoExtraordinariaComponent', () => {
@@ -37,7 +37,7 @@ describe('SessaoExtraordinariaComponent', () => {
   it('Não deve haver sessão do tipo extraordinária disponível', () => {
     component.sessoes = [];
     fixture.detectChanges();
-    
+
     const isExtraordinaria = component.sessoes
       .some(sessao => sessao.tipo === 'Extraordinária');
 
@@ -57,7 +57,7 @@ describe('SessaoExtraordinariaComponent', () => {
       situacao: 'ABERTA',
     }];
     fixture.detectChanges();
-    
+
     const isNumeroAno = component.sessoes
       .some(sessao => ((sessao.numero > 0) && (sessao.ano > 0)));
 
@@ -67,7 +67,7 @@ describe('SessaoExtraordinariaComponent', () => {
   it('Não deve haver sessão de julgamento sem pauta (vazia)', () => {
     component.sessoes = [];
     fixture.detectChanges();
-    
+
     const isPauta = (component.sessoes.length === 0);
 
     expect(isPauta).toEqual(true);

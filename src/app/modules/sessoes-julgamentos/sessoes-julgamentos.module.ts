@@ -30,6 +30,6 @@ const SessoesJulgamentoRoutes: Route[] = [
     SharedModule,
     FuseCardModule,
     RouterModule.forChild(SessoesJulgamentoRoutes),
-  ]
+  ],
 })
 export class SessoesJulgamentosModule { }

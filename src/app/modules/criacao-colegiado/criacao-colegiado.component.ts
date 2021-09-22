@@ -88,7 +88,7 @@ export class CriacaoColegiadoComponent implements OnInit {
       next: (colegiados) => {
         colegiados.map(c => c.composicao.sort((a, b) => {
           c.composicao.map((data) => {
-            if(data.relator == true){
+            if(data.relator === true){
               this.relator = data.ministro;
             }
           });
@@ -175,7 +175,7 @@ export class CriacaoColegiadoComponent implements OnInit {
     return (sub >= 0) ? sub : 0;
   }
 
-  isMinistroParticipadandoDaVotacao(colegiado: ComposicaoColegiado) {
+  isMinistroParticipadandoDaVotacao(colegiado: ComposicaoColegiado): boolean {
     if (this.calcularContador() === 0) {
       const index = this.votosDosMinistros
         .findIndex(voto => voto.ministro.id === colegiado.ministro.id);

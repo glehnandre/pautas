@@ -60,21 +60,22 @@ export class ContadorComponent implements OnInit, OnDestroy {
   }
 
   recuperaDataDaSessao(): string {
-    const dataInicio = new Date(this.sessao.data_inicio);
-    const dataFim = new Date(this.sessao.data_fim);
+    const dataInicio = new Date(this.sessao?.data_inicio);
+    const dataFim = new Date(this.sessao?.data_fim);
 
     return `${this.formatarData(dataInicio)} - ${this.formatarData(dataFim)}`;
   }
 
-  atualizaTempo(dataFim: Date = new Date()): void {
+  atualizaTempo(): void {
     const dataAtual = new Date();
+    const dataFim = new Date(this.sessao?.data_inicio);
 
     let tempoRestante = dataFim.getTime() - dataAtual.getTime();
 
     if (tempoRestante <= 0) {
-        this.comecou = true;
+      this.comecou = true;
 
-        return;
+      return;
     }
 
     const dias = Math.trunc(tempoRestante / 86400000);

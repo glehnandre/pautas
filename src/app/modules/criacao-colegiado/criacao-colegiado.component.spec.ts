@@ -8,13 +8,13 @@ import { ProcessoService } from '../services/processo.service';
 import { CriacaoColegiadoComponent } from './criacao-colegiado.component';
 
 class MockMinistroService {
-  listarMinistros(): Observable<any> {return EMPTY}
-  listarColegiados(): Observable<any> {return EMPTY}
+  listarMinistros(): Observable<any> {return EMPTY;}
+  listarColegiados(): Observable<any> {return EMPTY;}
 }
 
 class MockProcessoService {
-  listarProcessos(): Observable<any> {return EMPTY}
-  obterDocumentosDoProcesso(): Observable<any> {return EMPTY}
+  listarProcessos(): Observable<any> {return EMPTY;}
+  obterDocumentosDoProcesso(): Observable<any> {return EMPTY;}
 }
 
 const MockActivatedRoute = {
@@ -25,7 +25,7 @@ const MockActivatedRoute = {
       sessao: '1000-2021'
     }
   }
-}
+};
 
 describe('CriacaoColegiadoComponent', () => {
   let component: CriacaoColegiadoComponent;
@@ -61,7 +61,7 @@ describe('CriacaoColegiadoComponent', () => {
     component.alerta = {titulo: '', mensagem: ''};
     component.colegiados = [];
     component.ministros = [];
-    component.queryParams = { colegiado: 'pleno', data: '', processo: 'ADI100', sessao: '1000-2021' }
+    component.queryParams = { colegiado: 'pleno', data: '', processo: 'ADI100', sessao: '1000-2021' };
 
     fixture.detectChanges();
   });
