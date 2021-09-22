@@ -35,11 +35,13 @@
     </header>
 
     <!-- Main -->
-    <div class="flex-auto  overflow-y-auto px-8 pb-8" cdkScrollable>
+    <div class="flex-auto overflow-y-auto px-8 pb-8" cdkScrollable>
         <!-- CONTENT GOES HERE -->
-        <div class="grid grid-cols-4 gap-4 mt-4">
-            <div class="col-span-3">
-                Principal
+        <div class="flex flex-col-reverse sm:grid sm:grid-cols-3 lg:grid-cols-4 gap-4 mt-4">
+            <div class="sm:col-span-2 lg:col-span-3">
+                <fuse-card class="my-2 p-4">
+                    Principal
+                </fuse-card>
             </div>
 
             <div>
@@ -51,7 +53,13 @@
                             Aplicar as mesmas decisões
                         </h3>
 
-                        <div class="h-3/12 max-h-36 overflow-auto">
+                        <mat-spinner
+                            class="m-auto"
+                            [diameter]="40"
+                            *ngIf="processosPorTags.length === 0; else processos"
+                        ></mat-spinner>
+
+                        <div #processos class="max-h-36 overflow-auto">
                             <p *ngFor="let processo of processosPorTags">
                                 <mat-checkbox (change)="aplicarAsMesmasDecisoes(processo)" color="primary">
                                     <span class="font-bold text-primary-600">
@@ -62,20 +70,6 @@
 
                                     <span class="text-hint">
                                         Relator prevaleceu
-                                    </span>
-                                </mat-checkbox>
-                            </p>
-
-                            <p>
-                                <mat-checkbox color="primary">
-                                    <span class="font-bold text-primary-600">
-                                        RE 744282
-                                    </span>
-
-                                    <br/>
-
-                                    <span class="text-red-600">
-                                        Relator vencido
                                     </span>
                                 </mat-checkbox>
                             </p>

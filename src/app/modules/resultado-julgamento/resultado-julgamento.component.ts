@@ -34,7 +34,10 @@ export class ResultadoJulgamentoComponent implements OnInit {
 
         this._processoService.listarProcessos(new HttpParams().set('tag', tags)).subscribe({
           next: (processos) => {
-            this.processosPorTags = processos;
+            setTimeout(() => {
+              this.processosPorTags = processos;
+            }, 3000)
+            
           }
         });
       }
