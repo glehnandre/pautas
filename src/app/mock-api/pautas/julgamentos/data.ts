@@ -2,6 +2,7 @@ import { SituacaoDoProcesso } from 'app/modules/acervo/model/enums/situacaoDoPro
 import { TipoDoProcesso } from 'app/modules/acervo/model/enums/tipoDoProcesso.enum';
 import { Processo } from 'app/modules/acervo/model/interfaces/processo.interface';
 import { SessaoJulgamento } from 'app/modules/acervo/model/interfaces/sessao-julgamento.interface';
+import { ministro } from '../ministro/data';
 
 export const julgamentos: SessaoJulgamento[] = [
   {
@@ -211,24 +212,8 @@ export const processos: Processo[] = [
     nome: 'Embargo de declaração',
     situacao: SituacaoDoProcesso.Pautado,
     tipo: TipoDoProcesso.Merito,
-    relator: {
-        id: 12314441,
-        nome: 'Luiz Fux',
-        abreviacao: 'MLF',
-        cadeira: {
-            criacao: '2021-08-02T03:00:00.000Z',
-            numero: 100,
-          }
-    },
-    redator: {
-        id: 12314441,
-        nome: 'Luiz Fux',
-        abreviacao: 'MLF',
-        cadeira: {
-            criacao: '2021-08-02T03:00:00.000Z',
-            numero: 100,
-          }
-    },
+    relator: ministro[10],
+    redator: ministro[10],
     capitulos: [
       {
         id: 123455,
@@ -257,24 +242,8 @@ export const processos: Processo[] = [
     nome: 'Embargo de declaração',
     situacao: SituacaoDoProcesso.Pautado,
     tipo: TipoDoProcesso.Merito,
-    relator: {
-        id: 12314441,
-        nome: 'Luiz Fux',
-        abreviacao: 'MLF',
-        cadeira: {
-            criacao: '2021-08-02T03:00:00.000Z',
-            numero: 100,
-          }
-    },
-    redator: {
-        id: 12314441,
-        nome: 'Luiz Fux',
-        abreviacao: 'MLF',
-        cadeira: {
-            criacao: '2021-08-02T03:00:00.000Z',
-            numero: 100,
-          }
-    },
+    relator: ministro[10],
+    redator: ministro[10],
     capitulos: [
       {
         id: 123455,
