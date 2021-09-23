@@ -1,81 +1,84 @@
-<div class="sm:items-center w-screen sm:justify-between p-3 pb-11 sm:pt-2 sm:pb-10 sm:px-5 bg-default dark:bg-transparent">
-    <div class="flex flex-row justify-between">
-        <app-filtro
-        ></app-filtro>
+<div class="absolute inset-0 flex flex-col min-w-0 overflow-hidden">
+    <div class="sm:items-center sm:justify-between p-3 pb-11 sm:pt-2 sm:pb-10 sm:px-5 bg-default dark:bg-transparent">
+        <div class="flex flex-row justify-between">
+            <app-filtro
+            ></app-filtro>
 
-        <app-contador
-            [sessao]="sessao"
-        ></app-contador>
+            <app-contador
+                [sessao]="sessao"
+            ></app-contador>
+        </div>
     </div>
-
-    <mat-expansion-panel class="flex flex-col" *ngFor="let processo of processos">
-        <mat-expansion-panel-header [collapsedHeight]="'80px'" class="h-full w-full specific-class">
-            <div class="flex flex-col w-full">
-                <div class="flex flex-row flex-wrap py-2">
-                    <div class="flex flex-nowrap flex-row">
-                        <div class="flex">
-                            <div>
-                                <mat-checkbox
-                                    color="primary"
-                                >
-                                </mat-checkbox>
+    <div class="flex-auto  overflow-y-auto px-8 py-4" cdkScrollable>
+        <mat-expansion-panel class="flex flex-col" *ngFor="let processo of processos">
+            <mat-expansion-panel-header [collapsedHeight]="'80px'" class="h-full w-full specific-class">
+                <div class="flex flex-col w-full">
+                    <div class="flex flex-row flex-wrap py-2">
+                        <div class="flex flex-nowrap flex-row">
+                            <div class="flex">
+                                <div>
+                                    <mat-checkbox
+                                        color="primary"
+                                    >
+                                    </mat-checkbox>
+                                </div>
+                            </div>
+                            <img
+                                *ngIf="(processo.relator && processo.relator.imagem) || (processo.redator && processo.redator.imagem)"
+                                [src]="processo?.relator?.imagem ? processo.relator.imagem : processo.redator.imagem"
+                                alt="Imagem de perfil"
+                                class="w-14 h-14 mr-6 mb-4 rounded-full"
+                            >
+                            <div class="flex flex-col flex-none mr-14">
+                                <div class="flex flex-row">
+                                    <div class="text-lg font-medium text-primary leading-tight">
+                                        {{ processo.classe }} {{ processo.numero }}
+                                    </div>
+                                </div>
+                                <div class="flex flex-row" *ngIf="processo.relator || processo.redator">
+                                    <div class="text-md leading-tight font-bold">
+                                        {{ processo.relator.abreviacao || processo.redator.abreviacao }}
+                                    </div>
+                                    <div class="text-md text-secondary ml-2 leading-tight">
+                                        {{ processo.relator ? "Relator" : "Redator" }}
+                                    </div>
+                                </div>
+                                <mat-chip-list #chipList class="mt-2">
+                                    <mat-chip class="flex-none border-green-700 border-solid border-2 bg-transparent text-green-700">
+                                        {{ processo.capitulos[0].dispositivo }}
+                                    </mat-chip>
+                                </mat-chip-list>
+                            </div>
+                            <div class="flex flex-col text-xl">
+                                {{ processo.nome }}
                             </div>
                         </div>
-                        <img
-                            *ngIf="(processo.relator && processo.relator.imagem) || (processo.redator && processo.redator.imagem)"
-                            [src]="processo?.relator?.imagem ? processo.relator.imagem : processo.redator.imagem"
-                            alt="Imagem de perfil"
-                            class="w-14 h-14 mr-6 mb-4 rounded-full"
-                        >
-                        <div class="flex flex-col flex-none mr-14">
-                            <div class="flex flex-row">
-                                <div class="text-lg font-medium text-primary leading-tight">
-                                    {{ processo.classe }} {{ processo.numero }}
-                                </div>
-                            </div>
-                            <div class="flex flex-row" *ngIf="processo.relator || processo.redator">
-                                <div class="text-md leading-tight font-bold">
-                                    {{ processo.relator.abreviacao || processo.redator.abreviacao }}
-                                </div>
-                                <div class="text-md text-secondary ml-2 leading-tight">
-                                    {{ processo.relator ? "Relator" : "Redator" }}
-                                </div>
-                            </div>
-                            <mat-chip-list #chipList class="mt-2">
-                                <mat-chip class="flex-none border-green-700 border-solid border-2 bg-transparent text-green-700">
-                                    {{ processo.capitulos[0].dispositivo }}
-                                </mat-chip>
-                            </mat-chip-list>
+                    </div>
+                    <div class="flex flex-row w-full">
+                        <div class="w-1/2">
+                            <app-carrossel
+                                [idChip]="'idTags'"
+                                [chips]="processo.lista"
+                                [lastId]="lastId"
+                            ></app-carrossel>
                         </div>
-                        <div class="flex flex-col text-xl">
-                            {{ processo.nome }}
+                        <div class="w-1/2">
+                            <app-carrossel
+                                [idChip]="'idDocs'"
+                                [chips]="processo.documentos"
+                                [lastId]="lastId"
+                                [hasIcon]="true"
+                                [class]="['border-primary', 'border-solid', 'border-2', 'bg-transparent', 'text-primary']"
+                                (linkDoPdfSelecionado)="abrirLink($event)"
+                            ></app-carrossel>
                         </div>
                     </div>
                 </div>
-                <div class="flex flex-row w-full">
-                    <div class="w-1/2">
-                        <app-carrossel
-                            [idChip]="'idTags'"
-                            [chips]="processo.lista"
-                            [lastId]="lastId"
-                        ></app-carrossel>
-                    </div>
-                    <div class="w-1/2">
-                        <app-carrossel
-                            [idChip]="'idDocs'"
-                            [chips]="processo.documentos"
-                            [lastId]="lastId"
-                            [hasIcon]="true"
-                            [class]="['border-primary', 'border-solid', 'border-2', 'bg-transparent', 'text-primary']"
-                            (linkDoPdfSelecionado)="abrirLink($event)"
-                        ></app-carrossel>
-                    </div>
-                </div>
-            </div>
 
 
 
-        </mat-expansion-panel-header>
-        <app-processo-capitulo [processo]="processo"></app-processo-capitulo>
-    </mat-expansion-panel>
+            </mat-expansion-panel-header>
+            <app-processo-capitulo [processo]="processo"></app-processo-capitulo>
+        </mat-expansion-panel>
+    </div>
 </div>
