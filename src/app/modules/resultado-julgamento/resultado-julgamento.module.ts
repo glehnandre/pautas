@@ -7,6 +7,8 @@ import { SharedModule } from 'app/shared/shared.module';
 import { FuseCardModule } from '@fuse/components/card';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatTabsModule } from '@angular/material/tabs'; 
+import { MatChipsModule } from '@angular/material/chips';
 
 const ResultadoJulgamentoRoutes: Route[] = [
   {
@@ -27,6 +29,8 @@ const ResultadoJulgamentoRoutes: Route[] = [
     FuseCardModule,
     MatCheckboxModule,
     MatProgressSpinnerModule,
+    MatTabsModule,
+    MatChipsModule,
   ]
 })
 export class ResultadoJulgamentoModule { }

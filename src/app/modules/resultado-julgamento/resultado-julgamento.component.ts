@@ -1,6 +1,5 @@
 import { HttpParams } from '@angular/common/http';
-import { Component, OnDestroy, OnInit } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { Processo } from '../acervo/model/interfaces/processo.interface';
 import { Voto } from '../acervo/model/interfaces/voto.interface';
 import { ProcessoService } from '../services/processo.service';
@@ -9,7 +8,7 @@ import { ResultadoJulgamentoService } from '../services/resultado-julgamento.ser
 @Component({
   selector: 'app-resultado-julgamento',
   templateUrl: './resultado-julgamento.component.html',
-  styleUrls: ['./resultado-julgamento.component.scss']
+  styleUrls: ['./resultado-julgamento.component.scss'],
 })
 export class ResultadoJulgamentoComponent implements OnInit {
 
