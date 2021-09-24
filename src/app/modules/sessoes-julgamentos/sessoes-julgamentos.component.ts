@@ -26,7 +26,8 @@ export class SessoesJulgamentosComponent implements OnInit {
   link: SafeResourceUrl;
 
   label: string;
-  tipo: string;
+  tipo: string[];
+  tamanho: number=1;
   relacionamento: string;
   descricao: string;
   observacao: string;
@@ -55,7 +56,7 @@ export class SessoesJulgamentosComponent implements OnInit {
                   abreviacao = `${processo.classe}-100`;
                 }
                 else abreviacao = `${processo.classe}-${processo.abreviacao}`;
-                this.impedimentos.push(this._processoService.obterImpedimentosDoMinistro(abreviacao, "DT").pipe(delay(5000)));
+                this.impedimentos.push(this._processoService.obterImpedimentosDoMinistro(abreviacao, "DT"));
                 
                 this.tags = processo.lista.map(tag => tag.descricao);
 
@@ -88,8 +89,10 @@ export class SessoesJulgamentosComponent implements OnInit {
    * @param impedimento objeto impedimento que será aberto
    */
    abrirJanela(impedimento: Impedimento): void {
-      this.label = (impedimento.tipo=="Suspeição") ? "Possível motivo de suspeição" : "Possível motivo de impedimento";
+      const hasSuspeicao = (impedimento.tipo.indexOf("Suspeição")!=-1);
+      this.label = (hasSuspeicao) ? "Possível motivo de suspeição" : "Possível motivo de impedimento";
       this.tipo = impedimento.tipo;
+      this.tamanho = this.tipo.length;
       this.relacionamento = impedimento.relacionamento;
       this.descricao = impedimento.descricao;
       this.observacao = impedimento.observacao;
