@@ -385,19 +385,79 @@ export const votos: Voto[] = [
     id:             1,
     situacao:       'situacao',
     nome:           'nome',	
-    conteudo:       `
-                    <h2>Primeira Preliminar</h2>
-                    <p>
-                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Adipisci quasi nobis necessitatibus? Maiores aspernatur maxime quidem perspiciatis, illo itaque veniam, repellat vero, rerum corporis distinctio modi in voluptatem excepturi voluptas.
-                    </p>
-
-                    <h2>Mérito</h2>
-                    <p>
-                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Adipisci quasi nobis necessitatibus? Maiores aspernatur maxime quidem perspiciatis, illo itaque veniam, repellat vero, rerum corporis distinctio modi in voluptatem excepturi voluptas.
-                    </p>
-                    `,
+    conteudo:       'PGgyPlByaW1laXJhIFByZWxpbWluYXI8L2gyPg0KICAgICAgICAgICAgICAgICAgICA8cD4NCiAgICAgICAgICAgICAgICAgICAgTG9yZW0gaXBzdW0gZG9sb3Igc2l0IGFtZXQsIGNvbnNlY3RldHVyIGFkaXBpc2ljaW5nIGVsaXQuIEFkaXBpc2NpIHF1YXNpIG5vYmlzIG5lY2Vzc2l0YXRpYnVzPyBNYWlvcmVzIGFzcGVybmF0dXIgbWF4aW1lIHF1aWRlbSBwZXJzcGljaWF0aXMsIGlsbG8gaXRhcXVlIHZlbmlhbSwgcmVwZWxsYXQgdmVybywgcmVydW0gY29ycG9yaXMgZGlzdGluY3RpbyBtb2RpIGluIHZvbHVwdGF0ZW0gZXhjZXB0dXJpIHZvbHVwdGFzLg0KICAgICAgICAgICAgICAgICAgICA8L3A+DQoNCiAgICAgICAgICAgICAgICAgICAgPGgyPk3DqXJpdG88L2gyPg0KICAgICAgICAgICAgICAgICAgICA8cD4NCiAgICAgICAgICAgICAgICAgICAgTG9yZW0gaXBzdW0gZG9sb3Igc2l0IGFtZXQsIGNvbnNlY3RldHVyIGFkaXBpc2ljaW5nIGVsaXQuIEFkaXBpc2NpIHF1YXNpIG5vYmlzIG5lY2Vzc2l0YXRpYnVzPyBNYWlvcmVzIGFzcGVybmF0dXIgbWF4aW1lIHF1aWRlbSBwZXJzcGljaWF0aXMsIGlsbG8gaXRhcXVlIHZlbmlhbSwgcmVwZWxsYXQgdmVybywgcmVydW0gY29ycG9yaXMgZGlzdGluY3RpbyBtb2RpIGluIHZvbHVwdGF0ZW0gZXhjZXB0dXJpIHZvbHVwdGFzLg0KICAgICAgICAgICAgICAgICAgICA8L3A+',
     autor:          ministro[0],
     tipo:           'VOGAL',
-    acompanharam:   [ ministro[1], ministro[2], ministro[3] ],
+    acompanharam:   [ ministro[1], ministro[2], ministro[3], ministro[4], ministro[5], ministro[6], ministro[7] ],
+  },
+
+  {
+    id:             1,
+    situacao:       'situacao',
+    nome:           'nome',	
+    conteudo:       'PGgyPlByaW1laXJhIFByZWxpbWluYXI8L2gyPg0KICAgICAgICAgICAgICAgICAgICA8cD4NCiAgICAgICAgICAgICAgICAgICAgTG9yZW0gaXBzdW0gZG9sb3Igc2l0IGFtZXQsIGNvbnNlY3RldHVyIGFkaXBpc2ljaW5nIGVsaXQuIEFkaXBpc2NpIHF1YXNpIG5vYmlzIG5lY2Vzc2l0YXRpYnVzPyBNYWlvcmVzIGFzcGVybmF0dXIgbWF4aW1lIHF1aWRlbSBwZXJzcGljaWF0aXMsIGlsbG8gaXRhcXVlIHZlbmlhbSwgcmVwZWxsYXQgdmVybywgcmVydW0gY29ycG9yaXMgZGlzdGluY3RpbyBtb2RpIGluIHZvbHVwdGF0ZW0gZXhjZXB0dXJpIHZvbHVwdGFzLg0KICAgICAgICAgICAgICAgICAgICA8L3A+DQoNCiAgICAgICAgICAgICAgICAgICAgPGgyPk3DqXJpdG88L2gyPg0KICAgICAgICAgICAgICAgICAgICA8cD4NCiAgICAgICAgICAgICAgICAgICAgTG9yZW0gaXBzdW0gZG9sb3Igc2l0IGFtZXQsIGNvbnNlY3RldHVyIGFkaXBpc2ljaW5nIGVsaXQuIEFkaXBpc2NpIHF1YXNpIG5vYmlzIG5lY2Vzc2l0YXRpYnVzPyBNYWlvcmVzIGFzcGVybmF0dXIgbWF4aW1lIHF1aWRlbSBwZXJzcGljaWF0aXMsIGlsbG8gaXRhcXVlIHZlbmlhbSwgcmVwZWxsYXQgdmVybywgcmVydW0gY29ycG9yaXMgZGlzdGluY3RpbyBtb2RpIGluIHZvbHVwdGF0ZW0gZXhjZXB0dXJpIHZvbHVwdGFzLg0KICAgICAgICAgICAgICAgICAgICA8L3A+',
+    autor:          ministro[3],
+    tipo:           'RELATOR',
+    acompanharam:   [ ministro[2], ministro[1], ministro[3], ministro[4], ministro[6], ministro[7], ministro[8] ],
+  },
+
+  {
+    id:             1,
+    situacao:       'situacao',
+    nome:           'nome',	
+    conteudo:       'PGgyPlByaW1laXJhIFByZWxpbWluYXI8L2gyPg0KICAgICAgICAgICAgICAgICAgICA8cD4NCiAgICAgICAgICAgICAgICAgICAgTG9yZW0gaXBzdW0gZG9sb3Igc2l0IGFtZXQsIGNvbnNlY3RldHVyIGFkaXBpc2ljaW5nIGVsaXQuIEFkaXBpc2NpIHF1YXNpIG5vYmlzIG5lY2Vzc2l0YXRpYnVzPyBNYWlvcmVzIGFzcGVybmF0dXIgbWF4aW1lIHF1aWRlbSBwZXJzcGljaWF0aXMsIGlsbG8gaXRhcXVlIHZlbmlhbSwgcmVwZWxsYXQgdmVybywgcmVydW0gY29ycG9yaXMgZGlzdGluY3RpbyBtb2RpIGluIHZvbHVwdGF0ZW0gZXhjZXB0dXJpIHZvbHVwdGFzLg0KICAgICAgICAgICAgICAgICAgICA8L3A+DQoNCiAgICAgICAgICAgICAgICAgICAgPGgyPk3DqXJpdG88L2gyPg0KICAgICAgICAgICAgICAgICAgICA8cD4NCiAgICAgICAgICAgICAgICAgICAgTG9yZW0gaXBzdW0gZG9sb3Igc2l0IGFtZXQsIGNvbnNlY3RldHVyIGFkaXBpc2ljaW5nIGVsaXQuIEFkaXBpc2NpIHF1YXNpIG5vYmlzIG5lY2Vzc2l0YXRpYnVzPyBNYWlvcmVzIGFzcGVybmF0dXIgbWF4aW1lIHF1aWRlbSBwZXJzcGljaWF0aXMsIGlsbG8gaXRhcXVlIHZlbmlhbSwgcmVwZWxsYXQgdmVybywgcmVydW0gY29ycG9yaXMgZGlzdGluY3RpbyBtb2RpIGluIHZvbHVwdGF0ZW0gZXhjZXB0dXJpIHZvbHVwdGFzLg0KICAgICAgICAgICAgICAgICAgICA8L3A+',
+    autor:          ministro[2],
+    tipo:           'VISTA',
+    acompanharam:   [ ministro[5], ministro[2], ministro[7], ministro[4], ministro[2], ministro[6] ],
+  },
+
+  {
+    id:             1,
+    situacao:       'situacao',
+    nome:           'nome',	
+    conteudo:       'PGgyPlByaW1laXJhIFByZWxpbWluYXI8L2gyPg0KICAgICAgICAgICAgICAgICAgICA8cD4NCiAgICAgICAgICAgICAgICAgICAgTG9yZW0gaXBzdW0gZG9sb3Igc2l0IGFtZXQsIGNvbnNlY3RldHVyIGFkaXBpc2ljaW5nIGVsaXQuIEFkaXBpc2NpIHF1YXNpIG5vYmlzIG5lY2Vzc2l0YXRpYnVzPyBNYWlvcmVzIGFzcGVybmF0dXIgbWF4aW1lIHF1aWRlbSBwZXJzcGljaWF0aXMsIGlsbG8gaXRhcXVlIHZlbmlhbSwgcmVwZWxsYXQgdmVybywgcmVydW0gY29ycG9yaXMgZGlzdGluY3RpbyBtb2RpIGluIHZvbHVwdGF0ZW0gZXhjZXB0dXJpIHZvbHVwdGFzLg0KICAgICAgICAgICAgICAgICAgICA8L3A+DQoNCiAgICAgICAgICAgICAgICAgICAgPGgyPk3DqXJpdG88L2gyPg0KICAgICAgICAgICAgICAgICAgICA8cD4NCiAgICAgICAgICAgICAgICAgICAgTG9yZW0gaXBzdW0gZG9sb3Igc2l0IGFtZXQsIGNvbnNlY3RldHVyIGFkaXBpc2ljaW5nIGVsaXQuIEFkaXBpc2NpIHF1YXNpIG5vYmlzIG5lY2Vzc2l0YXRpYnVzPyBNYWlvcmVzIGFzcGVybmF0dXIgbWF4aW1lIHF1aWRlbSBwZXJzcGljaWF0aXMsIGlsbG8gaXRhcXVlIHZlbmlhbSwgcmVwZWxsYXQgdmVybywgcmVydW0gY29ycG9yaXMgZGlzdGluY3RpbyBtb2RpIGluIHZvbHVwdGF0ZW0gZXhjZXB0dXJpIHZvbHVwdGFzLg0KICAgICAgICAgICAgICAgICAgICA8L3A+',
+    autor:          ministro[4],
+    tipo:           'PRESIDENTE',
+    acompanharam:   [ ministro[1], ministro[2], ministro[3], ministro[4], ministro[5], ministro[6], ministro[7], ministro[8] ],
+  },
+
+  {
+    id:             1,
+    situacao:       'situacao',
+    nome:           'nome',	
+    conteudo:       'PGgyPlByaW1laXJhIFByZWxpbWluYXI8L2gyPg0KICAgICAgICAgICAgICAgICAgICA8cD4NCiAgICAgICAgICAgICAgICAgICAgTG9yZW0gaXBzdW0gZG9sb3Igc2l0IGFtZXQsIGNvbnNlY3RldHVyIGFkaXBpc2ljaW5nIGVsaXQuIEFkaXBpc2NpIHF1YXNpIG5vYmlzIG5lY2Vzc2l0YXRpYnVzPyBNYWlvcmVzIGFzcGVybmF0dXIgbWF4aW1lIHF1aWRlbSBwZXJzcGljaWF0aXMsIGlsbG8gaXRhcXVlIHZlbmlhbSwgcmVwZWxsYXQgdmVybywgcmVydW0gY29ycG9yaXMgZGlzdGluY3RpbyBtb2RpIGluIHZvbHVwdGF0ZW0gZXhjZXB0dXJpIHZvbHVwdGFzLg0KICAgICAgICAgICAgICAgICAgICA8L3A+DQoNCiAgICAgICAgICAgICAgICAgICAgPGgyPk3DqXJpdG88L2gyPg0KICAgICAgICAgICAgICAgICAgICA8cD4NCiAgICAgICAgICAgICAgICAgICAgTG9yZW0gaXBzdW0gZG9sb3Igc2l0IGFtZXQsIGNvbnNlY3RldHVyIGFkaXBpc2ljaW5nIGVsaXQuIEFkaXBpc2NpIHF1YXNpIG5vYmlzIG5lY2Vzc2l0YXRpYnVzPyBNYWlvcmVzIGFzcGVybmF0dXIgbWF4aW1lIHF1aWRlbSBwZXJzcGljaWF0aXMsIGlsbG8gaXRhcXVlIHZlbmlhbSwgcmVwZWxsYXQgdmVybywgcmVydW0gY29ycG9yaXMgZGlzdGluY3RpbyBtb2RpIGluIHZvbHVwdGF0ZW0gZXhjZXB0dXJpIHZvbHVwdGFzLg0KICAgICAgICAgICAgICAgICAgICA8L3A+',
+    autor:          ministro[5],
+    tipo:           'VOGAL',
+    acompanharam:   [ ministro[1], ministro[2], ministro[3], ministro[4], ministro[5], ministro[6], ministro[7], ministro[8] ],
+  },
+
+  {
+    id:             1,
+    situacao:       'situacao',
+    nome:           'nome',	
+    conteudo:       'PGgyPlByaW1laXJhIFByZWxpbWluYXI8L2gyPg0KICAgICAgICAgICAgICAgICAgICA8cD4NCiAgICAgICAgICAgICAgICAgICAgTG9yZW0gaXBzdW0gZG9sb3Igc2l0IGFtZXQsIGNvbnNlY3RldHVyIGFkaXBpc2ljaW5nIGVsaXQuIEFkaXBpc2NpIHF1YXNpIG5vYmlzIG5lY2Vzc2l0YXRpYnVzPyBNYWlvcmVzIGFzcGVybmF0dXIgbWF4aW1lIHF1aWRlbSBwZXJzcGljaWF0aXMsIGlsbG8gaXRhcXVlIHZlbmlhbSwgcmVwZWxsYXQgdmVybywgcmVydW0gY29ycG9yaXMgZGlzdGluY3RpbyBtb2RpIGluIHZvbHVwdGF0ZW0gZXhjZXB0dXJpIHZvbHVwdGFzLg0KICAgICAgICAgICAgICAgICAgICA8L3A+DQoNCiAgICAgICAgICAgICAgICAgICAgPGgyPk3DqXJpdG88L2gyPg0KICAgICAgICAgICAgICAgICAgICA8cD4NCiAgICAgICAgICAgICAgICAgICAgTG9yZW0gaXBzdW0gZG9sb3Igc2l0IGFtZXQsIGNvbnNlY3RldHVyIGFkaXBpc2ljaW5nIGVsaXQuIEFkaXBpc2NpIHF1YXNpIG5vYmlzIG5lY2Vzc2l0YXRpYnVzPyBNYWlvcmVzIGFzcGVybmF0dXIgbWF4aW1lIHF1aWRlbSBwZXJzcGljaWF0aXMsIGlsbG8gaXRhcXVlIHZlbmlhbSwgcmVwZWxsYXQgdmVybywgcmVydW0gY29ycG9yaXMgZGlzdGluY3RpbyBtb2RpIGluIHZvbHVwdGF0ZW0gZXhjZXB0dXJpIHZvbHVwdGFzLg0KICAgICAgICAgICAgICAgICAgICA8L3A+',
+    autor:          ministro[6],
+    tipo:           'VOGAL',
+    acompanharam:   [ ministro[1], ministro[2], ministro[3], ministro[4], ministro[5], ministro[6], ministro[7], ministro[8] ],
+  },
+
+  {
+    id:             1,
+    situacao:       'situacao',
+    nome:           'nome',	
+    conteudo:       'PGgyPlByaW1laXJhIFByZWxpbWluYXI8L2gyPg0KICAgICAgICAgICAgICAgICAgICA8cD4NCiAgICAgICAgICAgICAgICAgICAgTG9yZW0gaXBzdW0gZG9sb3Igc2l0IGFtZXQsIGNvbnNlY3RldHVyIGFkaXBpc2ljaW5nIGVsaXQuIEFkaXBpc2NpIHF1YXNpIG5vYmlzIG5lY2Vzc2l0YXRpYnVzPyBNYWlvcmVzIGFzcGVybmF0dXIgbWF4aW1lIHF1aWRlbSBwZXJzcGljaWF0aXMsIGlsbG8gaXRhcXVlIHZlbmlhbSwgcmVwZWxsYXQgdmVybywgcmVydW0gY29ycG9yaXMgZGlzdGluY3RpbyBtb2RpIGluIHZvbHVwdGF0ZW0gZXhjZXB0dXJpIHZvbHVwdGFzLg0KICAgICAgICAgICAgICAgICAgICA8L3A+DQoNCiAgICAgICAgICAgICAgICAgICAgPGgyPk3DqXJpdG88L2gyPg0KICAgICAgICAgICAgICAgICAgICA8cD4NCiAgICAgICAgICAgICAgICAgICAgTG9yZW0gaXBzdW0gZG9sb3Igc2l0IGFtZXQsIGNvbnNlY3RldHVyIGFkaXBpc2ljaW5nIGVsaXQuIEFkaXBpc2NpIHF1YXNpIG5vYmlzIG5lY2Vzc2l0YXRpYnVzPyBNYWlvcmVzIGFzcGVybmF0dXIgbWF4aW1lIHF1aWRlbSBwZXJzcGljaWF0aXMsIGlsbG8gaXRhcXVlIHZlbmlhbSwgcmVwZWxsYXQgdmVybywgcmVydW0gY29ycG9yaXMgZGlzdGluY3RpbyBtb2RpIGluIHZvbHVwdGF0ZW0gZXhjZXB0dXJpIHZvbHVwdGFzLg0KICAgICAgICAgICAgICAgICAgICA8L3A+',
+    autor:          ministro[7],
+    tipo:           'VOGAL',
+    acompanharam:   [ ministro[1], ministro[2], ministro[3], ministro[4], ministro[5], ministro[6], ministro[7], ministro[8] ],
+  },
+
+  {
+    id:             1,
+    situacao:       'situacao',
+    nome:           'nome',	
+    conteudo:       'PGgyPlByaW1laXJhIFByZWxpbWluYXI8L2gyPg0KICAgICAgICAgICAgICAgICAgICA8cD4NCiAgICAgICAgICAgICAgICAgICAgTG9yZW0gaXBzdW0gZG9sb3Igc2l0IGFtZXQsIGNvbnNlY3RldHVyIGFkaXBpc2ljaW5nIGVsaXQuIEFkaXBpc2NpIHF1YXNpIG5vYmlzIG5lY2Vzc2l0YXRpYnVzPyBNYWlvcmVzIGFzcGVybmF0dXIgbWF4aW1lIHF1aWRlbSBwZXJzcGljaWF0aXMsIGlsbG8gaXRhcXVlIHZlbmlhbSwgcmVwZWxsYXQgdmVybywgcmVydW0gY29ycG9yaXMgZGlzdGluY3RpbyBtb2RpIGluIHZvbHVwdGF0ZW0gZXhjZXB0dXJpIHZvbHVwdGFzLg0KICAgICAgICAgICAgICAgICAgICA8L3A+DQoNCiAgICAgICAgICAgICAgICAgICAgPGgyPk3DqXJpdG88L2gyPg0KICAgICAgICAgICAgICAgICAgICA8cD4NCiAgICAgICAgICAgICAgICAgICAgTG9yZW0gaXBzdW0gZG9sb3Igc2l0IGFtZXQsIGNvbnNlY3RldHVyIGFkaXBpc2ljaW5nIGVsaXQuIEFkaXBpc2NpIHF1YXNpIG5vYmlzIG5lY2Vzc2l0YXRpYnVzPyBNYWlvcmVzIGFzcGVybmF0dXIgbWF4aW1lIHF1aWRlbSBwZXJzcGljaWF0aXMsIGlsbG8gaXRhcXVlIHZlbmlhbSwgcmVwZWxsYXQgdmVybywgcmVydW0gY29ycG9yaXMgZGlzdGluY3RpbyBtb2RpIGluIHZvbHVwdGF0ZW0gZXhjZXB0dXJpIHZvbHVwdGFzLg0KICAgICAgICAgICAgICAgICAgICA8L3A+',
+    autor:          ministro[8],
+    tipo:           'VOGAL',
+    acompanharam:   [ ministro[1], ministro[2], ministro[3], ministro[4], ministro[5], ministro[6], ministro[7], ministro[8] ],
   },
 ];

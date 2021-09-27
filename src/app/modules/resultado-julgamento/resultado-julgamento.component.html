@@ -22,16 +22,12 @@
 
     <hr class="m-0 p-0" />
 
-    <header class="flex flex-col sm:flex-row px-8 pt-4 bg-white">
+    <header class="flex px-8 pt-4 bg-white">
         <app-cabecalho-relator
             class="sm:min-w-80 sm:mr-4"
             [processo]="'ADI100-Ag-Ag-Ag'"
             [colegiado]="'pleno'"
         ></app-cabecalho-relator>
-
-        <app-contador
-            [sessao]="dados?.sessao"
-        ></app-contador>
     </header>
 
     <!-- Main -->
@@ -41,26 +37,19 @@
             <div class="sm:col-span-2 lg:col-span-3">
                 <fuse-card class="flex flex-col my-2 p-4">
                     <mat-tab-group animationDuration="0ms">
-                        <mat-tab class="tab-click" label="Integra do voto do Relator" >
-                            <div class="flex flex-row justify-start items-center">
-                                <img class="w-14 h-14 mr-4" [src]="voto?.autor?.imagem" [alt]="voto?.autor?.nome">
-                                
-                                <section class="">
-                                    <h2 class="mb-0 pb-0">{{voto?.autor?.nome}}</h2>
-                                    <mat-chip-list #chipList class="mt-2">
-                                        <mat-chip class="flex-none border-green-700 border-solid border-2 bg-transparent text-green-700">
-                                            {{voto?.tipo}}
-                                        </mat-chip>
-                                    </mat-chip-list>
-                                </section>
-                            </div>
-
-                            <div class="my-4" [innerHtml]="voto?.conteudo"></div>
+                        <mat-tab 
+                            class="tab-click" 
+                            *ngFor="let voto of votos" 
+                            [label]="voto.autor.nome"
+                        >
+                            <app-conteudo-voto-ministro
+                                [voto]="voto"
+                            ></app-conteudo-voto-ministro>
                         </mat-tab>
 
-                        <mat-tab class="tab-click" *ngFor="let ministro of voto?.acompanharam" [label]="'Voto ' + ministro.nome">
+                        <!--<mat-tab class="tab-click" *ngFor="let ministro of voto?.acompanharam" [label]="'Voto ' + ministro.nome">
                             {{ministro.nome}}
-                        </mat-tab>
+                        </mat-tab>-->
                     </mat-tab-group>
                 </fuse-card>
             </div>

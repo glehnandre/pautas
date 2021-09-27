@@ -1,5 +1,6 @@
 import { HttpParams } from '@angular/common/http';
-import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { Ministro } from '../acervo/model/interfaces/ministro.interface';
 import { Processo } from '../acervo/model/interfaces/processo.interface';
 import { Voto } from '../acervo/model/interfaces/voto.interface';
 import { ProcessoService } from '../services/processo.service';
@@ -16,7 +17,7 @@ export class ResultadoJulgamentoComponent implements OnInit {
 
   processosPorTags: Processo[] = [];
   processosSelecioandos: Processo[] = [];
-  voto: Voto = {} as Voto;
+  votos: Voto[] = [];
 
   constructor(
     private _resultadoJulgamento: ResultadoJulgamentoService,
@@ -44,8 +45,8 @@ export class ResultadoJulgamentoComponent implements OnInit {
         const { classe, numero, abreviacao } = this.dados.processo;
 
         this._processoService.obterVotosDoProcesso(`${classe}${numero}-${abreviacao}`).subscribe({
-          next: (voto) => {
-            this.voto = voto;
+          next: (votos) => {
+            this.votos = votos;
           }
         });
       }
@@ -64,4 +65,5 @@ export class ResultadoJulgamentoComponent implements OnInit {
 
     console.log(this.processosSelecioandos)
   }
+
 }

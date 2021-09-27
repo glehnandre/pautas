@@ -65,8 +65,8 @@ export class ProcessoService {
     );
   }
 
-  public obterVotosDoProcesso(processo: string): Observable<Voto> {
-    return this._httpClient.get<Voto>(`processos/${processo}/votos`).pipe(
+  public obterVotosDoProcesso(processo: string): Observable<Voto[]> {
+    return this._httpClient.get<Voto[]>(`processos/${processo}/votos`).pipe(
       catchError(error => {
         console.log(error);
         return EMPTY;
