@@ -49,8 +49,11 @@ export class FormEscolherSessaoComponent implements OnInit {
       },
   ) {
         this.formJulgamento = this._fb.group({
-            nova_data: [moment(), Validators.required],
             sessao: ['', Validators.required],
+            colegiado: [''],
+            modalidade: [''],
+            data_inicio: ['', Validators.required],
+            data_fim: ['', Validators.required],
         });
 }
 
@@ -77,6 +80,10 @@ export class FormEscolherSessaoComponent implements OnInit {
     ctrlValue.month(normalizedMonth.month());
     this.setDataInicio(ctrlValue);
     datepicker.close();
+  }
+
+  atualizarSessao(form: any): void {
+      this.formJulgamento.setValue(form);
   }
 
   escolherSessao(): void {
