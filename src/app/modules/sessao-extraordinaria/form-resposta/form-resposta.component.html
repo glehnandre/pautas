@@ -14,18 +14,19 @@
             focus:border-blue-400 border-4 rounded-xl"
         ></textarea>
     </div>
-    <div mat-dialog-actions class="inline-block sm:flex-row items-center mr-2 mt-4 sm:mt-0 sm:ml-auto">
-
+    <div mat-dialog-actions class="flex flex-col-reverse sm:flex-row items-center
+        mr-2 my-4 sm:mt-0 sm:ml-auto space-x-4 space-y-2 sm:space-y-0"
+    >
         <button
-          class="ml-auto sm:ml-0 mr-4 order-last sm:order-none"
-          mat-button
+          class="w-3/4 sm:w-auto ml-3 mt-2"
+          mat-raised-button
           mat-dialog-close
         >
             Cancelar
         </button>
 
         <button
-          class="ml-auto sm:ml-0 mr-4 my-4 bg-red-600 text-white"
+          class="w-3/4 sm:w-auto bg-red-600 text-white"
           mat-raised-button
           (click)="recusar()"
           mat-dialog-close
@@ -33,7 +34,7 @@
             Recusar
         </button>
         <button
-          class="order-first sm:order-last"
+          class="w-3/4 sm:w-auto"
           color="primary"
           mat-raised-button
           (click)="aceitar()"

@@ -10,12 +10,19 @@
         <div class="mx-2">
             <app-pautar-form
                 [sessoes]="sessoes"
+                (statusPautarForm)="atualizarSessao($event)"
             >
             </app-pautar-form>
         </div>
 
     </div>
-    <div class="flex flex-row-reverse">
+    <div class="flex space-x-4 items-end mr-2">
+        <button
+          class="ml-auto bg-red-600 text-white"
+          mat-button mat-dialog-close>
+            <span>Cancelar</span>
+        </button>
+
         <button
           class="ml-auto sm:ml-0 mr-2"
           color="primary"
@@ -25,13 +32,5 @@
         >
             <span>Escolher Sessao</span>
         </button>
-
-        <button
-          class="ml-auto bg-red-600 text-white"
-          mat-button mat-dialog-close>
-            <span>Cancelar</span>
-        </button>
-
-
     </div>
 </div>

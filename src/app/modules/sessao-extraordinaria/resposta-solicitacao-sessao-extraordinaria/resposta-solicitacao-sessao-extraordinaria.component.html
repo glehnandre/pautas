@@ -2,17 +2,19 @@
 
     <!-- Header -->
     <div class="mb-4 bg-white dark:bg-transparent">
-        <div class="flex flex-row justify-center items-center sm:justify-between pl-8">
+        <div class="flex flex-col md:flex-row justify-center items-center sm:justify-between px-8">
             <h1 class="mt-2 text-primary font-medium">
                 Resposta de Solicitação de Sessão de Julgamento Extraordinária MMA
             </h1>
-            <div class="flex flex-row items-end mb-4 sm:my-4 ml-auto">
-                <button class="ml-auto sm:ml-0 mr-2" mat-button>
+            <div class="flex flex-col md:flex-row w-full md:w-auto
+                items-end mb-4 sm:my-4 ml-auto space-x-4 space-y-2 md:space-y-0"
+            >
+                <button class="w-full md:w-auto ml-auto sm:ml-0 mr-2" mat-button>
                     <span>Ciente</span>
                 </button>
 
                 <button
-                    class="ml-auto static"
+                    class="w-full ml-auto static"
                     color="primary"
                     mat-raised-button
                     (click)="modalEscolherSessao()"
