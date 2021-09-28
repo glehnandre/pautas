@@ -35,4 +35,13 @@ export class ConteudoVotoMinistroComponent implements OnInit {
     return 'aguarde...';
   }
 
+  public getNomesDosMinistrosQueAcompanharam(): string {
+    let nomes: string = '';
+
+    this.voto.acompanharam
+      .forEach(({nome}, index) => nomes += `${(index + 1)}º que acompanhou: ${nome}\n`);
+
+    return nomes;
+  }
+
 }

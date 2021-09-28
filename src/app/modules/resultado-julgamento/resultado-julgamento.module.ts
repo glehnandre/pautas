@@ -9,6 +9,8 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatTabsModule } from '@angular/material/tabs'; 
 import { MatChipsModule } from '@angular/material/chips';
+import { MatTooltipModule } from '@angular/material/tooltip'; 
+
 import { ConteudoVotoMinistroComponent } from './conteudo-voto-ministro/conteudo-voto-ministro.component';
 
 const ResultadoJulgamentoRoutes: Route[] = [
@@ -33,6 +35,7 @@ const ResultadoJulgamentoRoutes: Route[] = [
     MatProgressSpinnerModule,
     MatTabsModule,
     MatChipsModule,
+    MatTooltipModule,
   ]
 })
 export class ResultadoJulgamentoModule { }
