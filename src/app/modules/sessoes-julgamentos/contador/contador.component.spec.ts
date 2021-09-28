@@ -90,5 +90,28 @@ describe('ContadorComponent', () => {
     expect(component.horas).toBe('02');
     expect(component.minutos).toBe('37');
     expect(component.segundos).toBe('47');
+    expect(component.comecou).toBeFalse();
+  });
+
+  it('Quando a sessão já passou, deve informar mensagem informando', () => {
+    component.sessao = {
+        numero: 1000,
+        ano: 2021,
+        categoria: '',
+        colegiado: '',
+        data_inicio: String(new Date()),
+        data_fim: '',
+        modalidade: '',
+        tipo: '',
+        situacao: 'ABERTA',
+    };
+    component.atualizaTempo();
+    fixture.detectChanges();
+
+    expect(component.dias).toBe('00');
+    expect(component.horas).toBe('00');
+    expect(component.minutos).toBe('00');
+    expect(component.segundos).toBe('00');
+    expect(component.comecou).toBeTrue();
   });
 });
