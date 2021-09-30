@@ -60,6 +60,9 @@ export class ContadorComponent implements OnInit, OnDestroy {
   }
 
   recuperaDataDaSessao(): string {
+    if (!(this.sessao?.data_inicio && this.sessao?.data_fim)) {
+        return '';
+    }
     const dataInicio = new Date(this.sessao?.data_inicio);
     const dataFim = new Date(this.sessao?.data_fim);
 

@@ -34,31 +34,14 @@ export class SessoesJulgamentosComponent implements OnInit {
 
       const { numero, ano } = this._route.snapshot.queryParams;
 
-      /*this._processoService.listarProcessos().subscribe({
+      this._julgamentoService.listarSessoesDeJulgamento(numero, ano).subscribe({
         next: (data) => {
-            this.processos = data.map((processo) => {
-                this._processoService.obterDocumentosDoProcesso(processo.id).subscribe((documentos) => {
-                    this.documentos = documentos.map(documento => documento.nome);
+            this.sessao = data;
+        },
+      });
 
-                    const documentosTransformados = this.documentos as unknown[];
-
-                    processo.documentos = documentosTransformados as Documento[];
-                });
-
-                this.tags = processo.lista.map(tag => tag.descricao);
-
-                const tagsTransformadas = this.tags as unknown[];
-
-                processo.lista = tagsTransformadas as Tag[];
-
-                return processo;
-            });
-        }
-      });*/
       this._julgamentoService.listarProcessosPautadosNasSessoes(numero, ano).subscribe({
           next: (data) => {
-              console.table(data);
-
               this.processos = data.map((processo) => {
                 this._processoService.obterDocumentosDoProcesso(processo.id).subscribe((documentos) => {
                   this.documentos = documentos.map(documento => documento.nome);
@@ -76,13 +59,7 @@ export class SessoesJulgamentosComponent implements OnInit {
 
                 return processo;
               });
-          }
-      });
-
-      this._julgamentoService.listarSessoesDeJulgamento(numero, ano).subscribe({
-        next: (data) => {
-            this.sessao = data;
-        }
+          },
       });
   }
 }

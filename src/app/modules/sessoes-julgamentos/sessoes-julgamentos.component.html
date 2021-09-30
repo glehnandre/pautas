@@ -5,6 +5,7 @@
             ></app-filtro>
 
             <app-contador
+                *ngIf="(sessao | json) !== '{}'"
                 [sessao]="sessao"
             ></app-contador>
         </div>
