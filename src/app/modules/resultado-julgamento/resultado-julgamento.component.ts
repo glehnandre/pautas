@@ -1,64 +1,69 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { HttpParams } from '@angular/common/http';
+import { Component, OnInit } from '@angular/core';
+import { Ministro } from '../acervo/model/interfaces/ministro.interface';
+import { Processo } from '../acervo/model/interfaces/processo.interface';
+import { Voto } from '../acervo/model/interfaces/voto.interface';
+import { ProcessoService } from '../services/processo.service';
 import { ResultadoJulgamentoService } from '../services/resultado-julgamento.service';
 
 @Component({
   selector: 'app-resultado-julgamento',
   templateUrl: './resultado-julgamento.component.html',
-  styleUrls: ['./resultado-julgamento.component.scss']
+  styleUrls: ['./resultado-julgamento.component.scss'],
 })
-export class ResultadoJulgamentoComponent implements OnInit, OnDestroy {
+export class ResultadoJulgamentoComponent implements OnInit {
 
-  data_inicio: string = '2021-09-14T03:00:00.000Z';
-  data_fim: string = '2021-09-16T03:00:00.000Z';
-  cont: string = '';
-  idCronometro: any;
+  dados: any;
+
+  processosPorTags: Processo[] = [];
+  processosSelecioandos: Processo[] = [];
+  votos: Voto[] = [];
 
   constructor(
-    private resultadoJulgamento: ResultadoJulgamentoService,
-  ) { }
+    private _resultadoJulgamento: ResultadoJulgamentoService,
+    private _processoService: ProcessoService,
+  ) { 
+    
+  }
 
   ngOnInit(): void {
-    this.resultadoJulgamento.listarDecisoes().subscribe({
+    this._resultadoJulgamento.listarDecisoes().subscribe({
       next: (data) => {
+        this.dados = data;
         console.log(data)
+
+        const tags = this.dados.processo.lista.map(tag => tag.id);
+
+        this._processoService.listarProcessos(new HttpParams().set('tag', tags)).subscribe({
+          next: (processos) => {
+            setTimeout(() => {
+              this.processosPorTags = processos;
+            }, 3000)
+          }
+        });
+
+        const { classe, numero, abreviacao } = this.dados.processo;
+
+        this._processoService.obterVotosDoProcesso(`${classe}${numero}-${abreviacao}`).subscribe({
+          next: (votos) => {
+            this.votos = votos;
+          }
+        });
       }
     });
-    this.cronometro();
+
   }
 
-  ngOnDestroy(): void {
-    clearInterval(this.idCronometro);
-  }
+  public aplicarAsMesmasDecisoes(processo: Processo) {
+    const index = this.processosSelecioandos.findIndex(p => p.id === processo.id);
 
-  cronometro() {
-    let data = this.data_fim;
-    let falta = (new Date(data).getTime() - new Date().getTime()) / 1000;
-    let segundos = Math.round(falta % 60);
-    let minutos = Math.round(falta / 60 % 60);
-    let horas = Math.round(falta / 60 / 60 % 24);
-    let dias = Math.round(falta / 60 / 60 / 24);
-
-    if (falta <= 0) {
-      this.cont = `${0} dias - ${0} horas - ${0} minustos - ${0} segundos`;
-      return;
+    if (index !== -1) {
+      this.processosSelecioandos.splice(index, 1);
+    } else {
+      this.processosSelecioandos.push(processo);
     }
 
-    this.idCronometro = setInterval(() => {
-        if (segundos == 0) {
-            segundos = 60;
-            minutos--;
-        }
-        if (minutos == 0) {
-            minutos = 60;
-            horas--;
-        }
-        if (horas == 0) {
-            horas = 24;
-            dias--;
-        }
-        segundos--;
-        this.cont = `${dias} dias - ${horas} horas - ${minutos} minustos - ${segundos} segundos`;
-      }, 1000);
+    console.log(this.processosSelecioandos)
   }
 
 }

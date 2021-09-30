@@ -23,6 +23,8 @@ import { MatButtonModule } from '@angular/material/button';
 import { VisualizadorPdfComponent } from './visualizador-pdf/visualizador-pdf.component';
 import { CarrosselComponent } from './carrossel/carrossel.component';
 import { ProcessosSolicitacaoExtraordinariaComponent } from './processos-solicitacao-extraordinaria/processos-solicitacao-extraordinaria.component';
+import { ContadorComponent } from './contador/contador.component';
+import { FuseCardModule } from '@fuse/components/card';
 
 @NgModule({
     declarations: [
@@ -35,6 +37,7 @@ import { ProcessosSolicitacaoExtraordinariaComponent } from './processos-solicit
         CarrosselComponent,
         CabecalhoRelatorComponent,
         VisualizadorPdfComponent,
+        ContadorComponent,
     ],
     imports: [
         CommonModule,
@@ -53,6 +56,7 @@ import { ProcessosSolicitacaoExtraordinariaComponent } from './processos-solicit
         MatRadioModule,
         MatAutocompleteModule,
         FuseDrawerModule,
+        FuseCardModule,
     ],
     exports: [
         CommonModule,
@@ -66,6 +70,7 @@ import { ProcessosSolicitacaoExtraordinariaComponent } from './processos-solicit
         CarrosselComponent,
         CabecalhoRelatorComponent,
         VisualizadorPdfComponent,
+        ContadorComponent,
     ],
 })
 export class SharedModule

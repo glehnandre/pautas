@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { SessaoJulgamento } from '../../acervo/model/interfaces/sessao-julgamento.interface';
+import { SessaoJulgamento } from 'app/modules/acervo/model/interfaces/sessao-julgamento.interface';
 
 @Component({
   selector: 'app-contador',
@@ -58,13 +58,13 @@ export class ContadorComponent implements OnInit {
   }
 
   recuperaDataDaSessao(): string {
-    var data_inicio = new Date(this.sessao.data_inicio);
-    var data_fim = new Date(this.sessao.data_fim);
+    var data_inicio = new Date(this.sessao?.data_inicio);
+    var data_fim = new Date(this.sessao?.data_fim);
 
     return `${this.formatarData(data_inicio)} - ${this.formatarData(data_fim)}`;
   }
 
-  atualizaTempo(dataFim: Date = new Date()): void {
+  atualizaTempo(dataFim: Date = new Date(this.sessao?.data_fim)): void {
     var dataAtual = new Date();
 
     var tempoRestante = dataFim.getTime() - dataAtual.getTime();

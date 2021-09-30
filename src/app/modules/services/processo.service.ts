@@ -5,6 +5,7 @@ import { catchError } from 'rxjs/operators';
 import { Documento } from '../acervo/model/interfaces/documento.interface';
 import { Processo } from '../acervo/model/interfaces/processo.interface';
 import { Tag } from '../acervo/model/interfaces/tag.interface';
+import { Voto } from '../acervo/model/interfaces/voto.interface';
 import { StatusProcesso } from '../acervo/tabela/status/situacaoProcesso';
 
 @Injectable({
@@ -57,6 +58,15 @@ export class ProcessoService {
 
   public recuperarTagsDaApi(): Observable<Tag[]> {
     return this._httpClient.get<Tag[]>('tags').pipe(
+      catchError(error => {
+        console.log(error);
+        return EMPTY;
+      })
+    );
+  }
+
+  public obterVotosDoProcesso(processo: string): Observable<Voto[]> {
+    return this._httpClient.get<Voto[]>(`processos/${processo}/votos`).pipe(
       catchError(error => {
         console.log(error);
         return EMPTY;
