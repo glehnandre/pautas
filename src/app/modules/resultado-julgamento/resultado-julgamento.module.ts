@@ -17,6 +17,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select'; 
 import { MatIconModule } from '@angular/material/icon';
+import { FormDecisaoComponent } from './form-decisao/form-decisao.component';
 
 const ResultadoJulgamentoRoutes: Route[] = [
   {
@@ -29,6 +30,7 @@ const ResultadoJulgamentoRoutes: Route[] = [
   declarations: [
     ResultadoJulgamentoComponent,
     ConteudoVotoMinistroComponent,
+    FormDecisaoComponent,
   ],
   imports: [
     CommonModule,

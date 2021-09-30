@@ -87,57 +87,9 @@
                 >
                     <span matBadge="1" class="mr-auto mb-4 ml-2"></span>
 
-                    <form>
-                        <mat-form-field class="w-full mb-4" appearance="outline">
-                            <mat-label>Descrição do capítulo <span class="text-red-500">*</span></mat-label>
-                            <textarea matInput></textarea>
-                            <mat-hint>Descrição do que se trata o capítulo da decisão</mat-hint>
-                        </mat-form-field>
-
-                        <mat-form-field class="w-full mb-4" appearance="outline">
-                            <mat-label>Tipo <span class="text-red-500">*</span></mat-label>
-                            <mat-select>
-                                <mat-option *ngFor="let tipo of ['Preliminar']" [value]="tipo">
-                                    {{tipo}}
-                                </mat-option>
-                            </mat-select>
-                            <mat-hint>Informe o tipo</mat-hint>
-                        </mat-form-field>
-
-                        <mat-form-field class="w-full mb-4" appearance="outline">
-                            <mat-label>Dispositivo <span class="text-red-500">*</span></mat-label>
-                            <mat-select>
-                                <mat-option *ngFor="let dispositivo of ['Procedente']" [value]="dispositivo">
-                                    {{dispositivo}}
-                                </mat-option>
-                            </mat-select>
-                            <mat-hint>Informe o dispositivo</mat-hint>
-                        </mat-form-field>
-
-                        <mat-form-field class="w-full mb-4" appearance="outline">
-                            <mat-label>Ministros que acordam <span class="text-red-500">*</span></mat-label>
-                            <input matInput type="text" [value]="'Ricardo Lewandoski, Carmen Lúcia, Gilmar Mendes'">
-                            <mat-hint>Liste os ministros</mat-hint>
-                        </mat-form-field>
-
-                        <mat-form-field class="w-full mb-4" appearance="outline">
-                            <mat-label>Voto condutor <span class="text-red-500">*</span></mat-label>
-                            <input matInput type="text" [value]="'Ricardo Lewandoski'">
-                            <mat-hint>Informe qual foi o voto condutor</mat-hint>
-                        </mat-form-field>
-
-                        <mat-form-field class="w-full mb-4" appearance="outline">
-                            <mat-label>Concordam os ministros <span class="text-red-500">*</span></mat-label>
-                            <textarea matInput></textarea>
-                            <mat-hint>Descreva a decisão tomada pelo colegiado</mat-hint>
-                        </mat-form-field>
-
-                        <p class="mt-4 text-center">
-                            <button mat-raised-button color="primary">
-                                <mat-icon class="mr-1">add_circle</mat-icon> {{'Adicionar decisão' | uppercase}}
-                            </button>
-                        </p>
-                    </form>
+                    <app-form-decisao
+                        
+                    ></app-form-decisao>
                 </fuse-card>
             </div>
         </div>
