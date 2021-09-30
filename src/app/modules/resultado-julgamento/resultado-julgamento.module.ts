@@ -10,8 +10,13 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatTabsModule } from '@angular/material/tabs'; 
 import { MatChipsModule } from '@angular/material/chips';
 import { MatTooltipModule } from '@angular/material/tooltip'; 
+import { MatBadgeModule } from '@angular/material/badge'; 
 
 import { ConteudoVotoMinistroComponent } from './conteudo-voto-ministro/conteudo-voto-ministro.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MatInputModule } from '@angular/material/input';
+import { MatSelectModule } from '@angular/material/select'; 
+import { MatIconModule } from '@angular/material/icon';
 
 const ResultadoJulgamentoRoutes: Route[] = [
   {
@@ -28,6 +33,9 @@ const ResultadoJulgamentoRoutes: Route[] = [
   imports: [
     CommonModule,
     RouterModule.forChild(ResultadoJulgamentoRoutes),
+    FormsModule,
+    ReactiveFormsModule,
+    MatInputModule,
     MatButtonModule,
     SharedModule,
     FuseCardModule,
@@ -36,6 +44,9 @@ const ResultadoJulgamentoRoutes: Route[] = [
     MatTabsModule,
     MatChipsModule,
     MatTooltipModule,
+    MatBadgeModule,
+    MatSelectModule,
+    MatIconModule,
   ]
 })
 export class ResultadoJulgamentoModule { }
