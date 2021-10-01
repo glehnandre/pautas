@@ -1,5 +1,6 @@
 import { HttpParams } from '@angular/common/http';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { MatAccordion } from '@angular/material/expansion';
 import { Ministro } from '../acervo/model/interfaces/ministro.interface';
 import { Processo } from '../acervo/model/interfaces/processo.interface';
 import { Voto } from '../acervo/model/interfaces/voto.interface';
@@ -64,6 +65,10 @@ export class ResultadoJulgamentoComponent implements OnInit {
     }
 
     console.log(this.processosSelecioandos)
+  }
+
+  public obterDadosDaDecisao(event): void {
+    console.log(event)
   }
 
 }

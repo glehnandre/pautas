@@ -1,13 +1,13 @@
-<form>
+<form [formGroup]="formDecisao">
     <mat-form-field class="w-full mb-4" appearance="outline">
         <mat-label>Descrição do capítulo <span class="text-red-500">*</span></mat-label>
-        <textarea matInput></textarea>
+        <textarea matInput type="text" formControlName="descricao"></textarea>
         <mat-hint>Descrição do que se trata o capítulo da decisão</mat-hint>
     </mat-form-field>
 
     <mat-form-field class="w-full mb-4" appearance="outline">
         <mat-label>Tipo <span class="text-red-500">*</span></mat-label>
-        <mat-select>
+        <mat-select formControlName="tipo">
             <mat-option *ngFor="let tipo of ['Preliminar']" [value]="tipo">
                 {{tipo}}
             </mat-option>
@@ -17,7 +17,7 @@
 
     <mat-form-field class="w-full mb-4" appearance="outline">
         <mat-label>Dispositivo <span class="text-red-500">*</span></mat-label>
-        <mat-select>
+        <mat-select formControlName="dispositivo">
             <mat-option *ngFor="let dispositivo of ['Procedente']" [value]="dispositivo">
                 {{dispositivo}}
             </mat-option>
@@ -27,24 +27,29 @@
 
     <mat-form-field class="w-full mb-4" appearance="outline">
         <mat-label>Ministros que acordam <span class="text-red-500">*</span></mat-label>
-        <input matInput type="text" [value]="'Ricardo Lewandoski, Carmen Lúcia, Gilmar Mendes'">
+        <input matInput type="text" formControlName="ministros_acordam">
         <mat-hint>Liste os ministros</mat-hint>
     </mat-form-field>
 
     <mat-form-field class="w-full mb-4" appearance="outline">
         <mat-label>Voto condutor <span class="text-red-500">*</span></mat-label>
-        <input matInput type="text" [value]="'Ricardo Lewandoski'">
+        <input matInput type="text" formControlName="ministro_condutor">
         <mat-hint>Informe qual foi o voto condutor</mat-hint>
     </mat-form-field>
 
     <mat-form-field class="w-full mb-4" appearance="outline">
         <mat-label>Concordam os ministros <span class="text-red-500">*</span></mat-label>
-        <textarea matInput></textarea>
+        <textarea matInput formControlName="texto"></textarea>
         <mat-hint>Descreva a decisão tomada pelo colegiado</mat-hint>
     </mat-form-field>
 
     <p class="mt-4 text-center">
-        <button mat-raised-button color="primary">
+        <button 
+            mat-raised-button 
+            color="primary"
+            (click)="cadastrarDecisao()"
+            [disabled]="formDecisao.invalid"
+        >
             <mat-icon class="mr-1">add_circle</mat-icon> {{'Adicionar decisão' | uppercase}}
         </button>
     </p>

@@ -87,8 +87,28 @@
                 >
                     <span matBadge="1" class="mr-auto mb-4 ml-2"></span>
 
-                    <app-form-decisao
+                    <mat-accordion class="mb-4" multi>
+                        <mat-expansion-panel>
+                            <mat-expansion-panel-header>
+                                <mat-panel-title>
+                                    Personal data
+                                </mat-panel-title>
+                            </mat-expansion-panel-header>
                         
+                            <mat-form-field appearance="fill">
+                                <mat-label>First name</mat-label>
+                                <input matInput>
+                            </mat-form-field>
+                        
+                            <mat-form-field appearance="fill">
+                                <mat-label>Age</mat-label>
+                                <input matInput type="number" min="1">
+                            </mat-form-field>
+                        </mat-expansion-panel>
+                    </mat-accordion>
+
+                    <app-form-decisao
+                        (dadosDaDecisao)="obterDadosDaDecisao($event)"
                     ></app-form-decisao>
                 </fuse-card>
             </div>
