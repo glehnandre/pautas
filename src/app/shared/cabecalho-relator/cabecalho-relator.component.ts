@@ -51,7 +51,7 @@ export class CabecalhoRelatorComponent implements OnInit {
 
   private _buscarProcessos(): void {
     this._processoService
-      .listarProcessos(new HttpParams().set('processo', this.processo)).subscribe({
+      .listarProcessos(new HttpParams().set('processos', this.processo)).subscribe({
         next: ([processo]) => {
           const { id, lista, tipo } = processo;
 
