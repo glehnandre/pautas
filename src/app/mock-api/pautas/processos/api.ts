@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { FuseMockApiService } from '@fuse/lib/mock-api/mock-api.service';
 import { Filtros } from 'app/modules/acervo/filtros/filtros';
-import { processo as processoData, documentos } from 'app/mock-api/pautas/processos/data';
+import { processo as processoData, documentos, votos } from 'app/mock-api/pautas/processos/data';
 import { tags as tagData } from 'app/mock-api/pautas/tags/data';
 import { Paginacao } from 'app/modules/acervo/tabela/paginacao/paginacao.component';
 import { Processo } from 'app/modules/acervo/model/interfaces/processo.interface';
@@ -12,6 +12,7 @@ import { julgamentos } from '../julgamentos/data';
 import { TipoDoProcesso } from 'app/modules/acervo/model/enums/tipoDoProcesso.enum';
 import { Impedimento } from 'app/modules/acervo/model/interfaces/impedimento.interface';
 import { listaImpedimentos } from '../ministro/data'
+import { Voto } from 'app/modules/acervo/model/interfaces/voto.interface';
 
 @Injectable({
     providedIn: 'root'
@@ -22,6 +23,7 @@ export class ProcessoMockApi {
     private _documentos: Documento[] = documentos;
     private _tag: Tag[] = [];
     private _impedimentos: any[] = listaImpedimentos;
+    private _votos: Voto[] = votos;
 
     constructor(
         private _fuseMockApiService: FuseMockApiService,) {
@@ -90,7 +92,7 @@ export class ProcessoMockApi {
                         segunda_turma: (params.get('colegiado') === 'segunda-turma'),
                         pleno: (params.get('colegiado') === 'pleno'),
                         classes: params.getAll('classe'),
-                        tags: params.getAll('tag'),
+                        tags: (params.getAll('tag')) ? params.getAll('tag').toString().split(',') : null,
                     };
 
                     if (params.keys().length > 0) {
@@ -110,9 +112,8 @@ export class ProcessoMockApi {
                             })
                             .filter(processo => (filtros.situacoes) ? filtros.situacoes.find((situacao) => Number(situacao) === processo.situacao) : true)
                             .filter(processo => (filtros.classes) ? filtros.classes.find(classe => classe === processo.classe) : true)
-                            .filter(processo => (filtros.tags) ? filtros.tags.find(tag => processo.lista.find(lista => lista.id === Number(tag))) : true)
+                            .filter(processo => (filtros.tags) ? filtros.tags.find(tag => processo.lista.find(lista => lista.id === +tag)) : true)
                             .filter(processo => (filtros.termo) ? filtros.termo.includes(processo.classe) && filtros.termo.includes(processo.numero.toString()) : true);
-
                         return [200, processosFiltrados];
                     } else {
                         return [200, this._processo];
@@ -213,6 +214,16 @@ export class ProcessoMockApi {
               })
 
               return [201, impedimentos];
+            });
+
+        this._fuseMockApiService
+            .onGet('processos/:processo/votos')
+            .reply(({urlParams}) => {
+              const processo = urlParams.processo;
+
+
+
+              return [201, this._votos];
             });
     }
 

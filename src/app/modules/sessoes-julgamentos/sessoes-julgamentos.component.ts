@@ -42,14 +42,11 @@ export class SessoesJulgamentosComponent implements OnInit {
   ngOnInit(): void {
       this._processoService.listarProcessos().subscribe({
         next: (data) => {
-            this.processos = data.map(processo => {
+            this.processos = data;
+            data.forEach(processo => {
                 this._processoService.obterDocumentosDoProcesso(processo.id).subscribe(documentos => {
                     this.documentos = documentos.map(documento => documento.nome);
-
-                    var aux = this.documentos as unknown[];
-
-                    processo.documentos = aux as Documento[];
-                });
+                  });
 
                 let abreviacao: string;
                 if(processo.nome=="Mérito"){
@@ -59,12 +56,6 @@ export class SessoesJulgamentosComponent implements OnInit {
                 this.impedimentos.push(this._processoService.obterImpedimentosDoMinistro(abreviacao, "DT"));
                 
                 this.tags = processo.lista.map(tag => tag.descricao);
-
-                var aux = this.tags as unknown[];
-
-                processo.lista = aux as Tag[];
-
-                return processo;
             });
         }
       });

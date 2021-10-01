@@ -4,7 +4,7 @@
     >
         <div>
             <h2 class="leading-tight text-primary m-0">
-                SESSÃO {{ sessao.numero }}/{{ sessao.ano }}
+                SESSÃO {{ sessao?.numero }}/{{ sessao?.ano }}
             </h2>
             <div class="font-medium text-md text-secondary text-bold mb-4">
                 <!-- Quinta (19/11) - Sexta (27/11) -->
@@ -34,10 +34,10 @@
             <div>
                 <mat-chip-list #chipList>
                     <mat-chip>
-                        {{ sessao.modalidade }}
+                        {{ sessao?.modalidade }}
                     </mat-chip>
                     <mat-chip>
-                        {{ sessao.colegiado }}
+                        {{ sessao?.colegiado }}
                     </mat-chip>
                 </mat-chip-list>
             </div>
