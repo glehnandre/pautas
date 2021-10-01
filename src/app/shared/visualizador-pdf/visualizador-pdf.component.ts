@@ -20,7 +20,7 @@ export class VisualizadorPdfComponent implements OnInit, OnChanges {
   }
 
   ngOnChanges(): void {
-    if (this.link) {
+    if (this.link && this.link['changingThisBreaksApplicationSecurity'] !== '') {
       this.toggleDrawerOpen();
     }
   }

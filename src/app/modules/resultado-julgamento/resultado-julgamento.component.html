@@ -22,26 +22,71 @@
 
     <hr class="m-0 p-0" />
 
-    <header class="flex flex-row px-8 pt-4 bg-white">
+    <header class="flex px-8 pt-4 bg-white">
         <app-cabecalho-relator
+            class="sm:min-w-80 sm:mr-4"
             [processo]="'ADI100-Ag-Ag-Ag'"
             [colegiado]="'pleno'"
         ></app-cabecalho-relator>
-
-        <!--<fuse-card class="w-100 mb-4 p-4">
-            Data inicio: {{data_inicio | date: 'dd/MM/yyyy HH:mm:ss'}}<br/>
-            Data fim: {{data_fim | date: 'dd/MM/yyyy HH:mm:ss'}}<br/>
-            Termina em: {{cont}}
-        </fuse-card>-->
     </header>
 
     <!-- Main -->
-    <div class="flex-auto  overflow-y-auto px-8 pb-8" cdkScrollable>
+    <div class="flex-auto overflow-y-auto px-8 pb-8" cdkScrollable>
         <!-- CONTENT GOES HERE -->
-        <div class="flex flex-col justify-center align-middle justify-items-center">
-            <main class="">
-              
-            </main>
+        <div class="flex flex-col-reverse sm:grid sm:grid-cols-3 lg:grid-cols-4 gap-4 mt-4">
+            <div class="sm:col-span-2 lg:col-span-3">
+                <fuse-card class="flex flex-col my-2 p-4">
+                    <mat-tab-group animationDuration="0ms">
+                        <mat-tab 
+                            class="tab-click" 
+                            *ngFor="let voto of votos" 
+                            [label]="voto.autor.nome"
+                        >
+                            <app-conteudo-voto-ministro
+                                [voto]="voto"
+                            ></app-conteudo-voto-ministro>
+                        </mat-tab>
+
+                        <!--<mat-tab class="tab-click" *ngFor="let ministro of voto?.acompanharam" [label]="'Voto ' + ministro.nome">
+                            {{ministro.nome}}
+                        </mat-tab>-->
+                    </mat-tab-group>
+                </fuse-card>
+            </div>
+
+            <div>
+                <fuse-card
+                    class="max-h-full p-4 my-2 flex flex-col"
+                >
+                    <section class="">
+                        <h3 class="font-medium text-md">
+                            Aplicar as mesmas decisões
+                        </h3>
+
+                        <mat-spinner
+                            class="m-auto"
+                            [diameter]="40"
+                            *ngIf="processosPorTags.length === 0; else processos"
+                        ></mat-spinner>
+
+                        <ng-template #processos class="max-h-36 overflow-auto">
+                            <p *ngFor="let processo of processosPorTags">
+                                <mat-checkbox (change)="aplicarAsMesmasDecisoes(processo)" color="primary">
+                                    <span class="font-bold text-primary-600">
+                                        {{processo.classe}} {{processo.numero}}
+                                    </span>
+
+                                    <br/>
+
+                                    <span class="text-hint">
+                                        Relator prevaleceu
+                                    </span>
+                                </mat-checkbox>
+                            </p>
+                        </ng-template>
+                    </section>
+                </fuse-card>
+            </div>
         </div>
     </div>
 </div>
