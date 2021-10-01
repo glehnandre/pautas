@@ -51,6 +51,39 @@
 
             <div class="w-full">
                 <fuse-card
+                    class="max-h-full p-6 my-2 flex flex-col"
+                >
+                    <mat-accordion class="" multi>
+                        <mat-expansion-panel 
+                            *ngFor="let decisao of decisoes; index as i"
+                        >
+                            <mat-expansion-panel-header class="px-2">
+                                <div class="flex justify-center items-center py-6">
+                                    <mat-panel-title>
+                                        <span 
+                                            [matBadge]="(i + 1)" 
+                                            class="ml-4"
+                                        ></span>
+                                    </mat-panel-title>
+    
+                                    <mat-panel-description class="text-black">
+                                        <strong>Preliminar</strong>
+                                    </mat-panel-description>
+                                </div>
+                            </mat-expansion-panel-header>
+                        
+                            <app-form-decisao
+                                [decisao]="decisao"
+                            ></app-form-decisao>
+                        </mat-expansion-panel>
+                    </mat-accordion>
+
+                    <app-form-decisao
+                        (dadosDaDecisao)="obterDadosDaDecisao($event)"
+                    ></app-form-decisao>
+                </fuse-card>
+
+                <fuse-card
                     class="max-h-full p-4 my-2 flex flex-col mb-4"
                 >
                     <section class="">
@@ -80,36 +113,6 @@
                             </p>
                         </ng-template>
                     </section>
-                </fuse-card>
-
-                <fuse-card
-                    class="max-h-full p-6 my-2 flex flex-col"
-                >
-                    <span matBadge="1" class="mr-auto mb-4 ml-2"></span>
-
-                    <mat-accordion class="mb-4" multi>
-                        <mat-expansion-panel>
-                            <mat-expansion-panel-header>
-                                <mat-panel-title>
-                                    Personal data
-                                </mat-panel-title>
-                            </mat-expansion-panel-header>
-                        
-                            <mat-form-field appearance="fill">
-                                <mat-label>First name</mat-label>
-                                <input matInput>
-                            </mat-form-field>
-                        
-                            <mat-form-field appearance="fill">
-                                <mat-label>Age</mat-label>
-                                <input matInput type="number" min="1">
-                            </mat-form-field>
-                        </mat-expansion-panel>
-                    </mat-accordion>
-
-                    <app-form-decisao
-                        (dadosDaDecisao)="obterDadosDaDecisao($event)"
-                    ></app-form-decisao>
                 </fuse-card>
             </div>
         </div>

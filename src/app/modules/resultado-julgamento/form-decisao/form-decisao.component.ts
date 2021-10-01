@@ -1,4 +1,4 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
@@ -10,23 +10,30 @@ export class FormDecisaoComponent implements OnInit {
 
   formDecisao: FormGroup;
 
+  @Input() decisao: any = {
+    descricao: '',
+    tipo: '',
+    dispositivo: '',
+    ministros_acordam: '',
+    ministro_condutor: '',
+    texto: '', 
+  };
+
   @Output() dadosDaDecisao = new EventEmitter<any>();
 
   constructor(
     private _fb: FormBuilder,
-  ) { 
-    this.formDecisao = this._fb.group({
-      descricao: ['', Validators.required],
-      tipo: ['', Validators.required],
-      dispositivo: ['', Validators.required],
-      ministros_acordam: ['', Validators.required],
-      ministro_condutor: ['', Validators.required],
-      texto: ['', Validators.required], 
-    });
-  }
+  ) {}
 
   ngOnInit(): void {
-    
+    this.formDecisao = this._fb.group({
+      descricao: [this.decisao.descricao, Validators.required],
+      tipo: [this.decisao.tipo, Validators.required],
+      dispositivo: [this.decisao.dispositivo, Validators.required],
+      ministros_acordam: [this.decisao.ministros_acordam, Validators.required],
+      ministro_condutor: [this.decisao.ministro_condutor, Validators.required],
+      texto: [this.decisao.texto, Validators.required], 
+    });
   }
 
   public cadastrarDecisao(): void {
@@ -34,6 +41,11 @@ export class FormDecisaoComponent implements OnInit {
       this.dadosDaDecisao.emit(this.formDecisao.value);
       this.formDecisao.reset();
     }
+  }
+
+  public isDecisao(): boolean {
+    const isVazio = Object.values(this.decisao).every(dec => dec !== '');
+    return isVazio;
   }
 
 }

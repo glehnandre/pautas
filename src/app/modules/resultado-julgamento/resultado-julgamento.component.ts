@@ -20,6 +20,17 @@ export class ResultadoJulgamentoComponent implements OnInit {
   processosSelecioandos: Processo[] = [];
   votos: Voto[] = [];
 
+  decisoes: any[] = [
+    {
+      descricao: 'teste',
+      tipo: 'Preliminar',
+      dispositivo: 'Procedente',
+      ministros_acordam: 'teste',
+      ministro_condutor: 'teste',
+      texto: 'teste', 
+    }
+  ];
+
   constructor(
     private _resultadoJulgamento: ResultadoJulgamentoService,
     private _processoService: ProcessoService,
@@ -67,8 +78,8 @@ export class ResultadoJulgamentoComponent implements OnInit {
     console.log(this.processosSelecioandos)
   }
 
-  public obterDadosDaDecisao(event): void {
-    console.log(event)
+  public obterDadosDaDecisao(decisao: any): void {
+    this.decisoes.push(decisao);
   }
 
 }
