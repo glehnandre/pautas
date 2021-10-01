@@ -19,6 +19,7 @@ import { MatMomentDateModule } from '@angular/material-moment-adapter';
 import { SessoesPipe } from './pautar-form/sessoes.pipe';
 import { CarrosselComponent } from './carrossel/carrossel.component';
 import { ProcessosSolicitacaoExtraordinariaComponent } from './processos-solicitacao-extraordinaria/processos-solicitacao-extraordinaria.component';
+import { MatDividerModule } from '@angular/material/divider';
 
 
 @NgModule({
@@ -36,6 +37,7 @@ import { ProcessosSolicitacaoExtraordinariaComponent } from './processos-solicit
         FormsModule,
         ReactiveFormsModule,
         MatChipsModule,
+        MatDividerModule,
         MatIconModule,
         MatExpansionModule,
         MatCheckboxModule,
