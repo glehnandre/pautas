@@ -2,6 +2,7 @@
     <div class="sm:items-center sm:justify-between p-3 pb-11 sm:pt-2 sm:pb-10 sm:px-5 bg-white dark:bg-transparent">
         <div class="flex flex-row justify-between">
             <app-filtro
+                *ngIf="(sessao | json) !== '{}'"
             ></app-filtro>
 
             <app-contador
@@ -10,7 +11,7 @@
             ></app-contador>
         </div>
     </div>
-    <div class="flex-auto  overflow-y-auto px-8 py-4" cdkScrollable>
+    <div class="flex-auto  overflow-y-auto px-8 py-4" *ngIf="(sessao | json) !== '{}'" cdkScrollable>
         <mat-expansion-panel class="flex flex-col" *ngFor="let processo of processos">
             <mat-expansion-panel-header [collapsedHeight]="'80px'" class="h-full w-full specific-class">
                 <div class="flex flex-col w-full">
@@ -82,4 +83,15 @@
             <app-processo-capitulo [processo]="processo"></app-processo-capitulo>
         </mat-expansion-panel>
     </div>
+</div>
+<div class="absolute top-0 right-0 z-10">
+    <fuse-alert class="max-w-120 mx-auto"
+                [type]="'error'"
+                [appearance]="'soft'"
+                [dismissible]=true
+                [dismissed]=true
+                [name]="'alertBoxInvalidSession'">
+        <span fuseAlertTitle>Nenhuma sessão de julgamento aberta para o periodo encontrada.</span>
+        Pode haver sessão de julgamento fechadas para o período.
+    </fuse-alert>
 </div>

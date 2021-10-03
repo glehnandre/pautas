@@ -7,6 +7,7 @@ import { Documento } from '../acervo/model/interfaces/documento.interface';
 import { Tag } from '../acervo/model/interfaces/tag.interface';
 import { ProcessoService } from '../services/processo.service';
 import { JulgamentoService } from '../services/julgamento.service';
+import { FuseAlertService } from '@fuse/components/alert';
 
 @Component({
   selector: 'app-sessoes-julgamentos',
@@ -25,6 +26,7 @@ export class SessoesJulgamentosComponent implements OnInit {
   constructor(
     private _processoService: ProcessoService,
     private _julgamentoService: JulgamentoService,
+    private _fuseAlertService: FuseAlertService,
     private _route: ActivatedRoute,
   ) { }
 
@@ -38,6 +40,9 @@ export class SessoesJulgamentosComponent implements OnInit {
         next: (data) => {
             this.sessao = data;
         },
+        error: () => {
+            this.isSessaoInvalida();
+        }
       });
 
       this._julgamentoService.listarProcessosPautadosNasSessoes(numero, ano).subscribe({
@@ -61,5 +66,13 @@ export class SessoesJulgamentosComponent implements OnInit {
               });
           },
       });
+  }
+
+  isSessaoInvalida(): void {
+    this._fuseAlertService.show('alertBoxInvalidSession');
+
+    setTimeout(() => {
+      this._fuseAlertService.dismiss('alertBoxInvalidSession');
+    }, 5000);
   }
 }

@@ -10,6 +10,7 @@ import { FiltroModule } from './filtros/filtro.module';
 import { SharedModule } from '../../shared/shared.module';
 import { ContadorComponent } from './contador/contador.component';
 import { FuseCardModule } from '@fuse/components/card';
+import { FuseAlertModule } from '@fuse/components/alert';
 
 const SessoesJulgamentoRoutes: Route[] = [
   { path: '', component: SessoesJulgamentosComponent, pathMatch: 'full' },
@@ -29,6 +30,7 @@ const SessoesJulgamentoRoutes: Route[] = [
     FiltroModule,
     SharedModule,
     FuseCardModule,
+    FuseAlertModule,
     RouterModule.forChild(SessoesJulgamentoRoutes),
   ],
 })

@@ -39,12 +39,7 @@ export class JulgamentoService {
 
   public listarSessoesDeJulgamento(numero: number, ano: number): Observable<SessaoJulgamento> {
     const numeroAno = `${numero}-${ano}`;
-    return this._httpClient.get<SessaoJulgamento>(`sessoes-de-julgamento/${numeroAno}`).pipe(
-      catchError((error) => {
-        console.log(error);
-        return EMPTY;
-      }),
-    );
+    return this._httpClient.get<SessaoJulgamento>(`sessoes-de-julgamento/${numeroAno}`);
   }
 
   public listarTodasAsSessoesDeJulgamento(): Observable<SessaoJulgamento[]> {
