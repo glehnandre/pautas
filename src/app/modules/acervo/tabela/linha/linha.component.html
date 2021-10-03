@@ -1,6 +1,6 @@
 <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
     <mat-expansion-panel-header [collapsedHeight]="'80px'" class="p-4 h-20 sm:h-26">
-        <div class="my-4 ml-3.5">
+        <div class="my-4  w-full">
             <div class="w-screen container flex sm:mt-4">
                 <div>
                     <div (click)="$event.stopPropagation()">
@@ -29,9 +29,28 @@
                     ></app-status>
                 </div>
             </div>
-            <div class="mb-4 hidden sm:block">
-                <app-tags [tags]="processo.lista" (tagSelecionada)="filtrarPorTags($event)"></app-tags>
+            <div class="flex flex-row w-full">
+                <div class="w-1/2 flex flex-row items-center">
+                    <app-tags [tags]="processo.lista" (tagSelecionada)="filtrarPorTags($event)"></app-tags>
+                </div>
+                <div class="w-1/2">
+                    <app-carrossel
+                        [idChip]="'idDocs'"
+                        [chips]="processo.documentos"
+                        [hasIcon]="true"
+                        [class]="['border-primary', 'border-solid', 'border-2', 'bg-transparent', 'text-primary']"
+                    ></app-carrossel>
+                </div>
             </div>
+            <!-- <div class="mb-4 hidden sm:block flex flex-row">
+                <app-tags [tags]="processo.lista" (tagSelecionada)="filtrarPorTags($event)"></app-tags>
+                <app-carrossel
+                    [idChip]="'idDocs'"
+                    [chips]="processo.documentos"
+                    [hasIcon]="true"
+                    [class]="['border-primary', 'border-solid', 'border-2', 'bg-transparent', 'text-primary']"
+                ></app-carrossel>
+            </div> -->
         </div>
     </mat-expansion-panel-header>
 

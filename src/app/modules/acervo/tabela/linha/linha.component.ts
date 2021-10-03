@@ -26,7 +26,7 @@ export class LinhaComponent implements OnInit {
 
 
     if (document.body.clientWidth <= 1000) {
-      this.mobile = !this.mobile
+      this.mobile = !this.mobile;
     }
   }
 
@@ -34,9 +34,9 @@ export class LinhaComponent implements OnInit {
     this._processoService.obterProcessosSelecionados().subscribe((p) => {
         this.Selected = false;
         const newList = new Set(p);
-        newList.forEach(p => {
+        newList.forEach((p) => {
           if (p.id === this.processo.id)
-            this.processo.checked = true;
+            {this.processo.checked = true;}
         });
     });
   }
@@ -46,20 +46,20 @@ export class LinhaComponent implements OnInit {
     this.checked.emit(this.processo);
   }
   filtrarPorStatus(status) {
-    this.statusSelecionado.emit(status)
+    this.statusSelecionado.emit(status);
 
   }
   filtrarPorTags(tag) {
-    this.tagSelecionada.emit(tag)
+    this.tagSelecionada.emit(tag);
 
   }
 
   onResize() {
     if (document.body.clientWidth <= 1000) {
-      this.mobile = true
+      this.mobile = true;
     }
     else {
-      this.mobile = false
+      this.mobile = false;
     }
   }
 }
