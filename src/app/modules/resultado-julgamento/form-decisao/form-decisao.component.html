@@ -8,7 +8,10 @@
     <mat-form-field class="w-full mb-4" appearance="outline">
         <mat-label>Tipo <span class="text-red-500">*</span></mat-label>
         <mat-select formControlName="tipo">
-            <mat-option *ngFor="let tipo of ['Preliminar']" [value]="tipo">
+            <mat-option 
+                *ngFor="let tipo of ['Preliminar']" 
+                [value]="tipo"
+            >
                 {{tipo}}
             </mat-option>
         </mat-select>
@@ -58,10 +61,10 @@
 
         <button 
             *ngIf="isDecisao()"
-            class="mb-4 bg-red-500 text-xs"
+            class="mb-4 text-xs"
             mat-raised-button 
-            color="primary"
-            (click)="cadastrarDecisao()"
+            color="warn"
+            (click)="excluirDecisao()"
             [disabled]="formDecisao.invalid"
         >
             <mat-icon class="mr-1">delete</mat-icon> 
@@ -73,7 +76,8 @@
             class="text-xs"
             mat-raised-button 
             color="primary"
-            (click)="cadastrarDecisao()"
+            (click)="salvarDecisao()"
+            [disabled]="formDecisao.invalid"
         >
             <mat-icon class="mr-1">save</mat-icon> 
             {{'Salvar esta decisão' | uppercase}}

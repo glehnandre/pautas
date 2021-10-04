@@ -1,7 +1,7 @@
 import { HttpParams } from '@angular/common/http';
-import { Component, OnInit, ViewChild } from '@angular/core';
-import { MatAccordion } from '@angular/material/expansion';
-import { Ministro } from '../acervo/model/interfaces/ministro.interface';
+import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { Decisao } from '../acervo/model/interfaces/decisao.interface';
 import { Processo } from '../acervo/model/interfaces/processo.interface';
 import { Voto } from '../acervo/model/interfaces/voto.interface';
 import { ProcessoService } from '../services/processo.service';
@@ -20,7 +20,7 @@ export class ResultadoJulgamentoComponent implements OnInit {
   processosSelecioandos: Processo[] = [];
   votos: Voto[] = [];
 
-  decisoes: any[] = [
+  decisoes: Decisao[] = [
     {
       descricao: 'teste',
       tipo: 'Preliminar',
@@ -78,8 +78,17 @@ export class ResultadoJulgamentoComponent implements OnInit {
     console.log(this.processosSelecioandos)
   }
 
-  public obterDadosDaDecisao(decisao: any): void {
+  public obterDadosDaDecisao(decisao: Decisao): void {
     this.decisoes.push(decisao);
+  }
+
+  public removerDecisao(decisao: Decisao): void {
+    const index = this.decisoes
+      .findIndex(dec => JSON.stringify(dec) === JSON.stringify(decisao));
+    
+    if (index !== -1) {
+      this.decisoes.splice(index, 1);
+    }
   }
 
 }

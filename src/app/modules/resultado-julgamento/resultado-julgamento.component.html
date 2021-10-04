@@ -1,4 +1,4 @@
-<div class="absolute inset-0 flex flex-col min-w-0 overflow-hidden">
+<div id="resultado-julgamento" class="absolute inset-0 flex flex-col min-w-0 overflow-hidden">
 
     <!-- Header -->
     <div class="flex flex-col sm:flex-row justify-center items-center sm:justify-between pl-8 bg-white dark:bg-transparent">
@@ -50,36 +50,51 @@
             </div>
 
             <div class="w-full">
+                <mat-accordion class="" multi>
+                    <mat-expansion-panel 
+                        class="mt-2 mb-2"
+                        *ngFor="let decisao of decisoes; index as i"
+                    >
+                        <mat-expansion-panel-header class="px-2">
+                            <div class="w-full flex justify-between items-center py-6">
+                                <mat-panel-title>
+                                    <span 
+                                        [matBadge]="(i + 1)" 
+                                        class="ml-4"
+                                    ></span>
+                                </mat-panel-title>
+
+                                <mat-panel-description class="w-full flex align-middle justify-between items-center">
+                                    <strong>Preliminar</strong>
+
+                                    <div 
+                                        class="py-0.5 px-3 rounded-full text-sm font-semibold 
+                                            text-white bg-green-700 dark:text-green-50 dark:bg-green-500 
+                                            ng-star-inserted"
+                                    >
+                                        Procedente
+                                    </div>
+                                </mat-panel-description>
+                            </div>
+                        </mat-expansion-panel-header>
+                    
+                        <app-form-decisao
+                            [decisao]="decisao"
+                            (decisaoExcluida)="removerDecisao($event)"
+                        ></app-form-decisao>
+                    </mat-expansion-panel>
+                </mat-accordion>
+
                 <fuse-card
-                    class="max-h-full p-6 my-2 flex flex-col"
+                    class="px-3 py-6 my-2 flex flex-col overflow-y-auto max-h-52"
                 >
-                    <mat-accordion class="" multi>
-                        <mat-expansion-panel 
-                            *ngFor="let decisao of decisoes; index as i"
-                        >
-                            <mat-expansion-panel-header class="px-2">
-                                <div class="flex justify-center items-center py-6">
-                                    <mat-panel-title>
-                                        <span 
-                                            [matBadge]="(i + 1)" 
-                                            class="ml-4"
-                                        ></span>
-                                    </mat-panel-title>
-    
-                                    <mat-panel-description class="text-black">
-                                        <strong>Preliminar</strong>
-                                    </mat-panel-description>
-                                </div>
-                            </mat-expansion-panel-header>
-                        
-                            <app-form-decisao
-                                [decisao]="decisao"
-                            ></app-form-decisao>
-                        </mat-expansion-panel>
-                    </mat-accordion>
+                    <span 
+                        [matBadge]="(decisoes.length + 1)" 
+                        class="mr-auto ml-3 mb-4"
+                    ></span>
 
                     <app-form-decisao
-                        (dadosDaDecisao)="obterDadosDaDecisao($event)"
+                        (decisaoCadastrada)="obterDadosDaDecisao($event)"
                     ></app-form-decisao>
                 </fuse-card>
 

@@ -1,5 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Decisao } from 'app/modules/acervo/model/interfaces/decisao.interface';
 
 @Component({
   selector: 'app-form-decisao',
@@ -10,7 +11,7 @@ export class FormDecisaoComponent implements OnInit {
 
   formDecisao: FormGroup;
 
-  @Input() decisao: any = {
+  @Input() decisao: Decisao = {
     descricao: '',
     tipo: '',
     dispositivo: '',
@@ -19,7 +20,8 @@ export class FormDecisaoComponent implements OnInit {
     texto: '', 
   };
 
-  @Output() dadosDaDecisao = new EventEmitter<any>();
+  @Output() decisaoCadastrada = new EventEmitter<Decisao>();
+  @Output() decisaoExcluida = new EventEmitter<Decisao>();
 
   constructor(
     private _fb: FormBuilder,
@@ -38,8 +40,20 @@ export class FormDecisaoComponent implements OnInit {
 
   public cadastrarDecisao(): void {
     if (this.formDecisao.valid) {
-      this.dadosDaDecisao.emit(this.formDecisao.value);
+      this.decisaoCadastrada.emit(this.formDecisao.value);
       this.formDecisao.reset();
+    }
+  }
+
+  public excluirDecisao(): void {
+    if (this.formDecisao.valid) {
+      this.decisaoExcluida.emit(this.decisao);
+    }
+  }
+
+  public salvarDecisao(): void {
+    if (this.formDecisao.valid) {
+      // salva a decisao
     }
   }
 
