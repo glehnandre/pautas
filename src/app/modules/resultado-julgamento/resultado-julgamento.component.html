@@ -3,19 +3,19 @@
     <!-- Header -->
     <div class="flex flex-col sm:flex-row justify-center items-center sm:justify-between pl-8 bg-white dark:bg-transparent">
         <h1 class="mt-4 text-primary font-medium text-xl sm:text-2xl">
-            Colegiado para a Sessão 
+            Colegiado para a Sessão
         </h1>
         <div class="flex flex-row items-end mb-4 sm:my-4 ml-auto">
             <button class="z-0 mr-4" mat-button>
                 <span>Cancelar</span>
             </button>
-    
-            <button 
+
+            <button
                 class="mr-8"
-                color="primary" 
-                mat-raised-button 
+                color="primary"
+                mat-raised-button
             >
-                Finalizar 
+                Finalizar
             </button>
         </div>
     </div>
@@ -27,6 +27,8 @@
             class="sm:min-w-80 sm:mr-4"
             [processo]="'ADI100-Ag-Ag-Ag'"
             [colegiado]="'pleno'"
+            [sessao]="descrissaoSessao"
+            [data_fim]="data_fim"
         ></app-cabecalho-relator>
     </header>
 
@@ -37,9 +39,9 @@
             <div class="sm:col-span-2 lg:col-span-3">
                 <fuse-card class="flex flex-col my-2 p-4">
                     <mat-tab-group animationDuration="0ms">
-                        <mat-tab 
-                            class="tab-click" 
-                            *ngFor="let voto of votos" 
+                        <mat-tab
+                            class="tab-click"
+                            *ngFor="let voto of votos"
                             [label]="voto.autor.nome"
                         >
                             <app-conteudo-voto-ministro

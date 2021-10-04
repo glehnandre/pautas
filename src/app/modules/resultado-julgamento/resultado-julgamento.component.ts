@@ -18,12 +18,14 @@ export class ResultadoJulgamentoComponent implements OnInit {
   processosPorTags: Processo[] = [];
   processosSelecioandos: Processo[] = [];
   votos: Voto[] = [];
+  descrissaoSessao: string;
+  data_fim: string;
 
   constructor(
     private _resultadoJulgamento: ResultadoJulgamentoService,
     private _processoService: ProcessoService,
-  ) { 
-    
+  ) {
+
   }
 
   ngOnInit(): void {
@@ -42,6 +44,11 @@ export class ResultadoJulgamentoComponent implements OnInit {
           }
         });
 
+        this.descrissaoSessao = `${this.dados.sessao?.numero}/${this.dados.sessao?.ano}`;
+
+        const data_fim = new Date(this.dados.sessao?.data_fim);
+        this.data_fim = this.formatData(data_fim);
+
         const { classe, numero, abreviacao } = this.dados.processo;
 
         this._processoService.obterVotosDoProcesso(`${classe}${numero}-${abreviacao}`).subscribe({
@@ -52,6 +59,13 @@ export class ResultadoJulgamentoComponent implements OnInit {
       }
     });
 
+  }
+
+  private formatData(data: Date): string {
+    const dia = ("00" + data.getDate()).slice(-2);
+    const mes = ("00" + (data.getMonth() + 1)).slice(-2);
+    const ano = ("00" + data.getFullYear()).slice(-4);
+    return `${dia}/${mes}/${ano}`;
   }
 
   public aplicarAsMesmasDecisoes(processo: Processo) {

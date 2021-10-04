@@ -16,6 +16,8 @@ export class CabecalhoRelatorComponent implements OnInit {
 
   @Input() processo: string;
   @Input() colegiado: string;
+  @Input() sessao: string;
+  @Input() data_fim: string;
 
   panelOpenState = false;
   link: SafeResourceUrl;
@@ -30,7 +32,7 @@ export class CabecalhoRelatorComponent implements OnInit {
   constructor(
     private _processoService: ProcessoService,
     private _ministroService: MinistroService,
-    private _sanitizer: DomSanitizer, 
+    private _sanitizer: DomSanitizer,
   ) { }
 
   ngOnInit(): void {
