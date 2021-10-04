@@ -33,6 +33,7 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 }
 
 
+/* Ajusta a formatação e visualização do mat-tab-group */
 .fuse-mat-rounded {
   .mat-tab-group {
 
@@ -84,3 +85,23 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
       }
     }
 }
+
+/*------------*/
+
+/* width */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  @apply bg-gray-400;
+  border-radius: 10px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  @apply bg-primary;
+}
+
+/*-------------*/
