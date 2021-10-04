@@ -25,6 +25,8 @@ import { CarrosselComponent } from './carrossel/carrossel.component';
 import { ProcessosSolicitacaoExtraordinariaComponent } from './processos-solicitacao-extraordinaria/processos-solicitacao-extraordinaria.component';
 import { ContadorComponent } from './contador/contador.component';
 import { FuseCardModule } from '@fuse/components/card';
+import { MatDividerModule } from '@angular/material/divider';
+
 
 @NgModule({
     declarations: [
@@ -45,6 +47,7 @@ import { FuseCardModule } from '@fuse/components/card';
         ReactiveFormsModule,
         MatButtonModule,
         MatChipsModule,
+        MatDividerModule,
         MatIconModule,
         MatExpansionModule,
         MatCheckboxModule,

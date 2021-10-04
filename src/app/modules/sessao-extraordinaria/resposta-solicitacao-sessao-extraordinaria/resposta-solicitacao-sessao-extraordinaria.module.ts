@@ -18,6 +18,8 @@ import { MatCardModule } from '@angular/material/card';
 import { FuseCardModule } from '@fuse/components/card';
 import { MatSelectModule } from '@angular/material/select';
 import { SharedModule } from 'app/shared/shared.module';
+import { FormEscolherSessaoComponent } from './form-escolher-sessao/form-escolher-sessao.component';
+import { MatDialogModule } from '@angular/material/dialog';
 
 registerLocaleData(localePt);
 
@@ -27,7 +29,8 @@ const JulgamentoExtraordinarioRoutes: Route[] = [
 
 @NgModule({
   declarations: [
-    RespostaSolicitacaoSessaoExtraordinariaoComponent
+    RespostaSolicitacaoSessaoExtraordinariaoComponent,
+    FormEscolherSessaoComponent
   ],
   imports: [
     CommonModule,
@@ -37,6 +40,7 @@ const JulgamentoExtraordinarioRoutes: Route[] = [
     MatInputModule,
     MatChipsModule,
     MatButtonModule,
+    MatDialogModule,
     MatIconModule,
     MatExpansionModule,
     MatCheckboxModule,
