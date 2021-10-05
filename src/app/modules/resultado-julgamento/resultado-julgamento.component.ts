@@ -1,6 +1,6 @@
 import { HttpParams } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Decisao } from '../acervo/model/interfaces/decisao.interface';
 import { Processo } from '../acervo/model/interfaces/processo.interface';
 import { Voto } from '../acervo/model/interfaces/voto.interface';
@@ -15,6 +15,10 @@ import { ResultadoJulgamentoService } from '../services/resultado-julgamento.ser
 export class ResultadoJulgamentoComponent implements OnInit {
 
   dados: any;
+  parametros: {
+    processo: string;
+    colegiado: string;
+  }
 
   processosPorTags: Processo[] = [];
   processosSelecioandos: Processo[] = [];
@@ -34,11 +38,14 @@ export class ResultadoJulgamentoComponent implements OnInit {
   constructor(
     private _resultadoJulgamento: ResultadoJulgamentoService,
     private _processoService: ProcessoService,
+    private _route: ActivatedRoute,
   ) { 
     
   }
 
   ngOnInit(): void {
+    this.parametros = this._route.snapshot.queryParams as { processo: string; colegiado: string };
+
     this._resultadoJulgamento.listarDecisoes().subscribe({
       next: (data) => {
         this.dados = data;

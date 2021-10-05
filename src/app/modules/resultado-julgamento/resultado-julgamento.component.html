@@ -3,7 +3,7 @@
     <!-- Header -->
     <div class="flex flex-col sm:flex-row justify-center items-center sm:justify-between pl-8 bg-white dark:bg-transparent">
         <h1 class="mt-4 text-primary font-medium text-xl sm:text-2xl">
-            Colegiado para a Sessão 
+            Lançamento do Resultado do Julgamento da {{parametros.processo}}
         </h1>
         <div class="flex flex-row items-end mb-4 sm:my-4 ml-auto">
             <button class="z-0 mr-4" mat-button>
@@ -24,8 +24,8 @@
 
     <header class="bg-white px-8 pt-4">
         <app-cabecalho-relator
-            [processo]="'ADI100-Ag-Ag-Ag'"
-            [colegiado]="'pleno'"
+            [processo]="parametros.processo"
+            [colegiado]="parametros.colegiado"
         ></app-cabecalho-relator>
     </header>
 
