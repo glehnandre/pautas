@@ -1,11 +1,14 @@
+import { HttpParams } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { FuseDrawerService } from '@fuse/components/drawer';
 import { Colegiado, ComposicaoColegiado } from '../acervo/model/interfaces/colegiado.interface';
 import { Ministro } from '../acervo/model/interfaces/ministro.interface';
+import { Processo } from '../acervo/model/interfaces/processo.interface';
 import { AlertaService } from '../services/alerta.service';
 import { MinistroService } from '../services/ministro.service';
+import { ProcessoService } from '../services/processo.service';
 
 @Component({
   selector: 'app-criacao-colegiado',
@@ -28,6 +31,7 @@ export class CriacaoColegiadoComponent implements OnInit {
     mensagem: string,
   }
 
+  processo: Processo = {} as Processo;
   formVotacao: FormGroup;
   ministros: Ministro[] = [];
   colegiados: Colegiado[] = [];
@@ -46,6 +50,7 @@ export class CriacaoColegiadoComponent implements OnInit {
     private _ministroService: MinistroService,
     private _route: ActivatedRoute,
     private _alertaService: AlertaService,
+    private _processoService: ProcessoService,
   ) { 
     this.formVotacao = this._fb.group({
       processo: ['', Validators.required],
@@ -64,6 +69,11 @@ export class CriacaoColegiadoComponent implements OnInit {
       processo,
       sessao,
     };
+    this._processoService.listarProcessos().subscribe(processos=>{
+      console.log(processos);
+      this.processo = processos.find(processo => processo.id == this.queryParams.processo);
+      console.log(this.processo);
+    })
 
     this.formVotacao.setValue({
       processo,
