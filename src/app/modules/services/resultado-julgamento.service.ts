@@ -11,7 +11,7 @@ export class ResultadoJulgamentoService {
     private _httpClient: HttpClient,
   ) { }
 
-  public listarDecisoes(processo: string = 'ADI100'): Observable<any[]> {
+  public listarDecisoes(processo: number = 123455): Observable<any[]> {
     return this._httpClient.get<any[]>(`/decisao/${processo}`);
   }
 

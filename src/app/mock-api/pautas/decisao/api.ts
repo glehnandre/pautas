@@ -21,7 +21,7 @@ export class DecisaoMockApi {
           
           const index = this._decisoes.findIndex(dec => {
             if (dec.processo.tipo === 'Merito') {
-              const query = `${dec.processo.classe}${dec.processo.numero}`;
+              const query = `${dec.processo.id}`;
               if (processo === query) {
                 return dec;
               }

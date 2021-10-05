@@ -42,9 +42,9 @@ export class ResultadoJulgamentoComponent implements OnInit {
           }
         });
 
-        const { classe, numero, abreviacao } = this.dados.processo;
+        const processoId = this.dados.processo.id;
 
-        this._processoService.obterVotosDoProcesso(`${classe}${numero}-${abreviacao}`).subscribe({
+        this._processoService.obterVotosDoProcesso(processoId).subscribe({
           next: (votos) => {
             this.votos = votos;
           }

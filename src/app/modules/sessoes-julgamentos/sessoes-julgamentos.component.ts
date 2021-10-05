@@ -53,7 +53,7 @@ export class SessoesJulgamentosComponent implements OnInit {
                   abreviacao = `${processo.classe}-100`;
                 }
                 else abreviacao = `${processo.classe}-${processo.abreviacao}`;
-                this.impedimentos.push(this._processoService.obterImpedimentosDoMinistro(abreviacao, "DT"));
+                this.impedimentos.push(this._processoService.obterImpedimentosDoMinistro(processo.id, "DT"));
                 
                 this.tags = processo.lista.map(tag => tag.descricao);
             });

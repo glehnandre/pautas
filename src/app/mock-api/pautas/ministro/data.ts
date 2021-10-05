@@ -182,15 +182,15 @@ export const listaImpedimentos = [
   {
     ministro: "DT",
     lista: [{
-        processo: "ADI-Ag",
+        processoId: 1,
         impedimento: [impedimentos[0]],
       },
       {
-        processo: "ADI-100",
+        processoId: 2,
         impedimento: [impedimentos[1]],
       },
       {
-        processo: "ADI-Ag-Ag-Ag",
+        processoId: 3,
         impedimento: [impedimentos[0], impedimentos[1]],
       },
     ],

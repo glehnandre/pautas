@@ -206,7 +206,7 @@ export class ProcessoMockApi {
               this._impedimentos.forEach(data=>{
                   if(ministro==data.ministro){
                       data.lista.forEach(lista=>{
-                          if(processo==lista.processo){
+                          if(processo==lista.processoId){
                             impedimentos=lista.impedimento;
                           }
                       })

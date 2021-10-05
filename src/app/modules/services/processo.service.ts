@@ -57,7 +57,7 @@ export class ProcessoService {
       );
   }
 
-  public obterImpedimentosDoMinistro(processo: string, ministro: string): Observable<Impedimento[]> {
+  public obterImpedimentosDoMinistro(processo: number, ministro: string): Observable<Impedimento[]> {
     return this._httpClient.get<Impedimento[]>(`processos/${processo}/impedimentos/${ministro}`)
       .pipe(
         catchError(error => {
@@ -76,7 +76,7 @@ export class ProcessoService {
     );
   }
 
-  public obterVotosDoProcesso(processo: string): Observable<Voto[]> {
+  public obterVotosDoProcesso(processo: number): Observable<Voto[]> {
     return this._httpClient.get<Voto[]>(`processos/${processo}/votos`).pipe(
       catchError(error => {
         console.log(error);

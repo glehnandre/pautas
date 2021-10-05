@@ -17,7 +17,7 @@ export class CriacaoColegiadoComponent implements OnInit {
   panelOpenState: boolean = false;
 
   queryParams: {
-    processo: string,
+    processo: number,
     data: string,
     colegiado: string,
     sessao: string,
