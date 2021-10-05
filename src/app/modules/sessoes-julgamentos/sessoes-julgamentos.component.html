@@ -23,7 +23,7 @@
             ></app-contador>
         </div>
     </div>
-    <div class="flex-auto  overflow-y-auto px-8 py-4" *ngIf="(sessao | json) !== '{}'" cdkScrollable>
+    <div class="flex-auto  overflow-y-auto px-8 py-4 mb-2" *ngIf="(sessao | json) !== '{}'" cdkScrollable>
         <mat-expansion-panel class="flex flex-col" *ngFor="let processo of processos">
             <mat-expansion-panel-header [collapsedHeight]="'80px'" class="h-full w-full specific-class">
                 <div class="flex flex-col w-full">
