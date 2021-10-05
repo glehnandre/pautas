@@ -1,9 +1,11 @@
 import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
+import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
+import { FuseDrawerService } from '@fuse/components/drawer';
 import { MatCheckboxChange } from '@angular/material/checkbox';
 import { processo } from 'app/mock-api/pautas/processos/data';
 import { ProcessoService } from 'app/modules/services/processo.service';
 import { Processo } from '../../model/interfaces/processo.interface';
-
+import { Documento } from '../../model/interfaces/documento.interface';
 
 @Component({
   selector: 'app-linha',
@@ -19,10 +21,23 @@ export class LinhaComponent implements OnInit {
 
   @Input() Selected: boolean;
   @Input() processo: Processo;
+  @Input() documentos: Documento[];
+
+//   documentos: {
+//     nomes: string[];
+//     links: string[];
+//   };
 
   panelOpenState = false;
 
-  constructor(private _processoService: ProcessoService) {
+  lastId: string = 'idTags';
+  link: SafeResourceUrl;
+
+  constructor(
+      private _processoService: ProcessoService,
+      public sanitizer: DomSanitizer,
+      private _fuseDrawerService: FuseDrawerService,
+  ) {
 
 
     if (document.body.clientWidth <= 1000) {
@@ -31,6 +46,10 @@ export class LinhaComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    console.log(this.processo);
+
+    console.log(this.processo.documentos);
+
     this._processoService.obterProcessosSelecionados().subscribe((p) => {
         this.Selected = false;
         const newList = new Set(p);
@@ -41,25 +60,46 @@ export class LinhaComponent implements OnInit {
     });
   }
 
-  emiteStatusDoCheckbox(status: MatCheckboxChange) {
+  emiteStatusDoCheckbox(status: MatCheckboxChange): void {
     this.processo.checked = status.checked;
     this.checked.emit(this.processo);
   }
-  filtrarPorStatus(status) {
+
+  filtrarPorStatus(status): void {
     this.statusSelecionado.emit(status);
-
   }
-  filtrarPorTags(tag) {
+
+  filtrarPorTags(tag): void {
     this.tagSelecionada.emit(tag);
-
   }
 
-  onResize() {
+  onResize(): void {
     if (document.body.clientWidth <= 1000) {
       this.mobile = true;
     }
     else {
       this.mobile = false;
+    }
+  }
+
+  /**
+   * Abre o menu que exibe o pdf
+   *
+   * @param drawerName
+   */
+   toggleDrawerOpen(drawerName: string): void {
+    const drawer = this._fuseDrawerService.getComponent(drawerName);
+    drawer.toggle();
+  }
+
+  setId(id: string): void{
+    this.lastId = id;
+  }
+
+  abrirLink(link: string): void {
+    if (link !== this.link) {
+      this.link = this.sanitizer.bypassSecurityTrustResourceUrl(link);
+      this.toggleDrawerOpen('telaDoPdfDoAcervo');
     }
   }
 }

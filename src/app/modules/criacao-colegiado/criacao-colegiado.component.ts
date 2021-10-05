@@ -200,7 +200,7 @@ export class CriacaoColegiadoComponent implements OnInit {
     }
   }
 
-  setId(id: string){
+  setId(id: string): void{
     this.lastId = id;
   }
   /**

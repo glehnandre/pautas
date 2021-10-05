@@ -34,12 +34,16 @@
                     <app-tags [tags]="processo.lista" (tagSelecionada)="filtrarPorTags($event)"></app-tags>
                 </div>
                 <div class="w-1/2">
-                    <app-carrossel
+                    <!-- <app-carrossel
                         [idChip]="'idDocs'"
-                        [chips]="processo.documentos"
+                        [chips]="documentos?.nomes"
+                        [lastId]="lastId"
+                        (click)="setId('idDocs')"
+                        [links]="documentos?.links"
                         [hasIcon]="true"
                         [class]="['border-primary', 'border-solid', 'border-2', 'bg-transparent', 'text-primary']"
-                    ></app-carrossel>
+                        (linkDoPdfSelecionado)="abrirLink($event)"
+                    ></app-carrossel> -->
                 </div>
             </div>
             <!-- <div class="mb-4 hidden sm:block flex flex-row">
@@ -57,3 +61,27 @@
     <!--Conteúdo de dentro da área expansível-->
     <app-processo-capitulo [processo]="processo"></app-processo-capitulo>
 </mat-expansion-panel>
+<fuse-drawer
+    id="visualisador-pdf"
+    [name]="'telaDoPdfDoAcervo'"
+    [opened]="false"
+    [position]="'right'"
+    [mode]="'over'">
+    <div class="w-screen">
+        <button
+            class="bg-primary-500 mt-9 position-left-90 absolute"
+            mat-icon-button
+            [tabIndex]="-1"
+            (click)="toggleDrawerOpen('telaDoPdfDoAcervo')"
+        >
+            <mat-icon class="text-current text-white" [svgIcon]="'heroicons_outline:x'"></mat-icon>
+        </button>
+        <object
+            class="w-full h-full e2e-trusted-url"
+            [data]="link"
+            type="application/pdf"
+        >
+            <p>Seu navegador não tem um plugin pra PDF</p>
+        </object>
+    </div>
+</fuse-drawer>

@@ -31,6 +31,11 @@ export class TabelaComponent implements OnInit, OnChanges {
   processosSelecionados: Processo[] = [];
   processos: Processo[];
 
+  documentos: {
+    nomes: string[];
+    links: string[];
+  }[] = [];
+
   constructor(
     private _processoService: ProcessoService,
   ) {}
@@ -100,9 +105,24 @@ export class TabelaComponent implements OnInit, OnChanges {
       next: (data) => {
         this.processos = data.map((processo) => {
             this._processoService.obterDocumentosDoProcesso(processo.id).subscribe((documentos) => {
-                const nomeDosDocumentos = documentos.map(documento => documento.nome) as unknown[];
+                // const nomeDosDocumentos = documentos.map(documento => documento.nome) as unknown[];
 
-                processo.documentos = nomeDosDocumentos as Documento[];
+                // processo.documentos = nomeDosDocumentos as Documento[];
+                // processo.documentos = documentos;
+
+                // const nomes: string[] = [];
+                // const links: string[] = [];
+
+                // documentos.forEach((documento) => {
+                //     nomes.push(documento.nome);
+                //     links.push(documento.url);
+                // });
+
+                // const documentosDoProcesso = { nomes, links } as unknown;
+
+                // processo.documentos = documentosDoProcesso as Documento[];
+
+                processo.documentos = documentos;
             });
 
             processo.checked = false;

@@ -6,8 +6,9 @@
 <div class="m-2 sm:mx-0.5">
     <app-linha
         *ngFor="let processo of processos"
-        [processo]="processo" 
-        (checked)="trataEventoDeChecked($event)" 
+        [processo]="processo"
+        [documentos]="processo.documentos"
+        (checked)="trataEventoDeChecked($event)"
         [Selected]="SelectAll"
         (tagSelecionada)="filtrarPorTags($event)"
         (statusSelecionado)="filtrarPorStatus($event)"

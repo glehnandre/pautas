@@ -14,6 +14,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatChipsModule } from '@angular/material/chips';
 import { AcoesModule } from '../acoes/acoes.module';
 import { MatPaginatorIntl, MatPaginatorModule } from '@angular/material/paginator';
+import { FuseDrawerModule } from '@fuse/components/drawer';
 import { PaginacaoComponent } from './paginacao/paginacao.component';
 import { PaginacaoCustomizadaComponent } from './paginacao/paginacao-customizada.component';
 import { SharedModule } from '../../../shared/shared.module';
@@ -44,6 +45,7 @@ const routes = [
     MatChipsModule,
     MatPaginatorModule,
     MatTooltipModule,
+    FuseDrawerModule,
     SharedModule,
   ],
   exports: [
