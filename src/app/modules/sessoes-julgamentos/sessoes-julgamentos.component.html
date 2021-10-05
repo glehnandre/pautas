@@ -1,9 +1,21 @@
 <div class="absolute inset-0 flex flex-col min-w-0 overflow-hidden bg-white">
-    <div class="sm:items-center sm:justify-between p-3 pb-11 sm:pt-2 sm:pb-10 sm:px-5 bg-white dark:bg-transparent">
+    <div class="sm:items-center sm:justify-between p-3 sm:pt-2 sm:px-5 bg-white dark:bg-transparent">
         <div class="flex flex-row justify-between">
-            <app-filtro
-                *ngIf="(sessao | json) !== '{}'"
-            ></app-filtro>
+            <div class="flex flex-col items-start justify-between" *ngIf="(sessao | json) !== '{}'">
+                <app-filtro
+                ></app-filtro>
+                <div class="flex flex-row">
+                    <mat-checkbox
+                        class="ml-9"
+                        color="primary"
+                    >
+                    </mat-checkbox>
+
+                    <mat-chip class="flex-none bg-red-700 text-white">
+                        Declarar impedimento
+                    </mat-chip>
+                </div>
+            </div>
 
             <app-contador
                 *ngIf="(sessao | json) !== '{}'"
@@ -84,7 +96,7 @@
         </mat-expansion-panel>
     </div>
 </div>
-<div class="absolute top-0 right-0 z-10">
+<div class="absolute top-0 right-0 z-10 p-2">
     <fuse-alert class="max-w-120 mx-auto"
                 [type]="'error'"
                 [appearance]="'soft'"

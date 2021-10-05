@@ -39,33 +39,35 @@ export class SessoesJulgamentosComponent implements OnInit {
       this._julgamentoService.listarSessoesDeJulgamento(numero, ano).subscribe({
         next: (data) => {
             this.sessao = data;
+
+            this._julgamentoService.listarProcessosPautadosNasSessoes(numero, ano).subscribe({
+                next: (processosData) => {
+                    this.processos = processosData.map((processo) => {
+                      this._processoService.obterDocumentosDoProcesso(processo.id).subscribe((documentos) => {
+                        this.documentos = documentos.map(documento => documento.nome);
+
+                        const documentosTransformados = this.documentos as unknown[];
+
+                        processo.documentos = documentosTransformados as Documento[];
+                      });
+
+                      this.tags = processo.lista.map(tag => tag.descricao);
+
+                      const tagsTransformadas = this.tags as unknown[];
+
+                      processo.lista = tagsTransformadas as Tag[];
+
+                      return processo;
+                    });
+                },
+            });
         },
         error: () => {
             this.isSessaoInvalida();
         }
       });
 
-      this._julgamentoService.listarProcessosPautadosNasSessoes(numero, ano).subscribe({
-          next: (data) => {
-              this.processos = data.map((processo) => {
-                this._processoService.obterDocumentosDoProcesso(processo.id).subscribe((documentos) => {
-                  this.documentos = documentos.map(documento => documento.nome);
 
-                  const documentosTransformados = this.documentos as unknown[];
-
-                  processo.documentos = documentosTransformados as Documento[];
-                });
-
-                this.tags = processo.lista.map(tag => tag.descricao);
-
-                const tagsTransformadas = this.tags as unknown[];
-
-                processo.lista = tagsTransformadas as Tag[];
-
-                return processo;
-              });
-          },
-      });
   }
 
   isSessaoInvalida(): void {
