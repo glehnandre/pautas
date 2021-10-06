@@ -2,6 +2,8 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Decisao } from 'app/modules/acervo/model/interfaces/decisao.interface';
 import { Manifestacao } from 'app/modules/acervo/model/interfaces/manifestacao.interface';
+import { Processo } from 'app/modules/acervo/model/interfaces/processo.interface';
+import { ResultadoJulgamentoService } from 'app/modules/services/resultado-julgamento.service';
 
 @Component({
   selector: 'app-form-decisao',
@@ -21,6 +23,8 @@ export class FormDecisaoComponent implements OnInit {
     texto: '', 
   };
 
+  @Input() processo: string = '';
+
   @Input() dispositivos: Manifestacao[] = [];
 
   @Output() decisaoCadastrada = new EventEmitter<Decisao>();
@@ -28,6 +32,7 @@ export class FormDecisaoComponent implements OnInit {
 
   constructor(
     private _fb: FormBuilder,
+    private _resultadoJulgamento: ResultadoJulgamentoService,
   ) {}
 
   ngOnInit(): void {
@@ -55,8 +60,12 @@ export class FormDecisaoComponent implements OnInit {
   }
 
   public salvarDecisao(): void {
-    if (this.formDecisao.valid) {
-      // salva a decisao
+    if (this.formDecisao.valid && this.processo !== '') {
+      this._resultadoJulgamento.savarDecisao(this.processo, this.decisao).subscribe({
+        next: () => {
+          console.log('Decisao salva!');
+        }
+      });
     }
   }
 

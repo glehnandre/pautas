@@ -32,9 +32,10 @@
     <!-- Main -->
     <div class="flex-auto overflow-y-auto pl-8 px-4 pb-8" cdkScrollable>
         <!-- CONTENT GOES HERE -->
-        <div class="flex flex-col-reverse sm:grid sm:grid-cols-3 lg:grid-cols-4 gap-4 my-4">
+        <div class="flex flex-col-reverse sm:grid sm:grid-cols-3 lg:grid-cols-4 
+            gap-4 my-4">
             <div class="sm:col-span-2 lg:col-span-3">
-                <fuse-card class="flex flex-col my-2 p-4">
+                <fuse-card class="flex flex-col p-4 overflow-y-auto max-h-80">
                     <mat-tab-group animationDuration="0ms">
                         <mat-tab 
                             class="tab-click" 
@@ -49,10 +50,10 @@
                 </fuse-card>
             </div>
 
-            <div class="w-full">
+            <div class="w-full overflow-y-auto max-h-80">
                 <mat-accordion class="" multi>
                     <mat-expansion-panel 
-                        class="mt-2 mb-2"
+                        class="mb-2"
                         *ngFor="let decisao of decisoes; index as i"
                     >
                         <mat-expansion-panel-header class="px-2">
@@ -81,6 +82,7 @@
                         <app-form-decisao
                             [decisao]="decisao"
                             [dispositivos]="dispositivos"
+                            [processo]="parametros.processo"
                             (decisaoExcluida)="removerDecisao($event)"
                         ></app-form-decisao>
                     </mat-expansion-panel>
