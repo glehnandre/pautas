@@ -45,7 +45,6 @@ export class ResultadoJulgamentoComponent implements OnInit {
     private _processoService: ProcessoService,
     private _route: ActivatedRoute,
   ) { 
-    
   }
 
   ngOnInit(): void {

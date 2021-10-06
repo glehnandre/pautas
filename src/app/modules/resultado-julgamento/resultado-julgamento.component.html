@@ -30,12 +30,12 @@
     </header>
 
     <!-- Main -->
-    <div class="flex-auto overflow-y-auto pl-8 px-4 pb-8" cdkScrollable>
+    <div class="flex-auto pl-8 px-4 pb-8">
         <!-- CONTENT GOES HERE -->
         <div class="flex flex-col-reverse sm:grid sm:grid-cols-3 lg:grid-cols-4 
             gap-4 my-4">
-            <div class="sm:col-span-2 lg:col-span-3">
-                <fuse-card class="flex flex-col p-4 overflow-y-auto max-h-80">
+            <div class="sm:col-span-2 lg:col-span-3 overflow-y-auto max-h-96">
+                <fuse-card class="flex flex-col p-4">
                     <mat-tab-group animationDuration="0ms">
                         <mat-tab 
                             class="tab-click" 
@@ -50,7 +50,7 @@
                 </fuse-card>
             </div>
 
-            <div class="w-full overflow-y-auto max-h-80">
+            <div class="w-full overflow-y-auto max-h-96">
                 <mat-accordion class="" multi>
                     <mat-expansion-panel 
                         class="mb-2"
@@ -89,7 +89,7 @@
                 </mat-accordion>
 
                 <fuse-card
-                    class="px-3 py-6 my-2 flex flex-col overflow-y-auto max-h-52"
+                    class="px-3 py-6 my-2 flex flex-col"
                 >
                     <span 
                         [matBadge]="(decisoes.length + 1)" 

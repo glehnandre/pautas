@@ -16,13 +16,24 @@ export class ResultadoJulgamentoService {
   ) { }
 
   public listarDecisoes(processo: string): Observable<Array<{decisoes: Decisao, processo: Processo, sessao: SessaoJulgamento}>> {
-    return this._httpClient.get<Array<{decisoes: Decisao, processo: Processo, sessao: SessaoJulgamento}>>(`decisao/${processo}`);
+    return this._httpClient
+      .get<Array<{decisoes: Decisao, processo: Processo, sessao: SessaoJulgamento}>>(`decisao/${processo}`).pipe(
+        catchError(error => {
+          console.log(error);
+          return EMPTY;
+        })
+      );
   }
 
   public savarDecisao(processo: string, decisao: Decisao): Observable<void> {
     return this._httpClient.post<void>(`processo/${processo}/decisoes`, {
       decisao,
-    });
+    }).pipe(
+      catchError(error => {
+        console.log(error);
+        return EMPTY;
+      })
+    );
   }
 
   public deletarDecisao(id: number): Observable<void> {
