@@ -1,6 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Decisao } from 'app/modules/acervo/model/interfaces/decisao.interface';
+import { Manifestacao } from 'app/modules/acervo/model/interfaces/manifestacao.interface';
 
 @Component({
   selector: 'app-form-decisao',
@@ -19,6 +20,8 @@ export class FormDecisaoComponent implements OnInit {
     ministro_condutor: '',
     texto: '', 
   };
+
+  @Input() dispositivos: Manifestacao[] = [];
 
   @Output() decisaoCadastrada = new EventEmitter<Decisao>();
   @Output() decisaoExcluida = new EventEmitter<Decisao>();

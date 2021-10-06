@@ -1,11 +1,18 @@
 import { HttpParams } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { TipoCapitulo } from '../acervo/model/enums/tipoCapitulo.enum';
 import { Decisao } from '../acervo/model/interfaces/decisao.interface';
+import { Manifestacao } from '../acervo/model/interfaces/manifestacao.interface';
 import { Processo } from '../acervo/model/interfaces/processo.interface';
 import { Voto } from '../acervo/model/interfaces/voto.interface';
 import { ProcessoService } from '../services/processo.service';
 import { ResultadoJulgamentoService } from '../services/resultado-julgamento.service';
+
+interface Parametros {
+  processo: string;
+  colegiado: string;
+}
 
 @Component({
   selector: 'app-resultado-julgamento',
@@ -15,20 +22,18 @@ import { ResultadoJulgamentoService } from '../services/resultado-julgamento.ser
 export class ResultadoJulgamentoComponent implements OnInit {
 
   dados: any;
-  parametros: {
-    processo: string;
-    colegiado: string;
-  }
+  parametros: Parametros;
 
   processosPorTags: Processo[] = [];
   processosSelecioandos: Processo[] = [];
   votos: Voto[] = [];
+  dispositivos: Manifestacao[] = [];
 
   decisoes: Decisao[] = [
     {
       descricao: 'teste',
-      tipo: 'Preliminar',
       dispositivo: 'Procedente',
+      tipo: 'Preliminar',
       ministros_acordam: 'teste',
       ministro_condutor: 'teste',
       texto: 'teste', 
@@ -44,12 +49,12 @@ export class ResultadoJulgamentoComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.parametros = this._route.snapshot.queryParams as { processo: string; colegiado: string };
+    this.parametros = this._route.snapshot.queryParams as Parametros;
 
     this._resultadoJulgamento.listarDecisoes().subscribe({
       next: (data) => {
         this.dados = data;
-        console.log(data)
+        console.log(this.dados)
 
         const tags = this.dados.processo.lista.map(tag => tag.id);
 
@@ -61,11 +66,17 @@ export class ResultadoJulgamentoComponent implements OnInit {
           }
         });
 
-        const { classe, numero, abreviacao } = this.dados.processo;
+        const { id, classe, numero, abreviacao } = this.dados.processo;
 
         this._processoService.obterVotosDoProcesso(`${classe}${numero}-${abreviacao}`).subscribe({
           next: (votos) => {
             this.votos = votos;
+          }
+        });
+
+        this._processoService.obterDispositivosDoProcesso(id, TipoCapitulo.Merito).subscribe({
+          next: (dispositivos) => {
+            this.dispositivos = dispositivos;
           }
         });
       }

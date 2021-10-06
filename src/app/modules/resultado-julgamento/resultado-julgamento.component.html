@@ -80,6 +80,7 @@
                     
                         <app-form-decisao
                             [decisao]="decisao"
+                            [dispositivos]="dispositivos"
                             (decisaoExcluida)="removerDecisao($event)"
                         ></app-form-decisao>
                     </mat-expansion-panel>
@@ -94,6 +95,7 @@
                     ></span>
 
                     <app-form-decisao
+                        [dispositivos]="dispositivos"
                         (decisaoCadastrada)="obterDadosDaDecisao($event)"
                     ></app-form-decisao>
                 </fuse-card>

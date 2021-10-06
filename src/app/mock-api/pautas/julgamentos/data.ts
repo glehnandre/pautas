@@ -1,4 +1,5 @@
 import { SituacaoDoProcesso } from "app/modules/acervo/model/enums/situacaoDoProcesso.enum";
+import { TipoCapitulo } from "app/modules/acervo/model/enums/tipoCapitulo.enum";
 import { TipoDoProcesso } from "app/modules/acervo/model/enums/tipoDoProcesso.enum";
 import { Processo } from "app/modules/acervo/model/interfaces/processo.interface";
 import { SessaoJulgamento } from "app/modules/acervo/model/interfaces/sessao-julgamento.interface";
@@ -235,7 +236,7 @@ export const processos: Processo[] = [
         id: 123455,
         descricao: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Repellendus omnis eum ratione, impedit, consequuntur laborum amet tempore iure accusamus in nulla voluptates odit. Eum fugit eius, assumenda distinctio quidem quia?",
         ordem: 1,
-        tipo: "Mérito",
+        tipo: TipoCapitulo.Merito,
         dispositivo: "Deferido",
       },
     ]
@@ -282,7 +283,7 @@ export const processos: Processo[] = [
         id: 123455,
         descricao: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Repellendus omnis eum ratione, impedit, consequuntur laborum amet tempore iure accusamus in nulla voluptates odit. Eum fugit eius, assumenda distinctio quidem quia?",
         ordem: 1,
-        tipo: "Mérito",
+        tipo: TipoCapitulo.Merito,
         dispositivo: "Deferido"
       }
     ]

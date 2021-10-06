@@ -2,8 +2,10 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, EMPTY, Subject, BehaviorSubject } from 'rxjs';
 import { catchError } from 'rxjs/operators';
+import { TipoCapitulo } from '../acervo/model/enums/tipoCapitulo.enum';
 import { Documento } from '../acervo/model/interfaces/documento.interface';
 import { Impedimento } from '../acervo/model/interfaces/impedimento.interface';
+import { Manifestacao } from '../acervo/model/interfaces/manifestacao.interface';
 import { Processo } from '../acervo/model/interfaces/processo.interface';
 import { Tag } from '../acervo/model/interfaces/tag.interface';
 import { Voto } from '../acervo/model/interfaces/voto.interface';
@@ -85,6 +87,27 @@ export class ProcessoService {
     );
   }
 
+  public obterProcessos(): Observable<Processo[]> {
+    let params = new HttpParams();
+    params = params.set('situacao-processo', 1);
+
+    return this._httpClient.get<Processo[]>('processos', { params }).pipe(
+      catchError(error => {
+        console.log(error);
+        return EMPTY;
+      }),
+    )
+  }
+
+  public obterDispositivosDoProcesso(id: number, tipo: TipoCapitulo): Observable<Manifestacao[]> {
+    return this._httpClient.get<Manifestacao[]>(`dispositivos/processo/${id}/tipo/${tipo}`).pipe(
+      catchError(error => {
+        console.log(error);
+        return EMPTY;
+      })
+    );
+  }
+
   public setCarregarProcessos(carregarProcessos: boolean): void {
     this.isCarregarProcessos.next(carregarProcessos);
   }
@@ -99,18 +122,6 @@ export class ProcessoService {
 
   public setProcessosSelecionados(processos: Processo[]): void {
     this.processosSelecionados.next(processos);
-  }
-
-  public obterProcessos(): Observable<Processo[]> {
-    let params = new HttpParams();
-    params = params.set('situacao-processo', 1);
-
-    return this._httpClient.get<Processo[]>('processos', { params }).pipe(
-      catchError(error => {
-        console.log(error);
-        return EMPTY;
-      }),
-    )
   }
 
   public exibeDescricaoDosProcessos(processos: Processo[]): string {
