@@ -34,16 +34,17 @@
                     <app-tags [tags]="processo.lista" (tagSelecionada)="filtrarPorTags($event)"></app-tags>
                 </div>
                 <div class="w-1/2">
-                    <!-- <app-carrossel
-                        [idChip]="'idDocs'"
-                        [chips]="documentos?.nomes"
-                        [lastId]="lastId"
-                        (click)="setId('idDocs')"
-                        [links]="documentos?.links"
-                        [hasIcon]="true"
-                        [class]="['border-primary', 'border-solid', 'border-2', 'bg-transparent', 'text-primary']"
-                        (linkDoPdfSelecionado)="abrirLink($event)"
-                    ></app-carrossel> -->
+                        <app-carrossel
+                            *ngIf = "docs$ | async as docs"
+                            [idChip]="'idDocs'"
+                            [chips]="retirarNomes(docs)"
+                            [links]="retirarLinks(docs)"
+                            [lastId]="lastId"
+                            (click)="setId('idDocs')"
+                            [hasIcon]="true"
+                            [class]="['border-primary', 'border-solid', 'border-2', 'bg-transparent', 'text-primary']"
+                            (linkDoPdfSelecionado)="abrirLink($event)"
+                        ></app-carrossel>
                 </div>
             </div>
             <!-- <div class="mb-4 hidden sm:block flex flex-row">
@@ -63,6 +64,7 @@
 </mat-expansion-panel>
 <fuse-drawer
     id="visualisador-pdf"
+    class="bg-primary"
     [name]="'telaDoPdfDoAcervo'"
     [opened]="false"
     [position]="'right'"

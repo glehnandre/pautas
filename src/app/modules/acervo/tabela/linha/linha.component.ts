@@ -2,10 +2,10 @@ import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { FuseDrawerService } from '@fuse/components/drawer';
 import { MatCheckboxChange } from '@angular/material/checkbox';
-import { processo } from 'app/mock-api/pautas/processos/data';
 import { ProcessoService } from 'app/modules/services/processo.service';
 import { Processo } from '../../model/interfaces/processo.interface';
 import { Documento } from '../../model/interfaces/documento.interface';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-linha',
@@ -21,12 +21,8 @@ export class LinhaComponent implements OnInit {
 
   @Input() Selected: boolean;
   @Input() processo: Processo;
-  @Input() documentos: Documento[];
 
-//   documentos: {
-//     nomes: string[];
-//     links: string[];
-//   };
+  docs$: Observable<Documento[]>;
 
   panelOpenState = false;
 
@@ -46,9 +42,7 @@ export class LinhaComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    console.log(this.processo);
-
-    console.log(this.processo.documentos);
+    this.docs$ = this._processoService.obterDocumentosDoProcesso(this.processo.id);
 
     this._processoService.obterProcessosSelecionados().subscribe((p) => {
         this.Selected = false;
@@ -101,5 +95,15 @@ export class LinhaComponent implements OnInit {
       this.link = this.sanitizer.bypassSecurityTrustResourceUrl(link);
       this.toggleDrawerOpen('telaDoPdfDoAcervo');
     }
+  }
+
+  retirarNomes(documentos: Documento[]): string[] {
+     return documentos.reduce<string[]>((acc, cur) => [...acc, cur.nome], []);
+  }
+
+  retirarLinks(documentos: Documento[]): string[] {
+    const links = documentos.reduce<string[]>((acc, cur) => [...acc, cur.url], []);
+
+    return links;
   }
 }

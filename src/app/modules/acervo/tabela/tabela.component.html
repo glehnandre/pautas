@@ -7,7 +7,6 @@
     <app-linha
         *ngFor="let processo of processos"
         [processo]="processo"
-        [documentos]="processo.documentos"
         (checked)="trataEventoDeChecked($event)"
         [Selected]="SelectAll"
         (tagSelecionada)="filtrarPorTags($event)"

@@ -23,7 +23,7 @@ export class CarrosselComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
-
+    console.log(this.links);
   }
 
   handleKeyboardEvent(event: KeyboardEvent): void {
