@@ -48,7 +48,7 @@ export class ProcessoService {
   }
 
   public obterDocumentosDoProcesso(id: number): Observable<Documento[]> {
-    return this._httpClient.get<Documento[]>(`processos/${id}/documentos`)
+    return this._httpClient.get<Documento[]>(`julgamento/processos/${id}/documentos`)
       .pipe(
         catchError(error => {
           console.log(error);

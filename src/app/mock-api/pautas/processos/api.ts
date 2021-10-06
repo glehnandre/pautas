@@ -78,10 +78,10 @@ export class ProcessoMockApi {
                         numeroDaPagina: +params.get('numeroDaPagina') || 0,
                         offset: +params.get('offset') || 0,
                     }
-    
+
                     const processosPaginados = this._processo
                         .slice(paginacao.offset, paginacao.offset+paginacao.itensPorPagina);
-    
+
                     return [200, processosPaginados];
                 } else {
                     const filtros: Filtros = {
@@ -104,7 +104,7 @@ export class ProcessoMockApi {
                                     if (processo.tipo !== TipoDoProcesso.Merito) {
                                         query = `${query}-${processo.abreviacao}`;
                                     }
-                                   
+
                                     return (query === filtros.processo);
                                 } else {
                                     return true;
@@ -189,13 +189,13 @@ export class ProcessoMockApi {
             });
 
         this._fuseMockApiService
-            .onGet('processos/:id/documentos')
+            .onGet('julgamento/processos/:id/documentos')
             .reply(({urlParams}) => {
               const id = +urlParams.id;
 
               return [201, this._documentos];
             });
-        
+
         this._fuseMockApiService
             .onGet('processos/:processo/impedimentos/:ministro')
             .reply(({urlParams}) => {
