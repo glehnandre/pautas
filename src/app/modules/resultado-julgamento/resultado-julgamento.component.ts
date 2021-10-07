@@ -9,6 +9,7 @@ import { Voto } from '../acervo/model/interfaces/voto.interface';
 import { ProcessoService } from '../services/processo.service';
 import { ResultadoJulgamentoService } from '../services/resultado-julgamento.service';
 
+
 interface Parametros {
   processo: string;
   colegiado: string;
