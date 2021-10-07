@@ -10,7 +10,7 @@ import { Paginacao } from './paginacao/paginacao.component';
   styleUrls: ['./tabela.component.scss']
 })
 export class TabelaComponent implements OnInit, OnChanges {
-  @Input() allselected: any;
+  @Input() allSelected: any;
   @Output() selectAll: any;
   @Output() tagSelecionada = new EventEmitter();
   @Output() statusSelecionado = new EventEmitter();
@@ -48,8 +48,8 @@ export class TabelaComponent implements OnInit, OnChanges {
 
   ngOnChanges(changes: SimpleChanges): void {
     // Extract changes to the input property by its name
-    const change: SimpleChange = changes['allselected'];
-    this.selectAll = changes['allselected'].currentValue?.checked;
+    const change: SimpleChange = changes['allSelected'];
+    this.selectAll = changes['allSelected'].currentValue?.checked;
     if (this.selectAll) {
       this._processoService.setProcessosSelecionados(this.processos);
       this.processosSelecionados = [...this.processos];
@@ -61,7 +61,7 @@ export class TabelaComponent implements OnInit, OnChanges {
 
 
   check(): void {
-    //this.selectAll = this.allselected
+    //this.selectAll = this.allSelected
   }
 
   filtrarPorTags(tag): void {

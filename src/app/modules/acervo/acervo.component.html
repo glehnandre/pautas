@@ -12,7 +12,7 @@
         </div>
         <div>
             <app-acoes
-                (Allselected)="reciverFeedback($event)"
+                (allSelected)="reciverFeedback($event)"
                 (colecaoIdsDasTags)="obterIdsDasTagsSelecionadas($event)"
             ></app-acoes>
         </div>
@@ -24,7 +24,7 @@
         <!-- CONTENT GOES HERE -->
         <div>
             <app-tabela
-                [Allselected]="selectAllLines"
+                [allSelected]="selectAllLines"
                 (tagSelecionada)="filtrarPorTags($event)"
                 (statusSelecionado)="filtrarPorStatus($event)"
             ></app-tabela>

@@ -17,17 +17,17 @@ import { ReanalizarComponent } from './reanalizar/reanalizar.component';
   styleUrls: ['./acoes.component.scss']
 })
 export class AcoesComponent implements OnInit {
-
-  public alerta: {
-    titulo: string,
-    mensagem: string,
-  }
-
-  mobile: boolean;
-  @Output() Allselected = new EventEmitter();
+  @Output() allSelected = new EventEmitter();
   @Output() colecaoIdsDasTags = new EventEmitter<Array<{id: number}>>();
 
   @Input() processos: Processo[] = [];
+
+  public alerta: {
+    titulo: string;
+    mensagem: string;
+  };
+
+  mobile: boolean;
 
   constructor(
     private _httpClient: HttpClient,
@@ -38,45 +38,44 @@ export class AcoesComponent implements OnInit {
     private _route: ActivatedRoute,
   ) {
     if (document.body.clientWidth <= 800) {
-      this.mobile = true
+      this.mobile = true;
     }
     else {
-      this.mobile = false
+      this.mobile = false;
     }
   }
 
 
   ngOnInit(): void {
-    this._processoService.obterProcessosSelecionados().subscribe(processos => {
+    this._processoService.obterProcessosSelecionados().subscribe((processos) => {
       this.processos = processos;
     });
 
     this.alerta = {
       titulo: 'Erro de validação',
       mensagem: 'Selecione um ou mais processos',
-    }
+    };
   }
 
-  selectAll(completed) {
+  selectAll(completed): void {
     //console.log(this.processos);
 
     this.processos.forEach((processo) => {
       processo.checked = completed.checked;
     });
-    this.Allselected.emit(completed)
-
+    this.allSelected.emit(completed);
   }
 
-  onResize() {
+  onResize(): void {
     if (document.body.clientWidth <= 800) {
-      this.mobile = true
+      this.mobile = true;
     }
     else {
-      this.mobile = false
+      this.mobile = false;
     }
   }
 
-  abrirModalAgruparTags() {
+  abrirModalAgruparTags(): void {
     if(!this.verificaProcesso()){
       this.mostrarAlerta();
     }
@@ -86,7 +85,7 @@ export class AcoesComponent implements OnInit {
         maxHeight: '560px',
       });
 
-      dialogRef.afterClosed().subscribe((tags: Array<{id :number}>) => {
+      dialogRef.afterClosed().subscribe((tags: Array<{id: number}>) => {
         if (tags.length) {
           this.colecaoIdsDasTags.emit(tags);
         }
@@ -106,7 +105,7 @@ export class AcoesComponent implements OnInit {
   }
 
   verificaProcesso(): boolean {
-    if(this.processos.length == 0) {
+    if(this.processos.length === 0) {
       return false;
     }
     return true;
@@ -130,7 +129,7 @@ export class AcoesComponent implements OnInit {
         }
       });
 
-      dialogRef.afterClosed().subscribe(resultado => {
+      dialogRef.afterClosed().subscribe((resultado) => {
         if (resultado === 'ok') {
           // DELETE
           this.processos.forEach(({id}) => {
@@ -173,20 +172,20 @@ export class AcoesComponent implements OnInit {
      * as ações possiveis esta em acervo/model/enums/situacaoDoProcesso.enum.ts
      */
 
-    let processosRemovidos = [], processosSelecinados = [];
+    const processosRemovidos = []; const processosSelecinados = [];
     this.processos.forEach((processo, i) => {
 
       if (processo.situacao !== SituacaoDoProcesso[situacao]) {
           processosRemovidos.push(processo);
           processo.checked = false;
       }
-      else processosSelecinados.push(processo);
+      else {processosSelecinados.push(processo);}
     });
 
     this._processoService.setProcessosSelecionados(processosSelecinados);
 
     if(processosRemovidos.length) {
-      const titulo = processosRemovidos.length == 1 ?
+      const titulo = processosRemovidos.length === 1 ?
         `O processo precisa estar com situação de ${situacao}.`:
         `Os processos precisam estar com situação de ${situacao}.`;
       const removidos = this._processoService.exibeDescricaoDosProcessos(processosRemovidos);
@@ -213,14 +212,14 @@ export class AcoesComponent implements OnInit {
   }
 
   abrirModalDeAlterarSessao(): void {
-    this.filtrarProcesso('Pautado')
+    this.filtrarProcesso('Pautado');
     if (!this.verificaProcesso()) {
       this.mostrarAlerta();
     } else {
       const dialogRef = this._matDialog.open(AlterarSessaoComponent, {
         data: this.processos,
       });
-      dialogRef.afterClosed().subscribe(resultado => {});
+      dialogRef.afterClosed().subscribe((resultado) => {});
     }
   }
 }
