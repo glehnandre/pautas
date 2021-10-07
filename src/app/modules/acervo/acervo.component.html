@@ -24,7 +24,7 @@
         <!-- CONTENT GOES HERE -->
         <div>
             <app-tabela
-                [Allselected]="SelectAllLines"
+                [Allselected]="selectAllLines"
                 (tagSelecionada)="filtrarPorTags($event)"
                 (statusSelecionado)="filtrarPorStatus($event)"
             ></app-tabela>

@@ -1,7 +1,6 @@
 import { HttpParams } from '@angular/common/http';
 import { Component, Input, OnInit, Output, SimpleChange, EventEmitter, OnChanges, SimpleChanges } from '@angular/core';
 import { ProcessoService } from 'app/modules/services/processo.service';
-import { Documento } from '../model/interfaces/documento.interface';
 import { Processo } from '../model/interfaces/processo.interface';
 import { Paginacao } from './paginacao/paginacao.component';
 
@@ -11,8 +10,8 @@ import { Paginacao } from './paginacao/paginacao.component';
   styleUrls: ['./tabela.component.scss']
 })
 export class TabelaComponent implements OnInit, OnChanges {
-  @Input() Allselected: any;
-  @Output() SelectAll: any;
+  @Input() allselected: any;
+  @Output() selectAll: any;
   @Output() tagSelecionada = new EventEmitter();
   @Output() statusSelecionado = new EventEmitter();
   @Output() data: {
@@ -49,9 +48,9 @@ export class TabelaComponent implements OnInit, OnChanges {
 
   ngOnChanges(changes: SimpleChanges): void {
     // Extract changes to the input property by its name
-    const change: SimpleChange = changes['Allselected'];
-    this.SelectAll = changes['Allselected'].currentValue?.checked;
-    if (this.SelectAll) {
+    const change: SimpleChange = changes['allselected'];
+    this.selectAll = changes['allselected'].currentValue?.checked;
+    if (this.selectAll) {
       this._processoService.setProcessosSelecionados(this.processos);
       this.processosSelecionados = [...this.processos];
     } else {
@@ -62,7 +61,7 @@ export class TabelaComponent implements OnInit, OnChanges {
 
 
   check(): void {
-    //this.SelectAll = this.Allselected
+    //this.selectAll = this.allselected
   }
 
   filtrarPorTags(tag): void {
@@ -111,5 +110,4 @@ export class TabelaComponent implements OnInit, OnChanges {
       }
     });
   }
-
 }

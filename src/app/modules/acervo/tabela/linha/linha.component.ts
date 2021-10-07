@@ -19,7 +19,7 @@ export class LinhaComponent implements OnInit {
   @Output() tagSelecionada = new EventEmitter();
   @Output() statusSelecionado = new EventEmitter();
 
-  @Input() Selected: boolean;
+  @Input() selected: boolean;
   @Input() processo: Processo;
 
   docs$: Observable<Documento[]>;
@@ -44,9 +44,9 @@ export class LinhaComponent implements OnInit {
   ngOnInit(): void {
     this.docs$ = this._processoService.obterDocumentosDoProcesso(this.processo.id);
 
-    this._processoService.obterProcessosSelecionados().subscribe((p) => {
-        this.Selected = false;
-        const newList = new Set(p);
+    this._processoService.obterProcessosSelecionados().subscribe((data) => {
+        this.selected = false;
+        const newList = new Set(data);
         newList.forEach((p) => {
           if (p.id === this.processo.id)
             {this.processo.checked = true;}
@@ -95,15 +95,5 @@ export class LinhaComponent implements OnInit {
       this.link = this.sanitizer.bypassSecurityTrustResourceUrl(link);
       this.toggleDrawerOpen('telaDoPdfDoAcervo');
     }
-  }
-
-  retirarNomes(documentos: Documento[]): string[] {
-     return documentos.reduce<string[]>((acc, cur) => [...acc, cur.nome], []);
-  }
-
-  retirarLinks(documentos: Documento[]): string[] {
-    const links = documentos.reduce<string[]>((acc, cur) => [...acc, cur.url], []);
-
-    return links;
   }
 }

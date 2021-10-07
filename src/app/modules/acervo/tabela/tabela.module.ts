@@ -18,6 +18,7 @@ import { FuseDrawerModule } from '@fuse/components/drawer';
 import { PaginacaoComponent } from './paginacao/paginacao.component';
 import { PaginacaoCustomizadaComponent } from './paginacao/paginacao-customizada.component';
 import { SharedModule } from '../../../shared/shared.module';
+import { ReduceDocumentsPipe } from './linha/reduce-documents.pipe';
 
 const routes = [
   {
@@ -33,6 +34,7 @@ const routes = [
     StatusComponent,
     TagsComponent,
     PaginacaoComponent,
+    ReduceDocumentsPipe,
   ],
   imports: [
     CommonModule,

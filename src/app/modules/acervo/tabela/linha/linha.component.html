@@ -7,7 +7,7 @@
                         <mat-checkbox
                             color="primary"
                             (change)="emiteStatusDoCheckbox($event)"
-                            [checked]="Selected || processo.checked"
+                            [checked]="selected || processo.checked"
                         >
                         </mat-checkbox>
                     </div>
@@ -35,10 +35,10 @@
                 </div>
                 <div class="w-1/2">
                         <app-carrossel
-                            *ngIf = "docs$ | async as docs"
+                            *ngIf = "(docs$ | async | reduceDocuments) as docs"
                             [idChip]="'idDocs'"
-                            [chips]="retirarNomes(docs)"
-                            [links]="retirarLinks(docs)"
+                            [chips]="docs?.nomes"
+                            [links]="docs?.links"
                             [lastId]="lastId"
                             (click)="setId('idDocs')"
                             [hasIcon]="true"
@@ -47,15 +47,6 @@
                         ></app-carrossel>
                 </div>
             </div>
-            <!-- <div class="mb-4 hidden sm:block flex flex-row">
-                <app-tags [tags]="processo.lista" (tagSelecionada)="filtrarPorTags($event)"></app-tags>
-                <app-carrossel
-                    [idChip]="'idDocs'"
-                    [chips]="processo.documentos"
-                    [hasIcon]="true"
-                    [class]="['border-primary', 'border-solid', 'border-2', 'bg-transparent', 'text-primary']"
-                ></app-carrossel>
-            </div> -->
         </div>
     </mat-expansion-panel-header>
 
