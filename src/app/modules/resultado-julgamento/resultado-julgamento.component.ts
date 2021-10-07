@@ -29,22 +29,14 @@ export class ResultadoJulgamentoComponent implements OnInit {
   votos: Voto[] = [];
   dispositivos: Manifestacao[] = [];
 
-  decisoes: Decisao[] = [
-    {
-      descricao: 'teste',
-      dispositivo: 'Procedente',
-      tipo: 'Preliminar',
-      ministros_acordam: 'teste',
-      ministro_condutor: 'teste',
-      texto: 'teste', 
-    }
-  ];
+  decisoes: Decisao[] = [];
 
   constructor(
     private _resultadoJulgamento: ResultadoJulgamentoService,
     private _processoService: ProcessoService,
     private _route: ActivatedRoute,
   ) { 
+    
   }
 
   ngOnInit(): void {
