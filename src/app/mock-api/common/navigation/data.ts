@@ -69,7 +69,7 @@ export const defaultNavigation: FuseNavigationItem[] = [
         icon : 'heroicons_outline:chart-pie',
         link : '/resultado-julgamento',
         queryParams: {
-            processo: 'ADI100-Ag-Ag-Ag',
+            processo: 'ADI6185',
             colegiado: 'pleno',
         },
     },
@@ -134,7 +134,7 @@ export const compactNavigation: FuseNavigationItem[] = [
         icon : 'heroicons_outline:chart-pie',
         link : '/resultado-julgamento',
         queryParams: {
-            processo: 'ADI100-Ag-Ag-Ag',
+            processo: 'ADI6185',
             colegiado: 'pleno',
         },
     },
@@ -199,7 +199,7 @@ export const futuristicNavigation: FuseNavigationItem[] = [
         icon : 'heroicons_outline:chart-pie',
         link : '/resultado-julgamento',
         queryParams: {
-            processo: 'ADI100-Ag-Ag-Ag',
+            processo: 'ADI6185',
             colegiado: 'pleno',
         },
     },
@@ -260,7 +260,7 @@ export const horizontalNavigation: FuseNavigationItem[] = [
         icon : 'heroicons_outline:chart-pie',
         link : '/resultado-julgamento',
         queryParams: {
-            processo: 'ADI100-Ag-Ag-Ag',
+            processo: 'ADI6185',
             colegiado: 'pleno',
         },
     },

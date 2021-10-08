@@ -117,14 +117,19 @@ export const ministro: Ministro[] = [
 
 export const colegiado: Colegiado[] = [
   {
-    nome: NomeDoColegiado["Primeira Turma"],
+    nome: NomeDoColegiado.Pleno,
     presidente: ministro[0],
     composicao: [
-      {ministro: ministro[1], incluir_voto: false, pode_votar: false, ja_votou: false, presidente: false, redator: false, relator: false},
-      {ministro: ministro[2], incluir_voto: false, pode_votar: false, ja_votou: false, presidente: true, redator: false, relator: false},
-      {ministro: ministro[3], incluir_voto: false, pode_votar: false, ja_votou: false, presidente: false, redator: true, relator: false},
+      {ministro: ministro[2], incluir_voto: false, pode_votar: false, ja_votou: false, presidente: false, redator: true, relator: true},
       {ministro: ministro[4], incluir_voto: false, pode_votar: false, ja_votou: false, presidente: false, redator: false, relator: false},
-      {ministro: ministro[5], incluir_voto: false, pode_votar: false, ja_votou: false, presidente: false, redator: false, relator: true},
+      {ministro: ministro[5], incluir_voto: false, pode_votar: false, ja_votou: false, presidente: true, redator: false, relator: false},
+      {ministro: ministro[8], incluir_voto: false, pode_votar: false, ja_votou: false, presidente: false, redator: true, relator: false},
+      {ministro: ministro[3], incluir_voto: false, pode_votar: false, ja_votou: false, presidente: false, redator: false, relator: false},
+      {ministro: ministro[9], incluir_voto: false, pode_votar: false, ja_votou: false, presidente: false, redator: false, relator: false},
+      {ministro: ministro[7], incluir_voto: false, pode_votar: false, ja_votou: false, presidente: false, redator: true, relator: false},
+      {ministro: ministro[1], incluir_voto: false, pode_votar: false, ja_votou: false, presidente: false, redator: true, relator: false},
+      {ministro: ministro[0], incluir_voto: false, pode_votar: false, ja_votou: false, presidente: false, redator: true, relator: false},
+      {ministro: ministro[10], incluir_voto: false, pode_votar: false, ja_votou: false, presidente: false, redator: true, relator: false},
       {ministro: ministro[6], incluir_voto: false, pode_votar: false, ja_votou: false, presidente: false, redator: true, relator: false},
     ],
     data: '2016-08-29T09:12:33.001Z',
@@ -142,20 +147,12 @@ export const colegiado: Colegiado[] = [
   },
 
   {
-    nome: NomeDoColegiado.Pleno,
-    presidente: ministro[9],
-    composicao:  [
-      {ministro: ministro[0], incluir_voto: false, pode_votar: false, ja_votou: false, presidente: false, redator: false, relator: false},
-      {ministro: ministro[1], incluir_voto: false, pode_votar: false, ja_votou: false, presidente: false, redator: false, relator: false},
-      {ministro: ministro[2], incluir_voto: false, pode_votar: false, ja_votou: false, presidente: true, redator: false, relator: false},
-      {ministro: ministro[3], incluir_voto: false, pode_votar: false, ja_votou: false, presidente: false, redator: true, relator: false},
-      {ministro: ministro[4], incluir_voto: false, pode_votar: false, ja_votou: false, presidente: false, redator: false, relator: true},
+    nome: NomeDoColegiado["Primeira Turma"],
+    presidente: ministro[7],
+    composicao: [
+      {ministro: ministro[4], incluir_voto: false, pode_votar: false, ja_votou: false, presidente: false, redator: false, relator: false},
       {ministro: ministro[5], incluir_voto: false, pode_votar: false, ja_votou: false, presidente: false, redator: false, relator: false},
       {ministro: ministro[6], incluir_voto: false, pode_votar: false, ja_votou: false, presidente: true, redator: false, relator: false},
-      {ministro: ministro[7], incluir_voto: false, pode_votar: false, ja_votou: false, presidente: false, redator: false, relator: false},
-      {ministro: ministro[8], incluir_voto: false, pode_votar: false, ja_votou: false, presidente: false, redator: false, relator: false},
-      {ministro: ministro[9], incluir_voto: false, pode_votar: false, ja_votou: false, presidente: true, redator: false, relator: false},
-      {ministro: ministro[10], incluir_voto: false, pode_votar: false, ja_votou: false, presidente: false, redator: false, relator: false},
     ],
     data: '2016-08-29T09:12:33.001Z',
   },

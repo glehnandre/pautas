@@ -5,8 +5,9 @@ import { tags as tagData } from 'app/mock-api/pautas/tags/data';
 import { TipoDoProcesso } from "app/modules/acervo/model/enums/tipoDoProcesso.enum";
 import { TipoCapitulo } from "app/modules/acervo/model/enums/tipoCapitulo.enum";
 import { ministro } from "../ministro/data";
+import { processo } from "../processos/data";
 
-export const decisoes: Array<{decisoes: Decisao[], processo: Processo, sessao: SessaoJulgamento}> = [
+export const decisoes: Array<{decisoes: Decisao[], processo: Processo, sessao: any}> = [
   {
     decisoes: [
       {
@@ -91,5 +92,29 @@ export const decisoes: Array<{decisoes: Decisao[], processo: Processo, sessao: S
       },
       situacao: "PUBLICADA",
     }
-  }
+  },
+
+  {
+    decisoes: [],
+    
+    processo: processo[8],
+    
+    sessao: {
+      numero: 1000,
+      ano: 2021,
+      colegiado: "Primeira turma",
+      
+      tipo: "ORDINARIA",
+      categoria: "REPERCUSSAO_GERAL",
+      modalidade: "VIRTUAL",
+      data_inicio: "2021-09-29T09:12:33.001Z",
+      data_fim: "2021-10-29T09:12:33.001Z",
+      
+      secretario: {
+        id: 19,
+        nome: "Carmen",
+      },
+      situacao: "PUBLICADA",
+    }
+  },
 ];
