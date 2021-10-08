@@ -1,10 +1,10 @@
-<div class="flex flex-col lg:flex-row lg:justify-start">
-    <div class="flex flex-row flex-wrap lg:max-w-3/5">
+<div class="flex lg:justify-start">
+    <div class="flex flex-row flex-wrap lg:max-w-3/4">
         <div class="flex flex-nowrap flex-row">
             <img [src]="relator?.imagem" alt="Imagem de perfil"
                 class="w-14 h-14 mr-6 mb-4 rounded-full ng-tns-c129-57 ng-star-inserted">
             <div class="flex flex-col flex-none mr-14 ng-tns-c129-56 ng-star-inserted">
-                <div class="text-lg font-medium text-primary leading-tight">
+                <div class="text-xl font-sans text-primary leading-tight">
                     {{relator?.nome | titlecase}}
                 </div>
                 <div class="text-md leading-tight font-bold">
@@ -15,12 +15,10 @@
                 </div>
             </div>
         </div>
-
-        <div class="flex flex-1 flex-col min-w-20 overflow-x-auto">
+        <div>
             <div class="flex-1 ml-2 text-xl">
-                {{obterTipoDoProcesso()}}
+                {{processo}}
             </div>
-
             <div class="hidden md:block">
                 <app-carrossel 
                     [idChip]="'idTags'"
@@ -29,8 +27,9 @@
             </div>
         </div>
     </div>
-
-    <div class="hidden md:block lg:ml-4 lg:mt-8">
+</div>
+<div class="flex flex-row">   
+    <div class="hidden md:block max-w-full">
         <app-carrossel
             [idChip]="'idDocs'"
             [chips]="documentos?.nomes"
