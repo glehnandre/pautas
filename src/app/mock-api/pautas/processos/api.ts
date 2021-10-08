@@ -71,7 +71,6 @@ export class ProcessoMockApi {
             .onGet('processos')
             .reply(({ request }) => {
                 const { params } = request;
-
                 if (params.get('itensPorPagina') && params.get('itensPorPagina') !== 'undefined') {
                     const paginacao: Paginacao = {
                         itensPorPagina: +params.get('itensPorPagina') || 5,
@@ -94,18 +93,13 @@ export class ProcessoMockApi {
                         classes: params.getAll('classe'),
                         tags: (params.getAll('tag')) ? params.getAll('tag').toString().split(',') : null,
                     };
-
                     if (params.keys().length > 0) {
                         const processosFiltrados = this._processo
                             .filter((processo) => {
                                 if (filtros.processo) {
-                                    let query = `${processo.classe}${processo.numero}`;
-
-                                    if (processo.tipo !== TipoDoProcesso.Merito) {
-                                        query = `${query}-${processo.abreviacao}`;
-                                    }
-                                   
-                                    return (query === filtros.processo);
+                                    console.log('%c Entrou Processo', 'color:blue; font-weight: bold; font-size: 20px;');
+                                    let query = `${processo.id}`;
+                                    return (query == filtros.processo);
                                 } else {
                                     return true;
                                 }
