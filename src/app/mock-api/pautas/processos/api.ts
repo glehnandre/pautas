@@ -97,7 +97,6 @@ export class ProcessoMockApi {
                         const processosFiltrados = this._processo
                             .filter((processo) => {
                                 if (filtros.processo) {
-                                    console.log('%c Entrou Processo', 'color:blue; font-weight: bold; font-size: 20px;');
                                     let query = `${processo.id}`;
                                     return (query == filtros.processo);
                                 } else {
