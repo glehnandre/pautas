@@ -409,86 +409,30 @@ export const processo: Processo[] = [
 export const documentos: Documento[] = [
   {
     id: 1,
-    nome: 'Relatório ADI 6185 - ED',
+    nome: 'Relatório',
     tipo: 'pdf',
     url: '/assets/pdf/relatorio-adi6185-Ed.pdf',
   },
 
   {
-    id: 2,
-    nome: 'Relatório ADI 6185',
-    tipo: 'pdf',
-    url: '/assets/pdf/Relatorio-ADI6185.pdf',
-  },
-
-  {
-    id: 3,
-    nome: "Relatório",
-    tipo: "pdf",
-    url: "/assets/pdf/Relatorio.pdf"
-  },
-
-  {
     id: 4,
-    nome: "Voto Alexandre Divergente",
+    nome: "Voto AD",
     tipo: "pdf",
     url: "/assets/pdf/voto-alexandre-divergenteadi6185-Ed.pdf"
   },
 
   {
     id: 5,
-    nome: 'Voto Luis Barroso',
+    nome: 'Voto LB',
     tipo: 'pdf',
     url: '/assets/pdf/voto-luis-barroso-barroso-adi6185-Ed.pdf',
   },
 
   {
     id: 6,
-    nome: 'Voto Marco Aurélio',
+    nome: 'Voto MA',
     tipo: 'pdf',
     url: '/assets/pdf/voto-marco-aurelio-relator-adi6185-Ed.pdf',
-  },
-
-  {
-    id: 7,
-    nome: "Íntegra do Voto do Relator",
-    tipo: "pdf",
-    url: "/assets/pdf/voto-relator.pdf"
-  },
-
-  {
-    id: 8,
-    nome: 'Voto Vogal 1',
-    tipo: 'pdf',
-    url: '/assets/pdf/voto-vogal-1.pdf',
-  },
-
-  {
-    id: 9,
-    nome: 'Voto Vogal 2',
-    tipo: 'pdf',
-    url: '/assets/pdf/voto-vogal-2.pdf',
-  },
-
-  {
-    id: 10,
-    nome: 'Voto Vogal 3',
-    tipo: 'pdf',
-    url: '/assets/pdf/voto-vogal-3.pdf',
-  },
-
-  {
-    id: 11,
-    nome: 'Voto Vogal 4',
-    tipo: 'pdf',
-    url: '/assets/pdf/voto-vogal-4.pdf',
-  },
-
-  {
-    id: 12,
-    nome: 'Voto Vogal 5',
-    tipo: 'pdf',
-    url: '/assets/pdf/voto-vogal-5.pdf',
   },
 ]
 
