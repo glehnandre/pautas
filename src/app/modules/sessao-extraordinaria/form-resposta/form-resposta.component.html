@@ -1,0 +1,46 @@
+<div class="flex flex-col -m-6 mb-4">
+    <div class="flex flex-0 h-16 px-8
+        items-center justify-between bg-primary text-on-primary"
+    >
+        <div class="text-lg font-medium">Resposta</div>
+    </div>
+    <div class="m-2">
+        <textarea
+            id="resposta"
+            [(ngModel)]="resposta"
+            [ngModelOptions]="{standalone:true}"
+            placeholder="Escreva sua Resposta aqui"
+            class="w-full p-2 h-16 bg-white dark:bg-opacity-5 overflow-auto
+            focus:border-blue-400 border-4 rounded-xl"
+        ></textarea>
+    </div>
+    <div mat-dialog-actions class="flex flex-col-reverse sm:flex-row items-center
+        mr-2 my-4 sm:mt-0 sm:ml-auto space-x-4 space-y-2 sm:space-y-0"
+    >
+        <button
+          class="w-3/4 sm:w-auto ml-3 mt-2"
+          mat-raised-button
+          mat-dialog-close
+        >
+            Cancelar
+        </button>
+
+        <button
+          class="w-3/4 sm:w-auto bg-red-600 text-white"
+          mat-raised-button
+          (click)="recusar()"
+          mat-dialog-close
+        >
+            Recusar
+        </button>
+        <button
+          class="w-3/4 sm:w-auto"
+          color="primary"
+          mat-raised-button
+          (click)="aceitar()"
+          mat-dialog-close
+          >
+            Aceitar
+        </button>
+    </div>
+</div>
