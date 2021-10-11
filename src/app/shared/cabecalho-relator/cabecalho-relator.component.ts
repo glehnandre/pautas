@@ -17,6 +17,7 @@ export class CabecalhoRelatorComponent implements OnInit {
   @Input() processo: string;
   @Input() colegiado: string;
 
+  right: number = 0;
   panelOpenState = false;
   link: SafeResourceUrl;
   tags: string[] = [];
@@ -37,6 +38,9 @@ export class CabecalhoRelatorComponent implements OnInit {
     this.link = this._sanitizer.bypassSecurityTrustResourceUrl('');
     this._buscarProcessos();
     this._buscarColegiados();
+
+    let tamanho = document.getElementById("cabecalho").getBoundingClientRect();
+    this.right = tamanho.right
   }
 
   public obterTipoDoProcesso(): string {

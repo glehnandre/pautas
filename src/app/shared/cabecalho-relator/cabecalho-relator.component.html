@@ -1,4 +1,4 @@
-<div class="flex flex-col lg:flex-row lg:justify-start">
+<div id="cabecalho" class="flex flex-col lg:flex-row lg:justify-start">
     <div class="flex flex-row flex-wrap lg:max-w-3/5">
         <div class="flex flex-nowrap flex-row">
             <img [src]="relator?.imagem" alt="Imagem de perfil"
@@ -21,7 +21,7 @@
                 {{obterTipoDoProcesso()}}
             </div>
 
-            <div class="hidden md:block">
+            <div class="">
                 <app-carrossel 
                     [idChip]="'idTags'"
                     [chips]="tags"
@@ -29,8 +29,7 @@
             </div>
         </div>
     </div>
-
-    <div class="hidden md:block lg:ml-4 lg:mt-8">
+    <div class="lg:ml-4 lg:mt-8">
         <app-carrossel
             [idChip]="'idDocs'"
             [chips]="documentos?.nomes"
@@ -40,10 +39,11 @@
             (linkDoPdfSelecionado)="abrirLink($event)"
         ></app-carrossel>
     </div>
+
 </div>
 
 <mat-expansion-panel 
-    class="md:hidden my-4"
+    class="hidden my-4"
     (opened)="panelOpenState = true" 
     (closed)="panelOpenState = false"
 >

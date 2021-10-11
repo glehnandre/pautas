@@ -14,7 +14,7 @@ export class CarrosselComponent implements OnInit {
   @Input() chips: string[] = [];
   @Input() hasIcon: boolean = false;
   @Input() class: string[] = [];
-  @Input() idChip:string;
+  @Input() idChip:string = '';
   @Input() lastId:string;
   @Input() links: string[] = [];
 
@@ -22,8 +22,24 @@ export class CarrosselComponent implements OnInit {
 
   constructor() { }
 
-  ngOnInit(): void {
+  ngOnInit(): void { 
+  }
 
+  /**
+   *
+   * @param id o id do elemento que eu quero comparar o tamanho com o id+'2'
+   */
+  comparaTamanho(id: string): boolean{
+    let elemExterno = document.getElementById(id);
+    let elemInterno = document.getElementById(id+'2');
+    if(elemExterno && elemInterno){
+      let tamExterno = elemExterno.getBoundingClientRect();
+      let tamInterno = elemInterno.getBoundingClientRect();
+      if(tamExterno.width <= tamInterno.width){
+        return true;
+      }
+    }
+    return false;
   }
 
   handleKeyboardEvent(event: KeyboardEvent) {
