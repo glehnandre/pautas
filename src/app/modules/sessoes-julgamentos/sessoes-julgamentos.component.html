@@ -109,6 +109,44 @@
             <app-processo-capitulo [processo]="processo"></app-processo-capitulo>
         </mat-expansion-panel>
     </div>
+    <fuse-drawer
+        id="visualisador"
+        [name]="'telaImpedimentos'"
+        [opened]="false"
+        [position]="'right'"
+        [mode]="'over'"
+    >
+    <div class="grid grid-flow-row content-start mx-8">
+            <button
+                class="bg-accent-200 mt-4 absolute right-8 rounded-full text-center h-8 w-8"
+                mat-icon-button
+                (click)="toggleDrawerOpen('telaImpedimentos')"
+            >
+                <mat-icon class="text-current mt-1 text-black" [svgIcon]="'heroicons_outline:x'"></mat-icon>
+            </button>
+
+            <h2 class="mt-16 w-full">{{label}} ({{tamanho}})</h2>
+            <fuse-card class="flex flex-col items-start p-4 mb-4 bg-accent-100" *ngFor="let t of tipo">
+
+                <div class="w-full flex felx-col mb-4 border-solid border-b-2 text-justify">
+                <h3 class="font-medium mr-1 text-primary">Tipo:</h3>
+                <span class="mt-1 text-lg">{{t}}</span>
+                </div>
+                <div class="w-full flex felx-col mb-2 border-solid border-b-2 text-justify">
+                <h3 class="font-medium mr-1 text-primary">Relacionamento:</h3>
+                <span class="mt-1 text-lg">{{relacionamento}}</span>
+                </div>
+                <div class="mb-4 text-justify">
+                <h4 class="font-medium mb-0 pt-2">Descrição:</h4>
+                {{descricao}}
+                </div>
+                <div class="w-full mb-4 border-solid border-t-2 text-justify">
+                <h4 class="font-medium mb-0 pt-2">Observação:</h4>
+                {{observacao}}
+                </div>
+            </fuse-card>
+        </div>
+    </fuse-drawer>
 </div>
 <div class="absolute top-0 right-0 z-10 p-2">
     <fuse-alert class="max-w-120 mx-auto"
@@ -122,41 +160,4 @@
     </fuse-alert>
 </div>
 
-<fuse-drawer
-    id="visualisador"
-    [name]="'telaImpedimentos'"
-    [opened]="false"
-    [position]="'right'"
-    [mode]="'over'"
->
-<div class="grid grid-flow-row content-start mx-8">
-        <button
-            class="bg-accent-200 mt-4 absolute right-8 rounded-full text-center h-8 w-8"
-            mat-icon-button
-            (click)="toggleDrawerOpen('telaImpedimentos')"
-        >
-            <mat-icon class="text-current mt-1 text-black" [svgIcon]="'heroicons_outline:x'"></mat-icon>
-        </button>
 
-        <h2 class="mt-16 w-full">{{label}} ({{tamanho}})</h2>
-        <fuse-card class="flex flex-col items-start p-4 mb-4 bg-accent-100" *ngFor="let t of tipo">
-
-            <div class="w-full flex felx-col mb-4 border-solid border-b-2 text-justify">
-              <h3 class="font-medium mr-1 text-primary">Tipo:</h3>
-              <span class="mt-1 text-lg">{{t}}</span>
-            </div>
-            <div class="w-full flex felx-col mb-2 border-solid border-b-2 text-justify">
-              <h3 class="font-medium mr-1 text-primary">Relacionamento:</h3>
-              <span class="mt-1 text-lg">{{relacionamento}}</span>
-            </div>
-            <div class="mb-4 text-justify">
-              <h4 class="font-medium mb-0 pt-2">Descrição:</h4>
-              {{descricao}}
-            </div>
-            <div class="w-full mb-4 border-solid border-t-2 text-justify">
-              <h4 class="font-medium mb-0 pt-2">Observação:</h4>
-              {{observacao}}
-            </div>
-        </fuse-card>
-    </div>
-</fuse-drawer>
