@@ -1,17 +1,10 @@
 <div class="flex flex-row justify-between">
-    <div class="flex flex-row">
+    <div class="flex flex-row items-center">
         <img class="w-14 h-14 mr-4" [src]="voto?.autor?.imagem" [alt]="voto?.autor?.nome">
     
-        <section class="">
-            <div class="text-2xl font-medium leading-4 mt-1">{{voto?.autor?.nome}}</div>
-            <div class="mt-1">
-                <mat-chip-list #chipList class="">
-                    <mat-chip class="flex-none border-green-700 border-solid border-2 bg-transparent text-green-700 text-base ">
-                        {{voto?.tipo}}
-                    </mat-chip>
-                </mat-chip-list>
-            </div>
-        </section>
+        <div class="text-2xl font-medium leading-4 mt-1">
+            {{voto?.autor?.nome}}
+        </div>
     </div>
 
     <div class="flex items-center mt-6 -space-x-1.5 ng-star-inserted">

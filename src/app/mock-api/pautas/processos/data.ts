@@ -363,7 +363,7 @@ export const processo: Processo[] = [
   {
     id:         9,
     ementa:     'AÇÃO DIRETADE INCONSTITUCIONALIDADE 6.185 GOIÁS',
-    nome:       'EMB.DECL.',
+    nome:       'Embargo de Declaração',
     abreviacao: '',
     lista:      [
                   tagData[2],

@@ -5,13 +5,14 @@ import { TipoCapitulo } from '../acervo/model/enums/tipoCapitulo.enum';
 import { Decisao } from '../acervo/model/interfaces/decisao.interface';
 import { Manifestacao } from '../acervo/model/interfaces/manifestacao.interface';
 import { Processo } from '../acervo/model/interfaces/processo.interface';
+import { SessaoJulgamento } from '../acervo/model/interfaces/sessao-julgamento.interface';
 import { Voto } from '../acervo/model/interfaces/voto.interface';
 import { ProcessoService } from '../services/processo.service';
 import { ResultadoJulgamentoService } from '../services/resultado-julgamento.service';
 
 
 interface Parametros {
-  processo: string;
+  processo: number;
   colegiado: string;
 }
 
@@ -22,7 +23,7 @@ interface Parametros {
 })
 export class ResultadoJulgamentoComponent implements OnInit {
 
-  dados: any;
+  dados: { decisoes: Decisao[], processo: Processo, sessao: SessaoJulgamento };
   parametros: Parametros;
 
   processosPorTags: Processo[] = [];
@@ -50,7 +51,7 @@ export class ResultadoJulgamentoComponent implements OnInit {
 
         const tags = this.dados.processo.lista.map(tag => tag.id);
 
-        this._processoService.listarProcessos(new HttpParams().set('tag', tags)).subscribe({
+        this._processoService.listarProcessos(new HttpParams().set('tag', tags.toString())).subscribe({
           next: (processos) => {
             setTimeout(() => {
               this.processosPorTags = processos;
@@ -99,6 +100,15 @@ export class ResultadoJulgamentoComponent implements OnInit {
     if (index !== -1) {
       this.decisoes.splice(index, 1);
     }
+  }
+
+  public getDadosProcesso(): string {
+    if (this.dados && this.dados.processo) {
+      const { classe, numero, nome } = this.dados.processo;
+      return `${classe} ${numero} ${nome}`;
+    }
+
+    return 'Aguarde...';
   }
 
 }

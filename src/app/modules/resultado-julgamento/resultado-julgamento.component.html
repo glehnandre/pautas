@@ -24,7 +24,7 @@
 
     <header class="bg-white px-8 pt-4">
         <app-cabecalho-relator
-            [processo]="parametros.processo"
+            [processo]="getDadosProcesso()"
             [colegiado]="parametros.colegiado"
         ></app-cabecalho-relator>
     </header>
@@ -122,11 +122,20 @@
                 <!-- CONTENT GOES HERE -->
                 <div class="h-400 min-h-400 max-h-400  border-gray-300 rounded-2xl">
                     <mat-tab-group animationDuration="0ms">
-                        <mat-tab 
-                            class="tab-click" 
+                        <mat-tab  
                             *ngFor="let voto of votos" 
-                            [label]="voto.autor.nome"
                         >
+                            <ng-template mat-tab-label>
+                                {{voto.autor.nome}}
+                                
+                                <mat-chip 
+                                    class="ml-2 flex-none border-solid border-2 text-xs 
+                                    mat-ripple bg-transparent text-white border-white"
+                                >
+                                    {{voto.tipo}}
+                                </mat-chip>
+                            </ng-template>
+
                             <app-conteudo-voto-ministro
                                 [voto]="voto"
                             ></app-conteudo-voto-ministro>
