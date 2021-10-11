@@ -33,7 +33,7 @@
                     </div> -->
 
 
-                    <div class="flex flex-row my-2">
+                    <div class="flex flex-row">
                         <div class="mr-2 my-auto">
                             <button (click)="scrollLeft(id)">
                                 <mat-icon>
@@ -41,28 +41,31 @@
                                 </mat-icon>
                             </button>
                         </div>
-                        <div [id]="id" [class]="(conteudos.length>=3) ? 'grid grid-flow-col grid-rows-3 w-screen gap-x-16 overflow-hidden' : 'grid grid-flow-row w-screen gap-x-16 overflow-hidden'">
-                            <div *ngFor="let conteudo of conteudos" class="flex my-auto">
-                            <div *ngIf="!hasImage" class="flex-none">
-                                <mat-checkbox
-                                    color="primary" 
-                                    [checked]="Selected"
-                                    [value]="conteudo"
-                                    [name]="id"
-                                    (change)="emiteObjeto($event)"
-                                >
-                                {{conteudo}}
-                                </mat-checkbox>
-                            </div>
-                            <div *ngIf="hasImage">
-                                <img
-                                    [src]="conteudo?.imagem"
-                                    [value]="id"
-                                    alt="Imagem de perfil"
-                                    [class]="'w-14 h-14 mr-6 rounded-full object-cover ' + filter"
-                                    (click)="emiteMinistro(conteudo, id)"
-                                >
-                            </div>
+                        <div [id]="id" [class]="(hasImage) ? 'flex flex-row w-screen space-x-8 overflow-hidden':(conteudos.length>=3) ? 'grid grid-flow-col grid-rows-3 w-screen gap-x-16 overflow-hidden' : 'grid grid-flow-row w-screen gap-x-16 overflow-hidden'">
+                            <div *ngFor="let conteudo of conteudos" class="flex flex-shrink-0 my-auto">
+                                <div *ngIf="!hasImage" class="flex-none">
+                                    <mat-checkbox
+                                        color="primary" 
+                                        [checked]="Selected"
+                                        [value]="conteudo"
+                                        [name]="id"
+                                        (change)="emiteObjeto($event)"
+                                    >
+                                    {{conteudo}}
+                                    </mat-checkbox>
+                                </div>
+                                <div *ngIf="hasImage" class="flex-none">
+                                    <img
+                                        [src]="conteudo.ministro?.imagem"
+                                        alt="Imagem de perfil"
+                                        [class]="'bg-green-300 w-14 h-14 rounded-full object-cover ' + conteudo.filter"
+                                        (click)="emiteMinistro(conteudo, id)"
+                                    >
+                                    <span class="flex flex-1 justify-center text-primary font-semibold -mt-4">
+                                        {{conteudo.ministro.abreviacao}}
+                                    </span>
+                                    
+                                </div>
                             </div>
                         </div>
                         <div class="ml-2 my-auto">

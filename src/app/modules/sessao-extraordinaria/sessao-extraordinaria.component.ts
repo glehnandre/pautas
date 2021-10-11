@@ -1,6 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { SituacaoDoProcesso } from 'app/modules/acervo/model/enums/situacaoDoProcesso.enum';
-import { Processo } from 'app/modules/acervo/model/interfaces/processo.interface';
 import { SessaoJulgamento } from 'app/modules/acervo/model/interfaces/sessao-julgamento.interface';
 import { JulgamentoService } from 'app/modules/services/julgamento.service';
 import { registerLocaleData } from '@angular/common';
@@ -8,6 +6,10 @@ import localePT from '@angular/common/locales/pt';
 import { DatePipe } from '@angular/common';
 import { FuseAlertService } from '@fuse/components/alert';
 import { Ministro } from 'app/modules/acervo/model/interfaces/ministro.interface';
+import { ActivatedRoute, Router } from '@angular/router';
+import { MatDialog } from '@angular/material/dialog';
+import { AlertaComponent } from '../acervo/acoes/agrupar-emlista/gerenciar-listas/alerta/alerta.component';
+import { FormRespostaComponent } from './form-resposta/form-resposta.component';
 registerLocaleData(localePT);
 
 @Component({
@@ -19,7 +21,6 @@ export class SessaoExtraordinariaComponent implements OnInit {
 
   tags: string[] = ['Virtual', 'Segunda Turma', 'Inicio e fim no dia 21/04/2021'];
   observacao: string;
-  processos: Processo[] = [];
   sessao: SessaoJulgamento;
   solicitante: Ministro;
   colegiado: string;
@@ -32,12 +33,15 @@ export class SessaoExtraordinariaComponent implements OnInit {
   sessoes: SessaoJulgamento[] = [];
 
   constructor(
+    private _matDialog: MatDialog,
     private _julgamentoService: JulgamentoService,
     private _fuseAlertService: FuseAlertService,
+    private _route: ActivatedRoute,
   ) {}
 
   ngOnInit(): void {
-    this._julgamentoService.listarSessoesDeJulgamento(1000, 2021).subscribe({
+    const { numero, ano } = this._route.snapshot.queryParams;
+    this._julgamentoService.listarSessoesDeJulgamento(numero, ano).subscribe({
       next: (sessao) => {
         this.sessao = sessao;
         this.observacao = sessao['observacao'];
@@ -45,23 +49,35 @@ export class SessaoExtraordinariaComponent implements OnInit {
         this.colegiado = sessao['colegiado'];
         this.nome_solicitante = this.solicitante.nome;
 
-        const { numero, ano, data_inicio, data_fim } = this.sessao;
+        const { data_inicio, data_fim } = this.sessao;
 
         this.setTexto(data_inicio, data_fim);
-
-        this._julgamentoService.listarProcessosPautadosNasSessoes(numero, ano, SituacaoDoProcesso.Pautado, data_inicio, data_fim).subscribe({
-          next: (processos) => {
-            this.processos = processos;
-          }
-        });
       }
     });
 
     this._julgamentoService.listarTodasAsSessoesDeJulgamento().subscribe(data=>{
       this.sessoes = data;
     })
-    
 
+
+  }
+
+  abrirResposta(): void {
+      const dialogRef = this._matDialog.open(FormRespostaComponent, {
+          data: {
+              resposta: this.resposta,
+          },
+          width: '560px'
+      });
+      dialogRef.afterClosed().subscribe(result => {
+          this.resposta = result.resposta;
+          console.log(result);
+          if(result)
+            if(result.aceitar)
+                this.aprovarSessao();
+            else
+                this.recusarSessao();
+      })
   }
 
   setTexto(inicio: string, fim: string){

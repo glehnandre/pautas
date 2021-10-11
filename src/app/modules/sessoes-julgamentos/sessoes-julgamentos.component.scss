@@ -1,3 +1,27 @@
 ::ng-deep .specific-class > .mat-expansion-indicator:after {
     @apply border-primary;
 }
+
+$fuse-drawer-width: 450;
+
+#visualisador {
+    width: #{$fuse-drawer-width}px;
+    min-width: #{$fuse-drawer-width}px;
+    max-width: #{$fuse-drawer-width}px;
+}
+
+.position-left-90 {
+    margin-left: 90%;
+}
+
+@media (max-width: 800px) {
+    #visualisador {
+        width: 100% !important;
+        min-width: 100% !important;
+        max-width: 100% !important;
+    }
+    
+    .position-left-90 {
+        margin-left: 88%;
+    }
+}

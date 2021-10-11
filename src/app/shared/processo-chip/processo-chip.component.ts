@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { MatDialogRef } from '@angular/material/dialog';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Processo } from 'app/modules/acervo/model/interfaces/processo.interface';
 import { ProcessoService } from 'app/modules/services/processo.service';
 
@@ -14,9 +15,12 @@ export class ProcessoChipComponent implements OnInit {
   @Input() isEmitRemoveEvent: boolean = false;
   @Input() processos: Processo[] = [];
   @Input() dialogRef: MatDialogRef<any>;
+  @Input() isReturnable: boolean = false;
 
   constructor(
     private _processoService: ProcessoService,
+    private _router: Router,
+    private _route: ActivatedRoute,
   ) { }
 
   ngOnInit(): void {
@@ -30,8 +34,8 @@ export class ProcessoChipComponent implements OnInit {
       this._processoService.setProcessosSelecionados(this.processos);
     }
 
-    if (this.processos.length === 0) {
-      this.dialogRef.close();
+    if (this.isReturnable && this.processos.length === 0) {
+      this._router.navigate(['../'], {relativeTo: this._route});
     }
   }
 

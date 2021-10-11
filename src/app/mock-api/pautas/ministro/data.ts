@@ -1,5 +1,6 @@
-import { Colegiado, NomeDoColegiado } from 'app/modules/acervo/model/interfaces/colegiado.interface';
-import { Ministro } from 'app/modules/acervo/model/interfaces/ministro.interface';
+import { Colegiado, NomeDoColegiado } from "app/modules/acervo/model/interfaces/colegiado.interface";
+import { Impedimento } from "app/modules/acervo/model/interfaces/impedimento.interface";
+import { Ministro } from "app/modules/acervo/model/interfaces/ministro.interface";
 
 export const ministro: Ministro[] = [
   {
@@ -157,5 +158,41 @@ export const colegiado: Colegiado[] = [
       {ministro: ministro[10], incluir_voto: false, pode_votar: false, ja_votou: false, presidente: false, redator: false, relator: false},
     ],
     data: '2016-08-29T09:12:33.001Z',
+  },
+];
+
+export const impedimentos: Impedimento[] = [
+  {
+    id: 1,
+    descricao: 'Voto divergente Ministra Cármen Lúcia',
+    tipo: ['Absoluto', 'Relativo'],
+    relacionamento: 'Advogado',
+    observacao: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec ac consequat est. Morbi luctus vel mi vel luctus. Sed suscipit nisl nec odio auctor, auctor maximus quam hendrerit. Ut ut pellentesque urna. Aliquam sit amet iaculis justo. Donec ornare ornare nisi id tincidunt. Nam faucibus consectetur aliquam. Orci varius natoque.'
+  },
+  {
+    id: 2,
+    descricao: 'Voto divergente Ministro Marco Aurélio',
+    tipo: ['Suspeição'],
+    relacionamento: 'Advogado',
+    observacao: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec ac consequat est. Morbi luctus vel mi vel luctus. Sed suscipit nisl nec odio auctor, auctor maximus quam hendrerit. Ut ut pellentesque urna. Aliquam sit amet iaculis justo. Donec ornare ornare nisi id tincidunt. Nam faucibus consectetur aliquam. Orci varius natoque.'
+  },
+];
+
+export const listaImpedimentos = [
+  {
+    ministro: "DT",
+    lista: [{
+        processo: "ADI-Ag",
+        impedimento: [impedimentos[0]],
+      },
+      {
+        processo: "ADI-100",
+        impedimento: [impedimentos[1]],
+      },
+      {
+        processo: "ADI-Ag-Ag-Ag",
+        impedimento: [impedimentos[0], impedimentos[1]],
+      },
+    ],
   },
 ];

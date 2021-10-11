@@ -23,6 +23,15 @@ export class MinistroService {
     );
   }
 
+  listarMinistrosDoColegiado(colegiado: string): Observable<Ministro[]> {
+    return this._httpClient.get<Ministro[]>(`/colegiado/${colegiado}/composicao`).pipe(
+      catchError(error => {
+        console.log(error);
+        return EMPTY;
+      })
+    );
+  }
+
   listarColegiados(
     colegiado?: string,
     processo?: string,

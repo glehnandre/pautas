@@ -17,7 +17,15 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatMomentDateModule } from '@angular/material-moment-adapter';
 import { SessoesPipe } from './pautar-form/sessoes.pipe';
+import { CabecalhoRelatorComponent } from './cabecalho-relator/cabecalho-relator.component';
+import { FuseDrawerModule } from '@fuse/components/drawer';
+import { MatButtonModule } from '@angular/material/button';
+import { VisualizadorPdfComponent } from './visualizador-pdf/visualizador-pdf.component';
 import { CarrosselComponent } from './carrossel/carrossel.component';
+import { ProcessosSolicitacaoExtraordinariaComponent } from './processos-solicitacao-extraordinaria/processos-solicitacao-extraordinaria.component';
+import { ContadorComponent } from './contador/contador.component';
+import { FuseCardModule } from '@fuse/components/card';
+import { MatDividerModule } from '@angular/material/divider';
 
 
 @NgModule({
@@ -25,15 +33,21 @@ import { CarrosselComponent } from './carrossel/carrossel.component';
         ProcessoChipComponent,
         ProcessoPainelExpansivoComponent,
         ProcessoCapituloComponent,
+        ProcessosSolicitacaoExtraordinariaComponent,
         PautarFormComponent,
         SessoesPipe,
         CarrosselComponent,
+        CabecalhoRelatorComponent,
+        VisualizadorPdfComponent,
+        ContadorComponent,
     ],
     imports: [
         CommonModule,
         FormsModule,
         ReactiveFormsModule,
+        MatButtonModule,
         MatChipsModule,
+        MatDividerModule,
         MatIconModule,
         MatExpansionModule,
         MatCheckboxModule,
@@ -44,6 +58,8 @@ import { CarrosselComponent } from './carrossel/carrossel.component';
         MatSelectModule,
         MatRadioModule,
         MatAutocompleteModule,
+        FuseDrawerModule,
+        FuseCardModule,
     ],
     exports: [
         CommonModule,
@@ -52,8 +68,12 @@ import { CarrosselComponent } from './carrossel/carrossel.component';
         ProcessoChipComponent,
         ProcessoPainelExpansivoComponent,
         ProcessoCapituloComponent,
+        ProcessosSolicitacaoExtraordinariaComponent,
         PautarFormComponent,
         CarrosselComponent,
+        CabecalhoRelatorComponent,
+        VisualizadorPdfComponent,
+        ContadorComponent,
     ],
 })
 export class SharedModule

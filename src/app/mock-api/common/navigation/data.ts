@@ -17,18 +17,26 @@ export const defaultNavigation: FuseNavigationItem[] = [
         link : '/acervo'
     },
     {
-        id   : 'julgamento-extraordinario',
+        id   : 'resposta-solicitacao-sessao-extraordinaria',
         title: 'Resposta de Solicitação de Julgamento Extraordinario',
         type : 'basic',
         icon : 'heroicons_outline:chart-pie',
-        link : '/julgamento-extraordinario'
+        link : '/resposta-solicitacao-sessao-extraordinaria',
+        queryParams: {
+            numero: 1000,
+            ano: 2021,
+        }
     },
     {
         id   : 'sessao-extraordinaria',
         title: 'Solicitar Sessão Extraordinária',
         type : 'basic',
         icon : 'heroicons_outline:chart-pie',
-        link : '/sessao-extraordinaria'
+        link : '/sessao-extraordinaria',
+        queryParams: {
+            numero: 1000,
+            ano: 2021,
+        }
     },
     {
         id   : 'criacao-colegiado',
@@ -51,8 +59,15 @@ export const defaultNavigation: FuseNavigationItem[] = [
         link : '/sessoes-julgamento',
         queryParams: {
             numero: 1000,
-            ano: 2021
+            ano: 2021,
         }
+    },
+    {
+        id   : 'resultado-julgamento',
+        title: 'Resultado do Julgamento',
+        type : 'basic',
+        icon : 'heroicons_outline:chart-pie',
+        link : '/resultado-julgamento',
     },
 ];
 export const compactNavigation: FuseNavigationItem[] = [
@@ -102,7 +117,18 @@ export const compactNavigation: FuseNavigationItem[] = [
         title: 'Sessões de Julgamento',
         type : 'basic',
         icon : 'heroicons_outline:chart-pie',
-        link : '/sessoes-julgamento'
+        link : '/sessoes-julgamento',
+        queryParams: {
+            numero: 1000,
+            ano: 2021,
+        }
+    },
+    {
+        id   : 'resultado-julgamento',
+        title: 'Resultado do Julgamento',
+        type : 'basic',
+        icon : 'heroicons_outline:chart-pie',
+        link : '/resultado-julgamento',
     },
 ];
 export const futuristicNavigation: FuseNavigationItem[] = [
@@ -152,7 +178,18 @@ export const futuristicNavigation: FuseNavigationItem[] = [
         title: 'Sessões de Julgamento',
         type : 'basic',
         icon : 'heroicons_outline:chart-pie',
-        link : '/sessoes-julgamento'
+        link : '/sessoes-julgamento',
+        queryParams: {
+            numero: 1000,
+            ano: 2021,
+        }
+    },
+    {
+        id   : 'resultado-julgamento',
+        title: 'Resultado do Julgamento',
+        type : 'basic',
+        icon : 'heroicons_outline:chart-pie',
+        link : '/resultado-julgamento',
     },
 ];
 export const horizontalNavigation: FuseNavigationItem[] = [
@@ -189,7 +226,13 @@ export const horizontalNavigation: FuseNavigationItem[] = [
         title: 'Criação do Colegiado',
         type : 'basic',
         icon : 'heroicons_outline:chart-pie',
-        link : '/criacao-colegiado'
+        link : '/criacao-colegiado',
+        queryParams: {
+            processo: 'ADI100-Ag-Ag-Ag',
+            data: '2016-08-29T09%3A12%3A33.001Z',
+            colegiado: 'pleno',
+            sessao: '1000-2021',
+        }
     },
     {
         id   : 'sessoes-julgamento',
@@ -197,5 +240,12 @@ export const horizontalNavigation: FuseNavigationItem[] = [
         type : 'basic',
         icon : 'heroicons_outline:chart-pie',
         link : '/sessoes-julgamento',
+    },
+    {
+        id   : 'resultado-julgamento',
+        title: 'Resultado do Julgamento',
+        type : 'basic',
+        icon : 'heroicons_outline:chart-pie',
+        link : '/resultado-julgamento',
     },
 ];

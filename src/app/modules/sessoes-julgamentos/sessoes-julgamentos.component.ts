@@ -1,13 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Subject } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 import { Processo } from '../acervo/model/interfaces/processo.interface';
 import { SessaoJulgamento } from '../acervo/model/interfaces/sessao-julgamento.interface';
-import { Documento } from '../acervo/model/interfaces/documento.interface';
-import { Tag } from '../acervo/model/interfaces/tag.interface';
 import { ProcessoService } from '../services/processo.service';
 import { JulgamentoService } from '../services/julgamento.service';
 import { FuseAlertService } from '@fuse/components/alert';
+import { Impedimento } from '../acervo/model/interfaces/impedimento.interface';
+import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
+import { FuseDrawerService } from '@fuse/components/drawer';
 
 @Component({
   selector: 'app-sessoes-julgamentos',
@@ -16,10 +17,19 @@ import { FuseAlertService } from '@fuse/components/alert';
 })
 export class SessoesJulgamentosComponent implements OnInit {
 
-  processos: Processo[];
-  sessao: SessaoJulgamento;
+  impedimentos: Observable<Impedimento[]>[] = [];
+  processos: Processo[] = [];
+  sessao: SessaoJulgamento = {} as SessaoJulgamento;
   tags: string[];
   documentos: string[];
+  link: SafeResourceUrl;
+
+  label: string;
+  tipo: string[];
+  tamanho: number=1;
+  relacionamento: string;
+  descricao: string;
+  observacao: string;
 
   eventsSubject: Subject<any> = new Subject<any>();
 
@@ -27,13 +37,12 @@ export class SessoesJulgamentosComponent implements OnInit {
     private _processoService: ProcessoService,
     private _julgamentoService: JulgamentoService,
     private _fuseAlertService: FuseAlertService,
+    public sanitizer: DomSanitizer,
+    private _fuseDrawerService: FuseDrawerService,
     private _route: ActivatedRoute,
   ) { }
 
   ngOnInit(): void {
-      this.processos = [];
-      this.sessao = {} as SessaoJulgamento;
-
       const { numero, ano } = this._route.snapshot.queryParams;
 
       this._julgamentoService.listarSessoesDeJulgamento(numero, ano).subscribe({
@@ -42,22 +51,20 @@ export class SessoesJulgamentosComponent implements OnInit {
 
             this._julgamentoService.listarProcessosPautadosNasSessoes(numero, ano).subscribe({
                 next: (processosData) => {
-                    this.processos = processosData.map((processo) => {
+                    this.processos = processosData;
+                    processosData.forEach((processo) => {
                       this._processoService.obterDocumentosDoProcesso(processo.id).subscribe((documentos) => {
                         this.documentos = documentos.map(documento => documento.nome);
-
-                        const documentosTransformados = this.documentos as unknown[];
-
-                        processo.documentos = documentosTransformados as Documento[];
                       });
 
+                      let abreviacao: string;
+                      if (processo.nome === "Mérito"){
+                        abreviacao = `${processo.classe}-100`;
+                      }
+                      else abreviacao = `${processo.classe}-${processo.abreviacao}`;
+                      this.impedimentos.push(this._processoService.obterImpedimentosDoMinistro(abreviacao, "DT"));
+
                       this.tags = processo.lista.map(tag => tag.descricao);
-
-                      const tagsTransformadas = this.tags as unknown[];
-
-                      processo.lista = tagsTransformadas as Tag[];
-
-                      return processo;
                     });
                 },
             });
@@ -66,8 +73,30 @@ export class SessoesJulgamentosComponent implements OnInit {
             this.isSessaoInvalida();
         }
       });
+  }
 
+  /**
+   *
+   * @param drawerName nome do fuse-drawer do html que será aberto
+   */
+  toggleDrawerOpen(drawerName: string): void {
+    const drawer = this._fuseDrawerService.getComponent(drawerName);
+    drawer.toggle();
+  }
 
+  /**
+   *
+   * @param impedimento objeto impedimento que será aberto
+   */
+   abrirJanela(impedimento: Impedimento): void {
+      const hasSuspeicao = (impedimento.tipo.indexOf("Suspeição")!=-1);
+      this.label = (hasSuspeicao) ? "Possível motivo de suspeição" : "Possível motivo de impedimento";
+      this.tipo = impedimento.tipo;
+      this.tamanho = this.tipo.length;
+      this.relacionamento = impedimento.relacionamento;
+      this.descricao = impedimento.descricao;
+      this.observacao = impedimento.observacao;
+      this.toggleDrawerOpen('telaImpedimentos');
   }
 
   isSessaoInvalida(): void {

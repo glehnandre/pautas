@@ -94,11 +94,10 @@ export class AcoesComponent implements OnInit {
   }
 
   openComposeDialog(): void {
-    this.filtrarProcesso('Apto a Pautar');
     if(!this.verificaProcesso()){
       this.mostrarAlerta();
     }
-    else{
+    else if(!this.filtrarProcesso('Apto a Pautar')){
       // Open the dialog
       this._router.navigate(['pautar'], {relativeTo: this._route});
     }
@@ -116,10 +115,10 @@ export class AcoesComponent implements OnInit {
   }
 
   retirarDePauta(): void {
-    this.filtrarProcesso('Pautado');
-    if (!this.verificaProcesso()) {
+    if(!this.verificaProcesso()){
       this.mostrarAlerta();
-    } else {
+    }
+    else if(!this.filtrarProcesso('Pautado')){
       const dialogRef = this._matDialog.open(AlertaComponent, {
         data: {
           titulo: 'Retirar processo',
@@ -177,9 +176,10 @@ export class AcoesComponent implements OnInit {
 
       if (processo.situacao !== SituacaoDoProcesso[situacao]) {
           processosRemovidos.push(processo);
-          processo.checked = false;
       }
-      else {processosSelecinados.push(processo);}
+      else{
+          processosSelecinados.push(processo);
+      }
     });
 
     this._processoService.setProcessosSelecionados(processosSelecinados);

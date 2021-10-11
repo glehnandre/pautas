@@ -2,7 +2,6 @@ import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ComposicaoColegiado } from 'app/modules/acervo/model/interfaces/colegiado.interface';
 import { Ministro } from 'app/modules/acervo/model/interfaces/ministro.interface';
-import { Voto, VotoDoMinistro } from 'app/modules/acervo/model/interfaces/voto.interface';
 
 @Component({
   selector: 'app-card-ministro',
@@ -12,7 +11,7 @@ import { Voto, VotoDoMinistro } from 'app/modules/acervo/model/interfaces/voto.i
 export class CardMinistroComponent implements OnInit {
 
   formCriacaoColegiado: FormGroup;
-  voto: Voto = {incluir_voto: false, ja_votou: false, pode_votar: false}
+  voto = {incluir_voto: false, ja_votou: false, pode_votar: false}
   minsitro: Ministro;
 
   @Input() composicao: ComposicaoColegiado;

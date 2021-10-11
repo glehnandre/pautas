@@ -26,6 +26,7 @@ import { PautaMockApi } from './pautas/pautar/api';
 import { JulgamentoMockApi } from './pautas/julgamentos/api';
 import { SituacaoMockApi } from './pautas/situacaoProcesso/api';
 import { MinistroMockApi } from './pautas/ministro/api';
+import { DecisaoMockApi } from './pautas/decisao/api';
 
 export const mockApiServices = [
     AcademyMockApi,
@@ -56,4 +57,5 @@ export const mockApiServices = [
     JulgamentoMockApi,
     SituacaoMockApi,
     MinistroMockApi,
+    DecisaoMockApi,
 ];

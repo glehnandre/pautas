@@ -1,10 +1,12 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, EMPTY, Subject } from 'rxjs';
+import { Observable, EMPTY, Subject, BehaviorSubject } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { Documento } from '../acervo/model/interfaces/documento.interface';
+import { Impedimento } from '../acervo/model/interfaces/impedimento.interface';
 import { Processo } from '../acervo/model/interfaces/processo.interface';
 import { Tag } from '../acervo/model/interfaces/tag.interface';
+import { Voto } from '../acervo/model/interfaces/voto.interface';
 import { StatusProcesso } from '../acervo/tabela/status/situacaoProcesso';
 
 @Injectable({
@@ -14,7 +16,7 @@ export class ProcessoService {
 
   // Informa se os processos precisam ser carregados novamente
   private isCarregarProcessos: Subject<boolean> = new Subject<boolean>();
-  private processosSelecionados: Subject<Processo[]> = new Subject<Processo[]>();
+  private processosSelecionados = new BehaviorSubject<Processo[]>([]);
 
   constructor(
     private _httpClient: HttpClient,
@@ -55,9 +57,28 @@ export class ProcessoService {
       );
   }
 
+  public obterImpedimentosDoMinistro(processo: string, ministro: string): Observable<Impedimento[]> {
+    return this._httpClient.get<Impedimento[]>(`processos/${processo}/impedimentos/${ministro}`)
+      .pipe(
+        catchError(error => {
+          console.log(error);
+          return EMPTY;
+        })
+      );
+  }
+
   public recuperarTagsDaApi(): Observable<Tag[]> {
     return this._httpClient.get<Tag[]>('tags').pipe(
       catchError((error) => {
+        console.log(error);
+        return EMPTY;
+      })
+    );
+  }
+
+  public obterVotosDoProcesso(processo: string): Observable<Voto[]> {
+    return this._httpClient.get<Voto[]>(`processos/${processo}/votos`).pipe(
+      catchError(error => {
         console.log(error);
         return EMPTY;
       })
@@ -72,8 +93,8 @@ export class ProcessoService {
     return this.isCarregarProcessos;
   }
 
-  public obterProcessosSelecionados(): Subject<Processo[]> {
-    return this.processosSelecionados;
+  public obterProcessosSelecionados(): Observable<Processo[]> {
+    return this.processosSelecionados.asObservable();
   }
 
   public setProcessosSelecionados(processos: Processo[]): void {

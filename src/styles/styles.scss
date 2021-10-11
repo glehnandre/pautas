@@ -31,3 +31,77 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
       justify-content: flex-end !important;
   }
 }
+
+
+/* Ajusta a formatação e visualização do mat-tab-group */
+.fuse-mat-rounded {
+  .mat-tab-group {
+
+      .mat-tab-header {
+          border-bottom: none !important;
+
+          .mat-tab-label-container {
+              padding: 0 24px;
+
+              .mat-tab-list {
+
+                  .mat-tab-labels {
+
+                    .mat-tab-label {
+                      min-width: 0 !important;
+                      height: 40px !important;
+                      padding: 0 20px !important;
+                      border-radius: 9999px !important;
+                      @apply text-secondary;
+
+                      &.mat-tab-label-active {
+                          @apply bg-primary-500 #{!important};
+                          @apply text-white #{!important};
+                      }
+
+                      + .mat-tab-label {
+                          margin-left: 4px;
+                      }
+
+                      + .mat-tab-label:last-child {
+                        margin-right: 40px;
+                      }
+
+                      .mat-tab-label-content {
+                          line-height: 20px;
+                      }
+                    }
+                  }
+
+                  .mat-ink-bar {
+                      display: none !important;
+                  }
+              }
+          }
+      }
+
+      .mat-tab-body-content {
+          padding: 24px;
+      }
+    }
+}
+
+/*------------*/
+
+/* width */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  @apply bg-gray-400;
+  border-radius: 10px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  @apply bg-primary;
+}
+
+/*-------------*/

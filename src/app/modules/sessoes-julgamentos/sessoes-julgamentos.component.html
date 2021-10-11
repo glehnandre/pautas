@@ -4,6 +4,7 @@
             <div class="flex flex-col items-start justify-between" *ngIf="(sessao | json) !== '{}'">
                 <app-filtro
                 ></app-filtro>
+
                 <div class="flex flex-row">
                     <mat-checkbox
                         class="ml-9"
@@ -24,7 +25,7 @@
         </div>
     </div>
     <div class="flex-auto  overflow-y-auto px-8 py-4 mb-2" *ngIf="(sessao | json) !== '{}'" cdkScrollable>
-        <mat-expansion-panel class="flex flex-col" *ngFor="let processo of processos">
+        <mat-expansion-panel class="flex flex-col" *ngFor="let processo of processos; let i = index">
             <mat-expansion-panel-header [collapsedHeight]="'80px'" class="h-full w-full specific-class">
                 <div class="flex flex-col w-full">
                     <div class="flex flex-row flex-wrap py-2">
@@ -38,7 +39,7 @@
                                 </div>
                             </div>
                             <img
-                                *ngIf="(processo.relator && processo.relator.imagem) || (processo.redator && processo.redator.imagem)"
+                                *ngIf="(processo.relator && processo.relator.imagem) || (processo.redator && pr)"
                                 [src]="processo?.relator?.imagem ? processo.relator.imagem : processo.redator.imagem"
                                 alt="Imagem de perfil"
                                 class="w-14 h-14 mr-6 mb-4 rounded-full"
@@ -68,18 +69,31 @@
                             </div>
                         </div>
                     </div>
+                    <div *ngIf="impedimentos[i] | async as imp; else loading" class="flex flex-row flex-wrap mr-2 items-end space-x-2">
+                        <mat-chip-list #chipList class="mt-2 flex-none" *ngFor="let impedimento of imp">
+                            <mat-chip (click)="abrirJanela(impedimento)" [class]="(impedimento.tipo === 'Suspeição') ? 'bg-primary-400' : 'bg-red-300'">
+                                <mat-icon class="mr-2 icon-size-4" style="color:firebrick">warning</mat-icon>
+                                {{(impedimento.tipo === 'Suspeição') ? 'Possível motivo de suspeição' : 'Possível motivo de impedimento'}}
+                            </mat-chip>
+                        </mat-chip-list>
+                        <ng-template #loading>
+                            <div class="relative">
+                                <mat-spinner class="absolute bottom-0 right-4" [diameter]="30"></mat-spinner>
+                            </div>
+                        </ng-template>
+                    </div>
                     <div class="flex flex-row w-full">
                         <div class="w-1/2">
                             <app-carrossel
                                 [idChip]="'idTags'"
-                                [chips]="processo.lista"
+                                [chips]="tags"
                                 [lastId]="lastId"
                             ></app-carrossel>
                         </div>
                         <div class="w-1/2">
                             <app-carrossel
                                 [idChip]="'idDocs'"
-                                [chips]="processo.documentos"
+                                [chips]="documentos"
                                 [lastId]="lastId"
                                 [hasIcon]="true"
                                 [class]="['border-primary', 'border-solid', 'border-2', 'bg-transparent', 'text-primary']"
@@ -107,3 +121,42 @@
         Pode haver sessão de julgamento fechadas para o período.
     </fuse-alert>
 </div>
+
+<fuse-drawer
+    id="visualisador"
+    [name]="'telaImpedimentos'"
+    [opened]="false"
+    [position]="'right'"
+    [mode]="'over'"
+>
+<div class="grid grid-flow-row content-start mx-8">
+        <button
+            class="bg-accent-200 mt-4 absolute right-8 rounded-full text-center h-8 w-8"
+            mat-icon-button
+            (click)="toggleDrawerOpen('telaImpedimentos')"
+        >
+            <mat-icon class="text-current mt-1 text-black" [svgIcon]="'heroicons_outline:x'"></mat-icon>
+        </button>
+
+        <h2 class="mt-16 w-full">{{label}} ({{tamanho}})</h2>
+        <fuse-card class="flex flex-col items-start p-4 mb-4 bg-accent-100" *ngFor="let t of tipo">
+
+            <div class="w-full flex felx-col mb-4 border-solid border-b-2 text-justify">
+              <h3 class="font-medium mr-1 text-primary">Tipo:</h3>
+              <span class="mt-1 text-lg">{{t}}</span>
+            </div>
+            <div class="w-full flex felx-col mb-2 border-solid border-b-2 text-justify">
+              <h3 class="font-medium mr-1 text-primary">Relacionamento:</h3>
+              <span class="mt-1 text-lg">{{relacionamento}}</span>
+            </div>
+            <div class="mb-4 text-justify">
+              <h4 class="font-medium mb-0 pt-2">Descrição:</h4>
+              {{descricao}}
+            </div>
+            <div class="w-full mb-4 border-solid border-t-2 text-justify">
+              <h4 class="font-medium mb-0 pt-2">Observação:</h4>
+              {{observacao}}
+            </div>
+        </fuse-card>
+    </div>
+</fuse-drawer>

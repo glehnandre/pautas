@@ -1,6 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { PautarFormComponent } from './pautar-form.component';
+import { SessoesPipe } from './sessoes.pipe';
 
 describe('PautarFormComponent', () => {
   let component: PautarFormComponent;
@@ -8,7 +9,7 @@ describe('PautarFormComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ PautarFormComponent ]
+      declarations: [ PautarFormComponent, SessoesPipe ]
     })
     .compileComponents();
   });

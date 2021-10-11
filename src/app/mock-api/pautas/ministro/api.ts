@@ -43,6 +43,22 @@ export class MinistroMockApi {
         });
 
       this._fuseMockApiService
+      .onGet('/colegiado/:colegiado/composicao')
+      .reply(({urlParams}) => {
+        const col = String(urlParams.colegiado);
+        const ministros: Ministro[] = []
+
+        this._colegiado.forEach(colegiado=>{
+          if(colegiado.nome==col){
+            colegiado.composicao.forEach(composicao=>{
+              ministros.push(composicao.ministro);
+            })
+          }
+        })
+        return [200, ministros];
+      });
+
+      this._fuseMockApiService
         .onPost('/colegiado')
         .reply(({request}) => {
           const { body } = request;

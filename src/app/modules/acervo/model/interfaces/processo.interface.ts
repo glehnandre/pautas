@@ -12,6 +12,7 @@ export interface Processo {
     classe: string;
     numero: number;
     nome: string;
+    abreviacao: string;
     situacao: SituacaoDoProcesso;
     tipo: TipoDoProcesso;
     capitulos: Capitulo[];
