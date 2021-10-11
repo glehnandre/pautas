@@ -4,20 +4,20 @@
             <img [src]="relator?.imagem" alt="Imagem de perfil"
                 class="w-14 h-14 mr-6 mb-4 rounded-full ng-tns-c129-57 ng-star-inserted">
             <div class="flex flex-col flex-none mr-14 ng-tns-c129-56 ng-star-inserted">
-                <div class="text-xl font-sans text-primary leading-tight">
+                <div class="text-2xl font-medium leading-4">
                     {{relator?.nome | titlecase}}
                 </div>
-                <div class="text-md leading-tight font-bold">
+                <div class="text-md font-medium leading-4">
                     {{relator?.abreviacao | uppercase}}
                 </div>
-                <div class="text-md text-secondary mt-2">
+                <div class="text-md text-secondary mt-1">
                     Relator
                 </div>
             </div>
         </div>
         <div>
-            <div class="flex-1 ml-2 text-xl">
-                <h2>{{processo}}</h2>
+            <div class="flex-1 ml-2 text-2xl font-medium leading-4 text-primary">
+                {{processo}}
             </div>
             <div class="hidden md:block">
                 <app-carrossel 
