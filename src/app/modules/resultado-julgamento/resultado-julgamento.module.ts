@@ -15,10 +15,13 @@ import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select'; 
 import { MatIconModule } from '@angular/material/icon';
 import { MatExpansionModule } from '@angular/material/expansion';
+import { MatSidenavModule } from '@angular/material/sidenav';
+import { FuseDrawerModule } from '@fuse/components/drawer/drawer.module';
 
 import { ResultadoJulgamentoComponent } from './resultado-julgamento.component';
 import { ConteudoVotoMinistroComponent } from './conteudo-voto-ministro/conteudo-voto-ministro.component';
 import { FormDecisaoComponent } from './form-decisao/form-decisao.component';
+
 
 const ResultadoJulgamentoRoutes: Route[] = [
   {
@@ -51,6 +54,8 @@ const ResultadoJulgamentoRoutes: Route[] = [
     MatSelectModule,
     MatIconModule,
     MatExpansionModule,
+    MatSidenavModule,
+    FuseDrawerModule
   ]
 })
 export class ResultadoJulgamentoModule { }

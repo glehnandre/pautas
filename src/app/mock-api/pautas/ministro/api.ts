@@ -34,10 +34,12 @@ export class MinistroMockApi {
           
           if (colegiado === 'pleno') {
             const pleno = this._colegiado.filter(col => col.nome === 'pleno');
+            console.log(pleno)
             return [200, pleno];
           } else {
             const colegiados = this._colegiado
               .filter(col => col.nome === colegiado);
+
             return [200, colegiados];
           }
         });
@@ -55,6 +57,7 @@ export class MinistroMockApi {
             })
           }
         })
+
         return [200, ministros];
       });
 

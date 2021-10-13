@@ -8,10 +8,7 @@
     <mat-form-field class="w-full mb-4" appearance="outline">
         <mat-label>Tipo <span class="text-red-500">*</span></mat-label>
         <mat-select formControlName="tipo">
-            <mat-option 
-                *ngFor="let tipo of ['Preliminar']" 
-                [value]="tipo"
-            >
+            <mat-option *ngFor="let tipo of ['Preliminar']" [value]="tipo">
                 {{tipo}}
             </mat-option>
         </mat-select>
@@ -21,8 +18,8 @@
     <mat-form-field class="w-full mb-4" appearance="outline">
         <mat-label>Dispositivo <span class="text-red-500">*</span></mat-label>
         <mat-select formControlName="dispositivo">
-            <mat-option *ngFor="let dispositivo of ['Procedente']" [value]="dispositivo">
-                {{dispositivo}}
+            <mat-option *ngFor="let dispositivo of dispositivos" [value]="dispositivo.descricao">
+                {{dispositivo.descricao}}
             </mat-option>
         </mat-select>
         <mat-hint>Informe o dispositivo</mat-hint>
@@ -30,7 +27,24 @@
 
     <mat-form-field class="w-full mb-4" appearance="outline">
         <mat-label>Ministros que acordam <span class="text-red-500">*</span></mat-label>
-        <input matInput type="text" formControlName="ministros_acordam">
+        <mat-select formControlName="ministros_acordam" multiple>
+            <mat-select-trigger>
+                {{formDecisao.controls['ministros_acordam'].value ? formDecisao.controls['ministros_acordam'].value[0] :
+                ''}}
+                <span *ngIf="formDecisao.controls['ministros_acordam'].value.length > 1" class="font-light text-xs">
+                    (+{{formDecisao.controls['ministros_acordam'].value.length - 1}}
+                    {{formDecisao.controls['ministros_acordam'].value.length === 2 ? 'outro' : 'outros'}})
+                </span>
+            </mat-select-trigger>
+            <mat-option *ngFor="let ministro of (ministros$ | async)" [value]="ministro.nome">
+                <div class="flex items-center">
+                    <div>
+                        <img class="w-8 h-8 mr-4" [src]="ministro.imagem">
+                    </div>
+                    <div>{{ ministro.nome }}</div>
+                </div>
+            </mat-option>
+        </mat-select>
         <mat-hint>Liste os ministros</mat-hint>
     </mat-form-field>
 
@@ -47,39 +61,21 @@
     </mat-form-field>
 
     <p class="mt-4 text-center flex flex-col">
-        <button 
-            *ngIf="!isDecisao()"
-            class="max-w-full"
-            mat-raised-button 
-            color="primary"
-            [disabled]="formDecisao.invalid"
-            (click)="cadastrarDecisao()"
-        >
-            <mat-icon class="mr-1">add_circle</mat-icon> 
+        <button *ngIf="!isDecisao()" class="max-w-full" mat-raised-button color="primary"
+            [disabled]="formDecisao.invalid" (click)="cadastrarDecisao()">
+            <mat-icon class="mr-1">add_circle</mat-icon>
             {{'Adicionar decisão' | uppercase}}
         </button>
 
-        <button 
-            *ngIf="isDecisao()"
-            class="mb-4 text-xs"
-            mat-raised-button 
-            color="warn"
-            (click)="excluirDecisao()"
-            [disabled]="formDecisao.invalid"
-        >
-            <mat-icon class="mr-1">delete</mat-icon> 
+        <button *ngIf="isDecisao()" class="mb-4 text-xs" mat-raised-button color="warn" (click)="excluirDecisao()"
+            [disabled]="formDecisao.invalid">
+            <mat-icon class="mr-1">delete</mat-icon>
             {{'Excluir esta decisão' | uppercase}}
         </button>
 
-        <button 
-            *ngIf="isDecisao()"
-            class="text-xs"
-            mat-raised-button 
-            color="primary"
-            (click)="salvarDecisao()"
-            [disabled]="formDecisao.invalid"
-        >
-            <mat-icon class="mr-1">save</mat-icon> 
+        <button *ngIf="isDecisao()" class="text-xs" mat-raised-button color="primary" (click)="salvarDecisao()"
+            [disabled]="formDecisao.invalid">
+            <mat-icon class="mr-1">save</mat-icon>
             {{'Salvar esta decisão' | uppercase}}
         </button>
     </p>

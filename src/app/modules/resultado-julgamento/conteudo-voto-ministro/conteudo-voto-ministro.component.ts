@@ -29,7 +29,7 @@ export class ConteudoVotoMinistroComponent implements OnInit {
 
   public converterDeBase64ParaHtml(): string {
     if (this.voto && this.voto.conteudo) {
-      return window.atob(this.voto.conteudo);
+      return this._fromBinary(this.voto.conteudo);
     }
     
     return 'aguarde...';
@@ -42,6 +42,24 @@ export class ConteudoVotoMinistroComponent implements OnInit {
       .forEach(({nome}, index) => nomes += `${(index + 1)}º que acompanhou: ${nome}\n`);
 
     return nomes;
+  }
+
+  private _fromBinary(binario: string): string {
+    const bytes = new Uint8Array(binario.length);
+
+    for (let i = 0; i < bytes.length; i++) {
+      bytes[i] = binario.charCodeAt(i);
+    }
+
+    const charCodes = new Uint16Array(bytes.buffer);
+
+    let resultado = '';
+
+    for (let i = 0; i < charCodes.length; i++) {
+      resultado += String.fromCharCode(charCodes[i]);
+    }
+
+    return resultado;
   }
 
 }
