@@ -83,6 +83,13 @@ const config = {
         }
     },
     theme       : {
+        backgroundSize: {
+           'auto': 'auto',
+           'cover': 'cover',
+           'contain': 'contain',
+           '75%': '75%',
+           '16': '4rem',
+        },
         colors  : {
             transparent: 'transparent',
             current    : 'currentColor',
@@ -125,6 +132,9 @@ const config = {
             xl   : '1440px'
         },
         extend  : {
+            backgroundImage: {
+                'stf-background': "url('assets/digital/stf-background.png')",
+            },
             animation : {
                 'spin-slow': 'spin 3s linear infinite'
             },

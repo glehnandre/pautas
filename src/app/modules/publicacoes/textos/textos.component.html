@@ -1,0 +1,1374 @@
+<!-- CONTENT GOES HERE -->
+<fuse-card class="flex flex-col w-full filter-post filter-interactive" #expandableCard02="fuseCard">
+    <div class="flex items-center mx-6 sm:mx-8 mt-6 ">
+        <img class="w-12 h-12 rounded-full mr-4" src="assets/digital/ministros/LF.png" alt="Card cover image">
+        <div class="flex flex-col">
+            <span class="font-semibold leading-none">Ministro Luiz Fux</span>
+            <span class="text-sm text-secondary leading-none mt-1">Há 2 horas</span>
+        </div>
+        <div class="flex flex-col ml-5">
+            <span class="font-semibold leading-none text-primary-500 text-2xl">ARE 1071279</span>
+            <span class="text-sm text-secondary leading-none mt-1">Recurso extraordinário com agravo</span>
+        </div>
+        <div class=" flex flex-row ml-auto -mr-4">
+            <button class="" mat-button (click)="expandableCard02.expanded = !expandableCard02.expanded">
+                <span class="mr-1">Partes</span>
+                <mat-icon class="icon-size-5 transform transition-transform ease-in-out duration-150 rotate-0"
+                    [ngClass]="{'rotate-180': expandableCard02.expanded}" [svgIcon]="'heroicons_solid:chevron-down'">
+                </mat-icon>
+            </button>
+            <button class="" mat-button [routerLink]="['./']">
+                <mat-icon class="mr-2" style="color:red">picture_as_pdf</mat-icon>
+                <span>Baixar</span>
+            </button>
+        </div>
+    </div>
+    <!--Texto da Decisão-->
+    <div class="mx-6 sm:mx-8 justify-center">
+        <blockquote>
+            <style>
+                p {
+                    margin-top: 0pt;
+                    margin-bottom: 1pt;
+                }
+
+                span.X44 {
+                    font-size: 9.0pt;
+                    font-weight: bold;
+                    color: #4f81bd;
+                }
+
+                span.X392 {
+                    font-family: 'Arial';
+                    font-size: 20.0pt;
+                }
+
+                p.X393 {
+                    margin-top: 18.0pt;
+                    margin-bottom: 10.0pt;
+                }
+
+                span.X393 {
+                    font-family: 'Arial';
+                    font-size: 17.0pt;
+                }
+
+                span.X394 {
+                    font-family: 'Arial';
+                    font-size: 17.0pt;
+                }
+
+                p.X395 {
+                    margin-top: 16.0pt;
+                    margin-bottom: 10.0pt;
+                }
+
+                span.X395 {
+                    font-family: 'Arial';
+                    font-size: 15.0pt;
+                }
+
+                span.X396 {
+                    font-family: 'Arial';
+                    font-size: 15.0pt;
+                }
+
+                p.X397 {
+                    margin-top: 16.0pt;
+                    margin-bottom: 10.0pt;
+                }
+
+                span.X397 {
+                    font-family: 'Arial';
+                    font-size: 13.0pt;
+                    font-weight: bold;
+                }
+
+                span.X398 {
+                    font-family: 'Arial';
+                    font-size: 13.0pt;
+                    font-weight: bold;
+                }
+
+                p.X399 {
+                    margin-top: 16.0pt;
+                    margin-bottom: 10.0pt;
+                }
+
+                span.X399 {
+                    font-family: 'Arial';
+                    font-size: 12.0pt;
+                    font-weight: bold;
+                }
+
+                span.X400 {
+                    font-family: 'Arial';
+                    font-size: 12.0pt;
+                    font-weight: bold;
+                }
+
+                p.X401 {
+                    margin-top: 16.0pt;
+                    margin-bottom: 10.0pt;
+                }
+
+                span.X401 {
+                    font-family: 'Arial';
+                    font-size: 11.0pt;
+                    font-weight: bold;
+                }
+
+                span.X402 {
+                    font-family: 'Arial';
+                    font-size: 11.0pt;
+                    font-weight: bold;
+                }
+
+                p.X403 {
+                    margin-top: 16.0pt;
+                    margin-bottom: 10.0pt;
+                }
+
+                span.X403 {
+                    font-family: 'Arial';
+                    font-size: 11.0pt;
+                    font-weight: bold;
+                    font-style: italic;
+                }
+
+                span.X404 {
+                    font-family: 'Arial';
+                    font-size: 11.0pt;
+                    font-weight: bold;
+                    font-style: italic;
+                }
+
+                p.X405 {
+                    margin-top: 16.0pt;
+                    margin-bottom: 10.0pt;
+                }
+
+                span.X405 {
+                    font-family: 'Arial';
+                    font-size: 11.0pt;
+                    font-style: italic;
+                }
+
+                span.X406 {
+                    font-family: 'Arial';
+                    font-size: 11.0pt;
+                    font-style: italic;
+                }
+
+                p.X407 {
+                    margin-top: 16.0pt;
+                    margin-bottom: 10.0pt;
+                }
+
+                span.X407 {
+                    font-family: 'Arial';
+                    font-size: 10.0pt;
+                    font-style: italic;
+                }
+
+                span.X408 {
+                    font-family: 'Arial';
+                    font-size: 10.0pt;
+                    font-style: italic;
+                }
+
+                p.X409 {
+                    margin-left: 36.0pt;
+                }
+
+                p.X410 {
+                    margin-top: 0.0pt;
+                    margin-bottom: 0.0pt;
+                }
+
+                span.X411 {
+                    font-size: 24.0pt;
+                }
+
+                span.X412 {
+                    font-size: 12.0pt;
+                }
+
+                p.X413 {
+                    margin-left: 36.0pt;
+                    margin-right: 36.0pt;
+                }
+
+                span.X413 {
+                    font-style: italic;
+                }
+
+                span.X414 {
+                    font-style: italic;
+                }
+
+                p.X415 {
+                    margin-left: 36.0pt;
+                    margin-right: 36.0pt;
+                    background-color: #f2f2f2;
+                }
+
+                span.X415 {
+                    font-style: italic;
+                }
+
+                span.X416 {
+                    font-style: italic;
+                }
+
+                p.X419 {
+                    margin-bottom: 0.0pt;
+                }
+
+                p.X420 {
+                    margin-bottom: 0.0pt;
+                }
+
+                p.X421 {
+                    margin-bottom: 0.0pt;
+                }
+
+                p.X422 {
+                    margin-bottom: 0.0pt;
+                }
+
+                p.X423 {
+                    margin-bottom: 0.0pt;
+                }
+
+                p.X424 {
+                    margin-bottom: 0.0pt;
+                }
+
+                p.X425 {
+                    margin-bottom: 0.0pt;
+                }
+
+                p.X426 {
+                    margin-bottom: 0.0pt;
+                }
+
+                p.X427 {
+                    margin-bottom: 0.0pt;
+                }
+
+                p.X428 {
+                    margin-bottom: 0.0pt;
+                }
+
+                p.X429 {
+                    margin-bottom: 0.0pt;
+                }
+
+                p.X430 {
+                    margin-bottom: 0.0pt;
+                }
+
+                p.X431 {
+                    margin-bottom: 0.0pt;
+                }
+
+                p.X432 {
+                    margin-bottom: 0.0pt;
+                }
+
+                p.X433 {
+                    margin-bottom: 0.0pt;
+                }
+
+                p.X434 {
+                    margin-bottom: 0.0pt;
+                }
+
+                p.X435 {
+                    margin-bottom: 0.0pt;
+                }
+
+                p.X436 {
+                    margin-bottom: 0.0pt;
+                }
+
+                p.X437 {
+                    margin-bottom: 0.0pt;
+                }
+
+                p.X438 {
+                    margin-bottom: 0.0pt;
+                }
+
+                p.X439 {
+                    margin-bottom: 0.0pt;
+                }
+
+                p.X440 {
+                    margin-bottom: 0.0pt;
+                }
+
+                p.X441 {
+                    margin-bottom: 0.0pt;
+                }
+
+                p.X442 {
+                    margin-bottom: 0.0pt;
+                }
+
+                p.X443 {
+                    margin-bottom: 0.0pt;
+                }
+
+                p.X444 {
+                    margin-bottom: 0.0pt;
+                }
+
+                p.X445 {
+                    margin-bottom: 0.0pt;
+                }
+
+                p.X446 {
+                    margin-bottom: 0.0pt;
+                }
+
+                p.X447 {
+                    margin-bottom: 0.0pt;
+                }
+
+                p.X448 {
+                    margin-bottom: 0.0pt;
+                }
+
+                p.X449 {
+                    margin-bottom: 0.0pt;
+                }
+
+                p.X450 {
+                    margin-bottom: 0.0pt;
+                }
+
+                p.X451 {
+                    margin-bottom: 0.0pt;
+                }
+
+                p.X452 {
+                    margin-bottom: 0.0pt;
+                }
+
+                p.X453 {
+                    margin-bottom: 0.0pt;
+                }
+
+                p.X454 {
+                    margin-bottom: 0.0pt;
+                }
+
+                p.X455 {
+                    margin-bottom: 0.0pt;
+                }
+
+                p.X456 {
+                    margin-bottom: 0.0pt;
+                }
+
+                p.X457 {
+                    margin-bottom: 0.0pt;
+                }
+
+                p.X458 {
+                    margin-bottom: 0.0pt;
+                }
+
+                p.X459 {
+                    margin-bottom: 0.0pt;
+                }
+
+                p.X460 {
+                    margin-bottom: 0.0pt;
+                }
+
+                p.X461 {
+                    margin-bottom: 0.0pt;
+                }
+
+                p.X462 {
+                    margin-bottom: 0.0pt;
+                }
+
+                p.X463 {
+                    margin-bottom: 0.0pt;
+                }
+
+                p.X464 {
+                    margin-bottom: 0.0pt;
+                }
+
+                p.X465 {
+                    margin-bottom: 0.0pt;
+                }
+
+                p.X466 {
+                    margin-bottom: 0.0pt;
+                }
+
+                p.X467 {
+                    margin-bottom: 0.0pt;
+                }
+
+                p.X468 {
+                    margin-bottom: 0.0pt;
+                }
+
+                p.X469 {
+                    margin-bottom: 0.0pt;
+                }
+
+                p.X470 {
+                    margin-bottom: 0.0pt;
+                }
+
+                p.X471 {
+                    margin-bottom: 0.0pt;
+                }
+
+                p.X472 {
+                    margin-bottom: 0.0pt;
+                }
+
+                p.X473 {
+                    margin-bottom: 0.0pt;
+                }
+
+                p.X474 {
+                    margin-bottom: 0.0pt;
+                }
+
+                p.X475 {
+                    margin-bottom: 0.0pt;
+                }
+
+                p.X476 {
+                    margin-bottom: 0.0pt;
+                }
+
+                p.X477 {
+                    margin-bottom: 0.0pt;
+                }
+
+                p.X478 {
+                    margin-bottom: 0.0pt;
+                }
+
+                p.X479 {
+                    margin-bottom: 0.0pt;
+                }
+
+                p.X480 {
+                    margin-bottom: 0.0pt;
+                }
+
+                p.X481 {
+                    margin-bottom: 0.0pt;
+                }
+
+                p.X482 {
+                    margin-bottom: 0.0pt;
+                }
+
+                p.X483 {
+                    margin-bottom: 0.0pt;
+                }
+
+                p.X484 {
+                    margin-bottom: 0.0pt;
+                }
+
+                p.X485 {
+                    margin-bottom: 0.0pt;
+                }
+
+                p.X486 {
+                    margin-bottom: 0.0pt;
+                }
+
+                p.X487 {
+                    margin-bottom: 0.0pt;
+                }
+
+                p.X488 {
+                    margin-bottom: 0.0pt;
+                }
+
+                p.X489 {
+                    margin-bottom: 0.0pt;
+                }
+
+                p.X490 {
+                    margin-bottom: 0.0pt;
+                }
+
+                p.X491 {
+                    margin-bottom: 0.0pt;
+                }
+
+                p.X492 {
+                    margin-bottom: 0.0pt;
+                }
+
+                p.X493 {
+                    margin-bottom: 0.0pt;
+                }
+
+                p.X494 {
+                    margin-bottom: 0.0pt;
+                }
+
+                p.X495 {
+                    margin-bottom: 0.0pt;
+                }
+
+                p.X496 {
+                    margin-bottom: 0.0pt;
+                }
+
+                p.X497 {
+                    margin-bottom: 0.0pt;
+                }
+
+                p.X498 {
+                    margin-bottom: 0.0pt;
+                }
+
+                p.X499 {
+                    margin-bottom: 0.0pt;
+                }
+
+                p.X500 {
+                    margin-bottom: 0.0pt;
+                }
+
+                p.X501 {
+                    margin-bottom: 0.0pt;
+                }
+
+                p.X502 {
+                    margin-bottom: 0.0pt;
+                }
+
+                p.X503 {
+                    margin-bottom: 0.0pt;
+                }
+
+                p.X504 {
+                    margin-bottom: 0.0pt;
+                }
+
+                p.X505 {
+                    margin-bottom: 0.0pt;
+                }
+
+                p.X506 {
+                    margin-bottom: 0.0pt;
+                }
+
+                p.X507 {
+                    margin-bottom: 0.0pt;
+                }
+
+                p.X508 {
+                    margin-bottom: 0.0pt;
+                }
+
+                p.X509 {
+                    margin-bottom: 0.0pt;
+                }
+
+                p.X510 {
+                    margin-bottom: 0.0pt;
+                }
+
+                p.X511 {
+                    margin-bottom: 0.0pt;
+                }
+
+                p.X512 {
+                    margin-bottom: 0.0pt;
+                }
+
+                p.X513 {
+                    margin-bottom: 0.0pt;
+                }
+
+                p.X514 {
+                    margin-bottom: 0.0pt;
+                }
+
+                p.X515 {
+                    margin-bottom: 0.0pt;
+                }
+
+                p.X516 {
+                    margin-bottom: 0.0pt;
+                }
+
+                p.X517 {
+                    margin-bottom: 0.0pt;
+                }
+
+                p.X518 {
+                    margin-bottom: 0.0pt;
+                }
+
+                p.X519 {
+                    margin-bottom: 0.0pt;
+                }
+
+                p.X520 {
+                    margin-bottom: 0.0pt;
+                }
+
+                p.X521 {
+                    margin-bottom: 0.0pt;
+                }
+
+                p.X522 {
+                    margin-bottom: 0.0pt;
+                }
+
+                p.X523 {
+                    margin-bottom: 0.0pt;
+                }
+
+                p.X524 {
+                    margin-bottom: 0.0pt;
+                }
+
+                span.X524 {
+                    color: #404040;
+                }
+
+                p.X525 {
+                    margin-bottom: 0.0pt;
+                }
+
+                span.X525 {
+                    color: #404040;
+                }
+
+                p.X526 {
+                    margin-bottom: 0.0pt;
+                }
+
+                span.X526 {
+                    color: #404040;
+                }
+
+                p.X527 {
+                    margin-bottom: 0.0pt;
+                }
+
+                span.X527 {
+                    color: #404040;
+                }
+
+                p.X528 {
+                    margin-bottom: 0.0pt;
+                }
+
+                span.X528 {
+                    color: #404040;
+                }
+
+                p.X529 {
+                    margin-bottom: 0.0pt;
+                }
+
+                span.X529 {
+                    color: #404040;
+                }
+
+                p.X530 {
+                    margin-bottom: 0.0pt;
+                }
+
+                span.X530 {
+                    color: #404040;
+                }
+
+                p.X531 {
+                    margin-bottom: 0.0pt;
+                }
+
+                span.X531 {
+                    color: #404040;
+                }
+
+                p.X532 {
+                    margin-bottom: 0.0pt;
+                }
+
+                span.X532 {
+                    color: #404040;
+                }
+
+                p.X533 {
+                    margin-bottom: 0.0pt;
+                }
+
+                span.X533 {
+                    color: #404040;
+                }
+
+                p.X534 {
+                    margin-bottom: 0.0pt;
+                }
+
+                span.X534 {
+                    color: #404040;
+                }
+
+                p.X535 {
+                    margin-bottom: 0.0pt;
+                }
+
+                span.X535 {
+                    color: #404040;
+                }
+
+                p.X536 {
+                    margin-bottom: 0.0pt;
+                }
+
+                span.X536 {
+                    color: #404040;
+                }
+
+                p.X537 {
+                    margin-bottom: 0.0pt;
+                }
+
+                span.X537 {
+                    color: #404040;
+                }
+
+                p.X538 {
+                    margin-bottom: 0.0pt;
+                }
+
+                p.X539 {
+                    margin-bottom: 0.0pt;
+                }
+
+                p.X540 {
+                    margin-bottom: 0.0pt;
+                }
+
+                p.X541 {
+                    margin-bottom: 0.0pt;
+                }
+
+                p.X542 {
+                    margin-bottom: 0.0pt;
+                }
+
+                p.X543 {
+                    margin-bottom: 0.0pt;
+                }
+
+                p.X544 {
+                    margin-bottom: 0.0pt;
+                }
+
+                span.X545 {
+                    color: #0000ff;
+                    text-decoration: underline;
+                }
+
+                p.X546 {
+                    margin-bottom: 2.0pt;
+                }
+
+                span.X546 {
+                    font-size: 9.0pt;
+                }
+
+                span.X547 {
+                    font-size: 9.0pt;
+                }
+
+                p.X549 {
+                    margin-left: 0.0pt;
+                    margin-right: 0.0pt;
+                    text-indent: 0.0pt;
+                    margin-bottom: 2.85pt;
+                }
+
+                p.X550 {
+                    margin-left: 14.15pt;
+                    margin-right: 0.0pt;
+                    text-indent: 0.0pt;
+                    margin-bottom: 2.85pt;
+                }
+
+                p.X551 {
+                    margin-left: 28.35pt;
+                    margin-right: 0.0pt;
+                    text-indent: 0.0pt;
+                    margin-bottom: 2.85pt;
+                }
+
+                p.X552 {
+                    margin-left: 42.5pt;
+                    margin-right: 0.0pt;
+                    text-indent: 0.0pt;
+                    margin-bottom: 2.85pt;
+                }
+
+                p.X553 {
+                    margin-left: 56.7pt;
+                    margin-right: 0.0pt;
+                    text-indent: 0.0pt;
+                    margin-bottom: 2.85pt;
+                }
+
+                p.X554 {
+                    margin-left: 70.85pt;
+                    margin-right: 0.0pt;
+                    text-indent: 0.0pt;
+                    margin-bottom: 2.85pt;
+                }
+
+                p.X555 {
+                    margin-left: 85.05pt;
+                    margin-right: 0.0pt;
+                    text-indent: 0.0pt;
+                    margin-bottom: 2.85pt;
+                }
+
+                p.X556 {
+                    margin-left: 99.2pt;
+                    margin-right: 0.0pt;
+                    text-indent: 0.0pt;
+                    margin-bottom: 2.85pt;
+                }
+
+                p.X557 {
+                    margin-left: 113.4pt;
+                    margin-right: 0.0pt;
+                    text-indent: 0.0pt;
+                    margin-bottom: 2.85pt;
+                }
+
+                p.X559 {
+                    text-align: justify;
+                    margin-top: 0.0pt;
+                    margin-bottom: 8.0pt;
+                }
+
+                span.X559 {
+                    font-family: 'Palatino Linotype';
+                    font-size: 13.0pt;
+                    color: #000000;
+                }
+
+                span.X560 {
+                    font-size: 16.0pt;
+                    font-weight: bold;
+                }
+
+                span.X562 {
+                    color: #000080;
+                    text-decoration: underline;
+                }
+
+                p.X563 {
+                    margin-top: 0.0pt;
+                    margin-bottom: 6.0pt;
+                }
+
+                p.X566 {
+                    margin-top: 12.0pt;
+                    margin-bottom: 6.0pt;
+                }
+
+                span.X566 {
+                    font-family: 'Arial';
+                    font-size: 14.0pt;
+                }
+
+                p.X567 {
+                    margin-top: 12.0pt;
+                    margin-bottom: 6.0pt;
+                }
+
+                span.X567 {
+                    font-family: 'Arial';
+                    font-size: 14.0pt;
+                }
+
+                p.X568 {
+                    text-align: center;
+                }
+
+                span.X568 {
+                    font-style: italic;
+                }
+
+                p.X569 {
+                    margin-top: 6.0pt;
+                    margin-bottom: 6.0pt;
+                }
+
+                span.X569 {
+                    font-size: 12.0pt;
+                    font-style: italic;
+                }
+
+                p.X571 {
+                    margin-left: 0.0pt;
+                    margin-right: 0.0pt;
+                    text-indent: 0.3pt;
+                    margin-bottom: 0.0pt;
+                }
+
+                span.X572 {
+                    font-weight: bold;
+                }
+
+                p.X573 {
+                    text-align: left;
+                }
+
+                p.X574 {
+                    text-align: center;
+                }
+
+                span.X574 {
+                    font-weight: bold;
+                }
+
+                p.X575 {
+                    margin-left: 0.0pt;
+                    margin-right: 0.0pt;
+                    text-indent: 28.35pt;
+                    margin-bottom: 0.0pt;
+                }
+
+                p.X576 {
+                    margin-left: 85.05pt;
+                    margin-right: 0.0pt;
+                    text-indent: 28.35pt;
+                }
+
+                span.X576 {
+                    font-size: 12.0pt;
+                }
+
+                p.X577 {
+                    margin-left: 113.4pt;
+                    margin-right: 0.0pt;
+                    text-indent: 28.35pt;
+                }
+
+                span.X577 {
+                    font-size: 12.0pt;
+                }
+
+                p.X578 {
+                    margin-left: 141.75pt;
+                    margin-right: 0.0pt;
+                    text-indent: 28.35pt;
+                }
+
+                span.X578 {
+                    font-size: 12.0pt;
+                }
+
+                p.X579 {
+                    margin-left: 170.1pt;
+                    margin-right: 0.0pt;
+                    text-indent: 28.35pt;
+                }
+
+                span.X579 {
+                    font-size: 12.0pt;
+                }
+
+                p.X580 {
+                    margin-left: 198.45pt;
+                    margin-right: 0.0pt;
+                    text-indent: 28.35pt;
+                }
+
+                span.X580 {
+                    font-size: 12.0pt;
+                }
+
+                p.X581 {
+                    text-align: center;
+                    margin-bottom: 0.0pt;
+                }
+
+                p.X582 {
+                    margin-left: 170.1pt;
+                    margin-right: 0.0pt;
+                    text-indent: 0.0pt;
+                }
+
+                p.X583 {
+                    text-align: center;
+                }
+
+                span.X583 {
+                    font-size: 12.0pt;
+                    font-style: italic;
+                }
+
+                p.X588 {
+                    margin-bottom: 5.0pt;
+                }
+            </style>
+            <div style="margin-bottom:56.7pt;margin-top:96.4pt;margin-left:113.4pt;margin-right:56.7pt;">
+                <p class="X559 X575"><span class="X559 X575"
+                        style="font-weight:bold;white-space:pre-wrap;">DECISÃO:</span><span class="X559 X575"
+                        style="font-weight:bold;white-space:pre-wrap;"> </span><span id="_GoBack"><span
+                            class="X559 X575">Trata-se de recurso extraordinário com agravo contra decisão de inadmissão do
+                            recurso extraordinário.</span></span></p>
+                <p class="X559 X575"><span class="X559 X575">Decido.</span></p>
+                <p class="X559 X575"><span class="X559 X575">Analisados os autos, </span><span
+                        class="X559 X575">verifica</span><span class="X559 X575">-se que o</span><span class="X559 X575">
+                    </span><span class="X559 X575">recurso foi interposto contra acórdão que, em juízo de retratação,
+                        aplicou tema de repercussão geral.</span></p>
+                <p class="X559 X575"></p>
+                <p class="X559 X575"><span class="X559 X575">Com efeito, não compete ao Supremo Tribunal Federal rever as
+                        decisões de Tribunais e Turmas Recursais que aplicam a sistemática da repercussão geral. Nesse
+                        sentido, AI 760.358-QO, Rel. Min. Gilmar Mendes, Plenário, DJe de 19/2/2010; e ARE 761.661-AgR,
+                        Rel.</span><span class="X559 X575"> Min. Presidente, Plenário, DJe de 28/4/2014, assim ementados,
+                        respectivamente:</span></p>
+                <p
+                    style="margin-left:0.0pt;margin-right:0.0pt;text-indent:28.35pt;text-align:justify;margin-top:12.0pt;margin-bottom:0.0pt;white-space:pre-wrap;">
+                </p>
+                <p class="X559 X576"><span class="X559 X576"
+                        style="font-family:'Palatino Linotype';font-size:12.0pt;color:#000000;white-space:pre-wrap;">“</span><span
+                        class="X559 X576"
+                        style="font-family:'Palatino Linotype';font-size:12.0pt;color:#000000;white-space:pre-wrap;">Questão
+                        de Ordem. Repercussão Geral. Inadmissibilidade de agravo de instrumento ou reclamação da decisão que
+                        aplica entendimento desta Corte aos processos múltiplos. Competência do Tribunal de origem.
+                        Conversão do agravo de instrumento em agravo regimental</span><span class="X559 X576"
+                        style="font-family:'Palatino Linotype';font-size:12.0pt;color:#000000;white-space:pre-wrap;">.
+                    </span><span class="X559 X576"
+                        style="font-family:'Palatino Linotype';font-size:12.0pt;color:#000000;white-space:pre-wrap;">1. Não
+                        é cabível agravo de instrumento da decisão do tribunal de origem que, em cumprimento do disposto no
+                        § 3º do art. 543-B, do CPC, aplica decisão de mérito do STF em questão de repercussão geral.
+                    </span><span class="X559 X576"
+                        style="font-family:'Palatino Linotype';font-size:12.0pt;color:#000000;white-space:pre-wrap;">2. Ao
+                        decretar o prejuízo de recurso ou exercer o juízo de retratação no processo em que interposto o
+                        recurso extraordinário, o tribunal de origem não está exercendo competência do STF, mas atribuição
+                        própria, de forma que a remessa dos autos individualmen</span><span class="X559 X576"
+                        style="font-family:'Palatino Linotype';font-size:12.0pt;color:#000000;white-space:pre-wrap;">te ao
+                        STF apenas se justificará, nos termos da lei, na hipótese em que houver expressa negativa de
+                        retratação. </span><span class="X559 X576"
+                        style="font-family:'Palatino Linotype';font-size:12.0pt;color:#000000;white-space:pre-wrap;">3. A
+                        maior ou menor aplicabilidade aos processos múltiplos do quanto assentado pela Suprema Corte ao
+                        julgar o mérito das matérias com repercussão geral dependerá da abrangência da questão
+                        constitucional decidida. </span><span class="X559 X576"
+                        style="font-family:'Palatino Linotype';font-size:12.0pt;color:#000000;white-space:pre-wrap;">4.
+                        Agravo de instrumento que se converte em agravo regimental, a ser decidido pelo tribunal de
+                        origem.</span><span class="X559 X576"
+                        style="font-family:'Palatino Linotype';font-size:12.0pt;color:#000000;white-space:pre-wrap;">”</span>
+                </p>
+                <p class="X559 X576"></p>
+                <p class="X559 X576"><span class="X559 X576"
+                        style="font-family:'Palatino Linotype';font-size:12.0pt;color:#000000;white-space:pre-wrap;">“</span><span
+                        class="X559 X576"
+                        style="font-family:'Palatino Linotype';font-size:12.0pt;color:#000000;white-space:pre-wrap;">AGRAVO
+                        REGIMENTAL. RECURSO EXTRAORDINÁRIO COM AGRAVO. DECISÃO DO TRIBUNAL </span><span class="X559 X576"
+                        style="font-family:'Palatino Linotype';font-size:12.0pt;font-style:italic;color:#000000;white-space:pre-wrap;">A
+                        QUO</span><span class="X559 X576"
+                        style="font-family:'Palatino Linotype';font-size:12.0pt;font-style:italic;color:#000000;white-space:pre-wrap;">
+                    </span><span class="X559 X576"
+                        style="font-family:'Palatino Linotype';font-size:12.0pt;color:#000000;white-space:pre-wrap;">QUE
+                        APLICA A SISTEMÁTICA DA REPERCUSSÃO GERAL (ART. 543-B DO CPC). DESCABIMENTO DO AGRAVO PREVISTO NO
+                        ART. 544 DO CPC. CABIMENTO DE AGRAVO REGIMENTAL (OU INTERNO) PARA A ORIGEM. IMPOSSIBILIDADE DE
+                        CONVERSÃO EM AGRAVO REGIMENTAL. ACÓRDÃO RECORRIDO PUBLICAD</span><span class="X559 X576"
+                        style="font-family:'Palatino Linotype';font-size:12.0pt;color:#000000;white-space:pre-wrap;">O APÓS
+                        19.11.2009. </span><span class="X559 X576"
+                        style="font-family:'Palatino Linotype';font-size:12.0pt;color:#000000;white-space:pre-wrap;">É
+                        pacífico o entendimento desta Corte de que, por não se cuidar de juízo negativo de admissibilidade
+                        de recurso extraordinário, não é cabível o agravo previsto no art. 544 do Código de Processo Civil,
+                        para atacar decisão de Presidente de Tribunal ou Turma </span><span class="X559 X576"
+                        style="font-family:'Palatino Linotype';font-size:12.0pt;color:#000000;white-space:pre-wrap;">Recursal
+                        de origem que aplique a sistemática da repercussão geral. </span><span class="X559 X576"
+                        style="font-family:'Palatino Linotype';font-size:12.0pt;color:#000000;white-space:pre-wrap;">A parte
+                        que queira impugnar decisão monocrática de Presidente de Tribunal ou de Turma Recursal de origem,
+                        proferida nos termos do art. 543-B do CPC, deve fazê-lo por meio de agravo regimental (ou interno).
+                    </span><span class="X559 X576"
+                        style="font-family:'Palatino Linotype';font-size:12.0pt;color:#000000;white-space:pre-wrap;">Inaplicável
+                        a conversão do presente recurso em agravo regimental a ser apreciado pela origem, já que a
+                        jurisprudência desta Corte já fixou entendimento de que após 19.11.2009, data em que julgado o AI
+                        760.358-QO, a interposição do agravo previsto no art. 5</span><span class="X559 X576"
+                        style="font-family:'Palatino Linotype';font-size:12.0pt;color:#000000;white-space:pre-wrap;">44 do
+                        CPC configura erro grosseiro. </span><span class="X559 X576"
+                        style="font-family:'Palatino Linotype';font-size:12.0pt;color:#000000;white-space:pre-wrap;">Agravo
+                        regimental a que se nega provimento.</span><span class="X559 X576"
+                        style="font-family:'Palatino Linotype';font-size:12.0pt;color:#000000;white-space:pre-wrap;">”</span>
+                </p>
+                <p
+                    style="margin-left:0.0pt;margin-right:0.0pt;text-indent:28.35pt;text-align:justify;margin-top:12.0pt;margin-bottom:0.0pt;white-space:pre-wrap;">
+                </p>
+                <p class="X559 X575"><span class="X559 X575">Destaco que a competência para a aplicação da sistemática da
+                        repercussão geral é dos Tribunais e Turmas Recursais de origem, de forma que </span><span
+                        class="X559 X575" style="font-weight:bold;white-space:pre-wrap;">não cabe a interposição de agravo
+                        e, com muito mais razão, de novo recurso extraordinário para esta Corte</span><span
+                        class="X559 X575">. </span></p>
+                <p class="X559 X575"></p>
+                <p class="X559 X581"></p>
+                <p class="X559 X575"><span class="X559 X575" style="font-style:italic;white-space:pre-wrap;">Ex
+                        positis</span><span class="X559 X575">, </span><span class="X559 X575">nego seguimento ao recurso
+                        (alínea c do inciso V do art. 13 do Regimento Interno do Supremo Tribunal Federal)</span><span
+                        class="X559 X575">.</span></p>
+                <p class="X559 X575"><span class="X559 X575">Havendo prévia fixação de honorários advocatícios pelas
+                        instâncias d</span><span class="X559 X575">e origem, seu valor monetário será majorado em 10% (dez
+                        por cento) em desfavor da parte recorrente, nos termos do art. 85, § 11, do Código de Processo
+                        Civil, observado os limites dos §§ 2º e 3º do referido artigo e a eventual concessão de justiça
+                        gratuita.</span></p>
+                <p class="X559 X575"><span class="X559 X575">Publique-se.</span></p>
+                <p class="X559 X575"><span class="X559 X575">Brasília, 5 de outubro de 2021.</span></p>
+                <p class="X559 X575"></p>
+                <p class="X559 X581"><span class="X559 X581">Ministro </span><span class="X559 X581"
+                        style="font-weight:bold;white-space:pre-wrap;">LUIZ FUX</span></p>
+                <p class="X559 X581"><span class="X559 X581">Presidente</span></p>
+                <p class="X559 X583"><span class="X559 X583">Documento assinado digitalmente</span></p>
+            </div>
+        </blockquote>
+    </div>
+
+    <div class="flex items-center mx-3 sm:mx-5">
+        <button class="px-3 sm:-mr-4" mat-button (click)="expandableCard02.expanded = !expandableCard02.expanded">
+            <span class="mr-1">Partes</span>
+            <mat-icon class="icon-size-5 transform transition-transform ease-in-out duration-150 rotate-0"
+                [ngClass]="{'rotate-180': expandableCard02.expanded}" [svgIcon]="'heroicons_solid:chevron-down'">
+            </mat-icon>
+        </button>
+    </div>
+
+    <hr class="border-b mx-6 sm:mx-8 mt-4 mb-6">
+    <div class="flex flex-col sm:flex-row sm:items-center mx-6 sm:mx-8 mb-4 sm:mb-6">
+        <div class="flex items-center">
+            <img class="w-6 h-6 m-0.5 rounded-full text-card ring-2 ring-bg-card"
+                src="assets/images/avatars/female-02.jpg" alt="Card cover image">
+            <img class="w-6 h-6 m-0.5 rounded-full -ml-3 text-card ring-2 ring-bg-card"
+                src="assets/images/avatars/female-04.jpg" alt="Card cover image">
+            <img class="w-6 h-6 m-0.5 rounded-full -ml-3 text-card ring-2 ring-bg-card"
+                src="assets/images/avatars/male-09.jpg" alt="Card cover image">
+            <img class="w-6 h-6 m-0.5 rounded-full -ml-3 text-card ring-2 ring-bg-card"
+                src="assets/images/avatars/male-07.jpg" alt="Card cover image">
+            <div class="text-md tracking-tight ml-3">You and 24 more liked this</div>
+        </div>
+        <div class="hidden sm:flex flex-auto"></div>
+        <div class="flex items-center mt-4 sm:mt-0">
+            <button class="px-3 mr-1 -ml-2 sm:ml-0" mat-button>
+                4 shares
+            </button>
+            <button class="px-3 sm:-mr-4" mat-button (click)="expandableCard02.expanded = !expandableCard02.expanded">
+                <span class="mr-1">5 Comments</span>
+                <mat-icon class="icon-size-5 transform transition-transform ease-in-out duration-150 rotate-0"
+                    [ngClass]="{'rotate-180': expandableCard02.expanded}" [svgIcon]="'heroicons_solid:chevron-down'">
+                </mat-icon>
+            </button>
+        </div>
+    </div>
+
+    <ng-container fuseCardExpansion>
+        <hr class="border-b m-0">
+        <div class="flex flex-col mx-4 sm:mx-8 mt-6 mb-3">
+            <div class="flex items-start">
+                <img class="w-12 h-12 rounded-full mr-5" src="assets/images/avatars/brian-hughes.jpg"
+                    alt="Card cover image">
+                <mat-form-field class="fuse-mat-textarea fuse-mat-no-subscript w-full">
+                    <textarea matInput [rows]="3" [placeholder]="'Write a comment...'" matTextareaAutosize></textarea>
+                </mat-form-field>
+            </div>
+            <div class="flex items-center mt-3 ml-auto -mr-3">
+                <button mat-icon-button>
+                    <mat-icon class="icon-size-5" [svgIcon]="'heroicons_solid:sparkles'"></mat-icon>
+                </button>
+                <button mat-icon-button>
+                    <mat-icon class="icon-size-5" [svgIcon]="'heroicons_solid:emoji-happy'"></mat-icon>
+                </button>
+                <button mat-icon-button>
+                    <mat-icon class="icon-size-5" [svgIcon]="'heroicons_solid:photograph'"></mat-icon>
+                </button>
+            </div>
+        </div>
+        <hr class="border-b mx-4 sm:mx-8 my-0">
+        <div class="max-h-120 overflow-y-auto">
+            <div class="relative flex flex-col mx-4 sm:mx-8 my-6">
+                <div class="flex items-start">
+                    <img class="w-8 h-8 rounded-full mr-4" src="assets/images/avatars/male-05.jpg"
+                        alt="Card cover image">
+                    <div class="flex flex-col mt-0.5">
+                        <span>
+                            <b>Rutherford Brannan</b> Oh, I’m in.. Let’s arrange a trip for the next weekend if you
+                            want!
+                        </span>
+                        <div class="flex items-center text-sm text-secondary mt-2">
+                            <a class="mr-2 hover:underline" [routerLink]="'./'">Like
+                            </a>
+                            <a class="mr-2 hover:underline" [routerLink]="'./'">Reply
+                            </a>
+                            <a class="mr-2 hover:underline" [routerLink]="'./'">Hide replies
+                            </a>
+                            <span class="mr-2">&bull;</span>
+                            <span>17 min</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="flex items-start mt-8 ml-12">
+                    <img class="w-8 h-8 rounded-full mr-4" src="assets/images/avatars/female-01.jpg"
+                        alt="Card cover image">
+                    <div class="flex flex-col mt-0.5">
+                        <span>
+                            <b>Caroline Lundu</b> Yes!! Let's talk about it on lunch!
+                        </span>
+                        <div class="flex items-center text-sm text-secondary mt-2">
+                            <a class="mr-2 hover:underline" [routerLink]="'./'">Like
+                            </a>
+                            <a class="mr-2 hover:underline" [routerLink]="'./'">Reply
+                            </a>
+                            <span class="mr-2">&bull;</span>
+                            <span>15 min</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="flex items-start mt-8 ml-12">
+                    <img class="w-8 h-8 rounded-full mr-4" src="assets/images/avatars/female-08.jpg"
+                        alt="Card cover image">
+                    <div class="flex flex-col mt-0.5">
+                        <span>
+                            <b>Barbara Cotilla</b> Count me in !!!
+                        </span>
+                        <div class="flex items-center text-sm text-secondary mt-2">
+                            <a class="mr-2 hover:underline" [routerLink]="'./'">Like
+                            </a>
+                            <a class="mr-2 hover:underline" [routerLink]="'./'">Reply
+                            </a>
+                            <span class="mr-2">&bull;</span>
+                            <span>12 min</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="flex items-start mt-8">
+                    <img class="w-8 h-8 rounded-full mr-4" src="assets/images/avatars/male-11.jpg"
+                        alt="Card cover image">
+                    <div class="flex flex-col mt-0.5">
+                        <span>
+                            <b>Alan Marti</b> The color of the sky doesn’t look natural at all, do you really think this
+                            is natural? I’d say Photoshop!
+                            Your trip isn't going to worth it since you won't be seeing this exact sky.
+                        </span>
+                        <div class="flex items-center text-sm text-secondary mt-2">
+                            <a class="mr-2 hover:underline" [routerLink]="'./'">Like
+                            </a>
+                            <a class="mr-2 hover:underline" [routerLink]="'./'">Reply
+                            </a>
+                            <a class="mr-2 hover:underline" [routerLink]="'./'">Hide replies
+                            </a>
+                            <span class="mr-2">&bull;</span>
+                            <span>24 min</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="flex items-start mt-8 ml-12">
+                    <img class="w-8 h-8 rounded-full mr-4" src="assets/images/avatars/female-01.jpg"
+                        alt="Card cover image">
+                    <div class="flex flex-col mt-0.5">
+                        <span>
+                            <b>Caroline Lundu</b> Hey, Alan! You must be fun at parties!
+                        </span>
+                        <div class="flex items-center text-sm text-secondary mt-2">
+                            <a class="mr-2 hover:underline" [routerLink]="'./'">Like
+                            </a>
+                            <a class="mr-2 hover:underline" [routerLink]="'./'">Reply
+                            </a>
+                            <span class="mr-2">&bull;</span>
+                            <span>22 min</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="flex items-start mt-8 ml-12">
+                    <img class="w-8 h-8 rounded-full mr-4" src="assets/images/avatars/male-11.jpg"
+                        alt="Card cover image">
+                    <div class="flex flex-col mt-0.5">
+                        <span>
+                            <b>Alan Marti</b> Caroline, I'm telling the truth, and if you cannot stand the truth, maybe
+                            we shouldn't be friends anymore...
+                        </span>
+                        <div class="flex items-center text-sm text-secondary mt-2">
+                            <a class="mr-2 hover:underline" [routerLink]="'./'">Like
+                            </a>
+                            <a class="mr-2 hover:underline" [routerLink]="'./'">Reply
+                            </a>
+                            <span class="mr-2">&bull;</span>
+                            <span>20 min</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="flex items-start mt-8 ml-12">
+                    <img class="w-8 h-8 rounded-full mr-4" src="assets/images/avatars/female-01.jpg"
+                        alt="Card cover image">
+                    <div class="flex flex-col mt-0.5">
+                        <span>
+                            <b>Caroline Lundu</b> Dude! Relax! I'm just messing with you...
+                        </span>
+                        <div class="flex items-center text-sm text-secondary mt-2">
+                            <a class="mr-2 hover:underline" [routerLink]="'./'">Like
+                            </a>
+                            <a class="mr-2 hover:underline" [routerLink]="'./'">Reply
+                            </a>
+                            <span class="mr-2">&bull;</span>
+                            <span>18 min</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="flex items-start mt-8 ml-12">
+                    <img class="w-8 h-8 rounded-full mr-4" src="assets/images/avatars/male-11.jpg"
+                        alt="Card cover image">
+                    <div class="flex flex-col mt-0.5">
+                        <span>
+                            <b>Alan Marti</b> Sorry! I had a bad morning, let's talk about this in couple hours, I need
+                            to relax a bit :(
+                        </span>
+                        <div class="flex items-center text-sm text-secondary mt-2">
+                            <a class="mr-2 hover:underline" [routerLink]="'./'">Like
+                            </a>
+                            <a class="mr-2 hover:underline" [routerLink]="'./'">Reply
+                            </a>
+                            <span class="mr-2">&bull;</span>
+                            <span>16 min</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="flex items-start mt-8">
+                    <img class="w-8 h-8 rounded-full mr-4" src="assets/images/avatars/female-05.jpg"
+                        alt="Card cover image">
+                    <div class="flex flex-col mt-0.5">
+                        <span>
+                            <b>Marleah Eagleston</b> Count me in, too!
+                        </span>
+                        <div class="flex items-center text-sm text-secondary mt-2">
+                            <a class="mr-2 hover:underline" [routerLink]="'./'">Like
+                            </a>
+                            <a class="mr-2 hover:underline" [routerLink]="'./'">Reply
+                            </a>
+                            <span class="mr-2">&bull;</span>
+                            <span>34 min</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </ng-container>
+</fuse-card>
