@@ -39,19 +39,46 @@
             [autoFocus]="false"
             [mode]="'side'"
             [opened]="true"
-            #matDrawer>
+            #matDrawer
+        >
             <!-- Sidebar -->
             <div class="mx-6 mt-2" cdkScrollable>
                 <div class="w-full overflow-y-auto">
                     <div class="m-1">
-                        <div class="text-xl font-normal leading-4">Decisões </div>
+                        <div class="text-xl font-normal leading-4">
+                            Decisões 
+                        </div>
                     </div>
+                    
                     <mat-accordion class="" multi>
                         <mat-expansion-panel 
+                            class="mt-2 mb-2"
                             class="mb-2"
                             *ngFor="let decisao of decisoes; index as i"
                         >
-                           
+                            <mat-expansion-panel-header class="px-2">
+                                <div class="w-full flex justify-between items-center py-6">
+                                    <mat-panel-title>
+                                        <span 
+                                            [matBadge]="(i + 1)" 
+                                            class="ml-4"
+                                        ></span>
+                                    </mat-panel-title>
+                                    <mat-panel-description class="w-full flex align-middle justify-between items-center">
+                                        <strong [title]="decisao.tipo">
+                                            {{decisao.tipo.toString()}}
+                                        </strong>
+                                        <div 
+                                            class="py-0.5 px-3 rounded-full text-sm font-semibold 
+                                                text-white bg-green-700 dark:text-green-50 dark:bg-green-500 
+                                                ng-star-inserted"
+                                            [title]="decisao.dispositivo"
+                                        >
+                                            {{decisao.dispositivo}}
+                                        </div>
+                                    </mat-panel-description>
+                                </div>
+                            </mat-expansion-panel-header>
                         
                             <app-form-decisao
                                 [decisao]="decisao"
@@ -61,6 +88,7 @@
                             ></app-form-decisao>
                         </mat-expansion-panel>
                     </mat-accordion>
+                    
                     
                     <fuse-card
                         class="px-3 py-6 my-2 flex flex-col"
@@ -129,7 +157,7 @@
                                 {{voto.autor.nome}}
                                 
                                 <div 
-                                    class="ml-2 pt-1 py-0.5 px-3 rounded-full text-sm 
+                                    class="ml-2 py-0.5 px-3 rounded-full text-sm 
                                     font-semibold text-green-800 bg-green-100 
                                     dark:text-green-50 dark:bg-green-500 
                                     ng-star-inserted align-middle"
