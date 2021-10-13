@@ -1,0 +1,53 @@
+<div class="absolute inset-0 flex flex-col">
+    <div class="flex justify-between bg-white ">
+        <div class="">
+            <img src="assets/digital/stf-logo.png" class="w-32 ml-8 mt-2">
+        </div>
+        <div class="">
+            <button mat-icon-button (click)="matDrawer.toggle()">
+                <mat-icon [svgIcon]="'heroicons_outline:menu'"></mat-icon>
+            </button>
+        </div>
+    </div>
+
+    <!-- Header -->
+    <div class="bg-stf-background bg-cover bg-no-repeat bg-top h-100 relative">
+        <div class="absolute inset-0 flex items-center justify-center">
+            <div class="mr-4 mt-4 md:mt-2">
+                <h3 class="text-lg ml-8 text-white md:text-4xl md:mt-0 font-extrabold tracking-tight leading-7 sm:leading-10 truncate">
+                    Diário de Justiça Eletrônico
+                </h3>
+            </div>
+            <div class="">
+                <form class="flex">
+                    <input class="rounded-l-full w-32 md:w-180 p-4 h-10 border-t mr-0 border-b border-l text-gray-800 border-gray-200 bg-white" placeholder="Informe um termo para pesquisa"/>
+                    <button class="px-8 rounded-r-full bg-primary text-white text-sm md:text-base font-bold  uppercase tracking-wider">Pesquisar</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <mat-drawer-container class="flex flex-col flex-auto shadow bg-card">
+
+        <!-- Drawer -->
+        <mat-drawer class="w-72 dark:bg-gray-900" [autoFocus]="false" [mode]="drawerMode" [opened]="drawerOpened"
+            #matDrawer>
+            <!-- Sidebar -->
+        </mat-drawer>
+
+        <!-- Drawer content -->
+        <mat-drawer-content class="flex flex-col overflow-hidden">
+
+            <!-- Main -->
+            <div class="flex-auto p-6 sm:p-10 overflow-y-auto" cdkScrollable>
+
+                <!-- CONTENT GOES HERE -->
+                <div class="h-400 min-h-400 max-h-400 border-2 border-dashed border-gray-300 rounded-2xl"></div>
+
+            </div>
+
+        </mat-drawer-content>
+
+    </mat-drawer-container>
+
+</div>
