@@ -36,13 +36,11 @@
                 <div class="w-1/2">
                         <app-carrossel
                             *ngIf = "(docs$ | async | reduceDocuments) as docs"
-                            [idChip]="'idDocs'"
+                            [idChip]="'idDocExp'"
                             [chips]="docs?.nomes"
                             [links]="docs?.links"
-                            [lastId]="lastId"
-                            (click)="setId('idDocs')"
                             [hasIcon]="true"
-                            [class]="['border-primary', 'border-solid', 'border-2', 'bg-transparent', 'text-primary']"
+                            [class]="['flex-none', 'border-primary', 'border-solid', 'border-2', 'bg-transparent', 'text-primary']"
                             (linkDoPdfSelecionado)="abrirLink($event)"
                         ></app-carrossel>
                 </div>
@@ -53,28 +51,9 @@
     <!--Conteúdo de dentro da área expansível-->
     <app-processo-capitulo [processo]="processo"></app-processo-capitulo>
 </mat-expansion-panel>
-<fuse-drawer
-    id="visualisador-pdf"
-    class="bg-primary"
-    [name]="'telaDoPdfDoAcervo'"
-    [opened]="false"
-    [position]="'right'"
-    [mode]="'over'">
-    <div class="w-screen">
-        <button
-            class="bg-primary-500 mt-9 position-left-90 absolute"
-            mat-icon-button
-            [tabIndex]="-1"
-            (click)="toggleDrawerOpen('telaDoPdfDoAcervo')"
-        >
-            <mat-icon class="text-current text-white" [svgIcon]="'heroicons_outline:x'"></mat-icon>
-        </button>
-        <object
-            class="w-full h-full e2e-trusted-url"
-            [data]="link"
-            type="application/pdf"
-        >
-            <p>Seu navegador não tem um plugin pra PDF</p>
-        </object>
-    </div>
-</fuse-drawer>
+
+<app-visualizador-pdf
+    *ngIf="link"
+    [nome]="'visualizador-pdf-do-acervo'"
+    [link]="link"
+></app-visualizador-pdf>

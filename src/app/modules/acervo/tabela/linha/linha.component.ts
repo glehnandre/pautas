@@ -31,7 +31,7 @@ export class LinhaComponent implements OnInit {
 
   constructor(
       private _processoService: ProcessoService,
-      public sanitizer: DomSanitizer,
+      public _sanitizer: DomSanitizer,
       private _fuseDrawerService: FuseDrawerService,
   ) {
 
@@ -42,6 +42,7 @@ export class LinhaComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.link = this._sanitizer.bypassSecurityTrustResourceUrl('');
     this.docs$ = this._processoService.obterDocumentosDoProcesso(this.processo.id);
 
     this._processoService.obterProcessosSelecionados().subscribe((data) => {
@@ -76,24 +77,9 @@ export class LinhaComponent implements OnInit {
     }
   }
 
-  /**
-   * Abre o menu que exibe o pdf
-   *
-   * @param drawerName
-   */
-   toggleDrawerOpen(drawerName: string): void {
-    const drawer = this._fuseDrawerService.getComponent(drawerName);
-    drawer.toggle();
-  }
-
-  setId(id: string): void{
-    this.lastId = id;
-  }
-
   abrirLink(link: string): void {
     if (link !== this.link) {
-      this.link = this.sanitizer.bypassSecurityTrustResourceUrl(link);
-      this.toggleDrawerOpen('telaDoPdfDoAcervo');
+      this.link = this._sanitizer.bypassSecurityTrustResourceUrl(link);
     }
   }
 }
