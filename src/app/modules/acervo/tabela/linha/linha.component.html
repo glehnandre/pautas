@@ -42,6 +42,7 @@
                             [hasIcon]="true"
                             [class]="['flex-none', 'border-primary', 'border-solid', 'border-2', 'bg-transparent', 'text-primary']"
                             (linkDoPdfSelecionado)="abrirLink($event)"
+                            [idLinha]="idLinha"
                         ></app-carrossel>
                 </div>
             </div>
@@ -54,6 +55,6 @@
 
 <app-visualizador-pdf
     *ngIf="link"
-    [nome]="'visualizador-pdf-do-acervo'"
+    [nome]="'visualizador-pdf-do-acervo' + idLinha"
     [link]="link"
 ></app-visualizador-pdf>

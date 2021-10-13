@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, Output, EventEmitter, OnDestroy } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 
 @Component({
   selector: 'app-carrossel',
@@ -17,13 +17,13 @@ export class CarrosselComponent implements OnInit {
   @Input() idChip: string;
   @Input() lastId: string;
   @Input() links: string[] = [];
+  @Input() idLinha: number;
 
   @Output() linkDoPdfSelecionado = new EventEmitter<string>();
 
   constructor() { }
 
   ngOnInit(): void {
-    console.log(this.links);
   }
 
   handleKeyboardEvent(event: KeyboardEvent): void {

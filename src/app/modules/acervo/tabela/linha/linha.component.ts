@@ -18,6 +18,7 @@ export class LinhaComponent implements OnInit {
   @Output() checked = new EventEmitter<Processo>();
   @Output() tagSelecionada = new EventEmitter();
   @Output() statusSelecionado = new EventEmitter();
+  @Input() idLinha: number;
 
   @Input() selected: boolean;
   @Input() processo: Processo;

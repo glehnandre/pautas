@@ -5,12 +5,13 @@
 
 <div class="m-2 sm:mx-0.5">
     <app-linha
-        *ngFor="let processo of processos"
+        *ngFor="let processo of processos; index as i"
         [processo]="processo"
         (checked)="trataEventoDeChecked($event)"
         [Selected]="selectAll"
         (tagSelecionada)="filtrarPorTags($event)"
         (statusSelecionado)="filtrarPorStatus($event)"
+        [idLinha]="i"
     ></app-linha>
 </div>
 
