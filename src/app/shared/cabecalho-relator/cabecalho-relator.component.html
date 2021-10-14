@@ -21,7 +21,7 @@
                 {{obterTipoDoProcesso()}}
             </div>
 
-            <div class="">
+            <div class="hidden md:block">
                 <app-carrossel 
                     [idChip]="'idTags'"
                     [chips]="tags"
@@ -29,7 +29,7 @@
             </div>
         </div>
     </div>
-    <div class="lg:ml-4 lg:mt-8">
+    <div class="hidden md:block lg:ml-4 lg:mt-8">
         <app-carrossel
             [idChip]="'idDocs'"
             [chips]="documentos?.nomes"
@@ -43,7 +43,7 @@
 </div>
 
 <mat-expansion-panel 
-    class="hidden my-4"
+    class="md:hidden my-4"
     (opened)="panelOpenState = true" 
     (closed)="panelOpenState = false"
 >
