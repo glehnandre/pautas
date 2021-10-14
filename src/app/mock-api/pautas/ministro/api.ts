@@ -16,7 +16,7 @@ export class MinistroMockApi {
         this._colegiado = colegiadoData;
         this.registerHandlers();
     }
-    
+
     registerHandlers(): void {
       this._fuseMockApiService.onGet('/ministro')
         .reply(() => {
@@ -31,13 +31,15 @@ export class MinistroMockApi {
           const processo = params.get('processo');
           const data = params.get('data');
           const colegiado = params.get('colegiado');
-          
+
           if (colegiado === 'pleno') {
             const pleno = this._colegiado.filter(col => col.nome === 'pleno');
+            console.log(pleno)
             return [200, pleno];
           } else {
             const colegiados = this._colegiado
               .filter(col => col.nome === colegiado);
+
             return [200, colegiados];
           }
         });
@@ -62,7 +64,7 @@ export class MinistroMockApi {
         .onPost('/colegiado')
         .reply(({request}) => {
           const { body } = request;
-          
+
           this._colegiado.push(body);
 
           return [200, this._colegiado];

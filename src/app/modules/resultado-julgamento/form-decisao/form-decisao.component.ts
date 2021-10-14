@@ -1,6 +1,12 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Decisao } from 'app/modules/acervo/model/interfaces/decisao.interface';
+import { Manifestacao } from 'app/modules/acervo/model/interfaces/manifestacao.interface';
+import { Ministro } from 'app/modules/acervo/model/interfaces/ministro.interface';
+import { Processo } from 'app/modules/acervo/model/interfaces/processo.interface';
+import { MinistroService } from 'app/modules/services/ministro.service';
+import { ResultadoJulgamentoService } from 'app/modules/services/resultado-julgamento.service';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-form-decisao',
@@ -10,21 +16,28 @@ import { Decisao } from 'app/modules/acervo/model/interfaces/decisao.interface';
 export class FormDecisaoComponent implements OnInit {
 
   formDecisao: FormGroup;
+  ministros$: Observable<Ministro []>
 
   @Input() decisao: Decisao = {
     descricao: '',
     tipo: '',
     dispositivo: '',
-    ministros_acordam: '',
+    ministros_acordam: [],
     ministro_condutor: '',
-    texto: '', 
+    texto: '',
   };
+
+  @Input() processo: string = '';
+
+  @Input() dispositivos: Manifestacao[] = [];
 
   @Output() decisaoCadastrada = new EventEmitter<Decisao>();
   @Output() decisaoExcluida = new EventEmitter<Decisao>();
 
   constructor(
     private _fb: FormBuilder,
+    private _resultadoJulgamento: ResultadoJulgamentoService,
+    private _ministroService: MinistroService,
   ) {}
 
   ngOnInit(): void {
@@ -34,8 +47,10 @@ export class FormDecisaoComponent implements OnInit {
       dispositivo: [this.decisao.dispositivo, Validators.required],
       ministros_acordam: [this.decisao.ministros_acordam, Validators.required],
       ministro_condutor: [this.decisao.ministro_condutor, Validators.required],
-      texto: [this.decisao.texto, Validators.required], 
+      texto: [this.decisao.texto, Validators.required],
     });
+
+    this.ministros$ = this._ministroService.listarMinistros();
   }
 
   public cadastrarDecisao(): void {
@@ -52,8 +67,12 @@ export class FormDecisaoComponent implements OnInit {
   }
 
   public salvarDecisao(): void {
-    if (this.formDecisao.valid) {
-      // salva a decisao
+    if (this.formDecisao.valid && this.processo !== '') {
+      this._resultadoJulgamento.savarDecisao(this.processo, this.decisao).subscribe({
+        next: () => {
+          console.log('Decisao salva!');
+        }
+      });
     }
   }
 

@@ -1,7 +1,8 @@
-import { SituacaoDoProcesso } from 'app/modules/acervo/model/enums/situacaoDoProcesso.enum';
-import { TipoDoProcesso } from 'app/modules/acervo/model/enums/tipoDoProcesso.enum';
-import { Processo } from 'app/modules/acervo/model/interfaces/processo.interface';
-import { SessaoJulgamento } from 'app/modules/acervo/model/interfaces/sessao-julgamento.interface';
+import { SituacaoDoProcesso } from "app/modules/acervo/model/enums/situacaoDoProcesso.enum";
+import { TipoCapitulo } from "app/modules/acervo/model/enums/tipoCapitulo.enum";
+import { TipoDoProcesso } from "app/modules/acervo/model/enums/tipoDoProcesso.enum";
+import { Processo } from "app/modules/acervo/model/interfaces/processo.interface";
+import { SessaoJulgamento } from "app/modules/acervo/model/interfaces/sessao-julgamento.interface";
 import { ministro } from '../ministro/data';
 
 export const julgamentos: SessaoJulgamento[] = [
@@ -220,40 +221,9 @@ export const processos: Processo[] = [
         id: 123455,
         descricao: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Repellendus omnis eum ratione, impedit, consequuntur laborum amet tempore iure accusamus in nulla voluptates odit. Eum fugit eius, assumenda distinctio quidem quia?',
         ordem: 1,
-        tipo: 'Mérito',
+        tipo: TipoCapitulo.Merito,
         dispositivo: 'Deferido',
       },
-    ]
-  },
-
-  {
-    id: 123455,
-    ementa: 'Sessão de julgamento extraordinária para tratar da divisão de terras.',
-    lista: [{
-      descricao: 'Semelhante a ADI 100',
-      id: 123445,
-      gestor: {
-          numero: 19,
-          criacao: '2021-08-02T03:00:00.000Z',
-      },
-      publica: false
-    }],
-    classe: 'ADI',
-    numero: 100,
-    nome: "Embargo de declaração",
-    abreviacao: '',
-    situacao: SituacaoDoProcesso.Pautado,
-    tipo: TipoDoProcesso.Merito,
-    relator: ministro[10],
-    redator: ministro[10],
-    capitulos: [
-      {
-        id: 123455,
-        descricao: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Repellendus omnis eum ratione, impedit, consequuntur laborum amet tempore iure accusamus in nulla voluptates odit. Eum fugit eius, assumenda distinctio quidem quia?',
-        ordem: 1,
-        tipo: 'Mérito',
-        dispositivo: 'Deferido'
-      }
     ]
   },
 
@@ -282,7 +252,7 @@ export const processos: Processo[] = [
         id: 123455,
         descricao: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Repellendus omnis eum ratione, impedit, consequuntur laborum amet tempore iure accusamus in nulla voluptates odit. Eum fugit eius, assumenda distinctio quidem quia?',
         ordem: 1,
-        tipo: 'Mérito',
+        tipo: TipoCapitulo.Merito,
         dispositivo: 'Deferido'
       }
     ]
@@ -313,8 +283,8 @@ export const processos: Processo[] = [
         id: 123455,
         descricao: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Repellendus omnis eum ratione, impedit, consequuntur laborum amet tempore iure accusamus in nulla voluptates odit. Eum fugit eius, assumenda distinctio quidem quia?',
         ordem: 1,
-        tipo: 'Mérito',
-        dispositivo: 'Deferido'
+        tipo: TipoCapitulo.Merito,
+        dispositivo: "Deferido"
       }
     ]
   },

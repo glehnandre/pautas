@@ -68,6 +68,10 @@ export const defaultNavigation: FuseNavigationItem[] = [
         type : 'basic',
         icon : 'heroicons_outline:chart-pie',
         link : '/resultado-julgamento',
+        queryParams: {
+            processo: '9',
+            colegiado: 'pleno',
+        },
     },
 ];
 export const compactNavigation: FuseNavigationItem[] = [
@@ -129,6 +133,10 @@ export const compactNavigation: FuseNavigationItem[] = [
         type : 'basic',
         icon : 'heroicons_outline:chart-pie',
         link : '/resultado-julgamento',
+        queryParams: {
+            processo: '9',
+            colegiado: 'pleno',
+        },
     },
 ];
 export const futuristicNavigation: FuseNavigationItem[] = [
@@ -190,6 +198,10 @@ export const futuristicNavigation: FuseNavigationItem[] = [
         type : 'basic',
         icon : 'heroicons_outline:chart-pie',
         link : '/resultado-julgamento',
+        queryParams: {
+            processo: '9',
+            colegiado: 'pleno',
+        },
     },
 ];
 export const horizontalNavigation: FuseNavigationItem[] = [
@@ -247,5 +259,9 @@ export const horizontalNavigation: FuseNavigationItem[] = [
         type : 'basic',
         icon : 'heroicons_outline:chart-pie',
         link : '/resultado-julgamento',
+        queryParams: {
+            processo: '9',
+            colegiado: 'pleno',
+        },
     },
 ];
