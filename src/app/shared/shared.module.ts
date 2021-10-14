@@ -26,6 +26,7 @@ import { ProcessosSolicitacaoExtraordinariaComponent } from './processos-solicit
 import { ContadorComponent } from './contador/contador.component';
 import { FuseCardModule } from '@fuse/components/card';
 import { MatDividerModule } from '@angular/material/divider';
+import { IconesVotosComponent } from './icones-votos/icones-votos.component';
 
 
 @NgModule({
@@ -40,6 +41,7 @@ import { MatDividerModule } from '@angular/material/divider';
         CabecalhoRelatorComponent,
         VisualizadorPdfComponent,
         ContadorComponent,
+        IconesVotosComponent,
     ],
     imports: [
         CommonModule,
@@ -74,6 +76,7 @@ import { MatDividerModule } from '@angular/material/divider';
         CabecalhoRelatorComponent,
         VisualizadorPdfComponent,
         ContadorComponent,
+        IconesVotosComponent,
     ],
 })
 export class SharedModule
