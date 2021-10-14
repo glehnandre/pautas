@@ -14,21 +14,21 @@ export class CarrosselComponent implements OnInit {
   @Input() chips: string[] = [];
   @Input() hasIcon: boolean = false;
   @Input() class: string[] = [];
-  @Input() idChip:string;
-  @Input() lastId:string;
+  @Input() idChip: string;
+  @Input() lastId: string;
   @Input() links: string[] = [];
+  @Input() idLinha: number;
 
   @Output() linkDoPdfSelecionado = new EventEmitter<string>();
 
   constructor() { }
 
   ngOnInit(): void {
-
   }
 
-  handleKeyboardEvent(event: KeyboardEvent) {
-    if(event.key=="ArrowRight") this.scrollRight(this.lastId);
-    else if(event.key=="ArrowLeft") this.scrollLeft(this.lastId);
+  handleKeyboardEvent(event: KeyboardEvent): void {
+    if(event.key === 'ArrowRight') {this.scrollRight(this.lastId);}
+    else if(event.key === 'ArrowLeft') {this.scrollLeft(this.lastId);}
   }
 
   /**
@@ -37,13 +37,13 @@ export class CarrosselComponent implements OnInit {
    */
   public scrollLeft(id): void {
     if(id){
-      let el = document.getElementById(id);
+      const el = document.getElementById(id);
       el.scrollTo({ left: (el.scrollLeft - 150), behavior: 'smooth' });
     }
   }
   public scrollRight(id: string): void {
     if(id){
-      let el = document.getElementById(id);
+      const el = document.getElementById(id);
       document.getElementById(id).scrollTo({ left: (el.scrollLeft + 150), behavior: 'smooth' });
     }
   }

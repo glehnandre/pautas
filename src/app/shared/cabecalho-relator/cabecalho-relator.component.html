@@ -20,7 +20,7 @@
                 {{processo}}
             </div>
             <div class="hidden md:block">
-                <app-carrossel 
+                <app-carrossel
                     [idChip]="'idTags'"
                     [chips]="tags"
                 ></app-carrossel>
@@ -28,7 +28,7 @@
         </div>
     </div>
 </div>
-<div class="flex flex-row">   
+<div class="flex flex-row">
     <div class="hidden md:block max-w-full">
         <app-carrossel
             [idChip]="'idDocs'"
@@ -41,13 +41,13 @@
     </div>
 </div>
 
-<mat-expansion-panel 
+<mat-expansion-panel
     class="md:hidden my-4"
-    (opened)="panelOpenState = true" 
+    (opened)="panelOpenState = true"
     (closed)="panelOpenState = false"
 >
-    <mat-expansion-panel-header 
-        [collapsedHeight]="'40px'" 
+    <mat-expansion-panel-header
+        [collapsedHeight]="'40px'"
         class="p-4 h-15"
     >
         <div class="flex flex-none flex-row my-auto ml-3 w-screen container mt-4">
@@ -60,12 +60,12 @@
     <!--Conteúdo de dentro da área expansível-->
     <div class="container">
         <div class="flex flex-col min-w-full justify-between">
-            <app-carrossel 
+            <app-carrossel
                 [idChip]="'idTagsExp'"
                 [chips]="tags"
                 [class]="['text-xs sm:text-md']"
             ></app-carrossel>
-            <app-carrossel 
+            <app-carrossel
                 [idChip]="'idDocExp'"
                 [chips]="documentos?.nomes"
                 [links]="documentos?.links"
