@@ -69,6 +69,13 @@ export const defaultNavigation: FuseNavigationItem[] = [
         icon : 'heroicons_outline:chart-pie',
         link : '/resultado-julgamento',
     },
+    {
+        id   :  'informar-o-redator',
+        title:  'Informar o Redator',
+        type :  'basic',
+        icon :  'heroicons_outline:chart-pie',
+        link :  '/informar-redator',
+    }
 ];
 export const compactNavigation: FuseNavigationItem[] = [
     {
