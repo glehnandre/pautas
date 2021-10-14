@@ -37,16 +37,26 @@
         <mat-drawer
             class="w-90 dark:bg-gray-900"
             [autoFocus]="false"
-            [mode]="'side'"
-            [opened]="true"
+            [mode]="verificaModoDaTela()"
+            [opened]="verificaLarguraDaTela()"
             #matDrawer
         >
             <!-- Sidebar -->
             <div class="mx-6 mt-2" cdkScrollable>
                 <div class="w-full overflow-y-auto">
                     <div class="m-1">
-                        <div class="text-xl font-normal leading-4">
-                            Decisões 
+                        <div class="mb-4 text-xl font-normal leading-4 flex justify-between items-center">
+                            <span class="font-medium">
+                                Decisões
+                            </span>
+
+                            <button 
+                                mat-raised-button color="primary"
+                                (click)="abrirGavetaDeFormularioDeDecisao(FORM_CADASTRO_DECISAO);"
+                            >
+                                <mat-icon class="mr-1">add_circle</mat-icon>
+                                Nova decisão
+                            </button>
                         </div>
                     </div>
                     
@@ -88,53 +98,67 @@
                             ></app-form-decisao>
                         </mat-expansion-panel>
                     </mat-accordion>
-                    
-                    
-                    <fuse-card
-                        class="px-3 py-6 my-2 flex flex-col"
-                    >
-                        <span 
-                            [matBadge]="(decisoes.length + 1)" 
-                            class="mr-auto ml-3 mb-4"
-                        ></span>
-    
-                        <app-form-decisao
-                            [dispositivos]="dispositivos"
-                            (decisaoCadastrada)="obterDadosDaDecisao($event)"
-                        ></app-form-decisao>
-                    </fuse-card>
-    
-                    <fuse-card
-                        class="max-h-full p-4 my-2 flex flex-col mb-4"
-                    >
-                        <section class="">
-                            <h3 class="font-medium text-md">
-                                Aplicar as mesmas decisões
-                            </h3>
-    
-                            <mat-spinner
-                                class="m-auto"
-                                [diameter]="40"
-                                *ngIf="processosPorTags.length === 0; else processos"
-                            ></mat-spinner>
-    
-                            <ng-template #processos class="max-h-36 overflow-auto">
-                                <p *ngFor="let processo of processosPorTags">
-                                    <mat-checkbox (change)="aplicarAsMesmasDecisoes(processo)" color="primary">
-                                        <span class="font-bold text-primary-600">
-                                            {{processo.classe}} {{processo.numero}}
-                                        </span>
-    
-                                        <br/>
-    
-                                        <span class="text-hint">
-                                            Relator prevaleceu
-                                        </span>
-                                    </mat-checkbox>
-                                </p>
-                            </ng-template>
-                        </section>
-                    </fuse-card>
+
+                    <div class="">
+                        <fuse-drawer
+                            [name]="FORM_CADASTRO_DECISAO"
+                            [opened]="false"
+                            [mode]="'over'">
+                            <div class="w-full p-4 overflow-y-auto">
+                                <div class="flex">
+                                    <button 
+                                        mat-raised-button 
+                                        class="mb-4 ml-auto"
+                                        color="primary"
+                                        (click)="abrirGavetaDeFormularioDeDecisao(FORM_CADASTRO_DECISAO);"
+                                    >
+                                        <mat-icon class="mr-1">arrow_back</mat-icon>
+                                        Voltar
+                                    </button>
+                                </div>
+
+                                <app-form-decisao
+                                    [dispositivos]="dispositivos"
+                                    (decisaoCadastrada)="obterDadosDaDecisao($event); abrirGavetaDeFormularioDeDecisao(FORM_CADASTRO_DECISAO);"
+                                ></app-form-decisao>
+
+                                <fuse-card
+                                    class="max-h-full p-4 my-2 flex flex-col mb-4"
+                                >
+                                    <section class="">
+                                        <h3 class="font-medium text-md">
+                                            Aplicar as mesmas decisões
+                                        </h3>
+                
+                                        <mat-spinner
+                                            class="m-auto"
+                                            [diameter]="40"
+                                            *ngIf="processosPorTags.length === 0; else processos"
+                                        ></mat-spinner>
+                
+                                        <ng-template #processos class="max-h-36 overflow-auto">
+                                            <p *ngFor="let processo of processosPorTags">
+                                                <mat-checkbox (change)="aplicarAsMesmasDecisoes(processo)" color="primary">
+                                                    <span class="font-bold text-primary-600">
+                                                        {{processo.classe}} {{processo.numero}}
+                                                    </span>
+                
+                                                    <br/>
+                
+                                                    <span class="text-hint">
+                                                        Relator prevaleceu
+                                                    </span>
+                                                </mat-checkbox>
+                                            </p>
+                                        </ng-template>
+                                    </section>
+                                </fuse-card>
+                            </div>
+                        </fuse-drawer>
+                        
+                        <!--Container fora da gaveta-->
+                        
+                    </div>
                 </div>
             </div>
         </mat-drawer>
@@ -149,6 +173,16 @@
 
                 <!-- CONTENT GOES HERE -->
                 <div class="h-400 min-h-400 max-h-400  border-gray-300 rounded-2xl">
+                    <button
+                        class="mb-4"
+                        mat-mini-fab
+                        color="primary"
+                        *ngIf="!verificaLarguraDaTela()"
+                        (click)="matDrawer.toggle()"
+                    >
+                        <mat-icon>menu</mat-icon>
+                    </button>
+
                     <mat-tab-group animationDuration="0ms">
                         <mat-tab  
                             *ngFor="let voto of votos" 
