@@ -122,37 +122,10 @@
                                     (decisaoCadastrada)="obterDadosDaDecisao($event); abrirGavetaDeFormularioDeDecisao(FORM_CADASTRO_DECISAO); voltarAoTopo()"
                                 ></app-form-decisao>
 
-                                <fuse-card
-                                    class="max-h-full p-4 my-2 flex flex-col mb-4"
-                                >
-                                    <section class="">
-                                        <h3 class="font-medium text-md">
-                                            Aplicar as mesmas decisões
-                                        </h3>
-                
-                                        <mat-spinner
-                                            class="m-auto"
-                                            [diameter]="40"
-                                            *ngIf="processosPorTags.length === 0; else processos"
-                                        ></mat-spinner>
-                
-                                        <ng-template #processos class="max-h-36 overflow-auto">
-                                            <p *ngFor="let processo of processosPorTags">
-                                                <mat-checkbox (change)="aplicarAsMesmasDecisoes(processo)" color="primary">
-                                                    <span class="font-bold text-primary-600">
-                                                        {{processo.classe}} {{processo.numero}}
-                                                    </span>
-                
-                                                    <br/>
-                
-                                                    <span class="text-hint">
-                                                        Relator prevaleceu
-                                                    </span>
-                                                </mat-checkbox>
-                                            </p>
-                                        </ng-template>
-                                    </section>
-                                </fuse-card>
+                                <app-aplicar-decisoes
+                                    [processos]="processosPorTags"
+                                    (obterProcessosSelecionados)="obterProcessos($event)"
+                                ></app-aplicar-decisoes>
                             </div>
                         </fuse-drawer>
                         

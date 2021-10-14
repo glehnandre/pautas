@@ -74,7 +74,7 @@ export class FormDecisaoComponent implements OnInit {
 
   public salvarDecisao(): void {
     if (this.formDecisao.valid && this.processo > 0 && !this.isDecisaoSalva) {
-      this._resultadoJulgamento.savarDecisao(this.processo, this.decisao).subscribe({
+      this._resultadoJulgamento.savarDecisao(this.processo, this.formDecisao.value).subscribe({
         next: (data) => {
           console.log('Decisao salva!');
           console.log(data);

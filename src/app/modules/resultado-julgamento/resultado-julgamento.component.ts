@@ -27,7 +27,7 @@ export class ResultadoJulgamentoComponent implements OnInit {
   parametros: Parametros;
 
   processosPorTags: Processo[] = [];
-  processosSelecioandos: Processo[] = [];
+  aplicarMesmasDecisoesAosProcessos: Processo[] = [];
   votos: Voto[] = [];
   dispositivos: Manifestacao[] = [];
   decisoes: Decisao[] = [];
@@ -55,9 +55,7 @@ export class ResultadoJulgamentoComponent implements OnInit {
 
         this._processoService.listarProcessos(new HttpParams().set('tag', tags.toString())).subscribe({
           next: (processos) => {
-            setTimeout(() => {
               this.processosPorTags = processos;
-            }, 3000)
           }
         });
 
@@ -77,18 +75,6 @@ export class ResultadoJulgamentoComponent implements OnInit {
       }
     });
 
-  }
-
-  public aplicarAsMesmasDecisoes(processo: Processo) {
-    const index = this.processosSelecioandos.findIndex(p => p.id === processo.id);
-
-    if (index !== -1) {
-      this.processosSelecioandos.splice(index, 1);
-    } else {
-      this.processosSelecioandos.push(processo);
-    }
-
-    console.log(this.processosSelecioandos)
   }
 
   public obterDadosDaDecisao(decisao: Decisao): void {
@@ -133,6 +119,11 @@ export class ResultadoJulgamentoComponent implements OnInit {
   public voltarAoTopo(): void {
     const menuDecisao = document.getElementById('menu-decisao');
     menuDecisao.scrollTo({top: 0});
+  }
+
+  public obterProcessos(processos: Processo[]): void {
+    this.aplicarMesmasDecisoesAosProcessos = processos;
+    console.log(this.aplicarMesmasDecisoesAosProcessos)
   }
 
 }
