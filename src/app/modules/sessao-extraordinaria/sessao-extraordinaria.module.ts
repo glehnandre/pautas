@@ -4,10 +4,12 @@ import { CommonModule } from '@angular/common';
 import { SessaoExtraordinariaComponent } from './sessao-extraordinaria.component';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatButtonModule } from '@angular/material/button';
+import { MatDialogModule } from '@angular/material/dialog';
 import { MatIconModule } from '@angular/material/icon';
 import { SharedModule } from 'app/shared/shared.module';
 import { FuseAlertModule } from '@fuse/components/alert';
 import { FormsModule } from '@angular/forms';
+import { FormRespostaComponent } from './form-resposta/form-resposta.component';
 
 const sessaoExtraordinariaRoutes: Route[] = [
   {
@@ -18,7 +20,8 @@ const sessaoExtraordinariaRoutes: Route[] = [
 
 @NgModule({
   declarations: [
-    SessaoExtraordinariaComponent
+    SessaoExtraordinariaComponent,
+    FormRespostaComponent
   ],
   imports: [
     CommonModule,
@@ -26,6 +29,7 @@ const sessaoExtraordinariaRoutes: Route[] = [
     FormsModule,
     MatChipsModule,
     MatButtonModule,
+    MatDialogModule,
     MatIconModule,
     SharedModule,
     FuseAlertModule

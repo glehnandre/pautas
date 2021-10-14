@@ -21,14 +21,22 @@ export const defaultNavigation: FuseNavigationItem[] = [
         title: 'Resposta de Solicitação de Julgamento Extraordinario',
         type : 'basic',
         icon : 'heroicons_outline:chart-pie',
-        link : '/resposta-solicitacao-sessao-extraordinaria'
+        link : '/resposta-solicitacao-sessao-extraordinaria',
+        queryParams: {
+            numero: 1000,
+            ano: 2021,
+        }
     },
     {
         id   : 'sessao-extraordinaria',
         title: 'Solicitar Sessão Extraordinária',
         type : 'basic',
         icon : 'heroicons_outline:chart-pie',
-        link : '/sessao-extraordinaria'
+        link : '/sessao-extraordinaria',
+        queryParams: {
+            numero: 1000,
+            ano: 2021,
+        }
     },
     {
         id   : 'criacao-colegiado',
@@ -60,6 +68,10 @@ export const defaultNavigation: FuseNavigationItem[] = [
         type : 'basic',
         icon : 'heroicons_outline:chart-pie',
         link : '/resultado-julgamento',
+        queryParams: {
+            processo: '9',
+            colegiado: 'pleno',
+        },
     },
 ];
 export const compactNavigation: FuseNavigationItem[] = [
@@ -121,6 +133,10 @@ export const compactNavigation: FuseNavigationItem[] = [
         type : 'basic',
         icon : 'heroicons_outline:chart-pie',
         link : '/resultado-julgamento',
+        queryParams: {
+            processo: '9',
+            colegiado: 'pleno',
+        },
     },
 ];
 export const futuristicNavigation: FuseNavigationItem[] = [
@@ -182,6 +198,10 @@ export const futuristicNavigation: FuseNavigationItem[] = [
         type : 'basic',
         icon : 'heroicons_outline:chart-pie',
         link : '/resultado-julgamento',
+        queryParams: {
+            processo: '9',
+            colegiado: 'pleno',
+        },
     },
 ];
 export const horizontalNavigation: FuseNavigationItem[] = [
@@ -239,5 +259,9 @@ export const horizontalNavigation: FuseNavigationItem[] = [
         type : 'basic',
         icon : 'heroicons_outline:chart-pie',
         link : '/resultado-julgamento',
+        queryParams: {
+            processo: '9',
+            colegiado: 'pleno',
+        },
     },
 ];

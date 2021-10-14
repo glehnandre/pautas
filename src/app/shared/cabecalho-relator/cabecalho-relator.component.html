@@ -1,4 +1,4 @@
-<div id="cabecalho" class="flex flex-col lg:flex-row lg:justify-start">
+<div class="flex flex-col lg:flex-row lg:justify-start">
     <div class="flex flex-row flex-wrap lg:max-w-3/5">
         <div class="flex flex-nowrap flex-row">
             <img [src]="relator?.imagem" alt="Imagem de perfil"
@@ -18,7 +18,7 @@
 
         <div class="flex flex-1 flex-col min-w-20 overflow-x-auto">
             <div class="flex-1 ml-2 text-xl">
-                {{obterTipoDoProcesso()}}
+                {{obterDadosDoProcesso()}}
             </div>
 
             <div class="hidden md:block">
@@ -29,7 +29,7 @@
             </div>
         </div>
     </div>
-    <div class="hidden md:block lg:ml-4 lg:mt-8">
+    <div class="hidden md:block lg:ml-4 lg:mt-8 flex-1">
         <app-carrossel
             [idChip]="'idDocs'"
             [chips]="documentos?.nomes"

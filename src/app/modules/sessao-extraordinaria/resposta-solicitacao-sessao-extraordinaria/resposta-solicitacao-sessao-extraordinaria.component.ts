@@ -1,14 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MomentDateAdapter, MAT_MOMENT_DATE_ADAPTER_OPTIONS } from '@angular/material-moment-adapter';
 import { DateAdapter, MAT_DATE_LOCALE, MAT_DATE_FORMATS } from '@angular/material/core';
-import { MatDatepicker } from '@angular/material/datepicker';
-import * as _moment from 'moment';
-import { default as _rollupMoment, Moment } from 'moment';
+import { MatDialog } from '@angular/material/dialog';
+import { ActivatedRoute } from '@angular/router';
 import { SessaoJulgamento } from '../../acervo/model/interfaces/sessao-julgamento.interface';
 import { JulgamentoService } from '../../services/julgamento.service';
-
-const moment = _rollupMoment || _moment;
+import { FormEscolherSessaoComponent } from './form-escolher-sessao/form-escolher-sessao.component';
 
 const DATE_FORMATS = {
   parse: {
@@ -38,24 +35,20 @@ const DATE_FORMATS = {
 })
 export class RespostaSolicitacaoSessaoExtraordinariaoComponent implements OnInit {
 
-  formJulgamento: FormGroup;
   panelOpenState: boolean = false;
   tags: string[] = ['Virtual', 'Segunda Turma'];
   sessao: SessaoJulgamento;
   sessoes: SessaoJulgamento[] = [];
 
   constructor(
-    private _fb: FormBuilder,
+    private _matDialog: MatDialog,
     private _julgamentoService: JulgamentoService,
-  ) {
-    this.formJulgamento = this._fb.group({
-      nova_data: [moment(), Validators.required],
-      sessao: ['', Validators.required],
-    });
-  }
+    private _route: ActivatedRoute,
+  ) {  }
 
   ngOnInit(): void {
-    this._julgamentoService.listarSessoesDeJulgamento(1000, 2021).subscribe({
+    const { numero, ano } = this._route.snapshot.queryParams;
+    this._julgamentoService.listarSessoesDeJulgamento(numero, ano).subscribe({
       next: (sessao) => {
         console.log(sessao)
         this.sessao = sessao;
@@ -66,31 +59,15 @@ export class RespostaSolicitacaoSessaoExtraordinariaoComponent implements OnInit
     })
   }
 
-  public pautarNaSessao(): void {
-    if (this.formJulgamento.valid) {
-      console.log(this.formJulgamento.value);
-    }
+  public modalEscolherSessao(): void {
+    const dialogRef = this._matDialog.open(FormEscolherSessaoComponent, {
+        data: {
+            sessoes: this.sessoes
+        },
+        width: '580px'
+    });
+    dialogRef.afterClosed().subscribe(result => {
+        console.log(result);
+    });
   }
-
-  chosenYearHandler(normalizedYear: Moment) {
-    const ctrlValue = this.getDataInicio();
-    ctrlValue.year(normalizedYear.year());
-    this.setDataInicio(ctrlValue);
-  }
-
-  chosenMonthHandler(normalizedMonth: Moment, datepicker: MatDatepicker<Moment>) {
-    const ctrlValue = this.getDataInicio();
-    ctrlValue.month(normalizedMonth.month());
-    this.setDataInicio(ctrlValue);
-    datepicker.close();
-  }
-
-  getDataInicio(): _moment.Moment {
-    return this.formJulgamento.controls.nova_data.value;
-  }
-
-  setDataInicio(value: _moment.Moment): void {
-    this.formJulgamento.controls.nova_data.setValue(value);
-  }
-
 }

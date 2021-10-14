@@ -1,15 +1,15 @@
 <div class="absolute inset-0 flex flex-col min-w-0 overflow-hidden">
 
-    <!-- Header -->
+<!-- Header -->
     <div class="flex flex-col sm:flex-row justify-center items-center sm:justify-between pl-8 bg-white dark:bg-transparent">
         <h1 class="mt-4 text-primary font-medium text-xl sm:text-2xl">
-            Colegiado para a Sessão 
+            Lançamento do Resultado do Julgamento da {{getDadosProcesso()}}
         </h1>
         <div class="flex flex-row items-end mb-4 sm:my-4 ml-auto">
             <button class="z-0 mr-4" mat-button>
                 <span>Cancelar</span>
             </button>
-    
+
             <button 
                 class="mr-8"
                 color="primary" 
@@ -22,71 +22,134 @@
 
     <hr class="m-0 p-0" />
 
-    <header class="flex-1 px-8 pt-4 bg-white">
+    <header class="bg-white px-8 pt-4">
         <app-cabecalho-relator
-            class="sm:min-w-80 sm:mr-4"
-            [processo]="'1'"
-            [colegiado]="'pleno'"
+            [processo]="parametros.processo"
+            [colegiado]="parametros.colegiado"
         ></app-cabecalho-relator>
     </header>
 
-    <!-- Main -->
-    <div class="flex-auto overflow-y-auto px-8 pb-8" cdkScrollable>
-        <!-- CONTENT GOES HERE -->
-        <div class="flex flex-col-reverse sm:grid sm:grid-cols-3 lg:grid-cols-4 gap-4 mt-4">
-            <div class="sm:col-span-2 lg:col-span-3">
-                <fuse-card class="flex flex-col my-2 p-4">
-                    <mat-tab-group animationDuration="0ms">
-                        <mat-tab 
-                            class="tab-click" 
-                            *ngFor="let voto of votos" 
-                            [label]="voto.autor.nome"
+    <!-- Body -->
+
+    <mat-drawer-container class="flex flex-col flex-auto mt-2 rounded-t-2xl shadow bg-card">
+
+        <!-- Drawer -->
+        <mat-drawer
+            class="w-90 dark:bg-gray-900"
+            [autoFocus]="false"
+            [mode]="'side'"
+            [opened]="true"
+            #matDrawer>
+            <!-- Sidebar -->
+            <div class="mx-6 mt-2" cdkScrollable>
+                <div class="w-full overflow-y-auto">
+                    <div class="m-1">
+                        <div class="text-xl font-normal leading-4">Decisões </div>
+                    </div>
+                    <mat-accordion class="" multi>
+                        <mat-expansion-panel 
+                            class="mb-2"
+                            *ngFor="let decisao of decisoes; index as i"
                         >
+                           
+                        
+                            <app-form-decisao
+                                [decisao]="decisao"
+                                [dispositivos]="dispositivos"
+                                [processo]="parametros.processo"
+                                (decisaoExcluida)="removerDecisao($event)"
+                            ></app-form-decisao>
+                        </mat-expansion-panel>
+                    </mat-accordion>
+                    
+                    <fuse-card
+                        class="px-3 py-6 my-2 flex flex-col"
+                    >
+                        <span 
+                            [matBadge]="(decisoes.length + 1)" 
+                            class="mr-auto ml-3 mb-4"
+                        ></span>
+    
+                        <app-form-decisao
+                            [dispositivos]="dispositivos"
+                            (decisaoCadastrada)="obterDadosDaDecisao($event)"
+                        ></app-form-decisao>
+                    </fuse-card>
+    
+                    <fuse-card
+                        class="max-h-full p-4 my-2 flex flex-col mb-4"
+                    >
+                        <section class="">
+                            <h3 class="font-medium text-md">
+                                Aplicar as mesmas decisões
+                            </h3>
+    
+                            <mat-spinner
+                                class="m-auto"
+                                [diameter]="40"
+                                *ngIf="processosPorTags.length === 0; else processos"
+                            ></mat-spinner>
+    
+                            <ng-template #processos class="max-h-36 overflow-auto">
+                                <p *ngFor="let processo of processosPorTags">
+                                    <mat-checkbox (change)="aplicarAsMesmasDecisoes(processo)" color="primary">
+                                        <span class="font-bold text-primary-600">
+                                            {{processo.classe}} {{processo.numero}}
+                                        </span>
+    
+                                        <br/>
+    
+                                        <span class="text-hint">
+                                            Relator prevaleceu
+                                        </span>
+                                    </mat-checkbox>
+                                </p>
+                            </ng-template>
+                        </section>
+                    </fuse-card>
+                </div>
+            </div>
+        </mat-drawer>
+
+        <!-- Drawer content -->
+        <mat-drawer-content class="flex flex-col overflow-hidden">
+
+            <!-- Main -->
+            <div
+                class="flex-auto p-2 sm:p-2 overflow-y-auto"
+                cdkScrollable>
+
+                <!-- CONTENT GOES HERE -->
+                <div class="h-400 min-h-400 max-h-400  border-gray-300 rounded-2xl">
+                    <mat-tab-group animationDuration="0ms">
+                        <mat-tab  
+                            *ngFor="let voto of votos" 
+                        >
+                            <ng-template mat-tab-label>
+                                {{voto.autor.nome}}
+                                
+                                <div 
+                                    class="ml-2 pt-1 py-0.5 px-3 rounded-full text-sm 
+                                    font-semibold text-primary bg-primary-50
+                                    dark:text-primary-50 dark:bg-primary-500 
+                                    ng-star-inserted align-middle"
+                                > 
+                                    {{voto.tipo}}
+                                </div>
+                            </ng-template>
+
                             <app-conteudo-voto-ministro
+                                class="w-full"
                                 [voto]="voto"
                             ></app-conteudo-voto-ministro>
                         </mat-tab>
-
-                        <!--<mat-tab class="tab-click" *ngFor="let ministro of voto?.acompanharam" [label]="'Voto ' + ministro.nome">
-                            {{ministro.nome}}
-                        </mat-tab>-->
                     </mat-tab-group>
-                </fuse-card>
+                </div>
+
             </div>
 
-            <div>
-                <fuse-card
-                    class="max-h-full p-4 my-2 flex flex-col"
-                >
-                    <section class="">
-                        <h3 class="font-medium text-md">
-                            Aplicar as mesmas decisões
-                        </h3>
+        </mat-drawer-content>
 
-                        <mat-spinner
-                            class="m-auto"
-                            [diameter]="40"
-                            *ngIf="processosPorTags.length === 0; else processos"
-                        ></mat-spinner>
+    </mat-drawer-container>
 
-                        <ng-template #processos class="max-h-36 overflow-auto">
-                            <p *ngFor="let processo of processosPorTags">
-                                <mat-checkbox (change)="aplicarAsMesmasDecisoes(processo)" color="primary">
-                                    <span class="font-bold text-primary-600">
-                                        {{processo.classe}} {{processo.numero}}
-                                    </span>
-
-                                    <br/>
-
-                                    <span class="text-hint">
-                                        Relator prevaleceu
-                                    </span>
-                                </mat-checkbox>
-                            </p>
-                        </ng-template>
-                    </section>
-                </fuse-card>
-            </div>
-        </div>
-    </div>
 </div>

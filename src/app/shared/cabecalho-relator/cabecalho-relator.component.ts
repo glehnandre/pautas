@@ -23,6 +23,11 @@ export class CabecalhoRelatorComponent implements OnInit {
   tags: string[] = [];
   relator: Ministro;
   tipo: TipoDoProcesso;
+  dadosProcesso: {
+    classe: string;
+    numero: number;
+    nome: string;
+  }
   documentos: {
     nomes: string[];
     links: string[];
@@ -38,13 +43,12 @@ export class CabecalhoRelatorComponent implements OnInit {
     this.link = this._sanitizer.bypassSecurityTrustResourceUrl('');
     this._buscarProcessos();
     this._buscarColegiados();
-
-    let tamanho = document.getElementById("cabecalho").getBoundingClientRect();
-    this.right = tamanho.right
   }
 
-  public obterTipoDoProcesso(): string {
-    return TipoDoProcesso[this.tipo];
+  public obterDadosDoProcesso(): string {
+    if(this.dadosProcesso)
+    return `${this.dadosProcesso.classe} ${this.dadosProcesso.numero} ${this.dadosProcesso.nome}`;
+    return "Aguarde..."
   }
 
   abrirLink(link: string): void {
@@ -58,9 +62,9 @@ export class CabecalhoRelatorComponent implements OnInit {
       .listarProcessos(new HttpParams().set('processo', this.processo)).subscribe({
         next: ([processo]) => {
           
-          const { id, lista, tipo } = processo;
+          const { id, lista, classe, numero, nome } = processo;
 
-          this.tipo = tipo;
+          this.dadosProcesso = {classe, numero, nome};
 
           this.tags = [];
           lista.forEach(tag => {

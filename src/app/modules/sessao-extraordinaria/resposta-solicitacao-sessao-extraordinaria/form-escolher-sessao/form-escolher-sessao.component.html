@@ -1,0 +1,36 @@
+<div class="flex flex-col -m-6 mb-4">
+    <div>
+        <div class="flex flex-0 h-16 px-8
+            items-center justify-between bg-primary text-on-primary"
+        >
+            <div class="text-lg font-medium">
+                Preencha para recolocar a pauta em outra sessão
+            </div>
+        </div>
+        <div class="mx-2">
+            <app-pautar-form
+                [sessoes]="sessoes"
+                (statusPautarForm)="atualizarSessao($event)"
+            >
+            </app-pautar-form>
+        </div>
+
+    </div>
+    <div class="flex space-x-4 items-end mr-2">
+        <button
+          class="ml-auto bg-red-600 text-white"
+          mat-button mat-dialog-close>
+            <span>Cancelar</span>
+        </button>
+
+        <button
+          class="ml-auto sm:ml-0 mr-2"
+          color="primary"
+          mat-raised-button
+          [disabled]="formJulgamento.invalid"
+          (click)="escolherSessao()"
+        >
+            <span>Escolher Sessao</span>
+        </button>
+    </div>
+</div>
