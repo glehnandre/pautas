@@ -123,7 +123,6 @@ export class ResultadoJulgamentoComponent implements OnInit {
 
   public obterProcessos(processos: Processo[]): void {
     this.aplicarMesmasDecisoesAosProcessos = processos;
-    console.log(this.aplicarMesmasDecisoesAosProcessos)
   }
 
 }

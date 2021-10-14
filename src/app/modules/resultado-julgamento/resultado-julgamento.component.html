@@ -96,6 +96,11 @@
                                 [processo]="parametros.processo"
                                 (decisaoExcluida)="removerDecisao($event)"
                             ></app-form-decisao>
+
+                            <app-aplicar-decisoes
+                                [processos]="processosPorTags"
+                                [processosParaAplicarAMesmaDecisao]="aplicarMesmasDecisoesAosProcessos"
+                            ></app-aplicar-decisoes>
                         </mat-expansion-panel>
                     </mat-accordion>
 
