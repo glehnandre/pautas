@@ -17,6 +17,7 @@ export class CarrosselComponent implements OnInit, OnDestroy, AfterContentChecke
   @Input() idChip:string = '';
   @Input() lastId:string;
   @Input() links: string[] = [];
+  @Input() hasArrow: boolean = true;
 
   @Output() linkDoPdfSelecionado = new EventEmitter<string>();
 
@@ -43,7 +44,7 @@ export class CarrosselComponent implements OnInit, OnDestroy, AfterContentChecke
     if(elemExterno && elemInterno){
       let tamExterno = elemExterno.getBoundingClientRect();
       let tamInterno = elemInterno.getBoundingClientRect();
-      if(tamExterno.width <= tamInterno.width){
+      if(tamExterno.width <= tamInterno.width && this.hasArrow==true){
         return true;
       }
     }

@@ -1,5 +1,5 @@
-<div class="flex flex-col lg:flex-row lg:justify-start">
-    <div class="flex flex-row flex-wrap lg:max-w-3/5">
+<div id="cabecalho" class="flex flex-col lg:flex-row lg:justify-start">
+    <div id="div1" class="flex flex-row flex-wrap lg:max-w-3/5">
         <div class="flex flex-nowrap flex-row">
             <img [src]="relator?.imagem" alt="Imagem de perfil"
                 class="w-14 h-14 mr-6 mb-4 rounded-full ng-tns-c129-57 ng-star-inserted">
@@ -22,7 +22,8 @@
             </div>
 
             <div class="hidden md:block">
-                <app-carrossel 
+                <app-carrossel
+                    [hasArrow]="hasArrow"
                     [idChip]="'idTags'"
                     [chips]="tags"
                 ></app-carrossel>
