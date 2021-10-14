@@ -130,4 +130,9 @@ export class ResultadoJulgamentoComponent implements OnInit {
     return (larguraAtual <= largura) ? 'over' : 'side';
   }
 
+  public voltarAoTopo(): void {
+    const menuDecisao = document.getElementById('menu-decisao');
+    menuDecisao.scrollTo({top: 0});
+  }
+
 }

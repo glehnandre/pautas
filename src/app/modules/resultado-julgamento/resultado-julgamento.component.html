@@ -104,7 +104,7 @@
                             [name]="FORM_CADASTRO_DECISAO"
                             [opened]="false"
                             [mode]="'over'">
-                            <div class="w-full p-4 overflow-y-auto">
+                            <div id="menu-decisao" class="w-full p-4 overflow-y-auto">
                                 <div class="flex">
                                     <button 
                                         mat-raised-button 
@@ -119,7 +119,7 @@
 
                                 <app-form-decisao
                                     [dispositivos]="dispositivos"
-                                    (decisaoCadastrada)="obterDadosDaDecisao($event); abrirGavetaDeFormularioDeDecisao(FORM_CADASTRO_DECISAO);"
+                                    (decisaoCadastrada)="obterDadosDaDecisao($event); abrirGavetaDeFormularioDeDecisao(FORM_CADASTRO_DECISAO); voltarAoTopo()"
                                 ></app-form-decisao>
 
                                 <fuse-card
@@ -157,7 +157,6 @@
                         </fuse-drawer>
                         
                         <!--Container fora da gaveta-->
-                        
                     </div>
                 </div>
             </div>
