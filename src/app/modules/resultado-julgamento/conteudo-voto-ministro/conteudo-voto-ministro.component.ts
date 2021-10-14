@@ -14,7 +14,7 @@ export class ConteudoVotoMinistroComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
-    
+
   }
 
   public getVotosQueAcompanharam(start: number, end: number): Ministro[] {
@@ -31,7 +31,7 @@ export class ConteudoVotoMinistroComponent implements OnInit {
     if (this.voto && this.voto.conteudo) {
       return this._fromBinary(this.voto.conteudo);
     }
-    
+
     return 'aguarde...';
   }
 

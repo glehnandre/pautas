@@ -27,9 +27,9 @@ export class CriacaoColegiadoComponent implements OnInit {
   };
 
   alerta: {
-    titulo: string,
-    mensagem: string,
-  }
+    titulo: string;
+    mensagem: string;
+  };
 
   processo: Processo = {} as Processo;
   formVotacao: FormGroup;
@@ -39,7 +39,7 @@ export class CriacaoColegiadoComponent implements OnInit {
   votosDosMinistros: ComposicaoColegiado[] = [];
   relator: Ministro;
   tags: string[] = [];
-  lastId: string = "idTags";
+  lastId: string = 'idTags';
   documentos: {
     nomes: string[],
     links: string[],
@@ -146,7 +146,7 @@ export class CriacaoColegiadoComponent implements OnInit {
     return (sub >= 0) ? sub : 0;
   }
 
-  isMinistroParticipadandoDaVotacao(colegiado: ComposicaoColegiado) {
+  isMinistroParticipadandoDaVotacao(colegiado: ComposicaoColegiado): boolean {
     if (this.calcularContador() === 0) {
       const index = this.votosDosMinistros
         .findIndex(voto => voto.ministro.id === colegiado.ministro.id);
@@ -167,7 +167,7 @@ export class CriacaoColegiadoComponent implements OnInit {
     }
   }
 
-  setId(id: string){
+  setId(id: string): void{
     this.lastId = id;
   }
 

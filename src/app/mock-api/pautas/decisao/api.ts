@@ -16,13 +16,13 @@ export class DecisaoMockApi {
         this._decisoes = decisoesData;
         this.registerHandlers();
     }
-    
+
     registerHandlers(): void {
       this._fuseMockApiService
         .onGet('decisao/:processo')
         .reply(({urlParams}) => {
           const processo = +urlParams.processo;
-          
+
           const index = this._decisoes
             .findIndex(dec => dec.processo.id === processo);
 
@@ -35,7 +35,7 @@ export class DecisaoMockApi {
         .onGet('processo/:processo/decisoes')
         .reply(({urlParams}) => {
           const processo = urlParams.processo;
-          
+
           const index = this._decisoes.findIndex(dec => {
             if (dec.processo.tipo === TipoDoProcesso.Merito) {
               const query = `${dec.processo.id}`;
@@ -55,19 +55,19 @@ export class DecisaoMockApi {
         .reply(({request, urlParams}) => {
           const parametroProcesso = urlParams.processo;
           const { decisao } = request.body;
-          
+
           const index = this._decisoes
             .findIndex(({processo}) => {
               const { classe, numero, abreviacao } = processo;
               const processoConcatenado = `${classe}${numero}-${abreviacao}`;
-              
+
               return (processoConcatenado === parametroProcesso);
             });
-          
+
           if (index !== -1) {
             this._decisoes[index].decisoes.push(decisao);
-            return [201, {}];     
-          } 
+            return [201, {}];
+          }
 
           return [404, {
             description: "Nenhuma decisão encontrada.",

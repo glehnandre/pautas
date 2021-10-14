@@ -37,8 +37,8 @@ export class ResultadoJulgamentoComponent implements OnInit {
     private _resultadoJulgamento: ResultadoJulgamentoService,
     private _processoService: ProcessoService,
     private _route: ActivatedRoute,
-  ) { 
-    
+  ) {
+
   }
 
   ngOnInit(): void {
@@ -96,7 +96,7 @@ export class ResultadoJulgamentoComponent implements OnInit {
   public removerDecisao(decisao: Decisao): void {
     const index = this.decisoes
       .findIndex(dec => JSON.stringify(dec) === JSON.stringify(decisao));
-    
+
     if (index !== -1) {
       this.decisoes.splice(index, 1);
     }

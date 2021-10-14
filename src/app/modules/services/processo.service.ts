@@ -28,21 +28,21 @@ export class ProcessoService {
     return this._httpClient.get<Processo[]>('processos', {
       params
     }).pipe(
-      catchError(error => {
+      catchError((error) => {
         console.log(error);
         return EMPTY;
       })
     );
   }
 
-  public reanalizarProcesso(id: number, body: {descricao: string, data: string}): Observable<void> {
+  public reanalizarProcesso(id: number, body: {descricao: string; data: string}): Observable<void> {
     return this._httpClient.post<void>(`/processos/${id}/reanalisar`, body);
   }
 
   public obterStatusDoProcesso(id: number): Observable<StatusProcesso> {
     return this._httpClient.get<StatusProcesso>(`processos/${id}/situacao`)
       .pipe(
-        catchError(error => {
+        catchError((error) => {
           console.log(error);
           return EMPTY;
         })
@@ -52,7 +52,7 @@ export class ProcessoService {
   public obterDocumentosDoProcesso(id: number): Observable<Documento[]> {
     return this._httpClient.get<Documento[]>(`processos/${id}/documentos`)
       .pipe(
-        catchError(error => {
+        catchError((error) => {
           console.log(error);
           return EMPTY;
         })
@@ -71,7 +71,7 @@ export class ProcessoService {
 
   public recuperarTagsDaApi(): Observable<Tag[]> {
     return this._httpClient.get<Tag[]>('tags').pipe(
-      catchError(error => {
+      catchError((error) => {
         console.log(error);
         return EMPTY;
       })
@@ -92,11 +92,11 @@ export class ProcessoService {
     params = params.set('situacao-processo', 1);
 
     return this._httpClient.get<Processo[]>('processos', { params }).pipe(
-      catchError(error => {
+      catchError((error) => {
         console.log(error);
         return EMPTY;
       }),
-    )
+    );
   }
 
   public obterDispositivosDoProcesso(id: number, tipo: TipoCapitulo): Observable<Manifestacao[]> {
@@ -125,9 +125,9 @@ export class ProcessoService {
   }
 
   public exibeDescricaoDosProcessos(processos: Processo[]): string {
-    let descricoes = ``;
+    let descricoes = '';
 
-    processos.forEach(processo => {
+    processos.forEach((processo) => {
       descricoes += `${processo.classe} ${processo.numero} ${processo.nome}\n`;
     });
 

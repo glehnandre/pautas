@@ -1,25 +1,25 @@
 <div class="flex flex-row justify-between">
     <div class="flex flex-row items-center">
         <img class="w-14 h-14 mr-4" [src]="voto?.autor?.imagem" [alt]="voto?.autor?.nome">
-    
+
         <div class="text-2xl font-medium leading-4 mt-1">
             {{voto?.autor?.nome}}
         </div>
     </div>
 
     <div class="flex items-center mt-6 -space-x-1.5 ng-star-inserted">
-        <img 
+        <img
             *ngFor="let ministro of getVotosQueAcompanharam(0, 3)"
             #tooltip="matTooltip"
             [matTooltip]="ministro.nome"
             [matTooltipPosition]="'below'"
             [matTooltipClass]="['text-sm mt-1 px-2 py-1']"
-            [alt]="ministro.nome" 
+            [alt]="ministro.nome"
             [src]="ministro.imagem"
-            class="flex-0 w-8 h-8 rounded-full ring ring-offset-1 ring-bg-card ring-offset-transparent object-cover ng-star-inserted" 
+            class="flex-0 w-8 h-8 rounded-full ring ring-offset-1 ring-bg-card ring-offset-transparent object-cover ng-star-inserted"
         >
         <div *ngIf="getVotosQueAcompanharam(3, voto?.acompanharam?.length).length > 0" class="flex flex-0 items-center justify-center w-8 h-8 rounded-full ring ring-offset-1 ring-bg-card ring-offset-transparent bg-gray-200 text-gray-500 ng-star-inserted">
-            <div class="text-md font-semibold" 
+            <div class="text-md font-semibold"
                 #tooltip="matTooltip"
                 [matTooltip]="getNomesDosMinistrosQueAcompanharam()"
                 [matTooltipPosition]="'below'"

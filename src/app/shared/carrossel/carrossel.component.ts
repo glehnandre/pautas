@@ -18,6 +18,7 @@ export class CarrosselComponent implements OnInit, OnDestroy, AfterContentChecke
   @Input() lastId:string;
   @Input() links: string[] = [];
   @Input() hasArrow: boolean = true;
+  @Input() idLinha: number;
 
   @Output() linkDoPdfSelecionado = new EventEmitter<string>();
 
@@ -51,9 +52,9 @@ export class CarrosselComponent implements OnInit, OnDestroy, AfterContentChecke
     return false;
   }
 
-  handleKeyboardEvent(event: KeyboardEvent) {
-    if(event.key=="ArrowRight") this.scrollRight(this.lastId);
-    else if(event.key=="ArrowLeft") this.scrollLeft(this.lastId);
+  handleKeyboardEvent(event: KeyboardEvent): void {
+    if(event.key === 'ArrowRight') {this.scrollRight(this.lastId);}
+    else if(event.key === 'ArrowLeft') {this.scrollLeft(this.lastId);}
   }
 
   /**
@@ -62,13 +63,13 @@ export class CarrosselComponent implements OnInit, OnDestroy, AfterContentChecke
    */
   public scrollLeft(id): void {
     if(id){
-      let el = document.getElementById(id);
+      const el = document.getElementById(id);
       el.scrollTo({ left: (el.scrollLeft - 150), behavior: 'smooth' });
     }
   }
   public scrollRight(id: string): void {
     if(id){
-      let el = document.getElementById(id);
+      const el = document.getElementById(id);
       document.getElementById(id).scrollTo({ left: (el.scrollLeft + 150), behavior: 'smooth' });
     }
   }

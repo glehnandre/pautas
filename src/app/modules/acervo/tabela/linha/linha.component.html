@@ -1,13 +1,13 @@
 <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
     <mat-expansion-panel-header [collapsedHeight]="'80px'" class="p-4 h-20 sm:h-26">
-        <div class="my-4 ml-3.5">
+        <div class="my-4  w-full">
             <div class="w-screen container flex sm:mt-4">
                 <div>
                     <div (click)="$event.stopPropagation()">
                         <mat-checkbox
                             color="primary"
                             (change)="emiteStatusDoCheckbox($event)"
-                            [checked]="Selected"
+                            [checked]="selected"
                         >
                         </mat-checkbox>
                     </div>
@@ -29,8 +29,22 @@
                     ></app-status>
                 </div>
             </div>
-            <div class="mb-4 hidden sm:block">
-                <app-tags [tags]="processo.lista" (tagSelecionada)="filtrarPorTags($event)"></app-tags>
+            <div class="flex flex-row w-full">
+                <div class="w-1/2 flex flex-row items-center">
+                    <app-tags [tags]="processo.lista" (tagSelecionada)="filtrarPorTags($event)"></app-tags>
+                </div>
+                <div class="w-1/2">
+                        <app-carrossel
+                            *ngIf = "(docs$ | async | reduceDocuments) as docs"
+                            [idChip]="'idDocExp'"
+                            [chips]="docs?.nomes"
+                            [links]="docs?.links"
+                            [hasIcon]="true"
+                            [class]="['flex-none', 'border-primary', 'border-solid', 'border-2', 'bg-transparent', 'text-primary']"
+                            (linkDoPdfSelecionado)="abrirLink($event)"
+                            [idLinha]="idLinha"
+                        ></app-carrossel>
+                </div>
             </div>
         </div>
     </mat-expansion-panel-header>
@@ -38,3 +52,9 @@
     <!--Conteúdo de dentro da área expansível-->
     <app-processo-capitulo [processo]="processo"></app-processo-capitulo>
 </mat-expansion-panel>
+
+<app-visualizador-pdf
+    *ngIf="link"
+    [nome]="'visualizador-pdf-do-acervo' + idLinha"
+    [link]="link"
+></app-visualizador-pdf>

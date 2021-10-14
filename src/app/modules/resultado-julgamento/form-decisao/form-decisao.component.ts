@@ -24,7 +24,7 @@ export class FormDecisaoComponent implements OnInit {
     dispositivo: '',
     ministros_acordam: [],
     ministro_condutor: '',
-    texto: '', 
+    texto: '',
   };
 
   @Input() processo: string = '';
@@ -47,7 +47,7 @@ export class FormDecisaoComponent implements OnInit {
       dispositivo: [this.decisao.dispositivo, Validators.required],
       ministros_acordam: [this.decisao.ministros_acordam, Validators.required],
       ministro_condutor: [this.decisao.ministro_condutor, Validators.required],
-      texto: [this.decisao.texto, Validators.required], 
+      texto: [this.decisao.texto, Validators.required],
     });
 
     this.ministros$ = this._ministroService.listarMinistros();
