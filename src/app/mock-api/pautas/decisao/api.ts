@@ -53,20 +53,15 @@ export class DecisaoMockApi {
       this._fuseMockApiService
         .onPost('processo/:processo/decisoes')
         .reply(({request, urlParams}) => {
-          const parametroProcesso = urlParams.processo;
+          const parametroProcesso = +urlParams.processo;
           const { decisao } = request.body;
           
           const index = this._decisoes
-            .findIndex(({processo}) => {
-              const { classe, numero, abreviacao } = processo;
-              const processoConcatenado = `${classe}${numero}-${abreviacao}`;
-              
-              return (processoConcatenado === parametroProcesso);
-            });
+            .findIndex(({processo}) => processo.id === parametroProcesso);
           
           if (index !== -1) {
             this._decisoes[index].decisoes.push(decisao);
-            return [201, {}];     
+            return [201, this._decisoes[index]];     
           } 
 
           return [404, {

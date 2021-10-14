@@ -25,7 +25,7 @@ export class ResultadoJulgamentoService {
       );
   }
 
-  public savarDecisao(processo: string, decisao: Decisao): Observable<void> {
+  public savarDecisao(processo: number, decisao: Decisao): Observable<void> {
     return this._httpClient.post<void>(`processo/${processo}/decisoes`, {
       decisao,
     }).pipe(
