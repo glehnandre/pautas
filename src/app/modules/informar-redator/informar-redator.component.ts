@@ -22,7 +22,7 @@ export class InformarRedatorComponent implements OnInit {
   votos: Voto[] = [];
 
   descrissaoSessao: string;
-  data_fim: string;
+  data_fim: Date;
 
   constructor(
       private _formBuilder: FormBuilder,
@@ -51,12 +51,8 @@ export class InformarRedatorComponent implements OnInit {
             }
           });
 
-
-        this.descrissaoSessao = `${this.dados.sessao?.numero}/${this.dados.sessao?.ano}`;
-
-        const data_fim = new Date(this.dados.sessao?.data_fim);
-        this.data_fim = this.formatData(data_fim);
-
+          this.descrissaoSessao = `${this.dados.sessao?.numero}/${this.dados.sessao?.ano}`;
+          this.data_fim = new Date(this.dados.sessao?.data_fim);
 
           const { classe, numero, abreviacao } = this.dados.processo;
           this.classe = classe;
@@ -73,18 +69,8 @@ export class InformarRedatorComponent implements OnInit {
     });
   }
 
-  private formatData(data: Date): string {
-    const dia = ("00" + data.getDate()).slice(-2);
-    const mes = ("00" + (data.getMonth() + 1)).slice(-2);
-    const ano = ("00" + data.getFullYear()).slice(-4);
-    return `${dia}/${mes}/${ano}`;
-  }
-
   getRedator(): string {
       return //this.dados?.processo?.redator?.ocupante?.nome;
-  }
-  getRelator(): string {
-    return this.dados.processo.relator.ocupante.nome;
   }
 
   escolherRedator(): void {

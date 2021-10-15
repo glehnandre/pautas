@@ -19,7 +19,7 @@ export class ResultadoJulgamentoComponent implements OnInit {
   processosSelecioandos: Processo[] = [];
   votos: Voto[] = [];
   descrissaoSessao: string;
-  data_fim: string;
+  data_fim: Date;
 
   constructor(
     private _resultadoJulgamento: ResultadoJulgamentoService,
@@ -46,8 +46,7 @@ export class ResultadoJulgamentoComponent implements OnInit {
 
         this.descrissaoSessao = `${this.dados.sessao?.numero}/${this.dados.sessao?.ano}`;
 
-        const data_fim = new Date(this.dados.sessao?.data_fim);
-        this.data_fim = this.formatData(data_fim);
+        this.data_fim = new Date(this.dados.sessao?.data_fim);
 
         const { classe, numero, abreviacao } = this.dados.processo;
 
@@ -59,13 +58,6 @@ export class ResultadoJulgamentoComponent implements OnInit {
       }
     });
 
-  }
-
-  private formatData(data: Date): string {
-    const dia = ("00" + data.getDate()).slice(-2);
-    const mes = ("00" + (data.getMonth() + 1)).slice(-2);
-    const ano = ("00" + data.getFullYear()).slice(-4);
-    return `${dia}/${mes}/${ano}`;
   }
 
   public aplicarAsMesmasDecisoes(processo: Processo) {
