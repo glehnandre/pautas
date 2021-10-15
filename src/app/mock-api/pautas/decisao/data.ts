@@ -28,7 +28,7 @@ export const decisoes: Array<{decisoes: Decisao[], processo: Processo, sessao: a
         tipo:               'tipo',
       },
     ],
-    
+
     processo: {
       id:         1,
       nome:       'Mérito',
@@ -74,18 +74,18 @@ export const decisoes: Array<{decisoes: Decisao[], processo: Processo, sessao: a
       ],
       relator: ministro[0],
     },
-    
+
     sessao: {
       numero: 1000,
       ano: 2021,
       colegiado: "Primeira turma",
-      
+
       tipo: "ORDINARIA",
       categoria: "REPERCUSSAO_GERAL",
       modalidade: "VIRTUAL",
       data_inicio: "2021-09-29T09:12:33.001Z",
       data_fim: "2021-10-29T09:12:33.001Z",
-      
+
       secretario: {
         id: 19,
         nome: "Carmen",
@@ -96,20 +96,20 @@ export const decisoes: Array<{decisoes: Decisao[], processo: Processo, sessao: a
 
   {
     decisoes: [],
-    
+
     processo: processo[8],
-    
+
     sessao: {
       numero: 1000,
       ano: 2021,
       colegiado: "Primeira turma",
-      
+
       tipo: "ORDINARIA",
       categoria: "REPERCUSSAO_GERAL",
       modalidade: "VIRTUAL",
       data_inicio: "2021-09-29T09:12:33.001Z",
       data_fim: "2021-10-29T09:12:33.001Z",
-      
+
       secretario: {
         id: 19,
         nome: "Carmen",

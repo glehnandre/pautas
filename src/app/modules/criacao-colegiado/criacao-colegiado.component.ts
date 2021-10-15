@@ -1,11 +1,14 @@
+import { HttpParams } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { FuseDrawerService } from '@fuse/components/drawer';
 import { Colegiado, ComposicaoColegiado } from '../acervo/model/interfaces/colegiado.interface';
 import { Ministro } from '../acervo/model/interfaces/ministro.interface';
+import { Processo } from '../acervo/model/interfaces/processo.interface';
 import { AlertaService } from '../services/alerta.service';
 import { MinistroService } from '../services/ministro.service';
+import { ProcessoService } from '../services/processo.service';
 
 @Component({
   selector: 'app-criacao-colegiado',
@@ -17,17 +20,18 @@ export class CriacaoColegiadoComponent implements OnInit {
   panelOpenState: boolean = false;
 
   queryParams: {
-    processo: string,
+    processo: number,
     data: string,
     colegiado: string,
     sessao: string,
   };
 
   alerta: {
-    titulo: string,
-    mensagem: string,
-  }
+    titulo: string;
+    mensagem: string;
+  };
 
+  processo: Processo = {} as Processo;
   formVotacao: FormGroup;
   ministros: Ministro[] = [];
   colegiados: Colegiado[] = [];
@@ -35,7 +39,7 @@ export class CriacaoColegiadoComponent implements OnInit {
   votosDosMinistros: ComposicaoColegiado[] = [];
   relator: Ministro;
   tags: string[] = [];
-  lastId: string = "idTags";
+  lastId: string = 'idTags';
   documentos: {
     nomes: string[],
     links: string[],
@@ -46,6 +50,7 @@ export class CriacaoColegiadoComponent implements OnInit {
     private _ministroService: MinistroService,
     private _route: ActivatedRoute,
     private _alertaService: AlertaService,
+    private _processoService: ProcessoService,
   ) { 
     this.formVotacao = this._fb.group({
       processo: ['', Validators.required],
@@ -64,6 +69,9 @@ export class CriacaoColegiadoComponent implements OnInit {
       processo,
       sessao,
     };
+    this._processoService.listarProcessos().subscribe(processos=>{
+      this.processo = processos.find(processo => processo.id == this.queryParams.processo);
+    })
 
     this.formVotacao.setValue({
       processo,
@@ -138,7 +146,7 @@ export class CriacaoColegiadoComponent implements OnInit {
     return (sub >= 0) ? sub : 0;
   }
 
-  isMinistroParticipadandoDaVotacao(colegiado: ComposicaoColegiado) {
+  isMinistroParticipadandoDaVotacao(colegiado: ComposicaoColegiado): boolean {
     if (this.calcularContador() === 0) {
       const index = this.votosDosMinistros
         .findIndex(voto => voto.ministro.id === colegiado.ministro.id);
@@ -159,7 +167,7 @@ export class CriacaoColegiadoComponent implements OnInit {
     }
   }
 
-  setId(id: string){
+  setId(id: string): void{
     this.lastId = id;
   }
 

@@ -37,8 +37,8 @@ export class ResultadoJulgamentoComponent implements OnInit {
     private _resultadoJulgamento: ResultadoJulgamentoService,
     private _processoService: ProcessoService,
     private _route: ActivatedRoute,
-  ) { 
-    
+  ) {
+
   }
 
   ngOnInit(): void {
@@ -59,15 +59,15 @@ export class ResultadoJulgamentoComponent implements OnInit {
           }
         });
 
-        const { id, classe, numero, abreviacao } = this.dados.processo;
+        const processoId = this.dados.processo.id;
 
-        this._processoService.obterVotosDoProcesso(`${classe}${numero}-${abreviacao}`).subscribe({
+        this._processoService.obterVotosDoProcesso(processoId).subscribe({
           next: (votos) => {
             this.votos = votos;
           }
         });
 
-        this._processoService.obterDispositivosDoProcesso(id, TipoCapitulo.Merito).subscribe({
+        this._processoService.obterDispositivosDoProcesso(processoId, TipoCapitulo.Merito).subscribe({
           next: (dispositivos) => {
             this.dispositivos = dispositivos;
           }
@@ -96,7 +96,7 @@ export class ResultadoJulgamentoComponent implements OnInit {
   public removerDecisao(decisao: Decisao): void {
     const index = this.decisoes
       .findIndex(dec => JSON.stringify(dec) === JSON.stringify(decisao));
-    
+
     if (index !== -1) {
       this.decisoes.splice(index, 1);
     }

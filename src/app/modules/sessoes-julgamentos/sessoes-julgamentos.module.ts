@@ -9,6 +9,7 @@ import { SessoesJulgamentosComponent } from './sessoes-julgamentos.component';
 import { FiltroModule } from './filtros/filtro.module';
 import { SharedModule } from '../../shared/shared.module';
 import { FuseCardModule } from '@fuse/components/card';
+import { FuseAlertModule } from '@fuse/components/alert';
 import { FuseDrawerModule } from '@fuse/components/drawer';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 
@@ -29,9 +30,10 @@ const SessoesJulgamentoRoutes: Route[] = [
     FiltroModule,
     SharedModule,
     FuseCardModule,
+    FuseAlertModule,
     FuseDrawerModule,
     MatProgressSpinnerModule,
     RouterModule.forChild(SessoesJulgamentoRoutes),
-  ]
+  ],
 })
 export class SessoesJulgamentosModule { }

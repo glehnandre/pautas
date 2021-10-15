@@ -41,7 +41,7 @@ export class ProcessoMockApi {
                 const { idsTags } = request.body;
                 const processosAtualizados = [];
 
-                this._processo.map(processo => {
+                this._processo.map((processo) => {
                     if (processo.id === id) {
                         processo.lista = this._obterTagsPelosIds(idsTags);
                         processosAtualizados.push(processo);
@@ -57,8 +57,8 @@ export class ProcessoMockApi {
                 const id = Number(urlParams.id);
                 const processos: Processo[] = [];
 
-                this._processo.forEach(processo => {
-                    processo.lista.forEach(lista => {
+                this._processo.forEach((processo) => {
+                    processo.lista.forEach((lista) => {
                         if (lista.id === id) {
                             processos.push(processo);
                         }
@@ -72,17 +72,16 @@ export class ProcessoMockApi {
             .onGet('processos')
             .reply(({ request }) => {
                 const { params } = request;
-
                 if (params.get('itensPorPagina') && params.get('itensPorPagina') !== 'undefined') {
                     const paginacao: Paginacao = {
                         itensPorPagina: +params.get('itensPorPagina') || 5,
                         numeroDaPagina: +params.get('numeroDaPagina') || 0,
                         offset: +params.get('offset') || 0,
-                    }
-    
+                    };
+
                     const processosPaginados = this._processo
                         .slice(paginacao.offset, paginacao.offset+paginacao.itensPorPagina);
-    
+
                     return [200, processosPaginados];
                 } else {
                     const filtros: Filtros = {
@@ -95,23 +94,17 @@ export class ProcessoMockApi {
                         classes: params.getAll('classe'),
                         tags: (params.getAll('tag')) ? params.getAll('tag').toString().split(',') : null,
                     };
-
                     if (params.keys().length > 0) {
                         const processosFiltrados = this._processo
                             .filter((processo) => {
                                 if (filtros.processo) {
-                                    let query = `${processo.classe}${processo.numero}`;
-
-                                    if (processo.tipo !== TipoDoProcesso.Merito) {
-                                        query = `${query}-${processo.abreviacao}`;
-                                    }
-                                   
-                                    return (query === filtros.processo);
+                                    let query = `${processo.id}`;
+                                    return (query == filtros.processo);
                                 } else {
                                     return true;
                                 }
                             })
-                            .filter(processo => (filtros.situacoes) ? filtros.situacoes.find((situacao) => Number(situacao) === processo.situacao) : true)
+                            .filter(processo => (filtros.situacoes) ? filtros.situacoes.find(situacao => Number(situacao) === processo.situacao) : true)
                             .filter(processo => (filtros.classes) ? filtros.classes.find(classe => classe === processo.classe) : true)
                             .filter(processo => (filtros.tags) ? filtros.tags.find(tag => processo.lista.find(lista => lista.id === +tag)) : true)
                             .filter(processo => (filtros.termo) ? filtros.termo.includes(processo.classe) && filtros.termo.includes(processo.numero.toString()) : true);
@@ -138,11 +131,11 @@ export class ProcessoMockApi {
                     }
                 }
 
-                this._processo.map(processo => {
+                this._processo.map((processo) => {
                     if (processo.id === idProcesso) {
                         processo = processoRef;
                     }
-                })
+                });
 
                 return [200, processoRef];
             });
@@ -163,16 +156,16 @@ export class ProcessoMockApi {
               const id = +urlParams.id;
               const numeroAno = urlParams['numero-ano'];
 
-              this._julgamentos.map(sessao => {
+              this._julgamentos.map((sessao) => {
                 const sessaoNumeroAno = `${sessao.numero}-${sessao.ano}`;
                 if(sessaoNumeroAno === numeroAno){
-                    this._processo.map(processo => {
+                    this._processo.map((processo) => {
                         if (processo.id === id) {
                             processo.situacao = 1;
                         }
                     });
                 }
-            })
+            });
 
               return [201, [this._processo]];
             });
@@ -182,9 +175,7 @@ export class ProcessoMockApi {
             .reply(({urlParams}) => {
               const id = +urlParams.id;
 
-              this._processo = this._processo.filter(processo => {
-                  return processo.id !== id;
-              });
+              this._processo = this._processo.filter(processo => processo.id !== id);
 
               return [201, [this._processo]];
             });
@@ -196,7 +187,7 @@ export class ProcessoMockApi {
 
               return [201, this._documentos];
             });
-        
+
         this._fuseMockApiService
             .onGet('processos/:processo/impedimentos/:ministro')
             .reply(({urlParams}) => {
@@ -207,7 +198,7 @@ export class ProcessoMockApi {
               this._impedimentos.forEach(data=>{
                   if(ministro==data.ministro){
                       data.lista.forEach(lista=>{
-                          if(processo==lista.processo){
+                          if(processo==lista.processoId){
                             impedimentos=lista.impedimento;
                           }
                       })
@@ -233,14 +224,14 @@ export class ProcessoMockApi {
                 const id = +urlParams.id;
                 const tipo = urlParams.tipo;
 
-                
+
 
                 return [201, this._manifestacoes];
             });
     }
 
     private _obterTagsPelosIds(tags: Tag[]): Tag[] {
-        let tagsObtidas: Tag[] = [];
+        const tagsObtidas: Tag[] = [];
 
         tags.forEach(({id}) => {
             const tagEncontrada = this._tag.find(tag => tag.id === id);

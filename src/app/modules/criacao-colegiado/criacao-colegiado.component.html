@@ -3,7 +3,7 @@
     <!-- Header -->
     <div class="flex flex-col sm:flex-row justify-center items-center sm:justify-between pl-8 bg-white dark:bg-transparent">
         <h1 class="mt-4 text-primary font-medium text-xl sm:text-2xl">
-            Colegiado para a {{queryParams.processo | uppercase}} Sessão {{queryParams.sessao}} 
+            Colegiado para a {{processo.classe| uppercase}}{{processo.numero}}-{{(processo.abreviacao)? processo.abreviacao: processo.nome}} Sessão {{queryParams.sessao}} 
             {{queryParams.colegiado | titlecase}}
         </h1>
         <div class="flex flex-row items-end mb-4 sm:my-4 ml-auto">

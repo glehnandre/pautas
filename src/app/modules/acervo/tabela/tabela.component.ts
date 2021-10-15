@@ -1,5 +1,5 @@
 import { HttpParams } from '@angular/common/http';
-import { Component, Input, OnInit, Output, SimpleChange, EventEmitter } from '@angular/core';
+import { Component, Input, OnInit, Output, SimpleChange, EventEmitter, OnChanges, SimpleChanges } from '@angular/core';
 import { ProcessoService } from 'app/modules/services/processo.service';
 import { Processo } from '../model/interfaces/processo.interface';
 import { Paginacao } from './paginacao/paginacao.component';
@@ -9,26 +9,31 @@ import { Paginacao } from './paginacao/paginacao.component';
   templateUrl: './tabela.component.html',
   styleUrls: ['./tabela.component.scss']
 })
-export class TabelaComponent implements OnInit {
-  @Input() Allselected: any;
-  @Output() SelectAll: any;
+export class TabelaComponent implements OnInit, OnChanges {
+  @Input() allSelected: any;
+  @Output() selectAll: any;
   @Output() tagSelecionada = new EventEmitter();
   @Output() statusSelecionado = new EventEmitter();
   @Output() data: {
-    checked: Boolean,
-    nome: String,
-    descricao: String,
+    checked: boolean;
+    nome: string;
+    descricao: string;
     capitulo: {
-      titulo: String,
+      titulo: string;
       preliminares: [{
-        subtitulo: String,
-        texto: String,
-      }]
-    }
-  }
+        subtitulo: string;
+        texto: string;
+      }];
+    };
+  };
 
   processosSelecionados: Processo[] = [];
   processos: Processo[];
+
+  documentos: {
+    nomes: string[];
+    links: string[];
+  }[] = [];
 
   constructor(
     private _processoService: ProcessoService,
@@ -41,11 +46,11 @@ export class TabelaComponent implements OnInit {
     });
   }
 
-  ngOnChanges(changes: SimpleChange) {
+  ngOnChanges(changes: SimpleChanges): void {
     // Extract changes to the input property by its name
-    let change: SimpleChange = changes['Allselected'];
-    this.SelectAll = changes['Allselected'].currentValue?.checked;
-    if (this.SelectAll) {
+    const change: SimpleChange = changes['allSelected'];
+    this.selectAll = changes['allSelected'].currentValue?.checked;
+    if (this.selectAll) {
       this._processoService.setProcessosSelecionados(this.processos);
       this.processosSelecionados = [...this.processos];
     } else {
@@ -55,19 +60,19 @@ export class TabelaComponent implements OnInit {
   }
 
 
-  check(){
-    //this.SelectAll = this.Allselected
+  check(): void {
+    //this.selectAll = this.allSelected
   }
 
-  filtrarPorTags(tag) {
-    this.tagSelecionada.emit(tag)
+  filtrarPorTags(tag): void {
+    this.tagSelecionada.emit(tag);
   }
 
-  filtrarPorStatus(status) {
-    this.statusSelecionado.emit(status)
+  filtrarPorStatus(status): void {
+    this.statusSelecionado.emit(status);
   }
 
-  trataEventoDeChecked(data: Processo) {
+  trataEventoDeChecked(data: Processo): void {
     if (data.checked) {
       const index = this.processosSelecionados.findIndex(({id}) => id === data.id);
       if (index !== -1) {
@@ -97,10 +102,12 @@ export class TabelaComponent implements OnInit {
   private _buscarProcessos(params?: HttpParams): void {
     this._processoService.listarProcessos(params).subscribe({
       next: (data) => {
-        this.processos = data;
-        this.processos.map(p => p.checked=false);
+        this.processos = data.map((processo) => {
+            processo.checked = false;
+
+            return processo;
+        });
       }
     });
   }
-
 }

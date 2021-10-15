@@ -1,5 +1,5 @@
 import { HttpParams } from '@angular/common/http';
-import { Component, Input, OnInit } from '@angular/core';
+import { AfterContentChecked, Component, Input, OnInit } from '@angular/core';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { FuseDrawerService } from '@fuse/components/drawer';
 import { TipoDoProcesso } from 'app/modules/acervo/model/enums/tipoDoProcesso.enum';
@@ -12,20 +12,27 @@ import { ProcessoService } from 'app/modules/services/processo.service';
   templateUrl: './cabecalho-relator.component.html',
   styleUrls: ['./cabecalho-relator.component.scss']
 })
-export class CabecalhoRelatorComponent implements OnInit {
+export class CabecalhoRelatorComponent implements AfterContentChecked, OnInit {
 
   @Input() processo: string;
   @Input() colegiado: string;
 
+  right: number = 0;
   panelOpenState = false;
   link: SafeResourceUrl;
   tags: string[] = [];
   relator: Ministro;
   tipo: TipoDoProcesso;
+  dadosProcesso: {
+    classe: string;
+    numero: number;
+    nome: string;
+  }
   documentos: {
     nomes: string[];
     links: string[];
   }
+  hasArrow: boolean;
 
   constructor(
     private _processoService: ProcessoService,
@@ -39,8 +46,16 @@ export class CabecalhoRelatorComponent implements OnInit {
     this._buscarColegiados();
   }
 
-  public obterTipoDoProcesso(): string {
-    return TipoDoProcesso[this.tipo];
+  ngAfterContentChecked(){
+    if(document.getElementById("cabecalho").getBoundingClientRect().width  * (3/5)-1 <= document.getElementById("div1").getBoundingClientRect().width)
+    this.hasArrow = true;
+    else this.hasArrow = false;
+  }
+
+  public obterDadosDoProcesso(): string {
+    if(this.dadosProcesso)
+    return `${this.dadosProcesso.classe} ${this.dadosProcesso.numero} ${this.dadosProcesso.nome}`;
+    return "Aguarde..."
   }
 
   abrirLink(link: string): void {
@@ -51,11 +66,12 @@ export class CabecalhoRelatorComponent implements OnInit {
 
   private _buscarProcessos(): void {
     this._processoService
-      .listarProcessos(new HttpParams().set('processos', this.processo)).subscribe({
+      .listarProcessos(new HttpParams().set('processo', this.processo)).subscribe({
         next: ([processo]) => {
-          const { id, lista, tipo } = processo;
+          
+          const { id, lista, classe, numero, nome } = processo;
 
-          this.tipo = tipo;
+          this.dadosProcesso = {classe, numero, nome};
 
           this.tags = [];
           lista.forEach(tag => {

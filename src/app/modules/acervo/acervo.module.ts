@@ -9,6 +9,7 @@ import { AcervoComponent } from './acervo.component';
 import { TabelaModule } from './tabela/tabela.module';
 import { FiltroModule } from './filtros/filtro.module';
 import { AcoesModule } from './acoes/acoes.module';
+import { SharedModule } from '../../shared/shared.module';
 
 const AcervoRoutes: Route[] = [
   {
@@ -30,6 +31,7 @@ const AcervoRoutes: Route[] = [
     AcoesModule,
     MatIconModule,
     EmptyLayoutModule,
+    SharedModule,
   ],
   exports:[
     AcervoComponent

@@ -1,15 +1,14 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { Observable, Subject } from 'rxjs';
 import { Processo } from '../acervo/model/interfaces/processo.interface';
 import { SessaoJulgamento } from '../acervo/model/interfaces/sessao-julgamento.interface';
-import { Documento } from '../acervo/model/interfaces/documento.interface';
-import { Tag } from '../acervo/model/interfaces/tag.interface';
 import { ProcessoService } from '../services/processo.service';
 import { JulgamentoService } from '../services/julgamento.service';
+import { FuseAlertService } from '@fuse/components/alert';
 import { Impedimento } from '../acervo/model/interfaces/impedimento.interface';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { FuseDrawerService } from '@fuse/components/drawer';
-import { delay } from 'rxjs/operators'
 
 @Component({
   selector: 'app-sessoes-julgamentos',
@@ -20,7 +19,7 @@ export class SessoesJulgamentosComponent implements OnInit {
 
   impedimentos: Observable<Impedimento[]>[] = [];
   processos: Processo[] = [];
-  sessao: SessaoJulgamento = {} as SessaoJulgamento;;
+  sessao: SessaoJulgamento = {} as SessaoJulgamento;
   tags: string[];
   documentos: string[];
   link: SafeResourceUrl;
@@ -32,36 +31,41 @@ export class SessoesJulgamentosComponent implements OnInit {
   descricao: string;
   observacao: string;
 
+  eventsSubject: Subject<any> = new Subject<any>();
+
   constructor(
     private _processoService: ProcessoService,
     private _julgamentoService: JulgamentoService,
+    private _fuseAlertService: FuseAlertService,
     public sanitizer: DomSanitizer,
     private _fuseDrawerService: FuseDrawerService,
+    private _route: ActivatedRoute,
   ) { }
 
   ngOnInit(): void {
-      this._processoService.listarProcessos().subscribe({
-        next: (data) => {
-            this.processos = data;
-            data.forEach(processo => {
-                this._processoService.obterDocumentosDoProcesso(processo.id).subscribe(documentos => {
-                    this.documentos = documentos.map(documento => documento.nome);
-                  });
+      const { numero, ano } = this._route.snapshot.queryParams;
 
-                let abreviacao: string;
-                if(processo.nome=="Mérito"){
-                  abreviacao = `${processo.classe}-100`;
-                }
-                else abreviacao = `${processo.classe}-${processo.abreviacao}`;
-                this.impedimentos.push(this._processoService.obterImpedimentosDoMinistro(abreviacao, "DT"));
-                
-                this.tags = processo.lista.map(tag => tag.descricao);
-            });
-        }
-      });
-      this._julgamentoService.listarTodasAsSessoesDeJulgamento().subscribe({
+      this._julgamentoService.listarSessoesDeJulgamento(numero, ano).subscribe({
         next: (data) => {
-            this.sessao = data[0];
+            this.sessao = data;
+
+            this._julgamentoService.listarProcessosPautadosNasSessoes(numero, ano).subscribe({
+                next: (processosData) => {
+                    this.processos = processosData;
+                    processosData.forEach((processo) => {
+                      this._processoService.obterDocumentosDoProcesso(processo.id).subscribe((documentos) => {
+                        this.documentos = documentos.map(documento => documento.nome);
+                      });
+
+                      this.impedimentos.push(this._processoService.obterImpedimentosDoMinistro(processo.id, "DT"));
+
+                      this.tags = processo.lista.map(tag => tag.descricao);
+                    });
+                },
+            });
+        },
+        error: () => {
+            this.isSessaoInvalida();
         }
       });
   }
@@ -90,6 +94,11 @@ export class SessoesJulgamentosComponent implements OnInit {
       this.toggleDrawerOpen('telaImpedimentos');
   }
 
-  eventsSubject: Subject<any> = new Subject<any>();
+  isSessaoInvalida(): void {
+    this._fuseAlertService.show('alertBoxInvalidSession');
 
+    setTimeout(() => {
+      this._fuseAlertService.dismiss('alertBoxInvalidSession');
+    }, 5000);
+  }
 }

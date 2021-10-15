@@ -9,13 +9,12 @@
             <button class="z-0 mr-4" mat-button>
                 <span>Cancelar</span>
             </button>
-
-            <button 
+            <button
                 class="mr-8"
-                color="primary" 
-                mat-raised-button 
+                color="primary"
+                mat-raised-button
             >
-                Finalizar 
+                Finalizar
             </button>
         </div>
     </div>
@@ -24,7 +23,7 @@
 
     <header class="bg-white px-8 pt-4">
         <app-cabecalho-relator
-            [processo]="getDadosProcesso()"
+            [processo]="parametros.processo"
             [colegiado]="parametros.colegiado"
         ></app-cabecalho-relator>
     </header>
@@ -47,12 +46,12 @@
                         <div class="text-xl font-normal leading-4">Decisões </div>
                     </div>
                     <mat-accordion class="" multi>
-                        <mat-expansion-panel 
+                        <mat-expansion-panel
                             class="mb-2"
                             *ngFor="let decisao of decisoes; index as i"
                         >
-                           
-                        
+
+
                             <app-form-decisao
                                 [decisao]="decisao"
                                 [dispositivos]="dispositivos"
@@ -61,21 +60,21 @@
                             ></app-form-decisao>
                         </mat-expansion-panel>
                     </mat-accordion>
-                    
+
                     <fuse-card
                         class="px-3 py-6 my-2 flex flex-col"
                     >
-                        <span 
-                            [matBadge]="(decisoes.length + 1)" 
+                        <span
+                            [matBadge]="(decisoes.length + 1)"
                             class="mr-auto ml-3 mb-4"
                         ></span>
-    
+
                         <app-form-decisao
                             [dispositivos]="dispositivos"
                             (decisaoCadastrada)="obterDadosDaDecisao($event)"
                         ></app-form-decisao>
                     </fuse-card>
-    
+
                     <fuse-card
                         class="max-h-full p-4 my-2 flex flex-col mb-4"
                     >
@@ -83,22 +82,22 @@
                             <h3 class="font-medium text-md">
                                 Aplicar as mesmas decisões
                             </h3>
-    
+
                             <mat-spinner
                                 class="m-auto"
                                 [diameter]="40"
                                 *ngIf="processosPorTags.length === 0; else processos"
                             ></mat-spinner>
-    
+
                             <ng-template #processos class="max-h-36 overflow-auto">
                                 <p *ngFor="let processo of processosPorTags">
                                     <mat-checkbox (change)="aplicarAsMesmasDecisoes(processo)" color="primary">
                                         <span class="font-bold text-primary-600">
                                             {{processo.classe}} {{processo.numero}}
                                         </span>
-    
+
                                         <br/>
-    
+
                                         <span class="text-hint">
                                             Relator prevaleceu
                                         </span>
@@ -122,18 +121,18 @@
                 <!-- CONTENT GOES HERE -->
                 <div class="h-400 min-h-400 max-h-400  border-gray-300 rounded-2xl">
                     <mat-tab-group animationDuration="0ms">
-                        <mat-tab  
-                            *ngFor="let voto of votos" 
+                        <mat-tab
+                            *ngFor="let voto of votos"
                         >
                             <ng-template mat-tab-label>
                                 {{voto.autor.nome}}
-                                
-                                <div 
-                                    class="ml-2 pt-1 py-0.5 px-3 rounded-full text-sm 
+
+                                <div
+                                    class="ml-2 pt-1 py-0.5 px-3 rounded-full text-sm
                                     font-semibold text-primary bg-primary-50
-                                    dark:text-primary-50 dark:bg-primary-500 
+                                    dark:text-primary-50 dark:bg-primary-500
                                     ng-star-inserted align-middle"
-                                > 
+                                >
                                     {{voto.tipo}}
                                 </div>
                             </ng-template>
