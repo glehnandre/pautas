@@ -17,6 +17,14 @@ export class FormDecisaoComponent implements OnInit {
 
   formDecisao: FormGroup;
   ministros$: Observable<Ministro []>
+  tipos: string[] = [
+    'Preliminar',
+    'Mérito',
+    'Modulação de efeitos',
+    'Questão de ordem',
+    'Tese',
+  ];
+  isDecisaoSalva: boolean = false;
 
   @Input() decisao: Decisao = {
     descricao: '',
@@ -26,9 +34,7 @@ export class FormDecisaoComponent implements OnInit {
     ministro_condutor: '',
     texto: '',
   };
-
-  @Input() processo: string = '';
-
+  @Input() processo: number = 0;
   @Input() dispositivos: Manifestacao[] = [];
 
   @Output() decisaoCadastrada = new EventEmitter<Decisao>();
@@ -61,16 +67,18 @@ export class FormDecisaoComponent implements OnInit {
   }
 
   public excluirDecisao(): void {
-    if (this.formDecisao.valid) {
+    if (this.formDecisao.valid && !this.isDecisaoSalva) {
       this.decisaoExcluida.emit(this.decisao);
-    }
+    } 
   }
 
   public salvarDecisao(): void {
-    if (this.formDecisao.valid && this.processo !== '') {
-      this._resultadoJulgamento.savarDecisao(this.processo, this.decisao).subscribe({
-        next: () => {
+    if (this.formDecisao.valid && this.processo > 0 && !this.isDecisaoSalva) {
+      this._resultadoJulgamento.savarDecisao(this.processo, this.formDecisao.value).subscribe({
+        next: (data) => {
           console.log('Decisao salva!');
+          console.log(data);
+          this.isDecisaoSalva = true;
         }
       });
     }

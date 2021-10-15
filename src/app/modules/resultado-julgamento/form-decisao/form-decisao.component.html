@@ -8,7 +8,7 @@
     <mat-form-field class="w-full mb-4" appearance="outline">
         <mat-label>Tipo <span class="text-red-500">*</span></mat-label>
         <mat-select formControlName="tipo">
-            <mat-option *ngFor="let tipo of ['Preliminar']" [value]="tipo">
+            <mat-option *ngFor="let tipo of tipos" [value]="tipo">
                 {{tipo}}
             </mat-option>
         </mat-select>
@@ -31,7 +31,7 @@
             <mat-select-trigger>
                 {{formDecisao.controls['ministros_acordam'].value ? formDecisao.controls['ministros_acordam'].value[0] :
                 ''}}
-                <span *ngIf="formDecisao.controls['ministros_acordam'].value.length > 1" class="font-light text-xs">
+                <span *ngIf="formDecisao.controls['ministros_acordam'].value?.length > 1" class="font-light text-xs">
                     (+{{formDecisao.controls['ministros_acordam'].value.length - 1}}
                     {{formDecisao.controls['ministros_acordam'].value.length === 2 ? 'outro' : 'outros'}})
                 </span>
@@ -50,7 +50,19 @@
 
     <mat-form-field class="w-full mb-4" appearance="outline">
         <mat-label>Voto condutor <span class="text-red-500">*</span></mat-label>
-        <input matInput type="text" formControlName="ministro_condutor">
+        <mat-select formControlName="ministro_condutor">
+            <mat-option 
+                *ngFor="let ministro of (ministros$ | async)" 
+                [value]="ministro.nome"
+            >
+                <div class="flex items-center">
+                    <div>
+                        <img class="w-8 h-8 mr-4" [src]="ministro.imagem">
+                    </div>
+                    <div>{{ ministro.nome }}</div>
+                </div>
+            </mat-option>
+        </mat-select>
         <mat-hint>Informe qual foi o voto condutor</mat-hint>
     </mat-form-field>
 
@@ -68,13 +80,13 @@
         </button>
 
         <button *ngIf="isDecisao()" class="mb-4 text-xs" mat-raised-button color="warn" (click)="excluirDecisao()"
-            [disabled]="formDecisao.invalid">
+            [disabled]="formDecisao.invalid || isDecisaoSalva">
             <mat-icon class="mr-1">delete</mat-icon>
             {{'Excluir esta decisão' | uppercase}}
         </button>
 
         <button *ngIf="isDecisao()" class="text-xs" mat-raised-button color="primary" (click)="salvarDecisao()"
-            [disabled]="formDecisao.invalid">
+            [disabled]="formDecisao.invalid || isDecisaoSalva">
             <mat-icon class="mr-1">save</mat-icon>
             {{'Salvar esta decisão' | uppercase}}
         </button>

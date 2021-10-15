@@ -1,6 +1,7 @@
 import { HttpParams } from '@angular/common/http';
-import { Component, OnInit } from '@angular/core';
+import { Component, HostListener, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { FuseDrawerService } from '@fuse/components/drawer';
 import { TipoCapitulo } from '../acervo/model/enums/tipoCapitulo.enum';
 import { Decisao } from '../acervo/model/interfaces/decisao.interface';
 import { Manifestacao } from '../acervo/model/interfaces/manifestacao.interface';
@@ -9,7 +10,6 @@ import { SessaoJulgamento } from '../acervo/model/interfaces/sessao-julgamento.i
 import { Voto } from '../acervo/model/interfaces/voto.interface';
 import { ProcessoService } from '../services/processo.service';
 import { ResultadoJulgamentoService } from '../services/resultado-julgamento.service';
-
 
 interface Parametros {
   processo: number;
@@ -27,18 +27,20 @@ export class ResultadoJulgamentoComponent implements OnInit {
   parametros: Parametros;
 
   processosPorTags: Processo[] = [];
-  processosSelecioandos: Processo[] = [];
+  aplicarMesmasDecisoesAosProcessos: Processo[] = [];
   votos: Voto[] = [];
   dispositivos: Manifestacao[] = [];
-
   decisoes: Decisao[] = [];
+
+  readonly FORM_CADASTRO_DECISAO = 'formulario-de-cadastro-de-decisao';
 
   constructor(
     private _resultadoJulgamento: ResultadoJulgamentoService,
     private _processoService: ProcessoService,
     private _route: ActivatedRoute,
-  ) {
-
+    private _fuseDrawerService: FuseDrawerService,
+  ) { 
+    
   }
 
   ngOnInit(): void {
@@ -53,9 +55,7 @@ export class ResultadoJulgamentoComponent implements OnInit {
 
         this._processoService.listarProcessos(new HttpParams().set('tag', tags.toString())).subscribe({
           next: (processos) => {
-            setTimeout(() => {
               this.processosPorTags = processos;
-            }, 3000)
           }
         });
 
@@ -75,18 +75,6 @@ export class ResultadoJulgamentoComponent implements OnInit {
       }
     });
 
-  }
-
-  public aplicarAsMesmasDecisoes(processo: Processo) {
-    const index = this.processosSelecioandos.findIndex(p => p.id === processo.id);
-
-    if (index !== -1) {
-      this.processosSelecioandos.splice(index, 1);
-    } else {
-      this.processosSelecioandos.push(processo);
-    }
-
-    console.log(this.processosSelecioandos)
   }
 
   public obterDadosDaDecisao(decisao: Decisao): void {
@@ -109,6 +97,32 @@ export class ResultadoJulgamentoComponent implements OnInit {
     }
 
     return 'Aguarde...';
+  }
+
+  public abrirGavetaDeFormularioDeDecisao(drawerName: string): void {
+      const drawer = this._fuseDrawerService.getComponent(drawerName);
+      drawer.toggle();
+  }
+
+  @HostListener('window:resize', ['$event'])
+  public verificaLarguraDaTela(largura: number = 720): boolean {
+    const larguraAtual = window.innerWidth;
+    return (larguraAtual > largura);
+  }
+
+  @HostListener('window:resize', ['$event'])
+  public verificaModoDaTela(largura: number = 720): string {
+    const larguraAtual = window.innerWidth;
+    return (larguraAtual <= largura) ? 'over' : 'side';
+  }
+
+  public voltarAoTopo(): void {
+    const menuDecisao = document.getElementById('menu-decisao');
+    menuDecisao.scrollTo({top: 0});
+  }
+
+  public obterProcessos(processos: Processo[]): void {
+    this.aplicarMesmasDecisoesAosProcessos = processos;
   }
 
 }

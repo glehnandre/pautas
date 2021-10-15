@@ -1146,63 +1146,11 @@
     </div>
 
     <div class="flex items-center mx-3 sm:mx-5">
-        <button class="px-3 sm:-mr-4" mat-button (click)="expandableCard02.expanded = !expandableCard02.expanded">
-            <span class="mr-1">Partes</span>
-            <mat-icon class="icon-size-5 transform transition-transform ease-in-out duration-150 rotate-0"
-                [ngClass]="{'rotate-180': expandableCard02.expanded}" [svgIcon]="'heroicons_solid:chevron-down'">
-            </mat-icon>
-        </button>
+
     </div>
 
-    <hr class="border-b mx-6 sm:mx-8 mt-4 mb-6">
-    <div class="flex flex-col sm:flex-row sm:items-center mx-6 sm:mx-8 mb-4 sm:mb-6">
-        <div class="flex items-center">
-            <img class="w-6 h-6 m-0.5 rounded-full text-card ring-2 ring-bg-card"
-                src="assets/images/avatars/female-02.jpg" alt="Card cover image">
-            <img class="w-6 h-6 m-0.5 rounded-full -ml-3 text-card ring-2 ring-bg-card"
-                src="assets/images/avatars/female-04.jpg" alt="Card cover image">
-            <img class="w-6 h-6 m-0.5 rounded-full -ml-3 text-card ring-2 ring-bg-card"
-                src="assets/images/avatars/male-09.jpg" alt="Card cover image">
-            <img class="w-6 h-6 m-0.5 rounded-full -ml-3 text-card ring-2 ring-bg-card"
-                src="assets/images/avatars/male-07.jpg" alt="Card cover image">
-            <div class="text-md tracking-tight ml-3">You and 24 more liked this</div>
-        </div>
-        <div class="hidden sm:flex flex-auto"></div>
-        <div class="flex items-center mt-4 sm:mt-0">
-            <button class="px-3 mr-1 -ml-2 sm:ml-0" mat-button>
-                4 shares
-            </button>
-            <button class="px-3 sm:-mr-4" mat-button (click)="expandableCard02.expanded = !expandableCard02.expanded">
-                <span class="mr-1">5 Comments</span>
-                <mat-icon class="icon-size-5 transform transition-transform ease-in-out duration-150 rotate-0"
-                    [ngClass]="{'rotate-180': expandableCard02.expanded}" [svgIcon]="'heroicons_solid:chevron-down'">
-                </mat-icon>
-            </button>
-        </div>
-    </div>
-
+    
     <ng-container fuseCardExpansion>
-        <hr class="border-b m-0">
-        <div class="flex flex-col mx-4 sm:mx-8 mt-6 mb-3">
-            <div class="flex items-start">
-                <img class="w-12 h-12 rounded-full mr-5" src="assets/images/avatars/brian-hughes.jpg"
-                    alt="Card cover image">
-                <mat-form-field class="fuse-mat-textarea fuse-mat-no-subscript w-full">
-                    <textarea matInput [rows]="3" [placeholder]="'Write a comment...'" matTextareaAutosize></textarea>
-                </mat-form-field>
-            </div>
-            <div class="flex items-center mt-3 ml-auto -mr-3">
-                <button mat-icon-button>
-                    <mat-icon class="icon-size-5" [svgIcon]="'heroicons_solid:sparkles'"></mat-icon>
-                </button>
-                <button mat-icon-button>
-                    <mat-icon class="icon-size-5" [svgIcon]="'heroicons_solid:emoji-happy'"></mat-icon>
-                </button>
-                <button mat-icon-button>
-                    <mat-icon class="icon-size-5" [svgIcon]="'heroicons_solid:photograph'"></mat-icon>
-                </button>
-            </div>
-        </div>
         <hr class="border-b mx-4 sm:mx-8 my-0">
         <div class="max-h-120 overflow-y-auto">
             <div class="relative flex flex-col mx-4 sm:mx-8 my-6">
