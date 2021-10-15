@@ -98,7 +98,7 @@
                             ></app-form-decisao>
 
                             <app-aplicar-decisoes
-                                [processos]="processosPorTags"
+                                [processos]="dados?.decisoes?.processos_mesma_decisao"
                                 [processosParaAplicarAMesmaDecisao]="aplicarMesmasDecisoesAosProcessos"
                             ></app-aplicar-decisoes>
                         </mat-expansion-panel>
@@ -128,7 +128,7 @@
                                 ></app-form-decisao>
 
                                 <app-aplicar-decisoes
-                                    [processos]="processosPorTags"
+                                    [processos]="dados?.decisoes?.processos_mesma_decisao"
                                     (obterProcessosSelecionados)="obterProcessos($event)"
                                 ></app-aplicar-decisoes>
                             </div>

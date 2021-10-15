@@ -23,10 +23,9 @@ interface Parametros {
 })
 export class ResultadoJulgamentoComponent implements OnInit {
 
-  dados: { decisoes: Decisao[], processo: Processo, sessao: SessaoJulgamento };
+  dados: any;
   parametros: Parametros;
 
-  processosPorTags: Processo[] = [];
   aplicarMesmasDecisoesAosProcessos: Processo[] = [];
   votos: Voto[] = [];
   dispositivos: Manifestacao[] = [];
@@ -49,17 +48,12 @@ export class ResultadoJulgamentoComponent implements OnInit {
     this._resultadoJulgamento.listarDecisoes(this.parametros.processo).subscribe({
       next: (data) => {
         this.dados = data;
-        console.log(this.dados)
+      }
+    });
 
-        const tags = this.dados.processo.lista.map(tag => tag.id);
-
-        this._processoService.listarProcessos(new HttpParams().set('tag', tags.toString())).subscribe({
-          next: (processos) => {
-              this.processosPorTags = processos;
-          }
-        });
-
-        const { id, classe, numero, abreviacao } = this.dados.processo;
+    this._processoService.listarProcessos(new HttpParams().set('processo', this.parametros.processo)).subscribe({
+      next: ([processo]) => {
+        const { id, classe, numero, abreviacao } = processo;
 
         this._processoService.obterVotosDoProcesso(`${classe}${numero}-${abreviacao}`).subscribe({
           next: (votos) => {

@@ -15,9 +15,9 @@ export class ResultadoJulgamentoService {
     private _httpClient: HttpClient,
   ) { }
 
-  public listarDecisoes(processo: number): Observable<{decisoes: Decisao[], processo: Processo, sessao: SessaoJulgamento}> {
+  public listarDecisoes(id: number): Observable<any> {
     return this._httpClient
-      .get<{decisoes: Decisao[], processo: Processo, sessao: SessaoJulgamento}>(`decisao/${processo}`).pipe(
+      .get<any>(`processo/${id}/decisoes`).pipe(
         catchError(error => {
           console.log(error);
           return EMPTY;

@@ -35,6 +35,18 @@ export class ProcessoService {
     );
   }
 
+  public obterProcessos(): Observable<Processo[]> {
+    let params = new HttpParams();
+    params = params.set('situacao-processo', 1);
+
+    return this._httpClient.get<Processo[]>('processos', { params }).pipe(
+      catchError(error => {
+        console.log(error);
+        return EMPTY;
+      }),
+    )
+  }
+
   public reanalizarProcesso(id: number, body: {descricao: string, data: string}): Observable<void> {
     return this._httpClient.post<void>(`/processos/${id}/reanalisar`, body);
   }
@@ -85,18 +97,6 @@ export class ProcessoService {
         return EMPTY;
       })
     );
-  }
-
-  public obterProcessos(): Observable<Processo[]> {
-    let params = new HttpParams();
-    params = params.set('situacao-processo', 1);
-
-    return this._httpClient.get<Processo[]>('processos', { params }).pipe(
-      catchError(error => {
-        console.log(error);
-        return EMPTY;
-      }),
-    )
   }
 
   public obterDispositivosDoProcesso(id: number, tipo: TipoCapitulo): Observable<Manifestacao[]> {

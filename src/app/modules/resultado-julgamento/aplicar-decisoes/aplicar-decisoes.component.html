@@ -9,7 +9,7 @@
         <mat-spinner
             class="m-auto"
             [diameter]="40"
-            *ngIf="processos.length === 0; else exibirProcessos"
+            *ngIf="processos?.length === 0; else exibirProcessos"
         ></mat-spinner>
 
         <ng-template #exibirProcessos class="max-h-36 overflow-auto">

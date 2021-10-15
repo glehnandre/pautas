@@ -7,114 +7,229 @@ import { TipoCapitulo } from "app/modules/acervo/model/enums/tipoCapitulo.enum";
 import { ministro } from "../ministro/data";
 import { processo } from "../processos/data";
 
-export const decisoes: Array<{decisoes: Decisao[], processo: Processo, sessao: any}> = [
+export const decisoes: any[] = [
   {
-    decisoes: [
+    "decisoes": [
       {
-        descricao:          'Descrição',
-        dispositivo:        'dispositivos',
-        ministro_condutor:  'ministro condutor',
-        ministros_acordam:  [ministro[0], ministro[1]],
-        texto:              'texto',
-        tipo:               'tipo',
-      },
-
-      {
-        descricao:          'Descrição',
-        dispositivo:        'dispositivos',
-        ministro_condutor:  'ministro condutor',
-        ministros_acordam:  [ministro[0]],
-        texto:              'texto',
-        tipo:               'tipo',
-      },
+        "capitulo": {
+          "id": 1,
+          "descricao": "string",
+          "tipo": "Mérito",
+          "ministros_acordam": [
+            {
+              "ministro": {
+                "id": 12314441,
+                "nome": "Luiz Fux",
+                "abreviacao": "MLF",
+                "cadeira": {
+                  "numero": 19,
+                  "ocupante": {
+                    "id": 12314441,
+                    "nome": "Luiz Fux",
+                    "abreviacao": "MLF",
+                    "cadeira": {
+                      
+                    }
+                  }
+                }
+              }
+            }
+          ],
+          "ministro_condutor": {
+            "id": 12314441,
+            "nome": "Luiz Fux",
+            "abreviacao": "MLF",
+            "cadeira": {
+              "numero": 19,
+              "ocupante": {
+                "id": 12314441,
+                "nome": "Luiz Fux",
+                "abreviacao": "MLF",
+                "cadeira": {
+                  
+                }
+              }
+            }
+          },
+          "texto": "string"
+        },
+        "processos_mesma_decisao": [
+          {
+            "id": 123455,
+            "ementa": "Sessão de julgamento extraordinária para tratar da divisão de terras.",
+            "lista": {
+              "descricao": "Semelhante a ADI 100",
+              "id": 123445,
+              "gestor": {
+                "numero": 19,
+                "ocupante": {
+                  "id": 12314441,
+                  "nome": "Luiz Fux",
+                  "abreviacao": "MLF",
+                  "cadeira": {
+                    "numero": 19,
+                    "ocupante": {
+                      "id": 12314441,
+                      "nome": "Luiz Fux",
+                      "abreviacao": "MLF",
+                      "cadeira": {
+                        
+                      }
+                    }
+                  }
+                }
+              },
+              "publica": false
+            },
+            "classe": "ADI",
+            "numero": 100,
+            "nome": "Agravo",
+            "abreviacao": "Ag",
+            "situacao": {
+              "id": 1,
+              "nome": "Apto a Julgar"
+            },
+            "tipo": "Merito",
+            "relator": {
+              "numero": 19,
+              "ocupante": {
+                "id": 12314441,
+                "nome": "Luiz Fux",
+                "abreviacao": "MLF",
+                "cadeira": {
+                  "numero": 19,
+                  "ocupante": {
+                    "id": 12314441,
+                    "nome": "Luiz Fux",
+                    "abreviacao": "MLF",
+                    "cadeira": {
+                      
+                    }
+                  }
+                }
+              }
+            },
+            "redator": {
+              "numero": 19,
+              "ocupante": {
+                "id": 12314441,
+                "nome": "Luiz Fux",
+                "abreviacao": "MLF",
+                "cadeira": {
+                  "numero": 19,
+                  "ocupante": {
+                    "id": 12314441,
+                    "nome": "Luiz Fux",
+                    "abreviacao": "MLF",
+                    "cadeira": {
+                      
+                    }
+                  }
+                }
+              }
+            },
+            "capitulos": [
+              {
+                "id": 1,
+                "descricao": "string",
+                "tipo": "Mérito",
+                "ministros_acordam": [
+                  {
+                    "ministro": {
+                      "id": 12314441,
+                      "nome": "Luiz Fux",
+                      "abreviacao": "MLF",
+                      "cadeira": {
+                        "numero": 19,
+                        "ocupante": {
+                          "id": 12314441,
+                          "nome": "Luiz Fux",
+                          "abreviacao": "MLF",
+                          "cadeira": {
+                            
+                          }
+                        }
+                      }
+                    }
+                  }
+                ],
+                "ministro_condutor": {
+                  "id": 12314441,
+                  "nome": "Luiz Fux",
+                  "abreviacao": "MLF",
+                  "cadeira": {
+                    "numero": 19,
+                    "ocupante": {
+                      "id": 12314441,
+                      "nome": "Luiz Fux",
+                      "abreviacao": "MLF",
+                      "cadeira": {
+                        
+                      }
+                    }
+                  }
+                },
+                "texto": "string"
+              }
+            ]
+          }
+        ]
+      }
     ],
-    
-    processo: {
-      id:         1,
-      nome:       'Mérito',
-      abreviacao: 'Ag-Ag-Ag',
-      ementa:     'Sessão de julgamento extraordinária para tratar da divisão de terras.',
-      lista:      [
-                    tagData[0],
-                    tagData[1],
-                  ],
-      classe:     'ADI',
-      numero:     100,
-      situacao:   1,
-      tipo:       TipoDoProcesso.Merito,
-      capitulos:  [
-        {
-          id:     1,
-          descricao: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc tempus neque nec ante porta tincidunt eu quis felis. Sed magna libero, sodales ut enim quis, varius faucibus lectus. Sed porttitor pharetra orci, quis fermentum risus rutrum id. Vivamus ornare purus a lorem accumsan cursus. Pellentesque ligula metus, dictum pretium dignissim non, fringilla ac lacus. Sed non dui nibh.',
-          ordem:  1,
-          tipo:   TipoCapitulo.Merito,
-          dispositivo: 'Deferida em parte'
+    "sessao": {
+      "numero": 1000,
+      "ano": 2021,
+      "colegiado": {
+        "nome": "Primeira turma",
+        "presidente": {
+          "id": 12314441,
+          "nome": "Luiz Fux",
+          "abreviacao": "MLF",
+          "cadeira": {
+            "numero": 19,
+            "ocupante": {
+              "id": 12314441,
+              "nome": "Luiz Fux",
+              "abreviacao": "MLF",
+              "cadeira": {
+                
+              }
+            }
+          }
         },
-        {
-          id:     2,
-          descricao: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc tempus neque nec ante porta tincidunt eu quis felis. Sed magna libero, sodales ut enim quis, varius faucibus lectus. Sed porttitor pharetra orci, quis fermentum risus rutrum id. Vivamus ornare purus a lorem accumsan cursus. Pellentesque ligula metus, dictum pretium dignissim non, fringilla ac lacus. Sed non dui nibh.',
-          ordem:  1,
-          tipo:   TipoCapitulo.Merito,
-          dispositivo: 'Deferida'
-        },
-        {
-          id:     3,
-          descricao: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc tempus neque nec ante porta tincidunt eu quis felis. Sed magna libero, sodales ut enim quis, varius faucibus lectus. Sed porttitor pharetra orci, quis fermentum risus rutrum id. Vivamus ornare purus a lorem accumsan cursus. Pellentesque ligula metus, dictum pretium dignissim non, fringilla ac lacus. Sed non dui nibh.',
-          ordem:  1,
-          tipo:   TipoCapitulo.Merito,
-          dispositivo: 'Provido'
-        },
-        {
-          id:     4,
-          descricao: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc tempus neque nec ante porta tincidunt eu quis felis. Sed magna libero, sodales ut enim quis, varius faucibus lectus. Sed porttitor pharetra orci, quis fermentum risus rutrum id. Vivamus ornare purus a lorem accumsan cursus. Pellentesque ligula metus, dictum pretium dignissim non, fringilla ac lacus. Sed non dui nibh.',
-          ordem:  1,
-          tipo:   TipoCapitulo.Merito,
-          dispositivo: 'Concedido'
-        },
-      ],
-      relator: ministro[0],
-    },
-    
-    sessao: {
-      numero: 1000,
-      ano: 2021,
-      colegiado: "Primeira turma",
-      
-      tipo: "ORDINARIA",
-      categoria: "REPERCUSSAO_GERAL",
-      modalidade: "VIRTUAL",
-      data_inicio: "2021-09-29T09:12:33.001Z",
-      data_fim: "2021-10-29T09:12:33.001Z",
-      
-      secretario: {
-        id: 19,
-        nome: "Carmen",
+        "composicao": [
+          {
+            "ministro": {
+              "id": 12314441,
+              "nome": "Luiz Fux",
+              "abreviacao": "MLF",
+              "cadeira": {
+                "numero": 19,
+                "ocupante": {
+                  "id": 12314441,
+                  "nome": "Luiz Fux",
+                  "abreviacao": "MLF",
+                  "cadeira": {
+                    
+                  }
+                }
+              }
+            },
+            "pode_votar": true,
+            "votou": false
+          }
+        ]
       },
-      situacao: "PUBLICADA",
-    }
-  },
-
-  {
-    decisoes: [],
-    
-    processo: processo[8],
-    
-    sessao: {
-      numero: 1000,
-      ano: 2021,
-      colegiado: "Primeira turma",
-      
-      tipo: "ORDINARIA",
-      categoria: "REPERCUSSAO_GERAL",
-      modalidade: "VIRTUAL",
-      data_inicio: "2021-09-29T09:12:33.001Z",
-      data_fim: "2021-10-29T09:12:33.001Z",
-      
-      secretario: {
-        id: 19,
-        nome: "Carmen",
+      "tipo": "ORDINARIA",
+      "categoria": "REPERCUSSAO_GERAL",
+      "modalidade": "VIRTUAL",
+      "data-inicio": "2016-08-29T09:12:33.001Z",
+      "data-fim": "2016-08-29T09:12:33.001Z",
+      "secretario": {
+        "id": 19,
+        "nome": "Carmen"
       },
-      situacao: "PUBLICADA",
+      "situacao": "PUBLICADA"
     }
-  },
+  }
 ];

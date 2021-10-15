@@ -98,19 +98,7 @@ export class ProcessoMockApi {
 
                     if (params.keys().length > 0) {
                         const processosFiltrados = this._processo
-                            .filter((processo) => {
-                                if (filtros.processo) {
-                                    let query = `${processo.classe}${processo.numero}`;
-
-                                    if (processo.tipo !== TipoDoProcesso.Merito) {
-                                        query = `${query}-${processo.abreviacao}`;
-                                    }
-                                   
-                                    return (query === filtros.processo);
-                                } else {
-                                    return true;
-                                }
-                            })
+                            .filter(processo => (filtros.processo) ? processo.id === +filtros.processo : true)
                             .filter(processo => (filtros.situacoes) ? filtros.situacoes.find((situacao) => Number(situacao) === processo.situacao) : true)
                             .filter(processo => (filtros.classes) ? filtros.classes.find(classe => classe === processo.classe) : true)
                             .filter(processo => (filtros.tags) ? filtros.tags.find(tag => processo.lista.find(lista => lista.id === +tag)) : true)

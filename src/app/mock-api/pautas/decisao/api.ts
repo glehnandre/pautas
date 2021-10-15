@@ -32,20 +32,11 @@ export class DecisaoMockApi {
         });
 
       this._fuseMockApiService
-        .onGet('processo/:processo/decisoes')
+        .onGet('processo/:id/decisoes')
         .reply(({urlParams}) => {
-          const processo = urlParams.processo;
-          
-          const index = this._decisoes.findIndex(dec => {
-            if (dec.processo.tipo === TipoDoProcesso.Merito) {
-              const query = `${dec.processo.classe}${dec.processo.numero}`;
-              if (processo === query) {
-                return dec;
-              }
-            }
-          });
+          const idProcesso = +urlParams.id;
 
-          const decisao = this._decisoes[index];
+          const decisao = this._decisoes
 
           return [201, (decisao) ? decisao : {msg: 'Erro ao buscar decisões'}];
         });
