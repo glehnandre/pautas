@@ -68,7 +68,6 @@ export class ResultadoJulgamentoComponent implements OnInit {
         });
       }
     });
-
   }
 
   public obterDadosDaDecisao(decisao: Decisao): void {
