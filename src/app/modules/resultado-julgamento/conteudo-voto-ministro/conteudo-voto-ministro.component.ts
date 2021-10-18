@@ -17,31 +17,12 @@ export class ConteudoVotoMinistroComponent implements OnInit {
     
   }
 
-  public getVotosQueAcompanharam(start: number, end: number): Ministro[] {
-    if (this.voto && this.voto.acompanharam) {
-      const votos = [...this.voto.acompanharam].slice(start, end);
-
-      return votos;
-    }
-
-    return [];
-  }
-
   public converterDeBase64ParaHtml(): string {
     if (this.voto && this.voto.conteudo) {
       return this._fromBinary(this.voto.conteudo);
     }
     
     return 'aguarde...';
-  }
-
-  public getNomesDosMinistrosQueAcompanharam(): string {
-    let nomes: string = '';
-
-    this.voto.acompanharam
-      .forEach(({nome}, index) => nomes += `${(index + 1)}º que acompanhou: ${nome}\n`);
-
-    return nomes;
   }
 
   private _fromBinary(binario: string): string {

@@ -16,6 +16,7 @@ export class CabecalhoRelatorComponent implements OnInit {
 
   @Input() processo: string;
   @Input() colegiado: string;
+  @Input() ministros: Ministro[] = [];
 
   panelOpenState = false;
   link: SafeResourceUrl;

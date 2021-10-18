@@ -16,7 +16,9 @@ export class AplicarDecisoesComponent implements OnInit {
 
   constructor() { }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    
+  }
 
   public selecionaProcesso(processo: Processo) {
     const index = this.processosSelecionados.findIndex(p => p.id === processo.id);

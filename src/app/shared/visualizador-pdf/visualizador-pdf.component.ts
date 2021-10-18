@@ -1,6 +1,7 @@
 import { Component, Input, OnChanges, OnInit } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
 import { FuseDrawerService } from '@fuse/components/drawer';
+import { Ministro } from 'app/modules/acervo/model/interfaces/ministro.interface';
 
 @Component({
   selector: 'app-visualizador-pdf',
@@ -11,6 +12,7 @@ export class VisualizadorPdfComponent implements OnInit, OnChanges {
 
   @Input() nome: string;
   @Input() link: DomSanitizer;
+  @Input() ministrosQueAcompanharam: Ministro[] = [];
 
   constructor(
     private _fuseDrawerService: FuseDrawerService,

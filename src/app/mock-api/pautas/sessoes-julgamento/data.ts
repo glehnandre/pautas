@@ -1,38 +1,15 @@
 import { SituacaoDoProcesso } from "app/modules/acervo/model/enums/situacaoDoProcesso.enum";
+import { TipoCapitulo } from "app/modules/acervo/model/enums/tipoCapitulo.enum";
 import { TipoDoProcesso } from "app/modules/acervo/model/enums/tipoDoProcesso.enum";
 import { Processo } from "app/modules/acervo/model/interfaces/processo.interface";
-import { SessaoDeJulgamento } from "app/modules/acervo/model/interfaces/sessaoDeJulgamento.interface";
-import { JulgamentoService } from "app/modules/services/julgamento.service";
+import { SessaoJulgamento } from "app/modules/acervo/model/interfaces/sessao-julgamento.interface";
+import { colegiado, ministro } from "../ministro/data";
 
-export const sessao: SessaoDeJulgamento[] = [
+export const sessao: SessaoJulgamento[] = [
   {
-    id:1,
     numero: 1000,
     ano: 2021,
-    colegiado: {
-      nome: "Primeira turma",
-      presidente: {
-        id: 12314441,
-        nome: "Luiz Fux",
-        imagem: "string",
-        abreviacao: "MLF",
-        cadeira: "string"
-      },
-      composicao: [
-        {
-          ministro: {
-            id: 12314441,
-            nome: "Luiz Fux",
-            imagem: "string",
-            abreviacao: "MLF",
-            cadeira: "string"
-          },
-          pode_votar: true,
-          votou: false
-        },
-      ],
-      data: "2016-08-29T09:12:33.001Z"
-    },
+    colegiado: '',
     tipo: "ORDINARIA",
     categoria: "REPERCUSSAO_GERAL",
     modalidade: "VIRTUAL",
@@ -51,19 +28,13 @@ export const sessao: SessaoDeJulgamento[] = [
 export const processos: Processo[] = [
   {
     id: 123455,
+    abreviacao: '',
     ementa: "Sessão de julgamento extraordinária para tratar da divisão de terras.",
     lista: [{
       descricao: "Semelhante a ADI 100",
       id: 123445,
       gestor: {
         numero: 19,
-        ocupante: {
-          id: 12314441,
-          nome: "Luiz Fux",
-          imagem: "string",
-          abreviacao: "MLF",
-          cadeira: "string"
-        },
         criacao: "2016-08-29T09:12:33.001Z",
       },
       publica: false
@@ -73,34 +44,15 @@ export const processos: Processo[] = [
     nome: "Embargo de declaração",
     situacao: SituacaoDoProcesso.Pautado,
     tipo: TipoDoProcesso.Merito,
-    relator: {
-      numero: 19,
-      ocupante: {
-        id: 12314441,
-        nome: "Luiz Fux",
-        imagem: "string",
-        abreviacao: "MLF",
-        cadeira: "string"
-      },
-      criacao: "2016-08-29T09:12:33.001Z"
-    },
-    redator: {
-      numero: 19,
-      ocupante: {
-        id: 12314441,
-        nome: "Luiz Fux",
-        imagem: "string",
-        abreviacao: "MLF",
-        cadeira: "string"
-      },
-      criacao: "2016-08-29T09:12:33.001Z"
-    },
+    relator: ministro[0],
+    redator: ministro[1],
     capitulos: [
       {
-        id: 123455,
-        descricao: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Repellendus omnis eum ratione, impedit, consequuntur laborum amet tempore iure accusamus in nulla voluptates odit. Eum fugit eius, assumenda distinctio quidem quia?",
+        descricao: '',
+        dispositivo: '',
+        id: 1,
         ordem: 1,
-        tipo: "Mérito"
+        tipo: TipoCapitulo.Merito,
       }
     ]
   },

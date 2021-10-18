@@ -3,7 +3,7 @@
 <!-- Header -->
     <div class="flex flex-col sm:flex-row justify-center items-center sm:justify-between pl-8 bg-white dark:bg-transparent">
         <h1 class="mt-4 text-primary font-medium text-xl sm:text-2xl">
-            Lançamento do Resultado do Julgamento da {{getDadosProcesso()}}
+            Lançamento do Resultado do Julgamento da {{processo}}
         </h1>
         <div class="flex flex-row items-end mb-4 sm:my-4 ml-auto">
             <button class="z-0 mr-4" mat-button>
@@ -24,8 +24,9 @@
 
     <header class="bg-white px-8 pt-4">
         <app-cabecalho-relator
-            [processo]="getDadosProcesso()"
+            [processo]="processo"
             [colegiado]="parametros.colegiado"
+            [ministros]="dados?.decisoes[0]?.capitulo.ministros_acordam"
         ></app-cabecalho-relator>
     </header>
 
@@ -49,14 +50,6 @@
                             <span class="font-medium">
                                 Decisões
                             </span>
-
-                            <button 
-                                mat-raised-button color="primary"
-                                (click)="abrirGavetaDeFormularioDeDecisao(FORM_CADASTRO_DECISAO);"
-                            >
-                                <mat-icon class="mr-1">add_circle</mat-icon>
-                                Nova decisão
-                            </button>
                         </div>
                     </div>
                     
@@ -98,44 +91,11 @@
                             ></app-form-decisao>
 
                             <app-aplicar-decisoes
-                                [processos]="dados?.decisoes?.processos_mesma_decisao"
+                                [processos]="processosMesmaDecisoes"
                                 [processosParaAplicarAMesmaDecisao]="aplicarMesmasDecisoesAosProcessos"
                             ></app-aplicar-decisoes>
                         </mat-expansion-panel>
                     </mat-accordion>
-
-                    <div class="">
-                        <fuse-drawer
-                            [name]="FORM_CADASTRO_DECISAO"
-                            [opened]="false"
-                            [mode]="'over'">
-                            <div id="menu-decisao" class="w-full p-4 overflow-y-auto">
-                                <div class="flex">
-                                    <button 
-                                        mat-raised-button 
-                                        class="mb-4 ml-auto"
-                                        color="primary"
-                                        (click)="abrirGavetaDeFormularioDeDecisao(FORM_CADASTRO_DECISAO);"
-                                    >
-                                        <mat-icon class="mr-1">arrow_back</mat-icon>
-                                        Voltar
-                                    </button>
-                                </div>
-
-                                <app-form-decisao
-                                    [dispositivos]="dispositivos"
-                                    (decisaoCadastrada)="obterDadosDaDecisao($event); abrirGavetaDeFormularioDeDecisao(FORM_CADASTRO_DECISAO); voltarAoTopo()"
-                                ></app-form-decisao>
-
-                                <app-aplicar-decisoes
-                                    [processos]="dados?.decisoes?.processos_mesma_decisao"
-                                    (obterProcessosSelecionados)="obterProcessos($event)"
-                                ></app-aplicar-decisoes>
-                            </div>
-                        </fuse-drawer>
-                        
-                        <!--Container fora da gaveta-->
-                    </div>
                 </div>
             </div>
         </mat-drawer>
@@ -160,9 +120,19 @@
                         <mat-icon>menu</mat-icon>
                     </button>
 
-                    <!--<app-voto-dos-ministros
-                        [votos]="votos"
-                    ></app-voto-dos-ministros>-->
+                    <div class="">
+                        <div id="menu-decisao" class="w-full p-4 overflow-y-auto">
+                            <app-form-decisao
+                                [dispositivos]="dispositivos"
+                                (decisaoCadastrada)="obterDadosDaDecisao($event)"
+                            ></app-form-decisao>
+
+                            <app-aplicar-decisoes
+                                [processos]="processosMesmaDecisoes"
+                                (obterProcessosSelecionados)="obterProcessos($event)"
+                            ></app-aplicar-decisoes>
+                        </div>
+                    </div>
                 </div>
 
             </div>

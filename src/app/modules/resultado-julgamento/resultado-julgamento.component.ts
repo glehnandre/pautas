@@ -25,7 +25,9 @@ export class ResultadoJulgamentoComponent implements OnInit {
 
   dados: any;
   parametros: Parametros;
+  processo: string;
 
+  processosMesmaDecisoes: Processo[] = [];
   aplicarMesmasDecisoesAosProcessos: Processo[] = [];
   votos: Voto[] = [];
   dispositivos: Manifestacao[] = [];
@@ -47,13 +49,17 @@ export class ResultadoJulgamentoComponent implements OnInit {
 
     this._resultadoJulgamento.listarDecisoes(this.parametros.processo).subscribe({
       next: (data) => {
-        this.dados = data;
+        this.dados = data[0];
+        console.log(this.dados)
+        this.processosMesmaDecisoes = [];
+        this.dados.decisoes.forEach(({processos_mesma_decisao}) => this.processosMesmaDecisoes.push(...processos_mesma_decisao));
       }
     });
 
     this._processoService.listarProcessos(new HttpParams().set('processo', this.parametros.processo)).subscribe({
       next: ([processo]) => {
-        const { id, classe, numero, abreviacao } = processo;
+        const { id, nome, classe, numero, abreviacao } = processo;
+        this.processo = `${classe} ${numero} ${nome}`;
 
         this._processoService.obterVotosDoProcesso(`${classe}${numero}-${abreviacao}`).subscribe({
           next: (votos) => {
@@ -83,15 +89,6 @@ export class ResultadoJulgamentoComponent implements OnInit {
     }
   }
 
-  public getDadosProcesso(): string {
-    if (this.dados && this.dados.processo) {
-      const { classe, numero, nome } = this.dados.processo;
-      return `${classe} ${numero} ${nome}`;
-    }
-
-    return 'Aguarde...';
-  }
-
   public abrirGavetaDeFormularioDeDecisao(drawerName: string): void {
       const drawer = this._fuseDrawerService.getComponent(drawerName);
       drawer.toggle();
@@ -107,11 +104,6 @@ export class ResultadoJulgamentoComponent implements OnInit {
   public verificaModoDaTela(largura: number = 720): string {
     const larguraAtual = window.innerWidth;
     return (larguraAtual <= largura) ? 'over' : 'side';
-  }
-
-  public voltarAoTopo(): void {
-    const menuDecisao = document.getElementById('menu-decisao');
-    menuDecisao.scrollTo({top: 0});
   }
 
   public obterProcessos(processos: Processo[]): void {
