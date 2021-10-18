@@ -16,7 +16,9 @@ export class PublicacoesComponent implements OnInit, OnDestroy {
   drawerOpened: boolean = true;
   private _unsubscribeAll: Subject<any> = new Subject<any>();
 
-  constructor(private _fuseMediaWatcherService: FuseMediaWatcherService) { }
+  constructor(
+    private _fuseMediaWatcherService: FuseMediaWatcherService,
+  ) { }
 
   /**
      * On init
