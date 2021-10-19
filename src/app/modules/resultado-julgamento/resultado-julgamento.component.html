@@ -50,6 +50,10 @@
                             <span class="font-medium">
                                 Decisões
                             </span>
+
+                            <button *ngIf="!verificaLarguraDaTela()" mat-mini-fab color="primary" (click)="matDrawer.toggle()">
+                                <mat-icon svgIcon="heroicons_outline:arrow-left"></mat-icon>
+                            </button>
                         </div>
                     </div>
                     
@@ -111,7 +115,6 @@
                 <!-- CONTENT GOES HERE -->
                 <div class="h-400 min-h-400 max-h-400  border-gray-300 rounded-2xl">
                     <button
-                        class="mb-4"
                         mat-mini-fab
                         color="primary"
                         *ngIf="!verificaLarguraDaTela()"
