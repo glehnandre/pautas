@@ -9,7 +9,7 @@ import { Ministro } from 'app/modules/acervo/model/interfaces/ministro.interface
 })
 export class IconesVotosComponent implements OnInit {
 
-  @Input() voto: Voto;
+  @Input() ministros: Ministro[];
   @Input() quantidade: number;
 
   constructor() { }
@@ -18,9 +18,9 @@ export class IconesVotosComponent implements OnInit {
 
   }
 
-  public getVotosQueAcompanharam(start: number, end: number): Ministro[] {
-    if (this.voto && this.voto.acompanharam) {
-      const votos = [...this.voto.acompanharam].slice(start, end);
+  public getIconesMinistros(): Ministro[] {
+    if (this.ministros) {
+      const votos = [...this.ministros].slice(0, this.quantidade);
 
       return votos;
     }
@@ -31,7 +31,7 @@ export class IconesVotosComponent implements OnInit {
   public getNomesDosMinistrosQueAcompanharam(): string {
     let nomes: string = '';
 
-    this.voto.acompanharam
+    this.ministros
       .forEach(({nome}, index) => nomes += `${(index + 1)}º que acompanhou: ${nome}\n`);
 
     return nomes;
