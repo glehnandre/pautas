@@ -36,6 +36,7 @@
             [links]="documentos?.links"
             [hasIcon]="true"
             [class]="['border-primary', 'border-solid', 'border-2', 'bg-transparent', 'text-primary']"
+            (nomeDoPdfSelecionado)="obterNomeDoPdf($event)"
             (linkDoPdfSelecionado)="abrirLink($event)"
         ></app-carrossel>
     </div>
@@ -71,6 +72,7 @@
                 [links]="documentos?.links"
                 [hasIcon]="true"
                 [class]="['flex-none', 'border-primary', 'border-solid', 'border-2', 'bg-transparent', 'text-primary']"
+                (nomeDoPdfSelecionado)="obterNomeDoPdf($event)"
                 (linkDoPdfSelecionado)="abrirLink($event)"
             ></app-carrossel>
         </div>
@@ -78,8 +80,9 @@
 </mat-expansion-panel>
 
 <app-visualizador-pdf
-    *ngIf="link"
     [nome]="'visualizador-pdf-do-colegiado'"
     [link]="link"
-    [ministrosQueAcompanharam]="ministros"
+    [pdf]="nomePdf"
+    [votos]="votos"
+    [posicao]="'left'"
 ></app-visualizador-pdf>

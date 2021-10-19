@@ -18,6 +18,7 @@ export class CarrosselComponent implements OnInit {
   @Input() lastId:string;
   @Input() links: string[] = [];
 
+  @Output() nomeDoPdfSelecionado = new EventEmitter<string>();
   @Output() linkDoPdfSelecionado = new EventEmitter<string>();
 
   constructor() { }
@@ -50,6 +51,7 @@ export class CarrosselComponent implements OnInit {
 
   abrirLink(index: number): void {
     if (this.links.length > 0 && this.links[index]) {
+      this.nomeDoPdfSelecionado.emit(this.chips[index]);
       this.linkDoPdfSelecionado.emit(this.links[index]);
     }
   }

@@ -1,14 +1,16 @@
 <fuse-drawer
+    *ngIf="link"
     id="visualizador-pdf"
     [name]="nome"
     [opened]="false"
-    [position]="'right'"
+    [position]="posicao"
     [mode]="'over'"
 >
     <div class="w-screen">
         <app-ministros-que-acompanharam
             class="mt-12 ml-8 absolute"
-            [ministrosQueAcompanharam]="ministrosQueAcompanharam"
+            [votos]="votos"
+            [pdf]="pdf"
         ></app-ministros-que-acompanharam>
     
         <button 
