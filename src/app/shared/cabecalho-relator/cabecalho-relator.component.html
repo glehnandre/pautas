@@ -1,5 +1,13 @@
 <div class="flex flex-col lg:flex-row lg:justify-start">
-    <div class="flex flex-row flex-wrap lg:max-w-3/5">
+    <div class="absolute right-4 lg:right-16 flex flex-col items-end">
+        <div class="text-xl text-primary font-medium">
+            SESSÃO {{sessao}}
+        </div>
+        <div class="text-md text-secondary">
+            Finalizada dia {{data_fim | date:'dd/mm/yyyy'}}
+        </div>
+    </div>
+    <div class="flex flex-wrap lg:max-w-3/5">
         <div class="flex flex-nowrap flex-row">
             <img [src]="relator?.imagem" alt="Imagem de perfil"
                 class="w-14 h-14 mr-6 mb-4 rounded-full ng-tns-c129-57 ng-star-inserted">
@@ -16,12 +24,12 @@
             </div>
         </div>
 
-        <div class="flex flex-1 flex-col min-w-20 overflow-x-auto">
+        <div class="hidden md:block flex flex-1 flex-col min-w-20 overflow-x-auto">
             <div class="flex-1 ml-2 text-xl">
                 {{obterTipoDoProcesso()}}
             </div>
 
-            <div class="hidden md:block">
+            <div class="mt-5">
                 <app-carrossel
                     [idChip]="'idTags'"
                     [chips]="tags"
@@ -29,16 +37,7 @@
             </div>
         </div>
     </div>
-
-    <div class="hidden md:block lg:ml-4">
-        <div class="flex flex-col items-end">
-            <div class="text-xl text-primary font-medium">
-                SESSÃO {{sessao}}
-            </div>
-            <div class="text-md text-secondary">
-                Finalizada dia {{data_fim | date:'dd/mm/yyyy'}}
-            </div>
-        </div>
+    <div class="hidden md:block lg:ml-4 lg:mt-8">
         <app-carrossel
             [idChip]="'idDocs'"
             [chips]="documentos?.nomes"
