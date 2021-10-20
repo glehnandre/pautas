@@ -15,7 +15,7 @@
         <ng-template #exibirProcessos class="max-h-36 overflow-auto">
             <p *ngFor="let processo of processos">
                 <mat-checkbox 
-                    [checked]="isProcessoSelecionado(processo)"
+                    [checked]="isProcessoSelecionado(processo) || selecionarTodos"
                     (change)="selecionaProcesso(processo)" 
                     color="primary"
                 >

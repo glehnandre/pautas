@@ -72,6 +72,13 @@
         <mat-hint>Descreva a decisão tomada pelo colegiado</mat-hint>
     </mat-form-field>
 
+    <app-aplicar-decisoes
+        [selecionarTodos]="selecionarTodos"
+        [processos]="processosMesmaDecisoes"
+        [processosParaAplicarAMesmaDecisao]="idsProcessosSelecionados"
+        (obterProcessosSelecionados)="obterProcessos($event)"
+    ></app-aplicar-decisoes>
+
     <p class="mt-4 text-center flex flex-col">
         <button *ngIf="!isDecisao()" class="max-w-full" mat-raised-button color="primary"
             [disabled]="formDecisao.invalid" (click)="cadastrarDecisao()">

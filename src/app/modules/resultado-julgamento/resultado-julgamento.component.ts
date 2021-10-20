@@ -3,7 +3,7 @@ import { Component, HostListener, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FuseDrawerService } from '@fuse/components/drawer';
 import { TipoCapitulo } from '../acervo/model/enums/tipoCapitulo.enum';
-import { Decisao } from '../acervo/model/interfaces/decisao.interface';
+import { Decisao, DecisoesResultadoJulgamento } from '../acervo/model/interfaces/decisao.interface';
 import { Manifestacao } from '../acervo/model/interfaces/manifestacao.interface';
 import { Processo } from '../acervo/model/interfaces/processo.interface';
 import { SessaoJulgamento } from '../acervo/model/interfaces/sessao-julgamento.interface';
@@ -23,7 +23,7 @@ interface Parametros {
 })
 export class ResultadoJulgamentoComponent implements OnInit {
 
-  dados: any;
+  dados: DecisoesResultadoJulgamento;
   parametros: Parametros;
   processo: string;
 
@@ -31,7 +31,7 @@ export class ResultadoJulgamentoComponent implements OnInit {
   aplicarMesmasDecisoesAosProcessos: Processo[] = [];
   votos: Voto[] = [];
   dispositivos: Manifestacao[] = [];
-  decisoes: Decisao[] = [];
+  decisoes: Array<{decisao: Decisao, processos_mesma_decisao: number[]}> = [];
 
   readonly FORM_CADASTRO_DECISAO = 'formulario-de-cadastro-de-decisao';
 
@@ -49,7 +49,7 @@ export class ResultadoJulgamentoComponent implements OnInit {
 
     this._resultadoJulgamento.listarDecisoes(this.parametros.processo).subscribe({
       next: (data) => {
-        this.dados = data[0];
+        this.dados = data;
         console.log(this.dados)
         this.processosMesmaDecisoes = [];
         this.dados.decisoes.forEach(({processos_mesma_decisao}) => this.processosMesmaDecisoes.push(...processos_mesma_decisao));
@@ -76,13 +76,13 @@ export class ResultadoJulgamentoComponent implements OnInit {
     });
   }
 
-  public obterDadosDaDecisao(decisao: Decisao): void {
-    this.decisoes.push(decisao);
+  public obterDadosDaDecisao({decisao, processos_mesma_decisao}): void {
+    this.decisoes.push({decisao, processos_mesma_decisao});
   }
 
   public removerDecisao(decisao: Decisao): void {
     const index = this.decisoes
-      .findIndex(dec => JSON.stringify(dec) === JSON.stringify(decisao));
+      .findIndex(dec => JSON.stringify(dec.decisao) === JSON.stringify(decisao));
     
     if (index !== -1) {
       this.decisoes.splice(index, 1);
@@ -104,10 +104,6 @@ export class ResultadoJulgamentoComponent implements OnInit {
   public verificaModoDaTela(largura: number = 720): string {
     const larguraAtual = window.innerWidth;
     return (larguraAtual <= largura) ? 'over' : 'side';
-  }
-
-  public obterProcessos(processos: Processo[]): void {
-    this.aplicarMesmasDecisoesAosProcessos = processos;
   }
 
 }

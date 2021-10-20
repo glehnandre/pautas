@@ -25,6 +25,8 @@ export class FormDecisaoComponent implements OnInit {
     'Tese',
   ];
   isDecisaoSalva: boolean = false;
+  selecionarTodos: boolean;
+  aplicarMesmasDecisoesAosProcessos: number[] = [];
 
   @Input() decisao: Decisao = {
     descricao: '',
@@ -36,8 +38,10 @@ export class FormDecisaoComponent implements OnInit {
   };
   @Input() processo: number = 0;
   @Input() dispositivos: Manifestacao[] = [];
+  @Input() processosMesmaDecisoes: Processo[] = [];
+  @Input() idsProcessosSelecionados: number[] = [];
 
-  @Output() decisaoCadastrada = new EventEmitter<Decisao>();
+  @Output() decisaoCadastrada = new EventEmitter<{decisao: Decisao, processos_mesma_decisao: number[]}>();
   @Output() decisaoExcluida = new EventEmitter<Decisao>();
 
   constructor(
@@ -61,7 +65,12 @@ export class FormDecisaoComponent implements OnInit {
 
   public cadastrarDecisao(): void {
     if (this.formDecisao.valid) {
-      this.decisaoCadastrada.emit(this.formDecisao.value);
+      this.decisaoCadastrada.emit({
+        decisao: this.formDecisao.value, 
+        processos_mesma_decisao: this.aplicarMesmasDecisoesAosProcessos,
+      });
+      this.idsProcessosSelecionados = [];
+      this.selecionarTodos = false;
       this.formDecisao.reset();
     }
   }
@@ -74,7 +83,10 @@ export class FormDecisaoComponent implements OnInit {
 
   public salvarDecisao(): void {
     if (this.formDecisao.valid && this.processo > 0 && !this.isDecisaoSalva) {
-      this._resultadoJulgamento.savarDecisao(this.processo, this.formDecisao.value).subscribe({
+      this._resultadoJulgamento.savarDecisao(this.processo, {
+        decisao: this.formDecisao.value as Decisao,
+        processos_mesma_decisao: this.aplicarMesmasDecisoesAosProcessos,
+      }).subscribe({
         next: (data) => {
           console.log('Decisao salva!');
           console.log(data);
@@ -87,6 +99,10 @@ export class FormDecisaoComponent implements OnInit {
   public isDecisao(): boolean {
     const isVazio = Object.values(this.decisao).every(dec => dec !== '');
     return isVazio;
+  }
+
+  public obterProcessos(idsProcesso: number[]): void {
+    this.aplicarMesmasDecisoesAosProcessos = idsProcesso;
   }
 
 }

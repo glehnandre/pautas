@@ -20,7 +20,7 @@ export class DecisaoMockApi {
         .reply(({urlParams}) => {
           const idProcesso = +urlParams.id;
 
-          const decisao = this._decisoes;
+          const decisao = this._decisoes[0];
 
           return [201, (decisao) ? decisao : {msg: 'Erro ao buscar decisões'}];
         });
@@ -28,17 +28,11 @@ export class DecisaoMockApi {
       this._fuseMockApiService
         .onPost('processo/:id/decisoes')
         .reply(({request, urlParams}) => {
-          const idProcesso = +urlParams.processo;
+          const idProcesso = +urlParams.id;
           const { decisao } = request.body;
           
-          const index = this._decisoes
-            .findIndex(({decisoes}) => decisoes
-              .findIndex(({processos_mesma_decisao}) => processos_mesma_decisao
-                .findIndex(({id}) => id === idProcesso)));
-          
-          if (index !== -1) {
-            this._decisoes[index].decisoes.push(decisao);
-            return [201, this._decisoes[index]];     
+          if (idProcesso) {
+            return [201, {msg: 'ok'}];     
           } 
 
           return [404, {
