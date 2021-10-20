@@ -21,6 +21,8 @@ import { FuseDrawerModule } from '@fuse/components/drawer/drawer.module';
 import { ResultadoJulgamentoComponent } from './resultado-julgamento.component';
 import { ConteudoVotoMinistroComponent } from './conteudo-voto-ministro/conteudo-voto-ministro.component';
 import { FormDecisaoComponent } from './form-decisao/form-decisao.component';
+import { AplicarDecisoesComponent } from './aplicar-decisoes/aplicar-decisoes.component';
+import { VotoDosMinistrosComponent } from './voto-dos-ministros/voto-dos-ministros.component';
 
 const ResultadoJulgamentoRoutes: Route[] = [
   {
@@ -34,6 +36,8 @@ const ResultadoJulgamentoRoutes: Route[] = [
     ResultadoJulgamentoComponent,
     ConteudoVotoMinistroComponent,
     FormDecisaoComponent,
+    AplicarDecisoesComponent,
+    VotoDosMinistrosComponent,
   ],
   imports: [
     CommonModule,

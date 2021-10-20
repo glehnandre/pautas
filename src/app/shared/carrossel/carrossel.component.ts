@@ -20,6 +20,7 @@ export class CarrosselComponent implements OnInit, OnDestroy, AfterContentChecke
   @Input() hasArrow: boolean = true;
   @Input() idLinha: number;
 
+  @Output() nomeDoPdfSelecionado = new EventEmitter<string>();
   @Output() linkDoPdfSelecionado = new EventEmitter<string>();
 
   constructor(private cd: ChangeDetectorRef) { }
@@ -76,6 +77,7 @@ export class CarrosselComponent implements OnInit, OnDestroy, AfterContentChecke
 
   abrirLink(index: number): void {
     if (this.links.length > 0 && this.links[index]) {
+      this.nomeDoPdfSelecionado.emit(this.chips[index]);
       this.linkDoPdfSelecionado.emit(this.links[index]);
     }
   }

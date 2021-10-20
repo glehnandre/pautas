@@ -3,7 +3,7 @@
 <!-- Header -->
     <div class="flex flex-col sm:flex-row justify-center items-center sm:justify-between pl-8 bg-white dark:bg-transparent">
         <h1 class="mt-4 text-primary font-medium text-xl sm:text-2xl">
-            Lançamento do Resultado do Julgamento da {{getDadosProcesso()}}
+            Lançamento do Resultado do Julgamento da {{processo}}
         </h1>
         <div class="flex flex-row items-end mb-4 sm:my-4 ml-auto">
             <button class="z-0 mr-4" mat-button>
@@ -25,6 +25,7 @@
         <app-cabecalho-relator
             [processo]="parametros.processo"
             [colegiado]="parametros.colegiado"
+            [votos]="votos"
         ></app-cabecalho-relator>
     </header>
 
@@ -36,76 +37,65 @@
         <mat-drawer
             class="w-90 dark:bg-gray-900"
             [autoFocus]="false"
-            [mode]="'side'"
-            [opened]="true"
-            #matDrawer>
+            [mode]="verificaModoDaTela()"
+            [opened]="verificaLarguraDaTela()"
+            #matDrawer
+        >
             <!-- Sidebar -->
             <div class="mx-6 mt-2" cdkScrollable>
                 <div class="w-full overflow-y-auto">
                     <div class="m-1">
-                        <div class="text-xl font-normal leading-4">Decisões </div>
+                        <div class="mb-4 text-xl font-normal leading-4 flex justify-between items-center">
+                            <span class="font-medium">
+                                Decisões
+                            </span>
+
+                            <button *ngIf="!verificaLarguraDaTela()" mat-mini-fab color="primary" (click)="matDrawer.toggle()">
+                                <mat-icon svgIcon="heroicons_outline:arrow-left"></mat-icon>
+                            </button>
+                        </div>
                     </div>
+                    
                     <mat-accordion class="" multi>
-                        <mat-expansion-panel
+                        <mat-expansion-panel 
+                            class="mt-2 mb-2"
                             class="mb-2"
-                            *ngFor="let decisao of decisoes; index as i"
+                            *ngFor="let item of decisoes; index as i"
                         >
-
-
+                            <mat-expansion-panel-header class="px-2">
+                                <div class="w-full flex justify-between items-center py-6">
+                                    <mat-panel-title>
+                                        <span 
+                                            [matBadge]="(i + 1)" 
+                                            class="ml-4"
+                                        ></span>
+                                    </mat-panel-title>
+                                    <mat-panel-description class="w-full flex align-middle justify-between items-center">
+                                        <strong [title]="item.decisao.tipo">
+                                            {{item.decisao.tipo.toString()}}
+                                        </strong>
+                                        <div 
+                                            class="py-0.5 px-3 rounded-full text-sm font-semibold 
+                                                text-white bg-green-700 dark:text-green-50 dark:bg-green-500 
+                                                ng-star-inserted"
+                                            [title]="item.decisao.dispositivo"
+                                        >
+                                            {{item.decisao.dispositivo}}
+                                        </div>
+                                    </mat-panel-description>
+                                </div>
+                            </mat-expansion-panel-header>
+                        
                             <app-form-decisao
-                                [decisao]="decisao"
+                                [decisao]="item.decisao"
+                                [idsProcessosSelecionados]="item.processos_mesma_decisao"
                                 [dispositivos]="dispositivos"
                                 [processo]="parametros.processo"
+                                [processosMesmaDecisoes]="processosMesmaDecisoes"
                                 (decisaoExcluida)="removerDecisao($event)"
                             ></app-form-decisao>
                         </mat-expansion-panel>
                     </mat-accordion>
-
-                    <fuse-card
-                        class="px-3 py-6 my-2 flex flex-col"
-                    >
-                        <span
-                            [matBadge]="(decisoes.length + 1)"
-                            class="mr-auto ml-3 mb-4"
-                        ></span>
-
-                        <app-form-decisao
-                            [dispositivos]="dispositivos"
-                            (decisaoCadastrada)="obterDadosDaDecisao($event)"
-                        ></app-form-decisao>
-                    </fuse-card>
-
-                    <fuse-card
-                        class="max-h-full p-4 my-2 flex flex-col mb-4"
-                    >
-                        <section class="">
-                            <h3 class="font-medium text-md">
-                                Aplicar as mesmas decisões
-                            </h3>
-
-                            <mat-spinner
-                                class="m-auto"
-                                [diameter]="40"
-                                *ngIf="processosPorTags.length === 0; else processos"
-                            ></mat-spinner>
-
-                            <ng-template #processos class="max-h-36 overflow-auto">
-                                <p *ngFor="let processo of processosPorTags">
-                                    <mat-checkbox (change)="aplicarAsMesmasDecisoes(processo)" color="primary">
-                                        <span class="font-bold text-primary-600">
-                                            {{processo.classe}} {{processo.numero}}
-                                        </span>
-
-                                        <br/>
-
-                                        <span class="text-hint">
-                                            Relator prevaleceu
-                                        </span>
-                                    </mat-checkbox>
-                                </p>
-                            </ng-template>
-                        </section>
-                    </fuse-card>
                 </div>
             </div>
         </mat-drawer>
@@ -120,29 +110,24 @@
 
                 <!-- CONTENT GOES HERE -->
                 <div class="h-400 min-h-400 max-h-400  border-gray-300 rounded-2xl">
-                    <mat-tab-group animationDuration="0ms">
-                        <mat-tab
-                            *ngFor="let voto of votos"
-                        >
-                            <ng-template mat-tab-label>
-                                {{voto.autor.nome}}
+                    <button
+                        mat-mini-fab
+                        color="primary"
+                        *ngIf="!verificaLarguraDaTela()"
+                        (click)="matDrawer.toggle()"
+                    >
+                        <mat-icon>menu</mat-icon>
+                    </button>
 
-                                <div
-                                    class="ml-2 pt-1 py-0.5 px-3 rounded-full text-sm
-                                    font-semibold text-primary bg-primary-50
-                                    dark:text-primary-50 dark:bg-primary-500
-                                    ng-star-inserted align-middle"
-                                >
-                                    {{voto.tipo}}
-                                </div>
-                            </ng-template>
-
-                            <app-conteudo-voto-ministro
-                                class="w-full"
-                                [voto]="voto"
-                            ></app-conteudo-voto-ministro>
-                        </mat-tab>
-                    </mat-tab-group>
+                    <div class="">
+                        <div id="menu-decisao" class="w-full p-4 overflow-y-auto">
+                            <app-form-decisao
+                                [dispositivos]="dispositivos"
+                                [processosMesmaDecisoes]="processosMesmaDecisoes"
+                                (decisaoCadastrada)="obterDadosDaDecisao($event)"
+                            ></app-form-decisao>
+                        </div>
+                    </div>
                 </div>
 
             </div>

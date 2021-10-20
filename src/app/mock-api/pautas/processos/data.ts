@@ -416,14 +416,14 @@ export const documentos: Documento[] = [
 
   {
     id: 4,
-    nome: "Voto AD",
+    nome: "Voto AM",
     tipo: "pdf",
     url: "/assets/pdf/voto-alexandre-divergenteadi6185-Ed.pdf"
   },
 
   {
     id: 5,
-    nome: 'Voto LB',
+    nome: 'Voto RB',
     tipo: 'pdf',
     url: '/assets/pdf/voto-luis-barroso-barroso-adi6185-Ed.pdf',
   },

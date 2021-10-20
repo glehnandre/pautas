@@ -4,6 +4,7 @@ import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { FuseDrawerService } from '@fuse/components/drawer';
 import { TipoDoProcesso } from 'app/modules/acervo/model/enums/tipoDoProcesso.enum';
 import { Ministro } from 'app/modules/acervo/model/interfaces/ministro.interface';
+import { Voto } from 'app/modules/acervo/model/interfaces/voto.interface';
 import { MinistroService } from 'app/modules/services/ministro.service';
 import { ProcessoService } from 'app/modules/services/processo.service';
 
@@ -16,10 +17,12 @@ export class CabecalhoRelatorComponent implements AfterContentChecked, OnInit {
 
   @Input() processo: string;
   @Input() colegiado: string;
+  @Input() votos: Voto[];
 
   right: number = 0;
   panelOpenState = false;
   link: SafeResourceUrl;
+  nomePdf: string = '';
   tags: string[] = [];
   relator: Ministro;
   tipo: TipoDoProcesso;
@@ -56,6 +59,10 @@ export class CabecalhoRelatorComponent implements AfterContentChecked, OnInit {
     if(this.dadosProcesso)
     return `${this.dadosProcesso.classe} ${this.dadosProcesso.numero} ${this.dadosProcesso.nome}`;
     return "Aguarde..."
+  }
+
+  public obterNomeDoPdf(nome): void {
+    this.nomePdf = nome;
   }
 
   abrirLink(link: string): void {
