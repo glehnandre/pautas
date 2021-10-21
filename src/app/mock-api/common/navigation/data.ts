@@ -73,6 +73,13 @@ export const defaultNavigation: FuseNavigationItem[] = [
             colegiado: 'pleno',
         },
     },
+    {
+        id: 'minhas-tarefas',
+        title: 'Minhas tarefas',
+        type: 'basic',
+        icon : 'heroicons_outline:chart-pie',
+        link: '/minhas-tarefas'
+    }
 ];
 export const compactNavigation: FuseNavigationItem[] = [
     {
@@ -138,6 +145,13 @@ export const compactNavigation: FuseNavigationItem[] = [
             colegiado: 'pleno',
         },
     },
+    {
+        id: 'minhas-tarefas',
+        title: 'Minhas tarefas',
+        type: 'basic',
+        icon : 'heroicons_outline:chart-pie',
+        link: '/minhas-tarefas'
+    }
 ];
 export const futuristicNavigation: FuseNavigationItem[] = [
     {
@@ -203,6 +217,13 @@ export const futuristicNavigation: FuseNavigationItem[] = [
             colegiado: 'pleno',
         },
     },
+    {
+        id: 'minhas-tarefas',
+        title: 'Minhas tarefas',
+        type: 'basic',
+        icon : 'heroicons_outline:chart-pie',
+        link: '/minhas-tarefas'
+    }
 ];
 export const horizontalNavigation: FuseNavigationItem[] = [
     {
@@ -264,4 +285,11 @@ export const horizontalNavigation: FuseNavigationItem[] = [
             colegiado: 'pleno',
         },
     },
+    {
+        id: 'minhas-tarefas',
+        title: 'Minhas tarefas',
+        type: 'basic',
+        icon : 'heroicons_outline:chart-pie',
+        link: '/minhas-tarefas'
+    }
 ];
