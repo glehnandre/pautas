@@ -2,20 +2,20 @@
 
     <!-- Header -->
     <div class="flex flex-col sm:flex-row justify-center items-center sm:justify-between pl-8 bg-white dark:bg-transparent">
-        <h1 class="mt-4 text-primary font-medium text-xl sm:text-2xl">
+        <h1 class="mt-4 text-primary font-medium text-xl sm:text-2xl w-full">
             Informar o Redator para o Acórdão {{classe}} {{numero}} {{abreviacao}}
         </h1>
         <div
-            class="flex flex-row items-end ml-auto mr-4 space-x-4"
+            class="flex flex-col sm:flex-row items-center sm:items-end w-full sm:ml-auto mr-8 sm:mr-4 space-y-2 sm:space-x-4"
             *ngIf="!getRedator()"
         >
-            <button class="ml-auto" mat-button>
+            <button class="w-full sm:w-auto sm:ml-auto" mat-button>
                 <span>Cancelar</span>
             </button>
 
             <button
                 [disabled]="redatorForm.invalid"
-                class="mr-0"
+                class="w-full sm:w-auto sm:mr-0"
                 color="primary"
                 mat-raised-button
                 (click)="informarRedator()"

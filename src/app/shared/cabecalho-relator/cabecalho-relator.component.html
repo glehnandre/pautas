@@ -1,9 +1,9 @@
 <div class="flex flex-col lg:flex-row lg:justify-start">
     <div class="absolute right-4 lg:right-16 flex flex-col items-end">
-        <div class="text-xl text-primary font-medium">
+        <div class="text-base sm:text-xl text-primary font-medium">
             SESSÃO {{sessao}}
         </div>
-        <div class="text-md text-secondary">
+        <div class="text-xs sm:text-base text-secondary">
             Finalizada dia {{data_fim | date:'dd/mm/yyyy'}}
         </div>
     </div>
@@ -12,13 +12,13 @@
             <img [src]="relator?.imagem" alt="Imagem de perfil"
                 class="w-14 h-14 mr-6 mb-4 rounded-full ng-tns-c129-57 ng-star-inserted">
             <div class="flex flex-col flex-none mr-14 ng-tns-c129-56 ng-star-inserted">
-                <div class="text-lg font-medium text-primary leading-tight">
+                <div class="text-base sm:text-lg font-medium text-primary leading-tight">
                     {{relator?.nome | titlecase}}
                 </div>
-                <div class="text-md leading-tight font-bold">
+                <div class="text-xs sm:text-base leading-tight font-bold">
                     {{relator?.abreviacao | uppercase}}
                 </div>
-                <div class="text-md text-secondary mt-2">
+                <div class="text-xs sm:text-base text-secondary mt-2">
                     Relator
                 </div>
             </div>
@@ -50,7 +50,7 @@
 </div>
 
 <mat-expansion-panel
-    class="md:hidden my-4"
+    class="md:hidden w-2/3 xs:w-full my-4"
     (opened)="panelOpenState = true"
     (closed)="panelOpenState = false"
 >
@@ -58,7 +58,7 @@
         [collapsedHeight]="'40px'"
         class="p-4 h-15"
     >
-        <div class="flex flex-none flex-row my-auto ml-3 w-screen container mt-4">
+        <div class="flex flex-none my-auto ml-2 pt-4">
             <h2 class="font-medium">
                 Documentos e tags
             </h2>
@@ -67,7 +67,7 @@
 
     <!--Conteúdo de dentro da área expansível-->
     <div class="container">
-        <div class="flex flex-col min-w-full justify-between">
+        <div class="flex flex-col max-w-full justify-between">
             <app-carrossel
                 [idChip]="'idTagsExp'"
                 [chips]="tags"
