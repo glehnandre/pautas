@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Decisao } from 'app/modules/acervo/model/interfaces/decisao.interface';
 import { Manifestacao } from 'app/modules/acervo/model/interfaces/manifestacao.interface';
@@ -13,7 +13,7 @@ import { Observable } from 'rxjs';
   templateUrl: './form-decisao.component.html',
   styleUrls: ['./form-decisao.component.scss']
 })
-export class FormDecisaoComponent implements OnInit {
+export class FormDecisaoComponent implements OnInit, OnChanges {
 
   formDecisao: FormGroup;
   ministros$: Observable<Ministro []>
@@ -51,6 +51,14 @@ export class FormDecisaoComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    this._recarregarOsDados();
+  }
+
+  ngOnChanges(): void {
+    this._recarregarOsDados();
+  }
+
+  private _recarregarOsDados(): void {
     this.formDecisao = this._fb.group({
       descricao: [this.decisao.descricao, Validators.required],
       tipo: [this.decisao.tipo, Validators.required],

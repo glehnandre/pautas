@@ -1,12 +1,11 @@
 import { HttpParams } from '@angular/common/http';
 import { Component, HostListener, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { FuseDrawerService } from '@fuse/components/drawer';
 import { TipoCapitulo } from '../acervo/model/enums/tipoCapitulo.enum';
 import { Decisao, DecisoesResultadoJulgamento } from '../acervo/model/interfaces/decisao.interface';
 import { Manifestacao } from '../acervo/model/interfaces/manifestacao.interface';
 import { Processo } from '../acervo/model/interfaces/processo.interface';
-import { SessaoJulgamento } from '../acervo/model/interfaces/sessao-julgamento.interface';
 import { Voto } from '../acervo/model/interfaces/voto.interface';
 import { ProcessoService } from '../services/processo.service';
 import { ResultadoJulgamentoService } from '../services/resultado-julgamento.service';
@@ -32,6 +31,7 @@ export class ResultadoJulgamentoComponent implements OnInit {
   votos: Voto[] = [];
   dispositivos: Manifestacao[] = [];
   decisoes: Array<{decisao: Decisao, processos_mesma_decisao: number[]}> = [];
+  decisaoSelecionada: {decisao: Decisao, processos_mesma_decisao: number[]};
 
   readonly FORM_CADASTRO_DECISAO = 'formulario-de-cadastro-de-decisao';
 
@@ -104,6 +104,14 @@ export class ResultadoJulgamentoComponent implements OnInit {
   public verificaModoDaTela(largura: number = 720): string {
     const larguraAtual = window.innerWidth;
     return (larguraAtual <= largura) ? 'over' : 'side';
+  }
+
+  public alterarDadosDoFormulario(item: {decisao: Decisao, processos_mesma_decisao: number[]}): void {
+    this.decisaoSelecionada = item;
+  }
+
+  public limparDecisaoSelecionada() {
+    this.decisaoSelecionada = null;
   }
 
 }

@@ -17,6 +17,8 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { FuseDrawerModule } from '@fuse/components/drawer/drawer.module';
+import { MatListModule } from '@angular/material/list';
+import { MatRippleModule } from '@angular/material/core';
 
 import { ResultadoJulgamentoComponent } from './resultado-julgamento.component';
 import { ConteudoVotoMinistroComponent } from './conteudo-voto-ministro/conteudo-voto-ministro.component';
@@ -58,7 +60,9 @@ const ResultadoJulgamentoRoutes: Route[] = [
     MatIconModule,
     MatExpansionModule,
     MatSidenavModule,
-    FuseDrawerModule
+    FuseDrawerModule,
+    MatListModule,
+    MatRippleModule,
   ]
 })
 export class ResultadoJulgamentoModule { }

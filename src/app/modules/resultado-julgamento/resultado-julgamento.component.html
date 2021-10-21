@@ -51,13 +51,52 @@
                                 Decisões
                             </span>
 
+                            <button mat-raised-button color="primary" (click)="limparDecisaoSelecionada()">
+                                <mat-icon class="mr-1" svgIcon="heroicons_outline:plus-circle"></mat-icon>
+                                Nova decisão
+                            </button>
+
                             <button *ngIf="!verificaLarguraDaTela()" mat-mini-fab color="primary" (click)="matDrawer.toggle()">
                                 <mat-icon svgIcon="heroicons_outline:arrow-left"></mat-icon>
                             </button>
                         </div>
                     </div>
+
+
+                    <mat-selection-list [multiple]="false">
+                        <mat-list-option 
+                            matRipple
+                            *ngFor="let item of decisoes; index as i"
+                            [value]="item"
+                            (click)="alterarDadosDoFormulario(item)"
+                            class="rounded-full"
+                        >
+                            <div class="flex justify-center items-center">
+                                <span 
+                                    [matBadge]="(i + 1)" 
+                                    class="mx-4"
+                                ></span>
+
+                                <strong 
+                                    class="align-middle" 
+                                    [title]="item.decisao.tipo"
+                                >
+                                    {{item.decisao.tipo.toString()}}
+                                </strong>
+
+                                <div 
+                                    class="ml-auto py-0.5 px-3 rounded-full text-sm font-semibold 
+                                        text-white bg-green-700 dark:text-green-50 dark:bg-green-500 
+                                        ng-star-inserted"
+                                    [title]="item.decisao.dispositivo"
+                                >
+                                    {{item.decisao.dispositivo}}
+                                </div>
+                            </div>
+                        </mat-list-option>
+                    </mat-selection-list>
                     
-                    <mat-accordion class="" multi>
+                    <!--<mat-accordion class="" multi>
                         <mat-expansion-panel 
                             class="mt-2 mb-2"
                             class="mb-2"
@@ -96,7 +135,7 @@
                                 (decisaoExcluida)="removerDecisao($event)"
                             ></app-form-decisao>
                         </mat-expansion-panel>
-                    </mat-accordion>
+                    </mat-accordion>-->
                 </div>
             </div>
         </mat-drawer>
@@ -123,10 +162,22 @@
                     <div class="">
                         <div id="menu-decisao" class="w-full p-4 overflow-y-auto">
                             <app-form-decisao
+                                *ngIf="!decisaoSelecionada; else casoAlgumFormDecisaoSejaSelecionado"
                                 [dispositivos]="dispositivos"
                                 [processosMesmaDecisoes]="processosMesmaDecisoes"
                                 (decisaoCadastrada)="obterDadosDaDecisao($event)"
                             ></app-form-decisao>
+
+                           <ng-template #casoAlgumFormDecisaoSejaSelecionado>
+                                <app-form-decisao
+                                    [decisao]="decisaoSelecionada.decisao"
+                                    [idsProcessosSelecionados]="decisaoSelecionada.processos_mesma_decisao"
+                                    [dispositivos]="dispositivos"
+                                    [processo]="parametros.processo"
+                                    [processosMesmaDecisoes]="processosMesmaDecisoes"
+                                    (decisaoExcluida)="removerDecisao($event)"
+                                ></app-form-decisao>
+                            </ng-template>
                         </div>
                     </div>
                 </div>
