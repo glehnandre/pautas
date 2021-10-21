@@ -1,6 +1,6 @@
 <!-- CONTENT GOES HERE -->
 <fuse-card class="flex flex-col w-full filter-post filter-interactive">
-    <fuse-card class="flex flex-col w-full filter-post filter-interactive" style="box-shadow: none;" #expandableCard02="fuseCard">
+    <fuse-card class="flex flex-col w-full filter-post filter-interactive" style="box-shadow: none; border-radius: 0px;" #expandableCard02="fuseCard">
         <div class="flex items-center mx-6 sm:mx-8 mt-6 ">
             <img class="w-12 h-12 rounded-full mr-4" src="assets/digital/ministros/LF.png" alt="Card cover image">
             <div class="flex flex-col">
@@ -11,33 +11,39 @@
                 <span class="font-semibold leading-none text-primary-500 text-2xl">ARE 1071279</span>
                 <span class="text-sm text-secondary leading-none mt-1">Recurso extraordinário com agravo</span>
             </div>
-            <div class=" flex flex-row ml-auto -mr-4">
-                <button class="" mat-button (click)="expandableCard02.expanded = !expandableCard02.expanded">
+            <div class="flex flex-row flex-wrap-reverse ml-auto -mr-4">
+                <button class="mr-6 md:mr-0 ml-auto" mat-button (click)="expandableCard02.expanded = !expandableCard02.expanded">
                     <span class="mr-1">Partes</span>
                     <mat-icon class="icon-size-5 transform transition-transform ease-in-out duration-150 rotate-0"
                         [ngClass]="{'rotate-180': expandableCard02.expanded}" [svgIcon]="'heroicons_solid:chevron-down'">
                     </mat-icon>
                 </button>
-                <button class="" mat-button [routerLink]="['./']">
+                <button class="hidden md:block nml-auto" mat-button [routerLink]="['./']">
                     <mat-icon class="mr-2" style="color:red">picture_as_pdf</mat-icon>
                     <span>Baixar</span>
                 </button>
+                <button 
+                    class="md:hidden bg-red-500 absolute right-4 top-4 icon-size-8"
+                    mat-icon-button
+                >
+                    <mat-icon class="text-current text-white">picture_as_pdf</mat-icon>
+                </button> 
             </div>
         </div>
     
         <ng-container fuseCardExpansion>
             <hr class="border-b mx-4 sm:mx-8 my-0 mt-4">
-            <div class="w-full mx-8 grid grid-cols-2">
-            <div>
-                <div *ngFor="let left of envolvidosL">
-                    <span class="text-accent-500">{{left.identificacoes[0]}}</span> {{left.nome}}
+            <div class="flex-1 mx-8 grid grid-cols-2">
+                <div class="mr-4">
+                    <div *ngFor="let left of envolvidosL">
+                        <span class="text-accent-500">{{left.identificacoes[0]}}</span> {{left.nome}}
+                    </div>
                 </div>
-            </div>
-            <div>
-                <div *ngFor="let right of envolvidosR">
-                    <span class="text-accent-500">{{right.identificacoes[0]}}</span> {{right.nome}}
+                <div class="">
+                    <div *ngFor="let right of envolvidosR">
+                        <span class="text-accent-500">{{right.identificacoes[0]}}</span> {{right.nome}}
+                    </div>
                 </div>
-            </div>
             </div>
         </ng-container>
     </fuse-card>
@@ -1050,7 +1056,7 @@
                     margin-bottom: 5.0pt;
                 }
             </style>
-            <div style="margin-bottom:56.7pt;margin-top:96.4pt;margin-left:113.4pt;margin-right:56.7pt;">
+            <div class="mt-8">
                 <p class="X559 X575"><span class="X559 X575"
                         style="font-weight:bold;white-space:pre-wrap;">DECISÃO:</span><span class="X559 X575"
                         style="font-weight:bold;white-space:pre-wrap;"> </span><span id="_GoBack"><span
