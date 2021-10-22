@@ -93,23 +93,39 @@
         <mat-hint>Descreva a decisão tomada pelo colegiado</mat-hint>
     </mat-form-field>
 
-    <p class="mt-4 text-center flex flex-col">
-        <button *ngIf="!isDecisao()" class="max-w-full" mat-raised-button color="primary"
-            [disabled]="formDecisao.invalid" (click)="cadastrarDecisao()">
+    <p class="mt-4 text-center flex flex-row gap-4 justify-end items-end">
+        <button 
+            *ngIf="!isDecisao()" 
+            class="max-w-full" 
+            mat-raised-button 
+            color="primary"
+            [disabled]="formDecisao.invalid" 
+            (click)="cadastrarDecisao()"
+        >
             <mat-icon class="mr-1">add_circle</mat-icon>
             {{'Adicionar decisão' | uppercase}}
         </button>
 
-        <button *ngIf="isDecisao()" class="mb-4 text-xs" mat-raised-button color="warn" (click)="excluirDecisao()"
-            [disabled]="formDecisao.invalid || isDecisaoSalva">
+        <button 
+            *ngIf="isDecisao()" 
+            mat-raised-button 
+            color="warn" 
+            (click)="excluirDecisao()"
+            [disabled]="formDecisao.invalid || isDecisaoSalva"
+        >
             <mat-icon class="mr-1">delete</mat-icon>
-            {{'Excluir esta decisão' | uppercase}}
+            {{'Excluir decisão' | uppercase}}
         </button>
 
-        <button *ngIf="isDecisao()" class="text-xs" mat-raised-button color="primary" (click)="salvarDecisao()"
-            [disabled]="formDecisao.invalid || isDecisaoSalva">
+        <button 
+            *ngIf="isDecisao()"  
+            mat-raised-button 
+            color="primary" 
+            (click)="salvarDecisao()"
+            [disabled]="formDecisao.invalid || isDecisaoSalva"
+        >
             <mat-icon class="mr-1">save</mat-icon>
-            {{'Salvar esta decisão' | uppercase}}
+            {{'Salvar decisão' | uppercase}}
         </button>
     </p>
 </form>

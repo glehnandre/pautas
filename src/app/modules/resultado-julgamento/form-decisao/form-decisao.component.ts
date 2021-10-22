@@ -24,7 +24,6 @@ export class FormDecisaoComponent implements OnInit, OnChanges {
     'Questão de ordem',
     'Tese',
   ];
-  isDecisaoSalva: boolean = false;
   selecionarTodos: boolean;
   aplicarMesmasDecisoesAosProcessos: number[] = [];
 
@@ -36,6 +35,7 @@ export class FormDecisaoComponent implements OnInit, OnChanges {
     ministro_condutor: '',
     texto: '', 
   };
+  @Input() isDecisaoSalva: boolean = false;
   @Input() processo: number = 0;
   @Input() dispositivos: Manifestacao[] = [];
   @Input() processosMesmaDecisoes: Processo[] = [];
@@ -92,12 +92,16 @@ export class FormDecisaoComponent implements OnInit, OnChanges {
   public salvarDecisao(): void {
     if (this.formDecisao.valid && this.processo > 0 && !this.isDecisaoSalva) {
       this._resultadoJulgamento.savarDecisao(this.processo, {
-        decisao: this.formDecisao.value as Decisao,
+        decisao: this.formDecisao.value,
         processos_mesma_decisao: this.aplicarMesmasDecisoesAosProcessos,
       }).subscribe({
         next: (data) => {
           console.log('Decisao salva!');
           console.log(data);
+          this.decisaoCadastrada.emit({
+            decisao: this.formDecisao.value, 
+            processos_mesma_decisao: this.aplicarMesmasDecisoesAosProcessos,
+          });
           this.isDecisaoSalva = true;
         }
       });

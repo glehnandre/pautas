@@ -25,6 +25,7 @@ export class ResultadoJulgamentoComponent implements OnInit {
   dados: DecisoesResultadoJulgamento;
   parametros: Parametros;
   processo: string;
+  isDecisaoSalva: boolean = false;
 
   processosMesmaDecisoes: Processo[] = [];
   aplicarMesmasDecisoesAosProcessos: Processo[] = [];
@@ -113,5 +114,11 @@ export class ResultadoJulgamentoComponent implements OnInit {
   public limparDecisaoSelecionada() {
     this.decisaoSelecionada = null;
   }
+
+  public obterDecisaoSalva({decisao}): void {
+    const index = this.decisoes
+      .findIndex(item => Object.values(item.decisao).toString() === Object.values(decisao).toString());
+    this.isDecisaoSalva = (index !== -1);
+   }
 
 }
