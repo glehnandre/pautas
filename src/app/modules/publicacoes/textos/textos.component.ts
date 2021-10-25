@@ -19,10 +19,15 @@ export class TextosComponent implements OnInit {
   ngOnInit(): void {
     this._publicacaoService.listarPublicacoes().subscribe(publicacao=>{
       publicacao[0].envolvidos.forEach(envolvido=>{
-          if(envolvido.parteId == 0) this.envolvidosL.push(envolvido);
+          if(envolvido.polo == 'ATIVO') this.envolvidosL.push(envolvido);
           else this.envolvidosR.push(envolvido);
       });
     })
+  }
+  
+  teste(a){
+    console.log(a);
+    
   }
 
 }

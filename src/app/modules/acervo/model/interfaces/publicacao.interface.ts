@@ -1,16 +1,15 @@
-import { Processo } from "./processo.interface";
 import { Envolvido } from "./envolvido.interface";
 
 export interface Publicacao{
     id: number;
-    processo: Processo;
+    processo: string;
+    processoId: number;
     tipo: string;
-    assinatura: string;
+    relator: string;
+    divulgacao: string;
+    publicacao: string
     texto: string;
-    textoSemFormatacao: string;
-    hashValidacao: string;
-    peca: number;
+    envolvidos: Envolvido[];
     codigo: string;
     observacao: string;
-    envolvidos: Envolvido[];
 }

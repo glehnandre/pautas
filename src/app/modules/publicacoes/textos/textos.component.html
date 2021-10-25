@@ -33,15 +33,29 @@
     
         <ng-container fuseCardExpansion>
             <hr class="border-b mx-4 sm:mx-8 my-0 mt-4">
-            <div class="flex-1 mx-8 grid grid-cols-2">
-                <div class="mr-4">
-                    <div *ngFor="let left of envolvidosL">
-                        <span class="text-accent-500">{{left.identificacoes[0]}}</span> {{left.nome}}
+            <div class="flex-1 mx-8 grid grid-cols-1 md:grid-cols-2">
+                <div class="mr-4 my-2">
+                    <div *ngFor="let left of envolvidosL" class="border-l-2 border-accent-300 pl-2">
+                        <span class="text-accent-500">{{left.categoria}}</span> {{left.nome}}
+                        <div *ngIf="left.identificacoes" class="text-sm ml-4 mr-8 italic text-accent-500">
+                            <div *ngFor="let identificacao of left.identificacoes" 
+                                class="mb-2 truncate"
+                                [aria-label]="identificacao">
+                                {{"| "+identificacao}}
+                            </div>
+                        </div>
                     </div>
                 </div>
-                <div class="">
-                    <div *ngFor="let right of envolvidosR">
-                        <span class="text-accent-500">{{right.identificacoes[0]}}</span> {{right.nome}}
+                <div class="my-2">
+                    <div *ngFor="let right of envolvidosR" class="border-l-2 border-accent-300 pl-2">
+                        <span class="text-accent-500">{{right.categoria}}</span> {{right.nome}}
+                        <div *ngIf="right.identificacoes" class="text-sm ml-4 italic text-accent-500">
+                            <div *ngFor="let identificacao of right.identificacoes" 
+                                class="mb-2 truncate"
+                                [aria-label]="identificacao">
+                                {{"| "+identificacao}}
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
