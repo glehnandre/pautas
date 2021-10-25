@@ -175,8 +175,8 @@
                                     [dispositivos]="dispositivos"
                                     [processo]="parametros.processo"
                                     [processosMesmaDecisoes]="processosMesmaDecisoes"
-                                    [isDecisaoSalva]="isDecisaoSalva"
-                                    (decisaoCadastrada)="obterDecisaoSalva($event); limparDecisaoSelecionada()"
+                                    [desabilitarForm]="isDecisaoJaSalva()"
+                                    (decisaoCadastrada)="decisaoSalvaViaPost($event)"
                                     (decisaoExcluida)="removerDecisao($event); limparDecisaoSelecionada()"
                                 ></app-form-decisao>
                             </ng-template>

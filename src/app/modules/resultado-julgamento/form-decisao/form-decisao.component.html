@@ -83,6 +83,7 @@
     <app-aplicar-decisoes
         [selecionarTodos]="selecionarTodos"
         [processos]="processosMesmaDecisoes"
+        [desabilitar]="desabilitarForm"
         [processosParaAplicarAMesmaDecisao]="idsProcessosSelecionados"
         (obterProcessosSelecionados)="obterProcessos($event)"
     ></app-aplicar-decisoes>
@@ -106,12 +107,13 @@
             {{'Adicionar decisão' | uppercase}}
         </button>
 
-        <button 
+        <button
+            class="mr-4"
             *ngIf="isDecisao()" 
             mat-raised-button 
             color="warn" 
             (click)="excluirDecisao()"
-            [disabled]="formDecisao.invalid || isDecisaoSalva"
+            [disabled]="formDecisao.invalid || isDecisaoSalva || desabilitarForm"
         >
             <mat-icon class="mr-1">delete</mat-icon>
             {{'Excluir decisão' | uppercase}}
@@ -122,7 +124,7 @@
             mat-raised-button 
             color="primary" 
             (click)="salvarDecisao()"
-            [disabled]="formDecisao.invalid || isDecisaoSalva"
+            [disabled]="formDecisao.invalid || isDecisaoSalva || desabilitarForm"
         >
             <mat-icon class="mr-1">save</mat-icon>
             {{'Salvar decisão' | uppercase}}

@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, OnChanges, OnInit, Output } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Decisao } from 'app/modules/acervo/model/interfaces/decisao.interface';
 import { Manifestacao } from 'app/modules/acervo/model/interfaces/manifestacao.interface';
 import { Ministro } from 'app/modules/acervo/model/interfaces/ministro.interface';
@@ -24,6 +24,7 @@ export class FormDecisaoComponent implements OnInit, OnChanges {
     'Questão de ordem',
     'Tese',
   ];
+  isDecisaoSalva: boolean = false;
   selecionarTodos: boolean;
   aplicarMesmasDecisoesAosProcessos: number[] = [];
 
@@ -35,8 +36,8 @@ export class FormDecisaoComponent implements OnInit, OnChanges {
     ministro_condutor: '',
     texto: '', 
   };
-  @Input() isDecisaoSalva: boolean = false;
   @Input() processo: number = 0;
+  @Input() desabilitarForm: boolean;
   @Input() dispositivos: Manifestacao[] = [];
   @Input() processosMesmaDecisoes: Processo[] = [];
   @Input() idsProcessosSelecionados: number[] = [];
@@ -60,12 +61,12 @@ export class FormDecisaoComponent implements OnInit, OnChanges {
 
   private _recarregarOsDados(): void {
     this.formDecisao = this._fb.group({
-      descricao: [this.decisao.descricao, Validators.required],
-      tipo: [this.decisao.tipo, Validators.required],
-      dispositivo: [this.decisao.dispositivo, Validators.required],
-      ministros_acordam: [this.decisao.ministros_acordam, Validators.required],
-      ministro_condutor: [this.decisao.ministro_condutor, Validators.required],
-      texto: [this.decisao.texto, Validators.required], 
+      descricao: [{value: this.decisao.descricao, disabled: this.desabilitarForm}, Validators.required],
+      tipo: [{value: this.decisao.tipo, disabled: this.desabilitarForm}, Validators.required],
+      dispositivo: [{value: this.decisao.dispositivo, disabled: this.desabilitarForm}, Validators.required],
+      ministros_acordam: [{value: this.decisao.ministros_acordam, disabled: this.desabilitarForm}, Validators.required],
+      ministro_condutor: [{value: this.decisao.ministro_condutor, disabled: this.desabilitarForm}, Validators.required],
+      texto: [{value: this.decisao.texto, disabled: this.desabilitarForm}, Validators.required], 
     });
 
     this.ministros$ = this._ministroService.listarMinistros();
@@ -92,17 +93,17 @@ export class FormDecisaoComponent implements OnInit, OnChanges {
   public salvarDecisao(): void {
     if (this.formDecisao.valid && this.processo > 0 && !this.isDecisaoSalva) {
       this._resultadoJulgamento.savarDecisao(this.processo, {
-        decisao: this.formDecisao.value,
+        decisao: this.formDecisao.value as Decisao,
         processos_mesma_decisao: this.aplicarMesmasDecisoesAosProcessos,
       }).subscribe({
         next: (data) => {
           console.log('Decisao salva!');
           console.log(data);
+          this.isDecisaoSalva = true;
           this.decisaoCadastrada.emit({
             decisao: this.formDecisao.value, 
             processos_mesma_decisao: this.aplicarMesmasDecisoesAosProcessos,
           });
-          this.isDecisaoSalva = true;
         }
       });
     }

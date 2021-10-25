@@ -17,6 +17,7 @@
                 class="ml-2 mb-2" 
                 *ngFor="let processo of processos"
                 [checked]="isProcessoSelecionado(processo) || selecionarTodos"
+                [disabled]="desabilitar"
                 (change)="selecionaProcesso(processo)" 
                 color="primary"
             >

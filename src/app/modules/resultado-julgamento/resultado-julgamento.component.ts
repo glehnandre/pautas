@@ -25,13 +25,13 @@ export class ResultadoJulgamentoComponent implements OnInit {
   dados: DecisoesResultadoJulgamento;
   parametros: Parametros;
   processo: string;
-  isDecisaoSalva: boolean = false;
 
   processosMesmaDecisoes: Processo[] = [];
   aplicarMesmasDecisoesAosProcessos: Processo[] = [];
   votos: Voto[] = [];
   dispositivos: Manifestacao[] = [];
   decisoes: Array<{decisao: Decisao, processos_mesma_decisao: number[]}> = [];
+  decisoesSalvasViaPost: Decisao[] = [];
   decisaoSelecionada: {decisao: Decisao, processos_mesma_decisao: number[]};
 
   readonly FORM_CADASTRO_DECISAO = 'formulario-de-cadastro-de-decisao';
@@ -115,10 +115,22 @@ export class ResultadoJulgamentoComponent implements OnInit {
     this.decisaoSelecionada = null;
   }
 
-  public obterDecisaoSalva({decisao}): void {
-    const index = this.decisoes
-      .findIndex(item => Object.values(item.decisao).toString() === Object.values(decisao).toString());
-    this.isDecisaoSalva = (index !== -1);
-   }
+  public decisaoSalvaViaPost({decisao}): void {
+    const index = this.decisoesSalvasViaPost
+      .findIndex(dec => Object.values(dec).toString() === Object.values(decisao).toString());
+    
+    if (index === -1) {
+      this.decisoesSalvasViaPost.push(decisao);
+    }
+
+    this.limparDecisaoSelecionada();
+  }
+
+  public isDecisaoJaSalva(): boolean {
+    const index = this.decisoesSalvasViaPost
+      .findIndex(dec => Object.values(dec).toString() === Object.values(this.decisaoSelecionada.decisao).toString());
+
+    return (index !== -1);
+  }
 
 }

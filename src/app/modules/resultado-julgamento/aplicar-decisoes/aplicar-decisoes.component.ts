@@ -9,6 +9,7 @@ import { Processo } from 'app/modules/acervo/model/interfaces/processo.interface
 export class AplicarDecisoesComponent implements OnInit {
 
   @Input() selecionarTodos: boolean;
+  @Input() desabilitar: boolean;
   @Input() processos: Processo[] = [];
   @Input() processosParaAplicarAMesmaDecisao: number[] = [];
   @Output() obterProcessosSelecionados = new EventEmitter<number[]>();
