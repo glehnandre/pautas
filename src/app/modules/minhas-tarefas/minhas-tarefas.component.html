@@ -1,7 +1,7 @@
 <div class="absolute inset-0 flex flex-col min-w-0 overflow-hidden">
     <mat-drawer-container class="flex-auto h-full" [hasBackdrop]="false">
       <mat-drawer #drawer tabindex="-1" class="w-72 dark:bg-gray-900" [mode]="'side'" opened="true">
-        <h1>Conteúdo da esquerda</h1>
+        <h1>Filtro das tarefas</h1>
       </mat-drawer>
 
       <mat-drawer-content class="flex flex-col overflow-hidden">
@@ -9,7 +9,7 @@
           <router-outlet></router-outlet>
           <div> <!-- Mailbox list -->
             <div class="relative flex flex-auto w-full bg-card dark:bg-transparent">
-              <div class="relative flex flex-auto flex-col w-full min-w-0 lg:min-w-90 lg:max-w-90 border-r z-10">
+              <div class="relative flex flex-auto flex-col w-full min-w-0 lg:min-w-90 border-r z-10" [ngClass]="{'lg:max-w-90' : urlSelecionada}">
                 <div class="relative flex flex-0 items-center justify-between h-16 px-4 border-b bg-gray-50 dark:bg-transparent">
 
                   <div class="flex items-center">
@@ -27,26 +27,34 @@
 
                   <div class="flex items-center">
 
-
                   </div>
                 </div>
 
-                <div class="overflow-y-auto">
+                <div class="overflow-y-auto flex flex-col">
 
-                    <h1>Conteúdo central</h1>
+                    <h1>Listagem de tarefas</h1>
+
+                    <button (click)="mostrarPagina()">
+                        Sou uma tarefa
+                    </button>
+
+                    <button (click)="mostrarOutraPagina()">
+                        Sou uma outra tarefa
+                    </button>
 
                 </div>
               </div>
 
-              <div class="flex-auto hidden lg:flex">
-                <router-outlet></router-outlet>
+              <div class="flex-auto hidden lg:flex" *ngIf="urlSelecionada">
+                <!-- <router-outlet></router-outlet>
                 <div>
                   <div class="flex flex-col flex-auto overflow-y-auto lg:overflow-hidden bg-card dark:bg-default">
                     <div class="flex flex-col flex-auto items-center justify-center bg-gray-100 dark:bg-transparent">
-                      <div class="mt-4 text-2xl font-semibold tracking-tight text-secondary">Conteúdo a direita</div>
+                      <div class="mt-4 text-2xl font-semibold tracking-tight text-secondary">Tarefa selecionada</div>
                     </div>
                   </div>
-                </div>
+                </div> -->
+                <iframe [src]="url" title="iframe_tarefas" width="100%"></iframe>
               </div>
             </div>
           </div>
