@@ -174,7 +174,7 @@ export class ProcessoMockApi {
             });
 
         this._fuseMockApiService
-            .onGet('processos/:id/documentos')
+            .onGet('julgamento/processos/:id/documentos')
             .reply(({urlParams}) => {
               const id = +urlParams.id;
 

@@ -18,6 +18,8 @@ export class CabecalhoRelatorComponent implements AfterContentChecked, OnInit {
   @Input() processo: string;
   @Input() colegiado: string;
   @Input() votos: Voto[];
+  @Input() sessao: string;
+  @Input() data_fim: Date;
 
   right: number = 0;
   panelOpenState = false;
@@ -40,7 +42,7 @@ export class CabecalhoRelatorComponent implements AfterContentChecked, OnInit {
   constructor(
     private _processoService: ProcessoService,
     private _ministroService: MinistroService,
-    private _sanitizer: DomSanitizer, 
+    private _sanitizer: DomSanitizer,
   ) { }
 
   ngOnInit(): void {
@@ -75,7 +77,7 @@ export class CabecalhoRelatorComponent implements AfterContentChecked, OnInit {
     this._processoService
       .listarProcessos(new HttpParams().set('processo', this.processo)).subscribe({
         next: ([processo]) => {
-          
+
           const { id, lista, classe, numero, nome } = processo;
 
           this.dadosProcesso = {classe, numero, nome};

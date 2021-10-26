@@ -26,6 +26,8 @@
             [processo]="parametros.processo"
             [colegiado]="parametros.colegiado"
             [votos]="votos"
+            [sessao]="descrissaoSessao"
+            [data_fim]="data_fim"
         ></app-cabecalho-relator>
     </header>
 
@@ -55,9 +57,9 @@
                             </button>
                         </div>
                     </div>
-                    
+
                     <mat-accordion class="" multi>
-                        <mat-expansion-panel 
+                        <mat-expansion-panel
                             class="mt-2 mb-2"
                             class="mb-2"
                             *ngFor="let item of decisoes; index as i"
@@ -65,8 +67,8 @@
                             <mat-expansion-panel-header class="px-2">
                                 <div class="w-full flex justify-between items-center py-6">
                                     <mat-panel-title>
-                                        <span 
-                                            [matBadge]="(i + 1)" 
+                                        <span
+                                            [matBadge]="(i + 1)"
                                             class="ml-4"
                                         ></span>
                                     </mat-panel-title>
@@ -74,9 +76,9 @@
                                         <strong [title]="item.decisao.tipo">
                                             {{item.decisao.tipo.toString()}}
                                         </strong>
-                                        <div 
-                                            class="py-0.5 px-3 rounded-full text-sm font-semibold 
-                                                text-white bg-green-700 dark:text-green-50 dark:bg-green-500 
+                                        <div
+                                            class="py-0.5 px-3 rounded-full text-sm font-semibold
+                                                text-white bg-green-700 dark:text-green-50 dark:bg-green-500
                                                 ng-star-inserted"
                                             [title]="item.decisao.dispositivo"
                                         >
@@ -85,7 +87,7 @@
                                     </mat-panel-description>
                                 </div>
                             </mat-expansion-panel-header>
-                        
+
                             <app-form-decisao
                                 [decisao]="item.decisao"
                                 [idsProcessosSelecionados]="item.processos_mesma_decisao"

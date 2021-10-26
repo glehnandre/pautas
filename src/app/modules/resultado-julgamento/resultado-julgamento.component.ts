@@ -34,14 +34,16 @@ export class ResultadoJulgamentoComponent implements OnInit {
   decisoes: Array<{decisao: Decisao, processos_mesma_decisao: number[]}> = [];
 
   readonly FORM_CADASTRO_DECISAO = 'formulario-de-cadastro-de-decisao';
+  descrissaoSessao: string;
+  data_fim: Date;
 
   constructor(
     private _resultadoJulgamento: ResultadoJulgamentoService,
     private _processoService: ProcessoService,
     private _route: ActivatedRoute,
     private _fuseDrawerService: FuseDrawerService,
-  ) { 
-    
+  ) {
+
   }
 
   ngOnInit(): void {
@@ -60,6 +62,8 @@ export class ResultadoJulgamentoComponent implements OnInit {
       next: ([processo]) => {
         const { nome, classe, numero } = processo;
         this.processo = `${classe} ${numero} ${nome}`;
+        this.descrissaoSessao = `${this.dados.sessao?.numero}/${this.dados.sessao?.ano}`;
+        this.data_fim = new Date(this.dados.sessao?.data_fim);
 
         this._processoService.obterVotosDoProcesso(this.parametros.processo).subscribe({
           next: (votos) => {
@@ -83,7 +87,7 @@ export class ResultadoJulgamentoComponent implements OnInit {
   public removerDecisao(decisao: Decisao): void {
     const index = this.decisoes
       .findIndex(dec => JSON.stringify(dec.decisao) === JSON.stringify(decisao));
-    
+
     if (index !== -1) {
       this.decisoes.splice(index, 1);
     }

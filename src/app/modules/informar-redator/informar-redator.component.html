@@ -1,0 +1,104 @@
+<div class="absolute inset-0 flex flex-col min-w-0 overflow-hidden">
+
+    <!-- Header -->
+    <div class="flex flex-row justify-center justify-between pl-8 bg-white dark:bg-transparent">
+        <h1 class="mt-4 text-primary font-medium text-xl sm:text-2xl w-full">
+            Informar o Redator para o Acórdão {{ processo }}
+        </h1>
+        <div
+            class="hidden sm:flex flex-row items-end mt-4 ml-auto mr-4 space-x-4"
+            *ngIf="!nomeRedator"
+        >
+            <button class="ml-auto" mat-button>
+                <span>Cancelar</span>
+            </button>
+
+            <button
+                [disabled]="redatorForm.invalid"
+                class="mr-0"
+                color="primary"
+                mat-raised-button
+                (click)="informarRedator()"
+            >
+                Confirmar o Redator
+            </button>
+        </div>
+    </div>
+    <header class="flex px-4 pt-4 bg-white dark:bg-transparent">
+        <app-cabecalho-relator
+            [processo]="parametros.processo"
+            [colegiado]="parametros.colegiado"
+            [votos]="votos"
+            [sessao]="descrissaoSessao"
+            [data_fim]="data_fim"
+        ></app-cabecalho-relator>
+    </header>
+    <hr class="m-0 p-0" />
+
+    <div class="flex flex-col overflow-y-auto px-4 bg-white dark:bg-transparent" cdkScrollable>
+        <div
+          class="flex flex-col mx-0 sm:mx-16"
+        >
+            <div class="flex flex-col space-y-0">
+                <app-icones-votos
+                    [ministros]="acompanharamRelator()"
+                    [quantidade]="20"
+                ></app-icones-votos>
+                <span class="mt-8 font-medium">Acompanham Relator {{ relator?.nome }}</span>
+            </div>
+            <div class="flex flex-col space-y-0"
+                *ngFor="let voto of relatorDiverge()">
+                <app-icones-votos
+                    [ministros]="autorEAcompanhante(voto)"
+                    [quantidade]="20"
+                ></app-icones-votos>
+                <span class="mt-8 font-medium">{{ relator?.abreviacao }} Diverge de {{ voto?.autor.nome }}
+                    {{ ministrosString(voto.acompanharam) }} </span>
+            </div>
+        </div>
+        <div
+            class="self-center font-medium py-4"
+            *ngIf="nomeRedator"
+        >
+            Redator: {{ nomeRedator }}
+        </div>
+        <div
+            class="self-center font-medium w-full sm:w-1/2 py-4"
+            *ngIf="!nomeRedator"
+        >
+            <mat-form-field appearance="fill" class="flex-1 w-full h-2 text-lg">
+                <mat-label class="ml-4">Informe quem deverá ser o redator do acórdão</mat-label>
+                <mat-select
+                    class="flex-1 w-full h-10"
+                    [(ngModel)]="redator"
+                    placeholder="Escolha um Redator"
+                    required (selectionChange)="selecionarRedator()"
+                >
+                    <mat-option
+                        *ngFor="let voto of votos"
+                        [value]="voto.autor"
+                    >
+                        {{voto.autor?.nome}}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+        <div
+            class="block sm:hidden flex flex-col items-center w-full mr-8 pb-8 space-y-2"
+            *ngIf="!nomeRedator"
+        >
+            <button
+                [disabled]="redatorForm.invalid"
+                class="w-full"
+                color="primary"
+                mat-raised-button
+                (click)="informarRedator()"
+            >
+                Confirmar o Redator
+            </button>
+            <button class="w-full" mat-button>
+                <span>Cancelar</span>
+            </button>
+        </div>
+    </div>
+</div>
