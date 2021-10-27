@@ -19,6 +19,7 @@ import { MatSidenavModule } from '@angular/material/sidenav';
 import { FuseDrawerModule } from '@fuse/components/drawer/drawer.module';
 import { MatListModule } from '@angular/material/list';
 import { MatRippleModule } from '@angular/material/core';
+import { DragDropModule } from '@angular/cdk/drag-drop';
 
 import { ResultadoJulgamentoComponent } from './resultado-julgamento.component';
 import { ConteudoVotoMinistroComponent } from './conteudo-voto-ministro/conteudo-voto-ministro.component';
@@ -63,6 +64,7 @@ const ResultadoJulgamentoRoutes: Route[] = [
     FuseDrawerModule,
     MatListModule,
     MatRippleModule,
+    DragDropModule,
   ]
 })
 export class ResultadoJulgamentoModule { }

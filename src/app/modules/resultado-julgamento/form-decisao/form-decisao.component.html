@@ -1,14 +1,5 @@
 <form [formGroup]="formDecisao">
-    <div class="w-full grid grid-cols-1 sm:grid-cols-5 gap-4">
-        <mat-form-field class="w-full mb-4" appearance="outline">
-            <mat-label>Ordem <span class="text-red-500">*</span></mat-label>
-            <mat-select>
-                <mat-option *ngFor="let ordem of [1, 2, 3]" [value]="ordem">
-                    {{ordem}}
-                </mat-option>
-            </mat-select>
-            <mat-hint>Informe a ordem</mat-hint>
-        </mat-form-field>
+    <div class="w-full grid grid-cols-1 sm:grid-cols-4 gap-4">
 
         <mat-form-field class="w-full mb-4 col-span-2" appearance="outline">
             <mat-label>Tipo <span class="text-red-500">*</span></mat-label>

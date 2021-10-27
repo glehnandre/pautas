@@ -1,7 +1,10 @@
 import { HttpParams } from '@angular/common/http';
-import { Component, HostListener, OnInit } from '@angular/core';
+import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
+import { ChangeDetectionStrategy, Component, HostListener, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
+import { MatDrawer } from '@angular/material/sidenav';
 import { ActivatedRoute } from '@angular/router';
 import { FuseDrawerService } from '@fuse/components/drawer';
+import { Subject } from 'rxjs';
 import { TipoCapitulo } from '../acervo/model/enums/tipoCapitulo.enum';
 import { Decisao, DecisoesResultadoJulgamento } from '../acervo/model/interfaces/decisao.interface';
 import { Manifestacao } from '../acervo/model/interfaces/manifestacao.interface';
@@ -19,6 +22,8 @@ interface Parametros {
   selector: 'app-resultado-julgamento',
   templateUrl: './resultado-julgamento.component.html',
   styleUrls: ['./resultado-julgamento.component.scss'],
+  encapsulation  : ViewEncapsulation.None,
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ResultadoJulgamentoComponent implements OnInit {
 
@@ -33,6 +38,8 @@ export class ResultadoJulgamentoComponent implements OnInit {
   decisoes: Array<{decisao: Decisao, processos_mesma_decisao: number[]}> = [];
   decisoesSalvasViaPost: Decisao[] = [];
   decisaoSelecionada: {decisao: Decisao, processos_mesma_decisao: number[]};
+
+  @ViewChild('matDrawer', {static: true}) matDrawer: MatDrawer;
 
   readonly FORM_CADASTRO_DECISAO = 'formulario-de-cadastro-de-decisao';
 
@@ -131,6 +138,25 @@ export class ResultadoJulgamentoComponent implements OnInit {
       .findIndex(dec => Object.values(dec).toString() === Object.values(this.decisaoSelecionada.decisao).toString());
 
     return (index !== -1);
+  }
+
+  public createTask(task: string): void {}
+
+  public onBackdropClicked(): void {}
+
+  public abrirTask(task: string): void {}
+
+  public dropped(event: CdkDragDrop<any[]>): void {
+    console.log(event.container.data);
+    moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
+  }
+
+  public trackByFn(index: number, item: any): any {
+    return item.id || index;
+  }
+
+  public comparaObj(obj1: any, obj2: any): boolean {
+    return JSON.stringify(obj1) === JSON.stringify(obj2);
   }
 
 }
