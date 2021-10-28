@@ -11,12 +11,12 @@ export class PublicacaoService {
 
   constructor(private _httpClient: HttpClient,) { }
 
-  listarPublicacoes(): Observable<Publicacao> {
-    return this._httpClient.get<Publicacao>('publicacoes').pipe(
+  listarPublicacoes(): Observable<Publicacao[]> {
+    return this._httpClient.get<Publicacao[]>('publicacoes').pipe(
       catchError(error => {
         console.log(error);
         return EMPTY;
       })
     );
-}
+  }
 }

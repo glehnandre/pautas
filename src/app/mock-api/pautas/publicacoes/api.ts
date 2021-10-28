@@ -7,7 +7,7 @@ import { publicacao as publicacaoData } from './data';
     providedIn: 'root'
 })
 export class PublicacaoMockApi {
-    private _publicacao: Publicacao = publicacaoData;
+    private _publicacao: Publicacao[] = publicacaoData;
 
     constructor(private _fuseMockApiService: FuseMockApiService) {
         this._publicacao = publicacaoData;
@@ -18,7 +18,7 @@ export class PublicacaoMockApi {
       this._fuseMockApiService
         .onGet('publicacoes')
         .reply(() => {
-          return [201, [this._publicacao]];
+          return [201, this._publicacao];
         });
     }
 }
