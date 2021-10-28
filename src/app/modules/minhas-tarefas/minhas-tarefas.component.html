@@ -34,27 +34,16 @@
 
                     <h1>Listagem de tarefas</h1>
 
-                    <button (click)="mostrarPagina()">
-                        Sou uma tarefa
-                    </button>
-
-                    <button (click)="mostrarOutraPagina()">
-                        Sou uma outra tarefa
-                    </button>
-
+                    <nav>
+                        <ul>
+                            <li><a (click)="mostrarPagina()" routerLink="colegiado" [queryParams]="{processo: 'ADI100-Ag-Ag-Ag', data: '2016-08-29T09%253A12%253A33.001Z', colegiado: 'pleno', sessao: '1000-2021'}">Sou uma tarefa</a></li>
+                        </ul>
+                    </nav>
                 </div>
               </div>
 
-              <div class="flex-auto hidden lg:flex" *ngIf="urlSelecionada">
-                <!-- <router-outlet></router-outlet>
-                <div>
-                  <div class="flex flex-col flex-auto overflow-y-auto lg:overflow-hidden bg-card dark:bg-default">
-                    <div class="flex flex-col flex-auto items-center justify-center bg-gray-100 dark:bg-transparent">
-                      <div class="mt-4 text-2xl font-semibold tracking-tight text-secondary">Tarefa selecionada</div>
-                    </div>
-                  </div>
-                </div> -->
-                <iframe [src]="url" title="iframe_tarefas" width="100%"></iframe>
+              <div class="flex-auto hidden lg:flex">
+                <router-outlet></router-outlet>
               </div>
             </div>
           </div>

@@ -8,11 +8,18 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatChipsModule } from '@angular/material/chips';
 import { FuseNavigationModule } from '@fuse/components/navigation';
 import { MinhasTarefasComponent } from './minhas-tarefas.component';
+import { CriacaoColegiadoComponent } from '../criacao-colegiado/criacao-colegiado.component';
 
 const minhasTarefasRoutes: Route[] = [
     {
         path     : '',
         component: MinhasTarefasComponent,
+        children: [
+            {
+                path: 'colegiado',
+                component: CriacaoColegiadoComponent,
+            }
+        ],
     }
 ];
 
