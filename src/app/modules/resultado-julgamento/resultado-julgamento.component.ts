@@ -140,22 +140,12 @@ export class ResultadoJulgamentoComponent implements OnInit {
     return (index !== -1);
   }
 
-  public createTask(task: string): void {}
-
-  public onBackdropClicked(): void {}
-
-  public abrirTask(task: string): void {}
-
   public dropped(event: CdkDragDrop<any[]>): void {
     console.log(event.container.data);
     moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
   }
 
-  public trackByFn(index: number, item: any): any {
-    return item.id || index;
-  }
-
-  public comparaObj(obj1: any, obj2: any): boolean {
+  public marcaDecisaoSelecionada(obj1: Decisao, obj2: Decisao): boolean {
     return JSON.stringify(obj1) === JSON.stringify(obj2);
   }
 
