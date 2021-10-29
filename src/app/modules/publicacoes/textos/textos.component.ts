@@ -1,11 +1,11 @@
 import { DatePipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { Envolvido } from 'app/modules/acervo/model/interfaces/envolvido.interface';
-import { Ministro } from 'app/modules/acervo/model/interfaces/ministro.interface';
 import { Publicacao } from 'app/modules/acervo/model/interfaces/publicacao.interface';
-import { MinistroService } from 'app/modules/services/ministro.service';
 import { PublicacaoService } from 'app/modules/services/publicacao.service';
-import moment from 'moment';
+import { registerLocaleData } from '@angular/common';
+import localePT from '@angular/common/locales/pt';
+registerLocaleData(localePT);
 
 @Component({
   selector: 'app-textos',
@@ -15,21 +15,15 @@ import moment from 'moment';
 export class TextosComponent implements OnInit {
 
   publicacoes: Publicacao[] = [];
-  ministros: Ministro[] = [];
 
   constructor(
     private _publicacaoService: PublicacaoService,
-    private _ministroService: MinistroService,
   ) { }
 
   ngOnInit(): void {
     this._publicacaoService.listarPublicacoes().subscribe(publicacao=>{
       this.publicacoes = publicacao;
-      this.getData(publicacao[0].divulgacao);
     })
-    this._ministroService.listarMinistros().subscribe(ministros=> {
-      this.ministros = ministros;
-    });
   }
 
   /**
@@ -63,27 +57,15 @@ export class TextosComponent implements OnInit {
   /**
    *
    * @param data data da publicação
+   * @param firstDate indica se sera a data em destaque no card (primeira data que aparece) ou não
    */
-  getData(data: string): string{
-    const now = moment(new Date());
-    const past = moment(data);
-    const duration = moment.duration(now.diff(past));
-    if(duration.asMonths()>12) return `Há ${duration.asYears().toFixed(1)} anos`;
-    if(duration.asDays()>31) return `Há ${duration.asMonths().toFixed()} meses`;
-    if(duration.asHours()>24) return `Há ${duration.asDays().toFixed()} dias`;
-    if(duration.asMinutes()>59) return `Há ${duration.asHours().toFixed()} horas`;
-    return `Há ${duration.asMinutes().toFixed()} minutos`;
+  getData(isoDate: string, firstDate?: boolean): string{
+    const meses = ["Jan", "Fev", "Mar", "Abr", "Mai", "Jun", "Jul","Ago","Set","Out","Nov","Dez"];
+    const datepipe: DatePipe = new DatePipe('pt-BR')
+    let newDate = new Date(isoDate);
+    let data: string;
+    (firstDate) ? data = newDate.getDate()+'/'+meses[newDate.getMonth()]+'/'+newDate.getFullYear().toString().slice(2,4) 
+                   : data = datepipe.transform(isoDate, "dd/MM/YYYY hh:mm");
+    return data;
   }
-
-  /**
-   *
-   * @param relator relator da publicação. Ex: "Ministro Luiz Fux"
-   */
-  getImagemMinistro(relator: string){
-    const nome: string = relator.split(" ")[1]+" "+relator.split(" ")[2];
-    let ministro = this.ministros.find(ministro=>ministro.nome==nome);
-    if(ministro) return ministro?.imagem;
-    return "assets/images/avatars/simbolo-justica.jpg";
-  }
-
 }
