@@ -31,7 +31,6 @@
     </header>
 
     <!-- Body -->
-
     <mat-drawer-container class="flex flex-col flex-auto mt-2 rounded-t-2xl shadow bg-card">
 
         <!-- Drawer -->
@@ -63,11 +62,9 @@
                     </div>
 
                     <div class="absolute inset-0 flex flex-col min-w-0 overflow-hidden">
-
                         <mat-drawer-container
                             class="flex-auto h-full bg-card dark:bg-transparent"
                         >
-                    
                             <!-- Drawer -->
                             <mat-drawer
                                 class="w-full sm:w-128 dark:bg-gray-900"
@@ -79,157 +76,122 @@
                                 
                             </mat-drawer>
 
-                    <mat-drawer-content class="flex flex-col">
+                            <mat-drawer-content class="flex flex-col">
 
-                        <!-- Main -->
-                        <div class="flex flex-col flex-auto">
-            
-                            <!-- Header -->
-                            <div class="flex flex-col sm:flex-row items-start sm:items-center sm:justify-between py-8 px-6 md:px-8">
-                                <!-- Title -->
-                                <div class="flex justify-center items-center">
-                                    <span class="text-base sm:text-2xl font-medium leading-none">
-                                        Decisões
-                                    </span>
-                                </div>
-                                <!-- Actions -->
-                                <div class="mt-4 sm:mt-0 flex justify-between items-center">
-                                    <button mat-raised-button color="primary" (click)="limparDecisaoSelecionada()">
-                                        <mat-icon class="mr-1" svgIcon="heroicons_outline:plus-circle"></mat-icon>
-                                        Nova decisão
-                                    </button>
-        
-                                    <button class="ml-4" *ngIf="!verificaLarguraDaTela()" mat-mini-fab color="primary" (click)="matDrawer.toggle()">
-                                        <mat-icon svgIcon="heroicons_outline:arrow-left"></mat-icon>
-                                    </button>
-                                </div>
-                            </div>
-            
-                            <!-- decisoes list -->
-                            <ng-container *ngIf="decisoes && decisoes.length > 0; else semDecisoes">
-                                <div
-                                    class="divide-y focus-within:shadow-lg"
-                                    cdkDropList
-                                    [cdkDropListData]="decisoes"
-                                    (cdkDropListDropped)="dropped($event)"
-                                >
-            
-                                    <!-- Task -->
-                                    <ng-container *ngFor="let item of decisoes; index as i; let first = first; trackBy: trackByFn">
+                                <!-- Main -->
+                                <div class="flex flex-col flex-auto">
+                    
+                                    <!-- Header -->
+                                    <div class="flex flex-col sm:flex-row items-start sm:items-center sm:justify-between py-8 px-6 md:px-8">
+                                        <!-- Title -->
+                                        <div class="flex justify-center items-center">
+                                            <span class="text-base sm:text-2xl font-medium leading-none">
+                                                Decisões
+                                            </span>
+                                        </div>
+                                        <!-- Actions -->
+                                        <div class="mt-4 sm:mt-0 flex justify-between items-center">
+                                            <button mat-raised-button color="primary" (click)="limparDecisaoSelecionada()">
+                                                <mat-icon class="mr-1" svgIcon="heroicons_outline:plus-circle"></mat-icon>
+                                                Nova decisão
+                                            </button>
+                
+                                            <button class="ml-4" *ngIf="!verificaLarguraDaTela()" mat-mini-fab color="primary" (click)="matDrawer.toggle()">
+                                                <mat-icon svgIcon="heroicons_outline:arrow-left"></mat-icon>
+                                            </button>
+                                        </div>
+                                    </div>
+                    
+                                    <!-- decisoes list -->
+                                    <ng-container *ngIf="decisoes && decisoes.length > 0; else semDecisoes">
                                         <div
-                                            class="group w-full select-none hover:bg-gray-100 dark:hover:bg-hover"
-                                            [class.border-t]="first"
-                                            cdkDrag
-                                            [cdkDragLockAxis]="'y'">
-            
-                                            <!-- Drag preview -->
-                                            <div
-                                                class="flex flex-0 w-0 h-0"
-                                                *cdkDragPreview
-                                            ></div>
-            
-                                            <!-- Task content -->
-                                            <div class="relative flex items-center h-full pl-10">
-            
-                                                <!-- Selected indicator -->
-                                                <ng-container 
-                                                    *ngIf="marcaDecisaoSelecionada(decisaoSelecionada, item)"
-                                                >
-                                                    <div class="z-10 absolute -top-px right-0 -bottom-px flex flex-0 w-1 bg-primary"></div>
-                                                </ng-container>
-            
-                                                <!-- Drag handle -->
+                                            class="divide-y focus-within:shadow-lg"
+                                            cdkDropList
+                                            [cdkDropListData]="decisoes"
+                                            (cdkDropListDropped)="dropped($event)"
+                                        >
+                    
+                                            <!-- Task -->
+                                            <ng-container *ngFor="let item of decisoes; index as i; let first = first; trackBy: trackByFn">
                                                 <div
-                                                    class="md:hidden absolute flex items-center justify-center inset-y-0 left-0 w-8 cursor-move md:group-hover:flex"
-                                                    cdkDragHandle
+                                                    class="group w-full select-none hover:bg-gray-100 dark:hover:bg-hover"
+                                                    [class.border-t]="first"
+                                                    cdkDrag
+                                                    [cdkDragLockAxis]="'y'"
                                                 >
-                                                    <mat-icon
-                                                        class="icon-size-5 text-hint"
-                                                        [svgIcon]="'heroicons_solid:menu'"
-                                                    ></mat-icon>
-                                                </div>
-            
-                                                <!-- Task link -->
-                                                <a
-                                                    class="flex flex-auto py-2 items-center min-w-0 h-full pr-7"
-                                                    (click)="alterarDadosDoFormulario(item)"
-                                                >
-                                                    <!-- Title & Placeholder -->
-                                                    <div class="flex-auto mr-2 truncate">
-                                                        <ng-container class="flex items-center justify-center">
-                                                            <p class="my-auto">
-                                                                {{(i+1)}}º decisão: <strong>{{item.decisao.tipo}}</strong>
-                                                            </p>
+                    
+                                                    <!-- Drag preview -->
+                                                    <div
+                                                        class="flex flex-0 w-0 h-0"
+                                                        *cdkDragPreview
+                                                    ></div>
+                    
+                                                    <!-- Task content -->
+                                                    <div class="relative flex items-center h-full pl-10">
+                    
+                                                        <!-- Selected indicator -->
+                                                        <ng-container 
+                                                            *ngIf="marcaDecisaoSelecionada(decisaoSelecionada, item)"
+                                                        >
+                                                            <div class="z-10 absolute -top-px right-0 -bottom-px flex flex-0 w-1 bg-primary"></div>
                                                         </ng-container>
+                    
+                                                        <!-- Drag handle -->
+                                                        <div
+                                                            class="md:hidden absolute flex items-center justify-center inset-y-0 left-0 w-8 cursor-move md:group-hover:flex"
+                                                            cdkDragHandle
+                                                        >
+                                                            <mat-icon
+                                                                class="icon-size-5 text-hint"
+                                                                [svgIcon]="'heroicons_solid:menu'"
+                                                            ></mat-icon>
+                                                        </div>
+                    
+                                                        <!-- Task link -->
+                                                        <a
+                                                            class="flex flex-auto py-2 items-center min-w-0 h-full pr-7"
+                                                            (click)="alterarDadosDoFormulario(item)"
+                                                        >
+                                                            <!-- Title & Placeholder -->
+                                                            <div class="flex-auto mr-2 truncate">
+                                                                <ng-container class="flex items-center justify-center">
+                                                                    <p class="my-auto">
+                                                                        {{(i+1)}}º decisão: <strong>{{item.decisao.tipo}}</strong>
+                                                                    </p>
+                                                                </ng-container>
+                                                            </div>
+                                                        </a>
                                                     </div>
-                                                </a>
+                                                </div>
+                                            </ng-container>
+                                        </div>
+                    
+                                    </ng-container>
+                    
+                                    <ng-template #semDecisoes>
+                                        <div class="flex flex-auto flex-col items-center justify-center bg-gray-100 dark:bg-transparent">
+                                            <div class="mt-4 text-2xl font-semibold tracking-tight text-secondary">
+                                                Sem dicisões
                                             </div>
                                         </div>
-                                    </ng-container>
+                                    </ng-template>
+                    
                                 </div>
-            
-                            </ng-container>
-            
-                            <ng-template #semDecisoes>
-                                <div class="flex flex-auto flex-col items-center justify-center bg-gray-100 dark:bg-transparent">
-                                    <div class="mt-4 text-2xl font-semibold tracking-tight text-secondary">
-                                        Sem dicisões
-                                    </div>
-                                </div>
-                            </ng-template>
-            
-                        </div>
-            
-                    </mat-drawer-content>
-                </mat-drawer-container>
-
-            </div>
-
-
-                    <!--<mat-selection-list [multiple]="false">
-                        <mat-list-option 
-                            matRipple
-                            *ngFor="let item of decisoes; index as i"
-                            [value]="item"
-                            (click)="alterarDadosDoFormulario(item)"
-                            class="rounded-full"
-                        >
-                            <div class="flex justify-center items-center">
-                                <span 
-                                    [matBadge]="(i + 1)" 
-                                    class="mx-4"
-                                ></span>
-
-                                <strong 
-                                    class="align-middle" 
-                                    [title]="item.decisao.tipo"
-                                >
-                                    {{item.decisao.tipo.toString()}}
-                                </strong>
-
-                                <div 
-                                    class="ml-auto py-0.5 px-3 max-h-6 rounded-full text-sm font-semibold 
-                                        text-white bg-green-700 dark:text-green-50 dark:bg-green-500 
-                                        ng-star-inserted"
-                                    [title]="item.decisao.dispositivo"
-                                >
-                                    {{item.decisao.dispositivo}}
-                                </div>
-                            </div>
-                        </mat-list-option>
-                    </mat-selection-list>-->
+                    
+                            </mat-drawer-content>
+                        </mat-drawer-container>
+                    </div>
                 </div>
             </div>
         </mat-drawer>
 
         <!-- Drawer content -->
         <mat-drawer-content class="flex flex-col overflow-hidden">
-
             <!-- Main -->
             <div
                 class="flex-auto p-2 sm:p-2 overflow-y-auto"
-                cdkScrollable>
-
+                cdkScrollable
+            >
                 <!-- CONTENT GOES HERE -->
                 <div class="h-400 min-h-400 max-h-400  border-gray-300 rounded-2xl">
                     <button
@@ -265,11 +227,7 @@
                         </div>
                     </div>
                 </div>
-
             </div>
-
         </mat-drawer-content>
-
     </mat-drawer-container>
-
 </div>

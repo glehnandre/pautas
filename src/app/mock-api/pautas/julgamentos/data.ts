@@ -3,6 +3,7 @@ import { TipoCapitulo } from "app/modules/acervo/model/enums/tipoCapitulo.enum";
 import { TipoDoProcesso } from "app/modules/acervo/model/enums/tipoDoProcesso.enum";
 import { Processo } from "app/modules/acervo/model/interfaces/processo.interface";
 import { SessaoJulgamento } from "app/modules/acervo/model/interfaces/sessao-julgamento.interface";
+import { ministro } from "../ministro/data";
 
 export const julgamentos: SessaoJulgamento[] = [
   {
@@ -233,11 +234,26 @@ export const processos: Processo[] = [
     },
     capitulos: [
       {
-        id: 123455,
-        descricao: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Repellendus omnis eum ratione, impedit, consequuntur laborum amet tempore iure accusamus in nulla voluptates odit. Eum fugit eius, assumenda distinctio quidem quia?",
-        ordem: 1,
-        tipo: TipoCapitulo.Merito,
-        dispositivo: "Deferido",
+        id: 1,
+        descricao: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc tempus neque nec ante porta tincidunt eu quis felis. Sed magna libero, sodales ut enim quis, varius faucibus lectus. Sed porttitor pharetra orci, quis fermentum risus rutrum id. Vivamus ornare purus a lorem accumsan cursus. Pellentesque ligula metus, dictum pretium dignissim non, fringilla ac lacus. Sed non dui nibh.',
+        tipo:   TipoCapitulo.Merito,
+        dispositivo: 'Deferida em parte',
+        ministro_condutor: ministro[6],
+        ministros_acordam: [
+          ministro[0],
+          ministro[1],
+          ministro[2],
+          ministro[3],
+          ministro[4],
+          ministro[5],
+        ],
+        ministros_impedidos: [
+          ministro[7],
+        ],
+        ministros_suspeitos: [
+          ministro[8],
+        ],
+        texto: 'Texto do capítulo',
       },
     ]
   },
@@ -280,12 +296,27 @@ export const processos: Processo[] = [
     },
     capitulos: [
       {
-        id: 123455,
-        descricao: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Repellendus omnis eum ratione, impedit, consequuntur laborum amet tempore iure accusamus in nulla voluptates odit. Eum fugit eius, assumenda distinctio quidem quia?",
-        ordem: 1,
-        tipo: TipoCapitulo.Merito,
-        dispositivo: "Deferido"
-      }
+        id: 1,
+        descricao: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc tempus neque nec ante porta tincidunt eu quis felis. Sed magna libero, sodales ut enim quis, varius faucibus lectus. Sed porttitor pharetra orci, quis fermentum risus rutrum id. Vivamus ornare purus a lorem accumsan cursus. Pellentesque ligula metus, dictum pretium dignissim non, fringilla ac lacus. Sed non dui nibh.',
+        tipo:   TipoCapitulo.Merito,
+        dispositivo: 'Deferida em parte',
+        ministro_condutor: ministro[6],
+        ministros_acordam: [
+          ministro[0],
+          ministro[1],
+          ministro[2],
+          ministro[3],
+          ministro[4],
+          ministro[5],
+        ],
+        ministros_impedidos: [
+          ministro[7],
+        ],
+        ministros_suspeitos: [
+          ministro[8],
+        ],
+        texto: 'Texto do capítulo',
+      },
     ]
   },
 ]

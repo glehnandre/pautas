@@ -141,7 +141,6 @@ export class ResultadoJulgamentoComponent implements OnInit {
   }
 
   public dropped(event: CdkDragDrop<any[]>): void {
-    console.log(event.container.data);
     moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
   }
 

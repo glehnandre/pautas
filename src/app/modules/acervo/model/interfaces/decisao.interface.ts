@@ -1,3 +1,4 @@
+import { Capitulo } from "./capitulo.interface";
 import { Ministro } from "./ministro.interface";
 import { Processo } from "./processo.interface";
 import { SessaoJulgamento } from "./sessao-julgamento.interface";
@@ -13,7 +14,7 @@ export interface Decisao {
 
 export interface DecisoesResultadoJulgamento {
     decisoes: Array<{
-        capitulo: Decisao;
+        capitulo: Capitulo;
         processos_mesma_decisao: Processo[];
     }>;
     sessao: SessaoJulgamento;
