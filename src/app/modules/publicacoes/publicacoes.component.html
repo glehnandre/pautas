@@ -19,12 +19,18 @@
             <div class="absolute inset-0 flex items-center justify-center">
 
                 <div class="mx-4">
-                    <form class="flex">
-                        <input
-                            class="rounded-l-full w-full md:w-180 p-4 h-10 border-t mr-0 border-b border-l text-gray-800 border-gray-200 bg-white"
-                            placeholder="Informe um termo para pesquisa no DJe" />
+                    <form class="flex w-full md:w-180 h-12 border-t pl-4 mr-0 border-b border-l text-gray-800 border-gray-200 bg-white">
+                        <div class="flex flex-1 flex-col justify-center mr-4">
+                            <span class="text-primary font-medium">O que você procura no DJe?</span>
+                            <input
+                            class=" truncate"
+                            placeholder="Nomes de pessoas, números ou assuntos" />
+                        </div>
                         <button
-                            class="px-8 rounded-r-full bg-primary text-white text-sm md:text-base font-light  uppercase tracking-wider">Pesquisar</button>
+                            class="flex px-2 my-1 mr-2 bg-primary rounded-xl text-white text-sm md:text-base ml-auto uppercase tracking-wider items-center">
+                            <mat-icon class="icon-size-5" style="color: white;">search</mat-icon>
+                            <span class="ml-2 hidden md:block">Pesquisar no diário</span> 
+                        </button>
                     </form>
                 </div>
             </div>
