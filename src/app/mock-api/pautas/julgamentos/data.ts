@@ -3,6 +3,7 @@ import { TipoCapitulo } from "app/modules/acervo/model/enums/tipoCapitulo.enum";
 import { TipoDoProcesso } from "app/modules/acervo/model/enums/tipoDoProcesso.enum";
 import { Processo } from "app/modules/acervo/model/interfaces/processo.interface";
 import { SessaoJulgamento } from "app/modules/acervo/model/interfaces/sessao-julgamento.interface";
+import { capitulo } from "../capitulo/data";
 import { ministro } from '../ministro/data';
 
 export const julgamentos: SessaoJulgamento[] = [
@@ -217,13 +218,7 @@ export const processos: Processo[] = [
     relator: ministro[10],
     redator: ministro[10],
     capitulos: [
-      {
-        id: 123455,
-        descricao: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Repellendus omnis eum ratione, impedit, consequuntur laborum amet tempore iure accusamus in nulla voluptates odit. Eum fugit eius, assumenda distinctio quidem quia?',
-        ordem: 1,
-        tipo: TipoCapitulo.Merito,
-        dispositivo: 'Deferido',
-      },
+      capitulo[1],
     ]
   },
 
@@ -248,13 +243,7 @@ export const processos: Processo[] = [
     relator: ministro[10],
     redator: ministro[10],
     capitulos: [
-      {
-        id: 123455,
-        descricao: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Repellendus omnis eum ratione, impedit, consequuntur laborum amet tempore iure accusamus in nulla voluptates odit. Eum fugit eius, assumenda distinctio quidem quia?',
-        ordem: 1,
-        tipo: TipoCapitulo.Merito,
-        dispositivo: 'Deferido'
-      }
+      capitulo[1],
     ]
   },
 
@@ -279,13 +268,7 @@ export const processos: Processo[] = [
     relator: ministro[10],
     redator: ministro[10],
     capitulos: [
-      {
-        id: 123455,
-        descricao: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Repellendus omnis eum ratione, impedit, consequuntur laborum amet tempore iure accusamus in nulla voluptates odit. Eum fugit eius, assumenda distinctio quidem quia?',
-        ordem: 1,
-        tipo: TipoCapitulo.Merito,
-        dispositivo: "Deferido"
-      }
+      capitulo[1],
     ]
   },
 ]
