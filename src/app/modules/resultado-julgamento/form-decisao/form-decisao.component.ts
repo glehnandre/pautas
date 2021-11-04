@@ -1,9 +1,12 @@
 import { Component, EventEmitter, Input, OnChanges, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { MatSelectChange } from '@angular/material/select';
 import { Decisao } from 'app/modules/acervo/model/interfaces/decisao.interface';
+import { Dispositivo } from 'app/modules/acervo/model/interfaces/dispositivo.interface';
 import { Manifestacao } from 'app/modules/acervo/model/interfaces/manifestacao.interface';
 import { Ministro } from 'app/modules/acervo/model/interfaces/ministro.interface';
 import { Processo } from 'app/modules/acervo/model/interfaces/processo.interface';
+import { DispositivoService } from 'app/modules/services/dispositivo.service';
 import { MinistroService } from 'app/modules/services/ministro.service';
 import { ResultadoJulgamentoService } from 'app/modules/services/resultado-julgamento.service';
 import { Observable } from 'rxjs';
@@ -27,6 +30,7 @@ export class FormDecisaoComponent implements OnInit, OnChanges {
   isDecisaoSalva: boolean = false;
   selecionarTodos: boolean;
   aplicarMesmasDecisoesAosProcessos: number[] = [];
+  dispositivos$: Observable<Dispositivo[]>;
 
   @Input() decisao: Decisao = {
     descricao: '',
@@ -38,7 +42,6 @@ export class FormDecisaoComponent implements OnInit, OnChanges {
   };
   @Input() processo: number = 0;
   @Input() desabilitarForm: boolean;
-  @Input() dispositivos: Manifestacao[] = [];
   @Input() processosMesmaDecisoes: Processo[] = [];
   @Input() idsProcessosSelecionados: number[] = [];
 
@@ -49,6 +52,7 @@ export class FormDecisaoComponent implements OnInit, OnChanges {
     private _fb: FormBuilder,
     private _resultadoJulgamento: ResultadoJulgamentoService,
     private _ministroService: MinistroService,
+    private _dispositivoService: DispositivoService,
   ) {}
 
   ngOnInit(): void {
@@ -118,4 +122,8 @@ export class FormDecisaoComponent implements OnInit, OnChanges {
     this.aplicarMesmasDecisoesAosProcessos = idsProcesso;
   }
 
+  public buscarDispositivos(event: EventEmitter<MatSelectChange>): void {
+    const tipo: string = event['value'];
+    this.dispositivos$ = this._dispositivoService.obterDispositivos(this.processo, tipo);
+  }
 }

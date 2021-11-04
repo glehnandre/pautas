@@ -3,8 +3,14 @@
 
         <mat-form-field class="w-full mb-4 col-span-2" appearance="outline">
             <mat-label>Tipo <span class="text-red-500">*</span></mat-label>
-            <mat-select formControlName="tipo">
-                <mat-option *ngFor="let tipo of tipos" [value]="tipo">
+            <mat-select 
+                formControlName="tipo" 
+                (selectionChange)="buscarDispositivos($event)"
+            >
+                <mat-option 
+                    *ngFor="let tipo of tipos" 
+                    [value]="tipo"
+                >
                     {{tipo}}
                 </mat-option>
             </mat-select>
@@ -14,7 +20,10 @@
         <mat-form-field class="w-full mb-4 col-span-2" appearance="outline">
             <mat-label>Dispositivo <span class="text-red-500">*</span></mat-label>
             <mat-select formControlName="dispositivo">
-                <mat-option *ngFor="let dispositivo of dispositivos" [value]="dispositivo.descricao">
+                <mat-option 
+                    *ngFor="let dispositivo of (dispositivos$ | async)" 
+                    [value]="dispositivo.descricao"
+                >
                     {{dispositivo.descricao}}
                 </mat-option>
             </mat-select>

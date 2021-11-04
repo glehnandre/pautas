@@ -99,15 +99,6 @@ export class ProcessoService {
     );
   }
 
-  public obterDispositivosDoProcesso(id: number, tipo: TipoCapitulo): Observable<Manifestacao[]> {
-    return this._httpClient.get<Manifestacao[]>(`dispositivos/processo/${id}/tipo/${tipo}`).pipe(
-      catchError(error => {
-        console.log(error);
-        return EMPTY;
-      })
-    );
-  }
-
   public setCarregarProcessos(carregarProcessos: boolean): void {
     this.isCarregarProcessos.next(carregarProcessos);
   }

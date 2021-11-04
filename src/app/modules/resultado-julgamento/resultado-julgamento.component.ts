@@ -4,8 +4,6 @@ import { ChangeDetectionStrategy, Component, HostListener, OnInit, ViewChild, Vi
 import { MatDrawer } from '@angular/material/sidenav';
 import { ActivatedRoute } from '@angular/router';
 import { FuseDrawerService } from '@fuse/components/drawer';
-import { Subject } from 'rxjs';
-import { TipoCapitulo } from '../acervo/model/enums/tipoCapitulo.enum';
 import { Decisao, DecisoesResultadoJulgamento } from '../acervo/model/interfaces/decisao.interface';
 import { Manifestacao } from '../acervo/model/interfaces/manifestacao.interface';
 import { Processo } from '../acervo/model/interfaces/processo.interface';
@@ -48,9 +46,7 @@ export class ResultadoJulgamentoComponent implements OnInit {
     private _processoService: ProcessoService,
     private _route: ActivatedRoute,
     private _fuseDrawerService: FuseDrawerService,
-  ) { 
-    
-  }
+  ) {}
 
   ngOnInit(): void {
     this.parametros = this._route.snapshot.queryParams as Parametros;
@@ -58,7 +54,6 @@ export class ResultadoJulgamentoComponent implements OnInit {
     this._resultadoJulgamento.listarDecisoes(this.parametros.processo).subscribe({
       next: (data) => {
         this.dados = data;
-        console.log(this.dados)
         this.processosMesmaDecisoes = [];
         this.dados.decisoes.forEach(({processos_mesma_decisao}) => this.processosMesmaDecisoes.push(...processos_mesma_decisao));
       }
@@ -72,12 +67,6 @@ export class ResultadoJulgamentoComponent implements OnInit {
         this._processoService.obterVotosDoProcesso(`${classe}${numero}-${abreviacao}`).subscribe({
           next: (votos) => {
             this.votos = votos;
-          }
-        });
-
-        this._processoService.obterDispositivosDoProcesso(id, TipoCapitulo.Merito).subscribe({
-          next: (dispositivos) => {
-            this.dispositivos = dispositivos;
           }
         });
       }
@@ -146,6 +135,10 @@ export class ResultadoJulgamentoComponent implements OnInit {
 
   public marcaDecisaoSelecionada(obj1: Decisao, obj2: Decisao): boolean {
     return JSON.stringify(obj1) === JSON.stringify(obj2);
+  }
+
+  public finalizar(): void {
+    alert('finalização da tarefa');
   }
 
 }

@@ -14,6 +14,7 @@
                 class="mr-8"
                 color="primary" 
                 mat-raised-button 
+                (click)="finalizar()"
             >
                 Finalizar 
             </button>
@@ -208,6 +209,7 @@
                             <app-form-decisao
                                 *ngIf="!decisaoSelecionada; else casoAlgumFormDecisaoSejaSelecionado"
                                 [dispositivos]="dispositivos"
+                                [processo]="parametros.processo"
                                 [processosMesmaDecisoes]="processosMesmaDecisoes"
                                 (decisaoCadastrada)="obterDadosDaDecisao($event); limparDecisaoSelecionada()"
                             ></app-form-decisao>
