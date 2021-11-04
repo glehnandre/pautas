@@ -2,6 +2,9 @@ import { Component, OnInit, OnDestroy, ViewEncapsulation } from '@angular/core';
 import { takeUntil } from 'rxjs/operators';
 import { Subject } from 'rxjs';
 import { FuseMediaWatcherService } from '@fuse/services/media-watcher';
+import { PublicacaoService } from '../services/publicacao.service';
+import { PublicacaoDto } from '../acervo/model/interfaces/publicacaoDto.interface';
+import { InformacoesDto } from '../acervo/model/interfaces/informacoesDto.interface';
 
 
 @Component({
@@ -16,8 +19,12 @@ export class PublicacoesComponent implements OnInit, OnDestroy {
   drawerOpened: boolean = true;
   private _unsubscribeAll: Subject<any> = new Subject<any>();
 
+  publicacoes: PublicacaoDto[] = [];
+  agregacoes: InformacoesDto[] = [];
+
   constructor(
     private _fuseMediaWatcherService: FuseMediaWatcherService,
+    private _publicacaoService: PublicacaoService,
   ) { }
 
   /**
@@ -39,6 +46,11 @@ export class PublicacoesComponent implements OnInit, OnDestroy {
           this.drawerOpened = false;
         }
       });
+
+      this._publicacaoService.recuperarDje().subscribe(dje=>{
+        this.publicacoes = dje.publicacoes;
+        this.agregacoes = dje.agregacoes;
+      })
   }
 
   /**

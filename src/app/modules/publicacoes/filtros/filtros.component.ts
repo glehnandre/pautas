@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
+import { InformacoesDto } from 'app/modules/acervo/model/interfaces/informacoesDto.interface';
 
 
 @Component({
@@ -8,9 +9,12 @@ import { Component, OnInit } from '@angular/core';
 })
 export class FiltrosComponent implements OnInit {
 
+  @Input() agregacoes: InformacoesDto[] = [];
+
   constructor() { }
 
   ngOnInit(): void {
+    //this.agregacoes[0].
   }
 
   filtrar(){

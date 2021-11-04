@@ -1,7 +1,7 @@
 import { DatePipe } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { Envolvido } from 'app/modules/acervo/model/interfaces/envolvido.interface';
-import { Publicacao } from 'app/modules/acervo/model/interfaces/publicacao.interface';
+import { PublicacaoDto } from 'app/modules/acervo/model/interfaces/publicacaoDto.interface';
 import { PublicacaoService } from 'app/modules/services/publicacao.service';
 import { registerLocaleData } from '@angular/common';
 import localePT from '@angular/common/locales/pt';
@@ -14,16 +14,12 @@ registerLocaleData(localePT);
 })
 export class TextosComponent implements OnInit {
 
-  publicacoes: Publicacao[] = [];
+  @Input() publicacoes: PublicacaoDto[] = [];
 
   constructor(
-    private _publicacaoService: PublicacaoService,
   ) { }
 
   ngOnInit(): void {
-    this._publicacaoService.listarPublicacoes().subscribe(publicacao=>{
-      this.publicacoes = publicacao;
-    })
   }
 
   /**

@@ -15,127 +15,23 @@
     <!-- Filtros -->
     <mat-accordion class="mx-4" multi aria-label="Lista de Filtros possíveis de serem aplicados às publicações">
 
-        <mat-expansion-panel expanded class="mb-2">
+        <mat-expansion-panel *ngFor="let agregacao of agregacoes" class="mb-2">
             <mat-expansion-panel-header>
                 <mat-panel-title class="font-semibold text-primary-500 line-clamp-3">
-                    Período
+                    {{agregacao.nome}}
                 </mat-panel-title>
             </mat-expansion-panel-header>
 
             <section class="">
-                <mat-form-field appearance="fill" class="example-form-field">
-                    <mat-label>Data Inicial</mat-label>
-                    <input matInput [matDatepicker]="datepicker">
-                    <mat-datepicker-toggle matSuffix [for]="datepicker"></mat-datepicker-toggle>
-                    <mat-datepicker #datepicker>
-                      <mat-datepicker-actions>
-                        <button mat-button matDatepickerCancel>Cancelar</button>
-                        <button mat-raised-button color="primary" matDatepickerApply>Ok</button>
-                      </mat-datepicker-actions>
-                    </mat-datepicker>
-                  </mat-form-field>
-                  
-                  <mat-form-field appearance="fill" class="example-form-field">
-                    <mat-label>Data Final</mat-label>
-                    <mat-date-range-input [rangePicker]="rangePicker">
-                      <input matStartDate placeholder="Start date">
-                      <input matEndDate placeholder="End date">
-                    </mat-date-range-input>
-                    <mat-datepicker-toggle matSuffix [for]="rangePicker"></mat-datepicker-toggle>
-                    <mat-date-range-picker #rangePicker>
-                      <mat-date-range-picker-actions>
-                        <button mat-button matDateRangePickerCancel>Cancelar</button>
-                        <button mat-raised-button color="primary" matDateRangePickerApply>Ok</button>
-                      </mat-date-range-picker-actions>
-                    </mat-date-range-picker>
-                  </mat-form-field>       
-            </section>
-
-        </mat-expansion-panel>
-
-        <mat-expansion-panel class="mb-2">
-            <mat-expansion-panel-header>
-                <mat-panel-title class="font-semibold text-primary-500 line-clamp-3">
-                    Tipo publicação
-                </mat-panel-title>
-            </mat-expansion-panel-header>
-
-            <section class="">
-                <p>
-                    <mat-checkbox [color]="'primary'" aria-label="Clique para incluir" role="checkbox">Decisão Colegiada
-                    </mat-checkbox>
-                </p>
-                <p>
-                    <mat-checkbox [color]="'primary'" aria-label="Clique para incluir" role="checkbox">Decisão Singular
-                    </mat-checkbox>
-                </p>
-                <p>
-                    <mat-checkbox [color]="'primary'" aria-label="Clique para incluir" role="checkbox">Despachos
-                    </mat-checkbox>
-                </p>
-                <p>
-                    <mat-checkbox [color]="'primary'" aria-label="Clique para incluir" role="checkbox">Ata de Julgamento
+                <p *ngFor="let item of agregacao.itens">
+                    <mat-checkbox [color]="'primary'" aria-label="Clique para incluir" role="checkbox">
+                        {{item.descricao}} ({{item.quantidade}})
                     </mat-checkbox>
                 </p>
             </section>
 
         </mat-expansion-panel>
 
-        <mat-expansion-panel class="mb-2">
-            <mat-expansion-panel-header>
-                <mat-panel-title class="font-semibold text-primary-500 line-clamp-3">
-                    Relator
-                </mat-panel-title>
-            </mat-expansion-panel-header>
-
-            <section class="">
-                <p>
-                    <mat-checkbox [color]="'primary'" aria-label="Clique para incluir" role="checkbox">Presidente
-                    </mat-checkbox>
-                </p>
-                <p>
-                    <mat-checkbox [color]="'primary'" aria-label="Clique para incluir" role="checkbox">Ministro Luiz Fux
-                    </mat-checkbox>
-                </p>
-                <p>
-                    <mat-checkbox [color]="'primary'" aria-label="Clique para incluir" role="checkbox">Ministro Dias
-                        Toffoli</mat-checkbox>
-                </p>
-                <p>
-                    <mat-checkbox [color]="'primary'" aria-label="Clique para incluir" role="checkbox">Ministro Roberto
-                        Barroso</mat-checkbox>
-                </p>
-                <p>
-                    <mat-checkbox [color]="'primary'" aria-label="Clique para incluir" role="checkbox">Ministra Rosa
-                        Weber</mat-checkbox>
-                </p>
-            </section>
-
-        </mat-expansion-panel>
-
-        <mat-expansion-panel class="mb-2">
-            <mat-expansion-panel-header>
-                <mat-panel-title class="font-semibold text-primary-500 line-clamp-3">
-                    Colegiado
-                </mat-panel-title>
-            </mat-expansion-panel-header>
-
-            <section class="">
-                <p>
-                    <mat-checkbox [color]="'primary'" aria-label="Clique para incluir" role="checkbox">Pleno
-                    </mat-checkbox>
-                </p>
-                <p>
-                    <mat-checkbox [color]="'primary'" aria-label="Clique para incluir" role="checkbox">Primeira Turma
-                    </mat-checkbox>
-                </p>
-                <p>
-                    <mat-checkbox [color]="'primary'" aria-label="Clique para incluir" role="checkbox">Segunda Turma
-                    </mat-checkbox>
-                </p>
-            </section>
-
-        </mat-expansion-panel>
     </mat-accordion>
 
     <!-- Compose button -->

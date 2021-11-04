@@ -1,5 +1,8 @@
+import { DjeDto } from "app/modules/acervo/model/interfaces/djeDto.interface";
 import { Envolvido } from "app/modules/acervo/model/interfaces/envolvido.interface";
-import { Publicacao } from "app/modules/acervo/model/interfaces/publicacao.interface";
+import { InformacoesDto } from "app/modules/acervo/model/interfaces/informacoesDto.interface";
+import { ItemDto } from "app/modules/acervo/model/interfaces/itemDto.interface";
+import { PublicacaoDto } from "app/modules/acervo/model/interfaces/publicacaoDto.interface";
 
 export const envolvidos: Envolvido[] = [
     {
@@ -64,7 +67,7 @@ export const envolvidos: Envolvido[] = [
     },
 ]
 
-export const publicacao: Publicacao[] = [
+export const publicacao: PublicacaoDto[] = [
     {
         id: 1,
         processo: "ARE 1071279",
@@ -93,3 +96,61 @@ export const publicacao: Publicacao[] = [
     },
 ]
 
+export const item: ItemDto[] = [
+    {
+        codigo: "Decisão Final",
+        quantidade: 228,
+        descricao: "Decisão Final"
+    },
+    {
+        codigo: "Despacho",
+        quantidade: 131,
+        descricao: "Despacho"
+    },
+    {
+        codigo: "Decisão Liminar",
+        quantidade: 2,
+        descricao: "Decisão Liminar"
+    },
+    {
+        codigo: "Decisão Interlocutória",
+        quantidade: 1,
+        descricao: "Decisão Interlocutória"
+    },
+    {
+        codigo: "MINISTRO PRESIDENTE",
+        quantidade: 335,
+        descricao: "MINISTRO PRESIDENTE"
+    },
+    {
+        codigo: "MIN. DIAS TOFFOLI",
+        quantidade: 14,
+        descricao: "MIN. DIAS TOFFOLI"
+    },
+    {
+        codigo: "MIN. ROBERTO BARROSO",
+        quantidade: 13,
+        descricao: "MIN. ROBERTO BARROSO"
+    },
+]
+
+export const informacoes: InformacoesDto[] = [
+    {
+        nome: "Tipo",
+        tipo: "",
+        criterio: "",
+        itens: [item[0], item[1], item[2], item[3]]
+    },
+    {
+        nome: "Relator",
+        tipo: "",
+        criterio: "",
+        itens: [item[4], item[5], item[6]]
+    },
+]
+
+export const dje: DjeDto = {
+    agregacoes: informacoes,
+    publicacoes: publicacao,
+    total: 362
+}

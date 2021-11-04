@@ -42,7 +42,9 @@
         <!-- Drawer -->
         <mat-drawer class="w-72 bg-gray-100" [autoFocus]="false" [mode]="drawerMode" [opened]="drawerOpened" #matDrawer>
             <!-- Sidebar -->
-            <app-filtros></app-filtros>
+            <app-filtros
+                [agregacoes]="agregacoes"
+            ></app-filtros>
         </mat-drawer>
 
         <!-- Drawer content -->
@@ -51,7 +53,9 @@
             <!-- Main -->
             <div class="flex-auto lg:p-10 overflow-y-auto">
 
-                <app-textos></app-textos>
+                <app-textos
+                    [publicacoes]="publicacoes"
+                ></app-textos>
 
             </div>
 
