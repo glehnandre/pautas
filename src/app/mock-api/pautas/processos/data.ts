@@ -704,25 +704,10 @@ export const votos: Voto[] = [
   },
 ];
 
-export const manifestacoes: Manifestacao[] = [
-  {
-    id:                 1,
-    descricao:          'Procedente',
-    ministro_relator:   ministro[0],
-    sentido:            'ACOMPANHAR',
-  },
-
-  {
-    id:                 2,
-    descricao:          'Teste 2',
-    ministro_relator:   ministro[1],
-    sentido:            'DIVERGIR',
-  },
-
-  {
-    id:                 2,
-    descricao:          'Teste 3',
-    ministro_relator:   ministro[2],
-    sentido:            'DIVERGIR',
-  },
+export const tipos: string[] = [
+  'Preliminar',
+  'Mérito',
+  'Modulação de efeitos',
+  'Questão de ordem',
+  'Tese',
 ];

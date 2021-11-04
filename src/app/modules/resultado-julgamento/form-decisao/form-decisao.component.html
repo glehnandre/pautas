@@ -8,7 +8,7 @@
                 (selectionChange)="buscarDispositivos($event)"
             >
                 <mat-option 
-                    *ngFor="let tipo of tipos" 
+                    *ngFor="let tipo of (tipos$ | async)" 
                     [value]="tipo"
                 >
                     {{tipo}}

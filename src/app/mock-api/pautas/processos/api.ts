@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { FuseMockApiService } from '@fuse/lib/mock-api/mock-api.service';
 import { Filtros } from 'app/modules/acervo/filtros/filtros';
-import { processo as processoData, documentos, votos, manifestacoes } from 'app/mock-api/pautas/processos/data';
+import { processo as processoData, documentos, votos, tipos } from 'app/mock-api/pautas/processos/data';
 import { tags as tagData } from 'app/mock-api/pautas/tags/data';
 import { Paginacao } from 'app/modules/acervo/tabela/paginacao/paginacao.component';
 import { Processo } from 'app/modules/acervo/model/interfaces/processo.interface';
@@ -9,7 +9,6 @@ import { Tag } from 'app/modules/acervo/model/interfaces/tag.interface';
 import { Documento } from 'app/modules/acervo/model/interfaces/documento.interface';
 import { SessaoJulgamento } from 'app/modules/acervo/model/interfaces/sessao-julgamento.interface';
 import { julgamentos } from '../julgamentos/data';
-import { TipoDoProcesso } from 'app/modules/acervo/model/enums/tipoDoProcesso.enum';
 import { Impedimento } from 'app/modules/acervo/model/interfaces/impedimento.interface';
 import { listaImpedimentos } from '../ministro/data'
 import { Voto } from 'app/modules/acervo/model/interfaces/voto.interface';
@@ -24,7 +23,6 @@ export class ProcessoMockApi {
     private _tag: Tag[] = [];
     private _impedimentos: any[] = listaImpedimentos;
     private _votos: Voto[] = votos;
-    private _manifestacoes = manifestacoes;
 
     constructor(
         private _fuseMockApiService: FuseMockApiService,) {
@@ -216,14 +214,9 @@ export class ProcessoMockApi {
             });
 
         this._fuseMockApiService
-            .onGet('dispositivos/processo/:id/tipo/:tipo')
-            .reply(({request, urlParams}) => {
-                const id = +urlParams.id;
-                const tipo = urlParams.tipo;
-
-                
-
-                return [201, this._manifestacoes];
+            .onGet('processos/tipos')
+            .reply(({}) => {
+                return [200, tipos];
             });
     }
 

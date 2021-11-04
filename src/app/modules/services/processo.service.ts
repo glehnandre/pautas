@@ -99,6 +99,15 @@ export class ProcessoService {
     );
   }
 
+  public obterTiposDoProcesso(): Observable<string[]> {
+    return this._httpClient.get<string[]>(`processos/tipos`).pipe(
+      catchError(error => {
+        console.log(error);
+        return EMPTY;
+      })
+    );
+  }
+
   public setCarregarProcessos(carregarProcessos: boolean): void {
     this.isCarregarProcessos.next(carregarProcessos);
   }

@@ -8,6 +8,7 @@ import { Ministro } from 'app/modules/acervo/model/interfaces/ministro.interface
 import { Processo } from 'app/modules/acervo/model/interfaces/processo.interface';
 import { DispositivoService } from 'app/modules/services/dispositivo.service';
 import { MinistroService } from 'app/modules/services/ministro.service';
+import { ProcessoService } from 'app/modules/services/processo.service';
 import { ResultadoJulgamentoService } from 'app/modules/services/resultado-julgamento.service';
 import { Observable } from 'rxjs';
 
@@ -20,13 +21,7 @@ export class FormDecisaoComponent implements OnInit, OnChanges {
 
   formDecisao: FormGroup;
   ministros$: Observable<Ministro []>
-  tipos: string[] = [
-    'Preliminar',
-    'Mérito',
-    'Modulação de efeitos',
-    'Questão de ordem',
-    'Tese',
-  ];
+  tipos$: Observable<string[]>; 
   isDecisaoSalva: boolean = false;
   selecionarTodos: boolean;
   aplicarMesmasDecisoesAosProcessos: number[] = [];
@@ -53,6 +48,7 @@ export class FormDecisaoComponent implements OnInit, OnChanges {
     private _resultadoJulgamento: ResultadoJulgamentoService,
     private _ministroService: MinistroService,
     private _dispositivoService: DispositivoService,
+    private _processoService: ProcessoService,
   ) {}
 
   ngOnInit(): void {
@@ -74,6 +70,7 @@ export class FormDecisaoComponent implements OnInit, OnChanges {
     });
 
     this.ministros$ = this._ministroService.listarMinistros();
+    this.tipos$ = this._processoService.obterTiposDoProcesso();
   }
 
   public cadastrarDecisao(): void {
