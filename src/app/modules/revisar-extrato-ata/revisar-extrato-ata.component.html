@@ -1,0 +1,129 @@
+<div class="absolute inset-0 flex flex-col min-w-0 overflow-hidden">
+    <!-- Header -->
+    <div class="justify-center px-4 pb-2 bg-white dark:bg-gray-800">
+        <h1 class="mt-4 text-primary font-medium text-base sm:text-xl md:text-2xl w-full">
+            Revisar Extrato da Ata Sessão {{ sessao?.categoria }}
+            {{ sessao?.numero }}/{{ sessao?.ano }}
+            {{ sessao?.modalidade }}
+        </h1>
+        <hr class="-mx-4 p-0 -mt-2">
+        <div class="flex flex-col sm:flex-row -mt-4 items-center justify-between mx-2 md:mx-8 pb-4 space-y-2 sm:space-x-4">
+            <div class="flex flex-row space-x-4">
+                <div class="flex flex-row sm:flex-col space-y-0 space-x-2 sm:space-y-2 sm:space-x-0">
+                    <span class="text-base sm:text-xl text-primary font-medium whitespace-nowrap">
+                        Sessão {{ sessao?.numero }}/{{ sessao?.ano }}
+                    </span>
+                    <span class="text-xs sm:text-base text-secondary">
+                        Finalizado: {{ data_fim | date: 'dd/mm/yyyy ' }}
+                    </span>
+                </div>
+                <div class="hidden md:flex flex-row space-x-2">
+                    <mat-chip-list #chipList *ngFor="let tag of tags">
+                        <mat-chip class="text-base whitespace-nowrap">
+                            {{ tag }}
+                        </mat-chip>
+                    </mat-chip-list>
+                </div>
+            </div>
+            <div class="flex flex-col-reverse sm:flex-col -pt-4 w-full">
+                <app-stacked-bar-processos
+                  [julgados]="ata?.total_julgados"
+                  [nao_julgados]="ata?.total_nao_julgados"
+                  [suspensos]="ata?.total_suspensos"
+                ></app-stacked-bar-processos>
+            </div>
+        </div>
+        <div class="flex flex-col md:flex-row mx-8 items-end space-x-0 sm:space-x-4 space-y-2">
+            <button class="ml-auto w-full md:w-auto" color="white" mat-raised-button>
+                <span>Cancelar</span>
+            </button>
+            <button class="w-full md:w-auto" color="white" mat-raised-button>
+                <span>Solicitar Correção</span>
+            </button>
+            <button class="w-full md:w-auto" color="primary" mat-raised-button>
+                <span>Revisado e Publicar</span>
+            </button>
+        </div>
+    </div>
+
+    <!-- Body -->
+    <div class="flex flex-col w-full my-4 items-center space-y-4 overflow-y-auto" cdkScrollable
+        *ngFor="let publicacao of publicacoes"
+    >
+        <div
+          class="mx-8 w-11/12 bg-white dark:bg-gray-800"
+          *ngFor="let capitulo of publicacao.capitulos">
+            <div class="flex flex-row w-full text-white">
+                <div class="flex flex-col bg-blue-900 p-2 items-center space-x-2">
+                    <div class="flex flex-row">
+                        <mat-icon class="hidden sm:block text-current" [svgIcon]="'heroicons_outline:calendar'"></mat-icon>
+                        <span class="text-base sm:text-4xl font-medium">25</span>
+                    </div>
+                    <span class="text-xs sm:text-base">set/21</span>
+                </div>
+                <div class="flex flex-col bg-primary p-2 w-full">
+                    <div>
+                        <span class="text-base sm:text-2xl">{{ capitulo?.descricao.toUpperCase() }}</span>
+                    </div>
+                    <div class="text-xs sm:text-base">
+                        <span> Condutor{{ capitulo?.ministro_condutor?.genero == 'Masculino' ? '': 'a' }} do Capitulo </span>
+                        <span class="font-medium">{{ capitulo?.ministro_condutor?.nome }}</span>
+                    </div>
+
+                </div>
+            </div>
+            <div class="flex flex-col sm:flex-row m-8">
+                <div class="flex flex-col w-full sm:w-1/2">
+                    <div *ngIf="capitulo?.ministros_impedidos">
+                        <span> {{
+                            capitulo?.ministros_impedidos.length == 1 ?
+                            capitulo?.ministros_impedidos[0].genero == 'Masculino' ?
+                                'Ministro que se declara impedido: ':
+                                'Ministra que se declara impedida: ':
+                            'Ministros que se declaram impedidos: '
+                        }}</span>
+                        <span class="font-medium">{{ nomesMinistros(capitulo?.ministros_impedidos) }}
+                        </span>
+                    </div>
+                    <div *ngIf="capitulo?.ministros_suspeitos">
+                        <span> {{
+                            capitulo?.ministros_suspeitos.length == 1 ?
+                            capitulo?.ministros_suspeitos[0].genero == 'Masculino' ?
+                                'Ministro que se declara suspeito: ':
+                                'Ministra que se declara suspeita: ':
+                            'Ministros que se declaram suspeitos: '
+                        }}</span>
+                        <span class="font-medium">{{ nomesMinistros(capitulo?.ministros_suspeitos) }}
+                        </span>
+                    </div>
+                </div>
+                <div class="flex flex-col w-full sm:w-1/2">
+                    <div *ngIf="capitulo?.ministros_acordam">
+                        <span> {{
+                            capitulo?.ministros_acordam.length == 1 ?
+                            capitulo?.ministros_acordam[0].genero == 'Masculino' ?
+                                'Ministro que se declara vencido: ':
+                                'Ministra que se declara vencida: ':
+                            'Ministros que se declaram vencidos: '
+                        }}</span>
+                        <span class="font-medium">{{ nomesMinistros(capitulo?.ministros_acordam) }}
+                        </span>
+                    </div>
+                    <div *ngIf="capitulo?.ministro_condutor">
+                        <span> {{
+                            capitulo?.ministro_condutor.genero == 'Masculino' ?
+                                'Ministro Condutor do Capitulo: ':
+                                'Ministra Condutora do Capitulo: '
+                        }}</span>
+                        <span class="font-medium">{{ capitulo?.ministro_condutor?.nome }}
+                        </span>
+                    </div>
+                </div>
+            </div>
+            <hr>
+            <div class="mx-8 mb-4">
+                {{ capitulo?.texto }}
+            </div>
+        </div>
+    </div>
+</div>

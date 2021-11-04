@@ -9,7 +9,7 @@ import { Ministro } from '../acervo/model/interfaces/ministro.interface';
   providedIn: 'root'
 })
 export class MinistroService {
-  
+
   constructor(
     private _httpClient: HttpClient,
   ) { }
@@ -41,7 +41,7 @@ export class MinistroService {
     params = params.set('processo', processo);
     params = params.set('data', data);
     params = params.set('colegiado', colegiado);
-    
+
     return this._httpClient.get<Colegiado[]>('/colegiado', {
       params,
     }).pipe(
@@ -61,4 +61,11 @@ export class MinistroService {
     );
   }
 
+  ministrosString(ministros: Ministro[]): string {
+    if(ministros.length == 1) return ministros[0].nome;
+    let nomesMinistros = [], ultimoMinistro;
+    ministros.forEach(ministro => nomesMinistros.push(ministro.nome));
+    ultimoMinistro = nomesMinistros.pop();
+    return [nomesMinistros.join(', '), ultimoMinistro].join(' e ');
+   }
 }
