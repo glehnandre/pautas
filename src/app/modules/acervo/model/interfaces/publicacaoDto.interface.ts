@@ -1,6 +1,6 @@
 import { Envolvido } from "./envolvido.interface";
 
-export interface Publicacao{
+export interface PublicacaoDto{
     id: number;
     processo: string;
     processoId: number;
