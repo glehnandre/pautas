@@ -79,6 +79,13 @@ export const defaultNavigation: FuseNavigationItem[] = [
         type: 'basic',
         icon : 'heroicons_outline:chart-pie',
         link: '/minhas-tarefas'
+    },
+    {
+        id: 'revisar-inteiro-teor',
+        title: 'Revisar Inteiro Teor',
+        type: 'basic',
+        icon : 'heroicons_outline:chart-pie',
+        link: '/revisar-inteiro-teor'
     }
 ];
 export const compactNavigation: FuseNavigationItem[] = [
@@ -151,6 +158,13 @@ export const compactNavigation: FuseNavigationItem[] = [
         type: 'basic',
         icon : 'heroicons_outline:chart-pie',
         link: '/minhas-tarefas'
+    },
+    {
+        id: 'revisar-inteiro-teor',
+        title: 'Revisar Inteiro Teor',
+        type: 'basic',
+        icon : 'heroicons_outline:chart-pie',
+        link: '/revisar-inteiro-teor'
     }
 ];
 export const futuristicNavigation: FuseNavigationItem[] = [
@@ -223,6 +237,13 @@ export const futuristicNavigation: FuseNavigationItem[] = [
         type: 'basic',
         icon : 'heroicons_outline:chart-pie',
         link: '/minhas-tarefas'
+    },
+    {
+        id: 'revisar-inteiro-teor',
+        title: 'Revisar Inteiro Teor',
+        type: 'basic',
+        icon : 'heroicons_outline:chart-pie',
+        link: '/revisar-inteiro-teor'
     }
 ];
 export const horizontalNavigation: FuseNavigationItem[] = [
@@ -291,5 +312,12 @@ export const horizontalNavigation: FuseNavigationItem[] = [
         type: 'basic',
         icon : 'heroicons_outline:chart-pie',
         link: '/minhas-tarefas'
+    },
+    {
+        id: 'revisar-inteiro-teor',
+        title: 'Revisar Inteiro Teor',
+        type: 'basic',
+        icon : 'heroicons_outline:chart-pie',
+        link: '/revisar-inteiro-teor'
     }
 ];

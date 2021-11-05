@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { Route, RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
+import { MatButtonModule } from '@angular/material/button';
 import { RevisarInteiroTeorComponent } from './revisar-inteiro-teor.component';
 
 const revisarInteiroTeorRoutes: Route[] = [
@@ -17,6 +18,7 @@ const revisarInteiroTeorRoutes: Route[] = [
   ],
   imports: [
     CommonModule,
+    MatButtonModule,
     RouterModule.forChild(revisarInteiroTeorRoutes),
   ]
 })
