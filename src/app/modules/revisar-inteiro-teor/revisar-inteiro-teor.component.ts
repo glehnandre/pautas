@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { SessaoJulgamento } from '../acervo/model/interfaces/sessao-julgamento.interface';
 
 @Component({
   selector: 'app-revisar-inteiro-teor',
