@@ -4,5 +4,17 @@ export const dispositivos: Dispositivo[] = [
   {
     descricao: 'Procedente',
   },
+
+  {
+    descricao: 'Improcedente',
+  },
+
+  {
+    descricao: 'Parcialmente Procedente',
+  },
+
+  {
+    descricao: 'Parcialmente Improcedente',
+  },
 ];
   
