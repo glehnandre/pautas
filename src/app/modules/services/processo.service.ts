@@ -99,8 +99,8 @@ export class ProcessoService {
     );
   }
 
-  public obterDispositivosDoProcesso(id: number, tipo: TipoCapitulo): Observable<Manifestacao[]> {
-    return this._httpClient.get<Manifestacao[]>(`dispositivos/processo/${id}/tipo/${tipo}`).pipe(
+  public obterTiposDoProcesso(): Observable<string[]> {
+    return this._httpClient.get<string[]>(`processos/tipos`).pipe(
       catchError(error => {
         console.log(error);
         return EMPTY;

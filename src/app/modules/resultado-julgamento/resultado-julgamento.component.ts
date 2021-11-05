@@ -1,12 +1,12 @@
 import { HttpParams } from '@angular/common/http';
-import { Component, HostListener, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
+import { ChangeDetectionStrategy, Component, HostListener, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
+import { MatDrawer } from '@angular/material/sidenav';
+import { ActivatedRoute } from '@angular/router';
 import { FuseDrawerService } from '@fuse/components/drawer';
-import { TipoCapitulo } from '../acervo/model/enums/tipoCapitulo.enum';
 import { Decisao, DecisoesResultadoJulgamento } from '../acervo/model/interfaces/decisao.interface';
 import { Manifestacao } from '../acervo/model/interfaces/manifestacao.interface';
 import { Processo } from '../acervo/model/interfaces/processo.interface';
-import { SessaoJulgamento } from '../acervo/model/interfaces/sessao-julgamento.interface';
 import { Voto } from '../acervo/model/interfaces/voto.interface';
 import { ProcessoService } from '../services/processo.service';
 import { ResultadoJulgamentoService } from '../services/resultado-julgamento.service';
@@ -20,6 +20,8 @@ interface Parametros {
   selector: 'app-resultado-julgamento',
   templateUrl: './resultado-julgamento.component.html',
   styleUrls: ['./resultado-julgamento.component.scss'],
+  encapsulation  : ViewEncapsulation.None,
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ResultadoJulgamentoComponent implements OnInit {
 
@@ -32,6 +34,10 @@ export class ResultadoJulgamentoComponent implements OnInit {
   votos: Voto[] = [];
   dispositivos: Manifestacao[] = [];
   decisoes: Array<{decisao: Decisao, processos_mesma_decisao: number[]}> = [];
+  decisoesSalvasViaPost: Decisao[] = [];
+  decisaoSelecionada: {decisao: Decisao, processos_mesma_decisao: number[]};
+
+  @ViewChild('matDrawer', {static: true}) matDrawer: MatDrawer;
 
   readonly FORM_CADASTRO_DECISAO = 'formulario-de-cadastro-de-decisao';
   descrissaoSessao: string;
@@ -42,9 +48,7 @@ export class ResultadoJulgamentoComponent implements OnInit {
     private _processoService: ProcessoService,
     private _route: ActivatedRoute,
     private _fuseDrawerService: FuseDrawerService,
-  ) {
-
-  }
+  ) {}
 
   ngOnInit(): void {
     this.parametros = this._route.snapshot.queryParams as Parametros;
@@ -52,7 +56,6 @@ export class ResultadoJulgamentoComponent implements OnInit {
     this._resultadoJulgamento.listarDecisoes(this.parametros.processo).subscribe({
       next: (data) => {
         this.dados = data;
-        console.log(this.dados)
         this.processosMesmaDecisoes = [];
         this.dados.decisoes.forEach(({processos_mesma_decisao}) => this.processosMesmaDecisoes.push(...processos_mesma_decisao));
       }
@@ -68,12 +71,6 @@ export class ResultadoJulgamentoComponent implements OnInit {
         this._processoService.obterVotosDoProcesso(this.parametros.processo).subscribe({
           next: (votos) => {
             this.votos = votos;
-          }
-        });
-
-        this._processoService.obterDispositivosDoProcesso(this.parametros.processo, TipoCapitulo.Merito).subscribe({
-          next: (dispositivos) => {
-            this.dispositivos = dispositivos;
           }
         });
       }
@@ -108,6 +105,44 @@ export class ResultadoJulgamentoComponent implements OnInit {
   public verificaModoDaTela(largura: number = 720): string {
     const larguraAtual = window.innerWidth;
     return (larguraAtual <= largura) ? 'over' : 'side';
+  }
+
+  public alterarDadosDoFormulario(item: {decisao: Decisao, processos_mesma_decisao: number[]}): void {
+    this.decisaoSelecionada = item;
+  }
+
+  public limparDecisaoSelecionada() {
+    this.decisaoSelecionada = null;
+  }
+
+  public decisaoSalvaViaPost({decisao}): void {
+    const index = this.decisoesSalvasViaPost
+      .findIndex(dec => Object.values(dec).toString() === Object.values(decisao).toString());
+    
+    if (index === -1) {
+      this.decisoesSalvasViaPost.push(decisao);
+    }
+
+    this.limparDecisaoSelecionada();
+  }
+
+  public isDecisaoJaSalva(): boolean {
+    const index = this.decisoesSalvasViaPost
+      .findIndex(dec => Object.values(dec).toString() === Object.values(this.decisaoSelecionada.decisao).toString());
+
+    return (index !== -1);
+  }
+
+  public dropped(event: CdkDragDrop<any[]>): void {
+    moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
+  }
+
+  public marcaDecisaoSelecionada(obj1: Decisao, obj2: Decisao): boolean {
+    return JSON.stringify(obj1) === JSON.stringify(obj2);
+  }
+
+  public finalizar(): void {
+    alert('finalização da tarefa');
   }
 
 }

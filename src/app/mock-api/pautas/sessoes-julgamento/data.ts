@@ -48,11 +48,26 @@ export const processos: Processo[] = [
     redator: ministro[1],
     capitulos: [
       {
-        descricao: '',
-        dispositivo: '',
         id: 1,
-        ordem: 1,
-        tipo: TipoCapitulo.Merito,
+        tipo: TipoCapitulo.Modulacao,
+        descricao: 'Descrição do capítulo',
+        dispositivo: 'Dispositivo',
+        ministro_condutor: ministro[6],
+        ministros_acordam: [
+          ministro[0],
+          ministro[1],
+          ministro[2],
+          ministro[3],
+          ministro[4],
+          ministro[5],
+        ],
+        ministros_impedidos: [
+          ministro[7],
+        ],
+        ministros_suspeitos: [
+          ministro[8],
+        ],
+        texto: 'Texto do capítulo',
       }
     ]
   },

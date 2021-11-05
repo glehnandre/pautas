@@ -1,6 +1,5 @@
-import { Decisao, DecisoesResultadoJulgamento } from "app/modules/acervo/model/interfaces/decisao.interface";
-import { Processo } from "app/modules/acervo/model/interfaces/processo.interface";
-import { SessaoJulgamento } from "app/modules/acervo/model/interfaces/sessao-julgamento.interface";
+import { TipoCapitulo } from "app/modules/acervo/model/enums/tipoCapitulo.enum";
+import { DecisoesResultadoJulgamento } from "app/modules/acervo/model/interfaces/decisao.interface";
 import { ministro } from "../ministro/data";
 import { processo } from "../processos/data";
 import { sessao } from "../sessoes-julgamento/data";
@@ -10,9 +9,11 @@ export const decisoes: Array<DecisoesResultadoJulgamento> = [
     decisoes: [
       {
         capitulo: {
-          descricao: '',
-          dispositivo: '',
-          ministro_condutor: '',
+          id: 1,
+          tipo: TipoCapitulo.Modulacao,
+          descricao: 'Descrição do capítulo',
+          dispositivo: 'Dispositivo',
+          ministro_condutor: ministro[6],
           ministros_acordam: [
             ministro[0],
             ministro[1],
@@ -21,8 +22,13 @@ export const decisoes: Array<DecisoesResultadoJulgamento> = [
             ministro[4],
             ministro[5],
           ],
-          texto: '',
-          tipo: '',
+          ministros_impedidos: [
+            ministro[7],
+          ],
+          ministros_suspeitos: [
+            ministro[8],
+          ],
+          texto: 'Texto do capítulo',
         },
         processos_mesma_decisao: [
           processo[0],
