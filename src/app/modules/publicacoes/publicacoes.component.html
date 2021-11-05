@@ -40,7 +40,7 @@
     <mat-drawer-container class="flex flex-col flex-auto shadow bg-card">
 
         <!-- Drawer -->
-        <mat-drawer class="w-72 bg-gray-100" [autoFocus]="false" [mode]="drawerMode" [opened]="drawerOpened" #matDrawer>
+        <mat-drawer class="w-80 bg-white pt-10" [autoFocus]="false" [mode]="drawerMode" [opened]="drawerOpened" #matDrawer>
             <!-- Sidebar -->
             <app-filtros
                 [agregacoes]="agregacoes"
@@ -48,12 +48,13 @@
         </mat-drawer>
 
         <!-- Drawer content -->
-        <mat-drawer-content class="flex flex-col overflow-hidden bg-gray-100">
+        <mat-drawer-content class="flex flex-col lg:p-10 overflow-y-auto bg-white">
 
             <!-- Main -->
-            <div class="flex-auto lg:p-10 overflow-y-auto">
+            <div class="bg-gray-200">
 
                 <app-textos
+                class="space-y-4"
                     [publicacoes]="publicacoes"
                 ></app-textos>
 

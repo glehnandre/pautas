@@ -1,21 +1,49 @@
 <div class="flex flex-col flex-auto w-full">
-    <!-- Title -->
-    <div class="mt-10 mb-6 mx-4 text-3xl font-semibold tracking-tight leading-none">Filtros</div>
-
-    <!-- Filtros aplicados -->
-    <mat-chip-list #chipsfiltros aria-label="Filtros aplicados ao resultado" class="mx-4 mb-6">
-        <mat-chip [removable]="true">
-            André von
-            <button matChipRemove aria-label="Clique para remover o filtro André von" class="mb-1.5">
-                <mat-icon class="h-2 w-2">cancel</mat-icon>
-            </button>
-        </mat-chip>
-    </mat-chip-list>
 
     <!-- Filtros -->
     <mat-accordion class="mx-4" multi aria-label="Lista de Filtros possíveis de serem aplicados às publicações">
 
-        <mat-expansion-panel *ngFor="let agregacao of agregacoes" class="mb-2">
+        <!-- Filtros aplicados -->
+        <mat-expansion-panel class="mb-2 border-solid border-2" [expanded]="true">
+            <mat-expansion-panel-header>
+                <mat-panel-title class="font-semibold text-primary-500 line-clamp-3">
+                    Palavra Chave
+                </mat-panel-title>
+            </mat-expansion-panel-header>
+    
+            <section class="">
+                <mat-chip-list #chipsfiltros aria-label="Filtros aplicados ao resultado" class="mx-4 mb-6">
+                    <mat-chip [removable]="true">
+                        André von
+                        <button matChipRemove aria-label="Clique para remover o filtro André von" class="mb-1.5">
+                            <mat-icon class="h-2 w-2">cancel</mat-icon>
+                        </button>
+                    </mat-chip>
+                </mat-chip-list>
+            </section>
+        </mat-expansion-panel>
+
+        <mat-expansion-panel class="mb-2 border-solid border-2" [expanded]="true">
+            <mat-expansion-panel-header>
+                <mat-panel-title class="font-semibold text-primary-500 line-clamp-3">
+                    Período
+                </mat-panel-title>
+            </mat-expansion-panel-header>
+    
+            <section class="">
+                <mat-form-field class="w-full my-4" appearance="fill">
+                    <mat-date-range-input [rangePicker]="picker">
+                        <input matStartDate placeholder="Data de início" name="data_inicio" [(ngModel)]="data_inicio">
+                        <input matEndDate placeholder="Data do fim" name="data_fim" [(ngModel)]="data_fim">
+                    </mat-date-range-input>
+    
+                    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                    <mat-date-range-picker #picker></mat-date-range-picker>
+                </mat-form-field>
+            </section>
+        </mat-expansion-panel>
+
+        <mat-expansion-panel *ngFor="let agregacao of agregacoes" class="mb-2 border-solid border-2">
             <mat-expansion-panel-header>
                 <mat-panel-title class="font-semibold text-primary-500 line-clamp-3">
                     {{agregacao.nome}}
@@ -29,7 +57,6 @@
                     </mat-checkbox>
                 </p>
             </section>
-
         </mat-expansion-panel>
 
     </mat-accordion>

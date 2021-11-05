@@ -1,7 +1,8 @@
 <!-- CONTENT GOES HERE -->
-<fuse-card class="flex flex-col w-full filter-post filter-interactive my-2" style="border-radius: 0px;" *ngFor="let publicacao of publicacoes">
-        <div class="flex items-center bg-primary text-white">
-            <div class="flex flex-col w-1/12 min-w-22 h-20 bg-primary-800 justify-center items-center font-bold">
+<fuse-card class="flex flex-col w-full filter-post filter-interactive border-solid border-2" style="border-radius: 0px;" *ngFor="let publicacao of publicacoes">
+    <fuse-card class="flex flex-col w-full filter-post filter-interactive" style="box-shadow: none; border-radius: 0px;" #expandableCard02="fuseCard">
+        <div class="flex items-center text-white"  style="background: #47A6E0;">
+            <div class="flex flex-col w-1/12 min-w-22 h-20 bg-primary-800 justify-center items-center font-bold" style="background: #2A6894;">
                 <span class="text-4xl">
                     <mat-icon style="color: white;">calendar_today</mat-icon>
                     {{getData(publicacao.publicacao, true) | slice:0:2}}
@@ -24,29 +25,36 @@
                 </button>
             </div>
         </div>
-    
-        <div class="flex-1 mx-8 grid grid-cols-1 md:grid-cols-2 border-solid border-b-2">
-            <div class="mr-4 my-2">
-                <div *ngFor="let left of envolvidosLeft(publicacao.envolvidos)" class="flex flex-row flex-wrap">
-                    <span class="text-accent-500 mr-1">{{left.categoria}}</span> <span class="font-medium">{{left.nome}}</span>
-                    <div *ngFor="let identificacao of left.identificacoes" 
-                        class="ml-2 mr-8 text-accent-500 mb-2 truncate"
-                        [aria-label]="identificacao">
-                            {{"| "+identificacao}}
+        
+        <ng-container fuseCardExpansion>
+            <div class="flex-1 mx-8 grid grid-cols-1 md:grid-cols-2">
+                <div class="mr-4 my-2">
+                    <div *ngFor="let left of envolvidosLeft(publicacao.envolvidos)" class="flex flex-row flex-wrap">
+                        <span class="text-accent-500 mr-1">{{left.categoria}}</span> <span class="font-medium">{{left.nome}}</span>
+                        <div *ngFor="let identificacao of left.identificacoes" 
+                            class="ml-2 mr-8 text-accent-500 mb-2 truncate"
+                            [aria-label]="identificacao">
+                                {{"| "+identificacao}}
+                        </div>
+                    </div>
+                </div>
+                <div class="my-2">
+                    <div *ngFor="let right of envolvidosRight(publicacao.envolvidos)" class="flex flex-row flex-wrap">
+                        <span class="text-accent-500 mr-1">{{right.categoria}}</span> <span class="font-medium">{{right.nome}}</span>
+                        <div *ngFor="let identificacao of right.identificacoes" 
+                            class="ml-2 text-accent-500 mb-2 truncate"
+                            [aria-label]="identificacao">
+                                {{"| "+identificacao}}
+                        </div>
                     </div>
                 </div>
             </div>
-            <div class="my-2">
-                <div *ngFor="let right of envolvidosRight(publicacao.envolvidos)" class="flex flex-row flex-wrap">
-                    <span class="text-accent-500 mr-1">{{right.categoria}}</span> <span class="font-medium">{{right.nome}}</span>
-                    <div *ngFor="let identificacao of right.identificacoes" 
-                        class="ml-2 text-accent-500 mb-2 truncate"
-                        [aria-label]="identificacao">
-                            {{"| "+identificacao}}
-                    </div>
-                </div>
-            </div>
-        </div>
+        </ng-container>
+    </fuse-card>
+
+        <u class="mx-auto text-primary-700 mt-2" (click)="expandableCard02.expanded = !expandableCard02.expanded">Exibir todas as partes</u>
+        <mat-divider role="separator" class="mb-4 mx-8"></mat-divider>
+
         <div class="flex flex-row flex-wrap ml-auto pl-8 mr-8 mt-2">
             <div class="flex-none mr-4">Divulgado em: <span class="font-medium">{{getData(publicacao.divulgacao)}}</span></div>
             <div class="flex-none">Publicado em: <span class="font-medium">{{getData(publicacao.publicacao) | slice:0:11}}</span></div>

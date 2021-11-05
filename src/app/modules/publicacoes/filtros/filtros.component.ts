@@ -11,10 +11,17 @@ export class FiltrosComponent implements OnInit {
 
   @Input() agregacoes: InformacoesDto[] = [];
 
+  data_inicio: string = '';
+  data_fim: string = '';
+
   constructor() { }
 
   ngOnInit(): void {
     //this.agregacoes[0].
+  }
+
+  emiteData(){
+
   }
 
   filtrar(){

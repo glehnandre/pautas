@@ -2,7 +2,6 @@ import { DatePipe } from '@angular/common';
 import { Component, Input, OnInit } from '@angular/core';
 import { Envolvido } from 'app/modules/acervo/model/interfaces/envolvido.interface';
 import { PublicacaoDto } from 'app/modules/acervo/model/interfaces/publicacaoDto.interface';
-import { PublicacaoService } from 'app/modules/services/publicacao.service';
 import { registerLocaleData } from '@angular/common';
 import localePT from '@angular/common/locales/pt';
 registerLocaleData(localePT);
