@@ -4,7 +4,8 @@
         <mat-form-field class="w-full mb-4 col-span-2" appearance="outline">
             <mat-label>Tipo <span class="text-red-500">*</span></mat-label>
             <mat-select 
-                formControlName="tipo" 
+                formControlName="tipo"
+                (value)="buscarDispositivos($event)" 
                 (selectionChange)="buscarDispositivos($event)"
             >
                 <mat-option 

@@ -71,6 +71,12 @@ export class FormDecisaoComponent implements OnInit, OnChanges {
 
     this.ministros$ = this._ministroService.listarMinistros();
     this.tipos$ = this._processoService.obterTiposDoProcesso();
+
+    if (this.decisao.dispositivo && this.decisao.dispositivo != '') {
+      const e: EventEmitter<MatSelectChange> = {} as EventEmitter<MatSelectChange>;
+      e['value'] = this.decisao.tipo;
+      this.buscarDispositivos(e);
+    }
   }
 
   public cadastrarDecisao(): void {
