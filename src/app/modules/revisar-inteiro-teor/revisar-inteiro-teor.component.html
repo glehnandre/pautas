@@ -24,13 +24,8 @@
 
     <header class="flex flex-row justify-between px-8 pt-4 bg-white">
         <app-cabecalho-relator
-            [processo]=""
-            [colegiado]=""
+            [processo]="idProcesso"
+            [colegiado]="colegiado"
         ></app-cabecalho-relator>
-
-        <app-dados-da-sessao
-            [sessao]=""
-            class="my-auto"
-        ></app-dados-da-sessao>
     </header>
 </div>

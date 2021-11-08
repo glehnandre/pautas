@@ -6,8 +6,6 @@ import { RevisarInteiroTeorComponent } from './revisar-inteiro-teor.component';
 import { SharedModule } from '../../shared/shared.module';
 import { MatChipsModule } from '@angular/material/chips';
 
-import { DadosDaSessaoComponent } from './dados-da-sessao/dados-da-sessao.component';
-
 const revisarInteiroTeorRoutes: Route[] = [
     {
         path     : '',
@@ -19,7 +17,6 @@ const revisarInteiroTeorRoutes: Route[] = [
 @NgModule({
   declarations: [
     RevisarInteiroTeorComponent,
-    DadosDaSessaoComponent
   ],
   imports: [
     CommonModule,
