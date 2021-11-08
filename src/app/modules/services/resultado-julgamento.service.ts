@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { EMPTY, Observable } from 'rxjs';
 import { catchError } from 'rxjs/operators';
-import { Decisao } from '../acervo/model/interfaces/decisao.interface';
+import { Decisao, DecisoesResultadoJulgamento } from '../acervo/model/interfaces/decisao.interface';
 import { Processo } from '../acervo/model/interfaces/processo.interface';
 import { SessaoJulgamento } from '../acervo/model/interfaces/sessao-julgamento.interface';
 
@@ -15,9 +15,9 @@ export class ResultadoJulgamentoService {
     private _httpClient: HttpClient,
   ) { }
 
-  public listarDecisoes(processo: number): Observable<{decisoes: Decisao[], processo: Processo, sessao: SessaoJulgamento}> {
+  public listarDecisoes(id: number): Observable<DecisoesResultadoJulgamento> {
     return this._httpClient
-      .get<{decisoes: Decisao[], processo: Processo, sessao: SessaoJulgamento}>(`decisao/${processo}`).pipe(
+      .get<DecisoesResultadoJulgamento>(`processo/${id}/decisoes`).pipe(
         catchError(error => {
           console.log(error);
           return EMPTY;
@@ -25,9 +25,10 @@ export class ResultadoJulgamentoService {
       );
   }
 
-  public savarDecisao(processo: number, decisao: Decisao): Observable<void> {
-    return this._httpClient.post<void>(`processo/${processo}/decisoes`, {
+  public savarDecisao(id: number, {decisao, processos_mesma_decisao}): Observable<void> {
+    return this._httpClient.post<void>(`processo/${id}/decisoes`, {
       decisao,
+      processos_mesma_decisao,
     }).pipe(
       catchError(error => {
         console.log(error);

@@ -3,7 +3,7 @@ import { TipoCapitulo } from "app/modules/acervo/model/enums/tipoCapitulo.enum";
 import { TipoDoProcesso } from "app/modules/acervo/model/enums/tipoDoProcesso.enum";
 import { Processo } from "app/modules/acervo/model/interfaces/processo.interface";
 import { SessaoJulgamento } from "app/modules/acervo/model/interfaces/sessao-julgamento.interface";
-import { ministro } from '../ministro/data';
+import { ministro } from "../ministro/data";
 
 export const julgamentos: SessaoJulgamento[] = [
   {
@@ -202,91 +202,121 @@ export const julgamentos: SessaoJulgamento[] = [
 export const processos: Processo[] = [
   {
     id: 123455,
-    ementa: 'Sessão de julgamento extraordinária para tratar da divisão de terras.',
+    ementa: "Sessão de julgamento extraordinária para tratar da divisão de terras.",
     lista: [{
-      descricao: 'Semelhante a ADI 100',
+      descricao: "Semelhante a ADI 100",
       id: 123445,
       publica: false
     }],
-    classe: 'ADI',
-    numero: 100,
-    nome: 'Embargo de declaração',
-    abreviacao: '',
-    situacao: SituacaoDoProcesso.Pautado,
-    tipo: TipoDoProcesso.Merito,
-    relator: ministro[10],
-    redator: ministro[10],
-    capitulos: [
-      {
-        id: 123455,
-        descricao: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Repellendus omnis eum ratione, impedit, consequuntur laborum amet tempore iure accusamus in nulla voluptates odit. Eum fugit eius, assumenda distinctio quidem quia?',
-        ordem: 1,
-        tipo: TipoCapitulo.Merito,
-        dispositivo: 'Deferido',
-      },
-    ]
-  },
-
-  {
-    id: 123455,
-    ementa: 'Sessão de julgamento extraordinária para tratar da divisão de terras.',
-    lista: [{
-      descricao: 'Semelhante a ADI 100',
-      id: 123445,
-      gestor: {
-          numero: 19,
-          criacao: '2021-08-02T03:00:00.000Z',
-      },
-      publica: false
-    }],
-    classe: 'ADI',
-    numero: 100,
-    nome: 'Embargo de declaração',
-    abreviacao: '',
-    situacao: SituacaoDoProcesso.Pautado,
-    tipo: TipoDoProcesso.Merito,
-    relator: ministro[10],
-    redator: ministro[10],
-    capitulos: [
-      {
-        id: 123455,
-        descricao: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Repellendus omnis eum ratione, impedit, consequuntur laborum amet tempore iure accusamus in nulla voluptates odit. Eum fugit eius, assumenda distinctio quidem quia?',
-        ordem: 1,
-        tipo: TipoCapitulo.Merito,
-        dispositivo: 'Deferido'
-      }
-    ]
-  },
-
-  {
-    id: 123455,
-    ementa: 'Sessão de julgamento extraordinária para tratar da divisão de terras.',
-    lista: [{
-      descricao: 'Semelhante a ADI 100',
-      id: 123445,
-      gestor: {
-          numero: 19,
-          criacao: '2021-08-02T03:00:00.000Z',
-      },
-      publica: false
-    }],
-    classe: 'ADI',
+    classe: "ADI",
     numero: 100,
     nome: "Embargo de declaração",
     abreviacao: '',
     situacao: SituacaoDoProcesso.Pautado,
     tipo: TipoDoProcesso.Merito,
-    relator: ministro[10],
-    redator: ministro[10],
+    relator: {
+        id: 12314441,
+        nome: "Luiz Fux",
+        abreviacao: "MLF",
+        cadeira: {
+            criacao: '2021-08-02T03:00:00.000Z',
+            numero: 100,
+          }
+    },
+    redator: {
+        id: 12314441,
+        nome: "Luiz Fux",
+        abreviacao: "MLF",
+        cadeira: {
+            criacao: '2021-08-02T03:00:00.000Z',
+            numero: 100,
+          }
+    },
     capitulos: [
       {
-        id: 123455,
-        descricao: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Repellendus omnis eum ratione, impedit, consequuntur laborum amet tempore iure accusamus in nulla voluptates odit. Eum fugit eius, assumenda distinctio quidem quia?',
-        ordem: 1,
-        tipo: TipoCapitulo.Merito,
-        dispositivo: "Deferido"
-      }
+        id: 1,
+        descricao: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc tempus neque nec ante porta tincidunt eu quis felis. Sed magna libero, sodales ut enim quis, varius faucibus lectus. Sed porttitor pharetra orci, quis fermentum risus rutrum id. Vivamus ornare purus a lorem accumsan cursus. Pellentesque ligula metus, dictum pretium dignissim non, fringilla ac lacus. Sed non dui nibh.',
+        tipo:   TipoCapitulo.Merito,
+        dispositivo: 'Deferida em parte',
+        ministro_condutor: ministro[6],
+        ministros_acordam: [
+          ministro[0],
+          ministro[1],
+          ministro[2],
+          ministro[3],
+          ministro[4],
+          ministro[5],
+        ],
+        ministros_impedidos: [
+          ministro[7],
+        ],
+        ministros_suspeitos: [
+          ministro[8],
+        ],
+        texto: 'Texto do capítulo',
+      },
+    ]
+  },
+
+  {
+    id: 123455,
+    ementa: "Sessão de julgamento extraordinária para tratar da divisão de terras.",
+    lista: [{
+      descricao: "Semelhante a ADI 100",
+      id: 123445,
+      gestor: {
+          numero: 19,
+          criacao: '2021-08-02T03:00:00.000Z',
+      },
+      publica: false
+    }],
+    classe: "ADI",
+    numero: 100,
+    nome: "Embargo de declaração",
+    abreviacao: '',
+    situacao: SituacaoDoProcesso.Pautado,
+    tipo: TipoDoProcesso.Merito,
+    relator: {
+        id: 12314441,
+        nome: "Luiz Fux",
+        abreviacao: "MLF",
+        cadeira: {
+            criacao: '2021-08-02T03:00:00.000Z',
+            numero: 100,
+          }
+    },
+    redator: {
+        id: 12314441,
+        nome: "Luiz Fux",
+        abreviacao: "MLF",
+        cadeira: {
+            criacao: '2021-08-02T03:00:00.000Z',
+            numero: 100,
+          }
+    },
+    capitulos: [
+      {
+        id: 1,
+        descricao: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc tempus neque nec ante porta tincidunt eu quis felis. Sed magna libero, sodales ut enim quis, varius faucibus lectus. Sed porttitor pharetra orci, quis fermentum risus rutrum id. Vivamus ornare purus a lorem accumsan cursus. Pellentesque ligula metus, dictum pretium dignissim non, fringilla ac lacus. Sed non dui nibh.',
+        tipo:   TipoCapitulo.Merito,
+        dispositivo: 'Deferida em parte',
+        ministro_condutor: ministro[6],
+        ministros_acordam: [
+          ministro[0],
+          ministro[1],
+          ministro[2],
+          ministro[3],
+          ministro[4],
+          ministro[5],
+        ],
+        ministros_impedidos: [
+          ministro[7],
+        ],
+        ministros_suspeitos: [
+          ministro[8],
+        ],
+        texto: 'Texto do capítulo',
+      },
     ]
   },
 ]
-;

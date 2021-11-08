@@ -17,11 +17,15 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { FuseDrawerModule } from '@fuse/components/drawer/drawer.module';
+import { MatListModule } from '@angular/material/list';
+import { MatRippleModule } from '@angular/material/core';
+import { DragDropModule } from '@angular/cdk/drag-drop';
 
 import { ResultadoJulgamentoComponent } from './resultado-julgamento.component';
 import { ConteudoVotoMinistroComponent } from './conteudo-voto-ministro/conteudo-voto-ministro.component';
 import { FormDecisaoComponent } from './form-decisao/form-decisao.component';
 import { AplicarDecisoesComponent } from './aplicar-decisoes/aplicar-decisoes.component';
+import { VotoDosMinistrosComponent } from './voto-dos-ministros/voto-dos-ministros.component';
 
 const ResultadoJulgamentoRoutes: Route[] = [
   {
@@ -36,6 +40,7 @@ const ResultadoJulgamentoRoutes: Route[] = [
     ConteudoVotoMinistroComponent,
     FormDecisaoComponent,
     AplicarDecisoesComponent,
+    VotoDosMinistrosComponent,
   ],
   imports: [
     CommonModule,
@@ -56,7 +61,10 @@ const ResultadoJulgamentoRoutes: Route[] = [
     MatIconModule,
     MatExpansionModule,
     MatSidenavModule,
-    FuseDrawerModule
+    FuseDrawerModule,
+    MatListModule,
+    MatRippleModule,
+    DragDropModule,
   ]
 })
 export class ResultadoJulgamentoModule { }

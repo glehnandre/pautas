@@ -25,32 +25,92 @@ export const processo: Processo[] = [
     tipo:       TipoDoProcesso.Recurso,
     capitulos:  [
       {
-        id:     1,
+        id: 1,
+        tipo: TipoCapitulo.Merito,
         descricao: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc tempus neque nec ante porta tincidunt eu quis felis. Sed magna libero, sodales ut enim quis, varius faucibus lectus. Sed porttitor pharetra orci, quis fermentum risus rutrum id. Vivamus ornare purus a lorem accumsan cursus. Pellentesque ligula metus, dictum pretium dignissim non, fringilla ac lacus. Sed non dui nibh.',
-        ordem:  1,
-        tipo:   TipoCapitulo.Merito,
-        dispositivo: 'Deferida em parte'
+        dispositivo: 'Deferida',
+        ministro_condutor: ministro[6],
+        ministros_acordam: [
+          ministro[0],
+          ministro[1],
+          ministro[2],
+          ministro[3],
+          ministro[4],
+          ministro[5],
+        ],
+        ministros_impedidos: [
+          ministro[7],
+        ],
+        ministros_suspeitos: [
+          ministro[8],
+        ],
+        texto: 'Texto do capítulo',
       },
       {
-        id:     2,
+        id: 2,
+        tipo: TipoCapitulo.Merito,
         descricao: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc tempus neque nec ante porta tincidunt eu quis felis. Sed magna libero, sodales ut enim quis, varius faucibus lectus. Sed porttitor pharetra orci, quis fermentum risus rutrum id. Vivamus ornare purus a lorem accumsan cursus. Pellentesque ligula metus, dictum pretium dignissim non, fringilla ac lacus. Sed non dui nibh.',
-        ordem:  1,
-        tipo:   TipoCapitulo.Merito,
-        dispositivo: 'Deferida'
+        dispositivo: 'Deferida em parte',
+        ministro_condutor: ministro[6],
+        ministros_acordam: [
+          ministro[0],
+          ministro[1],
+          ministro[2],
+          ministro[3],
+          ministro[4],
+          ministro[5],
+        ],
+        ministros_impedidos: [
+          ministro[7],
+        ],
+        ministros_suspeitos: [
+          ministro[8],
+        ],
+        texto: 'Texto do capítulo',
       },
       {
-        id:     3,
+        id: 3,
+        tipo: TipoCapitulo.Merito,
         descricao: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc tempus neque nec ante porta tincidunt eu quis felis. Sed magna libero, sodales ut enim quis, varius faucibus lectus. Sed porttitor pharetra orci, quis fermentum risus rutrum id. Vivamus ornare purus a lorem accumsan cursus. Pellentesque ligula metus, dictum pretium dignissim non, fringilla ac lacus. Sed non dui nibh.',
-        ordem:  1,
-        tipo:   TipoCapitulo.Merito,
-        dispositivo: 'Provido'
+        dispositivo: 'Provido',
+        ministro_condutor: ministro[6],
+        ministros_acordam: [
+          ministro[0],
+          ministro[1],
+          ministro[2],
+          ministro[3],
+          ministro[4],
+          ministro[5],
+        ],
+        ministros_impedidos: [
+          ministro[7],
+        ],
+        ministros_suspeitos: [
+          ministro[8],
+        ],
+        texto: 'Texto do capítulo',
       },
       {
-        id:     4,
+        id: 4,
+        tipo: TipoCapitulo.Merito,
         descricao: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc tempus neque nec ante porta tincidunt eu quis felis. Sed magna libero, sodales ut enim quis, varius faucibus lectus. Sed porttitor pharetra orci, quis fermentum risus rutrum id. Vivamus ornare purus a lorem accumsan cursus. Pellentesque ligula metus, dictum pretium dignissim non, fringilla ac lacus. Sed non dui nibh.',
-        ordem:  1,
-        tipo:   TipoCapitulo.Merito,
-        dispositivo: 'Concedido'
+        dispositivo: 'Concedido',
+        ministro_condutor: ministro[6],
+        ministros_acordam: [
+          ministro[0],
+          ministro[1],
+          ministro[2],
+          ministro[3],
+          ministro[4],
+          ministro[5],
+        ],
+        ministros_impedidos: [
+          ministro[7],
+        ],
+        ministros_suspeitos: [
+          ministro[8],
+        ],
+        texto: 'Texto do capítulo',
       },
     ],
     relator: {
@@ -79,32 +139,48 @@ export const processo: Processo[] = [
     tipo:       TipoDoProcesso.Recurso,
     capitulos:  [
       {
-        id:     1,
+        id: 1,
+        tipo: TipoCapitulo.Merito,
         descricao: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc tempus neque nec ante porta tincidunt eu quis felis. Sed magna libero, sodales ut enim quis, varius faucibus lectus. Sed porttitor pharetra orci, quis fermentum risus rutrum id. Vivamus ornare purus a lorem accumsan cursus. Pellentesque ligula metus, dictum pretium dignissim non, fringilla ac lacus. Sed non dui nibh.',
-        ordem:  1,
-        tipo:   TipoCapitulo.Merito,
-        dispositivo: 'Deferida em parte'
+        dispositivo: 'Deferida',
+        ministro_condutor: ministro[6],
+        ministros_acordam: [
+          ministro[0],
+          ministro[1],
+          ministro[2],
+          ministro[3],
+          ministro[4],
+          ministro[5],
+        ],
+        ministros_impedidos: [
+          ministro[7],
+        ],
+        ministros_suspeitos: [
+          ministro[8],
+        ],
+        texto: 'Texto do capítulo',
       },
       {
-        id:     2,
+        id: 2,
+        tipo: TipoCapitulo.Merito,
         descricao: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc tempus neque nec ante porta tincidunt eu quis felis. Sed magna libero, sodales ut enim quis, varius faucibus lectus. Sed porttitor pharetra orci, quis fermentum risus rutrum id. Vivamus ornare purus a lorem accumsan cursus. Pellentesque ligula metus, dictum pretium dignissim non, fringilla ac lacus. Sed non dui nibh.',
-        ordem:  1,
-        tipo:   TipoCapitulo.Merito,
-        dispositivo: 'Deferida'
-      },
-      {
-        id:     3,
-        descricao: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc tempus neque nec ante porta tincidunt eu quis felis. Sed magna libero, sodales ut enim quis, varius faucibus lectus. Sed porttitor pharetra orci, quis fermentum risus rutrum id. Vivamus ornare purus a lorem accumsan cursus. Pellentesque ligula metus, dictum pretium dignissim non, fringilla ac lacus. Sed non dui nibh.',
-        ordem:  1,
-        tipo:   TipoCapitulo.Merito,
-        dispositivo: 'Provido'
-      },
-      {
-        id:     4,
-        descricao: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc tempus neque nec ante porta tincidunt eu quis felis. Sed magna libero, sodales ut enim quis, varius faucibus lectus. Sed porttitor pharetra orci, quis fermentum risus rutrum id. Vivamus ornare purus a lorem accumsan cursus. Pellentesque ligula metus, dictum pretium dignissim non, fringilla ac lacus. Sed non dui nibh.',
-        ordem:  1,
-        tipo:   TipoCapitulo.Merito,
-        dispositivo: 'Concedido'
+        dispositivo: 'Deferida em parte',
+        ministro_condutor: ministro[6],
+        ministros_acordam: [
+          ministro[0],
+          ministro[1],
+          ministro[2],
+          ministro[3],
+          ministro[4],
+          ministro[5],
+        ],
+        ministros_impedidos: [
+          ministro[7],
+        ],
+        ministros_suspeitos: [
+          ministro[8],
+        ],
+        texto: 'Texto do capítulo',
       },
     ],
     relator: {
@@ -133,32 +209,48 @@ export const processo: Processo[] = [
     tipo:       TipoDoProcesso.Merito,
     capitulos:  [
       {
-        id:     1,
+        id: 1,
+        tipo: TipoCapitulo.Merito,
         descricao: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc tempus neque nec ante porta tincidunt eu quis felis. Sed magna libero, sodales ut enim quis, varius faucibus lectus. Sed porttitor pharetra orci, quis fermentum risus rutrum id. Vivamus ornare purus a lorem accumsan cursus. Pellentesque ligula metus, dictum pretium dignissim non, fringilla ac lacus. Sed non dui nibh.',
-        ordem:  1,
-        tipo:   TipoCapitulo.Merito,
-        dispositivo: 'Deferida em parte'
+        dispositivo: 'Deferida',
+        ministro_condutor: ministro[6],
+        ministros_acordam: [
+          ministro[0],
+          ministro[1],
+          ministro[2],
+          ministro[3],
+          ministro[4],
+          ministro[5],
+        ],
+        ministros_impedidos: [
+          ministro[7],
+        ],
+        ministros_suspeitos: [
+          ministro[8],
+        ],
+        texto: 'Texto do capítulo',
       },
       {
-        id:     2,
+        id: 2,
+        tipo: TipoCapitulo.Merito,
         descricao: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc tempus neque nec ante porta tincidunt eu quis felis. Sed magna libero, sodales ut enim quis, varius faucibus lectus. Sed porttitor pharetra orci, quis fermentum risus rutrum id. Vivamus ornare purus a lorem accumsan cursus. Pellentesque ligula metus, dictum pretium dignissim non, fringilla ac lacus. Sed non dui nibh.',
-        ordem:  1,
-        tipo:   TipoCapitulo.Merito,
-        dispositivo: 'Deferida'
-      },
-      {
-        id:     3,
-        descricao: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc tempus neque nec ante porta tincidunt eu quis felis. Sed magna libero, sodales ut enim quis, varius faucibus lectus. Sed porttitor pharetra orci, quis fermentum risus rutrum id. Vivamus ornare purus a lorem accumsan cursus. Pellentesque ligula metus, dictum pretium dignissim non, fringilla ac lacus. Sed non dui nibh.',
-        ordem:  1,
-        tipo:   TipoCapitulo.Merito,
-        dispositivo: 'Provido'
-      },
-      {
-        id:     4,
-        descricao: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc tempus neque nec ante porta tincidunt eu quis felis. Sed magna libero, sodales ut enim quis, varius faucibus lectus. Sed porttitor pharetra orci, quis fermentum risus rutrum id. Vivamus ornare purus a lorem accumsan cursus. Pellentesque ligula metus, dictum pretium dignissim non, fringilla ac lacus. Sed non dui nibh.',
-        ordem:  1,
-        tipo:   TipoCapitulo.Merito,
-        dispositivo: 'Concedido'
+        dispositivo: 'Deferida em parte',
+        ministro_condutor: ministro[6],
+        ministros_acordam: [
+          ministro[0],
+          ministro[1],
+          ministro[2],
+          ministro[3],
+          ministro[4],
+          ministro[5],
+        ],
+        ministros_impedidos: [
+          ministro[7],
+        ],
+        ministros_suspeitos: [
+          ministro[8],
+        ],
+        texto: 'Texto do capítulo',
       },
     ],
     relator: {
@@ -188,32 +280,48 @@ export const processo: Processo[] = [
     tipo:       TipoDoProcesso.Recurso,
     capitulos:  [
       {
-        id:     1,
+        id: 1,
+        tipo: TipoCapitulo.Merito,
         descricao: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc tempus neque nec ante porta tincidunt eu quis felis. Sed magna libero, sodales ut enim quis, varius faucibus lectus. Sed porttitor pharetra orci, quis fermentum risus rutrum id. Vivamus ornare purus a lorem accumsan cursus. Pellentesque ligula metus, dictum pretium dignissim non, fringilla ac lacus. Sed non dui nibh.',
-        ordem:  1,
-        tipo:   TipoCapitulo.Merito,
-        dispositivo: 'Deferida em parte'
+        dispositivo: 'Deferida',
+        ministro_condutor: ministro[6],
+        ministros_acordam: [
+          ministro[0],
+          ministro[1],
+          ministro[2],
+          ministro[3],
+          ministro[4],
+          ministro[5],
+        ],
+        ministros_impedidos: [
+          ministro[7],
+        ],
+        ministros_suspeitos: [
+          ministro[8],
+        ],
+        texto: 'Texto do capítulo',
       },
       {
-        id:     2,
+        id: 2,
+        tipo: TipoCapitulo.Merito,
         descricao: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc tempus neque nec ante porta tincidunt eu quis felis. Sed magna libero, sodales ut enim quis, varius faucibus lectus. Sed porttitor pharetra orci, quis fermentum risus rutrum id. Vivamus ornare purus a lorem accumsan cursus. Pellentesque ligula metus, dictum pretium dignissim non, fringilla ac lacus. Sed non dui nibh.',
-        ordem:  1,
-        tipo:   TipoCapitulo.Merito,
-        dispositivo: 'Deferida'
-      },
-      {
-        id:     3,
-        descricao: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc tempus neque nec ante porta tincidunt eu quis felis. Sed magna libero, sodales ut enim quis, varius faucibus lectus. Sed porttitor pharetra orci, quis fermentum risus rutrum id. Vivamus ornare purus a lorem accumsan cursus. Pellentesque ligula metus, dictum pretium dignissim non, fringilla ac lacus. Sed non dui nibh.',
-        ordem:  1,
-        tipo:   TipoCapitulo.Merito,
-        dispositivo: 'Provido'
-      },
-      {
-        id:     4,
-        descricao: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc tempus neque nec ante porta tincidunt eu quis felis. Sed magna libero, sodales ut enim quis, varius faucibus lectus. Sed porttitor pharetra orci, quis fermentum risus rutrum id. Vivamus ornare purus a lorem accumsan cursus. Pellentesque ligula metus, dictum pretium dignissim non, fringilla ac lacus. Sed non dui nibh.',
-        ordem:  1,
-        tipo:   TipoCapitulo.Merito,
-        dispositivo: 'Concedido'
+        dispositivo: 'Deferida em parte',
+        ministro_condutor: ministro[6],
+        ministros_acordam: [
+          ministro[0],
+          ministro[1],
+          ministro[2],
+          ministro[3],
+          ministro[4],
+          ministro[5],
+        ],
+        ministros_impedidos: [
+          ministro[7],
+        ],
+        ministros_suspeitos: [
+          ministro[8],
+        ],
+        texto: 'Texto do capítulo',
       },
     ],
     relator: {
@@ -242,12 +350,27 @@ export const processo: Processo[] = [
     tipo:       TipoDoProcesso.Merito,
     capitulos:  [
       {
-        id:     1,
-        descricao: 'É constitucional o artigo 8º da Lei Complementar 173/2020, editado no âmbito do Programa Federativo de Enfrentamento ao Coronavírus SARS-CoV-2 (Covid-19).',
-        ordem:  1,
+        id: 1,
         tipo:   TipoCapitulo.Preliminar,
-        dispositivo: 'Reconhecida'
-      }
+        descricao: 'É constitucional o artigo 8º da Lei Complementar 173/2020, editado no âmbito do Programa Federativo de Enfrentamento ao Coronavírus SARS-CoV-2 (Covid-19).',
+        dispositivo: 'Reconhecida',
+        ministro_condutor: ministro[6],
+        ministros_acordam: [
+          ministro[0],
+          ministro[1],
+          ministro[2],
+          ministro[3],
+          ministro[4],
+          ministro[5],
+        ],
+        ministros_impedidos: [
+          ministro[7],
+        ],
+        ministros_suspeitos: [
+          ministro[8],
+        ],
+        texto: 'Texto do capítulo',
+      },
     ],
     relator: {
         id: 2,
@@ -275,12 +398,27 @@ export const processo: Processo[] = [
     tipo:       TipoDoProcesso.Merito,
     capitulos:  [
       {
-        id:     1,
-        descricao: 'É constitucional o artigo 8º da Lei Complementar 173/2020, editado no âmbito do Programa Federativo de Enfrentamento ao Coronavírus SARS-CoV-2 (Covid-19).',
-        ordem:  1,
+        id: 1,
         tipo:   TipoCapitulo.Tese,
-        dispositivo: 'Reconhecida'
-      }
+        descricao: 'É constitucional o artigo 8º da Lei Complementar 173/2020, editado no âmbito do Programa Federativo de Enfrentamento ao Coronavírus SARS-CoV-2 (Covid-19).',
+        dispositivo: 'Reconhecida',
+        ministro_condutor: ministro[6],
+        ministros_acordam: [
+          ministro[0],
+          ministro[1],
+          ministro[2],
+          ministro[3],
+          ministro[4],
+          ministro[5],
+        ],
+        ministros_impedidos: [
+          ministro[7],
+        ],
+        ministros_suspeitos: [
+          ministro[8],
+        ],
+        texto: 'Texto do capítulo',
+      },
     ],
     relator: {
         id: 2,
@@ -308,12 +446,27 @@ export const processo: Processo[] = [
     tipo:       TipoDoProcesso.Merito,
     capitulos:  [
       {
-        id:     1,
-        descricao: 'É constitucional o artigo 8º da Lei Complementar 173/2020, editado no âmbito do Programa Federativo de Enfrentamento ao Coronavírus SARS-CoV-2 (Covid-19).',
-        ordem:  1,
+        id: 1,
         tipo:   TipoCapitulo.Preliminar,
-        dispositivo: 'Reconhecida'
-      }
+        descricao: 'É constitucional o artigo 8º da Lei Complementar 173/2020, editado no âmbito do Programa Federativo de Enfrentamento ao Coronavírus SARS-CoV-2 (Covid-19).',
+        dispositivo: 'Reconhecida',
+        ministro_condutor: ministro[6],
+        ministros_acordam: [
+          ministro[0],
+          ministro[1],
+          ministro[2],
+          ministro[3],
+          ministro[4],
+          ministro[5],
+        ],
+        ministros_impedidos: [
+          ministro[7],
+        ],
+        ministros_suspeitos: [
+          ministro[8],
+        ],
+        texto: 'Texto do capítulo',
+      },
     ],
     relator: {
         id: 2,
@@ -341,12 +494,27 @@ export const processo: Processo[] = [
     tipo:       TipoDoProcesso.Merito,
     capitulos:  [
       {
-        id:     1,
+        id: 1,
+        tipo:   TipoCapitulo.Questão_de_Ordem,
         descricao: 'É constitucional o artigo 8º da Lei Complementar 173/2020, editado no âmbito do Programa Federativo de Enfrentamento ao Coronavírus SARS-CoV-2 (Covid-19).',
-        ordem:  1,
-        tipo:   TipoCapitulo['Questão de Ordem'],
-        dispositivo: 'Reconhecida'
-      }
+        dispositivo: 'Reconhecida',
+        ministro_condutor: ministro[6],
+        ministros_acordam: [
+          ministro[0],
+          ministro[1],
+          ministro[2],
+          ministro[3],
+          ministro[4],
+          ministro[5],
+        ],
+        ministros_impedidos: [
+          ministro[7],
+        ],
+        ministros_suspeitos: [
+          ministro[8],
+        ],
+        texto: 'Texto do capítulo',
+      },
     ],
     relator: {
         id: 2,
@@ -374,32 +542,92 @@ export const processo: Processo[] = [
     tipo:       TipoDoProcesso.Merito,
     capitulos:  [
       {
-        id:     1,
+        id: 1,
         descricao: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc tempus neque nec ante porta tincidunt eu quis felis. Sed magna libero, sodales ut enim quis, varius faucibus lectus. Sed porttitor pharetra orci, quis fermentum risus rutrum id. Vivamus ornare purus a lorem accumsan cursus. Pellentesque ligula metus, dictum pretium dignissim non, fringilla ac lacus. Sed non dui nibh.',
-        ordem:  1,
         tipo:   TipoCapitulo.Merito,
-        dispositivo: 'Deferida em parte'
+        dispositivo: 'Deferida em parte',
+        ministro_condutor: ministro[6],
+        ministros_acordam: [
+          ministro[0],
+          ministro[1],
+          ministro[2],
+          ministro[3],
+          ministro[4],
+          ministro[5],
+        ],
+        ministros_impedidos: [
+          ministro[7],
+        ],
+        ministros_suspeitos: [
+          ministro[8],
+        ],
+        texto: 'Texto do capítulo',
       },
       {
-        id:     2,
+        id: 2,
         descricao: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc tempus neque nec ante porta tincidunt eu quis felis. Sed magna libero, sodales ut enim quis, varius faucibus lectus. Sed porttitor pharetra orci, quis fermentum risus rutrum id. Vivamus ornare purus a lorem accumsan cursus. Pellentesque ligula metus, dictum pretium dignissim non, fringilla ac lacus. Sed non dui nibh.',
-        ordem:  1,
         tipo:   TipoCapitulo.Merito,
-        dispositivo: 'Deferida'
+        dispositivo: 'Deferida',
+        ministro_condutor: ministro[6],
+        ministros_acordam: [
+          ministro[0],
+          ministro[1],
+          ministro[2],
+          ministro[3],
+          ministro[4],
+          ministro[5],
+        ],
+        ministros_impedidos: [
+          ministro[7],
+        ],
+        ministros_suspeitos: [
+          ministro[8],
+        ],
+        texto: 'Texto do capítulo',
       },
       {
-        id:     3,
+        id: 3,
         descricao: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc tempus neque nec ante porta tincidunt eu quis felis. Sed magna libero, sodales ut enim quis, varius faucibus lectus. Sed porttitor pharetra orci, quis fermentum risus rutrum id. Vivamus ornare purus a lorem accumsan cursus. Pellentesque ligula metus, dictum pretium dignissim non, fringilla ac lacus. Sed non dui nibh.',
-        ordem:  1,
         tipo:   TipoCapitulo.Merito,
-        dispositivo: 'Provido'
+        dispositivo: 'Provido',
+        ministro_condutor: ministro[6],
+        ministros_acordam: [
+          ministro[0],
+          ministro[1],
+          ministro[2],
+          ministro[3],
+          ministro[4],
+          ministro[5],
+        ],
+        ministros_impedidos: [
+          ministro[7],
+        ],
+        ministros_suspeitos: [
+          ministro[8],
+        ],
+        texto: 'Texto do capítulo',
       },
       {
-        id:     4,
+        id: 1,
         descricao: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc tempus neque nec ante porta tincidunt eu quis felis. Sed magna libero, sodales ut enim quis, varius faucibus lectus. Sed porttitor pharetra orci, quis fermentum risus rutrum id. Vivamus ornare purus a lorem accumsan cursus. Pellentesque ligula metus, dictum pretium dignissim non, fringilla ac lacus. Sed non dui nibh.',
-        ordem:  1,
         tipo:   TipoCapitulo.Merito,
-        dispositivo: 'Concedido'
+        dispositivo: 'Concedido',
+        ministro_condutor: ministro[6],
+        ministros_acordam: [
+          ministro[0],
+          ministro[1],
+          ministro[2],
+          ministro[3],
+          ministro[4],
+          ministro[5],
+        ],
+        ministros_impedidos: [
+          ministro[7],
+        ],
+        ministros_suspeitos: [
+          ministro[8],
+        ],
+        texto: 'Texto do capítulo',
       },
     ],
     relator: ministro[2],
@@ -416,14 +644,14 @@ export const documentos: Documento[] = [
 
   {
     id: 4,
-    nome: "Voto AD",
+    nome: "Voto AM",
     tipo: "pdf",
     url: "/assets/pdf/voto-alexandre-divergenteadi6185-Ed.pdf"
   },
 
   {
     id: 5,
-    nome: 'Voto LB',
+    nome: 'Voto RB',
     tipo: 'pdf',
     url: '/assets/pdf/voto-luis-barroso-barroso-adi6185-Ed.pdf',
   },
@@ -440,11 +668,11 @@ export const votos: Voto[] = [
   {
     id:             1,
     situacao:       'situacao',
-    nome:           'nome',	
+    nome:           'nome',
     conteudo:       '<\x00h\x002\x00>\x00V\x00o\x00t\x00o\x00<\x00/\x00h\x002\x00>\x00\n\x00<\x00p\x00 \x00c\x00l\x00a\x00s\x00s\x00=\x00"\x00w\x00h\x00i\x00t\x00e\x00s\x00p\x00a\x00c\x00e\x00-\x00p\x00r\x00e\x00-\x00l\x00i\x00n\x00e\x00"\x00>\x00 \x00 \x00 \x00 \x00 \x00 \x00 \x00 \x00 \x00 \x00 \x00 \x00 \x00 \x00 \x00 \x00\n\x001\x00.\x00\n\x00T\x00r\x00a\x00t\x00a\x00-\x00s\x00e\x00 \x00 \x00 \x00d\x00e\x00 \x00 \x00 \x00e\x00m\x00b\x00a\x00r\x00g\x00o\x00s\x00 \x00 \x00 \x00d\x00e\x00 \x00 \x00 \x00d\x00e\x00c\x00l\x00a\x00r\x00a\x00ç\x00ã\x00o\x00 \x00 \x00 \x00o\x00p\x00o\x00s\x00t\x00o\x00s\x00 \x00 \x00 \x00e\x00m\x00 \x00 \x00 \x00f\x00a\x00c\x00e\x00 \x00 \x00 \x00d\x00e\x00\n\x00a\x00c\x00ó\x00r\x00d\x00ã\x00o\x00 \x00d\x00o\x00 \x00P\x00l\x00e\x00n\x00á\x00r\x00i\x00o\x00 \x00d\x00e\x00s\x00t\x00a\x00 \x00C\x00o\x00r\x00t\x00e\x00 \x00d\x00a\x00 \x00r\x00e\x00l\x00a\x00t\x00o\x00r\x00i\x00a\x00 \x00d\x00o\x00 \x00M\x00i\x00n\x00i\x00s\x00t\x00r\x00o\x00 \x00M\x00a\x00r\x00c\x00o\x00 \x00A\x00u\x00r\x00é\x00l\x00i\x00o\x00p\x00e\x00l\x00o\x00 \x00 \x00 \x00q\x00u\x00a\x00l\x00 \x00 \x00 \x00f\x00o\x00i\x00 \x00 \x00 \x00j\x00u\x00l\x00g\x00a\x00d\x00a\x00 \x00 \x00 \x00p\x00r\x00o\x00c\x00e\x00d\x00e\x00n\x00t\x00e\x00 \x00 \x00 \x00a\x00ç\x00ã\x00o\x00 \x00 \x00 \x00d\x00i\x00r\x00e\x00t\x00a\x00 \x00 \x00 \x00d\x00e\x00 \x00 \x00 \x00i\x00n\x00c\x00o\x00n\x00s\x00t\x00i\x00t\x00u\x00c\x00i\x00o\x00n\x00a\x00l\x00i\x00d\x00a\x00d\x00e\x00\n\x00p\x00r\x00o\x00p\x00o\x00s\x00t\x00a\x00 \x00e\x00m\x00 \x00f\x00a\x00c\x00e\x00 \x00d\x00o\x00 \x00a\x00r\x00t\x00.\x00 \x003\x00º\x00 \x00d\x00a\x00 \x00L\x00e\x00i\x00 \x00n\x00º\x00 \x001\x009\x00.\x009\x002\x009\x00/\x002\x000\x001\x007\x00 \x00d\x00o\x00 \x00E\x00s\x00t\x00a\x00d\x00o\x00 \x00d\x00e\x00 \x00G\x00o\x00i\x00á\x00s\x00,\x00 \x00q\x00u\x00e\x00\n\x00f\x00i\x00x\x00o\x00u\x00,\x00 \x00d\x00e\x00 \x00f\x00o\x00r\x00m\x00a\x00 \x00g\x00e\x00n\x00é\x00r\x00i\x00c\x00a\x00,\x00 \x00o\x00s\x00 \x00v\x00e\x00n\x00c\x00i\x00m\x00e\x00n\x00t\x00o\x00s\x00 \x00e\x00 \x00s\x00u\x00b\x00s\x00í\x00d\x00i\x00o\x00s\x00 \x00d\x00o\x00s\x00 \x00\x1C \n\x00o\x00c\x00u\x00p\x00a\x00n\x00t\x00e\x00s\x00 \x00d\x00e\x00\n\x00c\x00a\x00r\x00g\x00o\x00s\x00 \x00 \x00 \x00e\x00 \x00 \x00 \x00e\x00m\x00p\x00r\x00e\x00g\x00a\x00d\x00o\x00s\x00 \x00 \x00 \x00p\x00ú\x00b\x00l\x00i\x00c\x00o\x00s\x00 \x00 \x00 \x00d\x00e\x00 \x00 \x00 \x00A\x00d\x00v\x00o\x00g\x00a\x00d\x00o\x00 \x00 \x00 \x00e\x00 \x00 \x00 \x00c\x00o\x00r\x00r\x00e\x00l\x00a\x00t\x00o\x00s\x00 \x00 \x00 \x00e\x00s\x00p\x00e\x00c\x00í\x00f\x00i\x00c\x00o\x00s\x00 \x00 \x00 \x00d\x00a\x00 \x00 \x00 \x00á\x00r\x00e\x00a\x00\n\x00j\x00u\x00r\x00í\x00d\x00i\x00c\x00a\x00 \x00d\x00a\x00s\x00 \x00a\x00u\x00t\x00a\x00r\x00q\x00u\x00i\x00a\x00s\x00 \x00e\x00s\x00t\x00a\x00d\x00u\x00a\x00i\x00s\x00\x1D ,\x00 \x00\n\x00p\x00o\x00r\x00 \x00a\x00f\x00r\x00o\x00n\x00t\x00a\x00 \x00à\x00 \x00p\x00r\x00e\x00v\x00i\x00s\x00ã\x00o\x00 \x00c\x00o\x00n\x00s\x00t\x00i\x00t\x00u\x00c\x00i\x00o\x00n\x00a\x00l\x00 \x00d\x00e\x00\n\x00r\x00e\x00s\x00e\x00r\x00v\x00a\x00 \x00d\x00e\x00 \x00l\x00e\x00i\x00 \x00e\x00s\x00p\x00e\x00c\x00í\x00f\x00i\x00c\x00a\x00 \x00(\x00a\x00r\x00t\x00.\x00 \x003\x007\x00,\x00 \x00X\x00)\x00 \x00e\x00 \x00v\x00e\x00d\x00a\x00ç\x00ã\x00o\x00 \x00à\x00 \x00v\x00i\x00n\x00c\x00u\x00l\x00a\x00ç\x00ã\x00o\x00 \x00r\x00e\x00m\x00u\x00n\x00e\x00r\x00a\x00t\x00ó\x00r\x00i\x00a\x00\n\x00e\x00n\x00t\x00r\x00e\x00 \x00i\x00n\x00t\x00e\x00g\x00r\x00a\x00n\x00t\x00e\x00s\x00 \x00d\x00e\x00 \x00c\x00a\x00r\x00r\x00e\x00i\x00r\x00a\x00s\x00 \x00d\x00i\x00v\x00e\x00r\x00s\x00a\x00s\x00 \x00(\x00a\x00r\x00t\x00.\x00 \x003\x007\x00,\x00 \x00X\x00I\x00I\x00I\x00,\x00 \x00e\x00 \x00a\x00r\x00t\x00.\x00 \x003\x009\x00,\x00 \x00§\x00 \x001\x00º\x00)\x00.\x00 \x00\n\x00\n\x002\x00.\x00\n\x00O\x00 \x00 \x00 \x00P\x00r\x00e\x00s\x00i\x00d\x00e\x00n\x00t\x00e\x00 \x00 \x00 \x00d\x00a\x00 \x00 \x00 \x00A\x00s\x00s\x00e\x00m\x00b\x00l\x00e\x00i\x00a\x00 \x00 \x00 \x00L\x00e\x00g\x00i\x00s\x00l\x00a\x00t\x00i\x00v\x00a\x00 \x00 \x00 \x00d\x00o\x00 \x00 \x00 \x00E\x00s\x00t\x00a\x00d\x00o\x00 \x00 \x00 \x00d\x00e\x00\n\x00G\x00o\x00i\x00á\x00s\x00 \x00o\x00p\x00ô\x00s\x00 \x00o\x00s\x00 \x00p\x00r\x00e\x00s\x00e\x00n\x00t\x00e\x00s\x00 \x00e\x00m\x00b\x00a\x00r\x00g\x00o\x00s\x00 \x00d\x00e\x00 \x00d\x00e\x00c\x00l\x00a\x00r\x00a\x00ç\x00ã\x00o\x00,\x00 \x00n\x00o\x00s\x00 \x00q\x00u\x00a\x00i\x00s\x00 \x00d\x00e\x00f\x00e\x00n\x00d\x00e\x00 \x00q\x00u\x00e\x00\n\x00\x1C d\x00a\x00d\x00a\x00 \x00a\x00 \x00i\x00m\x00p\x00e\x00r\x00i\x00o\x00s\x00a\x00 \x00n\x00e\x00c\x00e\x00s\x00s\x00i\x00d\x00a\x00d\x00e\x00 \x00d\x00e\x00 \x00e\x00v\x00i\x00t\x00a\x00r\x00 \x00m\x00a\x00l\x00 \x00m\x00a\x00i\x00o\x00r\x00 \x00e\x00m\x00 \x00v\x00i\x00r\x00t\x00u\x00d\x00e\x00 \x00d\x00a\x00 \x00d\x00e\x00c\x00l\x00a\x00r\x00a\x00ç\x00ã\x00o\x00 \x00d\x00e\x00\n\x00i\x00n\x00c\x00o\x00n\x00s\x00t\x00i\x00t\x00u\x00c\x00i\x00o\x00n\x00a\x00l\x00i\x00d\x00a\x00d\x00e\x00 \x00 \x00 \x00d\x00o\x00 \x00 \x00 \x00p\x00r\x00e\x00c\x00e\x00i\x00t\x00o\x00 \x00 \x00 \x00j\x00á\x00 \x00 \x00 \x00c\x00o\x00n\x00h\x00e\x00c\x00i\x00d\x00o\x00,\x00 \x00 \x00 \x00q\x00u\x00a\x00l\x00 \x00 \x00 \x00s\x00e\x00j\x00a\x00,\x00 \x00 \x00 \x00d\x00e\x00p\x00a\x00u\x00p\x00e\x00r\x00a\x00m\x00e\x00n\x00t\x00e\x00o\x00\n\x00i\x00r\x00r\x00e\x00v\x00e\x00r\x00s\x00í\x00v\x00e\x00l\x00 \x00d\x00o\x00s\x00 \x00s\x00e\x00r\x00v\x00i\x00d\x00o\x00r\x00e\x00s\x00 \x00q\x00u\x00e\x00 \x00a\x00t\x00u\x00a\x00m\x00 \x00n\x00a\x00 \x00á\x00r\x00e\x00a\x00 \x00j\x00u\x00r\x00í\x00d\x00i\x00c\x00a\x00 \x00d\x00a\x00s\x00 \x00a\x00u\x00t\x00a\x00r\x00q\x00u\x00i\x00a\x00s\x00 \x00g\x00o\x00i\x00a\x00n\x00a\x00s\x00,\x00 \x00e\x00m\x00\n\x00c\x00l\x00a\x00r\x00o\x00 \x00d\x00e\x00s\x00r\x00e\x00s\x00p\x00e\x00i\x00t\x00o\x00 \x00à\x00 \x00s\x00e\x00g\x00u\x00r\x00a\x00n\x00ç\x00a\x00 \x00j\x00u\x00r\x00í\x00d\x00i\x00c\x00a\x00 \x00e\x00 \x00à\x00 \x00p\x00r\x00ó\x00p\x00r\x00i\x00a\x00 \x00d\x00i\x00g\x00n\x00i\x00d\x00a\x00d\x00e\x00 \x00h\x00u\x00m\x00a\x00n\x00a\x00,\x00 \x00s\x00o\x00l\x00i\x00c\x00i\x00t\x00a\x00-\x00s\x00e\x00\n\x00q\x00u\x00e\x00 \x00a\x00 \x00i\x00n\x00c\x00o\x00n\x00s\x00t\x00i\x00t\x00u\x00c\x00i\x00o\x00n\x00a\x00l\x00i\x00d\x00a\x00d\x00e\x00 \x00d\x00e\x00c\x00l\x00a\x00r\x00a\x00d\x00a\x00 \x00t\x00e\x00n\x00h\x00a\x00 \x00e\x00f\x00e\x00i\x00t\x00o\x00s\x00 \x00a\x00 \x00c\x00o\x00n\x00t\x00a\x00r\x00 \x00a\x00 \x00p\x00a\x00r\x00t\x00i\x00r\x00 \x00d\x00o\x00 \x00t\x00r\x00â\x00n\x00s\x00i\x00t\x00o\x00\n\x00e\x00m\x00 \x00j\x00u\x00l\x00g\x00a\x00d\x00o\x00 \x00d\x00e\x00s\x00t\x00a\x00 \x00a\x00ç\x00ã\x00o\x00 \x00d\x00i\x00r\x00e\x00t\x00a\x00 \x00d\x00e\x00 \x00i\x00n\x00c\x00o\x00n\x00s\x00t\x00i\x00t\x00u\x00c\x00i\x00o\x00n\x00a\x00l\x00i\x00d\x00a\x00d\x00e\x00\x1D .\x00 \x00\n\x00P\x00r\x00e\x00t\x00e\x00n\x00d\x00e\x00\n\x00a\x00 \x00m\x00o\x00d\x00u\x00l\x00a\x00ç\x00ã\x00o\x00\n\x00d\x00o\x00s\x00 \x00e\x00f\x00e\x00i\x00t\x00o\x00s\x00 \x00a\x00 \x00p\x00a\x00r\x00t\x00i\x00r\x00 \x00d\x00o\x00 \x00t\x00r\x00â\x00n\x00s\x00i\x00t\x00o\x00 \x00e\x00m\x00 \x00j\x00u\x00l\x00g\x00a\x00d\x00o\x00 \x00d\x00e\x00s\x00t\x00a\x00 \x00a\x00ç\x00ã\x00o\x00.\x00 \x00 \x00\n\x00\n\x003\x00.\x00\n\x00E\x00m\x00 \x00a\x00m\x00b\x00i\x00e\x00n\x00t\x00e\x00 \x00v\x00i\x00r\x00t\x00u\x00a\x00l\x00 \x00d\x00e\x00 \x00j\x00u\x00l\x00g\x00a\x00m\x00e\x00n\x00t\x00o\x00,\x00 \x00o\x00 \x00e\x00m\x00i\x00n\x00e\x00n\x00t\x00e\x00 \x00M\x00i\x00n\x00i\x00s\x00t\x00r\x00o\x00\n\x00M\x00a\x00r\x00c\x00o\x00 \x00A\x00u\x00r\x00é\x00l\x00i\x00o\x00,\x00 \x00r\x00e\x00l\x00a\x00t\x00o\x00r\x00 \x00d\x00o\x00 \x00f\x00e\x00i\x00t\x00o\x00,\x00 \x00 \x00 \x00a\x00p\x00r\x00e\x00s\x00e\x00n\x00t\x00o\x00u\x00 \x00v\x00o\x00t\x00o\x00 \x00n\x00o\x00 \x00s\x00e\x00n\x00t\x00i\x00d\x00o\x00 \x00d\x00a\x00 \x00r\x00e\x00j\x00e\x00i\x00ç\x00ã\x00o\x00\n\x00d\x00o\x00s\x00 \x00e\x00m\x00b\x00a\x00r\x00g\x00o\x00s\x00.\x00\n\x00\n\x004\x00.\x00\n\x00D\x00i\x00v\x00i\x00r\x00j\x00o\x00 \x00r\x00e\x00s\x00p\x00e\x00i\x00t\x00o\x00s\x00a\x00m\x00e\x00n\x00t\x00e\x00 \x00d\x00e\x00 \x00S\x00u\x00a\x00 \x00E\x00x\x00c\x00e\x00l\x00ê\x00n\x00c\x00i\x00a\x00.\x00 \x00\n\x00<\x00/\x00p\x00>\x00\n\x00',
     autor:          ministro[4],
     tipo:           'VOGAL',
-    acompanharam:   [ 
+    acompanharam:   [
                       ministro[3],
                       ministro[9],
                       ministro[7],
@@ -458,7 +686,7 @@ export const votos: Voto[] = [
   {
     id:             1,
     situacao:       'situacao',
-    nome:           'nome',	
+    nome:           'nome',
     conteudo:       '<\x00h\x002\x00>\x00V\x00o\x00t\x00o\x00<\x00/\x00h\x002\x00>\x00\n\x00<\x00p\x00 \x00c\x00l\x00a\x00s\x00s\x00=\x00"\x00w\x00h\x00i\x00t\x00e\x00s\x00p\x00a\x00c\x00e\x00-\x00p\x00r\x00e\x00-\x00l\x00i\x00n\x00e\x00"\x00>\x00 \x00 \x00 \x00 \x00 \x00 \x00 \x00 \x00 \x00 \x00 \x00 \x00 \x00 \x00 \x00 \x00\n\x001\x003\x00/\x000\x004\x00/\x002\x000\x002\x001\x00\n\x00P\x00L\x00E\x00N\x00Á\x00R\x00I\x00O\x00 \x00E\x00 \x00M\x00B\x00.\x00 \x00D\x00E\x00C\x00L\x00.\x00 \x00N\x00A\x00 \x00A\x00Ç\x00Ã\x00O\x00 \x00D\x00I\x00R\x00E\x00T\x00A\x00 \x00D\x00E\x00 \x00I\x00N\x00C\x00O\x00N\x00S\x00T\x00I\x00T\x00U\x00C\x00I\x00O\x00N\x00A\x00L\x00I\x00D\x00A\x00D\x00E\x00 \x006\x00.\x001\x008\x005\x00 \x00G\x00O\x00I\x00Á\x00S\x00 \x00V\x00O\x00T\x00O\x00 \x00O\x00 \x00S\x00E\x00N\x00H\x00O\x00R\x00 \x00M\x00I\x00N\x00I\x00S\x00T\x00R\x00O\x00 \x00M\x00A\x00R\x00C\x00O\x00 \x00A\x00U\x00R\x00É\x00L\x00I\x00O\x00 \x00(\x00R\x00E\x00L\x00A\x00T\x00O\x00R\x00)\x00:\x00\n\x00\n\x00E\x00M\x00B\x00A\x00R\x00G\x00O\x00S\x00 \x00D\x00E\x00C\x00L\x00A\x00R\x00A\x00T\x00Ó\x00R\x00I\x00O\x00S\x00 \x00\x13  \x00A\x00C\x00Ó\x00R\x00D\x00Ã\x00O\x00 \x00\x13  \x00V\x00Í\x00C\x00I\x00O\x00 \x00\x13 \n\x00I\x00N\x00E\x00X\x00I\x00S\x00T\x00Ê\x00N\x00C\x00I\x00A\x00.\x00 \x00I\x00n\x00e\x00x\x00i\x00s\x00t\x00i\x00n\x00d\x00o\x00,\x00 \x00n\x00o\x00 \x00a\x00c\x00ó\x00r\x00d\x00ã\x00o\x00 \x00f\x00o\x00r\x00m\x00a\x00l\x00i\x00z\x00a\x00d\x00o\x00,\x00 \x00q\x00u\x00a\x00l\x00q\x00u\x00e\x00r\x00\n\x00d\x00o\x00s\x00 \x00v\x00í\x00c\x00i\x00o\x00s\x00 \x00q\x00u\x00e\x00 \x00r\x00e\x00s\x00p\x00a\x00l\x00d\x00a\x00m\x00 \x00o\x00s\x00 \x00e\x00m\x00b\x00a\x00r\x00g\x00o\x00s\x00 \x00d\x00e\x00 \x00d\x00e\x00c\x00l\x00a\x00r\x00a\x00ç\x00ã\x00o\x00 \x00\x13  \x00o\x00m\x00i\x00s\x00s\x00ã\x00o\x00,\x00\n\x00c\x00o\x00n\x00t\x00r\x00a\x00d\x00i\x00ç\x00ã\x00o\x00,\x00 \x00 \x00 \x00o\x00b\x00s\x00c\x00u\x00r\x00i\x00d\x00a\x00d\x00e\x00 \x00 \x00 \x00e\x00 \x00 \x00 \x00e\x00r\x00r\x00o\x00 \x00 \x00 \x00m\x00a\x00t\x00e\x00r\x00i\x00a\x00l\x00 \x00 \x00 \x00\x13 ,\x00 \x00 \x00 \x00i\x00m\x00p\x00õ\x00e\x00-\x00s\x00e\x00 \x00 \x00 \x00o\x00\n\x00d\x00e\x00s\x00p\x00r\x00o\x00v\x00i\x00m\x00e\x00n\x00t\x00o\x00.\x00\n\x00A\x00Ç\x00Ã\x00O\x00 \x00 \x00 \x00D\x00I\x00R\x00E\x00T\x00A\x00 \x00 \x00 \x00D\x00E\x00 \x00 \x00 \x00I\x00N\x00C\x00O\x00N\x00S\x00T\x00I\x00T\x00U\x00C\x00I\x00O\x00N\x00A\x00L\x00I\x00D\x00A\x00D\x00E\x00 \x00 \x00 \x00\x13 \n\x00P\x00E\x00D\x00I\x00D\x00O\x00 \x00\x13  \x00P\x00R\x00O\x00C\x00E\x00D\x00Ê\x00N\x00C\x00I\x00A\x00 \x00\x13  \x00M\x00O\x00D\x00U\x00L\x00A\x00Ç\x00Ã\x00O\x00.\x00 \x00N\x00ã\x00o\x00 \x00c\x00a\x00b\x00e\x00,\x00 \x00u\x00m\x00a\x00\n\x00v\x00e\x00z\x00 \x00p\x00r\x00o\x00c\x00l\x00a\x00m\x00a\x00d\x00a\x00 \x00a\x00 \x00i\x00n\x00c\x00o\x00m\x00p\x00a\x00t\x00i\x00b\x00i\x00l\x00i\x00d\x00a\x00d\x00e\x00 \x00d\x00e\x00 \x00a\x00t\x00o\x00 \x00n\x00o\x00r\x00m\x00a\x00t\x00i\x00v\x00o\x00 \x00c\x00o\x00m\x00 \x00a\x00\n\x00C\x00o\x00n\x00s\x00t\x00i\x00t\x00u\x00i\x00ç\x00ã\x00o\x00 \x00 \x00 \x00F\x00e\x00d\x00e\x00r\x00a\x00l\x00,\x00 \x00 \x00 \x00p\x00r\x00o\x00j\x00e\x00t\x00a\x00r\x00 \x00 \x00 \x00o\x00 \x00 \x00 \x00s\x00u\x00r\x00g\x00i\x00m\x00e\x00n\x00t\x00o\x00 \x00 \x00 \x00d\x00o\x00s\x00 \x00 \x00 \x00e\x00f\x00e\x00i\x00t\x00o\x00s\x00 \x00 \x00 \x00d\x00a\x00\n\x00c\x00o\x00n\x00s\x00t\x00a\x00t\x00a\x00ç\x00ã\x00o\x00,\x00 \x00s\x00o\x00b\x00 \x00p\x00e\x00n\x00a\x00 \x00d\x00e\x00 \x00i\x00n\x00o\x00b\x00s\x00e\x00r\x00v\x00â\x00n\x00c\x00i\x00a\x00,\x00 \x00c\x00o\x00n\x00s\x00i\x00d\x00e\x00r\x00a\x00d\x00o\x00 \x00o\x00 \x00â\x00n\x00g\x00u\x00l\x00o\x00\n\x00d\x00a\x00 \x00 \x00 \x00h\x00i\x00g\x00i\x00d\x00e\x00z\x00,\x00 \x00 \x00 \x00d\x00a\x00 \x00 \x00 \x00L\x00e\x00i\x00 \x00 \x00 \x00M\x00a\x00i\x00o\x00r\x00,\x00 \x00 \x00 \x00c\x00o\x00m\x00o\x00 \x00 \x00 \x00s\x00e\x00 \x00 \x00 \x00a\x00t\x00é\x00 \x00 \x00 \x00e\x00n\x00t\x00ã\x00o\x00 \x00 \x00 \x00n\x00ã\x00o\x00 \x00 \x00 \x00t\x00i\x00v\x00e\x00s\x00s\x00e\x00\n\x00v\x00i\x00g\x00o\x00r\x00a\x00d\x00o\x00.\x00 \x00\n\x00\n\x00A\x00t\x00e\x00n\x00d\x00e\x00u\x00-\x00s\x00e\x00 \x00a\x00o\x00s\x00 \x00p\x00r\x00e\x00s\x00s\x00u\x00p\x00o\x00s\x00t\x00o\x00s\x00 \x00d\x00e\x00 \x00r\x00e\x00c\x00o\x00r\x00r\x00i\x00b\x00i\x00l\x00i\x00d\x00a\x00d\x00e\x00.\x00 \x00A\x00 \x00p\x00e\x00ç\x00a\x00,\x00 \x00s\x00u\x00b\x00s\x00c\x00r\x00i\x00t\x00a\x00\n\x00p\x00o\x00r\x00 \x00P\x00r\x00o\x00c\x00u\x00r\x00a\x00d\x00o\x00r\x00,\x00 \x00f\x00o\x00i\x00 \x00p\x00r\x00o\x00t\x00o\x00c\x00o\x00l\x00a\x00d\x00a\x00 \x00n\x00o\x00 \x00p\x00r\x00a\x00z\x00o\x00 \x00a\x00s\x00s\x00i\x00n\x00a\x00d\x00o\x00 \x00e\x00m\x00 \x00l\x00e\x00i\x00.\x00 \x00\n\x00N\x00ã\x00o\x00 \x00c\x00a\x00b\x00e\x00,\x00 \x00u\x00m\x00a\x00 \x00v\x00e\x00z\x00 \x00p\x00r\x00o\x00c\x00l\x00a\x00m\x00a\x00d\x00o\x00 \x00o\x00 \x00d\x00e\x00s\x00c\x00o\x00m\x00p\x00a\x00s\x00s\x00o\x00 \x00c\x00o\x00m\x00 \x00a\x00 \x00C\x00o\x00n\x00s\x00t\x00i\x00t\x00u\x00i\x00ç\x00ã\x00o\x00\n\x00F\x00e\x00d\x00e\x00r\x00a\x00l\x00,\x00 \x00p\x00r\x00o\x00j\x00e\x00t\x00a\x00r\x00 \x00o\x00 \x00s\x00u\x00r\x00g\x00i\x00m\x00e\x00n\x00t\x00o\x00 \x00d\x00o\x00s\x00 \x00e\x00f\x00e\x00i\x00t\x00o\x00s\x00 \x00d\x00a\x00 \x00c\x00o\x00n\x00s\x00t\x00a\x00t\x00a\x00ç\x00ã\x00o\x00,\x00 \x00s\x00o\x00b\x00 \x00p\x00e\x00n\x00a\x00 \x00d\x00e\x00\n\x00i\x00n\x00o\x00b\x00s\x00e\x00r\x00v\x00â\x00n\x00c\x00i\x00a\x00,\x00 \x00p\x00e\x00l\x00o\x00 \x00â\x00n\x00g\x00u\x00l\x00o\x00 \x00d\x00a\x00 \x00h\x00i\x00g\x00i\x00d\x00e\x00z\x00,\x00 \x00d\x00a\x00 \x00L\x00e\x00i\x00 \x00M\x00a\x00i\x00o\x00r\x00,\x00 \x00c\x00o\x00m\x00o\x00 \x00s\x00e\x00 \x00a\x00t\x00é\x00 \x00e\x00n\x00t\x00ã\x00o\x00\n\x00n\x00ã\x00o\x00 \x00t\x00i\x00v\x00e\x00s\x00s\x00e\x00 \x00v\x00i\x00g\x00o\x00r\x00a\x00d\x00o\x00.\x00\n\x00N\x00o\x00r\x00m\x00a\x00 \x00i\x00n\x00c\x00o\x00n\x00s\x00t\x00i\x00t\x00u\x00c\x00i\x00o\x00n\x00a\x00l\x00 \x00é\x00,\x00 \x00n\x00a\x00 \x00d\x00i\x00c\x00ç\x00ã\x00o\x00 \x00d\x00e\x00 \x00R\x00u\x00i\x00 \x00B\x00a\x00r\x00b\x00o\x00s\x00a\x00,\x00 \x00n\x00a\x00t\x00i\x00m\x00o\x00r\x00t\x00a\x00,\x00 \x00s\x00e\x00m\x00\n\x00e\x00f\x00i\x00c\x00á\x00c\x00i\x00a\x00 \x00a\x00n\x00t\x00e\x00 \x00a\x00 \x00r\x00i\x00g\x00i\x00d\x00e\x00z\x00 \x00d\x00o\x00 \x00d\x00o\x00c\x00u\x00m\x00e\x00n\x00t\x00o\x00 \x00b\x00á\x00s\x00i\x00c\x00o\x00 \x00d\x00a\x00 \x00R\x00e\x00p\x00ú\x00b\x00l\x00i\x00c\x00a\x00.\x00 \x00F\x00o\x00r\x00m\x00a\x00l\x00i\x00z\x00a\x00d\x00a\x00 \x00a\x00\n\x00d\x00e\x00c\x00i\x00s\x00ã\x00o\x00,\x00 \x00é\x00 \x00i\x00n\x00a\x00d\x00e\x00q\x00u\x00a\x00d\x00a\x00 \x00a\x00 \x00e\x00l\x00u\x00c\x00i\x00d\x00a\x00ç\x00ã\x00o\x00 \x00d\x00e\x00 \x00c\x00o\x00n\x00f\x00l\x00i\x00t\x00o\x00 \x00d\x00e\x00 \x00i\x00n\x00t\x00e\x00r\x00e\x00s\x00s\x00e\x00s\x00 \x00d\x00e\x00 \x00c\x00a\x00r\x00á\x00t\x00e\x00r\x00\n\x00s\x00u\x00b\x00j\x00e\x00t\x00i\x00v\x00o\x00.\x00 \x00N\x00ã\x00o\x00 \x00s\x00e\x00 \x00e\x00s\x00t\x00á\x00 \x00a\x00 \x00j\x00u\x00l\x00g\x00a\x00r\x00 \x00s\x00i\x00t\x00u\x00a\x00ç\x00ã\x00o\x00 \x00c\x00o\x00n\x00c\x00r\x00e\x00t\x00a\x00,\x00 \x00c\x00o\x00n\x00c\x00e\x00b\x00i\x00d\x00a\x00 \x00a\x00 \x00p\x00a\x00r\x00t\x00i\x00r\x00 \x00d\x00o\x00 \x00q\x00u\x00e\x00\n\x00s\x00e\x00 \x00r\x00e\x00v\x00e\x00l\x00a\x00 \x00i\x00n\x00c\x00o\x00n\x00s\x00t\x00i\x00t\x00u\x00c\x00i\x00o\x00n\x00a\x00l\x00i\x00d\x00a\x00d\x00e\x00 \x00ú\x00t\x00i\x00l\x00,\x00 \x00l\x00e\x00v\x00a\x00n\x00d\x00o\x00 \x00e\x00m\x00 \x00c\x00o\x00n\x00t\x00a\x00 \x00a\x00 \x00m\x00o\x00r\x00o\x00s\x00i\x00d\x00a\x00d\x00e\x00 \x00d\x00a\x00\n\x00m\x00á\x00q\x00u\x00i\x00n\x00a\x00 \x00j\x00u\x00d\x00i\x00c\x00i\x00á\x00r\x00i\x00a\x00.\x00 \x00\n\x00<\x00/\x00p\x00>\x00\n\x00',
     autor:          ministro[2],
     tipo:           'RELATOR',
@@ -468,7 +696,7 @@ export const votos: Voto[] = [
   {
     id:             1,
     situacao:       'situacao',
-    nome:           'nome',	
+    nome:           'nome',
     conteudo:       '<\x00h\x002\x00>\x00V\x00o\x00t\x00o\x00<\x00/\x00h\x002\x00>\x00\n\x00<\x00p\x00 \x00c\x00l\x00a\x00s\x00s\x00=\x00"\x00w\x00h\x00i\x00t\x00e\x00s\x00p\x00a\x00c\x00e\x00-\x00p\x00r\x00e\x00-\x00l\x00i\x00n\x00e\x00"\x00>\x00 \x00 \x00 \x00 \x00 \x00 \x00 \x00 \x00 \x00 \x00 \x00 \x00 \x00 \x00 \x00 \x00\n\x00A\x00D\x00I\x00 \x006\x001\x008\x005\x00 \x00E\x00D\x00 \x00/\x00 \x00G\x00O\x00 \x00\n\x00C\x00o\x00n\x00s\x00t\x00i\x00t\x00u\x00i\x00ç\x00ã\x00o\x00 \x00 \x00 \x00F\x00e\x00d\x00e\x00r\x00a\x00l\x00,\x00 \x00 \x00 \x00p\x00r\x00o\x00j\x00e\x00t\x00a\x00r\x00 \x00 \x00 \x00o\x00 \x00 \x00 \x00s\x00u\x00r\x00g\x00i\x00m\x00e\x00n\x00t\x00o\x00 \x00 \x00 \x00d\x00o\x00s\x00 \x00 \x00 \x00e\x00f\x00e\x00i\x00t\x00o\x00s\x00 \x00 \x00 \x00d\x00a\x00\n\x00c\x00o\x00n\x00s\x00t\x00a\x00t\x00a\x00ç\x00ã\x00o\x00,\x00 \x00s\x00o\x00b\x00 \x00p\x00e\x00n\x00a\x00 \x00d\x00e\x00 \x00i\x00n\x00o\x00b\x00s\x00e\x00r\x00v\x00â\x00n\x00c\x00i\x00a\x00,\x00 \x00c\x00o\x00n\x00s\x00i\x00d\x00e\x00r\x00a\x00d\x00o\x00 \x00o\x00 \x00â\x00n\x00g\x00u\x00l\x00o\x00\n\x00d\x00a\x00 \x00 \x00 \x00h\x00i\x00g\x00i\x00d\x00e\x00z\x00,\x00 \x00 \x00 \x00d\x00a\x00 \x00 \x00 \x00L\x00e\x00i\x00 \x00 \x00 \x00M\x00a\x00i\x00o\x00r\x00,\x00 \x00 \x00 \x00c\x00o\x00m\x00o\x00 \x00 \x00 \x00s\x00e\x00 \x00 \x00 \x00a\x00t\x00é\x00 \x00 \x00 \x00e\x00n\x00t\x00ã\x00o\x00 \x00 \x00 \x00n\x00ã\x00o\x00 \x00 \x00 \x00t\x00i\x00v\x00e\x00s\x00s\x00e\x00\n\x00v\x00i\x00g\x00o\x00r\x00a\x00d\x00o\x00.\x00 \x00É\x00 \x00o\x00 \x00r\x00e\x00l\x00a\x00t\x00ó\x00r\x00i\x00o\x00.\x00\n\x00\n\x00C\x00o\x00m\x00 \x00a\x00s\x00 \x00d\x00e\x00v\x00i\x00d\x00a\x00s\x00 \x00v\x00ê\x00n\x00i\x00a\x00s\x00,\x00 \x00D\x00I\x00V\x00I\x00R\x00J\x00O\x00 \x00d\x00o\x00 \x00v\x00o\x00t\x00o\x00 \x00p\x00r\x00o\x00f\x00e\x00r\x00i\x00d\x00o\x00 \x00p\x00e\x00l\x00o\x00 \x00M\x00i\x00n\x00i\x00s\x00t\x00r\x00o\x00\n\x00R\x00e\x00l\x00a\x00t\x00o\x00r\x00.\x00\n\x00\n\x00N\x00o\x00s\x00 \x00 \x00 \x00t\x00e\x00r\x00m\x00o\x00s\x00 \x00 \x00 \x00d\x00o\x00 \x00 \x00 \x00a\x00r\x00t\x00.\x00 \x00 \x00 \x002\x007\x00 \x00 \x00 \x00d\x00a\x00 \x00 \x00 \x00L\x00e\x00i\x00 \x00 \x00 \x009\x00.\x008\x006\x008\x00/\x009\x009\x00,\x00 \x00 \x00 \x00c\x00o\x00m\x00p\x00e\x00t\x00e\x00 \x00 \x00 \x00a\x00o\x00 \x00 \x00 \x00S\x00U\x00P\x00R\x00E\x00M\x00O\x00\n\x00T\x00R\x00I\x00B\x00U\x00N\x00A\x00L\x00 \x00F\x00E\x00D\x00E\x00R\x00A\x00L\x00,\x00 \x00a\x00o\x00 \x00d\x00e\x00c\x00l\x00a\x00r\x00a\x00r\x00 \x00a\x00 \x00i\x00n\x00c\x00o\x00n\x00s\x00t\x00i\x00t\x00u\x00c\x00i\x00o\x00n\x00a\x00l\x00i\x00d\x00a\x00d\x00e\x00 \x00d\x00e\x00 \x00l\x00e\x00i\x00 \x00o\x00u\x00 \x00a\x00t\x00o\x00\n\x00n\x00o\x00r\x00m\x00a\x00t\x00i\x00v\x00o\x00,\x00 \x00 \x00 \x00d\x00e\x00c\x00i\x00d\x00i\x00r\x00 \x00 \x00 \x00a\x00 \x00 \x00 \x00r\x00e\x00s\x00p\x00e\x00i\x00t\x00o\x00 \x00 \x00 \x00d\x00a\x00 \x00 \x00 \x00m\x00o\x00d\x00u\x00l\x00a\x00ç\x00ã\x00o\x00 \x00 \x00 \x00d\x00o\x00s\x00 \x00 \x00 \x00e\x00f\x00e\x00i\x00t\x00o\x00s\x00 \x00 \x00 \x00d\x00a\x00 \x00 \x00 \x00d\x00e\x00c\x00i\x00s\x00ã\x00o\x00,\x00\n\x00f\x00u\x00g\x00i\x00n\x00d\x00o\x00 \x00d\x00a\x00 \x00r\x00e\x00g\x00r\x00a\x00 \x00d\x00a\x00 \x00t\x00e\x00o\x00r\x00i\x00a\x00 \x00d\x00a\x00 \x00n\x00u\x00l\x00i\x00d\x00a\x00d\x00e\x00 \x00d\x00o\x00s\x00 \x00a\x00t\x00o\x00s\x00 \x00i\x00n\x00c\x00o\x00n\x00s\x00t\x00i\x00t\x00u\x00c\x00i\x00o\x00n\x00a\x00i\x00s\x00,\x00 \x00q\x00u\x00e\x00\n\x00r\x00e\x00z\x00a\x00 \x00p\x00e\x00l\x00a\x00 \x00a\x00p\x00l\x00i\x00c\x00a\x00ç\x00ã\x00o\x00 \x00d\x00e\x00 \x00e\x00f\x00e\x00i\x00t\x00o\x00s\x00 \x00 \x00\n\x00e\x00x\x00 \x00t\x00u\x00n\x00c\x00 \x00a\x00o\x00 \x00d\x00e\x00c\x00i\x00s\x00u\x00m\x00.\x00 \x00\n\x00\n\x00A\x00s\x00s\x00i\x00m\x00,\x00 \x00o\x00 \x00d\x00i\x00s\x00p\x00o\x00s\x00i\x00t\x00i\x00v\x00o\x00 \x00l\x00e\x00g\x00a\x00l\x00 \x00 \x00 \x00p\x00e\x00r\x00m\x00i\x00t\x00e\x00 \x00 \x00 \x00à\x00 \x00 \x00 \x00C\x00O\x00R\x00T\x00E\x00 \x00 \x00 \x00a\x00d\x00o\x00t\x00a\x00r\x00 \x00 \x00 \x00e\x00f\x00e\x00i\x00t\x00o\x00s\x00 \x00 \x00 \x00p\x00r\x00o\x00s\x00p\x00e\x00c\x00t\x00i\x00v\x00o\x00s\x00 \x00 \x00 \x00à\x00 \x00 \x00 \x00\n\x00d\x00e\x00c\x00l\x00a\x00r\x00a\x00ç\x00ã\x00o\x00 \x00 \x00 \x00d\x00e\x00\n\x00i\x00n\x00c\x00o\x00n\x00s\x00t\x00i\x00t\x00u\x00c\x00i\x00o\x00n\x00a\x00l\x00i\x00d\x00a\x00d\x00e\x00,\x00 \x00 \x00 \x00p\x00a\x00r\x00a\x00 \x00 \x00 \x00g\x00a\x00r\x00a\x00n\x00t\x00i\x00a\x00 \x00 \x00 \x00d\x00a\x00 \x00 \x00 \x00s\x00e\x00g\x00u\x00r\x00a\x00n\x00ç\x00a\x00 \x00 \x00 \x00j\x00u\x00r\x00í\x00d\x00i\x00c\x00a\x00 \x00 \x00 \x00o\x00u\x00 \x00 \x00 \x00d\x00e\x00\n\x00e\x00x\x00c\x00e\x00p\x00c\x00i\x00o\x00n\x00a\x00l\x00 \x00i\x00n\x00t\x00e\x00r\x00e\x00s\x00s\x00e\x00 \x00s\x00o\x00c\x00i\x00a\x00l\x00.\x00\n\x00Q\x00u\x00a\x00n\x00d\x00o\x00 \x00 \x00 \x00a\x00s\x00s\x00i\x00m\x00 \x00 \x00 \x00n\x00ã\x00o\x00 \x00 \x00 \x00o\x00 \x00 \x00 \x00f\x00a\x00z\x00,\x00 \x00 \x00 \x00a\x00 \x00 \x00 \x00j\x00u\x00r\x00i\x00s\x00p\x00r\x00u\x00d\x00ê\x00n\x00c\x00i\x00a\x00 \x00 \x00 \x00d\x00e\x00s\x00t\x00a\x00 \x00 \x00 \x00C\x00O\x00R\x00T\x00E\x00 \x00 \x00 \x00a\x00i\x00n\x00d\x00a\x00\n\x00r\x00e\x00c\x00o\x00n\x00h\x00e\x00c\x00e\x00 \x00o\x00 \x00c\x00a\x00b\x00i\x00m\x00e\x00n\x00t\x00o\x00 \x00d\x00e\x00 \x00e\x00m\x00b\x00a\x00r\x00g\x00o\x00s\x00 \x00d\x00e\x00c\x00l\x00a\x00r\x00a\x00t\x00ó\x00r\x00i\x00o\x00s\x00 \x00p\x00a\x00r\x00a\x00 \x00a\x00 \x00f\x00i\x00n\x00a\x00l\x00i\x00d\x00a\x00d\x00e\x00 \x00d\x00e\x00\n\x00a\x00p\x00u\x00r\x00a\x00r\x00 \x00a\x00 \x00n\x00e\x00c\x00e\x00s\x00s\x00i\x00d\x00a\x00d\x00e\x00 \x00d\x00e\x00 \x00m\x00o\x00d\x00u\x00l\x00a\x00r\x00 \x00a\x00 \x00e\x00f\x00i\x00c\x00á\x00c\x00i\x00a\x00 \x00d\x00a\x00s\x00 \x00d\x00e\x00c\x00i\x00s\x00õ\x00e\x00s\x00 \x00p\x00r\x00o\x00f\x00e\x00r\x00i\x00d\x00a\x00s\x00 \x00e\x00m\x00\n\x00s\x00e\x00d\x00e\x00 \x00d\x00e\x00 \x00c\x00o\x00n\x00t\x00r\x00o\x00l\x00e\x00 \x00c\x00o\x00n\x00c\x00e\x00n\x00t\x00r\x00a\x00d\x00o\x00 \x00d\x00e\x00 \x00c\x00o\x00n\x00s\x00t\x00i\x00t\x00u\x00c\x00i\x00o\x00n\x00a\x00l\x00i\x00d\x00a\x00d\x00e\x00 \x00(\x00A\x00D\x00I\x00 \x003\x00.\x006\x000\x001\x00-\x00E\x00D\x00,\x00 \x00R\x00e\x00l\x00.\x00\n\x00M\x00i\x00n\x00.\x00 \x00D\x00I\x00A\x00S\x00 \x00T\x00O\x00F\x00F\x00O\x00L\x00I\x00,\x00 \x00D\x00J\x00e\x00 \x00d\x00e\x00 \x001\x005\x00/\x001\x002\x00/\x002\x000\x001\x000\x00)\x00.\x00 \x00P\x00a\x00r\x00a\x00 \x00v\x00i\x00a\x00b\x00i\x00l\x00i\x00z\x00a\x00r\x00 \x00e\x00s\x00s\x00e\x00 \x00t\x00i\x00p\x00o\x00 \x00d\x00e\x00\n\x00a\x00v\x00a\x00l\x00i\x00a\x00ç\x00ã\x00o\x00,\x00 \x00c\x00o\x00n\x00t\x00u\x00d\x00o\x00,\x00 \x00é\x00 \x00n\x00e\x00c\x00e\x00s\x00s\x00á\x00r\x00i\x00o\x00 \x00q\x00u\x00e\x00 \x00o\x00 \x00e\x00m\x00b\x00a\x00r\x00g\x00a\x00n\x00t\x00e\x00 \x00s\x00e\x00 \x00d\x00e\x00s\x00i\x00n\x00c\x00u\x00m\x00b\x00a\x00 \x00d\x00o\x00\n\x00ô\x00n\x00u\x00s\x00 \x00d\x00e\x00 \x00c\x00o\x00m\x00p\x00r\x00o\x00v\x00a\x00r\x00,\x00 \x00c\x00o\x00n\x00c\x00r\x00e\x00t\x00a\x00m\x00e\x00n\x00t\x00e\x00,\x00 \x00a\x00 \x00p\x00r\x00e\x00s\x00e\x00n\x00ç\x00a\x00 \x00d\x00e\x00 \x00e\x00l\x00e\x00m\x00e\x00n\x00t\x00o\x00s\x00 \x00e\x00x\x00c\x00e\x00p\x00c\x00i\x00o\x00n\x00a\x00i\x00s\x00\n\x00q\x00u\x00e\x00 \x00 \x00 \x00j\x00u\x00s\x00t\x00i\x00f\x00i\x00q\x00u\x00e\x00m\x00 \x00 \x00 \x00a\x00 \x00 \x00 \x00r\x00e\x00t\x00r\x00a\x00ç\x00ã\x00o\x00,\x00 \x00 \x00 \x00n\x00o\x00 \x00 \x00 \x00t\x00e\x00m\x00p\x00o\x00,\x00 \x00 \x00 \x00d\x00o\x00s\x00 \x00 \x00 \x00e\x00f\x00e\x00i\x00t\x00o\x00s\x00 \x00 \x00 \x00d\x00a\x00 \x00 \x00 \x00d\x00e\x00c\x00i\x00s\x00ã\x00o\x00 \x00 \x00 \x00d\x00e\x00\n\x00i\x00n\x00c\x00o\x00n\x00s\x00t\x00i\x00t\x00u\x00c\x00i\x00o\x00n\x00a\x00l\x00i\x00d\x00a\x00d\x00e\x00,\x00 \x00q\x00u\x00e\x00 \x00d\x00e\x00 \x00r\x00e\x00g\x00r\x00a\x00 \x00o\x00p\x00e\x00r\x00a\x00m\x00 \x00 \x00\n\x00e\x00x\x00 \x00t\x00u\x00n\x00c\x00\n\x00 \x00(\x00A\x00D\x00I\x00 \x003\x00.\x007\x009\x004\x00-\x00E\x00D\x00,\x00 \x00R\x00e\x00l\x00.\x00\n\x00M\x00i\x00n\x00.\x00 \x00R\x00O\x00B\x00E\x00R\x00T\x00O\x00 \x00B\x00A\x00R\x00R\x00O\x00S\x00O\x00,\x00 \x00D\x00J\x00e\x00 \x00d\x00e\x00 \x002\x005\x00/\x002\x00/\x002\x000\x001\x005\x00;\x00 \x00A\x00D\x00I\x00 \x004\x00.\x008\x007\x006\x00-\x00E\x00D\x00,\x00 \x00R\x00e\x00l\x00.\x00 \x00M\x00i\x00n\x00.\x00\n\x00D\x00I\x00A\x00S\x00 \x00T\x00O\x00F\x00F\x00O\x00L\x00I\x00,\x00 \x00D\x00J\x00e\x00 \x00d\x00e\x00 \x001\x008\x00/\x008\x00/\x002\x000\x001\x005\x00)\x00.\x00\n\x00<\x00/\x00p\x00>\x00\n\x00',
     autor:          ministro[5],
     tipo:           'PRESIDENTE',
@@ -476,25 +704,10 @@ export const votos: Voto[] = [
   },
 ];
 
-export const manifestacoes: Manifestacao[] = [
-  {
-    id:                 1,
-    descricao:          'Procedente',
-    ministro_relator:   ministro[0],
-    sentido:            'ACOMPANHAR',
-  },
-
-  {
-    id:                 2,
-    descricao:          'Teste 2',
-    ministro_relator:   ministro[1],
-    sentido:            'DIVERGIR',
-  },
-
-  {
-    id:                 2,
-    descricao:          'Teste 3',
-    ministro_relator:   ministro[2],
-    sentido:            'DIVERGIR',
-  },
+export const tipos: string[] = [
+  'Preliminar',
+  'Mérito',
+  'Modulação de efeitos',
+  'Questão de ordem',
+  'Tese',
 ];

@@ -73,6 +73,17 @@ export const defaultNavigation: FuseNavigationItem[] = [
             colegiado: 'pleno',
         },
     },
+    {
+        id   :  'informar-o-redator',
+        title:  'Informar o Redator',
+        type :  'basic',
+        icon :  'heroicons_outline:chart-pie',
+        link :  '/informar-redator',
+        queryParams: {
+            processo: '9',
+            colegiado: 'pleno',
+        },
+    },
 ];
 export const compactNavigation: FuseNavigationItem[] = [
     {
@@ -133,6 +144,17 @@ export const compactNavigation: FuseNavigationItem[] = [
         type : 'basic',
         icon : 'heroicons_outline:chart-pie',
         link : '/resultado-julgamento',
+        queryParams: {
+            processo: '9',
+            colegiado: 'pleno',
+        },
+    },
+    {
+        id   :  'informar-o-redator',
+        title:  'Informar o Redator',
+        type :  'basic',
+        icon :  'heroicons_outline:chart-pie',
+        link :  '/informar-redator',
         queryParams: {
             processo: '9',
             colegiado: 'pleno',
@@ -203,6 +225,17 @@ export const futuristicNavigation: FuseNavigationItem[] = [
             colegiado: 'pleno',
         },
     },
+    {
+        id   :  'informar-o-redator',
+        title:  'Informar o Redator',
+        type :  'basic',
+        icon :  'heroicons_outline:chart-pie',
+        link :  '/informar-redator',
+        queryParams: {
+            processo: '9',
+            colegiado: 'pleno',
+        },
+    },
 ];
 export const horizontalNavigation: FuseNavigationItem[] = [
     {
@@ -259,6 +292,17 @@ export const horizontalNavigation: FuseNavigationItem[] = [
         type : 'basic',
         icon : 'heroicons_outline:chart-pie',
         link : '/resultado-julgamento',
+        queryParams: {
+            processo: '9',
+            colegiado: 'pleno',
+        },
+    },
+    {
+        id   :  'informar-o-redator',
+        title:  'Informar o Redator',
+        type :  'basic',
+        icon :  'heroicons_outline:chart-pie',
+        link :  '/informar-redator',
         queryParams: {
             processo: '9',
             colegiado: 'pleno',

@@ -4,6 +4,7 @@ import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { FuseDrawerService } from '@fuse/components/drawer';
 import { TipoDoProcesso } from 'app/modules/acervo/model/enums/tipoDoProcesso.enum';
 import { Ministro } from 'app/modules/acervo/model/interfaces/ministro.interface';
+import { Voto } from 'app/modules/acervo/model/interfaces/voto.interface';
 import { MinistroService } from 'app/modules/services/ministro.service';
 import { ProcessoService } from 'app/modules/services/processo.service';
 
@@ -16,10 +17,14 @@ export class CabecalhoRelatorComponent implements AfterContentChecked, OnInit {
 
   @Input() processo: string;
   @Input() colegiado: string;
+  @Input() votos: Voto[];
+  @Input() sessao: string;
+  @Input() data_fim: Date;
 
   right: number = 0;
   panelOpenState = false;
   link: SafeResourceUrl;
+  nomePdf: string = '';
   tags: string[] = [];
   relator: Ministro;
   tipo: TipoDoProcesso;
@@ -37,7 +42,7 @@ export class CabecalhoRelatorComponent implements AfterContentChecked, OnInit {
   constructor(
     private _processoService: ProcessoService,
     private _ministroService: MinistroService,
-    private _sanitizer: DomSanitizer, 
+    private _sanitizer: DomSanitizer,
   ) { }
 
   ngOnInit(): void {
@@ -58,6 +63,10 @@ export class CabecalhoRelatorComponent implements AfterContentChecked, OnInit {
     return "Aguarde..."
   }
 
+  public obterNomeDoPdf(nome): void {
+    this.nomePdf = nome;
+  }
+
   abrirLink(link: string): void {
     if (link !== this.link) {
       this.link = this._sanitizer.bypassSecurityTrustResourceUrl(link);
@@ -68,7 +77,7 @@ export class CabecalhoRelatorComponent implements AfterContentChecked, OnInit {
     this._processoService
       .listarProcessos(new HttpParams().set('processo', this.processo)).subscribe({
         next: ([processo]) => {
-          
+
           const { id, lista, classe, numero, nome } = processo;
 
           this.dadosProcesso = {classe, numero, nome};
