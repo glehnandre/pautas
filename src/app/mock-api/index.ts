@@ -28,6 +28,7 @@ import { SituacaoMockApi } from './pautas/situacaoProcesso/api';
 import { MinistroMockApi } from './pautas/ministro/api';
 import { DecisaoMockApi } from './pautas/decisao/api';
 import { DispositivoMockApi } from './pautas/dispositivo/api';
+import { RevisaoInteiroTeorMockApi } from './pautas/revisar-inteiro-teor/api';
 
 export const mockApiServices = [
     AcademyMockApi,
@@ -60,4 +61,5 @@ export const mockApiServices = [
     MinistroMockApi,
     DecisaoMockApi,
     DispositivoMockApi,
+    RevisaoInteiroTeorMockApi,
 ];
