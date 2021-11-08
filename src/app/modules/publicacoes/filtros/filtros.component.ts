@@ -1,4 +1,5 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { DatePipe } from '@angular/common';
+import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
 import { InformacoesDto } from 'app/modules/acervo/model/interfaces/informacoesDto.interface';
 
 
@@ -10,18 +11,22 @@ import { InformacoesDto } from 'app/modules/acervo/model/interfaces/informacoesD
 export class FiltrosComponent implements OnInit {
 
   @Input() agregacoes: InformacoesDto[] = [];
+  @Input() pesquisas: string[] = [];
+  @Output() removido = new EventEmitter<any>();
 
-  data_inicio: string = '';
-  data_fim: string = '';
+  data_inicio: Date = new Date();
+  data_fim: Date = new Date();
 
   constructor() { }
 
   ngOnInit(): void {
-    //this.agregacoes[0].
   }
 
-  emiteData(){
-
+  removePesquisa(pesquisa: string){
+    this.pesquisas.splice(this.pesquisas.indexOf(pesquisa), 1);
+    this.removido.emit({
+      chip: pesquisa
+    })
   }
 
   filtrar(){

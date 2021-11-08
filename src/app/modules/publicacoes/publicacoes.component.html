@@ -23,11 +23,17 @@
                         <div class="flex flex-1 flex-col justify-center mr-4">
                             <span class="text-primary font-medium">O que você procura no DJe?</span>
                             <input
+                            [(ngModel)]="termo"
+                            name="termo"
                             class=" truncate"
-                            placeholder="Nomes de pessoas, números ou assuntos" />
+                            placeholder="Nomes de pessoas, números ou assuntos"
+                            (keyup)="termo = $event.target.value" autofocus
+                            />
                         </div>
                         <button
-                            class="flex px-2 my-1 mr-2 bg-primary rounded-xl text-white text-sm md:text-base ml-auto uppercase tracking-wider items-center">
+                            class="flex px-2 my-1 mr-2 bg-primary rounded-xl text-white text-sm md:text-base ml-auto uppercase tracking-wider items-center"
+                            (click)="atualizaPesquisa()"
+                            >
                             <mat-icon class="icon-size-5" style="color: white;">search</mat-icon>
                             <span class="ml-2 hidden md:block">Pesquisar no diário</span> 
                         </button>
@@ -44,6 +50,8 @@
             <!-- Sidebar -->
             <app-filtros
                 [agregacoes]="agregacoes"
+                [pesquisas]="pesquisas"
+                (removido)="removePesquisa($event)"
             ></app-filtros>
         </mat-drawer>
 
@@ -55,7 +63,9 @@
 
                 <app-textos
                 class="space-y-4"
-                    [publicacoes]="publicacoes"
+                    [publicacoesSemFiltro]="publicacoes"
+                    [filtrados]="filtrados"
+                    [hasPesquisa]="(pesquisas.length>0)"
                 ></app-textos>
 
             </div>

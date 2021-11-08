@@ -21,6 +21,10 @@ export class PublicacoesComponent implements OnInit, OnDestroy {
 
   publicacoes: PublicacaoDto[] = [];
   agregacoes: InformacoesDto[] = [];
+  filtrados: PublicacaoDto[] = [];
+
+  pesquisas: string[] = [];
+  termo: string;
 
   constructor(
     private _fuseMediaWatcherService: FuseMediaWatcherService,
@@ -60,6 +64,41 @@ export class PublicacoesComponent implements OnInit, OnDestroy {
     // Unsubscribe from all subscriptions
     this._unsubscribeAll.next();
     this._unsubscribeAll.complete();
+  }
+
+  removePesquisa(termo: any){
+    this.pesquisas.forEach(pesquisa=>{
+      this.filtrar("publicacoes", pesquisa);
+    })
+  }
+
+  atualizaPesquisa(): void{
+    if(this.termo && this.pesquisas.indexOf(this.termo)==-1)
+    this.pesquisas.push(this.termo);
+    if(this.pesquisas.length<=1) this.filtrar("publicacoes", this.termo);
+    else this.filtrar("filtrados", this.termo);
+    this.termo = '';
+  }
+
+  filtrar(campo: string, termo: string){
+    let filtros;
+    if(campo=="publicacoes"){
+      filtros = this.publicacoes.filter(publicacao=>{
+        return publicacao.relator.toLowerCase().includes(termo.toLowerCase())
+            || publicacao.tipo.toLowerCase().includes(termo.toLowerCase())
+            || publicacao.processo.toLowerCase().includes(termo.toLowerCase());
+      })
+    }
+    else
+      filtros = this.filtrados.filter(publicacao=>{
+        return publicacao.relator.toLowerCase().includes(termo.toLowerCase())
+            || publicacao.tipo.toLowerCase().includes(termo.toLowerCase())
+            || publicacao.processo.toLowerCase().includes(termo.toLowerCase());
+      })
+      
+    this.filtrados = filtros;
+    
+    //console.log(this.filtrados);
   }
 
 }

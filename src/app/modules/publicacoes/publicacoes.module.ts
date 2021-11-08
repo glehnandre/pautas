@@ -16,6 +16,7 @@ import { MatExpansionModule } from '@angular/material/expansion';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MAT_DATE_LOCALE } from '@angular/material/core';
 
 import { FuseNavigationModule } from '@fuse/components/navigation/navigation.module';
 import { FuseCardModule } from '@fuse/components/card';
@@ -62,6 +63,9 @@ const PublicacoesRoutes: Routes = [
   ],
   exports:[
     PublicacoesComponent
+  ],
+  providers:[
+    { provide: MAT_DATE_LOCALE, useValue: 'pt-BR' }
   ]
 })
 export class PublicacoesModule { }

@@ -1,5 +1,5 @@
 import { DatePipe } from '@angular/common';
-import { Component, Input, OnInit } from '@angular/core';
+import { AfterContentChecked, AfterViewInit, ChangeDetectorRef, Component, Input, OnInit } from '@angular/core';
 import { Envolvido } from 'app/modules/acervo/model/interfaces/envolvido.interface';
 import { PublicacaoDto } from 'app/modules/acervo/model/interfaces/publicacaoDto.interface';
 import { registerLocaleData } from '@angular/common';
@@ -11,14 +11,28 @@ registerLocaleData(localePT);
   templateUrl: './textos.component.html',
   styleUrls: ['./textos.component.scss']
 })
-export class TextosComponent implements OnInit {
+export class TextosComponent implements OnInit, AfterContentChecked {
 
-  @Input() publicacoes: PublicacaoDto[] = [];
+  @Input() publicacoesSemFiltro: PublicacaoDto[] = [];
+  @Input() filtrados: PublicacaoDto[] = [];
+  @Input() hasPesquisa: boolean = false;
 
-  constructor(
+  publicacoes: PublicacaoDto[];
+
+  constructor( private cd: ChangeDetectorRef,
   ) { }
 
   ngOnInit(): void {
+    /*if(this.hasPesquisa) this.publicacoes = this.filtrados;
+    else this.publicacoes = this.publicacoesSemFiltro;*/
+    //console.log(this.publicacoesSemFiltro);
+    
+  }
+
+  ngAfterContentChecked(): void {
+    this.cd.detectChanges();
+    if(this.hasPesquisa) this.publicacoes = this.filtrados;
+    else this.publicacoes = this.publicacoesSemFiltro;
   }
 
   /**
@@ -60,7 +74,7 @@ export class TextosComponent implements OnInit {
     let newDate = new Date(isoDate);
     let data: string;
     (firstDate) ? data = newDate.getDate()+'/'+meses[newDate.getMonth()]+'/'+newDate.getFullYear().toString().slice(2,4) 
-                   : data = datepipe.transform(isoDate, "dd/MM/YYYY hh:mm");
+                : data = datepipe.transform(isoDate, "dd/MM/YYYY hh:mm");
     return data;
   }
 }
