@@ -23,7 +23,7 @@ export class RevisarInteiroTeorComponent implements OnInit {
     this.idProcesso = +this._route.snapshot.queryParamMap.get('id');
     this.colegiado = this._route.snapshot.queryParamMap.get('colegiado');
 
-    
+
   }
 
 }

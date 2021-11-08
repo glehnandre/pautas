@@ -22,15 +22,68 @@
 
     <hr class="m-0 p-0" />
 
-    <header class="flex flex-row justify-between px-8 pt-4 bg-white">
-        <app-cabecalho-relator
-            [processo]=""
-            [colegiado]=""
-        ></app-cabecalho-relator>
+    <header class="px-8 pt-4 bg-white">
+        <div class="flex flex-row justify-between">
+            <app-cabecalho-relator
+            ></app-cabecalho-relator>
 
-        <app-dados-da-sessao
-            [sessao]=""
-            class="my-auto"
-        ></app-dados-da-sessao>
+            <app-dados-da-sessao
+                [sessao]=""
+                class="my-auto"
+            ></app-dados-da-sessao>
+        </div>
+
+        <section>
+            <div>
+                <div class="flex space-x-2 pl-0.5 ml-6 sm:pl-0 sm:ml-3.5">
+                    <mat-checkbox color="primary" class="mt-2 mb-2"></mat-checkbox>
+                    <button mat-basic-button color="secondary" class="mt-2">
+                        <mat-icon>refresh</mat-icon>
+                    </button>
+                    <mat-form-field class="flex-1 h-2 md:hidden text-lg">
+                        <mat-select class="flex-1" style="height: 10px;" placeholder="Escolha sua ação">
+                            <mat-option value="pautar" class="bg-primary text-white">
+                                Publicar no Inteiro Teor
+                            </mat-option>
+                            <mat-option value="reanalisar">Remover do Inteiro Teor</mat-option>
+                            <mat-option value="retirarDePauta">Incluir novo documento</mat-option>
+                            <mat-option value="alterarSessao">Incluir comentário</mat-option>
+                            <mat-option value="agruparEmLista">Revisado</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                    <div class="hidden md:flex space-x-4">
+                        <button mat-raised-button color="primary">
+                            Publicar no Inteiro Teor
+                        </button>
+                        <button mat-flat-button class="bg-gray-200">
+                            Remover do Inteiro Teor
+                        </button>
+                        <button mat-flat-button class="bg-gray-200">
+                            Incluir novo documento
+                        </button>
+                        <button mat-flat-button class="bg-gray-200">
+                            Incluir comentário
+                        </button>
+                        <button mat-flat-button class="bg-gray-200">
+                            Revisado
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
     </header>
+
+    <!-- Main -->
+    <div class="flex-auto  overflow-y-auto px-8 py-4" cdkScrollable>
+
+        <!-- CONTENT GOES HERE -->
+        <div>
+            <!-- <app-tabela
+                [allSelected]="selectAllLines"
+                (tagSelecionada)="filtrarPorTags($event)"
+                (statusSelecionado)="filtrarPorStatus($event)"
+            ></app-tabela> -->
+        </div>
+    </div>
 </div>
