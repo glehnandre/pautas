@@ -10,6 +10,7 @@ import { Processo } from '../acervo/model/interfaces/processo.interface';
 import { Voto } from '../acervo/model/interfaces/voto.interface';
 import { ProcessoService } from '../services/processo.service';
 import { ResultadoJulgamentoService } from '../services/resultado-julgamento.service';
+import { SessaoJulgamento } from '../acervo/model/interfaces/sessao-julgamento.interface';
 
 interface Parametros {
   processo: number;
@@ -40,8 +41,6 @@ export class ResultadoJulgamentoComponent implements OnInit {
   @ViewChild('matDrawer', {static: true}) matDrawer: MatDrawer;
 
   readonly FORM_CADASTRO_DECISAO = 'formulario-de-cadastro-de-decisao';
-  descrissaoSessao: string;
-  data_fim: Date;
 
   constructor(
     private _resultadoJulgamento: ResultadoJulgamentoService,
@@ -65,8 +64,6 @@ export class ResultadoJulgamentoComponent implements OnInit {
       next: ([processo]) => {
         const { nome, classe, numero } = processo;
         this.processo = `${classe} ${numero} ${nome}`;
-        this.descrissaoSessao = `${this.dados.sessao?.numero}/${this.dados.sessao?.ano}`;
-        this.data_fim = new Date(this.dados.sessao?.data_fim);
 
         this._processoService.obterVotosDoProcesso(this.parametros.processo).subscribe({
           next: (votos) => {

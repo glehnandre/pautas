@@ -28,6 +28,7 @@ import { FuseCardModule } from '@fuse/components/card';
 import { MatDividerModule } from '@angular/material/divider';
 import { MinistrosQueAcompanharamComponent } from './ministros-que-acompanharam/ministros-que-acompanharam.component';
 import { IconesVotosComponent } from './icones-votos/icones-votos.component';
+import { DadosDaSessaoComponent } from './cabecalho-relator/dados-da-sessao/dados-da-sessao.component';
 
 
 @NgModule({
@@ -44,6 +45,7 @@ import { IconesVotosComponent } from './icones-votos/icones-votos.component';
         ContadorComponent,
         MinistrosQueAcompanharamComponent,
         IconesVotosComponent,
+        DadosDaSessaoComponent,
     ],
     imports: [
         CommonModule,

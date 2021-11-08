@@ -1,11 +1,9 @@
 <div id="cabecalho" class="flex flex-col lg:flex-row lg:justify-start">
     <div class="absolute right-4 lg:right-16 flex flex-col items-end">
-        <div class="text-base sm:text-xl text-primary font-medium">
-            SESSÃO {{sessao}}
-        </div>
-        <div class="text-xs sm:text-base text-secondary">
-            Finalizada dia {{data_fim | date:'dd/mm/yyyy'}}
-        </div>
+        <app-dados-da-sessao
+            *ngIf="sessao"
+            [sessao]="sessao"
+        ></app-dados-da-sessao>
     </div>
     <div id="div1" class="flex flex-wrap lg:max-w-3/5">
         <div class="flex flex-nowrap flex-row">
@@ -24,7 +22,7 @@
             </div>
         </div>
 
-        <div class="hidden md:block flex flex-1 flex-col min-w-20 overflow-x-auto">
+        <div class="hidden md:block flex-1 flex-col min-w-20 overflow-x-auto">
             <div class="flex-1 ml-2 text-xl">
                 {{obterDadosDoProcesso()}}
             </div>

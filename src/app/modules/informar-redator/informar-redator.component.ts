@@ -23,8 +23,6 @@ export class InformarRedatorComponent implements OnInit {
   dados: DecisoesResultadoJulgamento;
   parametros: Parametros;
   processo: string;
-  descrissaoSessao: string;
-  data_fim: Date;
   votos: Voto[] = [];
 
   redatorForm: FormGroup;
@@ -61,8 +59,6 @@ export class InformarRedatorComponent implements OnInit {
         next: ([ processo ]) => {
           const { nome, classe, numero } = processo;
           this.processo = `${classe} ${numero} ${nome}`;
-          this.descrissaoSessao = `${this.dados.sessao?.numero}/${this.dados.sessao?.ano}`;
-          this.data_fim = new Date(this.dados.sessao?.data_fim);
           this.relator = processo.relator;
           this.nomeRedator = processo.redator?.nome;
 

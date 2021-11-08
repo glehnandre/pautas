@@ -9,8 +9,6 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatIconModule } from '@angular/material/icon';
 import { MatSelectModule } from '@angular/material/select';
 
-import { DadosDaSessaoComponent } from './dados-da-sessao/dados-da-sessao.component';
-
 const revisarInteiroTeorRoutes: Route[] = [
     {
         path     : '',
@@ -22,7 +20,6 @@ const revisarInteiroTeorRoutes: Route[] = [
 @NgModule({
   declarations: [
     RevisarInteiroTeorComponent,
-    DadosDaSessaoComponent
   ],
   imports: [
     CommonModule,
