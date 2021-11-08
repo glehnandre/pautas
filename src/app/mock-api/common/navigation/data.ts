@@ -45,7 +45,7 @@ export const defaultNavigation: FuseNavigationItem[] = [
         icon : 'heroicons_outline:chart-pie',
         link : '/criacao-colegiado',
         queryParams: {
-            processo: 'ADI100-Ag-Ag-Ag',
+            processo: 1,
             data: '2016-08-29T09%3A12%3A33.001Z',
             colegiado: 'pleno',
             sessao: '1000-2021',
@@ -89,8 +89,19 @@ export const defaultNavigation: FuseNavigationItem[] = [
         queryParams: {
             id: 1,
             colegiado: 'pleno',
-        }
-    }
+        },
+    },
+    {
+        id   :  'informar-o-redator',
+        title:  'Informar o Redator',
+        type :  'basic',
+        icon :  'heroicons_outline:chart-pie',
+        link :  '/informar-redator',
+        queryParams: {
+            processo: '9',
+            colegiado: 'pleno',
+        },
+    },
 ];
 export const compactNavigation: FuseNavigationItem[] = [
     {
@@ -128,7 +139,7 @@ export const compactNavigation: FuseNavigationItem[] = [
         icon : 'heroicons_outline:chart-pie',
         link : '/criacao-colegiado',
         queryParams: {
-            processo: 'ADI100-Ag-Ag-Ag',
+            processo: 1,
             data: '2016-08-29T09%3A12%3A33.001Z',
             colegiado: 'pleno',
             sessao: '1000-2021',
@@ -172,8 +183,19 @@ export const compactNavigation: FuseNavigationItem[] = [
         queryParams: {
             id: 1,
             colegiado: 'pleno',
-        }
-    }
+        },
+    },
+    {
+        id   :  'informar-o-redator',
+        title:  'Informar o Redator',
+        type :  'basic',
+        icon :  'heroicons_outline:chart-pie',
+        link :  '/informar-redator',
+        queryParams: {
+            processo: '9',
+            colegiado: 'pleno',
+        },
+    },
 ];
 export const futuristicNavigation: FuseNavigationItem[] = [
     {
@@ -211,7 +233,7 @@ export const futuristicNavigation: FuseNavigationItem[] = [
         icon : 'heroicons_outline:chart-pie',
         link : '/criacao-colegiado',
         queryParams: {
-            processo: 'ADI100-Ag-Ag-Ag',
+            processo: 1,
             data: '2016-08-29T09%3A12%3A33.001Z',
             colegiado: 'pleno',
             sessao: '1000-2021',
@@ -255,8 +277,19 @@ export const futuristicNavigation: FuseNavigationItem[] = [
         queryParams: {
             id: 1,
             colegiado: 'pleno',
-        }
-    }
+        },
+    },
+    {
+        id   :  'informar-o-redator',
+        title:  'Informar o Redator',
+        type :  'basic',
+        icon :  'heroicons_outline:chart-pie',
+        link :  '/informar-redator',
+        queryParams: {
+            processo: '9',
+            colegiado: 'pleno',
+        },
+    },
 ];
 export const horizontalNavigation: FuseNavigationItem[] = [
     {
@@ -294,7 +327,7 @@ export const horizontalNavigation: FuseNavigationItem[] = [
         icon : 'heroicons_outline:chart-pie',
         link : '/criacao-colegiado',
         queryParams: {
-            processo: 'ADI100-Ag-Ag-Ag',
+            processo: 1,
             data: '2016-08-29T09%3A12%3A33.001Z',
             colegiado: 'pleno',
             sessao: '1000-2021',
@@ -334,6 +367,17 @@ export const horizontalNavigation: FuseNavigationItem[] = [
         queryParams: {
             id: 1,
             colegiado: 'pleno',
-        }
-    }
+        },
+    },
+    {
+        id   :  'informar-o-redator',
+        title:  'Informar o Redator',
+        type :  'basic',
+        icon :  'heroicons_outline:chart-pie',
+        link :  '/informar-redator',
+        queryParams: {
+            processo: '9',
+            colegiado: 'pleno',
+        },
+    },
 ];

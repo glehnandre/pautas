@@ -57,12 +57,7 @@ export class SessoesJulgamentosComponent implements OnInit {
                         this.documentos = documentos.map(documento => documento.nome);
                       });
 
-                      let abreviacao: string;
-                      if (processo.nome === "Mérito"){
-                        abreviacao = `${processo.classe}-100`;
-                      }
-                      else abreviacao = `${processo.classe}-${processo.abreviacao}`;
-                      this.impedimentos.push(this._processoService.obterImpedimentosDoMinistro(abreviacao, "DT"));
+                      this.impedimentos.push(this._processoService.obterImpedimentosDoMinistro(processo.id, "DT"));
 
                       this.tags = processo.lista.map(tag => tag.descricao);
                     });

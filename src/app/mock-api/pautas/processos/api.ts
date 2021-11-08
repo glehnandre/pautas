@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { FuseMockApiService } from '@fuse/lib/mock-api/mock-api.service';
 import { Filtros } from 'app/modules/acervo/filtros/filtros';
-import { processo as processoData, documentos, votos, manifestacoes } from 'app/mock-api/pautas/processos/data';
+import { processo as processoData, documentos, votos, tipos } from 'app/mock-api/pautas/processos/data';
 import { tags as tagData } from 'app/mock-api/pautas/tags/data';
 import { Paginacao } from 'app/modules/acervo/tabela/paginacao/paginacao.component';
 import { Processo } from 'app/modules/acervo/model/interfaces/processo.interface';
@@ -9,7 +9,6 @@ import { Tag } from 'app/modules/acervo/model/interfaces/tag.interface';
 import { Documento } from 'app/modules/acervo/model/interfaces/documento.interface';
 import { SessaoJulgamento } from 'app/modules/acervo/model/interfaces/sessao-julgamento.interface';
 import { julgamentos } from '../julgamentos/data';
-import { TipoDoProcesso } from 'app/modules/acervo/model/enums/tipoDoProcesso.enum';
 import { Impedimento } from 'app/modules/acervo/model/interfaces/impedimento.interface';
 import { listaImpedimentos } from '../ministro/data'
 import { Voto } from 'app/modules/acervo/model/interfaces/voto.interface';
@@ -24,7 +23,6 @@ export class ProcessoMockApi {
     private _tag: Tag[] = [];
     private _impedimentos: any[] = listaImpedimentos;
     private _votos: Voto[] = votos;
-    private _manifestacoes = manifestacoes;
 
     constructor(
         private _fuseMockApiService: FuseMockApiService,) {
@@ -72,7 +70,6 @@ export class ProcessoMockApi {
             .onGet('processos')
             .reply(({ request }) => {
                 const { params } = request;
-
                 if (params.get('itensPorPagina') && params.get('itensPorPagina') !== 'undefined') {
                     const paginacao: Paginacao = {
                         itensPorPagina: +params.get('itensPorPagina') || 5,
@@ -95,23 +92,10 @@ export class ProcessoMockApi {
                         classes: params.getAll('classe'),
                         tags: (params.getAll('tag')) ? params.getAll('tag').toString().split(',') : null,
                     };
-
                     if (params.keys().length > 0) {
                         const processosFiltrados = this._processo
-                            .filter((processo) => {
-                                if (filtros.processo) {
-                                    let query = `${processo.classe}${processo.numero}`;
-
-                                    if (processo.tipo !== TipoDoProcesso.Merito) {
-                                        query = `${query}-${processo.abreviacao}`;
-                                    }
-
-                                    return (query === filtros.processo);
-                                } else {
-                                    return true;
-                                }
-                            })
-                            .filter(processo => (filtros.situacoes) ? filtros.situacoes.find(situacao => Number(situacao) === processo.situacao) : true)
+                            .filter(processo => (filtros.processo) ? processo.id === +filtros.processo : true)
+                            .filter(processo => (filtros.situacoes) ? filtros.situacoes.find((situacao) => Number(situacao) === processo.situacao) : true)
                             .filter(processo => (filtros.classes) ? filtros.classes.find(classe => classe === processo.classe) : true)
                             .filter(processo => (filtros.tags) ? filtros.tags.find(tag => processo.lista.find(lista => lista.id === +tag)) : true)
                             .filter(processo => (filtros.termo) ? filtros.termo.includes(processo.classe) && filtros.termo.includes(processo.numero.toString()) : true);
@@ -188,7 +172,7 @@ export class ProcessoMockApi {
             });
 
         this._fuseMockApiService
-            .onGet('processos/:id/documentos')
+            .onGet('julgamento/processos/:id/documentos')
             .reply(({urlParams}) => {
               const id = +urlParams.id;
 
@@ -205,7 +189,7 @@ export class ProcessoMockApi {
               this._impedimentos.forEach(data=>{
                   if(ministro==data.ministro){
                       data.lista.forEach(lista=>{
-                          if(processo==lista.processo){
+                          if(processo==lista.processoId){
                             impedimentos=lista.impedimento;
                           }
                       })
@@ -226,14 +210,9 @@ export class ProcessoMockApi {
             });
 
         this._fuseMockApiService
-            .onGet('dispositivos/processo/:id/tipo/:tipo')
-            .reply(({request, urlParams}) => {
-                const id = +urlParams.id;
-                const tipo = urlParams.tipo;
-
-
-
-                return [201, this._manifestacoes];
+            .onGet('processos/tipos')
+            .reply(({}) => {
+                return [200, tipos];
             });
     }
 

@@ -1,0 +1,36 @@
+<fuse-card
+    class="max-h-full p-4 flex flex-col mb-4"
+>
+    <section class="">
+        <h3 class="font-medium text-md">
+            Aplicar as mesmas decisões
+        </h3>
+
+        <mat-spinner
+            class="m-auto"
+            [diameter]="40"
+            *ngIf="processos?.length === 0; else exibirProcessos"
+        ></mat-spinner>
+
+        <ng-template #exibirProcessos class="max-h-36 overflow-auto grid grid-cols-1 sm:grid-cols-3 gap-4">
+            <mat-checkbox 
+                class="ml-2 mb-2" 
+                *ngFor="let processo of processos"
+                [checked]="isProcessoSelecionado(processo) || selecionarTodos"
+                [disabled]="desabilitar"
+                (change)="selecionaProcesso(processo)" 
+                color="primary"
+            >
+                <span class="font-bold text-primary-600">
+                    {{processo.classe}} {{processo.numero}}
+                </span>
+
+                <br/>
+
+                <span class="text-hint">
+                    Relator prevaleceu
+                </span>
+            </mat-checkbox>
+        </ng-template>
+    </section>
+</fuse-card>

@@ -1,20 +1,22 @@
 <div class="flex flex-row my-2">
-    <div class="mr-2 my-auto">
+    <div *ngIf="comparaTamanho(idChip)" class="mr-2 my-auto">
         <button (click)="scrollLeft(idChip)">
             <mat-icon>
                 navigate_before
             </mat-icon>
         </button>
     </div>
-    <div [id]="idChip" class="flex flex-1 flex-row overflow-hidden">
-        <mat-chip-list *ngFor="let chip of chips; index as i" class="m-1 flex-none">
-            <mat-chip [ngClass]="class" (click)="abrirLink(i)">
-                <mat-icon *ngIf="hasIcon" class="mr-2" style="color:red">picture_as_pdf</mat-icon>
-                {{chip}}
-            </mat-chip>
-        </mat-chip-list>
+    <div [id]="idChip" class="flex flex-1 overflow-hidden">
+        <div [id]="idChip+'2'" class="flex flex-row">
+            <mat-chip-list *ngFor="let chip of chips; index as i" class="m-1 flex-none">
+                <mat-chip [ngClass]="class" (click)="abrirLink(i)">
+                    <mat-icon *ngIf="hasIcon" class="mr-2" style="color:red">picture_as_pdf</mat-icon>
+                    {{chip}}
+                </mat-chip>
+            </mat-chip-list>
+        </div>
     </div>
-    <div class="ml-2 my-auto">
+    <div *ngIf="comparaTamanho(idChip)" class="ml-2 my-auto">
         <button (click)="scrollRight(idChip)">
             <mat-icon>
                 navigate_next

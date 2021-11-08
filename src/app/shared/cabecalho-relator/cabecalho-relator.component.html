@@ -1,48 +1,59 @@
-<div class="flex lg:justify-start">
-    <div class="flex flex-row flex-wrap lg:max-w-3/4">
+<div id="cabecalho" class="flex flex-col lg:flex-row lg:justify-start">
+    <div class="absolute right-4 lg:right-16 flex flex-col items-end">
+        <div class="text-base sm:text-xl text-primary font-medium">
+            SESSÃO {{sessao}}
+        </div>
+        <div class="text-xs sm:text-base text-secondary">
+            Finalizada dia {{data_fim | date:'dd/mm/yyyy'}}
+        </div>
+    </div>
+    <div id="div1" class="flex flex-wrap lg:max-w-3/5">
         <div class="flex flex-nowrap flex-row">
             <img [src]="relator?.imagem" alt="Imagem de perfil"
                 class="w-14 h-14 mr-6 mb-4 rounded-full ng-tns-c129-57 ng-star-inserted">
             <div class="flex flex-col flex-none mr-14 ng-tns-c129-56 ng-star-inserted">
-                <div class="text-2xl font-medium leading-4">
+                <div class="text-base sm:text-lg font-medium text-primary leading-tight">
                     {{relator?.nome | titlecase}}
                 </div>
-                <div class="text-md font-medium leading-4">
+                <div class="text-xs sm:text-base leading-tight font-bold">
                     {{relator?.abreviacao | uppercase}}
                 </div>
-                <div class="text-md text-secondary mt-1">
+                <div class="text-xs sm:text-base text-secondary mt-2">
                     Relator
                 </div>
             </div>
         </div>
-        <div>
-            <div class="flex-1 ml-2 text-2xl font-medium leading-4 text-primary">
-                {{processo}}
+
+        <div class="hidden md:block flex flex-1 flex-col min-w-20 overflow-x-auto">
+            <div class="flex-1 ml-2 text-xl">
+                {{obterDadosDoProcesso()}}
             </div>
+
             <div class="hidden md:block">
                 <app-carrossel
+                    [hasArrow]="hasArrow"
                     [idChip]="'idTags'"
                     [chips]="tags"
                 ></app-carrossel>
             </div>
         </div>
     </div>
-</div>
-<div class="flex flex-row">
-    <div class="hidden md:block max-w-full">
+    <div class="hidden md:block lg:ml-4 lg:mt-8">
         <app-carrossel
             [idChip]="'idDocs'"
             [chips]="documentos?.nomes"
             [links]="documentos?.links"
             [hasIcon]="true"
             [class]="['border-primary', 'border-solid', 'border-2', 'bg-transparent', 'text-primary']"
+            (nomeDoPdfSelecionado)="obterNomeDoPdf($event)"
             (linkDoPdfSelecionado)="abrirLink($event)"
         ></app-carrossel>
     </div>
+
 </div>
 
 <mat-expansion-panel
-    class="md:hidden my-4"
+    class="md:hidden w-2/3 xs:w-full my-4"
     (opened)="panelOpenState = true"
     (closed)="panelOpenState = false"
 >
@@ -50,7 +61,7 @@
         [collapsedHeight]="'40px'"
         class="p-4 h-15"
     >
-        <div class="flex flex-none flex-row my-auto ml-3 w-screen container mt-4">
+        <div class="flex flex-none my-auto ml-2 pt-4">
             <h2 class="font-medium">
                 Documentos e tags
             </h2>
@@ -63,7 +74,6 @@
             <app-carrossel
                 [idChip]="'idTagsExp'"
                 [chips]="tags"
-                [class]="['text-xs sm:text-md']"
             ></app-carrossel>
             <app-carrossel
                 [idChip]="'idDocExp'"
@@ -71,6 +81,7 @@
                 [links]="documentos?.links"
                 [hasIcon]="true"
                 [class]="['flex-none', 'border-primary', 'border-solid', 'border-2', 'bg-transparent', 'text-primary']"
+                (nomeDoPdfSelecionado)="obterNomeDoPdf($event)"
                 (linkDoPdfSelecionado)="abrirLink($event)"
             ></app-carrossel>
         </div>
@@ -78,7 +89,9 @@
 </mat-expansion-panel>
 
 <app-visualizador-pdf
-    *ngIf="link"
     [nome]="'visualizador-pdf-do-colegiado'"
     [link]="link"
+    [pdf]="nomePdf"
+    [votos]="votos"
+    [posicao]="'left'"
 ></app-visualizador-pdf>

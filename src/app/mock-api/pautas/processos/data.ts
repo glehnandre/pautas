@@ -1,9 +1,9 @@
 import { tags as tagData } from 'app/mock-api/pautas/tags/data';
-import { ministro } from 'app/mock-api/pautas/ministro/data';
 import { TipoDoProcesso } from 'app/modules/acervo/model/enums/tipoDoProcesso.enum';
 import { Documento } from 'app/modules/acervo/model/interfaces/documento.interface';
 import { Processo } from 'app/modules/acervo/model/interfaces/processo.interface';
 import { Voto } from 'app/modules/acervo/model/interfaces/voto.interface';
+import { ministro } from 'app/mock-api/pautas/ministro/data';
 import { TipoCapitulo } from 'app/modules/acervo/model/enums/tipoCapitulo.enum';
 import { Manifestacao } from 'app/modules/acervo/model/interfaces/manifestacao.interface';
 
@@ -25,35 +25,104 @@ export const processo: Processo[] = [
     tipo:       TipoDoProcesso.Recurso,
     capitulos:  [
       {
-        id:     1,
+        id: 1,
+        tipo: TipoCapitulo.Merito,
         descricao: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc tempus neque nec ante porta tincidunt eu quis felis. Sed magna libero, sodales ut enim quis, varius faucibus lectus. Sed porttitor pharetra orci, quis fermentum risus rutrum id. Vivamus ornare purus a lorem accumsan cursus. Pellentesque ligula metus, dictum pretium dignissim non, fringilla ac lacus. Sed non dui nibh.',
-        ordem:  1,
-        tipo:   TipoCapitulo.Merito,
-        dispositivo: 'Deferida em parte'
+        dispositivo: 'Deferida',
+        ministro_condutor: ministro[6],
+        ministros_acordam: [
+          ministro[0],
+          ministro[1],
+          ministro[2],
+          ministro[3],
+          ministro[4],
+          ministro[5],
+        ],
+        ministros_impedidos: [
+          ministro[7],
+        ],
+        ministros_suspeitos: [
+          ministro[8],
+        ],
+        texto: 'Texto do capítulo',
       },
       {
-        id:     2,
+        id: 2,
+        tipo: TipoCapitulo.Merito,
         descricao: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc tempus neque nec ante porta tincidunt eu quis felis. Sed magna libero, sodales ut enim quis, varius faucibus lectus. Sed porttitor pharetra orci, quis fermentum risus rutrum id. Vivamus ornare purus a lorem accumsan cursus. Pellentesque ligula metus, dictum pretium dignissim non, fringilla ac lacus. Sed non dui nibh.',
-        ordem:  1,
-        tipo:   TipoCapitulo.Merito,
-        dispositivo: 'Deferida'
+        dispositivo: 'Deferida em parte',
+        ministro_condutor: ministro[6],
+        ministros_acordam: [
+          ministro[0],
+          ministro[1],
+          ministro[2],
+          ministro[3],
+          ministro[4],
+          ministro[5],
+        ],
+        ministros_impedidos: [
+          ministro[7],
+        ],
+        ministros_suspeitos: [
+          ministro[8],
+        ],
+        texto: 'Texto do capítulo',
       },
       {
-        id:     3,
+        id: 3,
+        tipo: TipoCapitulo.Merito,
         descricao: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc tempus neque nec ante porta tincidunt eu quis felis. Sed magna libero, sodales ut enim quis, varius faucibus lectus. Sed porttitor pharetra orci, quis fermentum risus rutrum id. Vivamus ornare purus a lorem accumsan cursus. Pellentesque ligula metus, dictum pretium dignissim non, fringilla ac lacus. Sed non dui nibh.',
-        ordem:  1,
-        tipo:   TipoCapitulo.Merito,
-        dispositivo: 'Provido'
+        dispositivo: 'Provido',
+        ministro_condutor: ministro[6],
+        ministros_acordam: [
+          ministro[0],
+          ministro[1],
+          ministro[2],
+          ministro[3],
+          ministro[4],
+          ministro[5],
+        ],
+        ministros_impedidos: [
+          ministro[7],
+        ],
+        ministros_suspeitos: [
+          ministro[8],
+        ],
+        texto: 'Texto do capítulo',
       },
       {
-        id:     4,
+        id: 4,
+        tipo: TipoCapitulo.Merito,
         descricao: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc tempus neque nec ante porta tincidunt eu quis felis. Sed magna libero, sodales ut enim quis, varius faucibus lectus. Sed porttitor pharetra orci, quis fermentum risus rutrum id. Vivamus ornare purus a lorem accumsan cursus. Pellentesque ligula metus, dictum pretium dignissim non, fringilla ac lacus. Sed non dui nibh.',
-        ordem:  1,
-        tipo:   TipoCapitulo.Merito,
-        dispositivo: 'Concedido'
+        dispositivo: 'Concedido',
+        ministro_condutor: ministro[6],
+        ministros_acordam: [
+          ministro[0],
+          ministro[1],
+          ministro[2],
+          ministro[3],
+          ministro[4],
+          ministro[5],
+        ],
+        ministros_impedidos: [
+          ministro[7],
+        ],
+        ministros_suspeitos: [
+          ministro[8],
+        ],
+        texto: 'Texto do capítulo',
       },
     ],
-    relator: ministro[0],
+    relator: {
+        id: 2,
+        nome: 'Dias Tofolli',
+        abreviacao: 'DT',
+        cadeira: {
+          criacao: '2021-08-02T03:00:00.000Z',
+          numero: 100,
+        },
+        imagem: image,
+      },
   },
 
   {
@@ -70,35 +139,60 @@ export const processo: Processo[] = [
     tipo:       TipoDoProcesso.Recurso,
     capitulos:  [
       {
-        id:     1,
+        id: 1,
+        tipo: TipoCapitulo.Merito,
         descricao: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc tempus neque nec ante porta tincidunt eu quis felis. Sed magna libero, sodales ut enim quis, varius faucibus lectus. Sed porttitor pharetra orci, quis fermentum risus rutrum id. Vivamus ornare purus a lorem accumsan cursus. Pellentesque ligula metus, dictum pretium dignissim non, fringilla ac lacus. Sed non dui nibh.',
-        ordem:  1,
-        tipo:   TipoCapitulo.Merito,
-        dispositivo: 'Deferida em parte'
+        dispositivo: 'Deferida',
+        ministro_condutor: ministro[6],
+        ministros_acordam: [
+          ministro[0],
+          ministro[1],
+          ministro[2],
+          ministro[3],
+          ministro[4],
+          ministro[5],
+        ],
+        ministros_impedidos: [
+          ministro[7],
+        ],
+        ministros_suspeitos: [
+          ministro[8],
+        ],
+        texto: 'Texto do capítulo',
       },
       {
-        id:     2,
+        id: 2,
+        tipo: TipoCapitulo.Merito,
         descricao: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc tempus neque nec ante porta tincidunt eu quis felis. Sed magna libero, sodales ut enim quis, varius faucibus lectus. Sed porttitor pharetra orci, quis fermentum risus rutrum id. Vivamus ornare purus a lorem accumsan cursus. Pellentesque ligula metus, dictum pretium dignissim non, fringilla ac lacus. Sed non dui nibh.',
-        ordem:  1,
-        tipo:   TipoCapitulo.Merito,
-        dispositivo: 'Deferida'
-      },
-      {
-        id:     3,
-        descricao: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc tempus neque nec ante porta tincidunt eu quis felis. Sed magna libero, sodales ut enim quis, varius faucibus lectus. Sed porttitor pharetra orci, quis fermentum risus rutrum id. Vivamus ornare purus a lorem accumsan cursus. Pellentesque ligula metus, dictum pretium dignissim non, fringilla ac lacus. Sed non dui nibh.',
-        ordem:  1,
-        tipo:   TipoCapitulo.Merito,
-        dispositivo: 'Provido'
-      },
-      {
-        id:     4,
-        descricao: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc tempus neque nec ante porta tincidunt eu quis felis. Sed magna libero, sodales ut enim quis, varius faucibus lectus. Sed porttitor pharetra orci, quis fermentum risus rutrum id. Vivamus ornare purus a lorem accumsan cursus. Pellentesque ligula metus, dictum pretium dignissim non, fringilla ac lacus. Sed non dui nibh.',
-        ordem:  1,
-        tipo:   TipoCapitulo.Merito,
-        dispositivo: 'Concedido'
+        dispositivo: 'Deferida em parte',
+        ministro_condutor: ministro[6],
+        ministros_acordam: [
+          ministro[0],
+          ministro[1],
+          ministro[2],
+          ministro[3],
+          ministro[4],
+          ministro[5],
+        ],
+        ministros_impedidos: [
+          ministro[7],
+        ],
+        ministros_suspeitos: [
+          ministro[8],
+        ],
+        texto: 'Texto do capítulo',
       },
     ],
-    relator: ministro[1],
+    relator: {
+        id: 2,
+        nome: 'Dias Tofolli',
+        abreviacao: 'DT',
+        cadeira: {
+          criacao: '2021-08-02T03:00:00.000Z',
+          numero: 100,
+        },
+        imagem: image,
+      },
   },
 
   {
@@ -115,35 +209,60 @@ export const processo: Processo[] = [
     tipo:       TipoDoProcesso.Merito,
     capitulos:  [
       {
-        id:     1,
+        id: 1,
+        tipo: TipoCapitulo.Merito,
         descricao: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc tempus neque nec ante porta tincidunt eu quis felis. Sed magna libero, sodales ut enim quis, varius faucibus lectus. Sed porttitor pharetra orci, quis fermentum risus rutrum id. Vivamus ornare purus a lorem accumsan cursus. Pellentesque ligula metus, dictum pretium dignissim non, fringilla ac lacus. Sed non dui nibh.',
-        ordem:  1,
-        tipo:   TipoCapitulo.Merito,
-        dispositivo: 'Deferida em parte'
+        dispositivo: 'Deferida',
+        ministro_condutor: ministro[6],
+        ministros_acordam: [
+          ministro[0],
+          ministro[1],
+          ministro[2],
+          ministro[3],
+          ministro[4],
+          ministro[5],
+        ],
+        ministros_impedidos: [
+          ministro[7],
+        ],
+        ministros_suspeitos: [
+          ministro[8],
+        ],
+        texto: 'Texto do capítulo',
       },
       {
-        id:     2,
+        id: 2,
+        tipo: TipoCapitulo.Merito,
         descricao: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc tempus neque nec ante porta tincidunt eu quis felis. Sed magna libero, sodales ut enim quis, varius faucibus lectus. Sed porttitor pharetra orci, quis fermentum risus rutrum id. Vivamus ornare purus a lorem accumsan cursus. Pellentesque ligula metus, dictum pretium dignissim non, fringilla ac lacus. Sed non dui nibh.',
-        ordem:  1,
-        tipo:   TipoCapitulo.Merito,
-        dispositivo: 'Deferida'
-      },
-      {
-        id:     3,
-        descricao: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc tempus neque nec ante porta tincidunt eu quis felis. Sed magna libero, sodales ut enim quis, varius faucibus lectus. Sed porttitor pharetra orci, quis fermentum risus rutrum id. Vivamus ornare purus a lorem accumsan cursus. Pellentesque ligula metus, dictum pretium dignissim non, fringilla ac lacus. Sed non dui nibh.',
-        ordem:  1,
-        tipo:   TipoCapitulo.Merito,
-        dispositivo: 'Provido'
-      },
-      {
-        id:     4,
-        descricao: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc tempus neque nec ante porta tincidunt eu quis felis. Sed magna libero, sodales ut enim quis, varius faucibus lectus. Sed porttitor pharetra orci, quis fermentum risus rutrum id. Vivamus ornare purus a lorem accumsan cursus. Pellentesque ligula metus, dictum pretium dignissim non, fringilla ac lacus. Sed non dui nibh.',
-        ordem:  1,
-        tipo:   TipoCapitulo.Merito,
-        dispositivo: 'Concedido'
+        dispositivo: 'Deferida em parte',
+        ministro_condutor: ministro[6],
+        ministros_acordam: [
+          ministro[0],
+          ministro[1],
+          ministro[2],
+          ministro[3],
+          ministro[4],
+          ministro[5],
+        ],
+        ministros_impedidos: [
+          ministro[7],
+        ],
+        ministros_suspeitos: [
+          ministro[8],
+        ],
+        texto: 'Texto do capítulo',
       },
     ],
-    relator: ministro[2],
+    relator: {
+        id: 2,
+        nome: 'Dias Tofolli',
+        abreviacao: 'DT',
+        cadeira: {
+          criacao: '2021-08-02T03:00:00.000Z',
+          numero: 100,
+        },
+        imagem: image,
+      },
   },
 
   {
@@ -161,35 +280,60 @@ export const processo: Processo[] = [
     tipo:       TipoDoProcesso.Recurso,
     capitulos:  [
       {
-        id:     1,
+        id: 1,
+        tipo: TipoCapitulo.Merito,
         descricao: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc tempus neque nec ante porta tincidunt eu quis felis. Sed magna libero, sodales ut enim quis, varius faucibus lectus. Sed porttitor pharetra orci, quis fermentum risus rutrum id. Vivamus ornare purus a lorem accumsan cursus. Pellentesque ligula metus, dictum pretium dignissim non, fringilla ac lacus. Sed non dui nibh.',
-        ordem:  1,
-        tipo:   TipoCapitulo.Merito,
-        dispositivo: 'Deferida em parte'
+        dispositivo: 'Deferida',
+        ministro_condutor: ministro[6],
+        ministros_acordam: [
+          ministro[0],
+          ministro[1],
+          ministro[2],
+          ministro[3],
+          ministro[4],
+          ministro[5],
+        ],
+        ministros_impedidos: [
+          ministro[7],
+        ],
+        ministros_suspeitos: [
+          ministro[8],
+        ],
+        texto: 'Texto do capítulo',
       },
       {
-        id:     2,
+        id: 2,
+        tipo: TipoCapitulo.Merito,
         descricao: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc tempus neque nec ante porta tincidunt eu quis felis. Sed magna libero, sodales ut enim quis, varius faucibus lectus. Sed porttitor pharetra orci, quis fermentum risus rutrum id. Vivamus ornare purus a lorem accumsan cursus. Pellentesque ligula metus, dictum pretium dignissim non, fringilla ac lacus. Sed non dui nibh.',
-        ordem:  1,
-        tipo:   TipoCapitulo.Merito,
-        dispositivo: 'Deferida'
-      },
-      {
-        id:     3,
-        descricao: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc tempus neque nec ante porta tincidunt eu quis felis. Sed magna libero, sodales ut enim quis, varius faucibus lectus. Sed porttitor pharetra orci, quis fermentum risus rutrum id. Vivamus ornare purus a lorem accumsan cursus. Pellentesque ligula metus, dictum pretium dignissim non, fringilla ac lacus. Sed non dui nibh.',
-        ordem:  1,
-        tipo:   TipoCapitulo.Merito,
-        dispositivo: 'Provido'
-      },
-      {
-        id:     4,
-        descricao: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc tempus neque nec ante porta tincidunt eu quis felis. Sed magna libero, sodales ut enim quis, varius faucibus lectus. Sed porttitor pharetra orci, quis fermentum risus rutrum id. Vivamus ornare purus a lorem accumsan cursus. Pellentesque ligula metus, dictum pretium dignissim non, fringilla ac lacus. Sed non dui nibh.',
-        ordem:  1,
-        tipo:   TipoCapitulo.Merito,
-        dispositivo: 'Concedido'
+        dispositivo: 'Deferida em parte',
+        ministro_condutor: ministro[6],
+        ministros_acordam: [
+          ministro[0],
+          ministro[1],
+          ministro[2],
+          ministro[3],
+          ministro[4],
+          ministro[5],
+        ],
+        ministros_impedidos: [
+          ministro[7],
+        ],
+        ministros_suspeitos: [
+          ministro[8],
+        ],
+        texto: 'Texto do capítulo',
       },
     ],
-    relator: ministro[3],
+    relator: {
+        id: 2,
+        nome: 'Dias Tofolli',
+        abreviacao: 'DT',
+        cadeira: {
+          criacao: '2021-08-02T03:00:00.000Z',
+          numero: 100,
+        },
+        imagem: image,
+      },
   },
 
   {
@@ -206,14 +350,38 @@ export const processo: Processo[] = [
     tipo:       TipoDoProcesso.Merito,
     capitulos:  [
       {
-        id:     1,
-        descricao: 'É constitucional o artigo 8º da Lei Complementar 173/2020, editado no âmbito do Programa Federativo de Enfrentamento ao Coronavírus SARS-CoV-2 (Covid-19).',
-        ordem:  1,
+        id: 1,
         tipo:   TipoCapitulo.Preliminar,
-        dispositivo: 'Reconhecida'
-      }
+        descricao: 'É constitucional o artigo 8º da Lei Complementar 173/2020, editado no âmbito do Programa Federativo de Enfrentamento ao Coronavírus SARS-CoV-2 (Covid-19).',
+        dispositivo: 'Reconhecida',
+        ministro_condutor: ministro[6],
+        ministros_acordam: [
+          ministro[0],
+          ministro[1],
+          ministro[2],
+          ministro[3],
+          ministro[4],
+          ministro[5],
+        ],
+        ministros_impedidos: [
+          ministro[7],
+        ],
+        ministros_suspeitos: [
+          ministro[8],
+        ],
+        texto: 'Texto do capítulo',
+      },
     ],
-    relator: ministro[4],
+    relator: {
+        id: 2,
+        nome: 'Dias Tofolli',
+        abreviacao: 'DT',
+        cadeira: {
+          criacao: '2021-08-02T03:00:00.000Z',
+          numero: 100,
+        },
+        imagem: image,
+      },
   },
 
   {
@@ -230,14 +398,38 @@ export const processo: Processo[] = [
     tipo:       TipoDoProcesso.Merito,
     capitulos:  [
       {
-        id:     1,
-        descricao: 'É constitucional o artigo 8º da Lei Complementar 173/2020, editado no âmbito do Programa Federativo de Enfrentamento ao Coronavírus SARS-CoV-2 (Covid-19).',
-        ordem:  1,
+        id: 1,
         tipo:   TipoCapitulo.Tese,
-        dispositivo: 'Reconhecida'
-      }
+        descricao: 'É constitucional o artigo 8º da Lei Complementar 173/2020, editado no âmbito do Programa Federativo de Enfrentamento ao Coronavírus SARS-CoV-2 (Covid-19).',
+        dispositivo: 'Reconhecida',
+        ministro_condutor: ministro[6],
+        ministros_acordam: [
+          ministro[0],
+          ministro[1],
+          ministro[2],
+          ministro[3],
+          ministro[4],
+          ministro[5],
+        ],
+        ministros_impedidos: [
+          ministro[7],
+        ],
+        ministros_suspeitos: [
+          ministro[8],
+        ],
+        texto: 'Texto do capítulo',
+      },
     ],
-    relator: ministro[5],
+    relator: {
+        id: 2,
+        nome: 'Dias Tofolli',
+        abreviacao: 'DT',
+        cadeira: {
+          criacao: '2021-08-02T03:00:00.000Z',
+          numero: 100,
+        },
+        imagem: image,
+      },
   },
 
   {
@@ -254,60 +446,27 @@ export const processo: Processo[] = [
     tipo:       TipoDoProcesso.Merito,
     capitulos:  [
       {
-        id:     1,
-        descricao: 'É constitucional o artigo 8º da Lei Complementar 173/2020, editado no âmbito do Programa Federativo de Enfrentamento ao Coronavírus SARS-CoV-2 (Covid-19).',
-        ordem:  1,
-        tipo:   TipoCapitulo.Tese,
-        dispositivo: 'Reconhecida'
-      }
-    ],
-    relator: ministro[6],
-  },
-
-  {
-    id:         8,
-    nome:       'Tese',
-    abreviacao: '',
-    ementa:   'Sessão de julgamento extraordinária para tratar da divisão de terras.',
-    lista:        [
-                  tagData[1],
-                ],
-    classe:     'RE',
-    numero:     142685,
-    situacao:   1,
-    tipo:       TipoDoProcesso.Merito,
-    capitulos:  [
-      {
-        id:     1,
-        descricao: 'É constitucional o artigo 8º da Lei Complementar 173/2020, editado no âmbito do Programa Federativo de Enfrentamento ao Coronavírus SARS-CoV-2 (Covid-19).',
-        ordem:  1,
-        tipo:   TipoCapitulo.Tese,
-        dispositivo: 'Reconhecida'
-      }
-    ],
-    relator: ministro[7],
-  },
-
-  {
-    id:         7,
-    nome:       'Tese',
-    abreviacao: '',
-    ementa:   'Sessão de julgamento extraordinária para tratar da divisão de terras.',
-    lista:        [
-                  tagData[0],
-                ],
-    classe:     'RE',
-    numero:     143255,
-    situacao:   1,
-    tipo:       TipoDoProcesso.Merito,
-    capitulos:  [
-      {
-        id:     1,
-        descricao: 'É constitucional o artigo 8º da Lei Complementar 173/2020, editado no âmbito do Programa Federativo de Enfrentamento ao Coronavírus SARS-CoV-2 (Covid-19).',
-        ordem:  1,
+        id: 1,
         tipo:   TipoCapitulo.Preliminar,
-        dispositivo: 'Reconhecida'
-      }
+        descricao: 'É constitucional o artigo 8º da Lei Complementar 173/2020, editado no âmbito do Programa Federativo de Enfrentamento ao Coronavírus SARS-CoV-2 (Covid-19).',
+        dispositivo: 'Reconhecida',
+        ministro_condutor: ministro[6],
+        ministros_acordam: [
+          ministro[0],
+          ministro[1],
+          ministro[2],
+          ministro[3],
+          ministro[4],
+          ministro[5],
+        ],
+        ministros_impedidos: [
+          ministro[7],
+        ],
+        ministros_suspeitos: [
+          ministro[8],
+        ],
+        texto: 'Texto do capítulo',
+      },
     ],
     relator: {
         id: 2,
@@ -335,12 +494,27 @@ export const processo: Processo[] = [
     tipo:       TipoDoProcesso.Merito,
     capitulos:  [
       {
-        id:     1,
+        id: 1,
+        tipo:   TipoCapitulo.Questão_de_Ordem,
         descricao: 'É constitucional o artigo 8º da Lei Complementar 173/2020, editado no âmbito do Programa Federativo de Enfrentamento ao Coronavírus SARS-CoV-2 (Covid-19).',
-        ordem:  1,
-        tipo:   TipoCapitulo['Questão de Ordem'],
-        dispositivo: 'Reconhecida'
-      }
+        dispositivo: 'Reconhecida',
+        ministro_condutor: ministro[6],
+        ministros_acordam: [
+          ministro[0],
+          ministro[1],
+          ministro[2],
+          ministro[3],
+          ministro[4],
+          ministro[5],
+        ],
+        ministros_impedidos: [
+          ministro[7],
+        ],
+        ministros_suspeitos: [
+          ministro[8],
+        ],
+        texto: 'Texto do capítulo',
+      },
     ],
     relator: {
         id: 2,
@@ -368,32 +542,92 @@ export const processo: Processo[] = [
     tipo:       TipoDoProcesso.Merito,
     capitulos:  [
       {
-        id:     1,
+        id: 1,
         descricao: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc tempus neque nec ante porta tincidunt eu quis felis. Sed magna libero, sodales ut enim quis, varius faucibus lectus. Sed porttitor pharetra orci, quis fermentum risus rutrum id. Vivamus ornare purus a lorem accumsan cursus. Pellentesque ligula metus, dictum pretium dignissim non, fringilla ac lacus. Sed non dui nibh.',
-        ordem:  1,
         tipo:   TipoCapitulo.Merito,
-        dispositivo: 'Deferida em parte'
+        dispositivo: 'Deferida em parte',
+        ministro_condutor: ministro[6],
+        ministros_acordam: [
+          ministro[0],
+          ministro[1],
+          ministro[2],
+          ministro[3],
+          ministro[4],
+          ministro[5],
+        ],
+        ministros_impedidos: [
+          ministro[7],
+        ],
+        ministros_suspeitos: [
+          ministro[8],
+        ],
+        texto: 'Texto do capítulo',
       },
       {
-        id:     2,
+        id: 2,
         descricao: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc tempus neque nec ante porta tincidunt eu quis felis. Sed magna libero, sodales ut enim quis, varius faucibus lectus. Sed porttitor pharetra orci, quis fermentum risus rutrum id. Vivamus ornare purus a lorem accumsan cursus. Pellentesque ligula metus, dictum pretium dignissim non, fringilla ac lacus. Sed non dui nibh.',
-        ordem:  1,
         tipo:   TipoCapitulo.Merito,
-        dispositivo: 'Deferida'
+        dispositivo: 'Deferida',
+        ministro_condutor: ministro[6],
+        ministros_acordam: [
+          ministro[0],
+          ministro[1],
+          ministro[2],
+          ministro[3],
+          ministro[4],
+          ministro[5],
+        ],
+        ministros_impedidos: [
+          ministro[7],
+        ],
+        ministros_suspeitos: [
+          ministro[8],
+        ],
+        texto: 'Texto do capítulo',
       },
       {
-        id:     3,
+        id: 3,
         descricao: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc tempus neque nec ante porta tincidunt eu quis felis. Sed magna libero, sodales ut enim quis, varius faucibus lectus. Sed porttitor pharetra orci, quis fermentum risus rutrum id. Vivamus ornare purus a lorem accumsan cursus. Pellentesque ligula metus, dictum pretium dignissim non, fringilla ac lacus. Sed non dui nibh.',
-        ordem:  1,
         tipo:   TipoCapitulo.Merito,
-        dispositivo: 'Provido'
+        dispositivo: 'Provido',
+        ministro_condutor: ministro[6],
+        ministros_acordam: [
+          ministro[0],
+          ministro[1],
+          ministro[2],
+          ministro[3],
+          ministro[4],
+          ministro[5],
+        ],
+        ministros_impedidos: [
+          ministro[7],
+        ],
+        ministros_suspeitos: [
+          ministro[8],
+        ],
+        texto: 'Texto do capítulo',
       },
       {
-        id:     4,
+        id: 1,
         descricao: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc tempus neque nec ante porta tincidunt eu quis felis. Sed magna libero, sodales ut enim quis, varius faucibus lectus. Sed porttitor pharetra orci, quis fermentum risus rutrum id. Vivamus ornare purus a lorem accumsan cursus. Pellentesque ligula metus, dictum pretium dignissim non, fringilla ac lacus. Sed non dui nibh.',
-        ordem:  1,
         tipo:   TipoCapitulo.Merito,
-        dispositivo: 'Concedido'
+        dispositivo: 'Concedido',
+        ministro_condutor: ministro[6],
+        ministros_acordam: [
+          ministro[0],
+          ministro[1],
+          ministro[2],
+          ministro[3],
+          ministro[4],
+          ministro[5],
+        ],
+        ministros_impedidos: [
+          ministro[7],
+        ],
+        ministros_suspeitos: [
+          ministro[8],
+        ],
+        texto: 'Texto do capítulo',
       },
     ],
     relator: ministro[2],
@@ -410,14 +644,14 @@ export const documentos: Documento[] = [
 
   {
     id: 4,
-    nome: "Voto AD",
+    nome: "Voto AM",
     tipo: "pdf",
     url: "/assets/pdf/voto-alexandre-divergenteadi6185-Ed.pdf"
   },
 
   {
     id: 5,
-    nome: 'Voto LB',
+    nome: 'Voto RB',
     tipo: 'pdf',
     url: '/assets/pdf/voto-luis-barroso-barroso-adi6185-Ed.pdf',
   },
@@ -470,25 +704,10 @@ export const votos: Voto[] = [
   },
 ];
 
-export const manifestacoes: Manifestacao[] = [
-  {
-    id:                 1,
-    descricao:          'Procedente',
-    ministro_relator:   ministro[0],
-    sentido:            'ACOMPANHAR',
-  },
-
-  {
-    id:                 2,
-    descricao:          'Teste 2',
-    ministro_relator:   ministro[1],
-    sentido:            'DIVERGIR',
-  },
-
-  {
-    id:                 2,
-    descricao:          'Teste 3',
-    ministro_relator:   ministro[2],
-    sentido:            'DIVERGIR',
-  },
+export const tipos: string[] = [
+  'Preliminar',
+  'Mérito',
+  'Modulação de efeitos',
+  'Questão de ordem',
+  'Tese',
 ];
