@@ -85,7 +85,11 @@ export const defaultNavigation: FuseNavigationItem[] = [
         title: 'Revisar Inteiro Teor',
         type: 'basic',
         icon : 'heroicons_outline:chart-pie',
-        link: '/revisar-inteiro-teor'
+        link: '/revisar-inteiro-teor',
+        queryParams: {
+            id: 1,
+            colegiado: 'pleno',
+        }
     }
 ];
 export const compactNavigation: FuseNavigationItem[] = [
@@ -164,7 +168,11 @@ export const compactNavigation: FuseNavigationItem[] = [
         title: 'Revisar Inteiro Teor',
         type: 'basic',
         icon : 'heroicons_outline:chart-pie',
-        link: '/revisar-inteiro-teor'
+        link: '/revisar-inteiro-teor',
+        queryParams: {
+            id: 1,
+            colegiado: 'pleno',
+        }
     }
 ];
 export const futuristicNavigation: FuseNavigationItem[] = [
@@ -243,7 +251,11 @@ export const futuristicNavigation: FuseNavigationItem[] = [
         title: 'Revisar Inteiro Teor',
         type: 'basic',
         icon : 'heroicons_outline:chart-pie',
-        link: '/revisar-inteiro-teor'
+        link: '/revisar-inteiro-teor',
+        queryParams: {
+            id: 1,
+            colegiado: 'pleno',
+        }
     }
 ];
 export const horizontalNavigation: FuseNavigationItem[] = [
@@ -318,6 +330,10 @@ export const horizontalNavigation: FuseNavigationItem[] = [
         title: 'Revisar Inteiro Teor',
         type: 'basic',
         icon : 'heroicons_outline:chart-pie',
-        link: '/revisar-inteiro-teor'
+        link: '/revisar-inteiro-teor',
+        queryParams: {
+            id: 1,
+            colegiado: 'pleno',
+        }
     }
 ];
