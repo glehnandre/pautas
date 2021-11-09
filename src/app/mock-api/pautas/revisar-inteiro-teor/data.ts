@@ -1,9 +1,11 @@
+import { RevisaoInteiroTeor } from "app/modules/revisar-inteiro-teor/revisar-inteiro-teor.component";
+import { ministro } from "../ministro/data";
 import { sessao } from "../sessoes-julgamento/data";
 import { tags } from "../tags/data";
 
-export const revisoes: Array<any> = [
+export const revisoes: Array<RevisaoInteiroTeor> = [
   {
-    id_processo: 0,
+    id_processo: 1,
     status: 'Aberto',
     classe: 'ADI',
     numero: 400,
@@ -19,29 +21,17 @@ export const revisoes: Array<any> = [
       {
         arquivo: '/documento/123123',
         autores: [
-          {
-            id: 12314441,
-            nome: 'Luiz Fux',
-            imagem: 'string',
-            abreviacao: 'MLF',
-            genero: 'M',
-            cadeira: 'string'
-          }
+          ministro[0],
+          ministro[1],
+          ministro[2],
         ],
-        responsavel: {
-          id: 12314441,
-          nome: 'Luiz Fux',
-          imagem: 'string',
-          abreviacao: 'MLF',
-          genero: 'M',
-          cadeira: 'string'
-        },
+        responsavel: ministro[0],
         comentario: 'string',
         nome: 'Voto',
         data_criacao: '2016-08-29T09:12:33.001Z',
         situacao: 'Assinado',
         revisado: true,
-        ordem: 0
+        ordem: 0,
       }
     ]
   }
