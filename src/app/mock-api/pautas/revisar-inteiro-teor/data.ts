@@ -5,7 +5,7 @@ import { tags } from "../tags/data";
 
 export const revisoes: Array<RevisaoInteiroTeor> = [
   {
-    id_processo: 1,
+    id_processo: 9,
     status: 'Aberto',
     classe: 'ADI',
     numero: 400,

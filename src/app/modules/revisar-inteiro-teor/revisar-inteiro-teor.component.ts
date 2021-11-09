@@ -1,9 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { DocumentoInteiroTeor } from '../acervo/model/interfaces/documento-inteiro-teor.interface';
+import { Documento } from '../acervo/model/interfaces/documento.interface';
 import { Processo } from '../acervo/model/interfaces/processo.interface';
 import { SessaoJulgamento } from '../acervo/model/interfaces/sessao-julgamento.interface';
 import { Tag } from '../acervo/model/interfaces/tag.interface';
+import { ProcessoService } from '../services/processo.service';
 import { RevisarInteiroTeorService } from '../services/revisar-inteiro-teor.service';
 
 export interface RevisaoInteiroTeor {
@@ -27,11 +29,13 @@ export class RevisarInteiroTeorComponent implements OnInit {
   idProcesso: number = 0;
   colegiado: string = '';
   processo: Processo;
+  documentos: Documento[];
   revisoes: RevisaoInteiroTeor;
 
   constructor(
     private _route: ActivatedRoute,
     private _inteiroTeorService: RevisarInteiroTeorService,
+    private _processoSerivce: ProcessoService,
   ) { }
 
   ngOnInit(): void {
@@ -39,9 +43,16 @@ export class RevisarInteiroTeorComponent implements OnInit {
     this.colegiado = this._route.snapshot.queryParamMap.get('colegiado');
 
     this._inteiroTeorService.obterInteiroTeorDoAcordao(this.idProcesso).subscribe({
-      next: (data) => {
-        this.revisoes = data;
+      next: (revisoes) => {
+        this.revisoes = revisoes;
         console.log(this.revisoes);
+      }
+    });
+
+    this._processoSerivce.obterDocumentosDoProcesso(this.idProcesso).subscribe({
+      next: (documentos) => {
+        this.documentos = documentos;
+        console.log(this.documentos);
       }
     });
   }

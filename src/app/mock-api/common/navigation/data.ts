@@ -87,7 +87,7 @@ export const defaultNavigation: FuseNavigationItem[] = [
         icon : 'heroicons_outline:chart-pie',
         link: '/revisar-inteiro-teor',
         queryParams: {
-            id: 1,
+            id: 9,
             colegiado: 'pleno',
         },
     },
@@ -181,7 +181,7 @@ export const compactNavigation: FuseNavigationItem[] = [
         icon : 'heroicons_outline:chart-pie',
         link: '/revisar-inteiro-teor',
         queryParams: {
-            id: 1,
+            id: 9,
             colegiado: 'pleno',
         },
     },
@@ -275,7 +275,7 @@ export const futuristicNavigation: FuseNavigationItem[] = [
         icon : 'heroicons_outline:chart-pie',
         link: '/revisar-inteiro-teor',
         queryParams: {
-            id: 1,
+            id: 9,
             colegiado: 'pleno',
         },
     },
@@ -365,7 +365,7 @@ export const horizontalNavigation: FuseNavigationItem[] = [
         icon : 'heroicons_outline:chart-pie',
         link: '/revisar-inteiro-teor',
         queryParams: {
-            id: 1,
+            id: 9,
             colegiado: 'pleno',
         },
     },
