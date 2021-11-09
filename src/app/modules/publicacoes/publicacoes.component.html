@@ -18,8 +18,8 @@
         <div class="bg-stf-background bg-cover bg-no-repeat bg-bottom min-h-20 h-30 relative">
             <div class="absolute inset-0 flex items-center justify-center">
 
-                <div class="mx-4">
-                    <form class="flex w-full md:w-180 h-12 border-t pl-4 mr-0 border-b border-l text-gray-800 border-gray-200 bg-white">
+                <div class="mx-4 w-full">
+                    <form class="flex mx-auto md:w-180 h-12 border-t pl-4 border-b border-l text-gray-800 border-gray-200 bg-white">
                         <div class="flex flex-1 flex-col justify-center mr-4">
                             <span class="text-primary font-medium">O que você procura no DJe?</span>
                             <input
@@ -31,11 +31,11 @@
                             />
                         </div>
                         <button
-                            class="flex px-2 my-1 mr-2 bg-primary rounded-xl text-white text-sm md:text-base ml-auto uppercase tracking-wider items-center"
+                            class="flex p-2 my-1 mr-2 bg-primary rounded-full text-white text-sm md:text-base ml-auto uppercase tracking-wider items-center"
                             (click)="atualizaPesquisa()"
                             >
                             <mat-icon class="icon-size-5" style="color: white;">search</mat-icon>
-                            <span class="ml-2 hidden md:block">Pesquisar no diário</span> 
+                            <span class="ml-2 hidden sm:block">Pesquisar no diário</span> 
                         </button>
                     </form>
                 </div>
