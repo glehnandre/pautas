@@ -138,7 +138,7 @@ export class ResultadoJulgamentoComponent implements OnInit {
   }
 
   public finalizar(): void {
-    alert('finalização da tarefa');
+    alert('Tarefa finalizada');
   }
 
 }
