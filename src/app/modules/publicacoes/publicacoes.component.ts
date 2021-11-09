@@ -66,39 +66,88 @@ export class PublicacoesComponent implements OnInit, OnDestroy {
     this._unsubscribeAll.complete();
   }
 
-  removePesquisa(termo: any){
+  /**
+   * Filtra em publicações os termos já pesquisados antes
+   */
+  removePesquisa(){
     this.pesquisas.forEach(pesquisa=>{
-      this.filtrar("publicacoes", pesquisa);
+      let termos = this.separaTermo(pesquisa);
+      termos.forEach(termo=>this.filtrados = this.filtrar("publicacoes", termo));
     })
   }
 
+  /**
+   * Atualiza o vetor "filtrados" com as publicações filtradas pelo termo
+   * pesquisado
+   */
   atualizaPesquisa(): void{
-    if(this.termo && this.pesquisas.indexOf(this.termo)==-1)
+    if(this.termo && this.pesquisas.indexOf(this.termo)==-1){
+
     this.pesquisas.push(this.termo);
-    if(this.pesquisas.length<=1) this.filtrar("publicacoes", this.termo);
-    else this.filtrar("filtrados", this.termo);
+
+    let termos = this.separaTermo(this.termo);
+    let filtros = [];
+    if(this.pesquisas.length<=1) 
+      termos.forEach(termo=>{
+          if(termo) this.filtrar("publicacoes", termo).forEach(filtrado=>{
+          if(filtros.indexOf(filtrado)==-1) filtros.push(filtrado);
+        })
+      });
+    else 
+      termos.forEach(termo=>{
+          this.filtrar("filtrados", termo).forEach(filtrado=>{
+          if(filtros.indexOf(filtrado)==-1) filtros.push(filtrado);
+        })
+      });
+
+    this.filtrados = filtros;
+    }
     this.termo = '';
   }
 
-  filtrar(campo: string, termo: string){
-    let filtros;
+  /**
+   * Retorna um vetor de PublicaoDto com as publicações filtradas
+   * @param campo informa em qual campo será filtrado o termo, podendo ser em "publicacoes"
+   * ou em "filtrados"
+   * @param termo string que servirá para fazer o filtro
+   */
+  filtrar(campo: string, termo: string): PublicacaoDto[]{
+    let filtros = [];
     if(campo=="publicacoes"){
       filtros = this.publicacoes.filter(publicacao=>{
         return publicacao.relator.toLowerCase().includes(termo.toLowerCase())
             || publicacao.tipo.toLowerCase().includes(termo.toLowerCase())
-            || publicacao.processo.toLowerCase().includes(termo.toLowerCase());
+            || publicacao.processo.toLowerCase().includes(termo.toLowerCase())
+            || publicacao.envolvidos.find(envolvido=>envolvido.nome.toLowerCase().includes(termo.toLowerCase()))
+            || publicacao.envolvidos.find(envolvido=>envolvido.identificacoes.find(identificacao=>identificacao.toLowerCase().includes(termo.toLowerCase())));
       })
     }
     else
       filtros = this.filtrados.filter(publicacao=>{
         return publicacao.relator.toLowerCase().includes(termo.toLowerCase())
             || publicacao.tipo.toLowerCase().includes(termo.toLowerCase())
-            || publicacao.processo.toLowerCase().includes(termo.toLowerCase());
+            || publicacao.processo.toLowerCase().includes(termo.toLowerCase())
+            || publicacao.envolvidos.find(envolvido=>envolvido.nome.toLowerCase().includes(termo.toLowerCase()))
+            || publicacao.envolvidos.find(envolvido=>envolvido.identificacoes.find(identificacao=>identificacao.toLowerCase().includes(termo.toLowerCase())));
       })
       
-    this.filtrados = filtros;
+    //console.log(filtros);
+    return filtros;
     
-    //console.log(this.filtrados);
+  }
+
+  /**
+   * Separa a string "termo" e retorna um vetor das strings separadas
+   * @param termo string a ser separada
+   */
+  separaTermo(termo: string): string[] {
+    let str = [termo];
+    if(termo.indexOf('"')==-1)
+      str = termo.split(' ');
+    else 
+      str = termo.split('"');
+    
+    return str;
   }
 
 }
