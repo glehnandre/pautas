@@ -1,5 +1,5 @@
 import { DatePipe } from '@angular/common';
-import { AfterContentChecked, AfterViewInit, ChangeDetectorRef, Component, Input, OnInit } from '@angular/core';
+import { AfterContentChecked, Component, Input, OnInit } from '@angular/core';
 import { Envolvido } from 'app/modules/acervo/model/interfaces/envolvido.interface';
 import { PublicacaoDto } from 'app/modules/acervo/model/interfaces/publicacaoDto.interface';
 import { registerLocaleData } from '@angular/common';
@@ -19,18 +19,12 @@ export class TextosComponent implements OnInit, AfterContentChecked {
 
   publicacoes: PublicacaoDto[];
 
-  constructor( private cd: ChangeDetectorRef,
-  ) { }
+  constructor() { }
 
   ngOnInit(): void {
-    /*if(this.hasPesquisa) this.publicacoes = this.filtrados;
-    else this.publicacoes = this.publicacoesSemFiltro;*/
-    //console.log(this.publicacoesSemFiltro);
-    
   }
 
   ngAfterContentChecked(): void {
-    this.cd.detectChanges();
     if(this.hasPesquisa) this.publicacoes = this.filtrados;
     else this.publicacoes = this.publicacoesSemFiltro;
   }

@@ -72,3 +72,12 @@
     <div [innerHtml]="publicacao.texto" class="mx-6 my-4 sm:mx-8"></div>
 
 </fuse-card>
+
+<fuse-card *ngIf="!publicacoes[0]" class="flex flex-col w-full px-16 pt-10 pb-8 filter-post filter-interactive border-solid border-2 items-center justify-center" style="border-radius: 0px;">
+    <fuse-card class="p-5 m-5" style="border-radius: 100px; box-shadow: 0 2px 4px 0 #00000069">
+        <mat-icon class="icon-size-10 p-4" style="color: #47A6E0;"> insert_drive_file</mat-icon>
+    </fuse-card>
+    <span class="text-3xl">Nenhuma informação encontrada para os termos informados</span>
+    <hr class="w-full px-10 my-2">
+    <span class="text-xl text-gray-400">Você deve pesquisar pelo número do processo ou pelo nome da parte</span>
+</fuse-card>
