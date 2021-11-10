@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { FuseMockApiService } from '@fuse/lib/mock-api/mock-api.service';
+import { DocumentoInteiroTeor } from 'app/modules/acervo/model/interfaces/documento-inteiro-teor.interface';
 import { RevisaoInteiroTeor } from 'app/modules/revisar-inteiro-teor/revisar-inteiro-teor.component';
 import { revisoes as revisoesData } from './data';
 
@@ -26,6 +27,26 @@ export class RevisaoInteiroTeorMockApi {
             .find(rev => rev.id_processo === id);
 
           if (revisao !== undefined) {
+            return [200, revisao];
+          } else {
+            return [200, {
+              description: "Não há processo associado a esse processo.",
+            }];
+          }
+        });
+
+      this._fuseMockApiService
+        .onPut('/inteiro-teor')
+        .reply(({request}) => {
+          const { params, body } = request;
+          const id: number = +params.get('id');
+          const documentos = body as DocumentoInteiroTeor[];
+
+          const revisao = this._revisoes
+            .find(rev => rev.id_processo === id);
+
+          if (revisao !== undefined) {
+            revisao.documentos = documentos;
             return [200, revisao];
           } else {
             return [200, {
