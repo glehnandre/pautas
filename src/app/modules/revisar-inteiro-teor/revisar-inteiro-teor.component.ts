@@ -29,7 +29,7 @@ export class RevisarInteiroTeorComponent implements OnInit {
   idProcesso: number = 0;
   colegiado: string = '';
   processo: Processo;
-  documentos: Documento[];
+  documentosDoProcesso: Documento[];
   revisoes: RevisaoInteiroTeor;
 
   displayedColumns: string[] = ['autor', 'responsavel', 'comentarios', 'documento', 'data', 'situacao', 'arquivo'];
@@ -53,8 +53,8 @@ export class RevisarInteiroTeorComponent implements OnInit {
 
     this._processoService.obterDocumentosDoProcesso(this.idProcesso).subscribe({
       next: (documentos) => {
-        this.documentos = documentos;
-        console.log(this.documentos);
+        this.documentosDoProcesso = documentos;
+        console.log(this.documentosDoProcesso);
       }
     });
   }
