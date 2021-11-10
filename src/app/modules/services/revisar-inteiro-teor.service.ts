@@ -67,4 +67,14 @@ export class RevisarInteiroTeorService {
       );
   }
 
+  public publicarInteiroTeorDoAcordao(id: number, idsDocumentos: number[]): Observable<void> {
+    return this._httpClient.post<void>(`/inteiro-teor/${id}/publicar`, idsDocumentos)
+      .pipe(
+        catchError(error => {
+          console.log(error);
+          return EMPTY;
+        }),
+      );
+  }
+
 }
