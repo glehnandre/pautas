@@ -10,6 +10,8 @@ import { Ata } from '../acervo/model/interfaces/ata.interface';
 import { Capitulo, CapitulosParaPublicacao } from '../acervo/model/interfaces/capitulo.interface';
 import { MinistroService } from '../services/ministro.service';
 import { Ministro } from '../acervo/model/interfaces/ministro.interface';
+import { MatDialog } from '@angular/material/dialog';
+import { PublicarFormComponent } from './publicar-form/publicar-form.component';
 
 interface Parametros {
     numero: number;
@@ -35,6 +37,7 @@ export class RevisarExtratoAtaComponent implements OnInit {
       private _julgamentoService: JulgamentoService,
       private _resultadoJulgamento: ResultadoJulgamentoService,
       private _ministroService: MinistroService,
+      private _matDialog: MatDialog,
       private _route: ActivatedRoute,
   ) { }
 
@@ -65,5 +68,16 @@ export class RevisarExtratoAtaComponent implements OnInit {
 
   nomesMinistros(ministros: Ministro[]): string {
     return this._ministroService.ministrosString(ministros);
+  }
+
+  publicar(): void {
+    const dialogRef = this._matDialog
+      .open(PublicarFormComponent, { maxHeight: '560px' });
+
+    dialogRef.afterClosed().subscribe({
+        next: () => {
+
+        }
+    })
   }
 }

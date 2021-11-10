@@ -1,12 +1,20 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RevisarExtratoAtaComponent } from './revisar-extrato-ata.component';
 import { RouterModule, Routes } from '@angular/router';
 import { SharedModule } from 'app/shared/shared.module';
-import { MatChipsModule } from '@angular/material/chips';
-import { MatIconModule } from '@angular/material/icon';
+
 import { MatButtonModule } from '@angular/material/button';
+import { MatChipsModule } from '@angular/material/chips';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatIconModule } from '@angular/material/icon';
+import { MatSelectModule } from '@angular/material/select';
+
+import { PublicarFormComponent } from './publicar-form/publicar-form.component';
+import { RevisarExtratoAtaComponent } from './revisar-extrato-ata.component';
 import { StackedBarProcessosComponent } from './stacked-bar-processos/stacked-bar-processos.component';
+import { MatRadioModule } from '@angular/material/radio';
+import { MatTooltipModule } from '@angular/material/tooltip';
 
 const RevisarExtratoAtaRoute: Routes = [
     { path: '', component: RevisarExtratoAtaComponent}
@@ -16,6 +24,7 @@ const RevisarExtratoAtaRoute: Routes = [
   declarations: [
     RevisarExtratoAtaComponent,
     StackedBarProcessosComponent,
+    PublicarFormComponent,
   ],
   imports: [
     CommonModule,
@@ -23,7 +32,12 @@ const RevisarExtratoAtaRoute: Routes = [
     SharedModule,
     MatButtonModule,
     MatChipsModule,
+    MatDialogModule,
+    MatFormFieldModule,
     MatIconModule,
+    MatRadioModule,
+    MatSelectModule,
+    MatTooltipModule,
   ],
   exports: [
       RevisarExtratoAtaComponent,

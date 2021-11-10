@@ -33,17 +33,28 @@
                 ></app-stacked-bar-processos>
             </div>
         </div>
-        <div class="flex flex-col md:flex-row mx-8 items-end space-x-0 sm:space-x-4 space-y-2">
-            <button class="ml-auto w-full md:w-auto" color="white" mat-raised-button>
+        <!-- Botões -->
+        <div class="hidden sm:flex flex-row mx-8 items-end space-x-4">
+            <button class="ml-auto" color="white" mat-raised-button>
                 <span>Cancelar</span>
             </button>
-            <button class="w-full md:w-auto" color="white" mat-raised-button>
+            <button color="white" mat-raised-button>
                 <span>Solicitar Correção</span>
             </button>
-            <button class="w-full md:w-auto" color="primary" mat-raised-button>
+            <button color="primary" mat-raised-button (click)="publicar()">
                 <span>Revisado e Publicar</span>
             </button>
         </div>
+        <!-- DropBox -->
+        <mat-form-field class="w-full text-xs sm:hidden">
+            <mat-select style="height: 4px;" placeholder="Escolha sua ação">
+                <mat-option value="revisado" (click)="publicar()" class="bg-primary text-white">
+                    Revisado e Publicar
+                </mat-option>
+                <mat-option value="corrigir">Solicitar Correção</mat-option>
+                <mat-option value="cancelar">Cancelar</mat-option>
+            </mat-select>
+        </mat-form-field>
     </div>
 
     <!-- Body -->
@@ -72,7 +83,7 @@
 
                 </div>
             </div>
-            <div class="flex flex-col sm:flex-row m-8">
+            <div class="flex flex-col sm:flex-row m-8 text-xs sm:text-base">
                 <div class="flex flex-col w-full sm:w-1/2">
                     <div *ngIf="capitulo?.ministros_impedidos">
                         <span> {{
@@ -121,9 +132,7 @@
                 </div>
             </div>
             <hr>
-            <div class="mx-8 mb-4">
-                {{ capitulo?.texto }}
-            </div>
+            <div class="mx-8 mb-4 text-xs sm:text-base" [innerHtml]="capitulo?.texto"></div>
         </div>
     </div>
 </div>
