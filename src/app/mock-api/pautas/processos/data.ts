@@ -630,7 +630,7 @@ export const processo: Processo[] = [
         texto: 'Texto do capítulo',
       },
     ],
-    relator: ministro[2],
+    relator: ministro[2]
   },
 ];
 

@@ -42,4 +42,14 @@ export class RevisarInteiroTeorService {
     );
   }
 
+  public incluirDocumentosDoInteiroTeorDoProcesso(id: number, idsDocumentos: number[]): Observable<void> {
+    return this._httpClient.post<void>(`/inteiro-teor/${id}`, idsDocumentos)
+      .pipe(
+        catchError(error => {
+          console.log(error);
+          return EMPTY;
+        }),
+      );
+  }
+
 }
