@@ -49,6 +49,14 @@ export class RevisarInteiroTeorComponent implements OnInit {
       }
     });
 
+    this._inteiroTeorService.incluirDocumentosDoInteiroTeorDoProcesso(this.idProcesso, [1,4,5]).subscribe({
+      next: (data) => {
+        this._inteiroTeorService.removerDocumentosDoInteiroTeorDoProcesso(this.idProcesso, [1,5]).subscribe({
+          next: (data) => {}
+        });
+      }
+    });
+
     this._processoSerivce.obterDocumentosDoProcesso(this.idProcesso).subscribe({
       next: (documentos) => {
         this.documentosDoProcesso = documentos;

@@ -94,5 +94,36 @@ export class RevisaoInteiroTeorMockApi {
             }];
           }
         });
+
+      this._fuseMockApiService
+        .onDelete('/inteiro-teor/:id')
+        .reply(({request, urlParams}) => {
+          const { params } = request;
+          const id: number = +urlParams.id;
+          const documentos = [...params.get('processos').replace(',', '')];
+          
+          const revisao = this._revisoes
+            .find(rev => rev.id_processo === id);
+
+          if (revisao !== undefined) {
+            const processo = this._processos.find(p => p.id === revisao.id_processo);
+
+            documentos.forEach(idDoc => {
+              const index = processo?.documentos?.findIndex(d => d.id === +idDoc);
+              
+              if (index !== -1) {
+                processo.documentos.splice(index, 1);
+              }
+            });
+
+            console.log(processo)
+
+            return [200, processo];
+          } else {
+            return [200, {
+              description: "Não há processo associado a esse processo.",
+            }];
+          }
+        });
     }
 }

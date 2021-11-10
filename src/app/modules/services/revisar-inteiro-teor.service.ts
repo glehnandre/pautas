@@ -52,4 +52,19 @@ export class RevisarInteiroTeorService {
       );
   }
 
+  public removerDocumentosDoInteiroTeorDoProcesso(id: number, idsDocumentos: number[]): Observable<void> {
+    let params = new HttpParams();
+    params = params.set('processos', idsDocumentos.toString());
+    
+    return this._httpClient.delete<void>(`/inteiro-teor/${id}`, {
+      params,
+    })
+      .pipe(
+        catchError(error => {
+          console.log(error);
+          return EMPTY;
+        }),
+      );
+  }
+
 }
