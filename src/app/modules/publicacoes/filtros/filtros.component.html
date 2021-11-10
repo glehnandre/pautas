@@ -52,7 +52,13 @@
 
             <section class="">
                 <p *ngFor="let item of agregacao.itens">
-                    <mat-checkbox [color]="'primary'" aria-label="Clique para incluir" role="checkbox">
+                    <mat-checkbox
+                        [name]="item.descricao"
+                        [color]="'primary'" 
+                        aria-label="Clique para incluir" 
+                        role="checkbox"
+                        (change)="atualizaFiltros($event)"
+                    >
                         {{item.descricao}} ({{item.quantidade}})
                     </mat-checkbox>
                 </p>

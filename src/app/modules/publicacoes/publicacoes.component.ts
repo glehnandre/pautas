@@ -22,6 +22,7 @@ export class PublicacoesComponent implements OnInit, OnDestroy {
   publicacoes: PublicacaoDto[] = [];
   agregacoes: InformacoesDto[] = [];
   filtrados: PublicacaoDto[] = [];
+  hasFiltros: boolean = false;
 
   pesquisas: string[] = [];
   termo: string;
@@ -87,7 +88,7 @@ export class PublicacoesComponent implements OnInit, OnDestroy {
 
     let termos = this.separaTermo(this.termo);
     let filtros = [];
-    if(this.pesquisas.length<=1) 
+    if(this.pesquisas.length<=1 && !this.hasFiltros) 
       termos.forEach(termo=>{
           if(termo) this.filtrar("publicacoes", termo).forEach(filtrado=>{
           if(filtros.indexOf(filtrado)==-1) filtros.push(filtrado);
@@ -148,6 +149,21 @@ export class PublicacoesComponent implements OnInit, OnDestroy {
       str = termo.split('"');
     
     return str;
+  }
+
+  trataFiltros(filtros: any[]){
+    
+    if(filtros.length==0){
+      this.removePesquisa();
+      this.hasFiltros = false;
+    }
+    else{
+      filtros.forEach((filtro, i)=>{
+        if(i==0 && this.pesquisas.length==0) this.filtrados = this.filtrar("publicacoes", filtro)
+        else this.filtrados = this.filtrar("filtrados", filtro)
+      })
+      this.hasFiltros = true;
+    }
   }
 
 }
