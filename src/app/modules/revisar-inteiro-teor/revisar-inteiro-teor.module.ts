@@ -8,6 +8,9 @@ import { MatChipsModule } from '@angular/material/chips';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatIconModule } from '@angular/material/icon';
 import { MatSelectModule } from '@angular/material/select';
+import { MatExpansionModule } from '@angular/material/expansion';
+import { MatSortModule } from '@angular/material/sort';
+import { MatTableModule } from '@angular/material/table';
 
 const revisarInteiroTeorRoutes: Route[] = [
     {
@@ -30,6 +33,9 @@ const revisarInteiroTeorRoutes: Route[] = [
     MatCheckboxModule,
     MatIconModule,
     MatSelectModule,
+    MatExpansionModule,
+    MatSortModule,
+    MatTableModule,
   ]
 })
 export class RevisarInteiroTeorModule { }

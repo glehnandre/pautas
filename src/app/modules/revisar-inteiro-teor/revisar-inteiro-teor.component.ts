@@ -32,10 +32,12 @@ export class RevisarInteiroTeorComponent implements OnInit {
   documentos: Documento[];
   revisoes: RevisaoInteiroTeor;
 
+  displayedColumns: string[] = ['autor', 'responsavel', 'comentarios', 'documento', 'data', 'situacao', 'arquivo'];
+
   constructor(
     private _route: ActivatedRoute,
     private _inteiroTeorService: RevisarInteiroTeorService,
-    private _processoSerivce: ProcessoService,
+    private _processoService: ProcessoService,
   ) { }
 
   ngOnInit(): void {
@@ -49,7 +51,7 @@ export class RevisarInteiroTeorComponent implements OnInit {
       }
     });
 
-    this._processoSerivce.obterDocumentosDoProcesso(this.idProcesso).subscribe({
+    this._processoService.obterDocumentosDoProcesso(this.idProcesso).subscribe({
       next: (documentos) => {
         this.documentos = documentos;
         console.log(this.documentos);

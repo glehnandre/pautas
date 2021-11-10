@@ -1,4 +1,4 @@
-<div class="absolute inset-0 flex flex-col min-w-0 overflow-hidden">
+<div class="absolute inset-0 flex flex-col min-w-0 overflow-hidden bg-white">
 
     <!-- Header -->
     <div class="flex flex-col sm:flex-row justify-center items-center sm:justify-between pl-8 bg-white dark:bg-transparent">
@@ -73,15 +73,153 @@
     </header>
 
     <!-- Main -->
-    <div class="flex-auto  overflow-y-auto px-8 py-4" cdkScrollable>
+    <div class="flex-auto overflow-y-auto px-8 py-4" cdkScrollable>
+        <table
+            class="w-full min-w-320 table-fixed bg-transparent"
+            mat-table
+            [multiTemplateDataRows]="true"
+            [dataSource]="revisoes?.documentos"
+        >
+            <ng-container matColumnDef="autor">
+                <th
+                    class="bg-gray-50 dark:bg-black dark:bg-opacity-5 text-center"
+                    mat-header-cell
+                    *matHeaderCellDef
+                >
+                    Autor
+                </th>
+                <td
+                    class="text-center"
+                    mat-cell
+                    *matCellDef="let document"
+                >
+                    <div class="flex flex-row justify-between items-center w-24">
+                        <mat-checkbox color="primary"></mat-checkbox>
+                        <span>1</span>
+                        <img
+                            src="https://source.unsplash.com/random"
+                            alt="Imagem de perfil"
+                            class="w-10 h-10 rounded-full"
+                        >
+                    </div>
+                </td>
+            </ng-container>
 
-        <!-- CONTENT GOES HERE -->
-        <div>
-            <!-- <app-tabela
-                [allSelected]="selectAllLines"
-                (tagSelecionada)="filtrarPorTags($event)"
-                (statusSelecionado)="filtrarPorStatus($event)"
-            ></app-tabela> -->
-        </div>
+            <ng-container matColumnDef="responsavel">
+                <th
+                    class="bg-gray-50 dark:bg-black dark:bg-opacity-5 text-center"
+                    mat-header-cell
+                    *matHeaderCellDef
+                >
+                    Responsável
+                </th>
+                <td
+                    class="text-center"
+                    mat-cell
+                    *matCellDef="let document"
+                >
+                    CL
+                </td>
+            </ng-container>
+
+            <ng-container matColumnDef="comentarios">
+                <th
+                    class="bg-gray-50 dark:bg-black dark:bg-opacity-5 text-center"
+                    mat-header-cell
+                    *matHeaderCellDef
+                >
+                    Comentários
+                </th>
+                <td
+                    class="text-center"
+                    mat-cell
+                    *matCellDef="let document"
+                >
+                    Algum comentário
+                </td>
+            </ng-container>
+
+            <ng-container matColumnDef="documento">
+                <th
+                    class="bg-gray-50 dark:bg-black dark:bg-opacity-5 text-center"
+                    mat-header-cell
+                    *matHeaderCellDef
+                >
+                    Documento
+                </th>
+                <td
+                    class="text-center"
+                    mat-cell
+                    *matCellDef="let document"
+                >
+                    Relatório
+                </td>
+            </ng-container>
+
+            <ng-container matColumnDef="data">
+                <th
+                    class="bg-gray-50 dark:bg-black dark:bg-opacity-5 text-center"
+                    mat-header-cell
+                    *matHeaderCellDef
+                >
+                    Data de criação
+                </th>
+                <td
+                    class="text-center"
+                    mat-cell
+                    *matCellDef="let document"
+                >
+                    19/10/2021
+                </td>
+            </ng-container>
+
+            <ng-container matColumnDef="situacao">
+                <th
+                    class="bg-gray-50 dark:bg-black dark:bg-opacity-5 text-center"
+                    mat-header-cell
+                    *matHeaderCellDef
+                >
+                    Situação
+                </th>
+                <td
+                    class="text-center"
+                    mat-cell
+                    *matCellDef="let document"
+                >
+                    <mat-chip class="bg-green-700 text-white">
+                        Assinado
+                    </mat-chip>
+                </td>
+            </ng-container>
+
+            <ng-container matColumnDef="arquivo">
+                <th
+                    class="bg-gray-50 dark:bg-black dark:bg-opacity-5 text-center"
+                    mat-header-cell
+                    *matHeaderCellDef
+                >
+                    Arquivo
+                </th>
+                <td
+                    class="text-center"
+                    mat-cell
+                    *matCellDef="let document"
+                >
+                    <mat-chip class="border-primary border-solid border-2 bg-transparent text-primary mr-2">
+                        <mat-icon class="mr-2" style="color:red">picture_as_pdf</mat-icon>
+                        Abrir
+                    </mat-chip>
+                </td>
+            </ng-container>
+
+            <tr
+                class="shadow"
+                mat-header-row
+                *matHeaderRowDef="displayedColumns"></tr>
+            <tr
+                class="h-18 hover:bg-gray-100 dark:hover:bg-hover"
+                mat-row
+                *matRowDef="let row; columns: displayedColumns;"></tr>
+        </table>
     </div>
 </div>
