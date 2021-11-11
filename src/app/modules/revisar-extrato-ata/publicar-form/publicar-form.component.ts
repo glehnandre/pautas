@@ -1,9 +1,14 @@
 import { Component, Inject, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Ministro } from 'app/modules/acervo/model/interfaces/ministro.interface';
 import { MinistroService } from 'app/modules/services/ministro.service';
+import * as _moment from 'moment';
+import { default as _rollupMoment } from 'moment';
 import { Observable } from 'rxjs';
+
+const moment = _rollupMoment || _moment;
+
 
 @Component({
   selector: 'app-publicar-form',
@@ -15,7 +20,10 @@ export class PublicarFormComponent implements OnInit {
 
   ministros: Observable<Ministro[]>;
   formPublicacao: FormGroup;
-  ministrospresentes: Set<Ministro> = new Set();
+  date: FormControl = new FormControl(moment())
+  ministrosPresentes: Set<Ministro> = new Set();
+  ministrosAusentes: Set<Ministro> = new Set();
+
   opcoesDataPublicacao = [
       { value: 1, view: 'Publicar Automaticamente' },
       { value: 2, view: 'Publicar na Próxima Sessão' },
@@ -31,15 +39,28 @@ export class PublicarFormComponent implements OnInit {
 
   ngOnInit(): void {
     this.formPublicacao = this._formBuilder.group({
-      presentes: [[], Validators.required],
+      presenca: [[], Validators.required],
       presidente: ['', Validators.required],
       acessor: ['', Validators.required],
-      data: ['', Validators.required]
-    })
+      opcaoData: ['', Validators.required],
+      dataPublicacao: ['', Validators.nullValidator],
+      data_inicio: ['', Validators.nullValidator],
+      data_fim: ['', Validators.nullValidator],
+    });
     this.ministros = this._ministroService.listarMinistros();
   }
 
   salvar(): void {
-    console.log(this.ministrospresentes);
+    const { presidente, acessor, opcaoData, data_inicio, data_fim } = this.formPublicacao.getRawValue();
+    const form = {
+      acessor,
+      data_opcao: this.opcoesDataPublicacao[opcaoData-1].view,
+      data_fim,
+      data_inicio,
+      ministrosAusentes: this.ministrosAusentes,
+      ministrosPresentes: this.ministrosPresentes,
+      presidente,
+    }
+    console.log(form);
   }
 }

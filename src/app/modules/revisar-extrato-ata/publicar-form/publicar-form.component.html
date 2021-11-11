@@ -7,10 +7,10 @@
     </div>
 
     <!-- Formulário -->
-    <form [formGroup]="formPublicacao" class="flex flex-col p-4">
+    <form [formGroup]="formPublicacao" class="flex flex-col p-2 sm:p-4">
         <!-- Selecionar Presença e Presidencia dos Ministros -->
         <div class="flex flex-col space-y-2">
-            <div class="flex flex-row -mr-2 text-bold space-x-4">
+            <div class="flex flex-row sm:-mr-2 text-bold space-x-2">
                 <span class="ml-auto">Presente</span>
                 <span>Ausente</span>
                 <span class="hidden sm:block">Presidente</span>
@@ -18,12 +18,12 @@
             <div class="flex flex-row space-x-8">
                 <div class="flex flex-col space-y-2">
                     <mat-radio-group
-                      class="flex flex-row space-x-2 justify-between"
+                      class="flex flex-row space-x-2 sm:space-x-8 justify-between"
                       color="primary"
                       *ngFor="let ministro of (ministros | async)"
-                      formControlName="presentes"
+                      formControlName="presenca"
                     >
-                        <mat-label class="flex flex-row">
+                        <mat-label class="flex flex-row space-x-2">
                             <img
                                   #tooltip="matTooltip"
                                   class="hidden sm:flex flex-0 w-4 h-4
@@ -36,11 +36,17 @@
                                   [src]="ministro.imagem"
                                   [alt]="ministro.nome"
                                 >
-                            <span>{{ ministro.nome }}</span>
+                            <span class="sm:whitespace-nowrap">{{ ministro.nome }}</span>
                         </mat-label>
                         <div class="flex flex-row justify-between space-x-12">
-                            <mat-radio-button (click)="ministrospresentes.add(ministro)" [value]="ministrospresentes"></mat-radio-button>
-                            <mat-radio-button (click)="ministrospresentes.delete(ministro)" [value]="ministrospresentes"></mat-radio-button>
+                            <mat-radio-button
+                              (click)="ministrosAusentes.delete(ministro);ministrosPresentes.add(ministro);"
+                              [value]="ministrosAusentes"
+                            ></mat-radio-button>
+                            <mat-radio-button
+                              (click)="ministrosPresentes.delete(ministro);ministrosAusentes.add(ministro);"
+                              [value]="ministrosAusentes"
+                            ></mat-radio-button>
                         </div>
                     </mat-radio-group>
                 </div>
@@ -51,7 +57,7 @@
                 >
                     <mat-radio-button
                         *ngFor="let ministro of (ministros | async)"
-                        [value]="ministro.nome"
+                        [value]="ministro"
                     ></mat-radio-button>
                 </mat-radio-group>
             </div>
@@ -60,7 +66,7 @@
                 <mat-select formControlName="presidente">
                     <mat-option
                         *ngFor="let ministro of (ministros | async)"
-                        [value]="ministro.nome"
+                        [value]="ministro"
                     >
                         <div class="flex items-center">
                             <div>
@@ -70,33 +76,19 @@
                         </div>
                     </mat-option>
                 </mat-select>
-                <mat-hint>Informe qual foi o Presidente</mat-hint>
             </mat-form-field>
         </div>
 
         <!-- Selecionar Acessor Chefe -->
-        <mat-form-field class="w-full mt-2" appearance="outline">
+        <mat-form-field class="w-full mt-2" appearance="fill">
             <mat-label>Acessor Chefe<span class="text-red-500">*</span></mat-label>
-            <mat-select formControlName="acessor">
-                <mat-option
-                    *ngFor="let ministro of (ministros | async)"
-                    [value]="ministro.nome"
-                >
-                    <div class="flex items-center">
-                        <div>
-                            <img class="w-4 h-4 mr-4" [src]="ministro.imagem">
-                        </div>
-                        <div>{{ ministro.nome }}</div>
-                    </div>
-                </mat-option>
-            </mat-select>
-            <mat-hint>Informe qual foi o Acessor Chefe</mat-hint>
+            <input matInput type="text" formControlName="acessor">
         </mat-form-field>
 
         <mat-radio-group
             color="primary"
             class="flex flex-col space-y-2"
-            formControlName="data"
+            formControlName="opcaoData"
         >
             <mat-radio-button
                 *ngFor="let opcao of opcoesDataPublicacao"
@@ -105,6 +97,23 @@
                 {{ opcao.view }}
             </mat-radio-button>
         </mat-radio-group>
+        <mat-form-field
+          class="w-full my-4" appearance="fill"
+          *ngIf="formPublicacao.getRawValue().opcaoData == 3"
+        >
+            <mat-label class="font-medium mb-2">Selecionar Data:</mat-label>
+            <mat-date-range-input [rangePicker]="picker">
+                <input
+                  matStartDate placeholder="Data de início" [value]="data_inicio"
+                  formControlName="data_inicio">
+                <input
+                  matEndDate placeholder="Data do fim" [value]="data_fim"
+                  formControlName="data_fim">
+            </mat-date-range-input>
+
+            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-date-range-picker #picker></mat-date-range-picker>
+        </mat-form-field>
     </form>
     <div class="flex flex-row m-4 space-x-4">
         <button class="ml-auto" mat-raised-button>Cancelar</button>

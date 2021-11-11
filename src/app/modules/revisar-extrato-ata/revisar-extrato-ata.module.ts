@@ -15,6 +15,8 @@ import { RevisarExtratoAtaComponent } from './revisar-extrato-ata.component';
 import { StackedBarProcessosComponent } from './stacked-bar-processos/stacked-bar-processos.component';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatInputModule } from '@angular/material/input';
 
 const RevisarExtratoAtaRoute: Routes = [
     { path: '', component: RevisarExtratoAtaComponent}
@@ -32,9 +34,11 @@ const RevisarExtratoAtaRoute: Routes = [
     SharedModule,
     MatButtonModule,
     MatChipsModule,
+    MatDatepickerModule,
     MatDialogModule,
     MatFormFieldModule,
     MatIconModule,
+    MatInputModule,
     MatRadioModule,
     MatSelectModule,
     MatTooltipModule,
