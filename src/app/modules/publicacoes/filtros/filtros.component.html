@@ -43,15 +43,23 @@
             </section>
         </mat-expansion-panel>
 
-        <mat-expansion-panel *ngFor="let agregacao of agregacoes" class="mb-2 border-solid border-2">
+        <mat-expansion-panel *ngFor="let filtro of recuperaFiltros()" class="mb-2 border-solid border-2">
             <mat-expansion-panel-header>
                 <mat-panel-title class="font-semibold text-primary-500 line-clamp-3">
-                    {{agregacao.nome}}
+                    {{filtro.agregacao.nome}}
+                    <div class="flex flex-row space-x-1">
+                        <span *ngFor="let selecionado of filtro.selecionados; let i = index"
+                            style="text-decoration:#2a6894; font:caption; font-size: 0.8rem;"
+                            class="flex-none truncate"
+                        >
+                            {{(i==filtro.selecionados.length-1) ? selecionado : selecionado+"," }}
+                        </span>
+                    </div>
                 </mat-panel-title>
             </mat-expansion-panel-header>
 
             <section class="">
-                <p *ngFor="let item of agregacao.itens">
+                <p *ngFor="let item of filtro.agregacao.itens">
                     <mat-checkbox
                         [name]="item.descricao"
                         [color]="'primary'" 
