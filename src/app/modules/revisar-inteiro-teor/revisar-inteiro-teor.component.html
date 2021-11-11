@@ -3,7 +3,7 @@
     <!-- Header -->
     <div class="flex flex-col sm:flex-row justify-center items-center sm:justify-between pl-8 bg-white dark:bg-transparent">
         <h1 class="mt-4 text-primary font-medium text-xl sm:text-2xl">
-            Revisar Inteiro Teor ADI 400 Mérito
+            Revisar Inteiro Teor {{ revisoes?.classe }} {{ revisoes?.numero }} {{ revisoes?.nome }}
         </h1>
         <div class="flex flex-row items-end mb-4 sm:my-4 ml-auto">
             <button class="z-0 mr-4" mat-button>
@@ -95,16 +95,17 @@
                 >
                     <div class="flex flex-row justify-between items-center w-24">
                         <mat-checkbox color="primary"></mat-checkbox>
-                        
+
                         <span>
                             {{document.ordem}}
                         </span>
 
-                        <img
-                            src="https://source.unsplash.com/random"
-                            alt="Imagem de perfil"
-                            class="w-10 h-10 rounded-full"
-                        >
+                        <div class="mb-3 ml-2">
+                            <app-icones-votos
+                                [ministros]="document.autores"
+                                [quantidade]="document.autores.length"
+                            ></app-icones-votos>
+                        </div>
                     </div>
                 </td>
             </ng-container>
@@ -156,7 +157,7 @@
                     mat-cell
                     *matCellDef="let document"
                 >
-                    {{document.nome}} 
+                    {{document.nome}}
                 </td>
             </ng-container>
 
