@@ -1,5 +1,7 @@
+import { DataSource } from '@angular/cdk/collections';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { DocumentoInteiroTeor } from '../acervo/model/interfaces/documento-inteiro-teor.interface';
 import { Documento } from '../acervo/model/interfaces/documento.interface';
 import { Processo } from '../acervo/model/interfaces/processo.interface';
@@ -33,6 +35,7 @@ export class RevisarInteiroTeorComponent implements OnInit {
   revisoes: RevisaoInteiroTeor;
 
   displayedColumns: string[] = ['autor', 'responsavel', 'comentarios', 'documento', 'data', 'situacao', 'arquivo'];
+  dataSource = new DataSourceInteiroTeor([]);
 
   constructor(
     private _route: ActivatedRoute,
@@ -47,6 +50,7 @@ export class RevisarInteiroTeorComponent implements OnInit {
     this._inteiroTeorService.obterInteiroTeorDoAcordao(this.idProcesso).subscribe({
       next: (revisoes) => {
         this.revisoes = revisoes;
+        this.dataSource = new DataSourceInteiroTeor(this.revisoes.documentos);
         console.log(this.revisoes);
       }
     });
@@ -59,4 +63,23 @@ export class RevisarInteiroTeorComponent implements OnInit {
     });
   }
 
+}
+
+export class DataSourceInteiroTeor extends DataSource<DocumentoInteiroTeor> {
+  data: BehaviorSubject<DocumentoInteiroTeor[]>;
+
+  constructor(
+    private readonly ELEMENT_DATA: DocumentoInteiroTeor[],
+  ) {
+    super();
+    this.data = new BehaviorSubject<DocumentoInteiroTeor[]>(this.ELEMENT_DATA);
+  }
+
+  public connect(): Observable<DocumentoInteiroTeor[]> {
+    return this.data;
+  }
+
+  public disconnect() {
+    this.data.unsubscribe();
+  }
 }

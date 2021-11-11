@@ -78,7 +78,7 @@
             class="w-full min-w-320 table-fixed bg-transparent"
             mat-table
             [multiTemplateDataRows]="true"
-            [dataSource]="revisoes?.documentos"
+            [dataSource]="dataSource"
         >
             <ng-container matColumnDef="autor">
                 <th
@@ -95,7 +95,11 @@
                 >
                     <div class="flex flex-row justify-between items-center w-24">
                         <mat-checkbox color="primary"></mat-checkbox>
-                        <span>1</span>
+                        
+                        <span>
+                            {{document.ordem}}
+                        </span>
+
                         <img
                             src="https://source.unsplash.com/random"
                             alt="Imagem de perfil"
@@ -118,7 +122,7 @@
                     mat-cell
                     *matCellDef="let document"
                 >
-                    CL
+                    {{document.responsavel.abreviacao}}
                 </td>
             </ng-container>
 
@@ -135,7 +139,7 @@
                     mat-cell
                     *matCellDef="let document"
                 >
-                    Algum comentário
+                    {{document.comentario}}
                 </td>
             </ng-container>
 
@@ -152,7 +156,7 @@
                     mat-cell
                     *matCellDef="let document"
                 >
-                    Relatório
+                    {{document.nome}} 
                 </td>
             </ng-container>
 
@@ -169,7 +173,7 @@
                     mat-cell
                     *matCellDef="let document"
                 >
-                    19/10/2021
+                    {{document.data_criacao | date: 'dd/MM/yyyy'}}
                 </td>
             </ng-container>
 
@@ -187,7 +191,7 @@
                     *matCellDef="let document"
                 >
                     <mat-chip class="bg-green-700 text-white">
-                        Assinado
+                        {{document.situacao}}
                     </mat-chip>
                 </td>
             </ng-container>
@@ -215,11 +219,14 @@
             <tr
                 class="shadow"
                 mat-header-row
-                *matHeaderRowDef="displayedColumns"></tr>
+                *matHeaderRowDef="displayedColumns"
+            ></tr>
+
             <tr
                 class="h-18 hover:bg-gray-100 dark:hover:bg-hover"
                 mat-row
-                *matRowDef="let row; columns: displayedColumns;"></tr>
+                *matRowDef="let row; columns: displayedColumns;"
+            ></tr>
         </table>
     </div>
 </div>

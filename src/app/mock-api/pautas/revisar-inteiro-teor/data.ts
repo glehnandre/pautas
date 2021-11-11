@@ -26,13 +26,45 @@ export const revisoes: Array<RevisaoInteiroTeor> = [
           ministro[2],
         ],
         responsavel: ministro[0],
-        comentario: 'string',
-        nome: 'Voto',
-        data_criacao: '2016-08-29T09:12:33.001Z',
+        comentario: 'Algum comentário aqui',
+        nome: 'Relatório',
+        data_criacao: '2021-08-29T09:12:33.001Z',
         situacao: 'Assinado',
         revisado: true,
-        ordem: 0,
-      }
+        ordem: 1,
+      },
+
+      {
+        arquivo: '/documento/123123',
+        autores: [
+          ministro[3],
+          ministro[1],
+          ministro[4],
+        ],
+        responsavel: ministro[2],
+        comentario: 'Outro comentário aleatório',
+        nome: 'Voto',
+        data_criacao: '2021-09-20T09:12:33.001Z',
+        situacao: 'Assinado',
+        revisado: true,
+        ordem: 2,
+      },
+
+      {
+        arquivo: '/documento/123123',
+        autores: [
+          ministro[6],
+          ministro[2],
+          ministro[3],
+        ],
+        responsavel: ministro[1],
+        comentario: 'Comentário sobre o voto',
+        nome: 'Voto',
+        data_criacao: '2021-10-15T09:12:33.001Z',
+        situacao: 'Assinado',
+        revisado: true,
+        ordem: 3,
+      },
     ]
   }
 ];
