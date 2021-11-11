@@ -1,5 +1,6 @@
 import { DataSource } from '@angular/cdk/collections';
 import { Component, OnInit } from '@angular/core';
+import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { DocumentoInteiroTeor } from '../acervo/model/interfaces/documento-inteiro-teor.interface';
@@ -33,6 +34,7 @@ export class RevisarInteiroTeorComponent implements OnInit {
   processo: Processo;
   documentosDoProcesso: Documento[];
   revisoes: RevisaoInteiroTeor;
+  link: SafeResourceUrl;
 
   displayedColumns: string[] = ['autor', 'responsavel', 'comentarios', 'documento', 'data', 'situacao', 'arquivo'];
   dataSource = new DataSourceInteiroTeor([]);
@@ -41,7 +43,10 @@ export class RevisarInteiroTeorComponent implements OnInit {
     private _route: ActivatedRoute,
     private _inteiroTeorService: RevisarInteiroTeorService,
     private _processoService: ProcessoService,
-  ) { }
+    private _sanitize: DomSanitizer,
+  ) { 
+    this.link = this._sanitize.bypassSecurityTrustResourceUrl('');
+  }
 
   ngOnInit(): void {
     this.idProcesso = +this._route.snapshot.queryParamMap.get('id');
@@ -61,6 +66,10 @@ export class RevisarInteiroTeorComponent implements OnInit {
         console.log(this.documentosDoProcesso);
       }
     });
+  }
+
+  public abrirPdf(link: string): void {
+    this.link = this._sanitize.bypassSecurityTrustResourceUrl(link);
   }
 
 }

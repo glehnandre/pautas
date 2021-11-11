@@ -209,7 +209,10 @@
                     mat-cell
                     *matCellDef="let document"
                 >
-                    <mat-chip class="border-primary border-solid border-2 bg-transparent text-primary mr-2">
+                    <mat-chip 
+                        (click)="abrirPdf(document.arquivo)"
+                        class="border-primary border-solid border-2 bg-transparent text-primary mr-2"
+                    >
                         <mat-icon class="mr-2" style="color:red">picture_as_pdf</mat-icon>
                         Abrir
                     </mat-chip>
@@ -230,3 +233,10 @@
         </table>
     </div>
 </div>
+
+<app-visualizador-pdf
+    *ngIf="link"
+    [nome]="'visualizador-pdf-do-revisar-inteiro-teor'"
+    [link]="link"
+    [posicao]="'left'"
+></app-visualizador-pdf>
