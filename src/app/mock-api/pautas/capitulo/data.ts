@@ -11,8 +11,7 @@ export const capitulo: Array<Capitulo> = [
         dispositivo: 'Deferida em parte',
         ministros_acordam: [
             ministro[0],
-            ministro[1],
-            ministro[2],
+            ministro[3],
         ],
         ministros_suspeitos: [
             ministro[4],
@@ -23,7 +22,26 @@ export const capitulo: Array<Capitulo> = [
             ministro[7],
         ],
         ministro_condutor: ministro[3],
-        texto: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc tempus neque nec ante porta tincidunt eu quis felis. Sed magna libero, sodales ut enim quis, varius faucibus lectus. Sed porttitor pharetra orci, quis fermentum risus rutrum id. Vivamus ornare purus a lorem accumsan cursus. Pellentesque ligula metus, dictum pretium dignissim non, fringilla ac lacus. Sed non dui nibh.'
+        texto: `<html>
+            <h1 class="text-center">Extrato da Ata</h1>
+            <div class="mb-4">
+                <h2 class="text-center">Plenário 18.11.2020 Sessão Video Conferência</h2>
+                <span class="px-2 bg-red-600 rounded-full text-white">Julgamento Suspenso</span>
+            </div>
+
+            <div>
+                <p>Após a leitura do relatório, o julgamento foi suspenso.</p>
+                <p>Presidência do Ministro Luiz Fux</p>
+                <p>Presentes à sessão os Senhores Ministros Marco Aurélio, Gilmar Mendes, Ricardo
+                Lewandowski, Carmém Lúcia, Dias Toffoli, Rosa Weber, Roberto Barroso, Edson Fachin,
+                Alexandre de Moraes e Nunes Marques. Procurador-Geral da República, Dr. Antônio
+                Augusto Brandão de Aras.</p>
+            </div>
+
+            <footer class="text-center">Brasília, 18 de novembro de 2020</footer>
+            <footer class="text-center">Carmem Lilian Oliveira de Souza</footer>
+            <footer class="text-center">Assessora-Chefe do Plenário</footer>
+        </html>`,
     },
     {
         id:     2,

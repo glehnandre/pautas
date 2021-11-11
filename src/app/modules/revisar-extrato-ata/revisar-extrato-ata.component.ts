@@ -12,6 +12,8 @@ import { MinistroService } from '../services/ministro.service';
 import { Ministro } from '../acervo/model/interfaces/ministro.interface';
 import { MatDialog } from '@angular/material/dialog';
 import { PublicarFormComponent } from './publicar-form/publicar-form.component';
+import { Genero } from '../acervo/model/enums/genero.enum';
+import { Frase } from '../acervo/model/interfaces/frase-genero-plural.interface';
 
 interface Parametros {
     numero: number;
@@ -32,6 +34,32 @@ export class RevisarExtratoAtaComponent implements OnInit {
   ata: Ata;
   publicacoes: CapitulosParaPublicacao[];
   tags: string[];
+
+  FraseImpedidos: Frase = {
+    F:'Ministra que se declara impedida: ',
+    M: 'Ministro que se declara impedido: ',
+    PF:'Ministras que se declaram impedidas: ',
+    PM:'Ministros que se declaram impedidos: ',
+  };
+
+  FraseSuspeitos: Frase = {
+    F:'Ministra que se declara suspeita: ',
+    M: 'Ministro que se declara suspeito: ',
+    PF:'Ministras que se declaram suspeitas: ',
+    PM:'Ministros que se declaram vencidos: ',
+  };
+
+  FraseVencidos: Frase = {
+    F:'Ministra que se declara vencida: ',
+    M: 'Ministro que se declara vencido: ',
+    PF:'Ministras que se declaram vencidas: ',
+    PM:'Ministros que se declaram vencidos: ',
+  };
+
+  FraseCondutor: Frase = {
+      F: 'Ministro Condutor',
+      M: 'Ministra Condutora',
+  }
 
   constructor(
       private _julgamentoService: JulgamentoService,

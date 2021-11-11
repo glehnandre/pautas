@@ -86,46 +86,24 @@
             <div class="flex flex-col sm:flex-row m-8 text-xs sm:text-base">
                 <div class="flex flex-col w-full sm:w-1/2">
                     <div *ngIf="capitulo?.ministros_impedidos">
-                        <span> {{
-                            capitulo?.ministros_impedidos.length == 1 ?
-                            capitulo?.ministros_impedidos[0].genero == 'Masculino' ?
-                                'Ministro que se declara impedido: ':
-                                'Ministra que se declara impedida: ':
-                            'Ministros que se declaram impedidos: '
-                        }}</span>
+                        <span>{{ _ministroService.generoEPlural(capitulo?.ministros_impedidos, FraseImpedidos) }}</span>
                         <span class="font-medium">{{ nomesMinistros(capitulo?.ministros_impedidos) }}
                         </span>
                     </div>
                     <div *ngIf="capitulo?.ministros_suspeitos">
-                        <span> {{
-                            capitulo?.ministros_suspeitos.length == 1 ?
-                            capitulo?.ministros_suspeitos[0].genero == 'Masculino' ?
-                                'Ministro que se declara suspeito: ':
-                                'Ministra que se declara suspeita: ':
-                            'Ministros que se declaram suspeitos: '
-                        }}</span>
+                        <span>{{ _ministroService.generoEPlural(capitulo?.ministros_suspeitos, FraseSuspeitos) }}</span>
                         <span class="font-medium">{{ nomesMinistros(capitulo?.ministros_suspeitos) }}
                         </span>
                     </div>
                 </div>
                 <div class="flex flex-col w-full sm:w-1/2">
                     <div *ngIf="capitulo?.ministros_acordam">
-                        <span> {{
-                            capitulo?.ministros_acordam.length == 1 ?
-                            capitulo?.ministros_acordam[0].genero == 'Masculino' ?
-                                'Ministro que se declara vencido: ':
-                                'Ministra que se declara vencida: ':
-                            'Ministros que se declaram vencidos: '
-                        }}</span>
-                        <span class="font-medium">{{ nomesMinistros(capitulo?.ministros_acordam) }}
+                        <span>{{ _ministroService.generoEPlural(capitulo?.ministros_acordam, FraseVencidos) }}</span>
+                        <span class="font-medium">{{ _ministroService.ministrosString(capitulo?.ministros_acordam) }}
                         </span>
                     </div>
                     <div *ngIf="capitulo?.ministro_condutor">
-                        <span> {{
-                            capitulo?.ministro_condutor.genero == 'Masculino' ?
-                                'Ministro Condutor do Capitulo: ':
-                                'Ministra Condutora do Capitulo: '
-                        }}</span>
+                        <span>{{ _ministroService.generoEPlural([capitulo?.ministros_acordam], FraseCondutor) }} do Capitulo: </span>
                         <span class="font-medium">{{ capitulo?.ministro_condutor?.nome }}
                         </span>
                     </div>

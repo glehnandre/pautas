@@ -2,6 +2,8 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { EMPTY, Observable } from 'rxjs';
 import { catchError } from 'rxjs/operators';
+import { Frase } from '../acervo/model/interfaces/frase-genero-plural.interface';
+import { Genero } from '../acervo/model/enums/genero.enum'
 import { Colegiado, NomeDoColegiado } from '../acervo/model/interfaces/colegiado.interface';
 import { Ministro } from '../acervo/model/interfaces/ministro.interface';
 
@@ -68,4 +70,14 @@ export class MinistroService {
     ultimoMinistro = nomesMinistros.pop();
     return [nomesMinistros.join(', '), ultimoMinistro].join(' e ');
    }
+
+   generoEPlural(ministros: Ministro[], frase: Frase): string {
+    return ministros.length == 1?
+            ministros[0].genero == Genero.F ?
+              frase?.F:
+              frase?.M:
+            ministros.filter(({ genero }) => genero == Genero.M).length?
+              frase?.PM:
+              frase?.PF;
+  }
 }
