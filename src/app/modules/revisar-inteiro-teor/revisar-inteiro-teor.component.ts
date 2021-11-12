@@ -76,8 +76,8 @@ export class RevisarInteiroTeorComponent implements OnInit {
 
     this.editarDocumentoForm = this._formBuilder.group({
         situacao             : [''],
-        nomeDocumento        : [''],
-        comentarios          : [''],
+        nome                 : [''],
+        comentario           : [''],
         observacao           : [''],
     });
   }
@@ -98,6 +98,7 @@ export class RevisarInteiroTeorComponent implements OnInit {
         }
 
         this.documentoSelecionado = documento;
+        this.editarDocumentoForm.patchValue(documento);
     }
 
     fecharEdicaoDocumento(): void {
