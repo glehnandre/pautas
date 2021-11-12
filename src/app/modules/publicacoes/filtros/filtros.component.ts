@@ -31,12 +31,20 @@ export class FiltrosComponent implements OnInit{
   ngOnInit(): void {
   }
 
+  /**
+   * Remove um termo da lista de termos pesquisados
+   * @param pesquisa termo pesquisado
+   */
   removePesquisa(pesquisa: string){
     this.pesquisas.splice(this.pesquisas.indexOf(pesquisa), 1);
     this.removido.emit(pesquisa);
     this.filtrar();
   }
 
+  /**
+   * Atualiza a lista de filtros selecionados de acordo com o status do checkbox
+   * @param status checkbox que foi marcado/desmarcado
+   */
   atualizaFiltros(status: MatCheckboxChange){
     const name = status.source.name;
     if(status.checked){
@@ -57,11 +65,18 @@ export class FiltrosComponent implements OnInit{
     } 
   }
 
+  /**
+   * Emite os filtros selecionados
+   */
   filtrar(){
     this.emiteFiltros.emit(this.filtrados);
     this.filtrarData();
   }
   
+  /**
+   * Retorna um array da interface Filtros, que será usado na geração dos
+   * componentes dos filtros dinâmicos no arquivo html
+   */
   recuperaFiltros(): Filtros[]{
     if(this.filtros.length<this.agregacoes.length)
     this.agregacoes.forEach(agregacao=>{
@@ -73,6 +88,9 @@ export class FiltrosComponent implements OnInit{
     return this.filtros;
   }
 
+  /**
+   * Emite a data de inicio e a data de fim selecionados
+   */
   filtrarData(){
     this.emiteData.emit({
       data_inicio: this.data_inicio,
@@ -80,12 +98,20 @@ export class FiltrosComponent implements OnInit{
     })
   }
 
-  trataDataInicio(event){
+  /**
+   * Trata o evento que contém a data de inicio para conter apenas a data 
+   * @param event momentum que contem a data selecionada
+   */
+  trataDataInicio(event: any){
     if(event.value) 
       this.data_inicio = event.value._d;
   }
 
-  trataDataFim(event){
+  /**
+   * Trata o evento que contém a data de fim para conter apenas a data 
+   * @param event momentum que contem a data selecionada
+   */
+  trataDataFim(event: any){
     if(event.value) 
       this.data_fim = event.value._d;
   }
