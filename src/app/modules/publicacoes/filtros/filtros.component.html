@@ -33,8 +33,8 @@
             <section class="">
                 <mat-form-field class="w-full my-4" appearance="fill">
                     <mat-date-range-input [rangePicker]="picker">
-                        <input matStartDate placeholder="Início" name="data_inicio" [(ngModel)]="data_inicio">
-                        <input matEndDate placeholder="Fim" name="data_fim" [(ngModel)]="data_fim">
+                        <input matStartDate placeholder="Início" name="data_inicio" [(ngModel)]="data_inicio" (dateChange)="trataDataInicio($event)">
+                        <input matEndDate placeholder="Fim" name="data_fim" [(ngModel)]="data_fim" (dateChange)="trataDataFim($event)">
                     </mat-date-range-input>
     
                     <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
@@ -47,10 +47,10 @@
             <mat-expansion-panel-header>
                 <mat-panel-title class="font-semibold text-primary-500 line-clamp-3">
                     {{filtro.agregacao.nome}}
-                    <div class="flex flex-row space-x-1">
+                    <div class="flex flex-row space-x-1 truncate">
                         <span *ngFor="let selecionado of filtro.selecionados; let i = index"
                             style="text-decoration:#2a6894; font:caption; font-size: 0.8rem;"
-                            class="flex-none truncate"
+                            class="flex-none"
                         >
                             {{(i==filtro.selecionados.length-1) ? selecionado : selecionado+"," }}
                         </span>

@@ -56,6 +56,7 @@ export class PublicacoesComponent implements OnInit, OnDestroy {
         this.publicacoes = dje.publicacoes;
         this.agregacoes = dje.agregacoes;
       })
+      this.filtraData({data_inicio: new Date(), data_fim: new Date()});
   }
 
   /**
@@ -151,8 +152,11 @@ export class PublicacoesComponent implements OnInit, OnDestroy {
     return str;
   }
 
+  /**
+   * Faz o tratamento dos e filtra as publicações a partir dos filtos dinâmicos selecionados.
+   * @param filtros filtros selecionados.
+   */
   trataFiltros(filtros: any[]){
-    
     if(filtros.length==0){
       this.removePesquisa();
       this.hasFiltros = false;
@@ -164,6 +168,30 @@ export class PublicacoesComponent implements OnInit, OnDestroy {
       })
       this.hasFiltros = true;
     }
+  }
+
+  /**
+   * Filtra as publicações que estão no intervalo das datas de inicio e fim.
+   * @param event contem os atributos "data_inicio" e "data_inicio" que
+   * serão utilizados para a filtragem.
+   */
+  filtraData(event: any){
+    let data_inicio: Date = new Date(event.data_inicio.toString().slice(0, 16));
+    let data_fim: Date = new Date(event.data_fim.toString().slice(0, 16));
+    let filtros = [];
+    if(this.pesquisas.length<=1 && !this.hasFiltros)
+      filtros = this.publicacoes.filter(publicacao=>{
+        const data_publicacao = new Date(new Date(publicacao.publicacao).setHours(0,0,0,0));
+        return data_publicacao >= data_inicio 
+            && data_publicacao <= data_fim;
+      })
+    else
+      filtros = this.filtrados.filter(publicacao=>{
+        const data_publicacao = new Date(new Date(publicacao.publicacao).setHours(0,0,0,0));
+        return data_publicacao >= data_inicio 
+            && data_publicacao <= data_fim;
+      })
+      this.filtrados = filtros;
   }
 
 }

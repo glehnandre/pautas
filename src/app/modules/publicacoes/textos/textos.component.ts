@@ -15,7 +15,6 @@ export class TextosComponent implements OnInit, AfterContentChecked {
 
   @Input() publicacoesSemFiltro: PublicacaoDto[] = [];
   @Input() filtrados: PublicacaoDto[] = [];
-  @Input() hasPesquisa: boolean = false;
 
   publicacoes: PublicacaoDto[];
 
@@ -25,8 +24,7 @@ export class TextosComponent implements OnInit, AfterContentChecked {
   }
 
   ngAfterContentChecked(): void {
-    if(this.hasPesquisa) this.publicacoes = this.filtrados;
-    else this.publicacoes = this.publicacoesSemFiltro;
+    this.publicacoes = this.filtrados;
   }
 
   /**

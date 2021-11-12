@@ -53,6 +53,7 @@
                 [pesquisas]="pesquisas"
                 (removido)="removePesquisa()"
                 (emiteFiltros)="trataFiltros($event)"
+                (emiteData)="filtraData($event)"
             ></app-filtros>
         </mat-drawer>
 
@@ -66,7 +67,6 @@
                 class="space-y-4"
                     [publicacoesSemFiltro]="publicacoes"
                     [filtrados]="filtrados"
-                    [hasPesquisa]="(pesquisas.length>0 || hasFiltros)"
                 ></app-textos>
 
             </div>
