@@ -11,6 +11,8 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatSortModule } from '@angular/material/sort';
 import { MatTableModule } from '@angular/material/table';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
 
 const revisarInteiroTeorRoutes: Route[] = [
     {
@@ -36,6 +38,8 @@ const revisarInteiroTeorRoutes: Route[] = [
     MatExpansionModule,
     MatSortModule,
     MatTableModule,
+    MatFormFieldModule,
+    MatInputModule,
   ]
 })
 export class RevisarInteiroTeorModule { }
