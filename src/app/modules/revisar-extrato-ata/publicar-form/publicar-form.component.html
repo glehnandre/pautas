@@ -7,7 +7,7 @@
     </div>
 
     <!-- Formulário -->
-    <form [formGroup]="formPublicacao" class="flex flex-col p-2 sm:p-4">
+    <form [formGroup]="formPublicacao" class="flex flex-col p-2 sm:p-4 overflow-y-auto max-h-80" cdkScrollable>
         <!-- Selecionar Presença e Presidencia dos Ministros -->
         <div class="flex flex-col space-y-2">
             <div class="flex flex-row sm:-mr-2 text-bold space-x-2">
@@ -41,7 +41,7 @@
                         <div class="flex flex-row justify-between space-x-12">
                             <mat-radio-button
                               (click)="ministrosAusentes.delete(ministro);ministrosPresentes.add(ministro);"
-                              [value]="ministrosAusentes"
+                              [value]="ministrosPresentes"
                             ></mat-radio-button>
                             <mat-radio-button
                               (click)="ministrosPresentes.delete(ministro);ministrosAusentes.add(ministro);"
@@ -99,24 +99,17 @@
         </mat-radio-group>
         <mat-form-field
           class="w-full my-4" appearance="fill"
-          *ngIf="formPublicacao.getRawValue().opcaoData == 3"
+          *ngIf="formPublicacao.getRawValue().opcaoData == 2"
         >
             <mat-label class="font-medium mb-2">Selecionar Data:</mat-label>
-            <mat-date-range-input [rangePicker]="picker">
-                <input
-                  matStartDate placeholder="Data de início" [value]="data_inicio"
-                  formControlName="data_inicio">
-                <input
-                  matEndDate placeholder="Data do fim" [value]="data_fim"
-                  formControlName="data_fim">
-            </mat-date-range-input>
 
-            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-            <mat-date-range-picker #picker></mat-date-range-picker>
+            <input matInput [matDatepicker]="dp" [formControl]="date" formControlName="dataPublicacao">
+            <mat-datepicker-toggle matSuffix [for]="dp"></mat-datepicker-toggle>
+            <mat-datepicker #dp></mat-datepicker>
         </mat-form-field>
     </form>
     <div class="flex flex-row m-4 space-x-4">
         <button class="ml-auto" mat-raised-button>Cancelar</button>
-        <button color="primary" mat-raised-button (click)="salvar()">Salvar</button>
+        <button color="primary" mat-raised-button (click)="salvar()" [disabled]="formPublicacao.invalid">Salvar</button>
     </div>
 </div>

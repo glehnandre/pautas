@@ -100,7 +100,7 @@ export class RevisarExtratoAtaComponent implements OnInit {
 
   publicar(): void {
     const dialogRef = this._matDialog
-      .open(PublicarFormComponent, { maxHeight: '560px' });
+      .open(PublicarFormComponent, { maxHeight: '560px', data: this.sessao });
 
     dialogRef.afterClosed().subscribe({
         next: () => {
