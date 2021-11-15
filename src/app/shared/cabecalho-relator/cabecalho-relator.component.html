@@ -24,30 +24,37 @@
 
         <div class="hidden md:block flex-1 flex-col min-w-20 overflow-x-auto">
             <div class="flex-1 ml-2 text-xl">
-                {{obterDadosDoProcesso()}}
-            </div>
-
-            <div class="hidden md:block">
-                <app-carrossel
-                    [hasArrow]="hasArrow"
-                    [idChip]="'idTags'"
-                    [chips]="tags"
-                ></app-carrossel>
+                <h2>{{obterDadosDoProcesso()}}</h2>
             </div>
         </div>
     </div>
-    <div class="hidden md:block lg:ml-4 lg:mt-8">
+</div>
+
+<div class="hidden md:block lg:mb-8">
+    <div class="hidden md:flex">
         <app-carrossel
-            [idChip]="'idDocs'"
-            [chips]="documentos?.nomes"
-            [links]="documentos?.links"
-            [hasIcon]="true"
-            [class]="['border-primary', 'border-solid', 'border-2', 'bg-transparent', 'text-primary']"
-            (nomeDoPdfSelecionado)="obterNomeDoPdf($event)"
-            (linkDoPdfSelecionado)="abrirLink($event)"
+            [hasArrow]="hasArrow"
+            [idChip]="'idTags'"
+            [chips]="tags"
+        ></app-carrossel>
+
+        <app-carrossel
+            *ngIf="nomesDasSessoes"
+            [idChip]="'idSessao'"
+            [hasArrow]="hasArrow"
+            [chips]="nomesDasSessoes"
         ></app-carrossel>
     </div>
-
+    
+    <app-carrossel
+        [idChip]="'idDocs'"
+        [chips]="documentos?.nomes"
+        [links]="documentos?.links"
+        [hasIcon]="true"
+        [class]="['border-primary', 'border-solid', 'border-2', 'bg-transparent', 'text-primary']"
+        (nomeDoPdfSelecionado)="obterNomeDoPdf($event)"
+        (linkDoPdfSelecionado)="abrirLink($event)"
+    ></app-carrossel>
 </div>
 
 <mat-expansion-panel
@@ -73,6 +80,14 @@
                 [idChip]="'idTagsExp'"
                 [chips]="tags"
             ></app-carrossel>
+
+            <app-carrossel
+                *ngIf="nomesDasSessoes"
+                [idChip]="'idSessaoExp'"
+                [hasArrow]="hasArrow"
+                [chips]="nomesDasSessoes"
+            ></app-carrossel>
+
             <app-carrossel
                 [idChip]="'idDocExp'"
                 [chips]="documentos?.nomes"
@@ -87,6 +102,7 @@
 </mat-expansion-panel>
 
 <app-visualizador-pdf
+    *ngIf="link"
     [nome]="'visualizador-pdf-do-colegiado'"
     [link]="link"
     [pdf]="nomePdf"

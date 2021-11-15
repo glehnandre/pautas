@@ -35,6 +35,7 @@ export class RevisarInteiroTeorComponent implements OnInit {
   documentosDoProcesso: Documento[];
   revisoes: RevisaoInteiroTeor;
   link: SafeResourceUrl;
+  nomesDasSessoes: string[] = [];
 
   displayedColumns: string[] = ['autor', 'responsavel', 'comentarios', 'documento', 'data', 'situacao', 'arquivo'];
   dataSource = new DataSourceInteiroTeor([]);
@@ -56,6 +57,7 @@ export class RevisarInteiroTeorComponent implements OnInit {
       next: (revisoes) => {
         this.revisoes = revisoes;
         this.dataSource = new DataSourceInteiroTeor(this.revisoes.documentos);
+        this.obterNomesDasSessoes();
         console.log(this.revisoes);
       }
     });
@@ -70,6 +72,29 @@ export class RevisarInteiroTeorComponent implements OnInit {
 
   public abrirPdf(link: string): void {
     this.link = this._sanitize.bypassSecurityTrustResourceUrl(link);
+  }
+
+  public obterNomesDasSessoes(): void {
+    const nomes: string[] = [];
+    
+    this.revisoes.sessoes.forEach(({tipo, numero, ano, data_fim}) => {
+      let dadosDaSessao: string;
+      let dataFim = new Date(data_fim);
+
+      if (this._comparaDatas(new Date(), dataFim)) {
+        dadosDaSessao = `Sessão ${tipo} ${numero}/${ano}`;
+      } else {
+        dadosDaSessao = `Sessão ${tipo} ${numero}/${ano} - Finalizada dia ${dataFim.toLocaleDateString()}`;
+      }
+
+      nomes.push(dadosDaSessao);
+    });
+
+    this.nomesDasSessoes = nomes;
+  }
+
+  private _comparaDatas(dataInicial: Date, dataFinal: Date): boolean {
+    return dataFinal > dataInicial;
   }
 
 }

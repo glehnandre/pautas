@@ -20,6 +20,38 @@ export const sessao: SessaoJulgamento[] = [
       nome: "Carmen"
     },
     situacao: "PUBLICADA"
+  },
+
+  {
+    numero: 2000,
+    ano: 2021,
+    colegiado: '',
+    tipo: "ORDINARIA",
+    categoria: "REPERCUSSAO_GERAL",
+    modalidade: "VIRTUAL",
+    data_inicio: "2021-08-15T09:12:33.001Z",
+    data_fim: "2021-08-20T09:12:33.001Z",
+    secretario: {
+      id: 19,
+      nome: "Carmen"
+    },
+    situacao: "PUBLICADA"
+  },
+
+  {
+    numero: 3000,
+    ano: 2021,
+    colegiado: '',
+    tipo: "ORDINARIA",
+    categoria: "REPERCUSSAO_GERAL",
+    modalidade: "VIRTUAL",
+    data_inicio: "2021-12-30T09:12:33.001Z",
+    data_fim: "2021-12-31T09:12:33.001Z",
+    secretario: {
+      id: 19,
+      nome: "Carmen"
+    },
+    situacao: "PUBLICADA"
   }
 ];
 

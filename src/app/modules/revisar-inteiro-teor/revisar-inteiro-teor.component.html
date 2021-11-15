@@ -23,13 +23,11 @@
     <hr class="m-0 p-0" />
 
     <header class="px-8 pt-4 bg-white">
-        <div class="flex flex-row justify-between">
-            <app-cabecalho-relator
-                [processo]="idProcesso"
-                [colegiado]="colegiado"
-                [sessao]=""
-            ></app-cabecalho-relator>
-        </div>
+        <app-cabecalho-relator
+            [processo]="idProcesso"
+            [colegiado]="colegiado"
+            [nomesDasSessoes]="nomesDasSessoes"
+        ></app-cabecalho-relator>
 
         <section>
             <div>

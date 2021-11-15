@@ -20,6 +20,7 @@ export class CabecalhoRelatorComponent implements AfterContentChecked, OnInit {
   @Input() colegiado: string;
   @Input() votos: Voto[];
   @Input() sessao: SessaoJulgamento;
+  @Input() nomesDasSessoes: string[];
 
   right: number = 0;
   panelOpenState = false;
