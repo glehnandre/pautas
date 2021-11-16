@@ -44,6 +44,8 @@ export class RevisarInteiroTeorComponent implements OnInit {
 
   displayedColumns: string[] = ['autor', 'responsavel', 'comentarios', 'documento', 'data', 'situacao', 'arquivo'];
   dataSource = new DataSourceInteiroTeor([]);
+  linhasSelecionadas: DocumentoInteiroTeor[] = [];
+  todosOsCheckboxSelecionados = false;
 
   constructor(
     private _route: ActivatedRoute,
@@ -149,6 +151,51 @@ export class RevisarInteiroTeorComponent implements OnInit {
     fecharEdicaoDocumento(): void {
         this.documentoSelecionado = null;
     }
+
+  /**
+   * @public Método público
+   * @description Método para registar os dados de uma linha da tabela que foi
+   *              selecionada via checkbox em uma lista ou remove-lo da  lista
+   *              caso já tenha sido selecionado
+   * @param linha Possui os dados da linha da tabela
+   * @author Douglas da Silva Monteles
+   */
+  public selecionarOuDeselecionarLinha(linha: DocumentoInteiroTeor): void {
+    const index = this.linhasSelecionadas
+      .findIndex(documento => this._converterObjParaString(documento) === this._converterObjParaString(linha));
+  
+    if (index === -1) { // Se a linha ainda não foi selecionada
+      this.linhasSelecionadas.push(linha);
+    } else {
+      this.linhasSelecionadas.splice(index, 1);
+    }
+  }
+
+  /**
+   * @private
+   * @description Recebe um objeto e o converte para string
+   * @param obj 
+   * @returns Retorna objeto convertido em string
+   * @author Douglas da Silva Monteles
+   */
+  private _converterObjParaString(obj: any): string {
+    return JSON.stringify(obj);
+  }
+
+  /**
+   * @public Método público
+   * @description Seleciona ou deseleciona todas as linhas da tabela e as regista
+   *              na lista 
+   * @author Douglas da Silva Monteles
+   */
+  public selecionarOuDeselecionarTodosOsCheckbox(): void {
+    this.todosOsCheckboxSelecionados = !this.todosOsCheckboxSelecionados;
+    this.linhasSelecionadas = [];
+
+    if (this.todosOsCheckboxSelecionados) {
+      this.linhasSelecionadas = [...this.revisoes.documentos];
+    }
+  }
 
 }
 

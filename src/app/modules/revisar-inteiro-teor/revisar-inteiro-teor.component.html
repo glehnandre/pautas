@@ -32,7 +32,11 @@
         <section>
             <div>
                 <div class="flex space-x-2 pl-0.5 ml-6 sm:pl-0 sm:ml-3.5">
-                    <mat-checkbox color="primary" class="mt-2 mb-2"></mat-checkbox>
+                    <mat-checkbox 
+                        color="primary" class="mt-2 mb-2"
+                        (change)="selecionarOuDeselecionarTodosOsCheckbox()"
+                    ></mat-checkbox>
+
                     <button mat-basic-button color="secondary" class="mt-2">
                         <mat-icon>refresh</mat-icon>
                     </button>
@@ -92,7 +96,12 @@
                     *matCellDef="let document"
                 >
                     <div class="flex flex-row justify-between items-center w-24">
-                        <mat-checkbox color="primary"></mat-checkbox>
+                        <mat-checkbox 
+                            color="primary"
+                            [value]="document"
+                            (change)="selecionarOuDeselecionarLinha(document)"
+                            [checked]="todosOsCheckboxSelecionados"
+                        ></mat-checkbox>
 
                         <span>
                             {{document.ordem}}
