@@ -83,10 +83,22 @@ export class RevisarInteiroTeorComponent implements OnInit {
     });
   }
 
+  /**
+   * @public Método público
+   * @description Atualiza o valor do link para acionar o visualizador pdf
+   * @param link String que contém o link referente ao PDF
+   * @author Douglas da Silva Monteles
+   */
   public abrirPdf(link: string): void {
     this.link = this._sanitize.bypassSecurityTrustResourceUrl(link);
   }
 
+  /**
+   * @public Método público
+   * @description Percorre a lista de sessões, criando uma nova lista de string 
+   *              com os nomes das sessões formatados  
+   * @author Douglas da Silva Monteles
+   */
   public obterNomesDasSessoes(): void {
     const nomes: string[] = [];
     
@@ -106,6 +118,16 @@ export class RevisarInteiroTeorComponent implements OnInit {
     this.nomesDasSessoes = nomes;
   }
 
+
+  /**
+   * @private Método privado
+   * @description Verifica se a data final é maior que a data inicial
+   * @param dataInicial
+   * @param dataFinal 
+   * @returns Retorna true caso a dataFinal seja maior que a dataInicial e 
+   *          false, caso contrário
+   * @author Douglas da Silva Monteles
+   */
   private _comparaDatas(dataInicial: Date, dataFinal: Date): boolean {
     return dataFinal > dataInicial;
   }
@@ -140,10 +162,21 @@ export class DataSourceInteiroTeor extends DataSource<DocumentoInteiroTeor> {
     this.data = new BehaviorSubject<DocumentoInteiroTeor[]>(this.ELEMENT_DATA);
   }
 
+  /**
+   * @public Método público
+   * @description Monitora as mudanças que ocorrem no data
+   * @returns Retorna uma lista de DocumentoInteiroTeor
+   * @author Douglas da Silva Monteles
+   */
   public connect(): Observable<DocumentoInteiroTeor[]> {
     return this.data;
   }
 
+  /**
+   * @public Método público
+   * @description Para de monitorar as mudanças na lista
+   * @author Douglas da Silva Monteles
+   */
   public disconnect() {
     this.data.unsubscribe();
   }
