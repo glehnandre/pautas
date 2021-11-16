@@ -1,7 +1,9 @@
 import { DataSource } from '@angular/cdk/collections';
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup } from '@angular/forms';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
+import { fuseAnimations } from '@fuse/animations';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { DocumentoInteiroTeor } from '../acervo/model/interfaces/documento-inteiro-teor.interface';
 import { Documento } from '../acervo/model/interfaces/documento.interface';
@@ -25,7 +27,8 @@ export interface RevisaoInteiroTeor {
 @Component({
   selector: 'app-revisar-inteiro-teor',
   templateUrl: './revisar-inteiro-teor.component.html',
-  styleUrls: ['./revisar-inteiro-teor.component.scss']
+  styleUrls: ['./revisar-inteiro-teor.component.scss'],
+  animations: fuseAnimations
 })
 export class RevisarInteiroTeorComponent implements OnInit {
 
@@ -36,6 +39,8 @@ export class RevisarInteiroTeorComponent implements OnInit {
   revisoes: RevisaoInteiroTeor;
   link: SafeResourceUrl;
   nomesDasSessoes: string[] = [];
+  editarDocumentoForm: FormGroup;
+  documentoSelecionado: DocumentoInteiroTeor | null = null;
 
   displayedColumns: string[] = ['autor', 'responsavel', 'comentarios', 'documento', 'data', 'situacao', 'arquivo'];
   dataSource = new DataSourceInteiroTeor([]);
@@ -45,7 +50,8 @@ export class RevisarInteiroTeorComponent implements OnInit {
     private _inteiroTeorService: RevisarInteiroTeorService,
     private _processoService: ProcessoService,
     private _sanitize: DomSanitizer,
-  ) { 
+    private _formBuilder: FormBuilder,
+  ) {
     this.link = this._sanitize.bypassSecurityTrustResourceUrl('');
   }
 
@@ -67,6 +73,13 @@ export class RevisarInteiroTeorComponent implements OnInit {
         this.documentosDoProcesso = documentos;
         console.log(this.documentosDoProcesso);
       }
+    });
+
+    this.editarDocumentoForm = this._formBuilder.group({
+        situacao             : [''],
+        nome                 : [''],
+        comentario           : [''],
+        observacao           : [''],
     });
   }
 
@@ -96,6 +109,24 @@ export class RevisarInteiroTeorComponent implements OnInit {
   private _comparaDatas(dataInicial: Date, dataFinal: Date): boolean {
     return dataFinal > dataInicial;
   }
+    /**
+    * Alternar edição do documento
+    *
+    * @param documento
+    */
+    alternarEdicaoDocumento(documento: DocumentoInteiroTeor): void {
+        if (this.documentoSelecionado && this.documentoSelecionado.ordem === documento.ordem) {
+            this.fecharEdicaoDocumento();
+            return;
+        }
+
+        this.documentoSelecionado = documento;
+        this.editarDocumentoForm.patchValue(documento);
+    }
+
+    fecharEdicaoDocumento(): void {
+        this.documentoSelecionado = null;
+    }
 
 }
 
