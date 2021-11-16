@@ -52,10 +52,7 @@ export class PublicacoesComponent implements OnInit, OnDestroy {
         }
       });
 
-      this._publicacaoService.recuperarDje().subscribe(dje=>{
-        this.publicacoes = dje.publicacoes;
-        this.agregacoes = dje.agregacoes;
-      })
+      this.recuperaPublicacoes();
       this.filtraData({data_inicio: new Date(), data_fim: new Date()});
   }
 
@@ -69,12 +66,30 @@ export class PublicacoesComponent implements OnInit, OnDestroy {
   }
 
   /**
+   * Recupera todas as publicações da api
+   */
+  recuperaPublicacoes(){
+    this._publicacaoService.recuperarDje().subscribe(dje=>{
+      this.publicacoes = dje.publicacoes;
+      this.agregacoes = dje.agregacoes;
+    })
+  }
+
+  /**
    * Filtra em publicações os termos já pesquisados antes
    */
-  removePesquisa(){
-    this.pesquisas.forEach(pesquisa=>{
+  refazPesquisa(){
+    this.pesquisas.forEach((pesquisa, i)=>{
       let termos = this.separaTermo(pesquisa);
-      termos.forEach(termo=>this.filtrados = this.filtrar("publicacoes", termo));
+      let filtros = [];
+      termos.forEach(termo=>{
+        if(termo){
+            this.filtrar("filtrados", termo).forEach(filtrado=>{
+              if(filtros.indexOf(filtrado)==-1) filtros.push(filtrado);
+            })
+          this.filtrados = filtros;
+        }
+      });
     })
   }
 
@@ -89,18 +104,12 @@ export class PublicacoesComponent implements OnInit, OnDestroy {
 
     let termos = this.separaTermo(this.termo);
     let filtros = [];
-    if(this.pesquisas.length<=1 && !this.hasFiltros) 
-      termos.forEach(termo=>{
-          if(termo) this.filtrar("publicacoes", termo).forEach(filtrado=>{
-          if(filtros.indexOf(filtrado)==-1) filtros.push(filtrado);
-        })
-      });
-    else 
-      termos.forEach(termo=>{
-          this.filtrar("filtrados", termo).forEach(filtrado=>{
-          if(filtros.indexOf(filtrado)==-1) filtros.push(filtrado);
-        })
-      });
+
+    termos.forEach(termo=>{
+        this.filtrar("filtrados", termo).forEach(filtrado=>{
+        if(filtros.indexOf(filtrado)==-1) filtros.push(filtrado);
+      })
+    });
 
     this.filtrados = filtros;
     }
@@ -143,12 +152,16 @@ export class PublicacoesComponent implements OnInit, OnDestroy {
    * @param termo string a ser separada
    */
   separaTermo(termo: string): string[] {
-    let str = [termo];
+    let str1 = [termo];
+    let str = [];
     if(termo.indexOf('"')==-1)
-      str = termo.split(' ');
+      str1 = termo.split(' ');
     else 
-      str = termo.split('"');
+      str1 = termo.split('"');
     
+    str1.forEach(string=>{
+      if(string!='') str.push(string);
+    })
     return str;
   }
 
@@ -156,18 +169,20 @@ export class PublicacoesComponent implements OnInit, OnDestroy {
    * Faz o tratamento dos e filtra as publicações a partir dos filtos dinâmicos selecionados.
    * @param filtros filtros selecionados.
    */
-  trataFiltros(filtros: any[]){
-    if(filtros.length==0){
-      this.removePesquisa();
-      this.hasFiltros = false;
-    }
-    else{
+  trataFiltros(filtros: any){
       filtros.forEach((filtro, i)=>{
-        if(i==0 && this.pesquisas.length==0) this.filtrados = this.filtrar("publicacoes", filtro)
-        else this.filtrados = this.filtrar("filtrados", filtro)
+        this.filtrados = this.filtrar("filtrados", filtro)
       })
-      this.hasFiltros = true;
-    }
+  }
+
+  /**
+   * Faz a filtragem de quando todos os filtros dinâmicos forem desmarcados.
+   * @param event contem os atributos "data_inicio" e "data_inicio" que
+   * serão utilizados para chamar a função filtraData().
+   */
+  removeFiltros(event: any){
+      if(this.pesquisas.length!=0) this.refazPesquisa();
+      else this.filtraData(event);
   }
 
   /**
@@ -176,22 +191,21 @@ export class PublicacoesComponent implements OnInit, OnDestroy {
    * serão utilizados para a filtragem.
    */
   filtraData(event: any){
+    if(!event.data_inicio) {
+      this.filtrados = this.publicacoes;
+      return;
+    }
     let data_inicio: Date = new Date(event.data_inicio.toString().slice(0, 16));
     let data_fim: Date = new Date(event.data_fim.toString().slice(0, 16));
     let filtros = [];
-    if(this.pesquisas.length<=1 && !this.hasFiltros)
-      filtros = this.publicacoes.filter(publicacao=>{
-        const data_publicacao = new Date(new Date(publicacao.publicacao).setHours(0,0,0,0));
-        return data_publicacao >= data_inicio 
-            && data_publicacao <= data_fim;
-      })
-    else
-      filtros = this.filtrados.filter(publicacao=>{
-        const data_publicacao = new Date(new Date(publicacao.publicacao).setHours(0,0,0,0));
-        return data_publicacao >= data_inicio 
-            && data_publicacao <= data_fim;
-      })
+
+    filtros = this.publicacoes.filter(publicacao=>{
+      const data_publicacao = new Date(new Date(publicacao.publicacao).setHours(0,0,0,0));
+      return data_publicacao >= data_inicio 
+          && data_publicacao <= data_fim;
+    })
       this.filtrados = filtros;
+      this.refazPesquisa();
   }
 
 }

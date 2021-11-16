@@ -18,6 +18,7 @@ export class FiltrosComponent implements OnInit{
   @Input() pesquisas: string[] = [];
   @Output() removido = new EventEmitter<any>();
   @Output() emiteFiltros = new EventEmitter<any>();
+  @Output() removeFiltros = new EventEmitter<any>();
   @Output() emiteData = new EventEmitter<any>();
 
   filtros: Filtros[] = [];
@@ -69,8 +70,14 @@ export class FiltrosComponent implements OnInit{
    * Emite os filtros selecionados
    */
   filtrar(){
-    this.emiteFiltros.emit(this.filtrados);
     this.filtrarData();
+    if(this.filtrados[0]) this.emiteFiltros.emit(this.filtrados);
+    else{
+      this.removeFiltros.emit({
+        data_inicio: this.data_inicio,
+        data_fim: this.data_fim
+      });
+    } 
   }
   
   /**

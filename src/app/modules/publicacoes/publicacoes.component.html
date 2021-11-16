@@ -19,7 +19,7 @@
             <div class="absolute inset-0 flex items-center justify-center">
 
                 <div class="mx-4 w-full">
-                    <form class="flex mx-auto md:w-180 h-12 border-t pl-4 border-b border-l text-gray-800 border-gray-200 bg-white">
+                    <form class="flex mx-auto md:w-180 h-12 border-t pl-4 border-b border-l text-gray-800 border-gray-200 bg-white rounded-full">
                         <div class="flex flex-1 flex-col justify-center mr-4">
                             <span class="text-primary font-medium">O que você procura no DJe?</span>
                             <input
@@ -51,8 +51,9 @@
             <app-filtros
                 [agregacoes]="agregacoes"
                 [pesquisas]="pesquisas"
-                (removido)="removePesquisa()"
+                (removido)="refazPesquisa()"
                 (emiteFiltros)="trataFiltros($event)"
+                (removeFiltros)="removeFiltros($event)"
                 (emiteData)="filtraData($event)"
             ></app-filtros>
         </mat-drawer>
