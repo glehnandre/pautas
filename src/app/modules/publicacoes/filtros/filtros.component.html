@@ -54,6 +54,11 @@
                         >
                             {{(i==filtro.selecionados.length-1) ? selecionado : selecionado+"," }}
                         </span>
+                        <mat-icon
+                            *ngIf="filtro.selecionados.join(', ').length > 29"
+                            class="absolute right-10 pb-4 pl-2 pr-1 bg-white"
+                            style="color: #2a6894;"
+                        >add_circle</mat-icon>
                     </div>
                 </mat-panel-title>
             </mat-expansion-panel-header>

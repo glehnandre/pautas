@@ -169,8 +169,8 @@ export class PublicacoesComponent implements OnInit, OnDestroy {
    * Faz o tratamento dos e filtra as publicações a partir dos filtos dinâmicos selecionados.
    * @param filtros filtros selecionados.
    */
-  trataFiltros(filtros: any){
-      filtros.forEach((filtro, i)=>{
+  trataFiltros(filtros: any[]){
+      filtros.forEach(filtro=>{
         this.filtrados = this.filtrar("filtrados", filtro)
       })
   }
