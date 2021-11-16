@@ -1,4 +1,4 @@
-<div id="cabecalho" class="flex flex-row">
+<div id="cabecalho" class="flex flex-row justify-between">
     <div id="div1" class="flex flex-wrap">
         <div class="flex flex-nowrap flex-row">
             <img [src]="relator?.imagem" alt="Imagem de perfil"
@@ -17,7 +17,7 @@
         </div>
 
         <div class="hidden md:flex flex-1 flex-col min-w-20 overflow-x-auto">
-            <div class="flex-1 ml-2 text-xl">
+            <div class="ml-2 text-xl">
                 <h2 class="mb-0">{{obterDadosDoProcesso()}}</h2>
             </div>
 
@@ -40,7 +40,7 @@
 
     <div *ngIf="sessao" class="right-4 lg:right-16 flex flex-col items-end">
         <app-dados-da-sessao
-            class="hidden md:block"
+            class="hidden md:block absolute"
             [sessao]="sessao"
         ></app-dados-da-sessao>
     </div>
