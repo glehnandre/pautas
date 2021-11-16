@@ -1,11 +1,5 @@
-<div id="cabecalho" class="flex flex-col lg:flex-row lg:justify-start">
-    <div class="absolute right-4 lg:right-16 flex flex-col items-end">
-        <app-dados-da-sessao
-            *ngIf="sessao"
-            [sessao]="sessao"
-        ></app-dados-da-sessao>
-    </div>
-    <div id="div1" class="flex flex-wrap lg:max-w-3/5">
+<div id="cabecalho" class="flex flex-row">
+    <div id="div1" class="flex flex-wrap">
         <div class="flex flex-nowrap flex-row">
             <img [src]="relator?.imagem" alt="Imagem de perfil"
                 class="w-14 h-14 mr-6 mb-4 rounded-full ng-tns-c129-57 ng-star-inserted">
@@ -22,30 +16,37 @@
             </div>
         </div>
 
-        <div class="hidden md:block flex-1 flex-col min-w-20 overflow-x-auto">
+        <div class="hidden md:flex flex-1 flex-col min-w-20 overflow-x-auto">
             <div class="flex-1 ml-2 text-xl">
-                <h2>{{obterDadosDoProcesso()}}</h2>
+                <h2 class="mb-0">{{obterDadosDoProcesso()}}</h2>
+            </div>
+
+            <div class="hidden md:flex">
+                <app-carrossel
+                    [hasArrow]="hasArrow"
+                    [idChip]="'idTags'"
+                    [chips]="tags"
+                ></app-carrossel>
+        
+                <app-carrossel
+                    *ngIf="nomesDasSessoes"
+                    [idChip]="'idSessao'"
+                    [hasArrow]="hasArrow"
+                    [chips]="nomesDasSessoes"
+                ></app-carrossel>
             </div>
         </div>
     </div>
+
+    <div *ngIf="sessao" class="right-4 lg:right-16 flex flex-col items-end">
+        <app-dados-da-sessao
+            class="hidden md:block"
+            [sessao]="sessao"
+        ></app-dados-da-sessao>
+    </div>
 </div>
 
-<div class="hidden md:block lg:mb-8">
-    <div class="hidden md:flex">
-        <app-carrossel
-            [hasArrow]="hasArrow"
-            [idChip]="'idTags'"
-            [chips]="tags"
-        ></app-carrossel>
-
-        <app-carrossel
-            *ngIf="nomesDasSessoes"
-            [idChip]="'idSessao'"
-            [hasArrow]="hasArrow"
-            [chips]="nomesDasSessoes"
-        ></app-carrossel>
-    </div>
-    
+<div class="hidden md:block md:mb-8">
     <app-carrossel
         [idChip]="'idDocs'"
         [chips]="documentos?.nomes"
@@ -79,12 +80,13 @@
             <app-carrossel
                 [idChip]="'idTagsExp'"
                 [chips]="tags"
+                [hasArrow]="true"
             ></app-carrossel>
 
             <app-carrossel
                 *ngIf="nomesDasSessoes"
                 [idChip]="'idSessaoExp'"
-                [hasArrow]="hasArrow"
+                [hasArrow]="true"
                 [chips]="nomesDasSessoes"
             ></app-carrossel>
 
