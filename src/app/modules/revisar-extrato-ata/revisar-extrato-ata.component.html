@@ -99,7 +99,7 @@
                 <div class="flex flex-col w-full sm:w-1/2">
                     <div *ngIf="capitulo?.ministros_acordam">
                         <span>{{ _ministroService.generoEPlural(capitulo?.ministros_acordam, FraseVencidos) }}</span>
-                        <span class="font-medium">{{ _ministroService.ministrosString(capitulo?.ministros_acordam) }}
+                        <span class="font-medium">{{ nomesMinistros(capitulo?.ministros_acordam) }}
                         </span>
                     </div>
                     <div *ngIf="capitulo?.ministro_condutor">

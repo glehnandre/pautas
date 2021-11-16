@@ -63,6 +63,12 @@ export class MinistroService {
     );
   }
 
+  /**
+   * Recebe uma lista de @Ministro e retorna o seu(s) nome(s) em uma única string
+   * @param ministros
+   * @returns string
+   *   @example 'Carmém Lúcia e Rosa Weber'
+   */
   ministrosString(ministros: Ministro[]): string {
     if(ministros.length == 1) return ministros[0].nome;
     let nomesMinistros = [], ultimoMinistro;
@@ -71,13 +77,22 @@ export class MinistroService {
     return [nomesMinistros.join(', '), ultimoMinistro].join(' e ');
    }
 
-   generoEPlural(ministros: Ministro[], frase: Frase): string {
+  /**
+   * Recebe uma lista de Ministro e a Frase e verifica se há mais de um Ministro
+   * Caso haja verifica o genêro adequado para usar na Frase
+   * @param ministros: Ministro[]
+   * @param frase: Frase
+   * @returns string
+   *   @example
+   *   Se todos ministros mulheres: 'Ministras que se declaram impedidas: '
+  **/
+  generoEPlural(ministros: Ministro[], frase: Frase): string {
     return ministros.length == 1?
-            ministros[0].genero == Genero.F ?
-              frase?.F:
-              frase?.M:
-            ministros.filter(({ genero }) => genero == Genero.M).length?
-              frase?.PM:
-              frase?.PF;
+      ministros[0].genero == Genero.F ?
+        frase?.F:
+        frase?.M:
+      ministros.filter(({ genero }) => genero == Genero.M).length?
+        frase?.PM:
+        frase?.PF;
   }
 }

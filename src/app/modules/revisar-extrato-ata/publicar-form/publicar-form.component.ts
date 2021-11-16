@@ -56,7 +56,7 @@ export class PublicarFormComponent implements OnInit {
   constructor(
     private _ministroService: MinistroService,
     private _formBuilder: FormBuilder,
-    private _dialogRef: MatDialogRef<any>,
+    private _dialogRef: MatDialogRef<PublicarFormComponent>,
     @Inject(MAT_DIALOG_DATA) private sessao: SessaoJulgamento,
   ) {}
 
@@ -79,6 +79,9 @@ export class PublicarFormComponent implements OnInit {
     return new Date(this.sessao.data_fim);
   }
 
+  /**
+   * Pega os dados do formulário e retorna para página Revisar Publicação
+   */
   salvar(): void {
     const { presidente, acessor, opcaoData, dataPublicacao } = this.formPublicacao.getRawValue();
     const dataAutomatica = opcaoData == 0? this.dataAutomatica():this.dataProximaSessao();
@@ -91,6 +94,9 @@ export class PublicarFormComponent implements OnInit {
       ministrosPresentes: [...this.ministrosPresentes],
       presidente,
     }
-    console.log(this.opcoesDataPublicacao[opcaoData], form);
+    console.log('Ata Publicada:')
+    console.log(this.opcoesDataPublicacao[opcaoData]);
+
+    this._dialogRef.close(form);
   }
 }

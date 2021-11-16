@@ -94,18 +94,26 @@ export class RevisarExtratoAtaComponent implements OnInit {
       });
   }
 
+  /**
+   * recebe lista de Ministro e retorna o(s) nome(s)
+   * @param ministros Ministro[]
+   * @returns string
+  **/
   nomesMinistros(ministros: Ministro[]): string {
     return this._ministroService.ministrosString(ministros);
   }
 
+  /**
+   * Abre o Formulário para Publicar Extrato
+  **/
   publicar(): void {
     const dialogRef = this._matDialog
       .open(PublicarFormComponent, { maxHeight: '560px', data: this.sessao });
 
     dialogRef.afterClosed().subscribe({
-        next: () => {
-
-        }
-    })
+      next: (form) => {
+        console.log(form);
+      }
+    });
   }
 }
