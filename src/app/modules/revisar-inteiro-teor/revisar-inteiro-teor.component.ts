@@ -120,19 +120,6 @@ export class RevisarInteiroTeorComponent implements OnInit {
     this.nomesDasSessoes = nomes;
   }
 
-
-  /**
-   * @private Método privado
-   * @description Verifica se a data final é maior que a data inicial
-   * @param dataInicial
-   * @param dataFinal 
-   * @returns Retorna true caso a dataFinal seja maior que a dataInicial e 
-   *          false, caso contrário
-   * @author Douglas da Silva Monteles
-   */
-  private _comparaDatas(dataInicial: Date, dataFinal: Date): boolean {
-    return dataFinal > dataInicial;
-  }
     /**
     * Alternar edição do documento
     *
@@ -172,17 +159,6 @@ export class RevisarInteiroTeorComponent implements OnInit {
   }
 
   /**
-   * @private
-   * @description Recebe um objeto e o converte para string
-   * @param obj 
-   * @returns Retorna objeto convertido em string
-   * @author Douglas da Silva Monteles
-   */
-  private _converterObjParaString(obj: any): string {
-    return JSON.stringify(obj);
-  }
-
-  /**
    * @public Método público
    * @description Seleciona ou deseleciona todas as linhas da tabela e as regista
    *              na lista 
@@ -195,6 +171,41 @@ export class RevisarInteiroTeorComponent implements OnInit {
     if (this.todosOsCheckboxSelecionados) {
       this.linhasSelecionadas = [...this.revisoes.documentos];
     }
+  }
+
+  /**
+   * @private
+   * @description Recebe um objeto e o converte para string
+   * @param obj 
+   * @returns Retorna objeto convertido em string
+   * @author Douglas da Silva Monteles
+   */
+  private _converterObjParaString(obj: any): string {
+    return JSON.stringify(obj);
+  }
+
+  /**
+   * @private Método privado
+   * @description Verifica se a data final é maior que a data inicial
+   * @param dataInicial
+   * @param dataFinal 
+   * @returns Retorna true caso a dataFinal seja maior que a dataInicial e 
+   *          false, caso contrário
+   * @author Douglas da Silva Monteles
+   */
+  private _comparaDatas(dataInicial: Date, dataFinal: Date): boolean {
+    return dataFinal > dataInicial;
+  }
+
+  /**
+   * @private Método privado
+   * @description Verifica se a lista de DocumentoInteiroTeor possui algum elemento
+   * @returns true caso a lista de DocumentoInteiroTeor tenha tamanho maior que 
+   *          0 e false caso contrário
+   * @author Douglas da Silva Monteles
+   */
+  private _isAlgumaLinhaSelecionada(): boolean {
+    return this.linhasSelecionadas.length > 0;
   }
 
 }
