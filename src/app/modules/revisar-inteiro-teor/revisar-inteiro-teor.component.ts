@@ -177,9 +177,61 @@ export class RevisarInteiroTeorComponent implements OnInit {
     }
   }
 
+  /**
+   * @public
+   * @description Publicar o(s) inteiro(s) teor(es) que foram selecionados
+   * @author 
+   */
+   public publicarInteiroTeor(): void {
+    if (this._isAlgumaLinhaSelecionada()) {
+      console.log('remover');
+    }
+  }
+
+  /**
+   * @public
+   * @description Remove o(s) inteiro(s) teor(es) que foram selecionados
+   * @author 
+   */
   public removerInteiroTeor(): void {
     if (this._isAlgumaLinhaSelecionada()) {
       console.log('remover');
+    }
+  }
+
+  /**
+   * @public
+   * @description Inclue no(s) inteiro(s) teor(es) que foram selecionados novos 
+   *              documentos
+   * @author 
+   */
+   public incluirNovoDocumento(): void {
+    if (this._isAlgumaLinhaSelecionada()) {
+      console.log('incluir novo doc');
+    }
+  }
+
+  /**
+   * @public
+   * @description Inclue no(s) inteiro(s) teor(es) que foram selecionados novos 
+   *              comentários
+   * @author 
+   */
+   public incluirComentario(): void {
+    if (this._isAlgumaLinhaSelecionada()) {
+      console.log('incluir comentários');
+    }
+  }
+
+  /**
+   * @public
+   * @description Registra o(s) inteiro(s) teor(es) que foram selecionados como 
+   *              revisados
+   * @author 
+   */
+   public revisar(): void {
+    if (this._isAlgumaLinhaSelecionada()) {
+      console.log('revisado');
     }
   }
 

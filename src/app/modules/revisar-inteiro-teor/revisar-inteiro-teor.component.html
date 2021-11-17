@@ -52,19 +52,19 @@
                         </mat-select>
                     </mat-form-field>
                     <div class="hidden md:flex space-x-4">
-                        <button mat-raised-button color="primary">
+                        <button (click)="publicarInteiroTeor()" mat-raised-button color="primary">
                             Publicar no Inteiro Teor
                         </button>
                         <button (click)="removerInteiroTeor()" mat-flat-button class="bg-gray-200">
                             Remover do Inteiro Teor
                         </button>
-                        <button mat-flat-button class="bg-gray-200">
+                        <button (click)="incluirNovoDocumento()" mat-flat-button class="bg-gray-200">
                             Incluir novo documento
                         </button>
-                        <button mat-flat-button class="bg-gray-200">
+                        <button (click)="incluirComentario()" mat-flat-button class="bg-gray-200">
                             Incluir comentário
                         </button>
-                        <button mat-flat-button class="bg-gray-200">
+                        <button (click)="revisar()" mat-flat-button class="bg-gray-200">
                             Revisado
                         </button>
                     </div>
