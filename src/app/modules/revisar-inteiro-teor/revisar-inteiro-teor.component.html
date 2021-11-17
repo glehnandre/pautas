@@ -32,7 +32,7 @@
         <section>
             <div>
                 <div class="flex space-x-2 pl-0.5 ml-6 sm:pl-0 sm:ml-3.5">
-                    <mat-checkbox 
+                    <mat-checkbox
                         color="primary" class="mt-2 mb-2"
                         (change)="selecionarOuDeselecionarTodosOsCheckbox()"
                     ></mat-checkbox>
@@ -79,14 +79,21 @@
         <table
             class="w-full min-w-320 table-fixed bg-transparent"
             mat-table
+            matSort
+            [matSortActive]="'autor'"
+            [matSortDisableClear]="true"
+            [matSortDirection]="'asc'"
             [multiTemplateDataRows]="true"
             [dataSource]="dataSource"
+            (matSortChange)="ordenar($event)"
         >
             <ng-container matColumnDef="autor">
                 <th
-                    class="bg-gray-50 dark:bg-black dark:bg-opacity-5 text-center"
+                    class="pl-16 bg-gray-50 dark:bg-black dark:bg-opacity-5"
                     mat-header-cell
                     *matHeaderCellDef
+                    mat-sort-header
+                    disableClear
                 >
                     Autor
                 </th>
@@ -96,7 +103,7 @@
                     *matCellDef="let document"
                 >
                     <div class="flex flex-row justify-between items-center w-24">
-                        <mat-checkbox 
+                        <mat-checkbox
                             color="primary"
                             [value]="document"
                             (change)="selecionarOuDeselecionarLinha(document)"
@@ -119,9 +126,11 @@
 
             <ng-container matColumnDef="responsavel">
                 <th
-                    class="bg-gray-50 dark:bg-black dark:bg-opacity-5 text-center"
+                    class="pl-15 bg-gray-50 dark:bg-black dark:bg-opacity-5 text-center"
                     mat-header-cell
                     *matHeaderCellDef
+                    mat-sort-header
+                    disableClear
                 >
                     Responsável
                 </th>
@@ -136,9 +145,11 @@
 
             <ng-container matColumnDef="comentarios">
                 <th
-                    class="bg-gray-50 dark:bg-black dark:bg-opacity-5 text-center"
+                    class="pl-14 bg-gray-50 dark:bg-black dark:bg-opacity-5 text-center"
                     mat-header-cell
                     *matHeaderCellDef
+                    mat-sort-header
+                    disableClear
                 >
                     Comentários
                 </th>
@@ -153,9 +164,11 @@
 
             <ng-container matColumnDef="documento">
                 <th
-                    class="bg-gray-50 dark:bg-black dark:bg-opacity-5 text-center"
+                    class="pl-15 bg-gray-50 dark:bg-black dark:bg-opacity-5 text-center"
                     mat-header-cell
                     *matHeaderCellDef
+                    mat-sort-header
+                    disableClear
                 >
                     Documento
                 </th>
@@ -170,9 +183,11 @@
 
             <ng-container matColumnDef="data">
                 <th
-                    class="bg-gray-50 dark:bg-black dark:bg-opacity-5 text-center"
+                    class="pl-12 bg-gray-50 dark:bg-black dark:bg-opacity-5 text-center"
                     mat-header-cell
                     *matHeaderCellDef
+                    mat-sort-header
+                    disableClear
                 >
                     Data de criação
                 </th>
@@ -187,9 +202,11 @@
 
             <ng-container matColumnDef="situacao">
                 <th
-                    class="bg-gray-50 dark:bg-black dark:bg-opacity-5 text-center"
+                    class="pl-16 bg-gray-50 dark:bg-black dark:bg-opacity-5 text-center"
                     mat-header-cell
                     *matHeaderCellDef
+                    mat-sort-header
+                    disableClear
                 >
                     Situação
                 </th>

@@ -1,8 +1,9 @@
 import { DataSource } from '@angular/cdk/collections';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
+import { MatSort, Sort } from '@angular/material/sort';
 import { fuseAnimations } from '@fuse/animations';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { DocumentoInteiroTeor } from '../acervo/model/interfaces/documento-inteiro-teor.interface';
@@ -32,6 +33,8 @@ export interface RevisaoInteiroTeor {
 })
 export class RevisarInteiroTeorComponent implements OnInit {
 
+  @ViewChild(MatSort) private _sort: MatSort;
+
   idProcesso: number = 0;
   colegiado: string = '';
   processo: Processo;
@@ -59,7 +62,7 @@ export class RevisarInteiroTeorComponent implements OnInit {
 
   ngOnInit(): void {
     this.idProcesso = +this._route.snapshot.queryParamMap.get('id');
-    this.colegiado = this._route.snapshot.queryParamMap.get('colegiado');
+    this.colegiado = this._route.snapshot.queryParamMap.get('colegiado')
 
     this._inteiroTeorService.obterInteiroTeorDoAcordao(this.idProcesso).subscribe({
       next: (revisoes) => {
@@ -97,13 +100,13 @@ export class RevisarInteiroTeorComponent implements OnInit {
 
   /**
    * @public Método público
-   * @description Percorre a lista de sessões, criando uma nova lista de string 
-   *              com os nomes das sessões formatados  
+   * @description Percorre a lista de sessões, criando uma nova lista de string
+   *              com os nomes das sessões formatados
    * @author Douglas da Silva Monteles
    */
   public obterNomesDasSessoes(): void {
     const nomes: string[] = [];
-    
+
     this.revisoes.sessoes.forEach(({tipo, numero, ano, data_fim}) => {
       let dadosDaSessao: string;
       let dataFim = new Date(data_fim);
@@ -120,13 +123,47 @@ export class RevisarInteiroTeorComponent implements OnInit {
     this.nomesDasSessoes = nomes;
   }
 
+    compare(a: number | string, b: number | string, isAsc: boolean) {
+        return (a < b ? -1 : 1) * (isAsc ? 1 : -1);
+    }
+
+  ordenar(sort: Sort) {
+    const data = this.revisoes.documentos;
+
+    if (!sort.active || sort.direction === '') {
+        this.dataSource = new DataSourceInteiroTeor(data);
+        return;
+    }
+
+    this.dataSource = new DataSourceInteiroTeor(this.revisoes.documentos.sort((a, b) => {
+        const isAsc = sort.direction === 'asc';
+
+        switch (sort.active) {
+            case 'autor':
+                return this.compare(a.ordem, b.ordem, isAsc);
+            case 'responsavel':
+                return this.compare(a.responsavel.abreviacao, b.responsavel.abreviacao, isAsc);
+            case 'comentarios':
+                return this.compare(a.comentario, b.comentario, isAsc);
+            case 'documento':
+                return this.compare(a.nome, b.nome, isAsc);
+            case 'data':
+                return this.compare(a.data_criacao, b.data_criacao, isAsc);
+            case 'situacao':
+                return this.compare(a.situacao, b.situacao, isAsc);
+            default:
+                return 0;
+        }
+    }));
+  }
+
 
   /**
    * @private Método privado
    * @description Verifica se a data final é maior que a data inicial
    * @param dataInicial
-   * @param dataFinal 
-   * @returns Retorna true caso a dataFinal seja maior que a dataInicial e 
+   * @param dataFinal
+   * @returns Retorna true caso a dataFinal seja maior que a dataInicial e
    *          false, caso contrário
    * @author Douglas da Silva Monteles
    */
@@ -163,7 +200,7 @@ export class RevisarInteiroTeorComponent implements OnInit {
   public selecionarOuDeselecionarLinha(linha: DocumentoInteiroTeor): void {
     const index = this.linhasSelecionadas
       .findIndex(documento => this._converterObjParaString(documento) === this._converterObjParaString(linha));
-  
+
     if (index === -1) { // Se a linha ainda não foi selecionada
       this.linhasSelecionadas.push(linha);
     } else {
@@ -174,7 +211,7 @@ export class RevisarInteiroTeorComponent implements OnInit {
   /**
    * @private
    * @description Recebe um objeto e o converte para string
-   * @param obj 
+   * @param obj
    * @returns Retorna objeto convertido em string
    * @author Douglas da Silva Monteles
    */
@@ -185,7 +222,7 @@ export class RevisarInteiroTeorComponent implements OnInit {
   /**
    * @public Método público
    * @description Seleciona ou deseleciona todas as linhas da tabela e as regista
-   *              na lista 
+   *              na lista
    * @author Douglas da Silva Monteles
    */
   public selecionarOuDeselecionarTodosOsCheckbox(): void {
