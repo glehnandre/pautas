@@ -52,19 +52,19 @@
                         </mat-select>
                     </mat-form-field>
                     <div class="hidden md:flex space-x-4">
-                        <button mat-raised-button color="primary">
+                        <button (click)="publicarInteiroTeor()" mat-raised-button color="primary">
                             Publicar no Inteiro Teor
                         </button>
-                        <button mat-flat-button class="bg-gray-200">
+                        <button (click)="removerInteiroTeor()" mat-flat-button class="bg-gray-200">
                             Remover do Inteiro Teor
                         </button>
-                        <button mat-flat-button class="bg-gray-200">
+                        <button (click)="incluirNovoDocumento()" mat-flat-button class="bg-gray-200">
                             Incluir novo documento
                         </button>
-                        <button mat-flat-button class="bg-gray-200">
+                        <button (click)="incluirComentario()" mat-flat-button class="bg-gray-200">
                             Incluir comentário
                         </button>
-                        <button mat-flat-button class="bg-gray-200">
+                        <button (click)="revisar()" mat-flat-button class="bg-gray-200">
                             Revisado
                         </button>
                     </div>
@@ -351,3 +351,12 @@
     [link]="link"
     [posicao]="'left'"
 ></app-visualizador-pdf>
+
+<app-alerta
+    [nome]="NOME_DO_ALERTA_DESTA_CLASSE"
+    [titulo]="'Erro de validação'"
+    [mensagem]="'Selecione alguma linha da tabela para poder usar essa opção'"
+    [aparencia]="'soft'"
+    [tipo]="'error'"
+    class="w-full"
+></app-alerta>

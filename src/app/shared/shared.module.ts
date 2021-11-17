@@ -29,6 +29,8 @@ import { MatDividerModule } from '@angular/material/divider';
 import { MinistrosQueAcompanharamComponent } from './ministros-que-acompanharam/ministros-que-acompanharam.component';
 import { IconesVotosComponent } from './icones-votos/icones-votos.component';
 import { DadosDaSessaoComponent } from './cabecalho-relator/dados-da-sessao/dados-da-sessao.component';
+import { AlertaComponent } from './alerta/alerta.component';
+import { FuseAlertModule } from '@fuse/components/alert';
 
 
 @NgModule({
@@ -46,6 +48,7 @@ import { DadosDaSessaoComponent } from './cabecalho-relator/dados-da-sessao/dado
         MinistrosQueAcompanharamComponent,
         IconesVotosComponent,
         DadosDaSessaoComponent,
+        AlertaComponent,
     ],
     imports: [
         CommonModule,
@@ -66,6 +69,7 @@ import { DadosDaSessaoComponent } from './cabecalho-relator/dados-da-sessao/dado
         MatAutocompleteModule,
         FuseDrawerModule,
         FuseCardModule,
+        FuseAlertModule,
     ],
     exports: [
         CommonModule,
@@ -82,6 +86,7 @@ import { DadosDaSessaoComponent } from './cabecalho-relator/dados-da-sessao/dado
         ContadorComponent,
         MinistrosQueAcompanharamComponent,
         IconesVotosComponent,
+        AlertaComponent,
     ],
 })
 export class SharedModule

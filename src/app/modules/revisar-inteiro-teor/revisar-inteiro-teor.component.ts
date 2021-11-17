@@ -11,6 +11,7 @@ import { Documento } from '../acervo/model/interfaces/documento.interface';
 import { Processo } from '../acervo/model/interfaces/processo.interface';
 import { SessaoJulgamento } from '../acervo/model/interfaces/sessao-julgamento.interface';
 import { Tag } from '../acervo/model/interfaces/tag.interface';
+import { AlertaService } from '../services/alerta.service';
 import { ProcessoService } from '../services/processo.service';
 import { RevisarInteiroTeorService } from '../services/revisar-inteiro-teor.service';
 
@@ -50,12 +51,15 @@ export class RevisarInteiroTeorComponent implements OnInit {
   linhasSelecionadas: DocumentoInteiroTeor[] = [];
   todosOsCheckboxSelecionados = false;
 
+  readonly NOME_DO_ALERTA_DESTA_CLASSE = 'alerta_revisar_inteiro_teor';
+
   constructor(
     private _route: ActivatedRoute,
     private _inteiroTeorService: RevisarInteiroTeorService,
     private _processoService: ProcessoService,
     private _sanitize: DomSanitizer,
     private _formBuilder: FormBuilder,
+    private _alertaService: AlertaService,
   ) {
     this.link = this._sanitize.bypassSecurityTrustResourceUrl('');
   }
@@ -87,6 +91,40 @@ export class RevisarInteiroTeorComponent implements OnInit {
         observacao           : [''],
     });
   }
+
+    compare(a: number | string, b: number | string, isAsc: boolean) {
+        return (a < b ? -1 : 1) * (isAsc ? 1 : -1);
+    }
+
+    ordenar(sort: Sort) {
+    const data = this.revisoes.documentos;
+
+    if (!sort.active || sort.direction === '') {
+        this.dataSource = new DataSourceInteiroTeor(data);
+        return;
+    }
+
+    this.dataSource = new DataSourceInteiroTeor(this.revisoes.documentos.sort((a, b) => {
+        const isAsc = sort.direction === 'asc';
+
+        switch (sort.active) {
+            case 'autor':
+                return this.compare(a.ordem, b.ordem, isAsc);
+            case 'responsavel':
+                return this.compare(a.responsavel.abreviacao, b.responsavel.abreviacao, isAsc);
+            case 'comentarios':
+                return this.compare(a.comentario, b.comentario, isAsc);
+            case 'documento':
+                return this.compare(a.nome, b.nome, isAsc);
+            case 'data':
+                return this.compare(a.data_criacao, b.data_criacao, isAsc);
+            case 'situacao':
+                return this.compare(a.situacao, b.situacao, isAsc);
+            default:
+                return 0;
+        }
+    }));
+    }
 
   /**
    * @public Método público
@@ -123,53 +161,6 @@ export class RevisarInteiroTeorComponent implements OnInit {
     this.nomesDasSessoes = nomes;
   }
 
-    compare(a: number | string, b: number | string, isAsc: boolean) {
-        return (a < b ? -1 : 1) * (isAsc ? 1 : -1);
-    }
-
-  ordenar(sort: Sort) {
-    const data = this.revisoes.documentos;
-
-    if (!sort.active || sort.direction === '') {
-        this.dataSource = new DataSourceInteiroTeor(data);
-        return;
-    }
-
-    this.dataSource = new DataSourceInteiroTeor(this.revisoes.documentos.sort((a, b) => {
-        const isAsc = sort.direction === 'asc';
-
-        switch (sort.active) {
-            case 'autor':
-                return this.compare(a.ordem, b.ordem, isAsc);
-            case 'responsavel':
-                return this.compare(a.responsavel.abreviacao, b.responsavel.abreviacao, isAsc);
-            case 'comentarios':
-                return this.compare(a.comentario, b.comentario, isAsc);
-            case 'documento':
-                return this.compare(a.nome, b.nome, isAsc);
-            case 'data':
-                return this.compare(a.data_criacao, b.data_criacao, isAsc);
-            case 'situacao':
-                return this.compare(a.situacao, b.situacao, isAsc);
-            default:
-                return 0;
-        }
-    }));
-  }
-
-
-  /**
-   * @private Método privado
-   * @description Verifica se a data final é maior que a data inicial
-   * @param dataInicial
-   * @param dataFinal
-   * @returns Retorna true caso a dataFinal seja maior que a dataInicial e
-   *          false, caso contrário
-   * @author Douglas da Silva Monteles
-   */
-  private _comparaDatas(dataInicial: Date, dataFinal: Date): boolean {
-    return dataFinal > dataInicial;
-  }
     /**
     * Alternar edição do documento
     *
@@ -209,17 +200,6 @@ export class RevisarInteiroTeorComponent implements OnInit {
   }
 
   /**
-   * @private
-   * @description Recebe um objeto e o converte para string
-   * @param obj
-   * @returns Retorna objeto convertido em string
-   * @author Douglas da Silva Monteles
-   */
-  private _converterObjParaString(obj: any): string {
-    return JSON.stringify(obj);
-  }
-
-  /**
    * @public Método público
    * @description Seleciona ou deseleciona todas as linhas da tabela e as regista
    *              na lista
@@ -231,6 +211,104 @@ export class RevisarInteiroTeorComponent implements OnInit {
 
     if (this.todosOsCheckboxSelecionados) {
       this.linhasSelecionadas = [...this.revisoes.documentos];
+    }
+  }
+
+  /**
+   * @public
+   * @description Publicar o(s) inteiro(s) teor(es) que foram selecionados
+   * @author
+   */
+   public publicarInteiroTeor(): void {
+    if (this._isAlgumaLinhaSelecionada()) {
+      console.log('remover');
+    }
+  }
+
+  /**
+   * @public
+   * @description Remove o(s) inteiro(s) teor(es) que foram selecionados
+   * @author
+   */
+  public removerInteiroTeor(): void {
+    if (this._isAlgumaLinhaSelecionada()) {
+      console.log('remover');
+    }
+  }
+
+  /**
+   * @public
+   * @description Inclue no(s) inteiro(s) teor(es) que foram selecionados novos
+   *              documentos
+   * @author
+   */
+   public incluirNovoDocumento(): void {
+    if (this._isAlgumaLinhaSelecionada()) {
+      console.log('incluir novo doc');
+    }
+  }
+
+  /**
+   * @public
+   * @description Inclue no(s) inteiro(s) teor(es) que foram selecionados novos
+   *              comentários
+   * @author
+   */
+   public incluirComentario(): void {
+    if (this._isAlgumaLinhaSelecionada()) {
+      console.log('incluir comentários');
+    }
+  }
+
+  /**
+   * @public
+   * @description Registra o(s) inteiro(s) teor(es) que foram selecionados como
+   *              revisados
+   * @author
+   */
+   public revisar(): void {
+    if (this._isAlgumaLinhaSelecionada()) {
+      console.log('revisado');
+    }
+  }
+
+  /**
+   * @private
+   * @description Recebe um objeto e o converte para string
+   * @param obj
+   * @returns Retorna objeto convertido em string
+   * @author Douglas da Silva Monteles
+   */
+  private _converterObjParaString(obj: any): string {
+    return JSON.stringify(obj);
+  }
+
+  /**
+   * @private Método privado
+   * @description Verifica se a data final é maior que a data inicial
+   * @param dataInicial
+   * @param dataFinal
+   * @returns Retorna true caso a dataFinal seja maior que a dataInicial e
+   *          false, caso contrário
+   * @author Douglas da Silva Monteles
+   */
+  private _comparaDatas(dataInicial: Date, dataFinal: Date): boolean {
+    return dataFinal > dataInicial;
+  }
+
+  /**
+   * @private Método privado
+   * @description Verifica se a lista de DocumentoInteiroTeor possui algum elemento
+   * @returns true caso a lista de DocumentoInteiroTeor tenha tamanho maior que
+   *          0 e false caso contrário
+   * @author Douglas da Silva Monteles
+   */
+  private _isAlgumaLinhaSelecionada(): boolean {
+    if (this.linhasSelecionadas.length > 0) {
+      return true;
+    } else {
+      this._alertaService.exibirAlerta(this.NOME_DO_ALERTA_DESTA_CLASSE);
+      return false;
     }
   }
 
