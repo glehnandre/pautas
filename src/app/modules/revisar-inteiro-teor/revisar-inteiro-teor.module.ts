@@ -13,6 +13,7 @@ import { MatSortModule } from '@angular/material/sort';
 import { MatTableModule } from '@angular/material/table';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
+import { FuseAlertModule } from '@fuse/components/alert';
 
 const revisarInteiroTeorRoutes: Route[] = [
     {
@@ -40,6 +41,7 @@ const revisarInteiroTeorRoutes: Route[] = [
     MatTableModule,
     MatFormFieldModule,
     MatInputModule,
+    FuseAlertModule,
   ]
 })
 export class RevisarInteiroTeorModule { }

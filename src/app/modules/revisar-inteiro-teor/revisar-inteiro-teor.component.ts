@@ -10,6 +10,7 @@ import { Documento } from '../acervo/model/interfaces/documento.interface';
 import { Processo } from '../acervo/model/interfaces/processo.interface';
 import { SessaoJulgamento } from '../acervo/model/interfaces/sessao-julgamento.interface';
 import { Tag } from '../acervo/model/interfaces/tag.interface';
+import { AlertaService } from '../services/alerta.service';
 import { ProcessoService } from '../services/processo.service';
 import { RevisarInteiroTeorService } from '../services/revisar-inteiro-teor.service';
 
@@ -47,12 +48,15 @@ export class RevisarInteiroTeorComponent implements OnInit {
   linhasSelecionadas: DocumentoInteiroTeor[] = [];
   todosOsCheckboxSelecionados = false;
 
+  readonly NOME_DO_ALERTA_DESTA_CLASSE = 'alerta_revisar_inteiro_teor';
+
   constructor(
     private _route: ActivatedRoute,
     private _inteiroTeorService: RevisarInteiroTeorService,
     private _processoService: ProcessoService,
     private _sanitize: DomSanitizer,
     private _formBuilder: FormBuilder,
+    private _alertaService: AlertaService,
   ) {
     this.link = this._sanitize.bypassSecurityTrustResourceUrl('');
   }
@@ -173,6 +177,12 @@ export class RevisarInteiroTeorComponent implements OnInit {
     }
   }
 
+  public removerInteiroTeor(): void {
+    if (this._isAlgumaLinhaSelecionada()) {
+      console.log('remover');
+    }
+  }
+
   /**
    * @private
    * @description Recebe um objeto e o converte para string
@@ -205,7 +215,12 @@ export class RevisarInteiroTeorComponent implements OnInit {
    * @author Douglas da Silva Monteles
    */
   private _isAlgumaLinhaSelecionada(): boolean {
-    return this.linhasSelecionadas.length > 0;
+    if (this.linhasSelecionadas.length > 0) {
+      return true;
+    } else {
+      this._alertaService.exibirAlerta(this.NOME_DO_ALERTA_DESTA_CLASSE);
+      return false;
+    }
   }
 
 }
