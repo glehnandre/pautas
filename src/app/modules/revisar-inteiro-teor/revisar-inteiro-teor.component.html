@@ -79,12 +79,14 @@
         <table
             class="w-full min-w-320 table-fixed bg-transparent"
             mat-table
+            cdkDropList
             matSort
             [matSortActive]="'autor'"
             [matSortDisableClear]="true"
             [matSortDirection]="'asc'"
             [multiTemplateDataRows]="true"
             [dataSource]="dataSource"
+            (cdkDropListDropped)="drop($event)"
             (matSortChange)="ordenar($event)"
         >
             <ng-container matColumnDef="autor">
@@ -334,6 +336,8 @@
             <tr
                 class="h-18 hover:bg-gray-100 dark:hover:bg-hover"
                 mat-row
+                cdkDrag
+                [cdkDragLockAxis]="'y'"
                 *matRowDef="let document; columns: displayedColumns;"
             ></tr>
 

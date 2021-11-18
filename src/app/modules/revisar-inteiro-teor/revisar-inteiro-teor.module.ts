@@ -11,6 +11,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatSortModule } from '@angular/material/sort';
 import { MatTableModule } from '@angular/material/table';
+import { DragDropModule } from '@angular/cdk/drag-drop';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { FuseAlertModule } from '@fuse/components/alert';
@@ -42,6 +43,7 @@ const revisarInteiroTeorRoutes: Route[] = [
     MatFormFieldModule,
     MatInputModule,
     FuseAlertModule,
+    DragDropModule
   ]
 })
 export class RevisarInteiroTeorModule { }

@@ -1,4 +1,5 @@
 import { DataSource } from '@angular/cdk/collections';
+import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
@@ -97,33 +98,38 @@ export class RevisarInteiroTeorComponent implements OnInit {
     }
 
     ordenar(sort: Sort) {
-    const data = this.revisoes.documentos;
+        const data = this.revisoes.documentos;
 
-    if (!sort.active || sort.direction === '') {
-        this.dataSource = new DataSourceInteiroTeor(data);
-        return;
+        if (!sort.active || sort.direction === '') {
+            this.dataSource = new DataSourceInteiroTeor(data);
+            return;
+        }
+
+        this.dataSource = new DataSourceInteiroTeor(this.revisoes.documentos.sort((a, b) => {
+            const isAsc = sort.direction === 'asc';
+
+            switch (sort.active) {
+                case 'autor':
+                    return this.compare(a.ordem, b.ordem, isAsc);
+                case 'responsavel':
+                    return this.compare(a.responsavel.abreviacao, b.responsavel.abreviacao, isAsc);
+                case 'comentarios':
+                    return this.compare(a.comentario, b.comentario, isAsc);
+                case 'documento':
+                    return this.compare(a.nome, b.nome, isAsc);
+                case 'data':
+                    return this.compare(a.data_criacao, b.data_criacao, isAsc);
+                case 'situacao':
+                    return this.compare(a.situacao, b.situacao, isAsc);
+                default:
+                    return 0;
+            }
+    }));
     }
 
-    this.dataSource = new DataSourceInteiroTeor(this.revisoes.documentos.sort((a, b) => {
-        const isAsc = sort.direction === 'asc';
-
-        switch (sort.active) {
-            case 'autor':
-                return this.compare(a.ordem, b.ordem, isAsc);
-            case 'responsavel':
-                return this.compare(a.responsavel.abreviacao, b.responsavel.abreviacao, isAsc);
-            case 'comentarios':
-                return this.compare(a.comentario, b.comentario, isAsc);
-            case 'documento':
-                return this.compare(a.nome, b.nome, isAsc);
-            case 'data':
-                return this.compare(a.data_criacao, b.data_criacao, isAsc);
-            case 'situacao':
-                return this.compare(a.situacao, b.situacao, isAsc);
-            default:
-                return 0;
-        }
-    }));
+    drop(event: CdkDragDrop<DataSourceInteiroTeor[]>) {
+        moveItemInArray(this.revisoes.documentos, event.previousIndex, event.currentIndex);
+        this.dataSource = new DataSourceInteiroTeor(this.revisoes.documentos)
     }
 
   /**
