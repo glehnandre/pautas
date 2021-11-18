@@ -127,8 +127,17 @@ export class RevisarInteiroTeorComponent implements OnInit {
     }));
     }
 
-    drop(event: CdkDragDrop<DataSourceInteiroTeor[]>) {
+    atualizaOrdem(): void {
+        for (var i = 0; i < this.revisoes.documentos.length; i++) {
+            this.revisoes.documentos[i].ordem = i + 1;
+        }
+    }
+
+    drop(event: CdkDragDrop<DataSourceInteiroTeor[]>): void {
         moveItemInArray(this.revisoes.documentos, event.previousIndex, event.currentIndex);
+
+        this.atualizaOrdem();
+
         this.dataSource = new DataSourceInteiroTeor(this.revisoes.documentos)
     }
 
