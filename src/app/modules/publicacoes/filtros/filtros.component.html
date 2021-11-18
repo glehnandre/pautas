@@ -31,7 +31,7 @@
             </mat-expansion-panel-header>
     
             <section class="">
-                <mat-form-field class="w-full my-4" appearance="fill">
+                <mat-form-field class="w-full" appearance="fill">
                     <mat-date-range-input [rangePicker]="picker">
                         <input matStartDate placeholder="Início" name="data_inicio" [(ngModel)]="data_inicio" (dateChange)="trataDataInicio($event)">
                         <input matEndDate placeholder="Fim" name="data_fim" [(ngModel)]="data_fim" (dateChange)="trataDataFim($event)">
@@ -40,6 +40,9 @@
                     <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                     <mat-date-range-picker #picker></mat-date-range-picker>
                 </mat-form-field>
+                <button class="flex ml-auto" mat-flat-button [color]="'primary'" (click)="limparDatas()">
+                    <span>Limpar datas</span>
+                </button>
             </section>
         </mat-expansion-panel>
 

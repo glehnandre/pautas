@@ -9,7 +9,8 @@ import { DjeDto } from '../acervo/model/interfaces/djeDto.interface';
 })
 export class PublicacaoService {
 
-  constructor(private _httpClient: HttpClient,) { }
+  constructor(private _httpClient: HttpClient,) { 
+  }
 
   recuperarDje(): Observable<DjeDto> {
     return this._httpClient.get<DjeDto>('publicacoes').pipe(

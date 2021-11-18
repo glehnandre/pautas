@@ -123,4 +123,13 @@ export class FiltrosComponent implements OnInit{
       this.data_fim = event.value._d;
   }
 
+  /**
+   * Apaga as datas inicial e final.
+   */
+  limparDatas(){
+    this.data_inicio = null;
+    this.data_fim = null;
+    this.filtrarData();
+  }
+
 }
