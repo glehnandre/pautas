@@ -113,7 +113,7 @@ export class ResultadoJulgamentoComponent implements OnInit {
 
   public decisaoSalvaViaPost({decisao}): void {
     const index = this.decisoesSalvasViaPost
-      .findIndex(dec => Object.values(dec).toString() === Object.values(decisao).toString());
+      .findIndex(dec => JSON.stringify(dec) === JSON.stringify(decisao));
     
     if (index === -1) {
       this.decisoesSalvasViaPost.push(decisao);
@@ -124,7 +124,7 @@ export class ResultadoJulgamentoComponent implements OnInit {
 
   public isDecisaoJaSalva(): boolean {
     const index = this.decisoesSalvasViaPost
-      .findIndex(dec => Object.values(dec).toString() === Object.values(this.decisaoSelecionada.decisao).toString());
+      .findIndex(dec => JSON.stringify(dec) === JSON.stringify(this.decisaoSelecionada.decisao));
 
     return (index !== -1);
   }

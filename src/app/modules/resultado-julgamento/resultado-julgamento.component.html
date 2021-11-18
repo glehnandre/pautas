@@ -156,8 +156,8 @@
                                                             <!-- Title & Placeholder -->
                                                             <div class="flex-auto mr-2 truncate">
                                                                 <ng-container class="flex items-center justify-center">
-                                                                    <p class="my-auto">
-                                                                        {{(i+1)}}º decisão: <strong>{{item.decisao.tipo}}</strong>
+                                                                    <p class="my-auto" [matTooltip]="item.decisao.descricao">
+                                                                        {{(i+1)}}º decisão: {{item.decisao.tipo}} - <strong class="text-primary-500">{{item.decisao.dispositivo}}</strong>
                                                                     </p>
                                                                 </ng-container>
                                                             </div>
