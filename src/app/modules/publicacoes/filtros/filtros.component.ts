@@ -129,7 +129,7 @@ export class FiltrosComponent implements OnInit{
   limparDatas(){
     this.data_inicio = null;
     this.data_fim = null;
-    this.filtrarData();
+    this.filtrar();
   }
 
 }

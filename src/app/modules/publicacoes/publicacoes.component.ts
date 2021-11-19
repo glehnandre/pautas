@@ -76,7 +76,7 @@ export class PublicacoesComponent implements OnInit, OnDestroy {
   }
 
   /**
-   * Filtra em publicações os termos já pesquisados antes
+   * Filtra, nas publicações, os termos já pesquisados antes
    */
   refazPesquisa(){
     this.pesquisas.forEach((pesquisa, i)=>{
@@ -84,7 +84,7 @@ export class PublicacoesComponent implements OnInit, OnDestroy {
       let filtros = [];
       termos.forEach(termo=>{
         if(termo){
-            this.filtrar("filtrados", termo).forEach(filtrado=>{
+            this.filtrar(termo).forEach(filtrado=>{
               if(filtros.indexOf(filtrado)==-1) filtros.push(filtrado);
             })
           this.filtrados = filtros;
@@ -106,7 +106,7 @@ export class PublicacoesComponent implements OnInit, OnDestroy {
     let filtros = [];
 
     termos.forEach(termo=>{
-        this.filtrar("filtrados", termo).forEach(filtrado=>{
+        this.filtrar(termo).forEach(filtrado=>{
         if(filtros.indexOf(filtrado)==-1) filtros.push(filtrado);
       })
     });
@@ -118,31 +118,18 @@ export class PublicacoesComponent implements OnInit, OnDestroy {
 
   /**
    * Retorna um vetor de PublicaoDto com as publicações filtradas
-   * @param campo informa em qual campo será filtrado o termo, podendo ser em "publicacoes"
-   * ou em "filtrados"
    * @param termo string que servirá para fazer o filtro
    */
-  filtrar(campo: string, termo: string): PublicacaoDto[]{
+  filtrar(termo: string): PublicacaoDto[]{
     let filtros = [];
-    if(campo=="publicacoes"){
-      filtros = this.publicacoes.filter(publicacao=>{
-        return publicacao.relator.toLowerCase().includes(termo.toLowerCase())
-            || publicacao.tipo.toLowerCase().includes(termo.toLowerCase())
-            || publicacao.processo.toLowerCase().includes(termo.toLowerCase())
-            || publicacao.envolvidos.find(envolvido=>envolvido.nome.toLowerCase().includes(termo.toLowerCase()))
-            || publicacao.envolvidos.find(envolvido=>envolvido.identificacoes.find(identificacao=>identificacao.toLowerCase().includes(termo.toLowerCase())));
-      })
-    }
-    else
-      filtros = this.filtrados.filter(publicacao=>{
-        return publicacao.relator.toLowerCase().includes(termo.toLowerCase())
-            || publicacao.tipo.toLowerCase().includes(termo.toLowerCase())
-            || publicacao.processo.toLowerCase().includes(termo.toLowerCase())
-            || publicacao.envolvidos.find(envolvido=>envolvido.nome.toLowerCase().includes(termo.toLowerCase()))
-            || publicacao.envolvidos.find(envolvido=>envolvido.identificacoes.find(identificacao=>identificacao.toLowerCase().includes(termo.toLowerCase())));
-      })
-      
-    //console.log(filtros);
+    filtros = this.filtrados.filter(publicacao=>{
+      return publicacao.relator.toLowerCase().includes(termo.toLowerCase())
+          || publicacao.tipo.toLowerCase().includes(termo.toLowerCase())
+          || publicacao.processo.toLowerCase().includes(termo.toLowerCase())
+          || publicacao.envolvidos.find(envolvido=>envolvido.nome.toLowerCase().includes(termo.toLowerCase()))
+          || publicacao.envolvidos.find(envolvido=>envolvido.identificacoes.find(identificacao=>identificacao.toLowerCase().includes(termo.toLowerCase())));
+    })
+    
     return filtros;
     
   }
@@ -171,8 +158,9 @@ export class PublicacoesComponent implements OnInit, OnDestroy {
    */
   trataFiltros(filtros: any[]){
       filtros.forEach(filtro=>{
-        this.filtrados = this.filtrar("filtrados", filtro)
+        this.filtrados = this.filtrar(filtro)
       })
+      this.hasFiltros = true;
   }
 
   /**
@@ -183,6 +171,7 @@ export class PublicacoesComponent implements OnInit, OnDestroy {
   removeFiltros(event: any){
       if(this.pesquisas.length!=0) this.refazPesquisa();
       else this.filtraData(event);
+      this.hasFiltros = true;
   }
 
   /**
@@ -192,20 +181,22 @@ export class PublicacoesComponent implements OnInit, OnDestroy {
    */
   filtraData(event: any){
     if(!event.data_inicio) {
-      this.filtrados = this.publicacoes;
-      return;
+        this.filtrados = this.publicacoes;
     }
-    let data_inicio: Date = new Date(event.data_inicio.toString().slice(0, 16));
-    let data_fim: Date = new Date(event.data_fim.toString().slice(0, 16));
-    let filtros = [];
+    else{
+      let data_inicio: Date = new Date(event.data_inicio.toString().slice(0, 16));
+      let data_fim: Date = new Date(event.data_fim.toString().slice(0, 16));
+      let filtros = [];
 
-    filtros = this.publicacoes.filter(publicacao=>{
-      const data_publicacao = new Date(new Date(publicacao.publicacao).setHours(0,0,0,0));
-      return data_publicacao >= data_inicio 
-          && data_publicacao <= data_fim;
-    })
-      this.filtrados = filtros;
-      this.refazPesquisa();
+      filtros = this.publicacoes.filter(publicacao=>{
+        const data_publicacao = new Date(new Date(publicacao.publicacao).setHours(0,0,0,0));
+        return data_publicacao >= data_inicio 
+            && data_publicacao <= data_fim;
+      })
+        this.filtrados = filtros;
+    }
+    
+    this.refazPesquisa();
   }
 
 }
