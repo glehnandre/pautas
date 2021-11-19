@@ -1,6 +1,6 @@
 <div class="absolute inset-0 flex flex-col min-w-0 overflow-hidden">
     <!-- Header -->
-    <div class="justify-center px-4 pb-2 bg-white dark:bg-gray-800">
+    <div class="justify-center px-2 sm:px-4 pb-2 bg-white dark:bg-gray-800">
         <h1 class="mt-4 text-primary font-medium text-base sm:text-xl md:text-2xl w-full">
             Revisar Extrato da Ata Sessão {{ sessao?.categoria }}
             {{ sessao?.numero }}/{{ sessao?.ano }}
@@ -58,59 +58,12 @@
     </div>
 
     <!-- Body -->
-    <div class="flex flex-col w-full my-4 items-center space-y-4 overflow-y-auto" cdkScrollable
-        *ngFor="let publicacao of publicacoes"
-    >
-        <div
-          class="mx-8 w-11/12 bg-white dark:bg-gray-800"
-          *ngFor="let capitulo of publicacao.capitulos">
-            <div class="flex flex-row w-full text-white">
-                <div class="flex flex-col bg-blue-900 p-2 items-center space-x-2">
-                    <div class="flex flex-row">
-                        <mat-icon class="hidden sm:block text-current" [svgIcon]="'heroicons_outline:calendar'"></mat-icon>
-                        <span class="text-base sm:text-4xl font-medium">25</span>
-                    </div>
-                    <span class="text-xs sm:text-base">set/21</span>
-                </div>
-                <div class="flex flex-col bg-primary p-2 w-full">
-                    <div>
-                        <span class="text-base sm:text-2xl">{{ capitulo?.descricao.toUpperCase() }}</span>
-                    </div>
-                    <div class="text-xs sm:text-base">
-                        <span> Condutor{{ capitulo?.ministro_condutor?.genero == 'Masculino' ? '': 'a' }} do Capitulo </span>
-                        <span class="font-medium">{{ capitulo?.ministro_condutor?.nome }}</span>
-                    </div>
-
-                </div>
-            </div>
-            <div class="flex flex-col sm:flex-row m-8 text-xs sm:text-base">
-                <div class="flex flex-col w-full sm:w-1/2">
-                    <div *ngIf="capitulo?.ministros_impedidos">
-                        <span>{{ _ministroService.generoEPlural(capitulo?.ministros_impedidos, FraseImpedidos) }}</span>
-                        <span class="font-medium">{{ nomesMinistros(capitulo?.ministros_impedidos) }}
-                        </span>
-                    </div>
-                    <div *ngIf="capitulo?.ministros_suspeitos">
-                        <span>{{ _ministroService.generoEPlural(capitulo?.ministros_suspeitos, FraseSuspeitos) }}</span>
-                        <span class="font-medium">{{ nomesMinistros(capitulo?.ministros_suspeitos) }}
-                        </span>
-                    </div>
-                </div>
-                <div class="flex flex-col w-full sm:w-1/2">
-                    <div *ngIf="capitulo?.ministros_acordam">
-                        <span>{{ _ministroService.generoEPlural(capitulo?.ministros_acordam, FraseVencidos) }}</span>
-                        <span class="font-medium">{{ nomesMinistros(capitulo?.ministros_acordam) }}
-                        </span>
-                    </div>
-                    <div *ngIf="capitulo?.ministro_condutor">
-                        <span>{{ _ministroService.generoEPlural([capitulo?.ministros_acordam], FraseCondutor) }} do Capitulo: </span>
-                        <span class="font-medium">{{ capitulo?.ministro_condutor?.nome }}
-                        </span>
-                    </div>
-                </div>
-            </div>
-            <hr>
-            <div class="mx-8 mb-4 text-xs sm:text-base" [innerHtml]="capitulo?.texto"></div>
-        </div>
+    <div class="overflow-y-auto w-full" cdkScrollable>
+        <app-extrato-ata
+          *ngIf="ata"
+          [sessao]="sessao"
+          [publicacoes]="ata['capitulos para publicacao']"
+          [form]="form"
+        ></app-extrato-ata>
     </div>
 </div>

@@ -17,6 +17,7 @@ import { MatRadioModule } from '@angular/material/radio';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatInputModule } from '@angular/material/input';
+import { ExtratoAtaComponent } from './extrato-ata/extrato-ata.component';
 
 const RevisarExtratoAtaRoute: Routes = [
     { path: '', component: RevisarExtratoAtaComponent}
@@ -27,6 +28,7 @@ const RevisarExtratoAtaRoute: Routes = [
     RevisarExtratoAtaComponent,
     StackedBarProcessosComponent,
     PublicarFormComponent,
+    ExtratoAtaComponent,
   ],
   imports: [
     CommonModule,

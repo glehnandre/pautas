@@ -3,11 +3,11 @@
     <div class="flex flex-0 h-16 px-8
         items-center justify-between bg-primary text-on-primary"
     >
-        <div class="text-lg font-medium">Revisar Decisão</div>
+        <div class="text-lg mt-2 sm:mt-0 font-medium">Revisar Decisão</div>
     </div>
 
     <!-- Formulário -->
-    <form [formGroup]="formPublicacao" class="flex flex-col p-2 sm:p-4 overflow-y-auto max-h-80" cdkScrollable>
+    <form [formGroup]="formPublicacao" class="flex flex-col sm:flex-row space-x-0 sm:space-x-4 p-2 sm:p-4">
         <!-- Selecionar Presença e Presidencia dos Ministros -->
         <div class="flex flex-col space-y-2">
             <div class="flex flex-row sm:-mr-2 text-bold space-x-2">
@@ -78,38 +78,44 @@
                 </mat-select>
             </mat-form-field>
         </div>
+        <div class="flex flex-col -mt-2">
+            <!-- Selecionar Acessor Chefe -->
+            <mat-form-field class="w-full mt-2" appearance="fill">
+                <mat-label>
+                    Acessor Chefe da Sessão de Julgamento
+                    <span class="text-red-500">*</span>
+                </mat-label>
+                <input matInput type="text" formControlName="acessor">
+                <mat-hint>Informe o nome completo do Acessor Chefe da Sessão de Julgamento</mat-hint>
+            </mat-form-field>
 
-        <!-- Selecionar Acessor Chefe -->
-        <mat-form-field class="w-full mt-2" appearance="fill">
-            <mat-label>Acessor Chefe<span class="text-red-500">*</span></mat-label>
-            <input matInput type="text" formControlName="acessor">
-        </mat-form-field>
-
-        <mat-radio-group
-            color="primary"
-            class="flex flex-col space-y-2"
-            formControlName="opcaoData"
-        >
-            <mat-radio-button
-                *ngFor="let opcao of opcoesDataPublicacao"
-                [value]="opcao.value"
+            <!-- Selecionar Data de Publicação -->
+            <mat-radio-group
+                color="primary"
+                class="flex flex-col space-y-2"
+                formControlName="opcaoData"
             >
-                {{ opcao.view }}
-            </mat-radio-button>
-        </mat-radio-group>
-        <mat-form-field
-          class="w-full my-4" appearance="fill"
-          *ngIf="formPublicacao.getRawValue().opcaoData == 2"
-        >
-            <mat-label class="font-medium mb-2">Selecionar Data:</mat-label>
+                <mat-radio-button
+                    *ngFor="let opcao of opcoesDataPublicacao"
+                    [value]="opcao.value"
+                >
+                    {{ opcao.view }}
+                </mat-radio-button>
+            </mat-radio-group>
+            <mat-form-field
+              class="w-full mt-4" appearance="fill"
+              *ngIf="formPublicacao.getRawValue().opcaoData == opcoesDataPublicacao[2].value"
+            >
+                <mat-label class="font-medium mb-2">Selecionar Data:</mat-label>
 
-            <input matInput [matDatepicker]="dp" [formControl]="date" formControlName="dataPublicacao">
-            <mat-datepicker-toggle matSuffix [for]="dp"></mat-datepicker-toggle>
-            <mat-datepicker #dp></mat-datepicker>
-        </mat-form-field>
+                <input matInput [matDatepicker]="dp" [formControl]="date" formControlName="dataPublicacao">
+                <mat-datepicker-toggle matSuffix [for]="dp"></mat-datepicker-toggle>
+                <mat-datepicker #dp></mat-datepicker>
+            </mat-form-field>
+        </div>
     </form>
     <div class="flex flex-row m-4 space-x-4">
-        <button class="ml-auto" mat-raised-button>Cancelar</button>
+        <button class="ml-auto" mat-raised-button mat-dialog-close>Cancelar</button>
         <button color="primary" mat-raised-button (click)="salvar()" [disabled]="formPublicacao.invalid">Salvar</button>
     </div>
 </div>

@@ -33,33 +33,8 @@ export class RevisarExtratoAtaComponent implements OnInit {
   data_fim: Date;
   ata: Ata;
   publicacoes: CapitulosParaPublicacao[];
+  form: any;
   tags: string[];
-
-  FraseImpedidos: Frase = {
-    F:'Ministra que se declara impedida: ',
-    M: 'Ministro que se declara impedido: ',
-    PF:'Ministras que se declaram impedidas: ',
-    PM:'Ministros que se declaram impedidos: ',
-  };
-
-  FraseSuspeitos: Frase = {
-    F:'Ministra que se declara suspeita: ',
-    M: 'Ministro que se declara suspeito: ',
-    PF:'Ministras que se declaram suspeitas: ',
-    PM:'Ministros que se declaram vencidos: ',
-  };
-
-  FraseVencidos: Frase = {
-    F:'Ministra que se declara vencida: ',
-    M: 'Ministro que se declara vencido: ',
-    PF:'Ministras que se declaram vencidas: ',
-    PM:'Ministros que se declaram vencidos: ',
-  };
-
-  FraseCondutor: Frase = {
-      F: 'Ministro Condutor',
-      M: 'Ministra Condutora',
-  }
 
   constructor(
       private _julgamentoService: JulgamentoService,
@@ -94,24 +69,38 @@ export class RevisarExtratoAtaComponent implements OnInit {
       });
   }
 
-  /**
-   * recebe lista de Ministro e retorna o(s) nome(s)
-   * @param ministros Ministro[]
-   * @returns string
-  **/
-  nomesMinistros(ministros: Ministro[]): string {
-    return this._ministroService.ministrosString(ministros);
+  recuperaSessao(numero: number, ano: number) {
+    this._julgamentoService
+      .listarSessoesDeJulgamento(numero, ano)
+      .subscribe({
+        next: (sessao) => {
+          return sessao;
+        }
+      });
   }
 
   /**
    * Abre o Formulário para Publicar Extrato
   **/
   publicar(): void {
-    const dialogRef = this._matDialog
-      .open(PublicarFormComponent, { maxHeight: '560px', data: this.sessao });
+    let dialogRef;
+    if (screen.width < 500) {
+      const full = '105%'
+      dialogRef = this._matDialog
+        .open(PublicarFormComponent, {
+          data: this.sessao,
+          width: full,  maxWidth: full,
+          height: full, maxHeight: full,
+        });
+
+    }
+    else
+      dialogRef = this._matDialog
+        .open(PublicarFormComponent, { data: this.sessao });
 
     dialogRef.afterClosed().subscribe({
       next: (form) => {
+        this.form = form;
         console.log(form);
       }
     });

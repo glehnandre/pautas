@@ -1,0 +1,66 @@
+<div class="flex flex-col my-4 space-y-4">
+    <div
+      class="flex flex-col items-center"
+      *ngFor="let publicacao of publicacoes"
+    >
+        <div class="flex flex-row w-11/12 text-white">
+            <div class="flex flex-col bg-blue-900 p-2 items-center space-x-2">
+                <div class="flex flex-row">
+                    <mat-icon class="hidden sm:block text-current" [svgIcon]="'heroicons_outline:calendar'"></mat-icon>
+                    <span class="text-base sm:text-4xl font-medium">{{ sessao?.data_inicio | date: 'dd'}}</span>
+                </div>
+                <span class="text-xs sm:text-base">{{ sessao?.data_inicio | date: 'MMM/yyyy':'':'pt-BR'}}</span>
+            </div>
+            <div class="flex flex-col bg-primary p-2 w-full">
+                <div>
+                    <span class="text-base sm:text-2xl">{{ publicacao?.cadeia + publicacao?.numero + publicacao?.classe }}</span>
+                </div>
+                <div class="text-xs sm:text-base">
+                    <span>Relatoria </span>
+                    <span class="font-medium">
+                        Ministr{{ publicacao?.relator?.genero == 'Masculino' ? 'o': 'a' }}
+                        {{ publicacao?.relator?.nome }}
+                    </span>
+                </div>
+            </div>
+        </div>
+        <div class="flex flex-col w-11/12 bg-white dar:bg-gray-800 text-xs sm:text-base">
+
+            <div class="w-full" *ngFor="let capitulo of publicacao?.capitulos">
+                <div class="flex flex-col sm:flex-row justify-between m-8">
+                    <div class="flex flex-col w-full">
+                        <div [innerHtml]="fraseEMinistros(capitulo?.ministros_impedidos, FraseImpedidos)"></div>
+                        <div [innerHtml]="fraseEMinistros(capitulo?.ministros_suspeitos, FraseSuspeitos)"></div>
+                    </div>
+                    <div class="flex flex-col w-full">
+                        <div [innerHtml]="fraseEMinistros(capitulo?.ministros_acordam, FraseVencidos)"></div>
+                        <div [innerHtml]="fraseEMinistros([capitulo?.ministro_condutor], FraseCondutor)"></div>
+                    </div>
+                </div>
+                <div class="text-center">
+                    <h1>Extrato da Ata</h1>
+                    <h2>
+                        {{ capitulo?.descricao }}
+                    </h2>
+                </div>
+                <div class="pl-4 sm:pl-8 p-2">
+                    <div [innerHtml]="capitulo?.texto"></div>
+                    <div
+                      *ngIf="form?.ministrosPresentes"
+                      [innerHtml]="fraseEMinistros(form?.ministrosPresentes, FrasePresentes)"
+                    ></div>
+                </div>
+                <hr class="my-2">
+            </div>
+            <div class="text-center my-4">
+                <footer>
+                    Brasília, {{ sessao?.data_inicio | date: 'dd' }} de
+                    {{ sessao?.data_inicio | date: 'MMMM':'':'pt-BR' }} de
+                    {{ sessao?.data_inicio | date: 'YYYY' }}
+                </footer>
+                <footer>{{ form?.acessor?form?.acessor:'' }}</footer>
+                <footer *ngIf="form?.acessor">Acessor(a) Chefe do Plenário</footer>
+            </div>
+        </div>
+    </div>
+</div>

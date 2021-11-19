@@ -39,10 +39,10 @@ export const decisoes: Array<DecisoesResultadoJulgamento> = [
 ];
 
 export const ata: Ata = {
-    total_julgados: 4,
-    total_vista: 2,
-    total_destaque: 3,
-    total_nao_julgados: 6,
+    total_julgados: 3,
+    total_vista: 5,
+    total_destaque: 0,
+    total_nao_julgados: 1,
     total_suspensos: 1,
     "capitulos para publicacao": [
       {
@@ -55,6 +55,26 @@ export const ata: Ata = {
           capitulo[0],
           capitulo[1],
           capitulo[2],
+        ]
+      },
+      {
+        classe: "string",
+        numero: "string",
+        cadeia: "string",
+        relator: ministro[1],
+        redator: ministro[9],
+        capitulos: [
+          capitulo[3],
+        ]
+      },
+      {
+        classe: "string",
+        numero: "string",
+        cadeia: "string",
+        relator: ministro[2],
+        redator: ministro[8],
+        capitulos: [
+          capitulo[4],
         ]
       }
     ]

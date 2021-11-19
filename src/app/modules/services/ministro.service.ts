@@ -64,10 +64,14 @@ export class MinistroService {
   }
 
   /**
-   * Recebe uma lista de @Ministro e retorna o seu(s) nome(s) em uma única string
-   * @param ministros
-   * @returns string
-   *   @example 'Carmém Lúcia e Rosa Weber'
+   * @description Recebe uma lista de Ministro e
+   * retorna o(s) seu(s) nome(s) em uma única string
+   *
+   * @param (ministros: Ministro[])
+   *
+   * @return nome dos Ministros string
+   *
+   * @author Rodrigo Carvalho dos Santos
    */
   ministrosString(ministros: Ministro[]): string {
     if(ministros.length == 1) return ministros[0].nome;
@@ -78,13 +82,16 @@ export class MinistroService {
    }
 
   /**
-   * Recebe uma lista de Ministro e a Frase e verifica se há mais de um Ministro
-   * Caso haja verifica o genêro adequado para usar na Frase
-   * @param ministros: Ministro[]
-   * @param frase: Frase
-   * @returns string
-   *   @example
-   *   Se todos ministros mulheres: 'Ministras que se declaram impedidas: '
+   * @description Recebe uma lista de Ministro e um objeto Frase
+   * e verifica se há mais de um Ministro e o genêro do(s) Ministro(s)
+   * para usar a frase correspondente.
+   *
+   * @params ministros: Ministro[], frase: Frase
+   *
+   * @return string da 'frase' correspondente a singular/plural
+   * e gênero dos Ministros
+   *
+   * @author Rodrigo Carvalho dos Santos
   **/
   generoEPlural(ministros: Ministro[], frase: Frase): string {
     return ministros.length == 1?
