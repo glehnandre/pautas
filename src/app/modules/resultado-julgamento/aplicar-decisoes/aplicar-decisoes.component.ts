@@ -1,5 +1,6 @@
 import { Component, EventEmitter, Input, OnChanges, OnInit, Output } from '@angular/core';
 import { Processo } from 'app/modules/acervo/model/interfaces/processo.interface';
+import { ProcessoService } from 'app/modules/services/processo.service';
 
 @Component({
   selector: 'app-aplicar-decisoes',
@@ -10,16 +11,22 @@ export class AplicarDecisoesComponent implements OnInit {
 
   @Input() selecionarTodos: boolean;
   @Input() desabilitar: boolean;
-  @Input() processos: Processo[] = [];
   @Input() processosParaAplicarAMesmaDecisao: number[] = [];
   @Output() obterProcessosSelecionados = new EventEmitter<number[]>();
-
+  
+  processos: Processo[] = [];
   processosSelecionados: number[] = [];
 
-  constructor() { }
+  constructor(
+    private _processoService: ProcessoService,
+  ) { }
 
   ngOnInit(): void {
-    
+    if (this.processos.length === 0) {
+      this._processoService.listarProcessos().subscribe(data => {
+        this.processos = data;
+      });
+    }    
   }
 
   public selecionaProcesso(processo: Processo) {

@@ -2,9 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { EMPTY, Observable } from 'rxjs';
 import { catchError } from 'rxjs/operators';
-import { Decisao, DecisoesResultadoJulgamento } from '../acervo/model/interfaces/decisao.interface';
-import { Processo } from '../acervo/model/interfaces/processo.interface';
-import { SessaoJulgamento } from '../acervo/model/interfaces/sessao-julgamento.interface';
+import { DecisoesResultadoJulgamento } from '../acervo/model/interfaces/decisao.interface';
 
 @Injectable({
   providedIn: 'root'
