@@ -42,15 +42,12 @@ export class AplicarDecisoesComponent implements OnInit, OnChanges {
   }
 
   public selecionarProcesso(e: EventEmitter<MatCheckboxChange>, processo: Processo) {
-    console.log(e)
     const index = this.processosSelecionados.findIndex(id => id === processo.id);
 
     if (index !== -1) {
       this.processosSelecionados.splice(index, 1);
     } else {
-      if (e['checked']) {
-        this.processosSelecionados.push(processo.id);
-      }
+      this.processosSelecionados.push(processo.id);
     }
 
     this.obterProcessosSelecionados.emit(this.processosSelecionados);

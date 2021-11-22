@@ -33,8 +33,6 @@ export class DecisaoMockApi {
         .reply(({request, urlParams}) => {
           const idProcesso = +urlParams.id;
           const { decisao, processos_mesma_decisao } = request.body;
-          const processos = [];
-          processos_mesma_decisao.forEach(id => processos.push(this._obterProcessoPeloId(id)));
           
           if (idProcesso) {
             const index = this._decisoes[0].decisoes
@@ -45,7 +43,7 @@ export class DecisaoMockApi {
               this._decisoes[0].decisoes.splice(index, 1);
               this._decisoes[0].decisoes.push({
                 capitulo: decisao,
-                processos_mesma_decisao: processos,
+                processos_mesma_decisao,
               });
             } else {
               this._decisoes[0].decisoes.push({
@@ -53,7 +51,7 @@ export class DecisaoMockApi {
                   id: this._decisoes[0].decisoes.length + 1,
                   ...decisao,
                 },
-                processos_mesma_decisao: processos,
+                processos_mesma_decisao,
               });
             }
 
@@ -90,8 +88,4 @@ export class DecisaoMockApi {
         });
 
     }
-
-  private _obterProcessoPeloId(id: number): Processo {
-    return processo.find(p => p.id === id);
-  }
 }

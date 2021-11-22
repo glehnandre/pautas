@@ -65,7 +65,6 @@ export class FormDecisaoComponent implements OnInit, OnChanges {
   ) {}
 
   ngOnInit(): void {
-    this._desabilitarEdicaoDoFormulario();
     this._recarregarOsDados();
   }
 
@@ -76,6 +75,8 @@ export class FormDecisaoComponent implements OnInit, OnChanges {
   private _desabilitarEdicaoDoFormulario(): void {
     if (this.decisao.capitulo.id && this.decisao.capitulo.id > 0) {
       this.isDesabilitarForm = true;
+    } else {
+      this.isDesabilitarForm = false;
     }
   }
 
@@ -97,6 +98,12 @@ export class FormDecisaoComponent implements OnInit, OnChanges {
       e['value'] = this.decisao.capitulo.tipo;
       this.buscarDispositivos(e);
     }
+
+    this.idsDosProcessos = [];
+    this.decisao.processos_mesma_decisao
+      .forEach(id => this.idsDosProcessos.push(+id));
+
+    this._desabilitarEdicaoDoFormulario();
   }
 
   public buscarDispositivos(event: EventEmitter<MatSelectChange>): void {
@@ -106,7 +113,6 @@ export class FormDecisaoComponent implements OnInit, OnChanges {
 
   public setIdsDosProcessosSelecionados(idsProcessos: number[]): void {
     this.idsDosProcessos = idsProcessos;
-    console.log(this.idsDosProcessos)
   }
 
   public adicionarDecisao(): void {
