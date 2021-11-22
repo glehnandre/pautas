@@ -81,19 +81,30 @@
                                                 Decisões
                                             </span>
                                         </div>
+                                        <!-- Actions -->
+                                        <div class="mt-4 sm:mt-0 flex justify-between items-center">
+                                            <button mat-raised-button color="primary" (click)="limparDecisaoSelecionada()">
+                                                <mat-icon class="mr-1" svgIcon="heroicons_outline:plus-circle"></mat-icon>
+                                                Nova decisão
+                                            </button>
+                
+                                            <button class="ml-4" *ngIf="!verificaLarguraDaTela()" mat-mini-fab color="primary" (click)="matDrawer.toggle()">
+                                                <mat-icon svgIcon="heroicons_outline:arrow-left"></mat-icon>
+                                            </button>
+                                        </div>
                                     </div>
                     
                                     <!-- decisoes list -->
-                                    <ng-container *ngIf="decisoes && decisoes.length > 0; else semDecisoes">
+                                    <ng-container *ngIf="getDecisoes().length > 0; else semDecisoes">
                                         <div
                                             class="divide-y focus-within:shadow-lg"
                                             cdkDropList
-                                            [cdkDropListData]="decisoes"
+                                            [cdkDropListData]="getDecisoes()"
                                             (cdkDropListDropped)="dropped($event)"
                                         >
                     
                                             <!-- Task -->
-                                            <ng-container *ngFor="let item of decisoes; index as i; let first = first; trackBy: trackByFn">
+                                            <ng-container *ngFor="let item of getDecisoes(); index as i; let first = first; trackBy: trackByFn">
                                                 <div
                                                     class="group w-full select-none hover:bg-gray-100 dark:hover:bg-hover"
                                                     [class.border-t]="first"
@@ -112,7 +123,7 @@
                     
                                                         <!-- Selected indicator -->
                                                         <ng-container 
-                                                            *ngIf="marcaDecisaoSelecionada(decisaoSelecionada, item)"
+                                                            *ngIf="isMarcarDecisao(item)"
                                                         >
                                                             <div class="z-10 absolute -top-px right-0 -bottom-px flex flex-0 w-1 bg-primary"></div>
                                                         </ng-container>
@@ -131,13 +142,13 @@
                                                         <!-- Task link -->
                                                         <a
                                                             class="flex flex-auto py-2 items-center min-w-0 h-full pr-7"
-                                                            (click)="alterarDadosDoFormulario(item)"
+                                                            (click)="setDecisaoSelecionada(null); setDecisaoSelecionada(item)"
                                                         >
                                                             <!-- Title & Placeholder -->
                                                             <div class="flex-auto mr-2 truncate">
                                                                 <ng-container class="flex items-center justify-center">
-                                                                    <p class="my-auto">
-                                                                        {{(i+1)}}º decisão: <strong>{{item.decisao.tipo}}</strong>
+                                                                    <p class="my-auto" [matTooltip]="item.capitulo.descricao">
+                                                                        {{(i+1)}}º decisão: {{item.capitulo.tipo}} - <strong class="text-primary-500">{{item.capitulo.dispositivo}}</strong>
                                                                     </p>
                                                                 </ng-container>
                                                             </div>
@@ -187,23 +198,19 @@
                     <div class="">
                         <div id="menu-decisao" class="w-full p-4 overflow-y-auto">
                             <app-form-decisao
-                                *ngIf="!decisaoSelecionada; else casoAlgumFormDecisaoSejaSelecionado"
-                                [dispositivos]="dispositivos"
-                                [processo]="parametros.processo"
-                                [processosMesmaDecisoes]="processosMesmaDecisoes"
-                                (decisaoCadastrada)="obterDadosDaDecisao($event); limparDecisaoSelecionada()"
+                                *ngIf="!decisaoSelecionada; else exibirDecisaoNoForm"
+                                [isExibirBtnAdicionarDecisao]="true"
+                                (dadosDaDecisao)="setDecisaoAdicionada($event)"
                             ></app-form-decisao>
 
-                           <ng-template #casoAlgumFormDecisaoSejaSelecionado>
+                            <ng-template #exibirDecisaoNoForm>
                                 <app-form-decisao
-                                    [decisao]="decisaoSelecionada.decisao"
-                                    [idsProcessosSelecionados]="decisaoSelecionada.processos_mesma_decisao"
-                                    [dispositivos]="dispositivos"
-                                    [processo]="parametros.processo"
-                                    [processosMesmaDecisoes]="processosMesmaDecisoes"
-                                    [desabilitarForm]="isDecisaoJaSalva()"
-                                    (decisaoCadastrada)="decisaoSalvaViaPost($event)"
-                                    (decisaoExcluida)="removerDecisao($event); limparDecisaoSelecionada()"
+                                    [idProcesso]="parametros.processo"
+                                    [decisao]="decisaoSelecionada"
+                                    [isExibirBtnSalvarDecisao]="true"
+                                    [isExibirBtnExcluirDecisao]="true"
+                                    (dadosDaDecisao)="removerDecisao($event)"
+                                    (excluirDadosDaDecisao)="removerDecisao($event)"
                                 ></app-form-decisao>
                             </ng-template>
                         </div>

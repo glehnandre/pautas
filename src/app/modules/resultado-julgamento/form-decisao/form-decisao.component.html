@@ -50,7 +50,10 @@
                         {{formDecisao.controls['ministros_acordam'].value.length === 2 ? 'outro' : 'outros'}})
                     </span>
                 </mat-select-trigger>
-                <mat-option *ngFor="let ministro of (ministros$ | async)" [value]="ministro.nome">
+                <mat-option 
+                    *ngFor="let ministro of (ministros$ | async)" 
+                    [value]="ministro.nome"
+                >
                     <div class="flex items-center">
                         <div>
                             <img class="w-8 h-8 mr-4" [src]="ministro.imagem">
@@ -82,11 +85,10 @@
     </div>
 
     <app-aplicar-decisoes
-        [selecionarTodos]="selecionarTodos"
-        [processos]="processosMesmaDecisoes"
-        [desabilitar]="desabilitarForm"
-        [processosParaAplicarAMesmaDecisao]="idsProcessosSelecionados"
-        (obterProcessosSelecionados)="obterProcessos($event)"
+        [desabilitar]="isDesabilitarForm"
+        [limparProcessosSelecionados]="limparProcessosSelecionados"
+        [processosParaAplicarAMesmaDecisao]="decisao.processos_mesma_decisao"
+        (obterProcessosSelecionados)="setIdsDosProcessosSelecionados($event)"
     ></app-aplicar-decisoes>
 
     <mat-form-field class="w-full mb-4" appearance="outline">
@@ -97,35 +99,35 @@
 
     <p class="mt-4 text-center flex flex-row gap-4 justify-end items-end">
         <button 
-            *ngIf="!isDecisao()" 
-            class="max-w-full" 
             mat-raised-button 
+            class="max-w-full" 
             color="primary"
-            [disabled]="formDecisao.invalid" 
-            (click)="cadastrarDecisao()"
+            *ngIf="isExibirBtnAdicionarDecisao"
+            [disabled]="formDecisao.invalid || isDesabilitarForm"
+            (click)="adicionarDecisao()"
         >
             <mat-icon class="mr-1">add_circle</mat-icon>
             {{'Adicionar decisão' | uppercase}}
         </button>
 
         <button
-            class="mr-4"
-            *ngIf="isDecisao()" 
             mat-raised-button 
+            class="mr-4"
             color="warn" 
+            *ngIf="isExibirBtnExcluirDecisao"
+            [disabled]="isDesabilitarForm"
             (click)="excluirDecisao()"
-            [disabled]="formDecisao.invalid || isDecisaoSalva || desabilitarForm"
         >
             <mat-icon class="mr-1">delete</mat-icon>
             {{'Excluir decisão' | uppercase}}
         </button>
 
         <button 
-            *ngIf="isDecisao()"  
             mat-raised-button 
             color="primary" 
+            *ngIf="isExibirBtnSalvarDecisao"
+            [disabled]="formDecisao.invalid || isDesabilitarForm"
             (click)="salvarDecisao()"
-            [disabled]="formDecisao.invalid || isDecisaoSalva || desabilitarForm"
         >
             <mat-icon class="mr-1">save</mat-icon>
             {{'Salvar decisão' | uppercase}}

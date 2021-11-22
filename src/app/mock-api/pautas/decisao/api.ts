@@ -1,6 +1,9 @@
 import { Injectable } from '@angular/core';
 import { FuseMockApiService } from '@fuse/lib/mock-api/mock-api.service';
 import { DecisoesResultadoJulgamento } from 'app/modules/acervo/model/interfaces/decisao.interface';
+import { Processo } from 'app/modules/acervo/model/interfaces/processo.interface';
+import { processo } from '../processos/data';
+import { sessao } from '../sessoes-julgamento/data';
 import { decisoes as decisoesData } from './data';
 
 @Injectable({
@@ -29,11 +32,33 @@ export class DecisaoMockApi {
         .onPost('processo/:id/decisoes')
         .reply(({request, urlParams}) => {
           const idProcesso = +urlParams.id;
-          const { decisao } = request.body;
+          const { decisao, processos_mesma_decisao } = request.body;
+          const processos = [];
+          processos_mesma_decisao.forEach(id => processos.push(this._obterProcessoPeloId(id)));
           
           if (idProcesso) {
-            return [201, {msg: 'ok'}];     
-          } 
+            const index = this._decisoes[0].decisoes
+              .findIndex(dec => JSON.stringify(dec.capitulo) === JSON.stringify(decisao));
+            
+            if (decisao.id) {
+              const index = this._decisoes[0].decisoes.findIndex(it => it.capitulo.id === decisao.id);
+              this._decisoes[0].decisoes.splice(index, 1);
+              this._decisoes[0].decisoes.push({
+                capitulo: decisao,
+                processos_mesma_decisao: processos,
+              });
+            } else {
+              this._decisoes[0].decisoes.push({
+                capitulo: {
+                  id: this._decisoes[0].decisoes.length + 1,
+                  ...decisao,
+                },
+                processos_mesma_decisao: processos,
+              });
+            }
+
+            return [201, this._decisoes[0]];     
+          }
 
           return [404, {
             description: "Nenhuma decisão encontrada.",
@@ -65,4 +90,8 @@ export class DecisaoMockApi {
         });
 
     }
+
+  private _obterProcessoPeloId(id: number): Processo {
+    return processo.find(p => p.id === id);
+  }
 }
