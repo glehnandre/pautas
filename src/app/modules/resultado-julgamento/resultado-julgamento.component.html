@@ -83,7 +83,7 @@
                                         </div>
                                         <!-- Actions -->
                                         <div class="mt-4 sm:mt-0 flex justify-between items-center">
-                                            <button mat-raised-button color="primary" (click)="limparDecisaoSelecionada()">
+                                            <button mat-raised-button color="primary" (click)="setDecisaoSelecionada(null)">
                                                 <mat-icon class="mr-1" svgIcon="heroicons_outline:plus-circle"></mat-icon>
                                                 Nova decisão
                                             </button>
@@ -142,7 +142,7 @@
                                                         <!-- Task link -->
                                                         <a
                                                             class="flex flex-auto py-2 items-center min-w-0 h-full pr-7"
-                                                            (click)="setDecisaoSelecionada(null); setDecisaoSelecionada(item)"
+                                                            (click)="recarregarComponenteFilho(); setDecisaoSelecionada(null); setDecisaoSelecionada(item)"
                                                         >
                                                             <!-- Title & Placeholder -->
                                                             <div class="flex-auto mr-2 truncate">
@@ -205,6 +205,8 @@
 
                             <ng-template #exibirDecisaoNoForm>
                                 <app-form-decisao
+                                    *ngIf="show"
+                                    [isDesabilitarForm]="isDecisaoSalva()"
                                     [idProcesso]="parametros.processo"
                                     [decisao]="decisaoSelecionada"
                                     [isExibirBtnSalvarDecisao]="true"

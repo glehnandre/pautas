@@ -40,6 +40,7 @@ export class ResultadoJulgamentoComponent implements OnInit {
   dispositivos: Manifestacao[] = [];
   decisoesAdicionadas: Array<Decisao> = [];
   decisaoSelecionada: Decisao = null;
+  show = false;
 
   readonly FORM_CADASTRO_DECISAO = 'formulario-de-cadastro-de-decisao';
 
@@ -112,6 +113,21 @@ export class ResultadoJulgamentoComponent implements OnInit {
       }
     }
   }
+
+  public isDecisaoSalva(): boolean {
+    if (this.decisaoSelecionada.capitulo.id !== undefined && this.decisaoSelecionada.capitulo.id > 0) {
+      return true;
+    }
+    return false;
+  }
+
+  public recarregarComponenteFilho(): void {
+    this.show = false;
+ 
+    setTimeout(() => {
+      this.show = true
+    }, 50);
+ }
 
   public finalizar(): void {
     alert('Tarefa finalizada');

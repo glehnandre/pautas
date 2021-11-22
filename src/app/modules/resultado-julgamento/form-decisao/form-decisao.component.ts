@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnChanges, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, OnDestroy, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatSelectChange } from '@angular/material/select';
 import { Capitulo } from 'app/modules/acervo/model/interfaces/capitulo.interface';
@@ -16,7 +16,7 @@ import { Observable } from 'rxjs';
   templateUrl: './form-decisao.component.html',
   styleUrls: ['./form-decisao.component.scss']
 })
-export class FormDecisaoComponent implements OnInit, OnChanges {
+export class FormDecisaoComponent implements OnInit, OnChanges, OnDestroy {
 
   formDecisao: FormGroup;
   ministros$: Observable<Ministro []>
@@ -72,12 +72,8 @@ export class FormDecisaoComponent implements OnInit, OnChanges {
     this._recarregarOsDados();
   }
 
-  private _desabilitarEdicaoDoFormulario(): void {
-    if (this.decisao.capitulo.id && this.decisao.capitulo.id > 0) {
-      this.isDesabilitarForm = true;
-    } else {
-      this.isDesabilitarForm = false;
-    }
+  ngOnDestroy(): void {
+    this.decisao = null;
   }
 
   private _recarregarOsDados(): void {
@@ -102,8 +98,6 @@ export class FormDecisaoComponent implements OnInit, OnChanges {
     this.idsDosProcessos = [];
     this.decisao.processos_mesma_decisao
       .forEach(id => this.idsDosProcessos.push(+id));
-
-    this._desabilitarEdicaoDoFormulario();
   }
 
   public buscarDispositivos(event: EventEmitter<MatSelectChange>): void {
