@@ -50,15 +50,6 @@
                             <span class="font-medium">
                                 Decisões
                             </span>
-
-                            <button mat-raised-button color="primary" (click)="setDecisaoSelecionada(null)">
-                                <mat-icon class="mr-1" svgIcon="heroicons_outline:plus-circle"></mat-icon>
-                                Nova decisão
-                            </button>
-
-                            <button *ngIf="!verificaLarguraDaTela()" mat-mini-fab color="primary" (click)="matDrawer.toggle()">
-                                <mat-icon svgIcon="heroicons_outline:arrow-left"></mat-icon>
-                            </button>
                         </div>
                     </div>
 
@@ -83,7 +74,7 @@
                                 <div class="flex flex-col flex-auto">
                     
                                     <!-- Header -->
-                                    <div class="flex flex-col sm:flex-row items-start sm:items-center sm:justify-between py-8 px-6 md:px-8">
+                                    <div class="flex flex-col sm:flex-row items-start sm:items-center sm:justify-between py-4 px-6 md:px-8">
                                         <!-- Title -->
                                         <div class="flex justify-center items-center">
                                             <span class="text-base sm:text-2xl font-medium leading-none">
@@ -92,7 +83,7 @@
                                         </div>
                                         <!-- Actions -->
                                         <div class="mt-4 sm:mt-0 flex justify-between items-center">
-                                            <button mat-raised-button color="primary" (click)="setDecisaoSelecionada(null)">
+                                            <button mat-raised-button color="primary" (click)="limparDecisaoSelecionada()">
                                                 <mat-icon class="mr-1" svgIcon="heroicons_outline:plus-circle"></mat-icon>
                                                 Nova decisão
                                             </button>
