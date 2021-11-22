@@ -84,6 +84,13 @@
         </mat-form-field>
     </div>
 
+    <app-aplicar-decisoes
+        [desabilitar]="isDesabilitarForm"
+        [limparProcessosSelecionados]="limparProcessosSelecionados"
+        [processosParaAplicarAMesmaDecisao]="decisao.processos_mesma_decisao"
+        (obterProcessosSelecionados)="setIdsDosProcessosSelecionados($event)"
+    ></app-aplicar-decisoes>
+
     <mat-form-field class="w-full mb-4" appearance="outline">
         <mat-label>Concordam os ministros <span class="text-red-500">*</span></mat-label>
         <textarea matInput rows="10" formControlName="texto"></textarea>

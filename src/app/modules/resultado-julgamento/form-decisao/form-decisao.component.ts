@@ -22,6 +22,8 @@ export class FormDecisaoComponent implements OnInit, OnChanges {
   ministros$: Observable<Ministro []>
   tipos$: Observable<string[]>; 
   dispositivos$: Observable<Dispositivo[]>;
+  idsDosProcessos: number[] = [];
+  limparProcessosSelecionados: boolean = false;
 
   @Input() idProcesso: number = 0;
   @Input() isDesabilitarForm: boolean = false;
@@ -49,7 +51,7 @@ export class FormDecisaoComponent implements OnInit, OnChanges {
 
   @Output() dadosDaDecisao = new EventEmitter<{
     capitulo: Capitulo;
-    processos_mesma_decisao: Processo[];
+    processos_mesma_decisao: number[];
   }>();
 
   @Output() excluirDadosDaDecisao = new EventEmitter<boolean>();
@@ -102,9 +104,14 @@ export class FormDecisaoComponent implements OnInit, OnChanges {
     this.dispositivos$ = this._dispositivoService.obterDispositivos(this.idProcesso, tipo);
   }
 
+  public setIdsDosProcessosSelecionados(idsProcessos: number[]): void {
+    this.idsDosProcessos = idsProcessos;
+  }
+
   public adicionarDecisao(): void {
     this._emitirOsDadosDaDecisao();
     this.formDecisao.reset();
+    this.limparProcessosSelecionados = true;
   }
 
   public excluirDecisao(): void {
@@ -115,7 +122,7 @@ export class FormDecisaoComponent implements OnInit, OnChanges {
     if (this.formDecisao.valid) {
       this._resultadoJulgamento.savarDecisao(this.idProcesso, {
         decisao: this.formDecisao.value,
-        processos_mesma_decisao: this.decisao.processos_mesma_decisao,
+        processos_mesma_decisao: this.idsDosProcessos,
       }).subscribe({
         next: (data) => {
           console.log('Decisao salva');
@@ -130,7 +137,7 @@ export class FormDecisaoComponent implements OnInit, OnChanges {
   private _emitirOsDadosDaDecisao(): void {
     this.dadosDaDecisao.emit({
       capitulo: this.formDecisao.value,
-      processos_mesma_decisao: this.decisao.processos_mesma_decisao,
+      processos_mesma_decisao: this.idsDosProcessos,
     });
   }
 

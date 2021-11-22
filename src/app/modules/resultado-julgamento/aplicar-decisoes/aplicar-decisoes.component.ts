@@ -7,26 +7,35 @@ import { ProcessoService } from 'app/modules/services/processo.service';
   templateUrl: './aplicar-decisoes.component.html',
   styleUrls: ['./aplicar-decisoes.component.scss']
 })
-export class AplicarDecisoesComponent implements OnInit {
+export class AplicarDecisoesComponent implements OnInit, OnChanges {
 
   @Input() selecionarTodos: boolean;
   @Input() desabilitar: boolean;
+  @Input() limparProcessosSelecionados: boolean = false;
   @Input() processosParaAplicarAMesmaDecisao: number[] = [];
   @Output() obterProcessosSelecionados = new EventEmitter<number[]>();
   
   processos: Processo[] = [];
   processosSelecionados: number[] = [];
+  isCarregando: boolean = true;
 
   constructor(
     private _processoService: ProcessoService,
-  ) { }
+  ) {
+    this._processoService.listarProcessos().subscribe(data => {
+      this.processos = data;
+      this.isCarregando = false;
+    });
+  }
 
-  ngOnInit(): void {
-    if (this.processos.length === 0) {
-      this._processoService.listarProcessos().subscribe(data => {
-        this.processos = data;
-      });
-    }    
+  ngOnInit(): void {}
+
+  ngOnChanges(): void {
+    if (this.limparProcessosSelecionados) {
+      this.processosSelecionados = [];
+      this.processosParaAplicarAMesmaDecisao = [];
+      this.selecionarTodos = false;
+    }
   }
 
   public selecionaProcesso(processo: Processo) {
