@@ -1,4 +1,5 @@
 import { Component, EventEmitter, Input, OnChanges, OnInit, Output } from '@angular/core';
+import { MatCheckboxChange } from '@angular/material/checkbox';
 import { Processo } from 'app/modules/acervo/model/interfaces/processo.interface';
 import { ProcessoService } from 'app/modules/services/processo.service';
 
@@ -28,7 +29,9 @@ export class AplicarDecisoesComponent implements OnInit, OnChanges {
     });
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.processosSelecionados = this.processosParaAplicarAMesmaDecisao;
+  }
 
   ngOnChanges(): void {
     if (this.limparProcessosSelecionados) {
@@ -38,13 +41,16 @@ export class AplicarDecisoesComponent implements OnInit, OnChanges {
     }
   }
 
-  public selecionaProcesso(processo: Processo) {
+  public selecionarProcesso(e: EventEmitter<MatCheckboxChange>, processo: Processo) {
+    console.log(e)
     const index = this.processosSelecionados.findIndex(id => id === processo.id);
 
     if (index !== -1) {
       this.processosSelecionados.splice(index, 1);
     } else {
-      this.processosSelecionados.push(processo.id);
+      if (e['checked']) {
+        this.processosSelecionados.push(processo.id);
+      }
     }
 
     this.obterProcessosSelecionados.emit(this.processosSelecionados);

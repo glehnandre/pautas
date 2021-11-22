@@ -18,7 +18,7 @@
                 *ngFor="let processo of processos"
                 [checked]="isProcessoSelecionado(processo) || selecionarTodos"
                 [disabled]="desabilitar"
-                (change)="selecionaProcesso(processo)" 
+                (change)="selecionarProcesso($event, processo)" 
                 color="primary"
             >
                 <span class="font-bold text-primary-600">

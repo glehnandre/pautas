@@ -106,6 +106,7 @@ export class FormDecisaoComponent implements OnInit, OnChanges {
 
   public setIdsDosProcessosSelecionados(idsProcessos: number[]): void {
     this.idsDosProcessos = idsProcessos;
+    console.log(this.idsDosProcessos)
   }
 
   public adicionarDecisao(): void {
