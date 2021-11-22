@@ -58,31 +58,74 @@ export class ResultadoJulgamentoComponent implements OnInit {
     this._carregarProcessos();
   }
 
+  /**
+   * @public Método público
+   * @param drawerName Nome do drawer a ser exibido
+   * @description Método para exibir ou esconder a gaveta com conteúdo
+   * @author Douglas da Silva Monteles
+   */
   public abrirGavetaDeFormularioDeDecisao(drawerName: string): void {
     const drawer = this._fuseDrawerService.getComponent(drawerName);
     drawer.toggle();
   }
 
+  /**
+   * @public Método público
+   * @param largura Tamanho da largura da tela para ser comparado
+   * @default largura Valor padrão da largura é 720px
+   * @description Método para verificar se a largura atual da tela estar maior 
+   *              que a largura informada
+   * @returns boolean
+   * @author Douglas da Silva Monteles
+   */
   @HostListener('window:resize', ['$event'])
-  public verificaLarguraDaTela(largura: number = 720): boolean {
+  public verificarLarguraDaTela(largura: number = 720): boolean {
     const larguraAtual = window.innerWidth;
     return (larguraAtual > largura);
   }
 
+  /**
+   * @public Método público
+   * @param largura Tamanho da largura da tela para ser comparado
+   * @default largura Valor padrão da largura é 720px
+   * @description Método para atualizar o estilo de gaveta a ser axibido
+   * @returns boolean
+   * @author Douglas da Silva Monteles
+   */
   @HostListener('window:resize', ['$event'])
-  public verificaModoDaTela(largura: number = 720): string {
+  public verificarModoDaTela(largura: number = 720): string {
     const larguraAtual = window.innerWidth;
     return (larguraAtual <= largura) ? 'over' : 'side';
   }
 
+  /**
+   * @public Método público
+   * @param event Evento com os dados que foram arrastados e soltados
+   * @description Método para atualizar a ordem da lista de Decisões
+   * @author Douglas da Silva Monteles
+   */
   public dropped(event: CdkDragDrop<any[]>): void {
     moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
   }
 
+  /**
+   * @public Método público
+   * @param obj1 Objeto javascript contendo os dados de Capitulo
+   * @param obj2 Objeto javascript contendo os dados de Capitulo
+   * @description Método para comparar objetos do tipo Capitulo
+   * @returns boolean
+   * @author Douglas da Silva Monteles
+   */
   public marcaDecisaoSelecionada(obj1: Capitulo, obj2: Capitulo): boolean {
     return JSON.stringify(obj1) === JSON.stringify(obj2);
   }
 
+  /**
+   * @public Método público
+   * @description Método para obter a lista de Decisoes cadastradas
+   * @returns Array<Decisao>
+   * @author Douglas da Silva Monteles
+   */
   public getDecisoes(): Decisao[] {
     if (this.dados && this.dados.decisoes) {
       return [...this.decisoesAdicionadas, ...this.dados.decisoes];
@@ -91,21 +134,48 @@ export class ResultadoJulgamentoComponent implements OnInit {
     return this.decisoesAdicionadas;
   }
 
+  /**
+   * @public Método público
+   * @param decisao Objeto javascript com os dados de uma decisão
+   * @description Método para adicionar uma decisão a lista de decisões
+   * @author Douglas da Silva Monteles
+   */
   public setDecisaoAdicionada(decisao: Decisao): void {
     this.decisoesAdicionadas.push(decisao);
   }
 
+  /**
+   * @public Método público
+   * @param decisao Objeto javascript com os dados de uma decisão
+   * @description Método para atualizar a decisão que foi selecionada
+   * @author Douglas da Silva Monteles
+   */
   public setDecisaoSelecionada(decisao: Decisao): void {
     this.decisaoSelecionada = decisao;
   }
 
+  /**
+   * @public Método público
+   * @param decisao Objeto javascript com os dados de uma decisão
+   * @description Método para verificar se uma dada decisão é igual a decisão 
+   *              selecionada atualmente
+   * @returns boolean
+   * @author Douglas da Silva Monteles
+   */
   public isMarcarDecisao(decisao: Decisao): boolean {
     return JSON.stringify(decisao) === JSON.stringify(this.decisaoSelecionada);
   }
 
+  /**
+   * @public Método público
+   * @param isRemoverDecisao Informa se uma decisão deve ser removida da lista
+   * @description Método para remover uma decisão da lista de decisões
+   * @author Douglas da Silva Monteles
+   */
   public removerDecisao(isRemoverDecisao: boolean): void {
     if (isRemoverDecisao) {
-      const index = this.decisoesAdicionadas.findIndex(d => JSON.stringify(d) === JSON.stringify(this.decisaoSelecionada));
+      const index = this.decisoesAdicionadas
+        .findIndex(d => JSON.stringify(d) === JSON.stringify(this.decisaoSelecionada));
       
       if (index !== -1) {
         this.decisoesAdicionadas.splice(index, 1);
@@ -114,6 +184,13 @@ export class ResultadoJulgamentoComponent implements OnInit {
     }
   }
 
+  /**
+   * @public Método público
+   * @description Método para verificar se uma decisão já foi salva via POST, como
+   *              critério, é verificado se a decisão possui um capitulo com id
+   * @returns boolean
+   * @author Douglas da Silva Monteles
+   */
   public isDecisaoSalva(): boolean {
     if (this.decisaoSelecionada.capitulo.id !== undefined && this.decisaoSelecionada.capitulo.id > 0) {
       return true;
@@ -121,18 +198,34 @@ export class ResultadoJulgamentoComponent implements OnInit {
     return false;
   }
 
+  /**
+   * @public Método público
+   * @description Método para recarregar um componente filho sempre que for chamado
+   * @returns boolean
+   * @author Douglas da Silva Monteles
+   */
   public recarregarComponenteFilho(): void {
     this.show = false;
  
     setTimeout(() => {
       this.show = true
     }, 50);
- }
+  }
 
+  /**
+   * @public Método público
+   * @description Método para finanizar a tafera de ResultadoJulgamento
+   * @author Douglas da Silva Monteles
+   */
   public finalizar(): void {
     alert('Tarefa finalizada');
   }
 
+  /**
+   * @private Método privado
+   * @description Método para carregar todas as decisões salvas via requisão GET
+   * @author Douglas da Silva Monteles
+   */
   private _carregarDecisoes(): void {
     this._resultadoJulgamento.listarDecisoes(this.parametros.processo).subscribe({
       next: (data) => {
@@ -141,6 +234,11 @@ export class ResultadoJulgamentoComponent implements OnInit {
     });
   }
 
+  /**
+   * @private Método privado
+   * @description Método para carregar todos os processos salvos via requisão GET
+   * @author Douglas da Silva Monteles
+   */
   private _carregarProcessos(): void {
     this._processoService.listarProcessos(new HttpParams().set('processo', this.parametros.processo)).subscribe({
       next: ([processo]) => {

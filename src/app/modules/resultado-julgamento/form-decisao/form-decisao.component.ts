@@ -76,6 +76,73 @@ export class FormDecisaoComponent implements OnInit, OnChanges, OnDestroy {
     this.decisao = null;
   }
 
+  /**
+   * @public Método público
+   * @param event Evento contendo o tipo de dispositivo a ser buscado via 
+   *              requisição GET
+   * @description Método para obter a lista de dispositivos pelo tipo
+   * @author Douglas da Silva Monteles
+   */
+  public buscarDispositivos(event: EventEmitter<MatSelectChange>): void {
+    const tipo: string = event['value'];
+    this.dispositivos$ = this._dispositivoService.obterDispositivos(this.idProcesso, tipo);
+  }
+
+  /**
+   * @public Método público
+   * @description Método para atualizar os ids dos processos selecionados
+   * @author Douglas da Silva Monteles
+   */
+  public setIdsDosProcessosSelecionados(idsProcessos: number[]): void {
+    this.idsDosProcessos = idsProcessos;
+  }
+
+  /**
+   * @public Método público
+   * @description Método para adicionar uma Decisão a lista de decisões
+   * @author Douglas da Silva Monteles
+   */
+  public adicionarDecisao(): void {
+    this._emitirOsDadosDaDecisao();
+    this.formDecisao.reset();
+    this.limparProcessosSelecionados = true;
+  }
+
+  /**
+   * @public Método público
+   * @description Método para emitir um evento autorizando a exclusão de uma Decisão
+   * @author Douglas da Silva Monteles
+   */
+  public excluirDecisao(): void {
+    this.excluirDadosDaDecisao.emit(true);
+  }
+
+  /**
+   * @public Método público
+   * @description Método para salvar uma Decisão via requisição POST
+   * @author Douglas da Silva Monteles
+   */
+  public salvarDecisao(): void {
+    if (this.formDecisao.valid) {
+      this._resultadoJulgamento.savarDecisao(this.idProcesso, {
+        decisao: this.formDecisao.value,
+        processos_mesma_decisao: this.idsDosProcessos,
+      }).subscribe({
+        next: (data) => {
+          console.log('Decisao salva');
+          console.log(data);
+          this.excluirDecisao();
+          this.formDecisao.reset();
+        }
+      });
+    }
+  }
+
+  /**
+   * @private Método privado
+   * @description Método para recarregar os dados da decisão e atualizar o formulário
+   * @author Douglas da Silva Monteles
+   */
   private _recarregarOsDados(): void {
     this.formDecisao = this._fb.group({
       descricao: [{value: this.decisao.capitulo.descricao, disabled: this.isDesabilitarForm}, Validators.required],
@@ -100,41 +167,11 @@ export class FormDecisaoComponent implements OnInit, OnChanges, OnDestroy {
       .forEach(id => this.idsDosProcessos.push(+id));
   }
 
-  public buscarDispositivos(event: EventEmitter<MatSelectChange>): void {
-    const tipo: string = event['value'];
-    this.dispositivos$ = this._dispositivoService.obterDispositivos(this.idProcesso, tipo);
-  }
-
-  public setIdsDosProcessosSelecionados(idsProcessos: number[]): void {
-    this.idsDosProcessos = idsProcessos;
-  }
-
-  public adicionarDecisao(): void {
-    this._emitirOsDadosDaDecisao();
-    this.formDecisao.reset();
-    this.limparProcessosSelecionados = true;
-  }
-
-  public excluirDecisao(): void {
-    this.excluirDadosDaDecisao.emit(true);
-  }
-
-  public salvarDecisao(): void {
-    if (this.formDecisao.valid) {
-      this._resultadoJulgamento.savarDecisao(this.idProcesso, {
-        decisao: this.formDecisao.value,
-        processos_mesma_decisao: this.idsDosProcessos,
-      }).subscribe({
-        next: (data) => {
-          console.log('Decisao salva');
-          console.log(data);
-          this.excluirDecisao();
-          this.formDecisao.reset();
-        }
-      });
-    }
-  }
-
+  /**
+   * @private Método privado
+   * @description Método para emitir um evento contendo os dados de Decisao
+   * @author Douglas da Silva Monteles
+   */
   private _emitirOsDadosDaDecisao(): void {
     this.dadosDaDecisao.emit({
       capitulo: this.formDecisao.value,

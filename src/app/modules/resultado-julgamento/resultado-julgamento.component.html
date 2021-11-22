@@ -38,8 +38,8 @@
         <mat-drawer
             class="w-90 dark:bg-gray-900"
             [autoFocus]="false"
-            [mode]="verificaModoDaTela()"
-            [opened]="verificaLarguraDaTela()"
+            [mode]="verificarModoDaTela()"
+            [opened]="verificarLarguraDaTela()"
             #matDrawer
         >
             <!-- Sidebar -->
@@ -88,7 +88,7 @@
                                                 Nova decisão
                                             </button>
                 
-                                            <button class="ml-4" *ngIf="!verificaLarguraDaTela()" mat-mini-fab color="primary" (click)="matDrawer.toggle()">
+                                            <button class="ml-4" *ngIf="!verificarLarguraDaTela()" mat-mini-fab color="primary" (click)="matDrawer.toggle()">
                                                 <mat-icon svgIcon="heroicons_outline:arrow-left"></mat-icon>
                                             </button>
                                         </div>
@@ -189,7 +189,7 @@
                     <button
                         mat-mini-fab
                         color="primary"
-                        *ngIf="!verificaLarguraDaTela()"
+                        *ngIf="!verificarLarguraDaTela()"
                         (click)="matDrawer.toggle()"
                     >
                         <mat-icon>menu</mat-icon>

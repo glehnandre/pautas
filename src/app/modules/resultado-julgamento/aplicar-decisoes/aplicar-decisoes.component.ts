@@ -41,7 +41,13 @@ export class AplicarDecisoesComponent implements OnInit, OnChanges {
     }
   }
 
-  public selecionarProcesso(e: EventEmitter<MatCheckboxChange>, processo: Processo) {
+  /**
+   * @public Método público
+   * @param processo Objeto javascript com os dados do processo
+   * @description Método para emitir um evento com os dados do processo selecionado
+   * @author Douglas da Silva Monteles
+   */
+  public selecionarProcesso(processo: Processo) {
     const index = this.processosSelecionados.findIndex(id => id === processo.id);
 
     if (index !== -1) {
@@ -53,6 +59,13 @@ export class AplicarDecisoesComponent implements OnInit, OnChanges {
     this.obterProcessosSelecionados.emit(this.processosSelecionados);
   }
 
+  /**
+   * @public Método público
+   * @param processo Objeto javascript com os dados do processo
+   * @description Método para verificar se um dado processo já foi selecionado
+   * @returns boolean
+   * @author Douglas da Silva Monteles
+   */
   public isProcessoSelecionado(processo: Processo): boolean {
     if (this.processosParaAplicarAMesmaDecisao.length > 0) {
       const index = this.processosParaAplicarAMesmaDecisao
