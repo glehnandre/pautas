@@ -91,7 +91,7 @@
         >
             <ng-container matColumnDef="autor">
                 <th
-                    class="pl-16 bg-gray-50 dark:bg-black dark:bg-opacity-5"
+                    class="pl-20 bg-gray-50 dark:bg-black dark:bg-opacity-5"
                     mat-header-cell
                     *matHeaderCellDef
                     mat-sort-header
@@ -104,7 +104,17 @@
                     mat-cell
                     *matCellDef="let document"
                 >
-                    <div class="flex flex-row justify-between items-center w-24">
+                    <div class="flex flex-row justify-between items-center w-32">
+                        <div
+                            class="flex items-center justify-center w-8 cursor-move"
+                            cdkDragHandle
+                        >
+                            <mat-icon
+                                class="icon-size-5 text-hint"
+                                [svgIcon]="'heroicons_solid:menu'"
+                            ></mat-icon>
+                        </div>
+
                         <mat-checkbox
                             color="primary"
                             [value]="document"
@@ -338,6 +348,7 @@
                 mat-row
                 cdkDrag
                 [cdkDragLockAxis]="'y'"
+                cdkDragBoundary=".table-fixed"
                 *matRowDef="let document; columns: displayedColumns;"
             ></tr>
 
