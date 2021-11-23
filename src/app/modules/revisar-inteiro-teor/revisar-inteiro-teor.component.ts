@@ -1,10 +1,10 @@
 import { DataSource } from '@angular/cdk/collections';
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
-import { MatSort, Sort } from '@angular/material/sort';
+import { Sort } from '@angular/material/sort';
 import { fuseAnimations } from '@fuse/animations';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { DocumentoInteiroTeor } from '../acervo/model/interfaces/documento-inteiro-teor.interface';
@@ -12,7 +12,6 @@ import { Documento } from '../acervo/model/interfaces/documento.interface';
 import { Processo } from '../acervo/model/interfaces/processo.interface';
 import { SessaoJulgamento } from '../acervo/model/interfaces/sessao-julgamento.interface';
 import { Tag } from '../acervo/model/interfaces/tag.interface';
-import { AlertaService } from '../services/alerta.service';
 import { ProcessoService } from '../services/processo.service';
 import { RevisarInteiroTeorService } from '../services/revisar-inteiro-teor.service';
 
@@ -34,9 +33,6 @@ export interface RevisaoInteiroTeor {
   animations: fuseAnimations
 })
 export class RevisarInteiroTeorComponent implements OnInit {
-
-  @ViewChild(MatSort) private _sort: MatSort;
-
   idProcesso: number = 0;
   colegiado: string = '';
   processo: Processo;
@@ -60,7 +56,6 @@ export class RevisarInteiroTeorComponent implements OnInit {
     private _processoService: ProcessoService,
     private _sanitize: DomSanitizer,
     private _formBuilder: FormBuilder,
-    private _alertaService: AlertaService,
   ) {
     this.link = this._sanitize.bypassSecurityTrustResourceUrl('');
   }
@@ -230,64 +225,6 @@ export class RevisarInteiroTeorComponent implements OnInit {
   }
 
   /**
-   * @public
-   * @description Publicar o(s) inteiro(s) teor(es) que foram selecionados
-   * @author
-   */
-   public publicarInteiroTeor(): void {
-    if (this._isAlgumaLinhaSelecionada()) {
-      console.log('remover');
-    }
-  }
-
-  /**
-   * @public
-   * @description Remove o(s) inteiro(s) teor(es) que foram selecionados
-   * @author
-   */
-  public removerInteiroTeor(): void {
-    if (this._isAlgumaLinhaSelecionada()) {
-      console.log('remover');
-    }
-  }
-
-  /**
-   * @public
-   * @description Inclue no(s) inteiro(s) teor(es) que foram selecionados novos
-   *              documentos
-   * @author
-   */
-   public incluirNovoDocumento(): void {
-    if (this._isAlgumaLinhaSelecionada()) {
-      console.log('incluir novo doc');
-    }
-  }
-
-  /**
-   * @public
-   * @description Inclue no(s) inteiro(s) teor(es) que foram selecionados novos
-   *              comentários
-   * @author
-   */
-   public incluirComentario(): void {
-    if (this._isAlgumaLinhaSelecionada()) {
-      console.log('incluir comentários');
-    }
-  }
-
-  /**
-   * @public
-   * @description Registra o(s) inteiro(s) teor(es) que foram selecionados como
-   *              revisados
-   * @author
-   */
-   public revisar(): void {
-    if (this._isAlgumaLinhaSelecionada()) {
-      console.log('revisado');
-    }
-  }
-
-  /**
    * @private
    * @description Recebe um objeto e o converte para string
    * @param obj
@@ -310,23 +247,6 @@ export class RevisarInteiroTeorComponent implements OnInit {
   private _comparaDatas(dataInicial: Date, dataFinal: Date): boolean {
     return dataFinal > dataInicial;
   }
-
-  /**
-   * @private Método privado
-   * @description Verifica se a lista de DocumentoInteiroTeor possui algum elemento
-   * @returns true caso a lista de DocumentoInteiroTeor tenha tamanho maior que
-   *          0 e false caso contrário
-   * @author Douglas da Silva Monteles
-   */
-  private _isAlgumaLinhaSelecionada(): boolean {
-    if (this.linhasSelecionadas.length > 0) {
-      return true;
-    } else {
-      this._alertaService.exibirAlerta(this.NOME_DO_ALERTA_DESTA_CLASSE);
-      return false;
-    }
-  }
-
 }
 
 export class DataSourceInteiroTeor extends DataSource<DocumentoInteiroTeor> {

@@ -15,6 +15,7 @@ import { DragDropModule } from '@angular/cdk/drag-drop';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { FuseAlertModule } from '@fuse/components/alert';
+import { AcoesComponent } from './acoes/acoes.component';
 
 const revisarInteiroTeorRoutes: Route[] = [
     {
@@ -23,10 +24,10 @@ const revisarInteiroTeorRoutes: Route[] = [
     }
 ];
 
-
 @NgModule({
   declarations: [
     RevisarInteiroTeorComponent,
+    AcoesComponent,
   ],
   imports: [
     CommonModule,
