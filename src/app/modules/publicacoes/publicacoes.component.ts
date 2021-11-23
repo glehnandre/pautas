@@ -23,6 +23,9 @@ export class PublicacoesComponent implements OnInit, OnDestroy {
   agregacoes: InformacoesDto[] = [];
   filtrados: PublicacaoDto[] = [];
   hasFiltros: boolean = false;
+  exibidos: PublicacaoDto[] = [];
+  right: number;
+  left: number;
 
   pesquisas: string[] = [];
   termo: string;
@@ -88,6 +91,7 @@ export class PublicacoesComponent implements OnInit, OnDestroy {
               if(filtros.indexOf(filtrado)==-1) filtros.push(filtrado);
             })
           this.filtrados = filtros;
+          this.trataExibidos();
         }
       });
     })
@@ -112,6 +116,7 @@ export class PublicacoesComponent implements OnInit, OnDestroy {
     });
 
     this.filtrados = filtros;
+    this.trataExibidos();
     }
     this.termo = '';
   }
@@ -159,6 +164,7 @@ export class PublicacoesComponent implements OnInit, OnDestroy {
   trataFiltros(filtros: any[]){
       filtros.forEach(filtro=>{
         this.filtrados = this.filtrar(filtro)
+        this.trataExibidos();
       })
       this.hasFiltros = true;
   }
@@ -182,6 +188,7 @@ export class PublicacoesComponent implements OnInit, OnDestroy {
   filtraData(event: any){
     if(!event.data_inicio) {
         this.filtrados = this.publicacoes;
+        this.trataExibidos();
     }
     else{
       let data_inicio: Date = new Date(event.data_inicio.toString().slice(0, 16));
@@ -199,9 +206,42 @@ export class PublicacoesComponent implements OnInit, OnDestroy {
             && data_publicacao <= data_fim;
       })
         this.filtrados = filtros;
+        this.trataExibidos();
     }
     
     this.refazPesquisa();
+  }
+
+  /**
+   * Atualiza as publicações que serão exibidas com base nas publicações
+   * filtradas
+   */
+  trataExibidos(){
+    this.exibidos = this.filtrados.slice(0,10);
+    this.right = this.exibidos.length;
+    this.left = 0;
+  }
+
+  /**
+   * Desloca as publicações exibidas para a direita
+   */
+  proximoExibidos(){
+    if(this.filtrados.length>this.right){
+      this.exibidos = this.filtrados.slice(this.left+10,this.right+10);
+      this.right += this.exibidos.length;
+      this.left += 10;
+    }
+  }
+
+  /**
+   * Desloca as publicações exibidas para a esquerda
+   */
+  anteriorExibidos(){
+    if(this.left>0){
+      this.right -= this.exibidos.length;
+      this.left -= 10;
+      this.exibidos = this.filtrados.slice(this.left,this.right);
+    }
   }
 
 }

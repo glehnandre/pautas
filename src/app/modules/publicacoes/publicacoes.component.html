@@ -46,7 +46,7 @@
     <mat-drawer-container class="flex flex-col flex-auto shadow bg-card">
 
         <!-- Drawer -->
-        <mat-drawer class="w-80 bg-white pt-10" [autoFocus]="false" [mode]="drawerMode" [opened]="drawerOpened" #matDrawer>
+        <mat-drawer class="w-80 bg-white pt-12" [autoFocus]="false" [mode]="drawerMode" [opened]="drawerOpened" #matDrawer>
             <!-- Sidebar -->
             <app-filtros
                 [agregacoes]="agregacoes"
@@ -59,15 +59,24 @@
         </mat-drawer>
 
         <!-- Drawer content -->
-        <mat-drawer-content class="flex flex-col lg:p-10 overflow-y-auto bg-white">
+        <mat-drawer-content class="flex flex-col overflow-y-auto bg-white">
 
             <!-- Main -->
-            <div class="bg-gray-200">
+            <div class="bg-gray-200 lg:mx-10 lg:my-12">
+
+                <div *ngIf="filtrados.length>0" class="bg-white pb-2 -mt-7 font-medium flex flex-row">
+                    <span>Consulta retornou {{filtrados.length}} {{(filtrados.length==1) ? "resultado" : "resultados"}}</span>
+                    <div class="ml-auto space-x-4">
+                        <button class="font-medium" style="color: #1170A6;" (click)="anteriorExibidos()">Anterior</button>
+                        <span>Apresentando resultados {{left+1}} a {{right}}</span>
+                        <button class="font-medium" style="color: #1170A6;" (click)="proximoExibidos()">Próximo</button>
+                    </div>
+                </div>
 
                 <app-textos
                 class="space-y-4"
                     [publicacoesSemFiltro]="publicacoes"
-                    [filtrados]="filtrados"
+                    [filtrados]="exibidos"
                 ></app-textos>
 
             </div>

@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { FuseMockApiService } from '@fuse/lib/mock-api/mock-api.service';
 import { DjeDto } from 'app/modules/acervo/model/interfaces/djeDto.interface';
-import { PublicacaoDto } from 'app/modules/acervo/model/interfaces/publicacaoDto.interface';
 import { dje as djeData } from './data';
 
 @Injectable({
