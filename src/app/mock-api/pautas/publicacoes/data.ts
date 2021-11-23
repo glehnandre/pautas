@@ -263,7 +263,7 @@ export const item: ItemDto[] = [
     },
     {
         codigo: "MINISTRO PRESIDENTE",
-        quantidade: 1,
+        quantidade: 8,
         descricao: "MINISTRO PRESIDENTE"
     },
     {
