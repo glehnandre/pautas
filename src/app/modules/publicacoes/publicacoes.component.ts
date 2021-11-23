@@ -189,7 +189,12 @@ export class PublicacoesComponent implements OnInit, OnDestroy {
       let filtros = [];
 
       filtros = this.publicacoes.filter(publicacao=>{
-        const data_publicacao = new Date(new Date(publicacao.publicacao).setHours(0,0,0,0));
+        let day: number;
+        if(publicacao.publicacao.length>10)
+          day = new Date(this.publicacoes[0].publicacao).getDate();
+        else
+          day = new Date(this.publicacoes[0].publicacao).getDate()+1;
+        const data_publicacao = new Date(new Date(new Date(publicacao.publicacao).setDate(day)).setHours(0,0,0,0));
         return data_publicacao >= data_inicio 
             && data_publicacao <= data_fim;
       })
