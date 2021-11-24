@@ -101,5 +101,18 @@ export class DecisaoMockApi {
           return [404, { description: "Nenhuma decisão encontrada." }];
         });
 
+      this._fuseMockApiService
+        .onGet('modelo-decisao/:id')
+        .reply(({urlParams}) => {
+          const id: number = +urlParams.id;
+          const index = this._modeloDecisao.findIndex(m => m.id === id);
+
+          if (index !== -1) {
+            return [200, this._modeloDecisao[index]];
+          }
+
+          return [404, { description: "Não foram encontrados dispositivos para o processo" }];
+        });
+
     }
 }

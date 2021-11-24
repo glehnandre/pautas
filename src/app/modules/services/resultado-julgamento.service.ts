@@ -54,4 +54,13 @@ export class ResultadoJulgamentoService {
     );
   }
 
+  public obterModeloDecisaoPeloId(id: number): Observable<ModeloDecisao> {
+    return this._httpClient.get<ModeloDecisao>(`modelo-decisao/${id}`).pipe(
+      catchError(error => {
+        console.log(error);
+        return EMPTY;
+      })
+    );
+  }
+
 }
