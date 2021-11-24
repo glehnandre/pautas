@@ -63,4 +63,13 @@ export class ResultadoJulgamentoService {
     );
   }
 
+  public atualizarModeloDecisao(id: number, modelo: ModeloDecisao): Observable<void> {
+    return this._httpClient.put<void>(`modelo-decisao/${id}`, modelo).pipe(
+      catchError(error => {
+        console.log(error);
+        return EMPTY;
+      })
+    );
+  }
+
 }

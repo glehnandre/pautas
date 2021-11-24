@@ -93,8 +93,11 @@ export class DecisaoMockApi {
           const index = this._modeloDecisao.findIndex(m => m.id === body.id);
 
           if (index === -1) {
-            this._modeloDecisao.push(body);
-            console.log(this._modeloDecisao)
+            this._modeloDecisao.push({
+              id: this._modeloDecisao.length+1, 
+              ...body
+            });
+            
             return [200, { description: "Sucesso." }];
           }
 
@@ -102,12 +105,16 @@ export class DecisaoMockApi {
         });
 
       this._fuseMockApiService
-        .onGet('modelo-decisao/:id')
-        .reply(({urlParams}) => {
+        .onPut('modelo-decisao/:id')
+        .reply(({request, urlParams}) => {
           const id: number = +urlParams.id;
           const index = this._modeloDecisao.findIndex(m => m.id === id);
+          const body = request.body as ModeloDecisao;
 
           if (index !== -1) {
+            this._modeloDecisao.splice(index, 1);
+            this._modeloDecisao.push({id, ...body});
+
             return [200, this._modeloDecisao[index]];
           }
 
