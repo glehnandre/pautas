@@ -1,11 +1,7 @@
 import { DataSource } from '@angular/cdk/collections';
-import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
-import { Sort } from '@angular/material/sort';
-import { fuseAnimations } from '@fuse/animations';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { DocumentoInteiroTeor } from '../acervo/model/interfaces/documento-inteiro-teor.interface';
 import { Documento } from '../acervo/model/interfaces/documento.interface';
@@ -30,7 +26,6 @@ export interface RevisaoInteiroTeor {
   selector: 'app-revisar-inteiro-teor',
   templateUrl: './revisar-inteiro-teor.component.html',
   styleUrls: ['./revisar-inteiro-teor.component.scss'],
-  animations: fuseAnimations
 })
 export class RevisarInteiroTeorComponent implements OnInit {
   idProcesso: number = 0;
@@ -40,7 +35,6 @@ export class RevisarInteiroTeorComponent implements OnInit {
   revisoes: RevisaoInteiroTeor;
   link: SafeResourceUrl;
   nomesDasSessoes: string[] = [];
-  editarDocumentoForm: FormGroup;
   documentoSelecionado: DocumentoInteiroTeor | null = null;
 
   displayedColumns: string[] = ['autor', 'responsavel', 'comentarios', 'documento', 'data', 'situacao', 'arquivo'];
@@ -55,7 +49,6 @@ export class RevisarInteiroTeorComponent implements OnInit {
     private _inteiroTeorService: RevisarInteiroTeorService,
     private _processoService: ProcessoService,
     private _sanitize: DomSanitizer,
-    private _formBuilder: FormBuilder,
   ) {
     this.link = this._sanitize.bypassSecurityTrustResourceUrl('');
   }
@@ -79,62 +72,7 @@ export class RevisarInteiroTeorComponent implements OnInit {
         console.log(this.documentosDoProcesso);
       }
     });
-
-    this.editarDocumentoForm = this._formBuilder.group({
-        situacao             : [''],
-        nome                 : [''],
-        comentario           : [''],
-        observacao           : [''],
-    });
   }
-
-    compare(a: number | string, b: number | string, isAsc: boolean) {
-        return (a < b ? -1 : 1) * (isAsc ? 1 : -1);
-    }
-
-    ordenar(sort: Sort) {
-        const data = this.revisoes.documentos;
-
-        if (!sort.active || sort.direction === '') {
-            this.dataSource = new DataSourceInteiroTeor(data);
-            return;
-        }
-
-        this.dataSource = new DataSourceInteiroTeor(this.revisoes.documentos.sort((a, b) => {
-            const isAsc = sort.direction === 'asc';
-
-            switch (sort.active) {
-                case 'autor':
-                    return this.compare(a.ordem, b.ordem, isAsc);
-                case 'responsavel':
-                    return this.compare(a.responsavel.abreviacao, b.responsavel.abreviacao, isAsc);
-                case 'comentarios':
-                    return this.compare(a.comentario, b.comentario, isAsc);
-                case 'documento':
-                    return this.compare(a.nome, b.nome, isAsc);
-                case 'data':
-                    return this.compare(a.data_criacao, b.data_criacao, isAsc);
-                case 'situacao':
-                    return this.compare(a.situacao, b.situacao, isAsc);
-                default:
-                    return 0;
-            }
-    }));
-    }
-
-    atualizaOrdem(): void {
-        for (var i = 0; i < this.revisoes.documentos.length; i++) {
-            this.revisoes.documentos[i].ordem = i + 1;
-        }
-    }
-
-    drop(event: CdkDragDrop<DataSourceInteiroTeor[]>): void {
-        moveItemInArray(this.revisoes.documentos, event.previousIndex, event.currentIndex);
-
-        this.atualizaOrdem();
-
-        this.dataSource = new DataSourceInteiroTeor(this.revisoes.documentos)
-    }
 
   /**
    * @public Método público
@@ -170,25 +108,6 @@ export class RevisarInteiroTeorComponent implements OnInit {
 
     this.nomesDasSessoes = nomes;
   }
-
-    /**
-    * Alternar edição do documento
-    *
-    * @param documento
-    */
-    alternarEdicaoDocumento(documento: DocumentoInteiroTeor): void {
-        if (this.documentoSelecionado && this.documentoSelecionado.ordem === documento.ordem) {
-            this.fecharEdicaoDocumento();
-            return;
-        }
-
-        this.documentoSelecionado = documento;
-        this.editarDocumentoForm.patchValue(documento);
-    }
-
-    fecharEdicaoDocumento(): void {
-        this.documentoSelecionado = null;
-    }
 
   /**
    * @public Método público

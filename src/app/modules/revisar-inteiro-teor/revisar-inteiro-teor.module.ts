@@ -16,6 +16,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { FuseAlertModule } from '@fuse/components/alert';
 import { AcoesComponent } from './acoes/acoes.component';
+import { TabelaComponent } from './tabela/tabela.component';
 
 const revisarInteiroTeorRoutes: Route[] = [
     {
@@ -28,6 +29,7 @@ const revisarInteiroTeorRoutes: Route[] = [
   declarations: [
     RevisarInteiroTeorComponent,
     AcoesComponent,
+    TabelaComponent,
   ],
   imports: [
     CommonModule,
