@@ -1,0 +1,87 @@
+<div class="flex flex-col max-w-240 md:min-w-160 -m-6">
+    <header class="flex items-center justify-between h-16 pr-3 sm:pr-5 pl-6 sm:pl-8 bg-primary text-on-primary">
+        <h1 class="mt-4 flex items-center justify-center text-lg font-medium text-white-500">
+            Modelo do texto da decisão
+        </h1>
+
+        <button mat-button mat-dialog-close class="mat-focus-indicator mat-icon-button mat-button-base" tabindex="-1">
+            <span class="mat-button-wrapper">
+                <mat-icon matSuffix class="text-white">close</mat-icon>
+            </span>
+        </button>
+    </header>
+
+    <div class="flex flex-col flex-auto p-6 sm:p-8 overflow-y-auto ng-pristine ng-invalid ng-touched">
+        <form>
+            <div class="w-full grid grid-cols-1 sm:grid-cols-6 gap-4">
+                <mat-form-field class="w-full mb-4 col-span-2" appearance="outline">
+                    <mat-label>Tipo <span class="text-red-500">*</span></mat-label>
+                    <mat-select>
+                        <mat-option 
+                            *ngFor="let tipo of ['tipo1', 'tipo2']" 
+                            [value]="tipo"
+                        >
+                            {{tipo}}
+                        </mat-option>
+                    </mat-select>
+                    <mat-hint>Informe o tipo</mat-hint>
+                </mat-form-field>
+            
+                <mat-form-field class="w-full mb-4 col-span-2" appearance="outline">
+                    <mat-label>Dispositivo <span class="text-red-500">*</span></mat-label>
+                    <mat-select>
+                        <mat-option 
+                            *ngFor="let dispositivo of ['disp1', 'disp2']" 
+                            [value]="dispositivo"
+                        >
+                            {{dispositivo}}
+                        </mat-option>
+                    </mat-select>
+                    <mat-hint>Informe o dispositivo</mat-hint>
+                </mat-form-field>
+
+                <mat-form-field class="w-full mb-4 col-span-2" appearance="outline">
+                    <mat-label>Dispositivo <span class="text-red-500">*</span></mat-label>
+                    <mat-select>
+                        <mat-option 
+                            *ngFor="let dispositivo of ['disp1', 'disp2']" 
+                            [value]="dispositivo"
+                        >
+                            {{dispositivo}}
+                        </mat-option>
+                    </mat-select>
+                    <mat-hint>Informe o dispositivo</mat-hint>
+                </mat-form-field>
+            </div>
+
+            <mat-form-field class="w-full mb-4" appearance="outline">
+                <mat-label>Concordam os ministros <span class="text-red-500">*</span></mat-label>
+                <textarea matInput rows="10"></textarea>
+                <mat-hint>
+                    Escreva o modelo do texto para ser aplicado a outras decisões. 
+                    Utilize @colegiado, @processo, @sessao, @data_inicio_sessao, 
+                    @data_fim_sessao, @modalidade e @tipo para referenciar atributos 
+                    do processo no modelo da decisão. 
+                </mat-hint>
+            </mat-form-field>
+
+            <p class="mt-4 text-center flex flex-row gap-4 justify-end items-end">
+                <button
+                    mat-raised-button 
+                    mat-dialog-close
+                    class="mr-2" 
+                >
+                    {{'Cancelar' | uppercase}}
+                </button>
+                
+                <button 
+                    mat-raised-button 
+                    class="max-w-full" 
+                    color="primary"
+                >
+                    {{'Salvar' | uppercase}}
+                </button>
+            </p>
+        </form>
+    </div>
+</div>

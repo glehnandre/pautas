@@ -32,8 +32,6 @@ interface Decisao {
 })
 export class ResultadoJulgamentoComponent implements OnInit {
 
-  @ViewChild('matDrawer', {static: true}) matDrawer: MatDrawer;
-
   dados: DecisoesResultadoJulgamento;
   parametros: Parametros;
   processo: string;

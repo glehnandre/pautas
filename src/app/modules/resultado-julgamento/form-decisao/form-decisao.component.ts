@@ -1,5 +1,6 @@
 import { Component, EventEmitter, Input, OnChanges, OnDestroy, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { MatDialog } from '@angular/material/dialog';
 import { MatSelectChange } from '@angular/material/select';
 import { Capitulo } from 'app/modules/acervo/model/interfaces/capitulo.interface';
 import { Dispositivo } from 'app/modules/acervo/model/interfaces/dispositivo.interface';
@@ -10,6 +11,7 @@ import { MinistroService } from 'app/modules/services/ministro.service';
 import { ProcessoService } from 'app/modules/services/processo.service';
 import { ResultadoJulgamentoService } from 'app/modules/services/resultado-julgamento.service';
 import { Observable } from 'rxjs';
+import { FormModeloDecisaoComponent } from '../form-modelo-decisao/form-modelo-decisao.component';
 
 @Component({
   selector: 'app-form-decisao',
@@ -30,6 +32,7 @@ export class FormDecisaoComponent implements OnInit, OnChanges, OnDestroy {
   @Input() isExibirBtnAdicionarDecisao: boolean = false;
   @Input() isExibirBtnSalvarDecisao: boolean = false;
   @Input() isExibirBtnExcluirDecisao: boolean = false;
+  @Input() isExibirBtnModeloDecisao: boolean = false;
   @Input() decisao: {
     capitulo: Capitulo;
     processos_mesma_decisao: Processo[];
@@ -62,6 +65,7 @@ export class FormDecisaoComponent implements OnInit, OnChanges, OnDestroy {
     private _ministroService: MinistroService,
     private _dispositivoService: DispositivoService,
     private _processoService: ProcessoService,
+    private _dialog: MatDialog,
   ) {}
 
   ngOnInit(): void {
@@ -95,6 +99,19 @@ export class FormDecisaoComponent implements OnInit, OnChanges, OnDestroy {
    */
   public setIdsDosProcessosSelecionados(idsProcessos: number[]): void {
     this.idsDosProcessos = idsProcessos;
+  }
+
+  /**
+   * @public Método público
+   * @description Método para exibir modal de alteração de modelo de decisão
+   * @author Douglas da Silva Monteles
+   */
+  public exibirModalDeModeloDecisao(): void {
+    const dialogRef = this._dialog.open(FormModeloDecisaoComponent, {
+      maxHeight: '90vh',
+    });
+
+    dialogRef.afterClosed().subscribe(data => {});
   }
 
   /**

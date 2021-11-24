@@ -27,6 +27,8 @@ import { ConteudoVotoMinistroComponent } from './conteudo-voto-ministro/conteudo
 import { FormDecisaoComponent } from './form-decisao/form-decisao.component';
 import { AplicarDecisoesComponent } from './aplicar-decisoes/aplicar-decisoes.component';
 import { VotoDosMinistrosComponent } from './voto-dos-ministros/voto-dos-ministros.component';
+import { FormModeloDecisaoComponent } from './form-modelo-decisao/form-modelo-decisao.component';
+import { MatDialogModule } from '@angular/material/dialog';
 
 const ResultadoJulgamentoRoutes: Route[] = [
   {
@@ -42,6 +44,7 @@ const ResultadoJulgamentoRoutes: Route[] = [
     FormDecisaoComponent,
     AplicarDecisoesComponent,
     VotoDosMinistrosComponent,
+    FormModeloDecisaoComponent,
   ],
   imports: [
     CommonModule,
@@ -67,6 +70,7 @@ const ResultadoJulgamentoRoutes: Route[] = [
     MatRippleModule,
     DragDropModule,
     MatAutocompleteModule,
+    MatDialogModule,
   ]
 })
 export class ResultadoJulgamentoModule { }

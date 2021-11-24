@@ -200,6 +200,7 @@
                             <app-form-decisao
                                 *ngIf="!decisaoSelecionada; else exibirDecisaoNoForm"
                                 [isExibirBtnAdicionarDecisao]="true"
+                                [isExibirBtnModeloDecisao]="true"
                                 (dadosDaDecisao)="setDecisaoAdicionada($event)"
                             ></app-form-decisao>
 
