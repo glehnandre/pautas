@@ -11,6 +11,7 @@ import { ProcessoService } from '../services/processo.service';
 import { ResultadoJulgamentoService } from '../services/resultado-julgamento.service';
 import { Capitulo } from '../acervo/model/interfaces/capitulo.interface';
 import { Processo } from '../acervo/model/interfaces/processo.interface';
+import { RecursoService } from '../services/recurso.service';
 
 interface Parametros {
   processo: number;
