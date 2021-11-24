@@ -23,9 +23,9 @@
             <mat-select formControlName="dispositivo">
                 <mat-option 
                     *ngFor="let dispositivo of (dispositivos$ | async)" 
-                    [value]="dispositivo.descricao"
+                    [value]="dispositivo.nome"
                 >
-                    {{dispositivo.descricao}}
+                    {{dispositivo.nome}}
                 </mat-option>
             </mat-select>
             <mat-hint>Informe o dispositivo</mat-hint>

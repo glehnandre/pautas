@@ -1,7 +1,5 @@
-import { TipoCapitulo } from "app/modules/acervo/model/enums/tipoCapitulo.enum";
 import { DecisoesResultadoJulgamento } from "app/modules/acervo/model/interfaces/decisao.interface";
-import { ministro } from "../ministro/data";
-import { processo } from "../processos/data";
+import { ModeloDecisao } from "app/modules/acervo/model/interfaces/modeloDecisao.interface";
 import { sessao } from "../sessoes-julgamento/data";
 
 export const decisoes: Array<DecisoesResultadoJulgamento> = [
@@ -12,3 +10,5 @@ export const decisoes: Array<DecisoesResultadoJulgamento> = [
     sessao: sessao[0],
   }
 ];
+
+export const modeloDecisao: ModeloDecisao[] = [];

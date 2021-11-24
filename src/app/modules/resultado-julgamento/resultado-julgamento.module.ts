@@ -20,6 +20,7 @@ import { FuseDrawerModule } from '@fuse/components/drawer/drawer.module';
 import { MatListModule } from '@angular/material/list';
 import { MatRippleModule } from '@angular/material/core';
 import { DragDropModule } from '@angular/cdk/drag-drop';
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
 
 import { ResultadoJulgamentoComponent } from './resultado-julgamento.component';
 import { ConteudoVotoMinistroComponent } from './conteudo-voto-ministro/conteudo-voto-ministro.component';
@@ -65,6 +66,7 @@ const ResultadoJulgamentoRoutes: Route[] = [
     MatListModule,
     MatRippleModule,
     DragDropModule,
+    MatAutocompleteModule,
   ]
 })
 export class ResultadoJulgamentoModule { }

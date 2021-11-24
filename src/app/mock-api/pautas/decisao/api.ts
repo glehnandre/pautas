@@ -1,16 +1,15 @@
 import { Injectable } from '@angular/core';
 import { FuseMockApiService } from '@fuse/lib/mock-api/mock-api.service';
 import { DecisoesResultadoJulgamento } from 'app/modules/acervo/model/interfaces/decisao.interface';
-import { Processo } from 'app/modules/acervo/model/interfaces/processo.interface';
-import { processo } from '../processos/data';
-import { sessao } from '../sessoes-julgamento/data';
-import { decisoes as decisoesData } from './data';
+import { ModeloDecisao } from 'app/modules/acervo/model/interfaces/modeloDecisao.interface';
+import { decisoes as decisoesData, modeloDecisao } from './data';
 
 @Injectable({
     providedIn: 'root'
 })
 export class DecisaoMockApi {
     private _decisoes: Array<DecisoesResultadoJulgamento> = decisoesData;
+    private _modeloDecisao: ModeloDecisao[] = modeloDecisao;
 
     constructor(private _fuseMockApiService: FuseMockApiService) {
         this._decisoes = decisoesData;
@@ -85,6 +84,21 @@ export class DecisaoMockApi {
           }
 
           return [404, { description: 'Tags ou processos não encontrados' }]
+        });
+
+      this._fuseMockApiService
+        .onPost('modelo-decisao')
+        .reply(({request}) => {
+          const body = request.body as ModeloDecisao;
+          const index = this._modeloDecisao.findIndex(m => m.id === body.id);
+
+          if (index === -1) {
+            this._modeloDecisao.push(body);
+            console.log(this._modeloDecisao)
+            return [200, { description: "Sucesso." }];
+          }
+
+          return [404, { description: "Nenhuma decisão encontrada." }];
         });
 
     }

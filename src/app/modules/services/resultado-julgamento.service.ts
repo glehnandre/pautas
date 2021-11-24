@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { EMPTY, Observable } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { DecisoesResultadoJulgamento } from '../acervo/model/interfaces/decisao.interface';
+import { ModeloDecisao } from '../acervo/model/interfaces/modeloDecisao.interface';
 
 @Injectable({
   providedIn: 'root'
@@ -37,6 +38,15 @@ export class ResultadoJulgamentoService {
 
   public deletarDecisao(id: number): Observable<void> {
     return this._httpClient.delete<void>(`decisoes/${id}`).pipe(
+      catchError(error => {
+        console.log(error);
+        return EMPTY;
+      })
+    );
+  }
+
+  public salvarModeloDecisao(modelo: ModeloDecisao): Observable<void> {
+    return this._httpClient.post<void>(`modelo-decisao`, modelo).pipe(
       catchError(error => {
         console.log(error);
         return EMPTY;

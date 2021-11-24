@@ -209,7 +209,7 @@ export class ResultadoJulgamentoComponent implements OnInit {
  
     setTimeout(() => {
       this.show = true
-    }, 50);
+    }, 100);
   }
 
   /**
