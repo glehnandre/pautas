@@ -10,7 +10,7 @@ import { Documento } from 'app/modules/acervo/model/interfaces/documento.interfa
 import { SessaoJulgamento } from 'app/modules/acervo/model/interfaces/sessao-julgamento.interface';
 import { julgamentos } from '../julgamentos/data';
 import { Impedimento } from 'app/modules/acervo/model/interfaces/impedimento.interface';
-import { listaImpedimentos } from '../ministro/data'
+import { listaImpedimentos, ministro } from '../ministro/data'
 import { Voto } from 'app/modules/acervo/model/interfaces/voto.interface';
 
 @Injectable({
@@ -217,6 +217,23 @@ export class ProcessoMockApi {
             .onGet('processos/tipos')
             .reply(({}) => {
                 return [200, tipos];
+            });
+
+        this._fuseMockApiService
+            .onPost('processos/:id/relator')
+            .reply(({request, urlParams}) => {
+                const idProcesso = +urlParams.id;
+                const idRelator = request.body as number;
+                const index = this._processo.findIndex(p => p.id === idProcesso);
+
+                if (index !== -1) {
+                    const relator = ministro.find(m => m.id === idRelator);
+                    this._processo[index].relator = relator;
+                    console.log(this._processo[index])
+                    return [200, { description: "Sucesso" }];
+                }
+
+                return [404, { description: "Nenhum processo encontrado" }];
             });
     }
 
