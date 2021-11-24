@@ -12,51 +12,63 @@
     </header>
 
     <div class="flex flex-col flex-auto p-6 sm:p-8 overflow-y-auto ng-pristine ng-invalid ng-touched">
-        <form>
+        <form [formGroup]="formModeloDecisao">
             <div class="w-full grid grid-cols-1 sm:grid-cols-6 gap-4">
                 <mat-form-field class="w-full mb-4 col-span-2" appearance="outline">
-                    <mat-label>Tipo <span class="text-red-500">*</span></mat-label>
-                    <mat-select>
+                    <mat-label>Classe processural <span class="text-red-500">*</span></mat-label>
+                    <mat-select
+                        formControlName="classe"
+                    >
                         <mat-option 
-                            *ngFor="let tipo of ['tipo1', 'tipo2']" 
-                            [value]="tipo"
+                            *ngFor="let classe of ['ADI', 'classe2']" 
+                            [value]="classe"
                         >
-                            {{tipo}}
+                            {{classe}}
                         </mat-option>
                     </mat-select>
-                    <mat-hint>Informe o tipo</mat-hint>
+                    <mat-hint>Informe a classe</mat-hint>
                 </mat-form-field>
             
                 <mat-form-field class="w-full mb-4 col-span-2" appearance="outline">
-                    <mat-label>Dispositivo <span class="text-red-500">*</span></mat-label>
-                    <mat-select>
+                    <mat-label>Tipo do Capítulo <span class="text-red-500">*</span></mat-label>
+                    <mat-select
+                        formControlName="tipo_capitulo"
+                    >
                         <mat-option 
-                            *ngFor="let dispositivo of ['disp1', 'disp2']" 
-                            [value]="dispositivo"
+                            *ngFor="let capitulo of ['Tese']" 
+                            [value]="capitulo"
                         >
-                            {{dispositivo}}
+                            {{capitulo}}
                         </mat-option>
                     </mat-select>
-                    <mat-hint>Informe o dispositivo</mat-hint>
+                    <mat-hint>Informe o tipo do capitulo</mat-hint>
                 </mat-form-field>
 
                 <mat-form-field class="w-full mb-4 col-span-2" appearance="outline">
-                    <mat-label>Dispositivo <span class="text-red-500">*</span></mat-label>
-                    <mat-select>
+                    <mat-label>Recurso <span class="text-red-500">*</span></mat-label>
+                    <mat-select
+                        formControlName="recurso"
+                    >
                         <mat-option 
-                            *ngFor="let dispositivo of ['disp1', 'disp2']" 
-                            [value]="dispositivo"
+                            *ngFor="let recurso of ['Agravo', 'disp2']" 
+                            [value]="recurso"
                         >
-                            {{dispositivo}}
+                            {{recurso}}
                         </mat-option>
                     </mat-select>
-                    <mat-hint>Informe o dispositivo</mat-hint>
+                    <mat-hint>Informe o recurso</mat-hint>
                 </mat-form-field>
             </div>
 
             <mat-form-field class="w-full mb-4" appearance="outline">
                 <mat-label>Concordam os ministros <span class="text-red-500">*</span></mat-label>
-                <textarea matInput rows="10"></textarea>
+                
+                <textarea 
+                    matInput 
+                    rows="10"
+                    formControlName="texto"
+                ></textarea>
+
                 <mat-hint>
                     Escreva o modelo do texto para ser aplicado a outras decisões. 
                     Utilize @colegiado, @processo, @sessao, @data_inicio_sessao, 
@@ -78,6 +90,8 @@
                     mat-raised-button 
                     class="max-w-full" 
                     color="primary"
+                    [disabled]="formModeloDecisao.invalid"
+                    (click)="salvarModeloDecisao()"
                 >
                     {{'Salvar' | uppercase}}
                 </button>
