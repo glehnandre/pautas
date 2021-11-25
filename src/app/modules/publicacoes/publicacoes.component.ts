@@ -162,11 +162,23 @@ export class PublicacoesComponent implements OnInit, OnDestroy {
    * @param filtros filtros selecionados.
    */
   trataFiltros(filtros: any[]){
-      filtros.forEach(filtro=>{
-        this.filtrados = this.filtrar(filtro)
-        this.trataExibidos();
+    let filtrar = filtros.filter(filtro=>filtro.tipo==filtros[0].tipo);
+    let filtrados = [];
+    let tipos = [];
+
+    while(filtrar[0]){
+      tipos.push(filtrar[0].tipo);
+      filtrar.forEach(filtro=>{
+        this.filtrar(filtro.filtro).forEach(filtrado=>{
+          if(filtrados.indexOf(filtrado)==-1) filtrados.push(filtrado);
+        })
       })
-      this.hasFiltros = true;
+      this.filtrados = filtrados;
+      this.trataExibidos();
+      filtrados = [];
+      filtrar = filtros.filter(filtro=>tipos.indexOf(filtro.tipo)==-1)
+    }
+    this.hasFiltros = true;
   }
 
   /**

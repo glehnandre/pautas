@@ -7,6 +7,11 @@ interface Filtros {
   selecionados: string[];
 }
 
+interface Filtrados {
+  filtro: string;
+  tipo: string;
+}
+
 @Component({
   selector: 'app-filtros',
   templateUrl: './filtros.component.html',
@@ -25,7 +30,7 @@ export class FiltrosComponent implements OnInit{
   data_inicio: Date = new Date();
   data_fim: Date = new Date();
 
-  filtrados: string[] = [];
+  filtrados: Filtrados[] = [];
 
   constructor() { }
 
@@ -48,20 +53,21 @@ export class FiltrosComponent implements OnInit{
    */
   atualizaFiltros(status: MatCheckboxChange){
     const name = status.source.name;
+    const tipo = this.agregacoes.find(agregacao=>agregacao.itens.find(item=>item.descricao==name)).nome;
     if(status.checked){
-      this.filtrados.push(name);
-
+      this.filtrados.push({filtro: name, tipo: tipo});
+      
       this.filtros.forEach(filtro=>{
         if(filtro.agregacao.itens.find(item=>item.descricao==name))
-          filtro.selecionados.push(name);
+        filtro.selecionados.push(name);
       })
     }
     else{
-      this.filtrados.splice(this.filtrados.indexOf(name), 1);
-
+      this.filtrados.splice(this.filtrados.indexOf(this.filtrados.find(filtrado=>filtrado.filtro==name)), 1);
+      
       this.filtros.forEach(filtro=>{
         if(filtro.agregacao.itens.find(item=>item.descricao==name))
-          filtro.selecionados.splice(filtro.selecionados.indexOf(name), 1);
+        filtro.selecionados.splice(filtro.selecionados.indexOf(name), 1);
       })
     } 
   }
@@ -71,7 +77,11 @@ export class FiltrosComponent implements OnInit{
    */
   filtrar(){
     this.filtrarData();
-    if(this.filtrados[0]) this.emiteFiltros.emit(this.filtrados);
+    let emitir = this.filtrados;
+    if(this.filtrados[0]){
+      this.emiteFiltros.emit(this.filtrados);
+      this.filtrados = emitir;
+    } 
     else{
       this.removeFiltros.emit({
         data_inicio: this.data_inicio,
