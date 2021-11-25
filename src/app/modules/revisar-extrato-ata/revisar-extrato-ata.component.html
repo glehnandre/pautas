@@ -2,19 +2,19 @@
     <!-- Header -->
     <div class="justify-center px-2 sm:px-4 pb-2 bg-white dark:bg-gray-800">
         <h1 class="mt-4 text-primary font-medium text-base sm:text-xl md:text-2xl w-full">
-            Revisar Extrato da Ata Sessão {{ sessao?.categoria }}
-            {{ sessao?.numero }}/{{ sessao?.ano }}
-            {{ sessao?.modalidade }}
+            Revisar Extrato da Ata Sessão {{ ata?.sessao.categoria }}
+            {{ ata?.sessao?.numero }}/{{ ata?.sessao?.ano }}
+            {{ ata?.sessao?.modalidade }}
         </h1>
         <hr class="-mx-4 p-0 -mt-2">
         <div class="flex flex-col sm:flex-row -mt-4 items-center justify-between mx-2 md:mx-8 pb-4 space-y-2 sm:space-x-4">
             <div class="flex flex-row space-x-4">
                 <div class="flex flex-row sm:flex-col space-y-0 space-x-2 sm:space-y-2 sm:space-x-0">
                     <span class="text-base sm:text-xl text-primary font-medium whitespace-nowrap">
-                        Sessão {{ sessao?.numero }}/{{ sessao?.ano }}
+                        Sessão {{ ata?.sessao?.numero }}/{{ ata?.sessao?.ano }}
                     </span>
                     <span class="text-xs sm:text-base text-secondary">
-                        Finalizado: {{ data_fim | date: 'dd/mm/yyyy ' }}
+                        Finalizado: {{ ata?.sessao.data_fim | date: 'dd/mm/yyyy ' }}
                     </span>
                 </div>
                 <div class="hidden md:flex flex-row space-x-2">
@@ -60,9 +60,8 @@
     <!-- Body -->
     <div class="overflow-y-auto w-full" cdkScrollable>
         <app-extrato-ata
-          *ngIf="ata"
-          [sessao]="sessao"
-          [publicacoes]="ata['capitulos para publicacao']"
+          [sessao]="ata?.sessao"
+          [capitulosPublicacao]="ata?.capitulos_para_publicacao"
           [form]="form"
         ></app-extrato-ata>
     </div>

@@ -1,20 +1,28 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { CapitulosParaPublicacao } from 'app/modules/acervo/model/interfaces/capitulo.interface';
+import { Component, Input, LOCALE_ID, OnInit } from '@angular/core';
+import { Envolvido, CapitulosParaPublicacao } from 'app/modules/acervo/model/interfaces/capitulo.interface';
 import { Frase } from 'app/modules/acervo/model/interfaces/frase-genero-plural.interface';
 import { Ministro } from 'app/modules/acervo/model/interfaces/ministro.interface';
 import { SessaoJulgamento } from 'app/modules/acervo/model/interfaces/sessao-julgamento.interface';
 import { MinistroService } from 'app/modules/services/ministro.service';
+import localePt from '@angular/common/locales/pt';
+import { registerLocaleData } from '@angular/common';
+
+registerLocaleData(localePt);
 
 @Component({
   selector: 'app-extrato-ata',
   templateUrl: './extrato-ata.component.html',
-  styleUrls: ['./extrato-ata.component.scss']
+  styleUrls: ['./extrato-ata.component.scss'],
+  providers: [
+    { provide: LOCALE_ID, useValue: 'pt-BR' },
+  ],
 })
 export class ExtratoAtaComponent implements OnInit {
   @Input() sessao: SessaoJulgamento;
-  @Input() publicacoes: CapitulosParaPublicacao[];
+  @Input() capitulosPublicacao: CapitulosParaPublicacao[];
   @Input() form: any;
 
+  Negativos = ['Negado', 'Suspenso'];
 
   FraseImpedidos: Frase = {
     F:'Se declara impedida a Ministra ',
@@ -31,10 +39,10 @@ export class ExtratoAtaComponent implements OnInit {
   };
 
   FraseVencidos: Frase = {
-    F:'Se declara vencida a Ministra ',
-    M: 'Se declara vencido o Ministro ',
-    PF:'Se declararam vencidas as Ministras, ',
-    PM:'Se declararam vencidos os Ministros, ',
+    F:'Vencida a Ministra ',
+    M: 'Vencido o Ministro ',
+    PF:'Vencidas as Ministras, ',
+    PM:'Vencidos os Ministros, ',
   };
 
   FraseCondutor: Frase = {
@@ -43,10 +51,10 @@ export class ExtratoAtaComponent implements OnInit {
   }
 
   FrasePresentes: Frase = {
-    F: 'Estava Presente a Ministra ',
-    M: 'Estava Presente o Ministro ',
-    PF: 'Estavam Presentes as Ministras ',
-    PM: 'Estavam Presentes os Ministros ',
+    F: 'Estava Presente a Senhora Ministra ',
+    M: 'Estava Presente o Senhor Ministro ',
+    PF: 'Estavam Presentes as Senhoras Ministras ',
+    PM: 'Estavam Presentes os Senhores Ministros ',
   }
 
   constructor(
@@ -78,4 +86,45 @@ export class ExtratoAtaComponent implements OnInit {
         '';
   }
 
+  /**
+   * @description a função recebe um número em formato de string
+   * e retorna ele com um ponto a cada 3 casas numéricas.
+   * @param num uma string do número de processo
+   * @returns o número com um ponto a cada 3 casas numéricas
+   * @author Rodrigo Carvalho dos Santos
+  **/
+  addPontoNumero(num: string): string {
+    return  num.replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+  }
+
+  /**
+   * @description a função recebe o dispositivo e confere se o dispositivo
+   * possui alguma palavra para receber `bg-red-600`, caso contrário recebe
+   * `bg-green-600`
+   * @param dispositivo string
+   * @returns a cor de fundo do dispositivo
+   * @author Rodrigo Carvalho dos Santos
+   */
+  corDispositivo(dispositivo: string): string {
+    const palavras = dispositivo.split(' ');
+
+    if(palavras.filter(palavra => this.Negativos.includes(palavra)).length)
+      return 'bg-red-600'
+    return 'bg-green-600'
+  }
+
+  /**
+   * @description recebe os envolvidos e filtros para categoria e polo, então
+   * retorna os envolvidos pertecentes aos que começam com os filtros escolhidos.
+   * @param envolvidos Envolvido[]
+   * @param filtroCategoria string com a categoria que você procura
+   * @param filtroPolo string opcional com o polo que você procura
+   * @returns todos envolvidos com categoria x e polo y se filtroPolo existir
+   * @author Rodrigo Carvalho dos Santos
+   */
+  filtraEnvolvidos(envolvidos: Envolvido[], filtroCategoria: string, filtroPolo?: string): Envolvido[] {
+    return filtroPolo?
+      envolvidos.filter(({ polo, categoria }) => polo.startsWith(filtroPolo) && categoria.startsWith(filtroCategoria)):
+      envolvidos.filter(({ categoria }) => categoria.startsWith(filtroCategoria));
+  }
 }

@@ -1,19 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Processo } from '../acervo/model/interfaces/processo.interface';
-import { SituacaoDoProcesso } from '../acervo/model/enums/situacaoDoProcesso.enum'
-import { SessaoJulgamento } from '../acervo/model/interfaces/sessao-julgamento.interface';
-import { JulgamentoService } from '../services/julgamento.service';
 import { ResultadoJulgamentoService } from '../services/resultado-julgamento.service';
-import { Decisao, DecisoesResultadoJulgamento } from '../acervo/model/interfaces/decisao.interface';
 import { Ata } from '../acervo/model/interfaces/ata.interface';
-import { Capitulo, CapitulosParaPublicacao } from '../acervo/model/interfaces/capitulo.interface';
-import { MinistroService } from '../services/ministro.service';
-import { Ministro } from '../acervo/model/interfaces/ministro.interface';
 import { MatDialog } from '@angular/material/dialog';
 import { PublicarFormComponent } from './publicar-form/publicar-form.component';
-import { Genero } from '../acervo/model/enums/genero.enum';
-import { Frase } from '../acervo/model/interfaces/frase-genero-plural.interface';
 
 interface Parametros {
     numero: number;
@@ -29,17 +19,12 @@ export class RevisarExtratoAtaComponent implements OnInit {
 
   parametros: Parametros;
 
-  sessao: SessaoJulgamento;
-  data_fim: Date;
   ata: Ata;
-  publicacoes: CapitulosParaPublicacao[];
   form: any;
   tags: string[];
 
   constructor(
-      private _julgamentoService: JulgamentoService,
       private _resultadoJulgamento: ResultadoJulgamentoService,
-      private _ministroService: MinistroService,
       private _matDialog: MatDialog,
       private _route: ActivatedRoute,
   ) { }
@@ -47,34 +32,13 @@ export class RevisarExtratoAtaComponent implements OnInit {
   ngOnInit(): void {
     this.parametros = this._route.snapshot.queryParams as Parametros;
 
-    this._julgamentoService
-      .listarSessoesDeJulgamento(this.parametros.numero, this.parametros.ano)
+    this._resultadoJulgamento
+      .getAta(this.parametros.numero, this.parametros.ano)
       .subscribe({
-        next: (sessao) => {
-            this.sessao = sessao;
-            console.log(this.sessao);
-            this.data_fim = new Date(sessao.data_fim);
-            this.tags = [sessao.colegiado, sessao.tipo];
-
-            this._resultadoJulgamento
-              .getAta(sessao.numero, sessao.ano)
-              .subscribe({
-                next: (ata) => {
-                  this.ata = ata;
-                  console.log(this.ata);
-                  this.publicacoes = ata['capitulos para publicacao'];
-                }
-              });
-        }
-      });
-  }
-
-  recuperaSessao(numero: number, ano: number) {
-    this._julgamentoService
-      .listarSessoesDeJulgamento(numero, ano)
-      .subscribe({
-        next: (sessao) => {
-          return sessao;
+        next: (ata) => {
+          this.ata = ata;
+          console.log(this.ata);
+          this.tags = [ ata.sessao.tipo, ata.sessao.modalidade ];
         }
       });
   }
@@ -84,11 +48,11 @@ export class RevisarExtratoAtaComponent implements OnInit {
   **/
   publicar(): void {
     let dialogRef;
-    if (screen.width < 500) {
+    if (screen.width < 600) {
       const full = '105%'
       dialogRef = this._matDialog
         .open(PublicarFormComponent, {
-          data: this.sessao,
+          data: this.ata.sessao,
           width: full,  maxWidth: full,
           height: full, maxHeight: full,
         });
@@ -96,7 +60,7 @@ export class RevisarExtratoAtaComponent implements OnInit {
     }
     else
       dialogRef = this._matDialog
-        .open(PublicarFormComponent, { data: this.sessao });
+        .open(PublicarFormComponent, { data: this.ata.sessao });
 
     dialogRef.afterClosed().subscribe({
       next: (form) => {

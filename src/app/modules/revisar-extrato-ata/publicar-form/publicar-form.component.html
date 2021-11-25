@@ -1,4 +1,4 @@
-<div class="flex flex-col -m-6">
+<div class="flex flex-col -m-6 text-xs sm:text-base">
     <!-- Header -->
     <div class="flex flex-0 h-16 px-8
         items-center justify-between bg-primary text-on-primary"
@@ -7,115 +7,36 @@
     </div>
 
     <!-- Formulário -->
-    <form [formGroup]="formPublicacao" class="flex flex-col sm:flex-row space-x-0 sm:space-x-4 p-2 sm:p-4">
-        <!-- Selecionar Presença e Presidencia dos Ministros -->
-        <div class="flex flex-col space-y-2">
-            <div class="flex flex-row sm:-mr-2 text-bold space-x-2">
-                <span class="ml-auto">Presente</span>
-                <span>Ausente</span>
-                <span class="hidden sm:block">Presidente</span>
-            </div>
-            <div class="flex flex-row space-x-8">
-                <div class="flex flex-col space-y-2">
-                    <mat-radio-group
-                      class="flex flex-row space-x-2 sm:space-x-8 justify-between"
-                      color="primary"
-                      *ngFor="let ministro of (ministros | async)"
-                      formControlName="presenca"
-                    >
-                        <mat-label class="flex flex-row space-x-2">
-                            <img
-                                  #tooltip="matTooltip"
-                                  class="hidden sm:flex flex-0 w-4 h-4
-                                  ring ring-offset-1 ring-bg-card
-                                  ring-offset-transparent object-cover
-                                  ng-star-inserted"
-                                  [matTooltip]="ministro.nome"
-                                  [matTooltipPosition]="'below'"
-                                  [matTooltipClass]="['text-sm mt-1 px-2 py-1']"
-                                  [src]="ministro.imagem"
-                                  [alt]="ministro.nome"
-                                >
-                            <span class="sm:whitespace-nowrap">{{ ministro.nome }}</span>
-                        </mat-label>
-                        <div class="flex flex-row justify-between space-x-12">
-                            <mat-radio-button
-                              (click)="ministrosAusentes.delete(ministro);ministrosPresentes.add(ministro);"
-                              [value]="ministrosPresentes"
-                            ></mat-radio-button>
-                            <mat-radio-button
-                              (click)="ministrosPresentes.delete(ministro);ministrosAusentes.add(ministro);"
-                              [value]="ministrosAusentes"
-                            ></mat-radio-button>
-                        </div>
-                    </mat-radio-group>
-                </div>
-                <mat-radio-group
-                  color="primary"
-                  class="hidden sm:flex sm:flex-col sm:space-y-2"
-                  formControlName="presidente"
-                >
-                    <mat-radio-button
-                        *ngFor="let ministro of (ministros | async)"
-                        [value]="ministro"
-                    ></mat-radio-button>
-                </mat-radio-group>
-            </div>
-            <mat-form-field class="block sm:hidden w-full mt-2" appearance="outline">
-                <mat-label>Presidente<span class="text-red-500">*</span></mat-label>
-                <mat-select formControlName="presidente">
-                    <mat-option
-                        *ngFor="let ministro of (ministros | async)"
-                        [value]="ministro"
-                    >
-                        <div class="flex items-center">
-                            <div>
-                                <img class="w-4 h-4 mr-4" [src]="ministro.imagem">
-                            </div>
-                            <div>{{ ministro.nome }}</div>
-                        </div>
-                    </mat-option>
-                </mat-select>
-            </mat-form-field>
-        </div>
-        <div class="flex flex-col -mt-2">
-            <!-- Selecionar Acessor Chefe -->
-            <mat-form-field class="w-full mt-2" appearance="fill">
-                <mat-label>
-                    Acessor Chefe da Sessão de Julgamento
-                    <span class="text-red-500">*</span>
-                </mat-label>
-                <input matInput type="text" formControlName="acessor">
-                <mat-hint>Informe o nome completo do Acessor Chefe da Sessão de Julgamento</mat-hint>
-            </mat-form-field>
-
-            <!-- Selecionar Data de Publicação -->
-            <mat-radio-group
-                color="primary"
-                class="flex flex-col space-y-2"
-                formControlName="opcaoData"
+    <form
+      class="flex flex-col md:flex-row space-x-0 md:space-x-4 space-y-2 md:space-y-0 p-2 sm:p-4"
+      [formGroup]="formPublicacao"
+    >
+        <!-- Selecionar Data de Publicação -->
+        <mat-radio-group
+            color="primary"
+            class="flex flex-col space-y-2"
+            formControlName="opcaoData"
+        >
+            <mat-radio-button
+                *ngFor="let opcao of opcoesDataPublicacao"
+                (click)="dataAutomatica(opcao.value)"
+                [value]="opcao.value"
             >
-                <mat-radio-button
-                    *ngFor="let opcao of opcoesDataPublicacao"
-                    [value]="opcao.value"
-                >
-                    {{ opcao.view }}
-                </mat-radio-button>
-            </mat-radio-group>
-            <mat-form-field
-              class="w-full mt-4" appearance="fill"
-              *ngIf="formPublicacao.getRawValue().opcaoData == opcoesDataPublicacao[2].value"
-            >
-                <mat-label class="font-medium mb-2">Selecionar Data:</mat-label>
-
-                <input matInput [matDatepicker]="dp" [formControl]="date" formControlName="dataPublicacao">
-                <mat-datepicker-toggle matSuffix [for]="dp"></mat-datepicker-toggle>
-                <mat-datepicker #dp></mat-datepicker>
-            </mat-form-field>
-        </div>
+                {{ opcao.view }}
+            </mat-radio-button>
+        </mat-radio-group>
+        <mat-form-field
+            class="w-full mt-4" appearance="fill"
+            *ngIf="formPublicacao.getRawValue().opcaoData == opcoesDataPublicacao[2].value"
+        >
+            <mat-label class="text-xs sm:text-base font-medium mb-2">Selecionar Data:</mat-label>
+            <input class="text-xs sm:text-base" matInput [matDatepicker]="dp" [formControl]="date" formControlName="dataPublicacao">
+            <mat-datepicker-toggle matSuffix [for]="dp"></mat-datepicker-toggle>
+            <mat-datepicker #dp></mat-datepicker>
+        </mat-form-field>
     </form>
-    <div class="flex flex-row m-4 space-x-4">
-        <button class="ml-auto" mat-raised-button mat-dialog-close>Cancelar</button>
-        <button color="primary" mat-raised-button (click)="salvar()" [disabled]="formPublicacao.invalid">Salvar</button>
+    <div class="flex flex-row m-4 space-x-4 text-xs sm:text-base">
+        <button class="ml-auto text-xs sm:text-base" mat-raised-button mat-dialog-close>Cancelar</button>
+        <button class="text-xs sm:text-base" color="primary" mat-raised-button (click)="salvar()" [disabled]="formPublicacao.invalid">Salvar</button>
     </div>
 </div>

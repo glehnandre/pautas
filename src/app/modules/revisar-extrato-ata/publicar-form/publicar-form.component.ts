@@ -62,37 +62,24 @@ export class PublicarFormComponent implements OnInit {
 
   ngOnInit(): void {
     this.formPublicacao = this._formBuilder.group({
-      presenca: [[], Validators.required],
-      presidente: ['', Validators.required],
-      acessor: ['', Validators.required],
       opcaoData: ['', Validators.required],
       dataPublicacao: ['', Validators.nullValidator],
     });
     this.ministros = this._ministroService.listarMinistros();
   }
 
-  private dataAutomatica(): Date {
-    return new Date(this.sessao.data_fim);
-  }
-
-  private dataProximaSessao(): Date {
-    return new Date(this.sessao.data_fim);
+  dataAutomatica(value: number): void {
+    if(value != this.opcoesDataPublicacao[2].value)
+      this.formPublicacao.controls.dataPublicacao.setValue(new Date(this.sessao.data_fim));
   }
 
   /**
    * Pega os dados do formulário e retorna para página Revisar Publicação
    */
   salvar(): void {
-    const { presidente, acessor, opcaoData, dataPublicacao } = this.formPublicacao.getRawValue();
-    const dataAutomatica = opcaoData == 0? this.dataAutomatica():this.dataProximaSessao();
+    const { opcaoData, dataPublicacao } = this.formPublicacao.getRawValue();
     const form = {
-      acessor,
-      dataPublicacao:
-        opcaoData == 2? dataPublicacao._d:
-        dataAutomatica,
-      ministrosAusentes: [...this.ministrosAusentes],
-      ministrosPresentes: [...this.ministrosPresentes],
-      presidente,
+      dataPublicacao,
     }
     console.log('Ata Publicada:')
     console.log(this.opcoesDataPublicacao[opcaoData]);

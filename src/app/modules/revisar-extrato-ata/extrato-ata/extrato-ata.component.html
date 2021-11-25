@@ -1,65 +1,93 @@
 <div class="flex flex-col my-4 space-y-4">
     <div
-      class="flex flex-col items-center"
-      *ngFor="let publicacao of publicacoes"
+      class="flex flex-col items-center text-xs sm:text-base"
+      *ngFor="let capituloPublicacao of capitulosPublicacao"
     >
-        <div class="flex flex-row w-11/12 text-white">
-            <div class="flex flex-col bg-blue-900 p-2 items-center space-x-2">
-                <div class="flex flex-row">
-                    <mat-icon class="hidden sm:block text-current" [svgIcon]="'heroicons_outline:calendar'"></mat-icon>
-                    <span class="text-base sm:text-4xl font-medium">{{ sessao?.data_inicio | date: 'dd'}}</span>
-                </div>
-                <span class="text-xs sm:text-base">{{ sessao?.data_inicio | date: 'MMM/yyyy':'':'pt-BR'}}</span>
-            </div>
-            <div class="flex flex-col bg-primary p-2 w-full">
-                <div>
-                    <span class="text-base sm:text-2xl">{{ publicacao?.cadeia + publicacao?.numero + publicacao?.classe }}</span>
-                </div>
-                <div class="text-xs sm:text-base">
-                    <span>Relatoria </span>
-                    <span class="font-medium">
-                        Ministr{{ publicacao?.relator?.genero == 'Masculino' ? 'o': 'a' }}
-                        {{ publicacao?.relator?.nome }}
-                    </span>
-                </div>
-            </div>
-        </div>
-        <div class="flex flex-col w-11/12 bg-white dar:bg-gray-800 text-xs sm:text-base">
-
-            <div class="w-full" *ngFor="let capitulo of publicacao?.capitulos">
-                <div class="flex flex-col sm:flex-row justify-between m-8">
-                    <div class="flex flex-col w-full">
-                        <div [innerHtml]="fraseEMinistros(capitulo?.ministros_impedidos, FraseImpedidos)"></div>
-                        <div [innerHtml]="fraseEMinistros(capitulo?.ministros_suspeitos, FraseSuspeitos)"></div>
+        <div class="w-full md:w-9/12">
+            <div class="flex flex-row text-white">
+                <div *ngIf="form?.dataPublicacao" class="flex flex-col bg-blue-900 p-2 items-center space-x-2">
+                    <div class="flex flex-row">
+                        <mat-icon class="hidden sm:block text-current" [svgIcon]="'heroicons_outline:calendar'"></mat-icon>
+                        <span class="text-base sm:text-4xl font-medium">{{ form?.dataPublicacao | date: 'dd'}}</span>
                     </div>
-                    <div class="flex flex-col w-full">
-                        <div [innerHtml]="fraseEMinistros(capitulo?.ministros_acordam, FraseVencidos)"></div>
-                        <div [innerHtml]="fraseEMinistros([capitulo?.ministro_condutor], FraseCondutor)"></div>
+                    <span>{{ form?.dataPublicacao | date: 'MMM/yyyy':'':'pt-BR'}}</span>
+                </div>
+                <div class="flex flex-col bg-primary p-2 w-full">
+                    <div>
+                        <span class="text-base sm:text-2xl">
+                            {{ capituloPublicacao?.classe_extenso }} {{ addPontoNumero(capituloPublicacao?.numero) }}
+                        </span>
                     </div>
+                    <div>
+                        <span>
+                            ({{ capituloPublicacao?.classe }} {{ capituloPublicacao?.numero }}) Relatoria
+                        </span>
+                        <span class="font-medium">
+                            Ministr{{ capituloPublicacao?.relator?.genero == 'Masculino' ? 'o': 'a' }}
+                            {{ capituloPublicacao?.relator?.nome }}
+                        </span>
+                    </div>
+                </div>
+            </div>
+            <div class="flex flex-col bg-white dar:bg-gray-800 pb-4">
+                <div class="mx-2 sm:mx-4 -my-4 sm:-my-2">
+                    <hr><div class="flex flex-col sm:flex-row -my-4 sm:-my-2 justify-between">
+                        <span>
+                            REQUERENTE(S):
+                            <span class="font-medium" *ngFor="let requerente of filtraEnvolvidos(capituloPublicacao?.envolvidos, 'REQUERENTE')">
+                                {{ requerente.nome }}
+                            </span><br>
+                            <span *ngFor="let advogado of filtraEnvolvidos(capituloPublicacao?.envolvidos, 'ADVOGAD', 'REQUERENTE')">
+                                {{ advogado.categoria }}:
+                                <span class="font-medium">{{ advogado.nome }} | {{ advogado.identificacoes[0] }}</span><br>
+                            </span>
+                        </span>
+                        <span>
+                            RECORRIDO(A/S):
+                            <span class="font-medium" *ngFor="let envolvido of filtraEnvolvidos(capituloPublicacao?.envolvidos, 'RECORRID')">
+                                {{ envolvido.nome}}
+                            </span><br>
+                            <span *ngFor="let advogado of filtraEnvolvidos(capituloPublicacao?.envolvidos, 'ADVOGAD', 'RECORRID')">
+                                {{ advogado.categoria }}:
+                                <span class="font-medium">{{ advogado.nome }} | {{ advogado.identificacoes[0] }}</span><br>
+                            </span>
+                        </span>
+                    </div><hr>
                 </div>
                 <div class="text-center">
                     <h1>Extrato da Ata</h1>
                     <h2>
-                        {{ capitulo?.descricao }}
+                        Sessão {{ sessao?.tipo }} {{ sessao?.numero }}/{{ sessao?.ano }} de {{ sessao?.colegiado }}
+                        {{ sessao?.data_fim | date: "dd.mm.yyyy" }} por {{ sessao?.modalidade }}
                     </h2>
                 </div>
-                <div class="pl-4 sm:pl-8 p-2">
-                    <div [innerHtml]="capitulo?.texto"></div>
-                    <div
-                      *ngIf="form?.ministrosPresentes"
-                      [innerHtml]="fraseEMinistros(form?.ministrosPresentes, FrasePresentes)"
-                    ></div>
+                <div class="w-full" *ngFor="let capitulo of capituloPublicacao?.capitulos">
+                    <div class="ml-4 sm:ml-8 md:ml-16 mr-4">
+                        <div
+                          [class]="corDispositivo(capitulo?.dispositivo)"
+                          class="rounded-full px-2 text-white mb-4 inline-block"
+                        >
+                            {{ capitulo?.dispositivo }}
+                        </div>
+                        <div [innerHtml]="capitulo?.texto"></div><br>
+                        <div [innerHtml]="fraseEMinistros(capitulo?.ministros_divergem, FraseVencidos)"></div>
+                    </div>
+                    <br class="my-2">
                 </div>
-                <hr class="my-2">
-            </div>
-            <div class="text-center my-4">
-                <footer>
-                    Brasília, {{ sessao?.data_inicio | date: 'dd' }} de
-                    {{ sessao?.data_inicio | date: 'MMMM':'':'pt-BR' }} de
-                    {{ sessao?.data_inicio | date: 'YYYY' }}
+                <div
+                  class="ml-4 sm:ml-8 md:ml-16"
+                  *ngIf="sessao?.ministros_presentes"
+                  [innerHtml]="fraseEMinistros(sessao?.ministros_presentes, FrasePresentes)"
+                ></div>
+                <footer class="text-center mt-4">
+                    <span *ngIf="form">
+                        Brasília, {{ form?.dataPublicacao | date: 'dd' }} de
+                        {{ form?.dataPublicacao | date: 'MMMM':'':'pt-PT' }} de
+                        {{ form?.dataPublicacao | date: 'YYYY' }}
+                    </span><br>
+                    {{ sessao?.secretario.nome }}<br>
+                    Acessor(a) Chefe do Plenário
                 </footer>
-                <footer>{{ form?.acessor?form?.acessor:'' }}</footer>
-                <footer *ngIf="form?.acessor">Acessor(a) Chefe do Plenário</footer>
             </div>
         </div>
     </div>
