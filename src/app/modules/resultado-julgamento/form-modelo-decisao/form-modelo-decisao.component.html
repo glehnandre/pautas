@@ -35,7 +35,7 @@
                         formControlName="tipo_capitulo"
                     >
                         <mat-option 
-                            *ngFor="let capitulo of ['Tese']" 
+                            *ngFor="let capitulo of ['Tese', 'Mérito']" 
                             [value]="capitulo"
                         >
                             {{capitulo}}
@@ -51,7 +51,7 @@
                     >
                         <mat-option 
                             *ngFor="let recurso of ['Agravo', 'disp2']" 
-                            [value]="recurso"
+                            [value]="1"
                         >
                             {{recurso}}
                         </mat-option>

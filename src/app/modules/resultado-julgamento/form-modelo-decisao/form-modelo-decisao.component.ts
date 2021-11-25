@@ -1,6 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { MatDialogRef } from '@angular/material/dialog';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { TipoCapitulo } from 'app/modules/acervo/model/enums/tipoCapitulo.enum';
+import { ModeloDecisao } from 'app/modules/acervo/model/interfaces/modeloDecisao.interface';
 import { ResultadoJulgamentoService } from 'app/modules/services/resultado-julgamento.service';
 
 @Component({
@@ -16,12 +18,15 @@ export class FormModeloDecisaoComponent implements OnInit {
     private _fb: FormBuilder,
     private _resultadoJulgamento: ResultadoJulgamentoService,
     public dialogRef: MatDialogRef<FormModeloDecisaoComponent>,
+    @Inject(MAT_DIALOG_DATA) public modelo: ModeloDecisao,
   ) { 
+    console.log(this.modelo)
     this.formModeloDecisao = this._fb.group({
-      classe:           ['', Validators.required],
-      tipo_capitulo:    ['', Validators.required],
-      recurso:          ['', Validators.required],
-      texto:            ['', Validators.required],
+      classe:           [this.modelo.classe, Validators.required],
+      tipo_capitulo:    [this.modelo.tipoCapitulo, Validators.required],
+      recurso:          [this.modelo.recurso, Validators.required],
+      texto:            [this.modelo.texto, Validators.required],
+      dispositivo:      [this.modelo.dispositivo],
     });
   }
 

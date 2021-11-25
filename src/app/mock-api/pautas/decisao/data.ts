@@ -20,7 +20,7 @@ export const modeloDecisao: ModeloDecisao[] = [
     classe: 'ADI',
     dispositivo: dispositivos[0],
     recurso: 1,
-    texto: '',
+    texto: 'Após o voto do Ministro relator @relator que dava provimento ao recurso extraordinário, de modo a conceder a segurança, e fixava a seguinte teste (tema 1.2021 de repercussão geral).',
     tipoCapitulo: TipoCapitulo.Merito,
   }
 ];

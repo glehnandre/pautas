@@ -5,6 +5,7 @@ import { MatSelectChange } from '@angular/material/select';
 import { Capitulo } from 'app/modules/acervo/model/interfaces/capitulo.interface';
 import { Dispositivo } from 'app/modules/acervo/model/interfaces/dispositivo.interface';
 import { Ministro } from 'app/modules/acervo/model/interfaces/ministro.interface';
+import { ModeloDecisao } from 'app/modules/acervo/model/interfaces/modeloDecisao.interface';
 import { Processo } from 'app/modules/acervo/model/interfaces/processo.interface';
 import { DispositivoService } from 'app/modules/services/dispositivo.service';
 import { MinistroService } from 'app/modules/services/ministro.service';
@@ -23,9 +24,10 @@ export class FormDecisaoComponent implements OnInit, OnChanges, OnDestroy {
   formDecisao: FormGroup;
   ministros$: Observable<Ministro []>
   tipos$: Observable<string[]>; 
-  dispositivos$: Observable<Dispositivo[]>;
   idsDosProcessos: number[] = [];
   limparProcessosSelecionados: boolean = false;
+  dispositivos: Dispositivo[] = [];
+  modelo: ModeloDecisao = {id: 0, classe: '', dispositivo: null, recurso: 0, texto: '', tipoCapitulo: null};
 
   @Input() idProcesso: number = 0;
   @Input() isDesabilitarForm: boolean = false;
@@ -89,7 +91,12 @@ export class FormDecisaoComponent implements OnInit, OnChanges, OnDestroy {
    */
   public buscarDispositivos(event: EventEmitter<MatSelectChange>): void {
     const tipo: string = event['value'];
-    this.dispositivos$ = this._dispositivoService.obterDispositivos(this.idProcesso, tipo);
+
+    this._dispositivoService.obterDispositivos(this.idProcesso, tipo).subscribe({
+      next: (dispositivos) => {
+        this.dispositivos = dispositivos;
+      }
+    });
   }
 
   /**
@@ -109,6 +116,7 @@ export class FormDecisaoComponent implements OnInit, OnChanges, OnDestroy {
   public exibirModalDeModeloDecisao(): void {
     const dialogRef = this._dialog.open(FormModeloDecisaoComponent, {
       maxHeight: '90vh',
+      data: this.modelo,
     });
 
     dialogRef.afterClosed().subscribe(data => {});
@@ -153,6 +161,26 @@ export class FormDecisaoComponent implements OnInit, OnChanges, OnDestroy {
         }
       });
     }
+  }
+
+  /**
+   * @public Método público
+   * @param dispositivo Objeto javascript com as informações de um dispositivo
+   * @description Método para carregar um modelo de texto usando um dispositivo
+   *              como parâmentro
+   * @author Douglas da Silva Monteles
+   */
+  public carregarModeloDeTextoComBaseNoDispositivo(nomeDispositivo: string): void {
+    const dispositivo = this.dispositivos.find(d => d.nome === nomeDispositivo);
+    this.formDecisao.controls.texto.setValue('');
+    this.modelo = {id: 0, classe: '', dispositivo: null, recurso: 0, texto: '', tipoCapitulo: null};
+
+    this._resultadoJulgamento.obterModeloDecisaoPeloId(dispositivo.id).subscribe({
+      next: (modelo) => {
+        this.modelo = modelo;
+        this.formDecisao.controls.texto.setValue(this.modelo.texto);
+      },
+    });
   }
 
   /**

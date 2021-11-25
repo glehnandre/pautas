@@ -105,6 +105,23 @@ export class DecisaoMockApi {
         });
 
       this._fuseMockApiService
+        .onGet('modelo-decisao/:id')
+        .reply(({urlParams}) => {
+          const idDispositivo: number = +urlParams.id;
+          const index = this._modeloDecisao
+            .findIndex(m => m.dispositivo.id === idDispositivo);
+
+          if (index !== -1) {
+            return [200, this._modeloDecisao[index]];
+          } else {
+            return [404, { 
+              description: "Não foram encontrados dispositivos para o processo" 
+            }];
+          }
+
+        });
+
+      this._fuseMockApiService
         .onPut('modelo-decisao/:id')
         .reply(({request, urlParams}) => {
           const id: number = +urlParams.id;
