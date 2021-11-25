@@ -119,7 +119,9 @@ export class FormDecisaoComponent implements OnInit, OnChanges, OnDestroy {
       data: this.modelo,
     });
 
-    dialogRef.afterClosed().subscribe(data => {});
+    dialogRef.afterClosed().subscribe(data => {
+      this.carregarModeloDeTextoComBaseNoDispositivo(this.formDecisao.controls.dispositivo.value);
+    });
   }
 
   /**
@@ -173,14 +175,16 @@ export class FormDecisaoComponent implements OnInit, OnChanges, OnDestroy {
   public carregarModeloDeTextoComBaseNoDispositivo(nomeDispositivo: string): void {
     const dispositivo = this.dispositivos.find(d => d.nome === nomeDispositivo);
     this.formDecisao.controls.texto.setValue('');
-    this.modelo = {id: 0, classe: '', dispositivo: null, recurso: 0, texto: '', tipoCapitulo: null};
+    this.modelo = {id: 0, classe: '', dispositivo, recurso: 0, texto: '', tipoCapitulo: null};
 
-    this._resultadoJulgamento.obterModeloDecisaoPeloId(dispositivo.id).subscribe({
-      next: (modelo) => {
-        this.modelo = modelo;
-        this.formDecisao.controls.texto.setValue(this.modelo.texto);
-      },
-    });
+    if (dispositivo?.id) {
+      this._resultadoJulgamento.obterModeloDecisaoPeloId(dispositivo.id).subscribe({
+        next: (modelo) => {
+          this.modelo = modelo;
+          this.formDecisao.controls.texto.setValue(this.modelo.texto);
+        },
+      });
+    }
   }
 
   /**

@@ -22,6 +22,7 @@ export class FormModeloDecisaoComponent implements OnInit {
   ) { 
     console.log(this.modelo)
     this.formModeloDecisao = this._fb.group({
+      id:               [this.modelo.id],
       classe:           [this.modelo.classe, Validators.required],
       tipo_capitulo:    [this.modelo.tipoCapitulo, Validators.required],
       recurso:          [this.modelo.recurso, Validators.required],
@@ -36,6 +37,16 @@ export class FormModeloDecisaoComponent implements OnInit {
   public salvarModeloDecisao(): void {
     if (this.formModeloDecisao.valid) {
       this._resultadoJulgamento.salvarModeloDecisao(this.formModeloDecisao.value).subscribe({
+        next: () => {
+          this.dialogRef.close();
+        }
+      });
+    }
+  }
+
+  public atualizarModeloDecisao(): void {
+    if (this.formModeloDecisao.valid) {
+      this._resultadoJulgamento.atualizarModeloDecisao(this.modelo.id, this.formModeloDecisao.value).subscribe({
         next: () => {
           this.dialogRef.close();
         }
