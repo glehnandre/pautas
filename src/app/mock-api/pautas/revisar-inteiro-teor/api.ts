@@ -77,7 +77,7 @@ export class RevisaoInteiroTeorMockApi {
 
             documentos.forEach(idDoc => {
               const documento = this._documentos.find(d => d.id === idDoc);
-              
+
               if (documento !== undefined) {
                 documentosDoProcesso.push(documento);
               }
@@ -101,7 +101,7 @@ export class RevisaoInteiroTeorMockApi {
           const { params } = request;
           const id: number = +urlParams.id;
           const documentos = [...params.get('processos').replace(',', '')];
-          
+
           const revisao = this._revisoes
             .find(rev => rev.id_processo === id);
 
@@ -110,7 +110,7 @@ export class RevisaoInteiroTeorMockApi {
 
             documentos.forEach(idDoc => {
               const index = processo?.documentos?.findIndex(d => d.id === +idDoc);
-              
+
               if (index !== -1) {
                 processo.documentos.splice(index, 1);
               }
@@ -139,20 +139,20 @@ export class RevisaoInteiroTeorMockApi {
             if (revisao !== undefined) {
               const processo = this._processos.find(p => p.id === revisao.id_processo);
               let documentosDoProcesso = [];
-  
+
               documentos.forEach(idDoc => {
                 const documento = this._documentos.find(d => d.id === idDoc);
-                
+
                 if (documento !== undefined) {
                   documentosDoProcesso.push(documento);
                 }
               });
-  
+
               processo.documentos = documentosDoProcesso;
-  
+
               console.log('aqui');
               console.log(processo)
-  
+
               return [200, processo];
             } else {
             return [200, {

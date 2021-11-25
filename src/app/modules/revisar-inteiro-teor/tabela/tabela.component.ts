@@ -8,6 +8,7 @@ import { BehaviorSubject, Observable } from 'rxjs';
 import { DocumentoInteiroTeor } from '../../acervo/model/interfaces/documento-inteiro-teor.interface';
 import { SessaoJulgamento } from '../../acervo/model/interfaces/sessao-julgamento.interface';
 import { Tag } from '../../acervo/model/interfaces/tag.interface';
+import { RevisarInteiroTeorService } from '../../services/revisar-inteiro-teor.service';
 
 export interface RevisaoInteiroTeor {
     id_processo: number;
@@ -30,6 +31,7 @@ export class TabelaComponent implements OnInit {
   @Input() dataSource: DataSourceInteiroTeor;
   @Input() revisoes: RevisaoInteiroTeor;
   @Input() todosOsCheckboxSelecionados: boolean;
+  @Input() idProcesso: number;
   @Output() checked = new EventEmitter();
   @Output() link = new EventEmitter();
   displayedColumns: string[] = ['autor', 'responsavel', 'comentarios', 'documento', 'data', 'situacao', 'arquivo'];
@@ -38,15 +40,21 @@ export class TabelaComponent implements OnInit {
   editarDocumentoForm: FormGroup;
 
   constructor(
+    private _inteiroTeorService: RevisarInteiroTeorService,
     private _formBuilder: FormBuilder,
   ) { }
 
   ngOnInit(): void {
     this.editarDocumentoForm = this._formBuilder.group({
-        situacao             : [''],
-        nome                 : [''],
+        arquivo              : [''],
+        autores              : [''],
+        responsavel          : [''],
         comentario           : [''],
-        observacao           : [''],
+        nome                 : [''],
+        data_criacao         : [''],
+        situacao             : [''],
+        revisado             : [''],
+        ordem                : [''],
     });
   }
 
@@ -75,6 +83,19 @@ export class TabelaComponent implements OnInit {
 
   fecharEdicaoDocumento(): void {
     this.documentoSelecionado = null;
+  }
+
+  atualizarDocumento(): void {
+      const documentoEditado = this.editarDocumentoForm.getRawValue();
+
+      this.revisoes.documentos = this.revisoes.documentos.map((documento) => {
+          if (documento.ordem === documentoEditado.ordem) {
+              documento = documentoEditado;
+          }
+          return documento;
+      })
+
+      this._inteiroTeorService.atualizarDocumentoDoInteiroTeor(this.idProcesso, this.revisoes.documentos).subscribe();
   }
 
   compare(a: number | string, b: number | string, isAsc: boolean) {
@@ -122,7 +143,9 @@ export class TabelaComponent implements OnInit {
 
     this.atualizaOrdem();
 
-    this.dataSource = new DataSourceInteiroTeor(this.revisoes.documentos)
+    this.dataSource = new DataSourceInteiroTeor(this.revisoes.documentos);
+
+    this._inteiroTeorService.atualizarDocumentoDoInteiroTeor(this.idProcesso, this.revisoes.documentos).subscribe();
   }
 
 }
