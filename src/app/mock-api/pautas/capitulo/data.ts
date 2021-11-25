@@ -8,44 +8,36 @@ export const capitulo: Array<Capitulo> = [
         descricao: 'Recurso Extraordinário com agravo 1.299.544',
         ordem:  1,
         tipo:   TipoCapitulo.Merito,
-        dispositivo: 'Deferida em parte',
+        dispositivo: 'Negado o Provimento',
         ministros_acordam: [
-            ministro[0],
-            ministro[3],
-        ],
-        ministros_suspeitos: [
-            ministro[4],
-        ],
-        ministros_impedidos: [
+            ministro[5],
             ministro[6],
+        ],
+        ministros_divergem: [
             ministro[7],
         ],
         ministro_condutor: ministro[3],
-        texto: `
-            <span class="px-2 bg-red-600 rounded-full text-white">Julgamento Suspenso</span>
-            <br class="mb-4">
-            <div>
-                <p>Após a leitura do relatório, o julgamento foi suspenso.</p>
-            </div>
-        `,
+        texto: `O tribunal por maioria, apreciando o tema 386 da repercursão geral,
+        negou provimento ao recurso extraordinário, nos termos do voto do Ministro Edson Fachin, Redator para o Acordão`,
     },
     {
         id:     2,
         descricao: 'Recurso Extraordinário com agravo 1.299.544',
         ordem:  1,
         tipo:   TipoCapitulo.Merito,
-        dispositivo: 'Deferida',
+        dispositivo: 'Fixada a Tese',
         ministros_acordam: [
             ministro[1]
         ],
-        ministros_suspeitos: [
+        ministros_divergem: [
             ministro[2]
         ],
-        ministros_impedidos: [
-            ministro[3]
-        ],
         ministro_condutor: ministro[0],
-        texto: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc tempus neque nec ante porta tincidunt eu quis felis. Sed magna libero, sodales ut enim quis, varius faucibus lectus. Sed porttitor pharetra orci, quis fermentum risus rutrum id. Vivamus ornare purus a lorem accumsan cursus. Pellentesque ligula metus, dictum pretium dignissim non, fringilla ac lacus. Sed non dui nibh.'
+        texto: `"Nos termos do artigo 5º, VIII, da Constituição Federal é possível a realização de etapas de concurso
+        publico em datas e horários distintos dos previstos em edital, por candidato que invoca escusa de consciência por
+        motivo de crença religiosa, desde que presentes a razoabilidade da alteração, a preservação da igualdade entre
+        todos os candidatos e que não acarrete ônus desproporcional à Administração Pública, que deverá decidir de
+        maneira fundamentada"`
     },
     {
         id:     3,
@@ -56,11 +48,8 @@ export const capitulo: Array<Capitulo> = [
         ministros_acordam: [
             ministro[3]
         ],
-        ministros_suspeitos: [
+        ministros_divergem: [
             ministro[0]
-        ],
-        ministros_impedidos: [
-            ministro[1]
         ],
         ministro_condutor: ministro[2],
         texto: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc tempus neque nec ante porta tincidunt eu quis felis. Sed magna libero, sodales ut enim quis, varius faucibus lectus. Sed porttitor pharetra orci, quis fermentum risus rutrum id. Vivamus ornare purus a lorem accumsan cursus. Pellentesque ligula metus, dictum pretium dignissim non, fringilla ac lacus. Sed non dui nibh.'
@@ -74,11 +63,8 @@ export const capitulo: Array<Capitulo> = [
         ministros_acordam: [
             ministro[1]
         ],
-        ministros_suspeitos: [
+        ministros_divergem: [
             ministro[2]
-        ],
-        ministros_impedidos: [
-            ministro[3]
         ],
         ministro_condutor: ministro[0],
         texto: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc tempus neque nec ante porta tincidunt eu quis felis. Sed magna libero, sodales ut enim quis, varius faucibus lectus. Sed porttitor pharetra orci, quis fermentum risus rutrum id. Vivamus ornare purus a lorem accumsan cursus. Pellentesque ligula metus, dictum pretium dignissim non, fringilla ac lacus. Sed non dui nibh.'
@@ -92,11 +78,8 @@ export const capitulo: Array<Capitulo> = [
         ministros_acordam: [
             ministro[1]
         ],
-        ministros_suspeitos: [
+        ministros_divergem: [
             ministro[2]
-        ],
-        ministros_impedidos: [
-            ministro[3]
         ],
         ministro_condutor: ministro[0],
         texto: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc tempus neque nec ante porta tincidunt eu quis felis. Sed magna libero, sodales ut enim quis, varius faucibus lectus. Sed porttitor pharetra orci, quis fermentum risus rutrum id. Vivamus ornare purus a lorem accumsan cursus. Pellentesque ligula metus, dictum pretium dignissim non, fringilla ac lacus. Sed non dui nibh.'
@@ -110,11 +93,8 @@ export const capitulo: Array<Capitulo> = [
         ministros_acordam: [
             ministro[1]
         ],
-        ministros_suspeitos: [
+        ministros_divergem: [
             ministro[2]
-        ],
-        ministros_impedidos: [
-            ministro[3]
         ],
         ministro_condutor: ministro[0],
         texto: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc tempus neque nec ante porta tincidunt eu quis felis. Sed magna libero, sodales ut enim quis, varius faucibus lectus. Sed porttitor pharetra orci, quis fermentum risus rutrum id. Vivamus ornare purus a lorem accumsan cursus. Pellentesque ligula metus, dictum pretium dignissim non, fringilla ac lacus. Sed non dui nibh.'
@@ -128,11 +108,8 @@ export const capitulo: Array<Capitulo> = [
         ministros_acordam: [
             ministro[1]
         ],
-        ministros_suspeitos: [
+        ministros_divergem: [
             ministro[2]
-        ],
-        ministros_impedidos: [
-            ministro[3]
         ],
         ministro_condutor: ministro[0],
         texto: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc tempus neque nec ante porta tincidunt eu quis felis. Sed magna libero, sodales ut enim quis, varius faucibus lectus. Sed porttitor pharetra orci, quis fermentum risus rutrum id. Vivamus ornare purus a lorem accumsan cursus. Pellentesque ligula metus, dictum pretium dignissim non, fringilla ac lacus. Sed non dui nibh.'

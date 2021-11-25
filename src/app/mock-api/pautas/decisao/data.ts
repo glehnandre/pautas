@@ -44,37 +44,169 @@ export const ata: Ata = {
     total_destaque: 0,
     total_nao_julgados: 1,
     total_suspensos: 1,
-    "capitulos para publicacao": [
+    sessao: sessao[0],
+    capitulos_para_publicacao: [
       {
-        classe: "string",
-        numero: "string",
+        classe: "ARE",
+        classe_extenso: "RECURSO EXTRAORDINÁRIO COM AGRAVO",
+        numero: "1311742",
         cadeia: "string",
+        envolvidos: [
+          {
+            nome: "Instituto Nacional do Seguro Social",
+            polo: "REQUERENTE",
+            categoria: "REQUERENTE",
+            identificacoes: [],
+          },
+          {
+            nome: "Francisco Chagas Ferreira Lima",
+            polo: "RECORRIDO",
+            categoria: "RECORRIDO",
+            identificacoes: [],
+          },
+          {
+            nome: "Andrea Ponte Barbosa",
+            polo: "REQUERENTE",
+            categoria: "ADVOGADA",
+            identificacoes: ["OAB 13190-B/CE"],
+          },
+          {
+            nome: "Geissa Braga Calvacante",
+            polo: "RECORRIDO",
+            categoria: "ADVOGADA",
+            identificacoes: [
+              "OAB 12314-B/CE",
+            ],
+          },
+          {
+            nome: "Andrea Ponte Barbosa",
+            polo: "RECORRIDO",
+            categoria: "ADVOGADA",
+            identificacoes: [
+              "OAB 56782-B/CE",
+            ],
+          },
+        ],
         relator: ministro[0],
-        redator: ministro[10],
+        redator: ministro[1],
+        ministros_impedidos: [
+          ministro[2],
+        ],
+        ministros_suspeitos: [
+          ministro[3],
+          ministro[4],
+        ],
         capitulos: [
           capitulo[0],
           capitulo[1],
-          capitulo[2],
         ]
       },
       {
-        classe: "string",
-        numero: "string",
+        classe: "AG",
+        classe_extenso: "AGRAVO REGIMENTAL",
+        numero: "100",
         cadeia: "string",
+        envolvidos: [
+          {
+            nome: "Instituto Nacional do Seguro Social",
+            polo: "REQUERENTE",
+            categoria: "REQUERENTE",
+            identificacoes: [],
+          },
+          {
+            nome: "Francisco Chagas Ferreira Lima",
+            polo: "RECORRIDO",
+            categoria: "RECORRIDO",
+            identificacoes: [],
+          },
+          {
+            nome: "Andrea Ponte Barbosa",
+            polo: "REQUERENTE",
+            categoria: "ADVOGADA",
+            identificacoes: ["OAB 13190-B/CE"],
+          },
+          {
+            nome: "Geissa Braga Calvacante",
+            polo: "RECORRIDO",
+            categoria: "ADVOGADA",
+            identificacoes: [
+              "OAB 12314-B/CE",
+            ],
+          },
+          {
+            nome: "Andrea Ponte Barbosa",
+            polo: "RECORRIDO",
+            categoria: "ADVOGADA",
+            identificacoes: [
+              "OAB 56782-B/CE",
+            ],
+          },
+        ],
         relator: ministro[1],
         redator: ministro[9],
+        ministros_impedidos: [
+          ministro[0],
+        ],
+        ministros_suspeitos: [
+          ministro[0],
+        ],
         capitulos: [
+          capitulo[2],
           capitulo[3],
+          capitulo[4],
         ]
       },
       {
-        classe: "string",
-        numero: "string",
-        cadeia: "string",
+        classe: "CCP",
+        classe_extenso: "CLASSE DE CAPITULO PARA PUBLICACAO",
+        numero: "numero",
+        cadeia: "cadeia",
+        envolvidos: [
+          {
+            nome: "Instituto Nacional do Seguro Social",
+            polo: "REQUERENTE",
+            categoria: "REQUERENTE",
+            identificacoes: [],
+          },
+          {
+            nome: "Francisco Chagas Ferreira Lima",
+            polo: "RECORRIDO",
+            categoria: "RECORRIDO",
+            identificacoes: [],
+          },
+          {
+            nome: "Andrea Ponte Barbosa",
+            polo: "REQUERENTE",
+            categoria: "ADVOGADA",
+            identificacoes: ["OAB 13190-B/CE"],
+          },
+          {
+            nome: "Geissa Braga Calvacante",
+            polo: "RECORRIDO",
+            categoria: "ADVOGADA",
+            identificacoes: [
+              "OAB 12314-B/CE",
+            ],
+          },
+          {
+            nome: "Andrea Ponte Barbosa",
+            polo: "RECORRIDO",
+            categoria: "ADVOGADA",
+            identificacoes: [
+              "OAB 56782-B/CE",
+            ],
+          },
+        ],
         relator: ministro[2],
         redator: ministro[8],
+        ministros_impedidos: [
+          ministro[0],
+        ],
+        ministros_suspeitos: [
+          ministro[0],
+        ],
         capitulos: [
-          capitulo[4],
+          capitulo[5],
         ]
       }
     ]
