@@ -229,7 +229,7 @@ export class PublicacoesComponent implements OnInit, OnDestroy {
    * filtradas
    */
   trataExibidos(){
-    this.exibidos = this.filtrados.slice(0,10);
+    this.exibidos = this.filtrados.slice(0,30);
     this.right = this.exibidos.length;
     this.left = 0;
   }
@@ -239,9 +239,9 @@ export class PublicacoesComponent implements OnInit, OnDestroy {
    */
   proximoExibidos(){
     if(this.filtrados.length>this.right){
-      this.exibidos = this.filtrados.slice(this.left+10,this.right+10);
+      this.exibidos = this.filtrados.slice(this.left+30,this.right+30);
       this.right += this.exibidos.length;
-      this.left += 10;
+      this.left += 30;
     }
   }
 
@@ -251,7 +251,7 @@ export class PublicacoesComponent implements OnInit, OnDestroy {
   anteriorExibidos(){
     if(this.left>0){
       this.right -= this.exibidos.length;
-      this.left -= 10;
+      this.left -= 30;
       this.exibidos = this.filtrados.slice(this.left,this.right);
     }
   }

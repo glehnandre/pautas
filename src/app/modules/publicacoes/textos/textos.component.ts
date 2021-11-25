@@ -4,6 +4,7 @@ import { Envolvido } from 'app/modules/acervo/model/interfaces/envolvido.interfa
 import { PublicacaoDto } from 'app/modules/acervo/model/interfaces/publicacaoDto.interface';
 import { registerLocaleData } from '@angular/common';
 import localePT from '@angular/common/locales/pt';
+import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 registerLocaleData(localePT);
 
 @Component({
@@ -17,10 +18,13 @@ export class TextosComponent implements OnInit, AfterContentChecked {
   @Input() filtrados: PublicacaoDto[] = [];
 
   publicacoes: PublicacaoDto[];
+  link: SafeResourceUrl;
+  //link: string = '/assets/pdf/relatorio-adi6185-Ed.pdf'
 
-  constructor() { }
+  constructor(private _sanitizer: DomSanitizer,) { }
 
   ngOnInit(): void {
+    this.link = this._sanitizer.bypassSecurityTrustResourceUrl('');
   }
 
   ngAfterContentChecked(): void {
@@ -68,5 +72,13 @@ export class TextosComponent implements OnInit, AfterContentChecked {
     (firstDate) ? data = newDate.getDate()+'/'+meses[newDate.getMonth()]+'/'+newDate.getFullYear().toString().slice(2,4) 
                 : data = datepipe.transform(isoDate, "dd/MM/YYYY hh:mm");
     return data;
+  }
+
+  /**
+   * Abre o link do pdf da publicação para ser baixado
+   */
+  abrirLink(): void {
+      this.link = this._sanitizer.bypassSecurityTrustResourceUrl('/assets/pdf/relatorio-adi6185-Ed.pdf');
+      window.open(this.link['changingThisBreaksApplicationSecurity'], "_blank");
   }
 }
