@@ -22,7 +22,6 @@
             <mat-label>Dispositivo <span class="text-red-500">*</span></mat-label>
             <mat-select 
                 formControlName="dispositivo" 
-                (valueChange)="carregarModeloDeTextoComBaseNoDispositivo($event)"
             >
                 <mat-option 
                     *ngFor="let dispositivo of dispositivos" 
@@ -101,16 +100,6 @@
     </mat-form-field>
 
     <p class="mt-4 text-center flex flex-row gap-4 justify-end items-end">
-        <button 
-            mat-raised-button 
-            class="max-w-full mr-auto" 
-            *ngIf="isExibirBtnModeloDecisao"
-            [disabled]="isDesabilitarForm"
-            (click)="exibirModalDeModeloDecisao()"
-        >
-            {{'Alterar Modelo' | uppercase}}
-        </button>
-
         <button 
             mat-raised-button 
             class="max-w-full" 

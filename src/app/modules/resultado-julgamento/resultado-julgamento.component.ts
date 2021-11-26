@@ -12,6 +12,9 @@ import { ResultadoJulgamentoService } from '../services/resultado-julgamento.ser
 import { Capitulo } from '../acervo/model/interfaces/capitulo.interface';
 import { Processo } from '../acervo/model/interfaces/processo.interface';
 import { RecursoService } from '../services/recurso.service';
+import { MatDialog } from '@angular/material/dialog';
+import { FormModeloDecisaoComponent } from './form-modelo-decisao/form-modelo-decisao.component';
+import { ModeloDecisao } from '../acervo/model/interfaces/modeloDecisao.interface';
 
 interface Parametros {
   processo: number;
@@ -39,6 +42,7 @@ export class ResultadoJulgamentoComponent implements OnInit {
   dispositivos: Manifestacao[] = [];
   decisoesAdicionadas: Array<Decisao> = [];
   decisaoSelecionada: Decisao = null;
+  modelo: ModeloDecisao;
   show = false;
 
   readonly FORM_CADASTRO_DECISAO = 'formulario-de-cadastro-de-decisao';
@@ -48,6 +52,7 @@ export class ResultadoJulgamentoComponent implements OnInit {
     private _processoService: ProcessoService,
     private _route: ActivatedRoute,
     private _fuseDrawerService: FuseDrawerService,
+    private _dialog: MatDialog,
   ) {}
 
   ngOnInit(): void {
@@ -209,6 +214,26 @@ export class ResultadoJulgamentoComponent implements OnInit {
     setTimeout(() => {
       this.show = true
     }, 100);
+  }
+
+  /**
+   * @public Método público
+   * @description Método para exibir modal de alteração de modelo de decisão
+   * @author Douglas da Silva Monteles
+   */
+   public exibirModalDeModeloDecisao(): void {
+    const dialogRef = this._dialog.open(FormModeloDecisaoComponent, {
+      maxHeight: '90vh',
+      data: {
+        processo: {
+          id: this.processo,
+        },
+      }
+    });
+
+    dialogRef.afterClosed().subscribe((modelo: ModeloDecisao) => {
+      this.modelo = modelo;
+    });
   }
 
   /**

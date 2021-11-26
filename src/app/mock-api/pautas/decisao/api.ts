@@ -93,10 +93,8 @@ export class DecisaoMockApi {
           const index = this._modeloDecisao.findIndex(m => m.id === body.id);
 
           if (index === -1) {
-            this._modeloDecisao.push({
-              id: this._modeloDecisao.length+1, 
-              ...body
-            });
+            body.id = this._modeloDecisao.length+1;
+            this._modeloDecisao.push(body);
             
             return [200, { description: "Sucesso." }];
           }
@@ -108,6 +106,7 @@ export class DecisaoMockApi {
         .onGet('modelo-decisao/:id')
         .reply(({urlParams}) => {
           const idDispositivo: number = +urlParams.id;
+          console.log(this._modeloDecisao)
           const index = this._modeloDecisao
             .findIndex(m => m.dispositivo.id === idDispositivo);
 

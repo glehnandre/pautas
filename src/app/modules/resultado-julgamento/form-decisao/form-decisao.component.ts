@@ -1,6 +1,5 @@
 import { Component, EventEmitter, Input, OnChanges, OnDestroy, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { MatDialog } from '@angular/material/dialog';
 import { MatSelectChange } from '@angular/material/select';
 import { Capitulo } from 'app/modules/acervo/model/interfaces/capitulo.interface';
 import { Dispositivo } from 'app/modules/acervo/model/interfaces/dispositivo.interface';
@@ -12,7 +11,6 @@ import { MinistroService } from 'app/modules/services/ministro.service';
 import { ProcessoService } from 'app/modules/services/processo.service';
 import { ResultadoJulgamentoService } from 'app/modules/services/resultado-julgamento.service';
 import { Observable } from 'rxjs';
-import { FormModeloDecisaoComponent } from '../form-modelo-decisao/form-modelo-decisao.component';
 
 @Component({
   selector: 'app-form-decisao',
@@ -27,7 +25,6 @@ export class FormDecisaoComponent implements OnInit, OnChanges, OnDestroy {
   idsDosProcessos: number[] = [];
   limparProcessosSelecionados: boolean = false;
   dispositivos: Dispositivo[] = [];
-  modelo: ModeloDecisao = {id: 0, classe: '', dispositivo: null, recurso: 0, texto: '', tipoCapitulo: null};
 
   @Input() idProcesso: number = 0;
   @Input() isDesabilitarForm: boolean = false;
@@ -67,7 +64,6 @@ export class FormDecisaoComponent implements OnInit, OnChanges, OnDestroy {
     private _ministroService: MinistroService,
     private _dispositivoService: DispositivoService,
     private _processoService: ProcessoService,
-    private _dialog: MatDialog,
   ) {}
 
   ngOnInit(): void {
@@ -110,22 +106,6 @@ export class FormDecisaoComponent implements OnInit, OnChanges, OnDestroy {
 
   /**
    * @public Método público
-   * @description Método para exibir modal de alteração de modelo de decisão
-   * @author Douglas da Silva Monteles
-   */
-  public exibirModalDeModeloDecisao(): void {
-    const dialogRef = this._dialog.open(FormModeloDecisaoComponent, {
-      maxHeight: '90vh',
-      data: this.modelo,
-    });
-
-    dialogRef.afterClosed().subscribe(data => {
-      this.carregarModeloDeTextoComBaseNoDispositivo(this.formDecisao.controls.dispositivo.value);
-    });
-  }
-
-  /**
-   * @public Método público
    * @description Método para adicionar uma Decisão a lista de decisões
    * @author Douglas da Silva Monteles
    */
@@ -161,28 +141,6 @@ export class FormDecisaoComponent implements OnInit, OnChanges, OnDestroy {
           this.excluirDecisao();
           this.formDecisao.reset();
         }
-      });
-    }
-  }
-
-  /**
-   * @public Método público
-   * @param dispositivo Objeto javascript com as informações de um dispositivo
-   * @description Método para carregar um modelo de texto usando um dispositivo
-   *              como parâmentro
-   * @author Douglas da Silva Monteles
-   */
-  public carregarModeloDeTextoComBaseNoDispositivo(nomeDispositivo: string): void {
-    const dispositivo = this.dispositivos.find(d => d.nome === nomeDispositivo);
-    this.formDecisao.controls.texto.setValue('');
-    this.modelo = {id: 0, classe: '', dispositivo, recurso: 0, texto: '', tipoCapitulo: null};
-
-    if (dispositivo?.id) {
-      this._resultadoJulgamento.obterModeloDecisaoPeloId(dispositivo.id).subscribe({
-        next: (modelo) => {
-          this.modelo = modelo;
-          this.formDecisao.controls.texto.setValue(this.modelo.texto);
-        },
       });
     }
   }

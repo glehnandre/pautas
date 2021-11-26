@@ -6,8 +6,16 @@
             Lançamento do Resultado do Julgamento da {{processo}}
         </h1>
         <div class="flex flex-row items-end mb-4 sm:my-4 ml-auto">
-            <button class="z-0 mr-4" mat-button>
+            <button class="z-0" mat-button>
                 <span>Cancelar</span>
+            </button>
+
+            <button 
+                mat-raised-button 
+                class="max-w-full mx-2" 
+                (click)="exibirModalDeModeloDecisao()"
+            >
+                Gerenciar Modelos
             </button>
 
             <button 

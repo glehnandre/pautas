@@ -13,7 +13,7 @@
 
     <div class="flex flex-col flex-auto p-6 sm:p-8 overflow-y-auto ng-pristine ng-invalid ng-touched">
         <form [formGroup]="formModeloDecisao">
-            <div class="w-full grid grid-cols-1 sm:grid-cols-6 gap-4">
+            <div class="w-full grid grid-cols-1 sm:grid-cols-8 gap-4">
                 <mat-form-field class="w-full mb-4 col-span-2" appearance="outline">
                     <mat-label>Classe processural <span class="text-red-500">*</span></mat-label>
                     <mat-select
@@ -32,10 +32,11 @@
                 <mat-form-field class="w-full mb-4 col-span-2" appearance="outline">
                     <mat-label>Tipo do Capítulo <span class="text-red-500">*</span></mat-label>
                     <mat-select
-                        formControlName="tipo_capitulo"
+                        formControlName="tipoCapitulo"
+                        (valueChange)="buscarDispositivos()"
                     >
                         <mat-option 
-                            *ngFor="let capitulo of ['Tese', 'Mérito']" 
+                            *ngFor="let capitulo of tiposCapitulo" 
                             [value]="capitulo"
                         >
                             {{capitulo}}
@@ -45,15 +46,31 @@
                 </mat-form-field>
 
                 <mat-form-field class="w-full mb-4 col-span-2" appearance="outline">
+                    <mat-label>Dispositivo <span class="text-red-500">*</span></mat-label>
+                    <mat-select 
+                        formControlName="dispositivo" 
+                        (valueChange)="carregarModeloDecisaoPeloIdDoDispositivo($event)"
+                    >
+                        <mat-option 
+                            *ngFor="let dispositivo of dispositivos" 
+                            [value]="dispositivo.id"
+                        >
+                            {{dispositivo.nome}}
+                        </mat-option>
+                    </mat-select>
+                    <mat-hint>Informe o dispositivo</mat-hint>
+                </mat-form-field>
+
+                <mat-form-field class="w-full mb-4 col-span-2" appearance="outline">
                     <mat-label>Recurso <span class="text-red-500">*</span></mat-label>
                     <mat-select
                         formControlName="recurso"
                     >
                         <mat-option 
-                            *ngFor="let recurso of ['Agravo', 'disp2']" 
-                            [value]="1"
+                            *ngFor="let recurso of (recursos$ | async)" 
+                            [value]="recurso.id"
                         >
-                            {{recurso}}
+                            {{recurso.descricao}}
                         </mat-option>
                     </mat-select>
                     <mat-hint>Informe o recurso</mat-hint>
