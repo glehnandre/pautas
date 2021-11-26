@@ -46,6 +46,7 @@ export class TabelaComponent implements OnInit, OnChanges {
 
   ngOnInit(): void {
     this.editarDocumentoForm = this._formBuilder.group({
+        id                   : [''],
         arquivo              : [''],
         autores              : [''],
         responsavel          : [''],
@@ -76,7 +77,7 @@ export class TabelaComponent implements OnInit, OnChanges {
     * @param documento
     */
   alternarEdicaoDocumento(documento: DocumentoInteiroTeor): void {
-    if (this.documentoSelecionado && this.documentoSelecionado.ordem === documento.ordem) {
+    if (this.documentoSelecionado && this.documentoSelecionado.id === documento.id) {
         this.fecharEdicaoDocumento();
         return;
     }
@@ -93,7 +94,7 @@ export class TabelaComponent implements OnInit, OnChanges {
       const documentoEditado = this.editarDocumentoForm.getRawValue();
 
       this.revisoes.documentos = this.revisoes.documentos.map((documento) => {
-          if (documento.ordem === documentoEditado.ordem) {
+          if (documento.id === documentoEditado.id) {
               documento = documentoEditado;
           }
           return documento;

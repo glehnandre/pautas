@@ -181,7 +181,7 @@
                 (click)="alternarEdicaoDocumento(document)"
                 mat-icon-button
             >
-                <mat-icon class="icon-size-5" [svgIcon]="documentoSelecionado?.ordem === document.ordem ? 'heroicons_solid:chevron-up' : 'heroicons_solid:chevron-down'"></mat-icon>
+                <mat-icon class="icon-size-5" [svgIcon]="documentoSelecionado?.id === document.id ? 'heroicons_solid:chevron-up' : 'heroicons_solid:chevron-down'"></mat-icon>
             </button>
         </td>
     </ng-container>
@@ -192,13 +192,13 @@
             mat-cell
             *matCellDef="let document"
             [attr.colspan]="displayedColumns.length">
-            <ng-container *ngIf="documentoSelecionado?.ordem === document.ordem">
+            <ng-container *ngIf="documentoSelecionado?.id === document.id">
                 <ng-container *ngTemplateOutlet="linhaEdicaoTemplate; context: {$implicit: document}"></ng-container>
             </ng-container>
         </td>
 
         <ng-template #linhaEdicaoTemplate let-document>
-            <div class="shadow-lg overflow-hidden" [@expandCollapse]="documentoSelecionado?.ordem === document.ordem ? 'expanded' : 'collapsed'">
+            <div class="shadow-lg overflow-hidden" [@expandCollapse]="documentoSelecionado?.id === document.id ? 'expanded' : 'collapsed'">
                 <div class="flex border-b">
                     <form class="flex flex-col w-full" [formGroup]="editarDocumentoForm">
                         <div class="flex p-8">
