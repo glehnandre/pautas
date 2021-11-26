@@ -1,44 +1,47 @@
-<div class="flex lg:justify-start">
-    <div class="flex flex-row flex-wrap lg:max-w-3/4">
-        <div class="flex flex-nowrap flex-row">
-            <img [src]="relator?.imagem" alt="Imagem de perfil"
-                class="w-14 h-14 mr-6 mb-4 rounded-full ng-tns-c129-57 ng-star-inserted">
-            <div class="flex flex-col flex-none mr-14 ng-tns-c129-56 ng-star-inserted">
-                <div class="text-2xl font-medium leading-4">
-                    {{relator?.nome | titlecase}}
-                </div>
-                <div class="text-md font-medium leading-4">
-                    {{relator?.abreviacao | uppercase}}
-                </div>
-                <div class="text-md text-secondary mt-1">
-                    Relator
-                </div>
+<div class="w-full flex flex-row gap-4 px-4 mb-4">
+    <div class="flex flex-row gap-2 justify-between min-w-60">
+        <img 
+            [src]="relator?.imagem" 
+            alt="Imagem de perfil"
+            class="w-14 h-14 mr-2 rounded-full ng-tns-c129-57 ng-star-inserted"
+        >
+        
+        <div class="flex flex-col flex-none mr-14 ng-tns-c129-56 ng-star-inserted">
+            <div class="text-2xl font-medium leading-4">
+                {{relator?.nome | titlecase}}
             </div>
-        </div>
-        <div>
-            <div class="flex-1 ml-2 text-2xl font-medium leading-4 text-primary">
-                {{processo}}
+            <div class="text-md font-medium leading-4">
+                {{relator?.abreviacao | uppercase}}
             </div>
-            <div class="hidden md:block">
-                <app-carrossel 
-                    [idChip]="'idTags'"
-                    [chips]="tags"
-                ></app-carrossel>
+            <div class="text-md text-secondary mt-1">
+                Relator
             </div>
         </div>
     </div>
-</div>
-<div class="flex flex-row">   
-    <div class="hidden md:block max-w-full">
-        <app-carrossel
-            [idChip]="'idDocs'"
-            [chips]="documentos?.nomes"
-            [links]="documentos?.links"
-            [hasIcon]="true"
-            [class]="['border-primary', 'border-solid', 'border-2', 'bg-transparent', 'text-primary']"
-            (nomeDoPdfSelecionado)="obterNomeDoPdf($event)"
-            (linkDoPdfSelecionado)="abrirLink($event)"
-        ></app-carrossel>
+
+    <div class="">
+        <div class="text-2xl font-medium leading-4 text-primary">
+            {{processo}}
+        </div>
+
+        <div class="hidden md:flex mt-2">
+            <app-carrossel 
+                [idChip]="'idTags'"
+                [chips]="tags"
+            ></app-carrossel>
+
+            <div class="md:max-w-96 lg:max-w-full">
+                <app-carrossel
+                    [idChip]="'idDocs'"
+                    [chips]="documentos?.nomes"
+                    [links]="documentos?.links"
+                    [hasIcon]="true"
+                    [class]="['border-primary', 'border-solid', 'border-2', 'bg-transparent', 'text-primary']"
+                    (nomeDoPdfSelecionado)="obterNomeDoPdf($event)"
+                    (linkDoPdfSelecionado)="abrirLink($event)"
+                ></app-carrossel>
+            </div>
+        </div>
     </div>
 </div>
 
