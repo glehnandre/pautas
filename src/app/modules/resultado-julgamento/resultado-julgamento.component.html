@@ -5,21 +5,48 @@
         <h1 class="mt-4 text-primary font-medium text-xl sm:text-2xl">
             Lançamento do Resultado do Julgamento da {{processo}}
         </h1>
+    </div>
+
+    <hr class="m-0 p-0" />
+
+    <header class="bg-white px-8 pt-4 flex flex-col">
+        <app-cabecalho-relator
+            [processo]="processo"
+            [colegiado]="parametros.colegiado"
+            [votos]="votos"
+        ></app-cabecalho-relator>
+
         <div class="flex flex-row items-end mb-4 sm:my-4 ml-auto">
-            <button class="z-0" mat-button>
+            <button class="z-0 mr-4" mat-button>
                 <span>Cancelar</span>
             </button>
 
             <button 
                 mat-raised-button 
-                class="max-w-full mx-2" 
+                class="max-w-full mr-4" 
                 (click)="exibirModalDeModeloDecisao()"
             >
-                Gerenciar Modelos
+                Modelos de Texto
             </button>
 
             <button 
-                class="mr-8"
+                mat-raised-button 
+                class="max-w-full mr-4" 
+                (click)="exibirModalDeVista()"
+            >
+                Vista
+            </button>
+
+            <button 
+                mat-raised-button 
+                class="max-w-full mr-4" 
+                (click)="exibirModalDeDestaque()"
+            >
+                Destaque
+            </button>
+
+            <button 
+                class="mr-4"
                 color="primary" 
                 mat-raised-button 
                 (click)="finalizar()"
@@ -27,16 +54,6 @@
                 Finalizar 
             </button>
         </div>
-    </div>
-
-    <hr class="m-0 p-0" />
-
-    <header class="bg-white px-8 pt-4">
-        <app-cabecalho-relator
-            [processo]="processo"
-            [colegiado]="parametros.colegiado"
-            [votos]="votos"
-        ></app-cabecalho-relator>
     </header>
 
     <!-- Body -->

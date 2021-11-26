@@ -29,6 +29,8 @@ import { AplicarDecisoesComponent } from './aplicar-decisoes/aplicar-decisoes.co
 import { VotoDosMinistrosComponent } from './voto-dos-ministros/voto-dos-ministros.component';
 import { FormModeloDecisaoComponent } from './form-modelo-decisao/form-modelo-decisao.component';
 import { MatDialogModule } from '@angular/material/dialog';
+import { FormVistaEDestaqueComponent } from './form-vista-e-destaque/form-vista-e-destaque.component';
+import { MatDatepickerModule } from '@angular/material/datepicker';
 
 const ResultadoJulgamentoRoutes: Route[] = [
   {
@@ -45,6 +47,7 @@ const ResultadoJulgamentoRoutes: Route[] = [
     AplicarDecisoesComponent,
     VotoDosMinistrosComponent,
     FormModeloDecisaoComponent,
+    FormVistaEDestaqueComponent,
   ],
   imports: [
     CommonModule,
@@ -71,6 +74,7 @@ const ResultadoJulgamentoRoutes: Route[] = [
     DragDropModule,
     MatAutocompleteModule,
     MatDialogModule,
+    MatDatepickerModule,
   ]
 })
 export class ResultadoJulgamentoModule { }

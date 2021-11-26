@@ -15,6 +15,7 @@ import { RecursoService } from '../services/recurso.service';
 import { MatDialog } from '@angular/material/dialog';
 import { FormModeloDecisaoComponent } from './form-modelo-decisao/form-modelo-decisao.component';
 import { ModeloDecisao } from '../acervo/model/interfaces/modeloDecisao.interface';
+import { FormVistaEDestaqueComponent } from './form-vista-e-destaque/form-vista-e-destaque.component';
 
 interface Parametros {
   processo: number;
@@ -233,6 +234,30 @@ export class ResultadoJulgamentoComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe((modelo: ModeloDecisao) => {
       this.modelo = modelo;
+    });
+  }
+
+  public exibirModalDeVista(): void {
+    const dialogfRef = this._dialog.open(FormVistaEDestaqueComponent, {
+      data: {
+        titulo: 'Informar Vista',
+      }
+    });
+
+    dialogfRef.afterClosed().subscribe(data => {
+      console.log(data)
+    });
+  }
+
+  public exibirModalDeDestaque(): void {
+    const dialogfRef = this._dialog.open(FormVistaEDestaqueComponent, {
+      data: {
+        titulo: 'Informar Destaque',
+      }
+    });
+
+    dialogfRef.afterClosed().subscribe(data => {
+      console.log(data)
     });
   }
 
