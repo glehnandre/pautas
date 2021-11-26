@@ -95,7 +95,14 @@ export class TabelaComponent implements OnInit {
           return documento;
       })
 
-      this._inteiroTeorService.atualizarDocumentoDoInteiroTeor(this.idProcesso, this.revisoes.documentos).subscribe();
+      this._inteiroTeorService.atualizarDocumentoDoInteiroTeor(this.idProcesso, this.revisoes.documentos).subscribe({
+          next: (data) => {
+              this.revisoes = data;
+              this.dataSource = new DataSourceInteiroTeor(this.revisoes.documentos);
+          }
+      });
+
+      this.fecharEdicaoDocumento();
   }
 
   compare(a: number | string, b: number | string, isAsc: boolean) {

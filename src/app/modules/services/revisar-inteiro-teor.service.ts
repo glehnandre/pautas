@@ -28,11 +28,11 @@ export class RevisarInteiroTeorService {
     );
   }
 
-  public atualizarDocumentoDoInteiroTeor(id: number, documentos: DocumentoInteiroTeor[]): Observable<void> {
+  public atualizarDocumentoDoInteiroTeor(id: number, documentos: DocumentoInteiroTeor[]): Observable<RevisaoInteiroTeor> {
     let params = new HttpParams();
     params = params.set('id', id);
 
-    return this._httpClient.put<void>('/inteiro-teor', documentos, {
+    return this._httpClient.put<RevisaoInteiroTeor>('/inteiro-teor', documentos, {
       params,
     }).pipe(
       catchError(error => {
@@ -55,7 +55,7 @@ export class RevisarInteiroTeorService {
   public removerDocumentosDoInteiroTeorDoProcesso(id: number, idsDocumentos: number[]): Observable<void> {
     let params = new HttpParams();
     params = params.set('processos', idsDocumentos.toString());
-    
+
     return this._httpClient.delete<void>(`/inteiro-teor/${id}`, {
       params,
     })
