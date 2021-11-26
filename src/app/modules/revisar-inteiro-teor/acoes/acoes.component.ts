@@ -3,6 +3,7 @@ import { AlertaService } from '../../services/alerta.service';
 import { DocumentoInteiroTeor } from '../../acervo/model/interfaces/documento-inteiro-teor.interface';
 import { SessaoJulgamento } from '../../acervo/model/interfaces/sessao-julgamento.interface';
 import { Tag } from '../../acervo/model/interfaces/tag.interface';
+import { RevisarInteiroTeorService } from '../../services/revisar-inteiro-teor.service';
 
 export interface RevisaoInteiroTeor {
     id_processo: number;
@@ -23,12 +24,15 @@ export interface RevisaoInteiroTeor {
 export class AcoesComponent implements OnInit {
 
   @Input() linhasSelecionadas: DocumentoInteiroTeor[];
+  @Input() idProcesso: number;
   @Output() todosOsCheckboxSelecionados = new EventEmitter();
+  @Output() revisoesAlteradas = new EventEmitter();
 
   readonly NOME_DO_ALERTA_DESTA_CLASSE = 'alerta_revisar_inteiro_teor';
 
   constructor(
     private _alertaService: AlertaService,
+    private _inteiroTeorService: RevisarInteiroTeorService,
   ) { }
 
   ngOnInit(): void {
@@ -62,7 +66,13 @@ export class AcoesComponent implements OnInit {
    */
   public removerInteiroTeor(): void {
     if (this._isAlgumaLinhaSelecionada()) {
-      console.log('remover');
+      const ids = this.linhasSelecionadas.map((linha) => linha.id)
+
+      this._inteiroTeorService.removerDocumentosDoInteiroTeorDoProcesso(this.idProcesso, ids).subscribe({
+          next: (data) => {
+            this.revisoesAlteradas.emit(data);
+          }
+      })
     }
   }
 

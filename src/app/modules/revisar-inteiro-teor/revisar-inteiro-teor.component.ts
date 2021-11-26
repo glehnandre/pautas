@@ -74,6 +74,11 @@ export class RevisarInteiroTeorComponent implements OnInit {
     });
   }
 
+  atualizarConteudo(revisao: RevisaoInteiroTeor): void {
+    this.revisoes = revisao;
+    this.dataSource = new DataSourceInteiroTeor(this.revisoes.documentos);
+  }
+
   /**
    * @public Método público
    * @description Atualiza o valor do link para acionar o visualizador pdf

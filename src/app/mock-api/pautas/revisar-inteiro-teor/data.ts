@@ -20,6 +20,7 @@ export const revisoes: Array<RevisaoInteiroTeor> = [
     ],
     documentos: [
       {
+        id: 1,
         arquivo: '/assets/pdf/48-inteiro-teor-do-acordao.pdf',
         autores: [
           ministro[0],
@@ -36,6 +37,7 @@ export const revisoes: Array<RevisaoInteiroTeor> = [
       },
 
       {
+        id: 2,
         arquivo: '/assets/pdf/48-inteiro-teor-do-acordao.pdf',
         autores: [
           ministro[3],
@@ -52,6 +54,7 @@ export const revisoes: Array<RevisaoInteiroTeor> = [
       },
 
       {
+        id: 3,
         arquivo: '/assets/pdf/48-inteiro-teor-do-acordao.pdf',
         autores: [
           ministro[6],

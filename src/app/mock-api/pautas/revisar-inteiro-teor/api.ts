@@ -106,19 +106,15 @@ export class RevisaoInteiroTeorMockApi {
             .find(rev => rev.id_processo === id);
 
           if (revisao !== undefined) {
-            const processo = this._processos.find(p => p.id === revisao.id_processo);
-
-            documentos.forEach(idDoc => {
-              const index = processo?.documentos?.findIndex(d => d.id === +idDoc);
-
-              if (index !== -1) {
-                processo.documentos.splice(index, 1);
-              }
+            revisao.documentos = revisao.documentos.filter((documento) => {
+                if (!documentos.includes(String(documento.id))) {
+                    return documento;
+                }
             });
 
-            console.log(processo)
+            console.log(revisao)
 
-            return [200, processo];
+            return [200, revisao];
           } else {
             return [200, {
               description: "Não há processo associado a esse processo.",

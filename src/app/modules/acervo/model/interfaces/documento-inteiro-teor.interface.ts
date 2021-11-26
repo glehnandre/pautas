@@ -1,6 +1,7 @@
 import { Ministro } from "./ministro.interface";
 
 export interface DocumentoInteiroTeor {
+    id: number;
     arquivo: string;
     autores: Array<Ministro>;
     responsavel: Ministro;

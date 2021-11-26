@@ -31,7 +31,9 @@
 
         <app-acoes
             [linhasSelecionadas]="linhasSelecionadas"
+            [idProcesso]="idProcesso"
             (todosOsCheckboxSelecionados)="selecionarOuDeselecionarTodosOsCheckbox()"
+            (revisoesAlteradas)="atualizarConteudo($event)"
         ></app-acoes>
     </header>
 
