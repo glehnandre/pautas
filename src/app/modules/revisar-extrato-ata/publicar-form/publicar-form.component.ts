@@ -63,7 +63,7 @@ export class PublicarFormComponent implements OnInit {
   ngOnInit(): void {
     this.formPublicacao = this._formBuilder.group({
       opcaoData: ['', Validators.required],
-      dataPublicacao: ['', Validators.nullValidator],
+      dataPublicacao: ['', Validators.required],
     });
     this.ministros = this._ministroService.listarMinistros();
   }
@@ -71,6 +71,8 @@ export class PublicarFormComponent implements OnInit {
   dataAutomatica(value: number): void {
     if(value != this.opcoesDataPublicacao[2].value)
       this.formPublicacao.controls.dataPublicacao.setValue(new Date(this.sessao.data_fim));
+    else
+      this.formPublicacao.controls.dataPublicacao.reset();
   }
 
   /**

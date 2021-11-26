@@ -68,7 +68,10 @@ export const ata: Ata = {
             nome: "Andrea Ponte Barbosa",
             polo: "REQUERENTE",
             categoria: "ADVOGADA",
-            identificacoes: ["OAB 13190-B/CE"],
+            identificacoes: [
+              "OAB 13190-B/CE",
+              "RG 12345-6",
+            ],
           },
           {
             nome: "Geissa Braga Calvacante",
@@ -76,6 +79,7 @@ export const ata: Ata = {
             categoria: "ADVOGADA",
             identificacoes: [
               "OAB 12314-B/CE",
+              "RG 12345-6",
             ],
           },
           {

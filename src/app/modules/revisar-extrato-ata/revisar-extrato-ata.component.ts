@@ -47,20 +47,11 @@ export class RevisarExtratoAtaComponent implements OnInit {
    * Abre o Formulário para Publicar Extrato
   **/
   publicar(): void {
-    let dialogRef;
-    if (screen.width < 600) {
-      const full = '105%'
-      dialogRef = this._matDialog
-        .open(PublicarFormComponent, {
-          data: this.ata.sessao,
-          width: full,  maxWidth: full,
-          height: full, maxHeight: full,
-        });
-
-    }
-    else
-      dialogRef = this._matDialog
-        .open(PublicarFormComponent, { data: this.ata.sessao });
+    const dialogRef = this._matDialog
+      .open(PublicarFormComponent, {
+        data: this.ata.sessao,
+        maxWidth: '100vw'
+    });
 
     dialogRef.afterClosed().subscribe({
       next: (form) => {

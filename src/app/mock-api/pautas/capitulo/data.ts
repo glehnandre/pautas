@@ -8,7 +8,11 @@ export const capitulo: Array<Capitulo> = [
         descricao: 'Recurso Extraordinário com agravo 1.299.544',
         ordem:  1,
         tipo:   TipoCapitulo.Merito,
-        dispositivo: 'Negado o Provimento',
+        dispositivo: {
+          id: 1,
+          nome: 'Negado o Provimento',
+          sentido: 'Negativo'
+        },
         ministros_acordam: [
             ministro[5],
             ministro[6],
@@ -25,7 +29,11 @@ export const capitulo: Array<Capitulo> = [
         descricao: 'Recurso Extraordinário com agravo 1.299.544',
         ordem:  1,
         tipo:   TipoCapitulo.Merito,
-        dispositivo: 'Fixada a Tese',
+        dispositivo: {
+          id: 2,
+          nome: 'Fixada a Tese',
+          sentido: 'Positivo'
+        },
         ministros_acordam: [
             ministro[1]
         ],
@@ -44,7 +52,11 @@ export const capitulo: Array<Capitulo> = [
         descricao: 'Recurso Extraordinário com agravo 1.299.544',
         ordem:  1,
         tipo:   TipoCapitulo.Merito,
-        dispositivo: 'Provido',
+        dispositivo: {
+          id: 3,
+          nome: 'Provido',
+          sentido: 'Positivo'
+        },
         ministros_acordam: [
             ministro[3]
         ],
@@ -59,7 +71,11 @@ export const capitulo: Array<Capitulo> = [
         descricao: 'Recurso Extraordinário com agravo 1.299.544',
         ordem:  1,
         tipo:   TipoCapitulo.Merito,
-        dispositivo: 'Concedido',
+        dispositivo: {
+          id: 4,
+          nome: 'Concedido',
+          sentido: 'Positivo'
+        },
         ministros_acordam: [
             ministro[1]
         ],
@@ -74,7 +90,11 @@ export const capitulo: Array<Capitulo> = [
         descricao: 'Recurso Extraordinário com agravo 1.299.544',
         ordem:  1,
         tipo:   TipoCapitulo.Preliminar,
-        dispositivo: 'Reconhecida',
+        dispositivo: {
+          id: 3,
+          nome: 'Reconhecida',
+          sentido: 'Positivo'
+        },
         ministros_acordam: [
             ministro[1]
         ],
@@ -89,7 +109,11 @@ export const capitulo: Array<Capitulo> = [
         descricao: 'Recurso Extraordinário com agravo 1.299.544',
         ordem:  1,
         tipo:   TipoCapitulo.Tese,
-        dispositivo: 'Reconhecida',
+        dispositivo: {
+          id: 3,
+          nome: 'Reconhecida',
+          sentido: 'Positivo'
+        },
         ministros_acordam: [
             ministro[1]
         ],
@@ -104,7 +128,11 @@ export const capitulo: Array<Capitulo> = [
         descricao: 'É constitucional o artigo 8º da Lei Complementar 173/2020, editado no âmbito do Programa Federativo de Enfrentamento ao Coronavírus SARS-CoV-2 (Covid-19).',
         ordem:  1,
         tipo:   TipoCapitulo.Questão_de_Ordem,
-        dispositivo: 'Reconhecida',
+        dispositivo: {
+          id: 3,
+          nome: 'Reconhecida',
+          sentido: 'Positivo'
+        },
         ministros_acordam: [
             ministro[1]
         ],

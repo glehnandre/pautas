@@ -13,7 +13,11 @@ export interface Capitulo {
     descricao: string;
     ordem: number;
     tipo: TipoCapitulo;
-    dispositivo: string;
+    dispositivo: {
+      id: number;
+      nome: string;
+      sentido: 'Positivo' | 'Negativo' | 'Neutro'
+    };
     ministros_acordam: Array<Ministro>;
     ministros_divergem: Array<Ministro>;
     ministro_condutor: Ministro;
