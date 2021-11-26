@@ -14,7 +14,7 @@
                 <span>Relatoria: <span class="font-semibold leading-none">{{publicacao.relator | uppercase}}</span></span>
             </div>
             <div class="hidden sm:flex ml-auto -mr-4">
-                <button class="nml-auto text-black bg-white mr-8 border-solid border-2 border-primary-800" mat-button (click)="abrirLink()">
+                <button class="nml-auto text-black bg-white mr-8 border-solid border-2 border-primary-800" mat-button (click)="abrirLink(publicacao)">
                     <mat-icon class="mr-2" style="color:red">picture_as_pdf</mat-icon>
                     <span>Baixar PDF</span>
                 </button>

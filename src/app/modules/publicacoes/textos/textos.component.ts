@@ -5,6 +5,7 @@ import { PublicacaoDto } from 'app/modules/acervo/model/interfaces/publicacaoDto
 import { registerLocaleData } from '@angular/common';
 import localePT from '@angular/common/locales/pt';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
+import { PublicacaoService } from 'app/modules/services/publicacao.service';
 registerLocaleData(localePT);
 
 @Component({
@@ -21,7 +22,10 @@ export class TextosComponent implements OnInit, AfterContentChecked {
   link: SafeResourceUrl;
   //link: string = '/assets/pdf/relatorio-adi6185-Ed.pdf'
 
-  constructor(private _sanitizer: DomSanitizer,) { }
+  constructor(
+    private _sanitizer: DomSanitizer,
+    private _publicacaoService: PublicacaoService,
+  ) { }
 
   ngOnInit(): void {
     this.link = this._sanitizer.bypassSecurityTrustResourceUrl('');
@@ -69,7 +73,7 @@ export class TextosComponent implements OnInit, AfterContentChecked {
     const datepipe: DatePipe = new DatePipe('pt-BR')
     let newDate = new Date(isoDate);
     let data: string;
-    (firstDate) ? data = newDate.getDate()+'/'+meses[newDate.getMonth()]+'/'+newDate.getFullYear().toString().slice(2,4) 
+    (firstDate) ? data = newDate.getDate()+1+'/'+meses[newDate.getMonth()]+'/'+newDate.getFullYear().toString().slice(2,4) 
                 : data = datepipe.transform(isoDate, "dd/MM/YYYY hh:mm");
     return data;
   }
@@ -77,8 +81,10 @@ export class TextosComponent implements OnInit, AfterContentChecked {
   /**
    * Abre o link do pdf da publicação para ser baixado
    */
-  abrirLink(): void {
-      this.link = this._sanitizer.bypassSecurityTrustResourceUrl('/assets/pdf/relatorio-adi6185-Ed.pdf');
-      window.open(this.link['changingThisBreaksApplicationSecurity'], "_blank");
+  abrirLink(publicacao: PublicacaoDto): void {
+      this._publicacaoService.abrirPeca(publicacao.id, publicacao.processo).subscribe(url=>{
+        this.link = this._sanitizer.bypassSecurityTrustResourceUrl(url);
+        window.open(this.link['changingThisBreaksApplicationSecurity'], "_blank");
+      });
   }
 }

@@ -20,4 +20,13 @@ export class PublicacaoService {
       })
     );
   }
+
+  abrirPeca(id: number, processo: string): Observable<string>{
+    return this._httpClient.get<string>(`publicacoes/peca/${id}`).pipe(
+      catchError(error => {
+        console.log(error);
+        return EMPTY;
+      })
+    );
+  }
 }

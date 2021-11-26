@@ -204,16 +204,19 @@ export class PublicacoesComponent implements OnInit, OnDestroy {
     }
     else{
       let data_inicio: Date = new Date(event.data_inicio.toString().slice(0, 16));
-      let data_fim: Date = new Date(event.data_fim.toString().slice(0, 16));
+      let data_fim: Date = new Date(new Date(event.data_fim.toString().slice(0, 16)).setHours(23,59,59));
       let filtros = [];
 
       filtros = this.publicacoes.filter(publicacao=>{
         let day: number;
+        
         if(publicacao.publicacao.length>10)
-          day = new Date(this.publicacoes[0].publicacao).getDate();
+          day = new Date(publicacao.publicacao).getDate();
         else
-          day = new Date(this.publicacoes[0].publicacao).getDate()+1;
-        const data_publicacao = new Date(new Date(new Date(publicacao.publicacao).setDate(day)).setHours(0,0,0,0));
+          day = new Date(publicacao.publicacao).getDate()+1;
+          
+        const data_publicacao = new Date(new Date(publicacao.publicacao).setDate(day));
+        
         return data_publicacao >= data_inicio 
             && data_publicacao <= data_fim;
       })
