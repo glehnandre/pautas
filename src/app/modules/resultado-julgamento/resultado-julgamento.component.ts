@@ -245,7 +245,9 @@ export class ResultadoJulgamentoComponent implements OnInit {
     });
 
     dialogfRef.afterClosed().subscribe(data => {
-      console.log(data)
+      if (data) {
+        console.log(data)
+      }
     });
   }
 
@@ -257,7 +259,9 @@ export class ResultadoJulgamentoComponent implements OnInit {
     });
 
     dialogfRef.afterClosed().subscribe(data => {
-      console.log(data)
+      if (data) {
+        console.log(data)
+      }
     });
   }
 
