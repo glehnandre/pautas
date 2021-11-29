@@ -11,6 +11,8 @@ import {
 } from '@angular/material-moment-adapter';
 import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/material/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { TipoRecursoDto } from 'app/modules/acervo/model/interfaces/tipoRecursoDto';
+import { RecursoService } from 'app/modules/services/recurso.service';
 
 interface FormVistaEDestaqueData {
   titulo: string;
@@ -34,15 +36,18 @@ export class FormVistaEDestaqueComponent implements OnInit {
 
   formVistaEDestaque: FormGroup;
   ministros$: Observable<Ministro[]>;
+  recursos$: Observable<TipoRecursoDto>;
 
   constructor(
     private _fb: FormBuilder,
     private _ministroService: MinistroService,
+    private _recursoService: RecursoService,
     public dialogRef: MatDialogRef<FormVistaEDestaqueComponent>,
     @Inject(MAT_DIALOG_DATA) public data: FormVistaEDestaqueData,
   ) { 
     this.formVistaEDestaque = this._fb.group({
-      data:       ['',        Validators.required],
+      id:         [null,      Validators.required],
+      data:       [null,      Validators.required],
       ministro:   [null,      Validators.required],
       texto:      ['',        Validators.required],
     });
@@ -50,6 +55,7 @@ export class FormVistaEDestaqueComponent implements OnInit {
 
   ngOnInit(): void {
     this.ministros$ = this._ministroService.listarMinistros();
+    this.recursos$ = this._recursoService.obterListaDeRecursos();
   }
 
   public fecharModalEEmcaminharVistaOuDestaque(): void {

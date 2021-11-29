@@ -248,7 +248,7 @@ export class ProcessoMockApi {
 
                 this._vistas.push(body);
 
-                return [200, {}];
+                return [200, this._vistas];
             });
 
         this._fuseMockApiService
@@ -259,7 +259,7 @@ export class ProcessoMockApi {
 
                 this._destaques.push(body);
 
-                return [200, {}];
+                return [200, this._destaques];
             });
     }
 

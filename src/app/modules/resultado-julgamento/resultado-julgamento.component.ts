@@ -16,6 +16,8 @@ import { MatDialog } from '@angular/material/dialog';
 import { FormModeloDecisaoComponent } from './form-modelo-decisao/form-modelo-decisao.component';
 import { ModeloDecisao } from '../acervo/model/interfaces/modeloDecisao.interface';
 import { FormVistaEDestaqueComponent } from './form-vista-e-destaque/form-vista-e-destaque.component';
+import { Vista } from '../acervo/model/interfaces/vista.interface';
+import { Destaque } from '../acervo/model/interfaces/destaque.interface';
 
 interface Parametros {
   processo: number;
@@ -244,9 +246,19 @@ export class ResultadoJulgamentoComponent implements OnInit {
       }
     });
 
-    dialogfRef.afterClosed().subscribe(data => {
+    dialogfRef.afterClosed().subscribe((data: Vista) => {
       if (data) {
-        console.log(data)
+        const vista: Vista = {
+          ...data,
+          processo: +this.parametros.processo,
+          sessao: this.dados.sessao.numero,
+        };
+
+        this._processoService.salvarVistaDoProcesso(this.parametros.processo, vista).subscribe({
+          next: (data) => {
+            console.log(data);
+          }
+        });
       }
     });
   }
@@ -258,9 +270,19 @@ export class ResultadoJulgamentoComponent implements OnInit {
       }
     });
 
-    dialogfRef.afterClosed().subscribe(data => {
+    dialogfRef.afterClosed().subscribe((data: Destaque) => {
       if (data) {
-        console.log(data)
+        const destaque: Destaque = {
+          ...data,
+          processo: +this.parametros.processo,
+          sessao: this.dados.sessao.numero,
+        };
+
+        this._processoService.salvarDestaqueDoProcesso(this.parametros.processo, destaque).subscribe({
+          next: (data) => {
+            console.log(data);
+          }
+        });
       }
     });
   }
