@@ -46,7 +46,6 @@ export class FormVistaEDestaqueComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA) public data: FormVistaEDestaqueData,
   ) { 
     this.formVistaEDestaque = this._fb.group({
-      id:         [null,      Validators.required],
       data:       [null,      Validators.required],
       ministro:   [null,      Validators.required],
       texto:      ['',        Validators.required],

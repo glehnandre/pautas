@@ -30,7 +30,6 @@ export class RecursoMockApi {
           return [404, { description: "Nenhum recurso foi encontrado." }];
         }
 
-        console.log(this._recursos)
         return [200, this._recursos];
       });
   }

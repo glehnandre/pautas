@@ -245,6 +245,7 @@ export class ProcessoMockApi {
             .reply(({request, urlParams}) => {
                 const idProcesso: number = +urlParams.id;
                 const body = request.body as Vista;
+                body.id = this._vistas.length + 1;
 
                 this._vistas.push(body);
 
@@ -256,6 +257,7 @@ export class ProcessoMockApi {
             .reply(({request, urlParams}) => {
                 const idProcesso: number = +urlParams.id;
                 const body = request.body as Destaque;
+                body.id = this._destaques.length + 1;
 
                 this._destaques.push(body);
 

@@ -13,8 +13,8 @@
 
     <div class="flex flex-col flex-auto p-6 sm:p-8 overflow-y-auto ng-pristine ng-invalid ng-touched">
         <form [formGroup]="formVistaEDestaque">
-            <div class="w-full grid grid-cols-1 sm:grid-cols-6 gap-4">
-                <mat-form-field class="w-full mb-4 col-span-2" appearance="outline">
+            <div class="w-full grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <mat-form-field class="w-full mb-4 col-span-1" appearance="outline">
                     <mat-label>Ministro requerente <span class="text-red-500">*</span></mat-label>
                     <mat-select
                         formControlName="ministro"
@@ -34,26 +34,11 @@
                     <mat-hint>Informe qual foi o ministro requerente</mat-hint>
                 </mat-form-field>
 
-                <mat-form-field class="w-full mb-4 col-span-2" appearance="outline">
+                <mat-form-field class="w-full mb-4 col-span-1" appearance="outline">
                     <mat-label>Informe a data <span class="text-red-500">*</span></mat-label>
                     <input formControlName="data" autocomplete="off" (click)="picker.open()" matInput [matDatepicker]="picker">
                     <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                     <mat-datepicker #picker></mat-datepicker>
-                </mat-form-field>
-
-                <mat-form-field class="w-full mb-4 col-span-2" appearance="outline">
-                    <mat-label>Recurso <span class="text-red-500">*</span></mat-label>
-                    <mat-select
-                        formControlName="id"
-                    >
-                        <mat-option 
-                            *ngFor="let recurso of (recursos$ | async)" 
-                            [value]="recurso.id"
-                        >
-                            {{recurso.descricao}}
-                        </mat-option>
-                    </mat-select>
-                    <mat-hint>Informe o recurso</mat-hint>
                 </mat-form-field>
             </div>
 
