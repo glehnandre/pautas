@@ -55,7 +55,13 @@ export class AcoesComponent implements OnInit {
    */
     public publicarInteiroTeor(): void {
         if (this._isAlgumaLinhaSelecionada()) {
-          console.log('remover');
+          const ids = this.linhasSelecionadas.map((linha) => linha.id);
+
+          this._inteiroTeorService.publicarInteiroTeorDoAcordao(this.idProcesso, ids).subscribe({
+              next: (data) => {
+                  console.log(data);
+              }
+          });
         }
     }
 
@@ -87,18 +93,6 @@ export class AcoesComponent implements OnInit {
       console.log('incluir novo doc');
     }
   }
-
-  /**
-   * @public
-   * @description Inclue no(s) inteiro(s) teor(es) que foram selecionados novos
-   *              comentários
-   * @author
-   */
-   public incluirComentario(): void {
-    if (this._isAlgumaLinhaSelecionada()) {
-      console.log('incluir comentários');
-    }
-   }
 
   /**
    * @public

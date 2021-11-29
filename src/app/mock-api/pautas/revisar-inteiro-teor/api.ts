@@ -106,11 +106,12 @@ export class RevisaoInteiroTeorMockApi {
             .find(rev => rev.id_processo === id);
 
           if (revisao !== undefined) {
-            revisao.documentos = revisao.documentos.filter((documento) => {
-                if (!documentos.includes(String(documento.id))) {
-                    return documento;
+            revisao.documentos = revisao.documentos.map((documento) => {
+                if (documentos.includes(String(documento.id))) {
+                    documento.situacao = "Cancelado";
                 }
-            });
+                return documento;
+            })
 
             console.log(revisao)
 
