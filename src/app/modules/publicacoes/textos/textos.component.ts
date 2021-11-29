@@ -82,7 +82,7 @@ export class TextosComponent implements OnInit, AfterContentChecked {
    * Abre o link do pdf da publicação para ser baixado
    */
   abrirLink(publicacao: PublicacaoDto): void {
-      this._publicacaoService.abrirPeca(publicacao.id, publicacao.processo).subscribe(url=>{
+      this._publicacaoService.abrirPeca(publicacao.id).subscribe(url=>{
         this.link = this._sanitizer.bypassSecurityTrustResourceUrl(url);
         window.open(this.link['changingThisBreaksApplicationSecurity'], "_blank");
       });

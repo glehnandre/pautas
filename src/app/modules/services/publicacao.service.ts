@@ -21,7 +21,7 @@ export class PublicacaoService {
     );
   }
 
-  abrirPeca(id: number, processo: string): Observable<string>{
+  abrirPeca(id: number): Observable<string>{
     return this._httpClient.get<string>(`publicacoes/peca/${id}`).pipe(
       catchError(error => {
         console.log(error);
