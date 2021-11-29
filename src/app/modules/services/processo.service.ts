@@ -3,11 +3,13 @@ import { Injectable } from '@angular/core';
 import { Observable, EMPTY, Subject, BehaviorSubject } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { TipoCapitulo } from '../acervo/model/enums/tipoCapitulo.enum';
+import { Destaque } from '../acervo/model/interfaces/destaque.interface';
 import { Documento } from '../acervo/model/interfaces/documento.interface';
 import { Impedimento } from '../acervo/model/interfaces/impedimento.interface';
 import { Manifestacao } from '../acervo/model/interfaces/manifestacao.interface';
 import { Processo } from '../acervo/model/interfaces/processo.interface';
 import { Tag } from '../acervo/model/interfaces/tag.interface';
+import { Vista } from '../acervo/model/interfaces/vista.interface';
 import { Voto } from '../acervo/model/interfaces/voto.interface';
 import { StatusProcesso } from '../acervo/tabela/status/situacaoProcesso';
 
@@ -110,6 +112,24 @@ export class ProcessoService {
 
   public obterTiposDoProcesso(): Observable<string[]> {
     return this._httpClient.get<string[]>(`processos/tipos`).pipe(
+      catchError(error => {
+        console.log(error);
+        return EMPTY;
+      })
+    );
+  }
+
+  public salvarVistaDoProcesso(id: number, vista: Vista): Observable<void> {
+    return this._httpClient.post<void>(`processos/${id}/vista`, vista).pipe(
+      catchError(error => {
+        console.log(error);
+        return EMPTY;
+      })
+    );
+  }
+
+  public salvarDestaqueDoProcesso(id: number, destaque: Destaque): Observable<void> {
+    return this._httpClient.post<void>(`processos/${id}/destaque`, destaque).pipe(
       catchError(error => {
         console.log(error);
         return EMPTY;
