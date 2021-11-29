@@ -22,8 +22,6 @@ export class ExtratoAtaComponent implements OnInit {
   @Input() capitulosPublicacao: CapitulosParaPublicacao[];
   @Input() form: any;
 
-  Negativos = ['Negado', 'Suspenso'];
-
   FraseImpedidos: Frase = {
     F:'Se declara impedida a Ministra ',
     M: 'Se declara impedido o Ministro ',
@@ -45,9 +43,21 @@ export class ExtratoAtaComponent implements OnInit {
     PM:'Vencidos os Ministros, ',
   };
 
+  FraseDiscordam: Frase = {
+    F:'Discorda a Ministra ',
+    M: 'Discorda o Ministro ',
+    PF:'Discordam as Ministras, ',
+    PM:'Discordam os Ministros, ',
+  };
+
   FraseCondutor: Frase = {
     F: 'Voto Condutor da Ministra ',
     M: 'Voto Condutor do Ministro ',
+  }
+
+  FrasePresidente: Frase = {
+    F: 'Presidente Ministra ',
+    M: 'Presidente Ministro ',
   }
 
   FrasePresentes: Frase = {
@@ -55,6 +65,13 @@ export class ExtratoAtaComponent implements OnInit {
     M: 'Estava Presente o Senhor Ministro ',
     PF: 'Estavam Presentes as Senhoras Ministras ',
     PM: 'Estavam Presentes os Senhores Ministros ',
+  }
+
+  FraseAusentes: Frase = {
+    F: 'Estava Ausente a Senhora Ministra ',
+    M: 'Estava Ausente o Senhor Ministro ',
+    PF: 'Estavam Ausentes as Senhoras Ministras ',
+    PM: 'Estavam Ausentes os Senhores Ministros ',
   }
 
   constructor(
@@ -95,22 +112,6 @@ export class ExtratoAtaComponent implements OnInit {
   **/
   addPontoNumero(num: string): string {
     return  num.replace(/\B(?=(\d{3})+(?!\d))/g, ".");
-  }
-
-  /**
-   * @description a função recebe o dispositivo e confere se o dispositivo
-   * possui alguma palavra para receber `bg-red-600`, caso contrário recebe
-   * `bg-green-600`
-   * @param dispositivo string
-   * @returns a cor de fundo do dispositivo
-   * @author Rodrigo Carvalho dos Santos
-   */
-  corDispositivo(dispositivo: string): string {
-    const palavras = dispositivo.split(' ');
-
-    if(palavras.filter(palavra => this.Negativos.includes(palavra)).length)
-      return 'bg-red-600'
-    return 'bg-green-600'
   }
 
   /**
