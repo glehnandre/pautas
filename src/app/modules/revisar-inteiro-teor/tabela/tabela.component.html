@@ -1,5 +1,5 @@
 <table
-    class="w-full min-w-320 table-fixed bg-transparent"
+    class="w-full table-fixed bg-transparent"
     mat-table
     cdkDropList
     matSort
@@ -168,7 +168,7 @@
             mat-cell
             *matCellDef="let document"
         >
-            <div class="flex flex-row h-full w-full justify-between">
+            <div class="flex flex-row h-full w-full">
                 <mat-chip
                 (click)="emiteLink(document.arquivo)"
                 class="border-primary border-solid border-2 bg-transparent text-primary mr-2 mt-1"
