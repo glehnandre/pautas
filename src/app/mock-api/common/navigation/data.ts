@@ -84,6 +84,13 @@ export const defaultNavigation: FuseNavigationItem[] = [
             colegiado: 'pleno',
         },
     },
+    {
+        id   : 'finalizar-sessao-julgamento',
+        title: 'Finalizar Sessao de Julgamento',
+        type : 'basic',
+        icon : 'heroicons_outline:chart-pie',
+        link : '/finalizar-sessao-julgamento'
+    },
 ];
 export const compactNavigation: FuseNavigationItem[] = [
     {
@@ -159,6 +166,13 @@ export const compactNavigation: FuseNavigationItem[] = [
             processo: '9',
             colegiado: 'pleno',
         },
+    },
+    {
+        id   : 'finalizar-sessao-julgamento',
+        title: 'Finalizar Sessao de Julgamento',
+        type : 'basic',
+        icon : 'heroicons_outline:chart-pie',
+        link : '/finalizar-sessao-julgamento'
     },
 ];
 export const futuristicNavigation: FuseNavigationItem[] = [
@@ -236,6 +250,13 @@ export const futuristicNavigation: FuseNavigationItem[] = [
             colegiado: 'pleno',
         },
     },
+    {
+        id   : 'finalizar-sessao-julgamento',
+        title: 'Finalizar Sessao de Julgamento',
+        type : 'basic',
+        icon : 'heroicons_outline:chart-pie',
+        link : '/finalizar-sessao-julgamento'
+    },
 ];
 export const horizontalNavigation: FuseNavigationItem[] = [
     {
@@ -307,5 +328,12 @@ export const horizontalNavigation: FuseNavigationItem[] = [
             processo: '9',
             colegiado: 'pleno',
         },
+    },
+    {
+        id   : 'finalizar-sessao-julgamento',
+        title: 'Finalizar Sessao de Julgamento',
+        type : 'basic',
+        icon : 'heroicons_outline:chart-pie',
+        link : '/finalizar-sessao-julgamento'
     },
 ];

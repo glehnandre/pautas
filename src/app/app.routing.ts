@@ -82,6 +82,7 @@ export const appRoutes: Route[] = [
             {path: 'sessoes-julgamento', loadChildren: () => import('app/modules/sessoes-julgamentos/sessoes-julgamentos.module').then(m => m.SessoesJulgamentosModule)},
             {path: 'resultado-julgamento', loadChildren: () => import('app/modules/resultado-julgamento/resultado-julgamento.module').then(m => m.ResultadoJulgamentoModule)},
             {path: 'informar-redator', loadChildren: ()=> import('app/modules/informar-redator/informar-redator.module').then(m => m.InformarRedatorModule)},
+            {path: 'finalizar-sessao-julgamento', loadChildren: ()=> import('app/modules/finalizar-sessao-julgamento/finalizar-sessao-julgamento.module').then(m => m.FinalizarSessaoJulgamentoModule)},
         ]
     }
 ];
