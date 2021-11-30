@@ -27,6 +27,9 @@ export class AcoesComponent implements OnInit {
   @Input() idProcesso: number;
   @Output() todosOsCheckboxSelecionados = new EventEmitter();
   @Output() revisoesAlteradas = new EventEmitter();
+  @Output() idsRevisados = new EventEmitter();
+
+  documentosRevisados: number[] = [];
 
   readonly NOME_DO_ALERTA_DESTA_CLASSE = 'alerta_revisar_inteiro_teor';
 
@@ -100,11 +103,22 @@ export class AcoesComponent implements OnInit {
    *              revisados
    * @author
    */
-   public revisar(): void {
+  public revisar(): void {
     if (this._isAlgumaLinhaSelecionada()) {
-      console.log('revisado');
+
+        this.linhasSelecionadas.forEach((linha) => {
+            const index = this.documentosRevisados.findIndex(id => id === linha.id);
+
+            if (index !== -1) {
+                this.documentosRevisados.splice(index, 1);
+            } else {
+                this.documentosRevisados.push(linha.id);
+            }
+        })
+
+        this.idsRevisados.emit(this.documentosRevisados);
     }
-   }
+  }
 
     /**
    * @private Método privado

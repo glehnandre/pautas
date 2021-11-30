@@ -42,6 +42,8 @@ export class RevisarInteiroTeorComponent implements OnInit {
   linhasSelecionadas: DocumentoInteiroTeor[] = [];
   todosOsCheckboxSelecionados = false;
 
+  documentosRevisados: number[] = [];
+
   readonly NOME_DO_ALERTA_DESTA_CLASSE = 'alerta_revisar_inteiro_teor';
 
   constructor(
@@ -77,6 +79,10 @@ export class RevisarInteiroTeorComponent implements OnInit {
   atualizarConteudo(revisao: RevisaoInteiroTeor): void {
     this.revisoes = revisao;
     this.dataSource = new DataSourceInteiroTeor(this.revisoes.documentos);
+  }
+
+  revisarDocumentos(idsDocumentos: number[]): void {
+      this.documentosRevisados = idsDocumentos;
   }
 
   /**

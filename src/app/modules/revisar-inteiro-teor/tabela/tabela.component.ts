@@ -1,4 +1,4 @@
-import { Component, OnInit, OnChanges, Input, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { DataSource } from '@angular/cdk/collections';
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 import { FormBuilder, FormGroup } from '@angular/forms';
@@ -27,11 +27,12 @@ export interface RevisaoInteiroTeor {
   styleUrls: ['./tabela.component.scss'],
   animations: fuseAnimations
 })
-export class TabelaComponent implements OnInit, OnChanges {
+export class TabelaComponent implements OnInit {
   @Input() dataSource: DataSourceInteiroTeor;
   @Input() revisoes: RevisaoInteiroTeor;
   @Input() todosOsCheckboxSelecionados: boolean;
   @Input() idProcesso: number;
+  @Input() documentosRevisados: number[];
   @Output() checked = new EventEmitter();
   @Output() link = new EventEmitter();
   displayedColumns: string[] = ['autor', 'responsavel', 'comentarios', 'documento', 'data', 'situacao', 'arquivo'];
@@ -57,10 +58,6 @@ export class TabelaComponent implements OnInit, OnChanges {
         revisado             : [''],
         ordem                : [''],
     });
-  }
-
-  ngOnChanges(): void {
-    this.atualizaOrdem();
   }
 
   emiteStatusDoCheckbox(documento: DocumentoInteiroTeor): void {

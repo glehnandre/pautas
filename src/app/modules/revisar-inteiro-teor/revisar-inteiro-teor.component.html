@@ -34,6 +34,7 @@
             [idProcesso]="idProcesso"
             (todosOsCheckboxSelecionados)="selecionarOuDeselecionarTodosOsCheckbox()"
             (revisoesAlteradas)="atualizarConteudo($event)"
+            (idsRevisados)="revisarDocumentos($event)"
         ></app-acoes>
     </header>
 
@@ -44,6 +45,7 @@
             [revisoes]="revisoes"
             [todosOsCheckboxSelecionados]="todosOsCheckboxSelecionados"
             [idProcesso]="idProcesso"
+            [documentosRevisados]="documentosRevisados"
             (checked)="selecionarOuDeselecionarLinha($event)"
             (link)="abrirPdf($event)"
         ></app-tabela>

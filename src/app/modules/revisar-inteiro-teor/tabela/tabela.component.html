@@ -168,21 +168,25 @@
             mat-cell
             *matCellDef="let document"
         >
-            <mat-chip
+            <div class="flex flex-row h-full w-full justify-between">
+                <mat-chip
                 (click)="emiteLink(document.arquivo)"
-                class="border-primary border-solid border-2 bg-transparent text-primary mr-2"
-            >
-                <mat-icon class="mr-2" style="color:red">picture_as_pdf</mat-icon>
-                Abrir
-            </mat-chip>
+                class="border-primary border-solid border-2 bg-transparent text-primary mr-2 mt-1"
+                >
+                    <mat-icon class="mr-2" style="color:red">picture_as_pdf</mat-icon>
+                    Abrir
+                </mat-chip>
 
-            <button
-                class="min-w-10 min-h-7 h-7 px-2 leading-6"
-                (click)="alternarEdicaoDocumento(document)"
-                mat-icon-button
-            >
-                <mat-icon class="icon-size-5" [svgIcon]="documentoSelecionado?.id === document.id ? 'heroicons_solid:chevron-up' : 'heroicons_solid:chevron-down'"></mat-icon>
-            </button>
+                <button
+                    class="min-w-10 px-2 leading-6"
+                    (click)="alternarEdicaoDocumento(document)"
+                    mat-icon-button
+                >
+                    <mat-icon class="icon-size-5" [svgIcon]="documentoSelecionado?.id === document.id ? 'heroicons_solid:chevron-up' : 'heroicons_solid:chevron-down'"></mat-icon>
+                </button>
+
+                <div *ngIf="documentosRevisados.includes(document.id)" class="border-2 border-solid border-green-800 rounded h-auto"></div>
+            </div>
         </td>
     </ng-container>
 
@@ -268,7 +272,7 @@
     ></tr>
 
     <tr
-        [class]="document.situacao === 'Cancelado' ? 'h-18 bg-red-100' : 'h-18 hover:bg-gray-100 dark:hover:bg-hover'"
+        [class]="document.situacao === 'Cancelado' ? 'bg-red-100' : 'hover:bg-gray-100 dark:hover:bg-hover'"
         mat-row
         cdkDrag
         [cdkDragLockAxis]="'y'"
