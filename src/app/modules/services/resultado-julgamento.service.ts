@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { EMPTY, Observable } from 'rxjs';
 import { catchError } from 'rxjs/operators';
@@ -54,13 +54,16 @@ export class ResultadoJulgamentoService {
     );
   }
 
-  public obterModeloDecisaoPeloId(idDispositivo: number): Observable<ModeloDecisao> {
-    return this._httpClient.get<ModeloDecisao>(`modelo-decisao/${idDispositivo}`).pipe(
-      catchError(error => {
-        console.log(error);
-        return EMPTY;
-      })
-    );
+  public obterModeloDecisao(classe: string, tipoCapitulo: string, dispositivo: number, recurso: number): Observable<ModeloDecisao> {
+    const params = new HttpParams()
+      .set('classe', classe)
+      .set('tipo_capitulo', tipoCapitulo)
+      .set('dispositivo', dispositivo)
+      .set('recurso', recurso);
+    
+    return this._httpClient.get<ModeloDecisao>(`modelo-decisao`, {
+      params,
+    });
   }
 
   public atualizarModeloDecisao(id: number, modelo: ModeloDecisao): Observable<void> {

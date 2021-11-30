@@ -18,6 +18,7 @@
                     <mat-label>Classe processural <span class="text-red-500">*</span></mat-label>
                     <mat-select
                         formControlName="classe"
+                        (selectionChange)="carregarModeloDecisao()"
                     >
                         <mat-option 
                             *ngFor="let classe of ['ADI', 'classe2']" 
@@ -34,6 +35,7 @@
                     <mat-select
                         formControlName="tipoCapitulo"
                         (valueChange)="buscarDispositivos()"
+                        (selectionChange)="carregarModeloDecisao()"
                     >
                         <mat-option 
                             *ngFor="let capitulo of tiposCapitulo" 
@@ -48,8 +50,8 @@
                 <mat-form-field class="w-full mb-4 col-span-2" appearance="outline">
                     <mat-label>Dispositivo <span class="text-red-500">*</span></mat-label>
                     <mat-select 
-                        formControlName="dispositivo" 
-                        (valueChange)="carregarModeloDecisaoPeloIdDoDispositivo($event)"
+                        formControlName="dispositivo"
+                        (selectionChange)="carregarModeloDecisao()"
                     >
                         <mat-option 
                             *ngFor="let dispositivo of dispositivos" 
@@ -65,6 +67,7 @@
                     <mat-label>Recurso <span class="text-red-500">*</span></mat-label>
                     <mat-select
                         formControlName="recurso"
+                        (selectionChange)="carregarModeloDecisao()"
                     >
                         <mat-option 
                             *ngFor="let recurso of (recursos$ | async)" 
@@ -129,3 +132,15 @@
         </form>
     </div>
 </div>
+
+<fuse-alert
+    class="absolute top-2 right-2 max-w-120 mx-auto z-40"
+    [name]="'aviso-form-modelo-decisao'"
+    [dismissed]="true"
+    [dismissible]="true"
+    [type]="'warning'"
+    [appearance]="'soft'"
+>
+    <span fuseAlertTitle>Aviso</span>
+    Não foi encontrando nenhum modelo de decisão com estes parâmetros.
+</fuse-alert>

@@ -1,13 +1,15 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { FuseAlertService } from '@fuse/components/alert';
 import { Dispositivo } from 'app/modules/acervo/model/interfaces/dispositivo.interface';
 import { ModeloDecisao } from 'app/modules/acervo/model/interfaces/modeloDecisao.interface';
 import { TipoRecursoDto } from 'app/modules/acervo/model/interfaces/tipoRecursoDto';
 import { DispositivoService } from 'app/modules/services/dispositivo.service';
 import { RecursoService } from 'app/modules/services/recurso.service';
 import { ResultadoJulgamentoService } from 'app/modules/services/resultado-julgamento.service';
-import { Observable } from 'rxjs';
+import { EMPTY, Observable, pipe } from 'rxjs';
+import { catchError } from 'rxjs/operators';
 
 interface ModeloDecisaoData {
   processo: {
@@ -40,13 +42,14 @@ export class FormModeloDecisaoComponent implements OnInit {
     private _resultadoJulgamento: ResultadoJulgamentoService,
     private _dispositivoService: DispositivoService,
     private _recursoService: RecursoService,
+    private _fuseAlertService: FuseAlertService,
     public dialogRef: MatDialogRef<FormModeloDecisaoComponent>,
     @Inject(MAT_DIALOG_DATA) public data: ModeloDecisaoData,
   ) { 
     this.formModeloDecisao = this._fb.group({
       id:               [this.modelo.id],
       classe:           [this.modelo.classe,        Validators.required],
-      tipoCapitulo:    [this.modelo.tipoCapitulo,  Validators.required],
+      tipoCapitulo:     [this.modelo.tipoCapitulo,  Validators.required],
       recurso:          [this.modelo.recurso,       Validators.required],
       texto:            [this.modelo.texto,         Validators.required],
       dispositivo:      [this.modelo.dispositivo,   Validators.required],
@@ -65,18 +68,46 @@ export class FormModeloDecisaoComponent implements OnInit {
     });
   }
 
-  public carregarModeloDecisaoPeloIdDoDispositivo(id: number): void {
-    this._resultadoJulgamento.obterModeloDecisaoPeloId(id).subscribe({
-      next: (modelo) => {
-        this.modelo = modelo;
-        this.formModeloDecisao.setValue({ 
-          ...modelo, 
-          dispositivo: {
-            id: modelo.dispositivo.id,
-          } 
+  public carregarModeloDecisao(): void {
+    const { 
+      classe, 
+      dispositivo, 
+      recurso, 
+      tipoCapitulo, 
+    } = this.formModeloDecisao.value;
+
+    if (classe !== '' && tipoCapitulo !== null && dispositivo && recurso > 0) {
+      this._resultadoJulgamento.obterModeloDecisao(classe, tipoCapitulo, dispositivo, recurso)
+        .pipe(
+          catchError(() => {
+            this.modelo = {
+              id: 0,
+              classe: '',
+              dispositivo: null,
+              recurso: 0,
+              texto: '',
+              tipoCapitulo: null,
+            };
+            this.formModeloDecisao.controls.texto.setValue('');
+            this._fuseAlertService.show('aviso-form-modelo-decisao');          
+
+            setTimeout(() => {
+              this._fuseAlertService.dismiss('aviso-form-modelo-decisao');
+            }, 5000);
+
+            return EMPTY;
+          })
+        )
+        .subscribe({
+          next: (modelo) => {
+            this.modelo = modelo;
+            this.formModeloDecisao.setValue({ 
+              ...modelo, 
+              dispositivo: modelo.dispositivo.id,
+            });
+          },
         });
-      }
-    });
+    }
   }
 
   public salvarModeloDecisao(): void {

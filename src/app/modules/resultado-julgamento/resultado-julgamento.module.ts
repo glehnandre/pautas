@@ -31,6 +31,7 @@ import { FormModeloDecisaoComponent } from './form-modelo-decisao/form-modelo-de
 import { MatDialogModule } from '@angular/material/dialog';
 import { FormVistaEDestaqueComponent } from './form-vista-e-destaque/form-vista-e-destaque.component';
 import { MatDatepickerModule } from '@angular/material/datepicker';
+import { FuseAlertModule } from '@fuse/components/alert';
 
 const ResultadoJulgamentoRoutes: Route[] = [
   {
@@ -75,6 +76,7 @@ const ResultadoJulgamentoRoutes: Route[] = [
     MatAutocompleteModule,
     MatDialogModule,
     MatDatepickerModule,
+    FuseAlertModule,
   ]
 })
 export class ResultadoJulgamentoModule { }

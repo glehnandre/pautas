@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { FuseMockApiService } from '@fuse/lib/mock-api/mock-api.service';
 import { DecisoesResultadoJulgamento } from 'app/modules/acervo/model/interfaces/decisao.interface';
 import { ModeloDecisao } from 'app/modules/acervo/model/interfaces/modeloDecisao.interface';
+import { dispositivos } from '../dispositivo/data';
 import { decisoes as decisoesData, modeloDecisao } from './data';
 
 @Injectable({
@@ -103,15 +104,18 @@ export class DecisaoMockApi {
         });
 
       this._fuseMockApiService
-        .onGet('modelo-decisao/:id')
-        .reply(({urlParams}) => {
-          const idDispositivo: number = +urlParams.id;
-          console.log(this._modeloDecisao)
-          const index = this._modeloDecisao
-            .findIndex(m => m.dispositivo.id === idDispositivo);
+        .onGet('modelo-decisao')
+        .reply(({request}) => {
+          const classe: string = request.params.get('classe');
+          const tipo_capitulo: string = request.params.get('tipo_capitulo');
+          const dispositivo = request.params.get('dispositivo');
+          const recurso: number = +request.params.get('recurso');
 
-          if (index !== -1) {
-            return [200, this._modeloDecisao[index]];
+          const modelo = this._modeloDecisao
+            .find(m => (m.classe === classe) && (m.tipoCapitulo === tipo_capitulo) && (m.dispositivo.id === +dispositivo) && (m.recurso === recurso));
+
+          if (modelo !== undefined) {
+            return [200, modelo];
           } else {
             return [404, { 
               description: "Não foram encontrados dispositivos para o processo" 
@@ -125,11 +129,12 @@ export class DecisaoMockApi {
         .reply(({request, urlParams}) => {
           const id: number = +urlParams.id;
           const index = this._modeloDecisao.findIndex(m => m.id === id);
-          const body = request.body as ModeloDecisao;
+          const body = request.body;
 
           if (index !== -1) {
+            const dispositivo = dispositivos.find(d => d.id === body.dispositivo);
             this._modeloDecisao.splice(index, 1);
-            this._modeloDecisao.push({id, ...body});
+            this._modeloDecisao.push({...body, id, dispositivo});
 
             return [200, this._modeloDecisao[index]];
           }
