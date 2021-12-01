@@ -18,6 +18,7 @@ import { ModeloDecisao } from '../acervo/model/interfaces/modeloDecisao.interfac
 import { FormVistaEDestaqueComponent } from './form-vista-e-destaque/form-vista-e-destaque.component';
 import { Vista } from '../acervo/model/interfaces/vista.interface';
 import { Destaque } from '../acervo/model/interfaces/destaque.interface';
+import { FormRelatorComponent } from './form-relator/form-relator.component';
 
 interface Parametros {
   processo: number;
@@ -224,7 +225,7 @@ export class ResultadoJulgamentoComponent implements OnInit {
    * @description Método para exibir modal de alteração de modelo de decisão
    * @author Douglas da Silva Monteles
    */
-   public exibirModalDeModeloDecisao(): void {
+  public exibirModalDeModeloDecisao(): void {
     const dialogRef = this._dialog.open(FormModeloDecisaoComponent, {
       maxHeight: '90vh',
       data: {
@@ -293,7 +294,13 @@ export class ResultadoJulgamentoComponent implements OnInit {
    * @author Douglas da Silva Monteles
    */
   public finalizar(): void {
-    alert('Tarefa finalizada');
+    const dialogRef = this._dialog.open(FormRelatorComponent, {
+      data: {
+        idProcesso: +this.parametros.processo,
+      }
+    });
+
+    dialogRef.afterClosed().subscribe(data => {});
   }
 
   /**

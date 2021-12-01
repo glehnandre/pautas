@@ -32,6 +32,7 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { FormVistaEDestaqueComponent } from './form-vista-e-destaque/form-vista-e-destaque.component';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { FuseAlertModule } from '@fuse/components/alert';
+import { FormRelatorComponent } from './form-relator/form-relator.component';
 
 const ResultadoJulgamentoRoutes: Route[] = [
   {
@@ -49,6 +50,7 @@ const ResultadoJulgamentoRoutes: Route[] = [
     VotoDosMinistrosComponent,
     FormModeloDecisaoComponent,
     FormVistaEDestaqueComponent,
+    FormRelatorComponent,
   ],
   imports: [
     CommonModule,
