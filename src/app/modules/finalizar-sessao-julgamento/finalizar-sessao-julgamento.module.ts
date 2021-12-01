@@ -8,6 +8,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
+import { MatAutocompleteModule } from '@angular/material/autocomplete'
 
 const FinalizarSessaoJulgamentoRoutes: Routes = [
   { path: '', component: FinalizarSessaoJulgamentoComponent },
@@ -26,6 +27,7 @@ const FinalizarSessaoJulgamentoRoutes: Routes = [
     MatInputModule,
     ReactiveFormsModule,
     MatButtonModule,
+    MatAutocompleteModule,
   ],
   exports: [
     FinalizarSessaoJulgamentoComponent,

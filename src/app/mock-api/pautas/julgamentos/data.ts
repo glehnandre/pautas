@@ -14,7 +14,8 @@ export const julgamentos: SessaoJulgamento[] = [
       categoria: 'REPERCUSSAO_GERAL',
       modalidade: 'VIRTUAL',
       data_inicio: '2016-08-29T09:12:33.001Z',
-      data_fim: '2016-08-29T09:12:33.001Z',
+      data_fim: '2016-08-30T09:12:33.001Z',
+      presidencia: ministro[1],
       secretario: {
         id: 19,
         nome: 'Beatriz Cunha',
@@ -30,6 +31,7 @@ export const julgamentos: SessaoJulgamento[] = [
     tipo: 'Ordinária',
     data_inicio: '2021-06-29T09:12:33.001Z',
     data_fim: '2021-12-29T09:12:33.001Z',
+    presidencia: ministro[1],
     situacao: 'ABERTA'
   },
   {
@@ -41,6 +43,7 @@ export const julgamentos: SessaoJulgamento[] = [
     tipo: 'Ordinária',
     data_inicio: '2021-06-29T09:12:33.001Z',
     data_fim: '2021-12-29T09:12:33.001Z',
+    presidencia: ministro[1],
     situacao: 'ABERTA'
   },
   {
@@ -52,6 +55,7 @@ export const julgamentos: SessaoJulgamento[] = [
     tipo: 'Ordinária',
     data_inicio: '2021-04-29T09:12:33.001Z',
     data_fim: '2021-11-29T09:12:33.001Z',
+    presidencia: ministro[1],
     situacao: 'ABERTA'
   },
   {
@@ -63,6 +67,7 @@ export const julgamentos: SessaoJulgamento[] = [
     tipo: 'Ordinária',
     data_inicio: '2021-04-29T09:12:33.001Z',
     data_fim: '2021-11-29T09:12:33.001Z',
+    presidencia: ministro[1],
     situacao: 'ABERTA'
   },
   {
@@ -74,6 +79,7 @@ export const julgamentos: SessaoJulgamento[] = [
     tipo: 'Ordinária',
     data_inicio: '2021-03-29T09:12:33.001Z',
     data_fim: '2021-10-29T09:12:33.001Z',
+    presidencia: ministro[1],
     situacao: 'ABERTA'
   },
   {
@@ -85,6 +91,7 @@ export const julgamentos: SessaoJulgamento[] = [
     tipo: 'Ordinária',
     data_inicio: '2021-03-29T09:12:33.001Z',
     data_fim: '2021-10-29T09:12:33.001Z',
+    presidencia: ministro[1],
     situacao: 'ABERTA'
   },
   {
@@ -96,6 +103,7 @@ export const julgamentos: SessaoJulgamento[] = [
     tipo: 'Ordinária',
     data_inicio: '2021-03-29T09:12:33.001Z',
     data_fim: '2021-10-29T09:12:33.001Z',
+    presidencia: ministro[1],
     situacao: 'ABERTA'
   },
   {
@@ -107,6 +115,7 @@ export const julgamentos: SessaoJulgamento[] = [
     tipo: 'Ordinária',
     data_inicio: '2021-07-29T09:12:33.001Z',
     data_fim: '2021-10-29T09:12:33.001Z',
+    presidencia: ministro[1],
     situacao: 'ABERTA'
   },
   {
@@ -118,6 +127,7 @@ export const julgamentos: SessaoJulgamento[] = [
     tipo: 'Ordinária',
     data_inicio: '2021-01-29T09:12:33.001Z',
     data_fim: '2021-12-29T09:12:33.001Z',
+    presidencia: ministro[1],
     situacao: 'ABERTA'
   },
   {
@@ -129,6 +139,7 @@ export const julgamentos: SessaoJulgamento[] = [
     tipo: 'Ordinária',
     data_inicio: '2021-09-29T09:12:33.001Z',
     data_fim: '2021-12-29T09:12:33.001Z',
+    presidencia: ministro[1],
     situacao: 'ABERTA'
   },
   {
@@ -140,6 +151,7 @@ export const julgamentos: SessaoJulgamento[] = [
     tipo: 'Ordinária',
     data_inicio: '2021-06-29T09:12:33.001Z',
     data_fim: '2021-12-29T09:12:33.001Z',
+    presidencia: ministro[1],
     situacao: 'ABERTA'
   },
   {
@@ -151,6 +163,7 @@ export const julgamentos: SessaoJulgamento[] = [
     tipo: 'Ordinária',
     data_inicio: '2021-06-29T09:12:33.001Z',
     data_fim: '2021-12-29T09:12:33.001Z',
+    presidencia: ministro[1],
     situacao: 'ABERTA'
   },
   {
@@ -162,6 +175,7 @@ export const julgamentos: SessaoJulgamento[] = [
     tipo: 'Ordinária',
     data_inicio: '2021-04-29T09:12:33.001Z',
     data_fim: '2021-11-29T09:12:33.001Z',
+    presidencia: ministro[1],
     situacao: 'ABERTA'
   },
   {
@@ -173,6 +187,7 @@ export const julgamentos: SessaoJulgamento[] = [
     tipo: 'Ordinária',
     data_inicio: '2021-04-29T09:12:33.001Z',
     data_fim: '2021-11-29T09:12:33.001Z',
+    presidencia: ministro[1],
     situacao: 'ABERTA'
   },
   {
@@ -184,6 +199,7 @@ export const julgamentos: SessaoJulgamento[] = [
     tipo: 'Ordinária',
     data_inicio: '2021-03-29T09:12:33.001Z',
     data_fim: '2021-10-29T09:12:33.001Z',
+    presidencia: ministro[1],
     situacao: 'ABERTA'
   },
   {
@@ -195,6 +211,7 @@ export const julgamentos: SessaoJulgamento[] = [
     tipo: 'Ordinária',
     data_inicio: '2021-03-29T09:12:33.001Z',
     data_fim: '2021-10-29T09:12:33.001Z',
+    presidencia: ministro[1],
     situacao: 'ABERTA'
   },
 ];

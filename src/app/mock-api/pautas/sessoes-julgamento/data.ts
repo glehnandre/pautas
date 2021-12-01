@@ -15,6 +15,7 @@ export const sessao: SessaoJulgamento[] = [
     modalidade: "VIRTUAL",
     data_inicio: "2016-08-29T09:12:33.001Z",
     data_fim: "2016-08-29T09:12:33.001Z",
+    presidencia: ministro[0],
     secretario: {
       id: 19,
       nome: "Carmen"

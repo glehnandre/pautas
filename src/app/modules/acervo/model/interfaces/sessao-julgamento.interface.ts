@@ -1,3 +1,5 @@
+import { Ministro } from "./ministro.interface";
+
 export interface SessaoJulgamento {
     numero: number;
     ano: number;
@@ -7,6 +9,7 @@ export interface SessaoJulgamento {
     modalidade: string;
     data_inicio: string;
     data_fim: string;
+    presidencia: Ministro;
     secretario?: {
         id: number;
         nome: string;
