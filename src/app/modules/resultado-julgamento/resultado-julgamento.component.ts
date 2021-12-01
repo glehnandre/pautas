@@ -4,16 +4,22 @@ import { ChangeDetectionStrategy, Component, HostListener, OnInit, ViewChild, Vi
 import { MatDrawer } from '@angular/material/sidenav';
 import { ActivatedRoute } from '@angular/router';
 import { FuseDrawerService } from '@fuse/components/drawer';
-import { Decisao, DecisoesResultadoJulgamento } from '../acervo/model/interfaces/decisao.interface';
+import { DecisoesResultadoJulgamento } from '../acervo/model/interfaces/decisao.interface';
 import { Manifestacao } from '../acervo/model/interfaces/manifestacao.interface';
-import { Processo } from '../acervo/model/interfaces/processo.interface';
 import { Voto } from '../acervo/model/interfaces/voto.interface';
 import { ProcessoService } from '../services/processo.service';
 import { ResultadoJulgamentoService } from '../services/resultado-julgamento.service';
+import { Capitulo } from '../acervo/model/interfaces/capitulo.interface';
+import { Processo } from '../acervo/model/interfaces/processo.interface';
 
 interface Parametros {
   processo: number;
   colegiado: string;
+}
+
+interface Decisao {
+  capitulo: Capitulo;
+  processos_mesma_decisao: Processo[];
 }
 
 @Component({
@@ -25,19 +31,16 @@ interface Parametros {
 })
 export class ResultadoJulgamentoComponent implements OnInit {
 
+  @ViewChild('matDrawer', {static: true}) matDrawer: MatDrawer;
+
   dados: DecisoesResultadoJulgamento;
   parametros: Parametros;
   processo: string;
-
-  processosMesmaDecisoes: Processo[] = [];
-  aplicarMesmasDecisoesAosProcessos: Processo[] = [];
   votos: Voto[] = [];
   dispositivos: Manifestacao[] = [];
-  decisoes: Array<{decisao: Decisao, processos_mesma_decisao: number[]}> = [];
-  decisoesSalvasViaPost: Decisao[] = [];
-  decisaoSelecionada: {decisao: Decisao, processos_mesma_decisao: number[]};
-
-  @ViewChild('matDrawer', {static: true}) matDrawer: MatDrawer;
+  decisoesAdicionadas: Array<Decisao> = [];
+  decisaoSelecionada: Decisao = null;
+  show = false;
 
   readonly FORM_CADASTRO_DECISAO = 'formulario-de-cadastro-de-decisao';
   descrissaoSessao: string;
@@ -53,96 +56,204 @@ export class ResultadoJulgamentoComponent implements OnInit {
   ngOnInit(): void {
     this.parametros = this._route.snapshot.queryParams as Parametros;
 
+    this._carregarDecisoes();
+    this._carregarProcessos();
+  }
+
+  /**
+   * @public Método público
+   * @param drawerName Nome do drawer a ser exibido
+   * @description Método para exibir ou esconder a gaveta com conteúdo
+   * @author Douglas da Silva Monteles
+   */
+  public abrirGavetaDeFormularioDeDecisao(drawerName: string): void {
+    const drawer = this._fuseDrawerService.getComponent(drawerName);
+    drawer.toggle();
+  }
+
+  /**
+   * @public Método público
+   * @param largura Tamanho da largura da tela para ser comparado
+   * @default largura Valor padrão da largura é 720px
+   * @description Método para verificar se a largura atual da tela estar maior 
+   *              que a largura informada
+   * @returns boolean
+   * @author Douglas da Silva Monteles
+   */
+  @HostListener('window:resize', ['$event'])
+  public verificarLarguraDaTela(largura: number = 720): boolean {
+    const larguraAtual = window.innerWidth;
+    return (larguraAtual > largura);
+  }
+
+  /**
+   * @public Método público
+   * @param largura Tamanho da largura da tela para ser comparado
+   * @default largura Valor padrão da largura é 720px
+   * @description Método para atualizar o estilo de gaveta a ser axibido
+   * @returns boolean
+   * @author Douglas da Silva Monteles
+   */
+  @HostListener('window:resize', ['$event'])
+  public verificarModoDaTela(largura: number = 720): string {
+    const larguraAtual = window.innerWidth;
+    return (larguraAtual <= largura) ? 'over' : 'side';
+  }
+
+  /**
+   * @public Método público
+   * @param event Evento com os dados que foram arrastados e soltados
+   * @description Método para atualizar a ordem da lista de Decisões
+   * @author Douglas da Silva Monteles
+   */
+  public dropped(event: CdkDragDrop<any[]>): void {
+    moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
+  }
+
+  /**
+   * @public Método público
+   * @param obj1 Objeto javascript contendo os dados de Capitulo
+   * @param obj2 Objeto javascript contendo os dados de Capitulo
+   * @description Método para comparar objetos do tipo Capitulo
+   * @returns boolean
+   * @author Douglas da Silva Monteles
+   */
+  public marcaDecisaoSelecionada(obj1: Capitulo, obj2: Capitulo): boolean {
+    return JSON.stringify(obj1) === JSON.stringify(obj2);
+  }
+
+  /**
+   * @public Método público
+   * @description Método para obter a lista de Decisoes cadastradas
+   * @returns Array<Decisao>
+   * @author Douglas da Silva Monteles
+   */
+  public getDecisoes(): Decisao[] {
+    if (this.dados && this.dados.decisoes) {
+      return [...this.decisoesAdicionadas, ...this.dados.decisoes];
+    }
+
+    return this.decisoesAdicionadas;
+  }
+
+  /**
+   * @public Método público
+   * @param decisao Objeto javascript com os dados de uma decisão
+   * @description Método para adicionar uma decisão a lista de decisões
+   * @author Douglas da Silva Monteles
+   */
+  public setDecisaoAdicionada(decisao: Decisao): void {
+    this.decisoesAdicionadas.push(decisao);
+  }
+
+  /**
+   * @public Método público
+   * @param decisao Objeto javascript com os dados de uma decisão
+   * @description Método para atualizar a decisão que foi selecionada
+   * @author Douglas da Silva Monteles
+   */
+  public setDecisaoSelecionada(decisao: Decisao): void {
+    this.decisaoSelecionada = decisao;
+  }
+
+  /**
+   * @public Método público
+   * @param decisao Objeto javascript com os dados de uma decisão
+   * @description Método para verificar se uma dada decisão é igual a decisão 
+   *              selecionada atualmente
+   * @returns boolean
+   * @author Douglas da Silva Monteles
+   */
+  public isMarcarDecisao(decisao: Decisao): boolean {
+    return JSON.stringify(decisao) === JSON.stringify(this.decisaoSelecionada);
+  }
+
+  /**
+   * @public Método público
+   * @param isRemoverDecisao Informa se uma decisão deve ser removida da lista
+   * @description Método para remover uma decisão da lista de decisões
+   * @author Douglas da Silva Monteles
+   */
+  public removerDecisao(isRemoverDecisao: boolean): void {
+    if (isRemoverDecisao) {
+      const index = this.decisoesAdicionadas
+        .findIndex(d => JSON.stringify(d) === JSON.stringify(this.decisaoSelecionada));
+      
+      if (index !== -1) {
+        this.decisoesAdicionadas.splice(index, 1);
+        this.setDecisaoSelecionada(null);
+      }
+    }
+  }
+
+  /**
+   * @public Método público
+   * @description Método para verificar se uma decisão já foi salva via POST, como
+   *              critério, é verificado se a decisão possui um capitulo com id
+   * @returns boolean
+   * @author Douglas da Silva Monteles
+   */
+  public isDecisaoSalva(): boolean {
+    if (this.decisaoSelecionada.capitulo.id !== undefined && this.decisaoSelecionada.capitulo.id > 0) {
+      return true;
+    }
+    return false;
+  }
+
+  /**
+   * @public Método público
+   * @description Método para recarregar um componente filho sempre que for chamado
+   * @returns boolean
+   * @author Douglas da Silva Monteles
+   */
+  public recarregarComponenteFilho(): void {
+    this.show = false;
+ 
+    setTimeout(() => {
+      this.show = true
+    }, 50);
+  }
+
+  /**
+   * @public Método público
+   * @description Método para finanizar a tafera de ResultadoJulgamento
+   * @author Douglas da Silva Monteles
+   */
+  public finalizar(): void {
+    alert('Tarefa finalizada');
+  }
+
+  /**
+   * @private Método privado
+   * @description Método para carregar todas as decisões salvas via requisão GET
+   * @author Douglas da Silva Monteles
+   */
+  private _carregarDecisoes(): void {
     this._resultadoJulgamento.listarDecisoes(this.parametros.processo).subscribe({
       next: (data) => {
         this.dados = data;
-        this.processosMesmaDecisoes = [];
-        this.dados.decisoes.forEach(({processos_mesma_decisao}) => this.processosMesmaDecisoes.push(...processos_mesma_decisao));
       }
     });
+  }
 
+  /**
+   * @private Método privado
+   * @description Método para carregar todos os processos salvos via requisão GET
+   * @author Douglas da Silva Monteles
+   */
+  private _carregarProcessos(): void {
     this._processoService.listarProcessos(new HttpParams().set('processo', this.parametros.processo)).subscribe({
       next: ([processo]) => {
-        const { nome, classe, numero } = processo;
+        const { id, classe, numero, nome } = processo;
         this.processo = `${classe} ${numero} ${nome}`;
-        this.descrissaoSessao = `${this.dados.sessao?.numero}/${this.dados.sessao?.ano}`;
-        this.data_fim = new Date(this.dados.sessao?.data_fim);
 
-        this._processoService.obterVotosDoProcesso(this.parametros.processo).subscribe({
+        this._processoService.obterVotosDoProcesso(id).subscribe({
           next: (votos) => {
             this.votos = votos;
           }
         });
       }
     });
-  }
-
-  public obterDadosDaDecisao({decisao, processos_mesma_decisao}): void {
-    this.decisoes.push({decisao, processos_mesma_decisao});
-  }
-
-  public removerDecisao(decisao: Decisao): void {
-    const index = this.decisoes
-      .findIndex(dec => JSON.stringify(dec.decisao) === JSON.stringify(decisao));
-
-    if (index !== -1) {
-      this.decisoes.splice(index, 1);
-    }
-  }
-
-  public abrirGavetaDeFormularioDeDecisao(drawerName: string): void {
-      const drawer = this._fuseDrawerService.getComponent(drawerName);
-      drawer.toggle();
-  }
-
-  @HostListener('window:resize', ['$event'])
-  public verificaLarguraDaTela(largura: number = 720): boolean {
-    const larguraAtual = window.innerWidth;
-    return (larguraAtual > largura);
-  }
-
-  @HostListener('window:resize', ['$event'])
-  public verificaModoDaTela(largura: number = 720): string {
-    const larguraAtual = window.innerWidth;
-    return (larguraAtual <= largura) ? 'over' : 'side';
-  }
-
-  public alterarDadosDoFormulario(item: {decisao: Decisao, processos_mesma_decisao: number[]}): void {
-    this.decisaoSelecionada = item;
-  }
-
-  public limparDecisaoSelecionada() {
-    this.decisaoSelecionada = null;
-  }
-
-  public decisaoSalvaViaPost({decisao}): void {
-    const index = this.decisoesSalvasViaPost
-      .findIndex(dec => Object.values(dec).toString() === Object.values(decisao).toString());
-    
-    if (index === -1) {
-      this.decisoesSalvasViaPost.push(decisao);
-    }
-
-    this.limparDecisaoSelecionada();
-  }
-
-  public isDecisaoJaSalva(): boolean {
-    const index = this.decisoesSalvasViaPost
-      .findIndex(dec => Object.values(dec).toString() === Object.values(this.decisaoSelecionada.decisao).toString());
-
-    return (index !== -1);
-  }
-
-  public dropped(event: CdkDragDrop<any[]>): void {
-    moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
-  }
-
-  public marcaDecisaoSelecionada(obj1: Decisao, obj2: Decisao): boolean {
-    return JSON.stringify(obj1) === JSON.stringify(obj2);
-  }
-
-  public finalizar(): void {
-    alert('finalização da tarefa');
   }
 
 }
