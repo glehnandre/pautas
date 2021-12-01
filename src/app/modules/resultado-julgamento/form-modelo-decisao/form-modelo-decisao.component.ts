@@ -1,6 +1,7 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MatSelectionListChange } from '@angular/material/list';
 import { FuseAlertService } from '@fuse/components/alert';
 import { Dispositivo } from 'app/modules/acervo/model/interfaces/dispositivo.interface';
 import { ModeloDecisao } from 'app/modules/acervo/model/interfaces/modeloDecisao.interface';
@@ -24,9 +25,11 @@ interface ModeloDecisaoData {
 })
 export class FormModeloDecisaoComponent implements OnInit {
 
+  readonly tiposCapitulo: string[] = [ 'Mérito', 'Preliminar', 'Modulação', 'Questão de Ordem', 'Tese' ];
+  readonly atributos: string[] = ['colegiado', 'processo', 'sessao', 'data_inicio_sessao', 'data_fim_sessao', 'modalidade', 'tipo'];
+
   formModeloDecisao: FormGroup;
   dispositivos: Dispositivo[];
-  tiposCapitulo: string[] = [ 'Mérito', 'Preliminar', 'Modulação', 'Questão de Ordem', 'Tese' ];
   recursos$: Observable<TipoRecursoDto>;
   modelo: ModeloDecisao = {
     id: 0,
@@ -36,6 +39,8 @@ export class FormModeloDecisaoComponent implements OnInit {
     texto: '',
     tipoCapitulo: null,
   };
+  linhaAtualDoTexto: number = 1;
+  exibirSugestoes: boolean = false;
 
   constructor(
     private _fb: FormBuilder,
@@ -58,6 +63,13 @@ export class FormModeloDecisaoComponent implements OnInit {
 
   ngOnInit(): void {
     this.recursos$ = this._recursoService.obterListaDeRecursos();
+
+    this.formModeloDecisao.controls.texto.valueChanges.subscribe((texto: string) => {
+      this.exibirSugestoes = false;
+      if (texto.endsWith('@')) {
+        this.exibirSugestoes = true;
+      }
+    });
   }
 
   public buscarDispositivos(): void {
@@ -128,6 +140,13 @@ export class FormModeloDecisaoComponent implements OnInit {
         }
       });
     }
+  }
+
+  public adicionarSugestaoAoTexto(sugestao: string): void {
+    let texto = this.formModeloDecisao.controls.texto.value;
+    let textoComSugestao = `${texto}${sugestao}`;
+
+    this.formModeloDecisao.controls.texto.setValue(textoComSugestao);
   }
 
 }

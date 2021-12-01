@@ -84,10 +84,26 @@
                 <mat-label>Concordam os ministros <span class="text-red-500">*</span></mat-label>
                 
                 <textarea 
+                    id="texto-da-decisao"
                     matInput 
-                    rows="10"
+                    rows="5"
                     formControlName="texto"
                 ></textarea>
+
+                <mat-selection-list 
+                    #sugestoes
+                    *ngIf="exibirSugestoes"
+                    class="bg-white w-full overflow-y-auto h-40 shadow-lg drop-shadow-lg top-8 z-20" 
+                    [multiple]="false"
+                    (selectionChange)="adicionarSugestaoAoTexto(sugestoes.selectedOptions.selected[0]?.value)"
+                >
+                    <mat-list-option 
+                        *ngFor="let atributo of atributos" 
+                        [value]="atributo"
+                    >
+                        {{atributo}}
+                    </mat-list-option>
+                </mat-selection-list>
 
                 <mat-hint>
                     Escreva o modelo do texto para ser aplicado a outras decisões. 
