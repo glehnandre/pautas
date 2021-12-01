@@ -25,6 +25,7 @@ export class FormDecisaoComponent implements OnInit, OnChanges, OnDestroy {
   idsDosProcessos: number[] = [];
   limparProcessosSelecionados: boolean = false;
   dispositivos: Dispositivo[] = [];
+  linhaAtualDoTexto: number = 1;
 
   @Input() idProcesso: number = 0;
   @Input() isDesabilitarForm: boolean = false;
@@ -68,6 +69,14 @@ export class FormDecisaoComponent implements OnInit, OnChanges, OnDestroy {
 
   ngOnInit(): void {
     this._recarregarOsDados();
+
+    this.formDecisao.controls.texto.valueChanges.subscribe((texto: string) => {
+      if (texto.endsWith('\n')) {
+        const textoDecisao = document.getElementById('texto-da-decisao');
+        this.linhaAtualDoTexto = textoDecisao['selectionStart'];
+        console.log(this.linhaAtualDoTexto)
+      }
+    });
   }
 
   ngOnChanges(): void {

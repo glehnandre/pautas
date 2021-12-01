@@ -95,7 +95,17 @@
 
     <mat-form-field class="w-full mb-4" appearance="outline">
         <mat-label>Concordam os ministros <span class="text-red-500">*</span></mat-label>
-        <textarea matInput rows="10" formControlName="texto"></textarea>
+        <textarea id="texto-da-decisao" matInput rows="10" formControlName="texto"></textarea>
+
+        <mat-selection-list class="absolute w-full overflow-y-auto h-40 shadow-md top-8" [multiple]="false">
+            <mat-list-option 
+                *ngFor="let atributo of ['relator', 'processo', 'sessao', 'relator', 'processo', 'sessao']" 
+                [value]="atributo"
+            >
+                {{atributo}}
+            </mat-list-option>
+        </mat-selection-list>
+
         <mat-hint>Descreva a decisão tomada pelo colegiado</mat-hint>
     </mat-form-field>
 
