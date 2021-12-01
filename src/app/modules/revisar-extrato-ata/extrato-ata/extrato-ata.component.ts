@@ -99,7 +99,8 @@ export class ExtratoAtaComponent implements OnInit {
    fraseEMinistros(ministros: Ministro[], frase: Frase): string {
     return ministros.length?
         `<span> ${ this._ministroService.generoEPlural(ministros, frase) }</span>
-        <span class="font-medium">${ this._ministroService.ministrosString(ministros) }</span>`:
+        <span class="font-medium">${ this._ministroService.ministrosString(ministros) }</span>
+        <br>`:
         '';
   }
 

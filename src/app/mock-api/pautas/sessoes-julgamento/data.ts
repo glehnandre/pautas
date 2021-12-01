@@ -1,10 +1,10 @@
 import { SituacaoDoProcesso } from "app/modules/acervo/model/enums/situacaoDoProcesso.enum";
-import { TipoCapitulo } from "app/modules/acervo/model/enums/tipoCapitulo.enum";
 import { TipoDoProcesso } from "app/modules/acervo/model/enums/tipoDoProcesso.enum";
 import { Processo } from "app/modules/acervo/model/interfaces/processo.interface";
 import { SessaoJulgamento } from "app/modules/acervo/model/interfaces/sessao-julgamento.interface";
+
 import { capitulo } from "../capitulo/data";
-import { colegiado, ministro } from "../ministro/data";
+import { ministro } from "../ministro/data";
 
 export const sessao: SessaoJulgamento[] = [
   {

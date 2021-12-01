@@ -1,5 +1,7 @@
 import { TipoCapitulo } from "../enums/tipoCapitulo.enum";
+import { Dispositivo } from "./dispositivo.interface";
 import { Ministro } from "./ministro.interface";
+import { Destaque, Vista } from "./vista-e-destaque.interface";
 
 export interface Envolvido {
     nome: string;
@@ -11,13 +13,8 @@ export interface Envolvido {
 export interface Capitulo {
     id: number;
     descricao: string;
-    ordem: number;
     tipo: TipoCapitulo;
-    dispositivos: Array<{
-      id: number;
-      nome: string;
-      sentido: 'Positivo' | 'Negativo' | 'Neutro'
-    }>;
+    dispositivos: Array<Dispositivo>;
     ministros_acordam: Array<Ministro>;
     ministros_divergem: Array<Ministro>;
     ministro_condutor: Ministro;
@@ -35,4 +32,6 @@ export interface CapitulosParaPublicacao {
     ministros_suspeitos: Array<Ministro>;
     ministros_impedidos: Array<Ministro>;
     capitulos: Array<Capitulo>
+    vistas: Array<Vista>,
+    destaques: Array<Destaque>,
 }

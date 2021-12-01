@@ -6,7 +6,6 @@ export const capitulo: Array<Capitulo> = [
     {
         id:     1,
         descricao: 'Recurso Extraordinário com agravo 1.299.544',
-        ordem:  1,
         tipo:   TipoCapitulo.Merito,
         dispositivos: [
           {
@@ -34,7 +33,6 @@ export const capitulo: Array<Capitulo> = [
     {
         id:     2,
         descricao: 'Recurso Extraordinário com agravo 1.299.544',
-        ordem:  1,
         tipo:   TipoCapitulo.Merito,
         dispositivos: [{
           id: 2,
@@ -57,7 +55,6 @@ export const capitulo: Array<Capitulo> = [
     {
         id:     3,
         descricao: 'Recurso Extraordinário com agravo 1.299.544',
-        ordem:  1,
         tipo:   TipoCapitulo.Merito,
         dispositivos: [{
           id: 3,
@@ -76,7 +73,6 @@ export const capitulo: Array<Capitulo> = [
     {
         id:     4,
         descricao: 'Recurso Extraordinário com agravo 1.299.544',
-        ordem:  1,
         tipo:   TipoCapitulo.Merito,
         dispositivos: [{
           id: 4,
@@ -95,7 +91,6 @@ export const capitulo: Array<Capitulo> = [
     {
         id:     5,
         descricao: 'Recurso Extraordinário com agravo 1.299.544',
-        ordem:  1,
         tipo:   TipoCapitulo.Preliminar,
         dispositivos: [{
           id: 3,
@@ -114,7 +109,6 @@ export const capitulo: Array<Capitulo> = [
     {
         id:     6,
         descricao: 'Recurso Extraordinário com agravo 1.299.544',
-        ordem:  1,
         tipo:   TipoCapitulo.Tese,
         dispositivos: [{
           id: 3,
@@ -133,7 +127,6 @@ export const capitulo: Array<Capitulo> = [
     {
         id:     7,
         descricao: 'É constitucional o artigo 8º da Lei Complementar 173/2020, editado no âmbito do Programa Federativo de Enfrentamento ao Coronavírus SARS-CoV-2 (Covid-19).',
-        ordem:  1,
         tipo:   TipoCapitulo.Questão_de_Ordem,
         dispositivos: [{
           id: 3,

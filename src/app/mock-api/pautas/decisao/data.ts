@@ -1,7 +1,6 @@
 import { Ata } from "app/modules/acervo/model/interfaces/ata.interface";
-import { Decisao, DecisoesResultadoJulgamento } from "app/modules/acervo/model/interfaces/decisao.interface";
-import { Processo } from "app/modules/acervo/model/interfaces/processo.interface";
-import { SessaoJulgamento } from "app/modules/acervo/model/interfaces/sessao-julgamento.interface";
+import { DecisoesResultadoJulgamento } from "app/modules/acervo/model/interfaces/decisao.interface";
+import { TipoCapitulo } from "app/modules/acervo/model/enums/tipoCapitulo.enum";
 
 import { capitulo } from "../capitulo/data"
 import { ministro } from "../ministro/data";
@@ -13,9 +12,17 @@ export const decisoes: Array<DecisoesResultadoJulgamento> = [
     decisoes: [
       {
         capitulo: {
-          descricao: '',
-          dispositivo: '',
-          ministro_condutor: '',
+          id: 1,
+          tipo: TipoCapitulo.Modulacao,
+          descricao: 'Descrição do capítulo',
+          dispositivos: [
+            {
+              id: 1,
+              nome: 'Dispositivo',
+              sentido: "Negativo",
+            },
+          ],
+          ministro_condutor: ministro[6],
           ministros_acordam: [
             ministro[0],
             ministro[1],
@@ -24,8 +31,10 @@ export const decisoes: Array<DecisoesResultadoJulgamento> = [
             ministro[4],
             ministro[5],
           ],
-          texto: '',
-          tipo: '',
+          ministros_divergem: [
+              ministro[10],
+          ],
+          texto: 'Texto do capítulo',
         },
         processos_mesma_decisao: [
           processo[0],
@@ -103,7 +112,27 @@ export const ata: Ata = {
         capitulos: [
           capitulo[0],
           capitulo[1],
-        ]
+        ],
+        destaques: [
+          {
+            id: 1,
+            ministro: 1,
+            processo: 1,
+            sessao: 1,
+            data: "2016-08-29T09:12:33.001Z",
+            texto: "Após o voto do Ministro Marco Aurélio, Relator, que implementava a ordem, pediu destaque do processo do plenário virtual.",
+          },
+        ],
+        vistas: [
+          {
+            id: 1,
+            ministro: 1,
+            processo: 1,
+            sessao: 1,
+            data: "2016-08-29T09:12:33.001Z",
+            texto: "Após o voto do Ministro Marco Aurélio, Relator, que implementava a ordem, pediu vista dos autos o Ministro Alexandre de Moraes. Primeira Turma, Sessão Virtual de 13.11.2020 a 20.11.2020.",
+          },
+        ],
       },
       {
         classe: "AG",
@@ -158,7 +187,27 @@ export const ata: Ata = {
           capitulo[2],
           capitulo[3],
           capitulo[4],
-        ]
+        ],
+        destaques: [
+          {
+            id: 1,
+            ministro: 1,
+            processo: 1,
+            sessao: 1,
+            data: "2016-08-29T09:12:33.001Z",
+            texto: "Após o voto do Ministro Marco Aurélio, Relator, que implementava a ordem, pediu destaque do processo do plenário virtual.",
+          },
+        ],
+        vistas: [
+          {
+            id: 1,
+            ministro: 1,
+            processo: 1,
+            sessao: 1,
+            data: "2016-08-29T09:12:33.001Z",
+            texto: "Após o voto do Ministro Marco Aurélio, Relator, que implementava a ordem, pediu vista dos autos o Ministro Alexandre de Moraes. Primeira Turma, Sessão Virtual de 13.11.2020 a 20.11.2020.",
+          },
+        ],
       },
       {
         classe: "CCP",
@@ -211,7 +260,27 @@ export const ata: Ata = {
         ],
         capitulos: [
           capitulo[5],
-        ]
-      }
-    ]
+        ],
+        destaques: [
+          {
+            id: 1,
+            ministro: 1,
+            processo: 1,
+            sessao: 1,
+            data: "2016-08-29T09:12:33.001Z",
+            texto: "Após o voto do Ministro Marco Aurélio, Relator, que implementava a ordem, pediu destaque do processo do plenário virtual.",
+          },
+        ],
+        vistas: [
+          {
+            id: 1,
+            ministro: 1,
+            processo: 1,
+            sessao: 1,
+            data: "2016-08-29T09:12:33.001Z",
+            texto: "Após o voto do Ministro Marco Aurélio, Relator, que implementava a ordem, pediu vista dos autos o Ministro Alexandre de Moraes. Primeira Turma, Sessão Virtual de 13.11.2020 a 20.11.2020.",
+          },
+        ],
+      },
+    ],
   }

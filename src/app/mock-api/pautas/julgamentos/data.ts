@@ -1,8 +1,8 @@
 import { SituacaoDoProcesso } from "app/modules/acervo/model/enums/situacaoDoProcesso.enum";
-import { TipoCapitulo } from "app/modules/acervo/model/enums/tipoCapitulo.enum";
 import { TipoDoProcesso } from "app/modules/acervo/model/enums/tipoDoProcesso.enum";
 import { Processo } from "app/modules/acervo/model/interfaces/processo.interface";
 import { SessaoJulgamento } from "app/modules/acervo/model/interfaces/sessao-julgamento.interface";
+
 import { capitulo } from "../capitulo/data";
 import { ministro } from '../ministro/data';
 
@@ -322,20 +322,18 @@ export const julgamentos: SessaoJulgamento[] = [
 export const processos: Processo[] = [
   {
     id: 123455,
-    ementa: 'Sessão de julgamento extraordinária para tratar da divisão de terras.',
+    ementa: "Sessão de julgamento extraordinária para tratar da divisão de terras.",
     lista: [{
-      descricao: 'Semelhante a ADI 100',
+      descricao: "Semelhante a ADI 100",
       id: 123445,
       publica: false
     }],
-    classe: 'ADI',
+    classe: "ADI",
     numero: 100,
-    nome: 'Embargo de declaração',
+    nome: "Embargo de declaração",
     abreviacao: '',
     situacao: SituacaoDoProcesso.Pautado,
     tipo: TipoDoProcesso.Merito,
-    relator: ministro[10],
-    redator: ministro[10],
     capitulos: [
       capitulo[1],
     ]
@@ -343,9 +341,9 @@ export const processos: Processo[] = [
 
   {
     id: 123455,
-    ementa: 'Sessão de julgamento extraordinária para tratar da divisão de terras.',
+    ementa: "Sessão de julgamento extraordinária para tratar da divisão de terras.",
     lista: [{
-      descricao: 'Semelhante a ADI 100',
+      descricao: "Semelhante a ADI 100",
       id: 123445,
       gestor: {
           numero: 19,
@@ -384,11 +382,8 @@ export const processos: Processo[] = [
     abreviacao: '',
     situacao: SituacaoDoProcesso.Pautado,
     tipo: TipoDoProcesso.Merito,
-    relator: ministro[10],
-    redator: ministro[10],
     capitulos: [
       capitulo[1],
     ]
   },
 ]
-;
