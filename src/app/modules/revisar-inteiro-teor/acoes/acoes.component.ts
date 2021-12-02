@@ -93,7 +93,13 @@ export class AcoesComponent implements OnInit {
    */
    public incluirNovoDocumento(): void {
     if (this._isAlgumaLinhaSelecionada()) {
-      console.log('incluir novo doc');
+        const ids = this.linhasSelecionadas.map((linha) => linha.id)
+
+        this._inteiroTeorService.incluirDocumentosDoInteiroTeorDoProcesso(this.idProcesso, ids).subscribe({
+            next: (data) => {
+              console.log(data);
+            }
+        })
     }
   }
 
