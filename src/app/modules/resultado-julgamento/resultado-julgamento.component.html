@@ -5,12 +5,48 @@
         <h1 class="mt-4 text-primary font-medium text-xl sm:text-2xl">
             Lançamento do Resultado do Julgamento da {{processo}}
         </h1>
+    </div>
+
+    <hr class="m-0 p-0" />
+
+    <header class="bg-white px-8 pt-4 flex flex-col">
+        <app-cabecalho-relator
+            [processo]="processo"
+            [colegiado]="parametros.colegiado"
+            [votos]="votos"
+        ></app-cabecalho-relator>
+
         <div class="flex flex-row items-end mb-4 sm:my-4 ml-auto">
             <button class="z-0 mr-4" mat-button>
                 <span>Cancelar</span>
             </button>
-            <button
-                class="mr-8"
+
+            <button 
+                mat-raised-button 
+                class="max-w-full mr-4" 
+                (click)="exibirModalDeModeloDecisao()"
+            >
+                Modelos de Texto
+            </button>
+
+            <button 
+                mat-raised-button 
+                class="max-w-full mr-4" 
+                (click)="exibirModalDeVista()"
+            >
+                Vista
+            </button>
+
+            <button 
+                mat-raised-button 
+                class="max-w-full mr-4" 
+                (click)="exibirModalDeDestaque()"
+            >
+                Destaque
+            </button>
+
+            <button 
+                class="mr-4"
                 color="primary" 
                 mat-raised-button 
                 (click)="finalizar()"
@@ -18,18 +54,6 @@
                 Finalizar
             </button>
         </div>
-    </div>
-
-    <hr class="m-0 p-0" />
-
-    <header class="bg-white px-8 pt-4">
-        <app-cabecalho-relator
-            [processo]="parametros.processo"
-            [colegiado]="parametros.colegiado"
-            [votos]="votos"
-            [sessao]="descrissaoSessao"
-            [data_fim]="data_fim"
-        ></app-cabecalho-relator>
     </header>
 
     <!-- Body -->
@@ -143,7 +167,7 @@
                                                         <!-- Task link -->
                                                         <a
                                                             class="flex flex-auto py-2 items-center min-w-0 h-full pr-7"
-                                                            (click)="recarregarComponenteFilho(); setDecisaoSelecionada(null); setDecisaoSelecionada(item)"
+                                                            (click)="setDecisaoSelecionada(null); recarregarComponenteFilho(); setDecisaoSelecionada(item)"
                                                         >
                                                             <!-- Title & Placeholder -->
                                                             <div class="flex-auto mr-2 truncate">
@@ -201,6 +225,7 @@
                             <app-form-decisao
                                 *ngIf="!decisaoSelecionada; else exibirDecisaoNoForm"
                                 [isExibirBtnAdicionarDecisao]="true"
+                                [isExibirBtnModeloDecisao]="true"
                                 (dadosDaDecisao)="setDecisaoAdicionada($event)"
                             ></app-form-decisao>
 

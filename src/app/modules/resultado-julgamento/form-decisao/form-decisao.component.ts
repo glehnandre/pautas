@@ -4,6 +4,7 @@ import { MatSelectChange } from '@angular/material/select';
 import { Capitulo } from 'app/modules/acervo/model/interfaces/capitulo.interface';
 import { Dispositivo } from 'app/modules/acervo/model/interfaces/dispositivo.interface';
 import { Ministro } from 'app/modules/acervo/model/interfaces/ministro.interface';
+import { ModeloDecisao } from 'app/modules/acervo/model/interfaces/modeloDecisao.interface';
 import { Processo } from 'app/modules/acervo/model/interfaces/processo.interface';
 import { DispositivoService } from 'app/modules/services/dispositivo.service';
 import { MinistroService } from 'app/modules/services/ministro.service';
@@ -21,15 +22,16 @@ export class FormDecisaoComponent implements OnInit, OnChanges, OnDestroy {
   formDecisao: FormGroup;
   ministros$: Observable<Ministro []>
   tipos$: Observable<string[]>; 
-  dispositivos$: Observable<Dispositivo[]>;
   idsDosProcessos: number[] = [];
   limparProcessosSelecionados: boolean = false;
+  dispositivos: Dispositivo[] = [];
 
   @Input() idProcesso: number = 0;
   @Input() isDesabilitarForm: boolean = false;
   @Input() isExibirBtnAdicionarDecisao: boolean = false;
   @Input() isExibirBtnSalvarDecisao: boolean = false;
   @Input() isExibirBtnExcluirDecisao: boolean = false;
+  @Input() isExibirBtnModeloDecisao: boolean = false;
   @Input() decisao: {
     capitulo: Capitulo;
     processos_mesma_decisao: Processo[];
@@ -85,7 +87,12 @@ export class FormDecisaoComponent implements OnInit, OnChanges, OnDestroy {
    */
   public buscarDispositivos(event: EventEmitter<MatSelectChange>): void {
     const tipo: string = event['value'];
-    this.dispositivos$ = this._dispositivoService.obterDispositivos(this.idProcesso, tipo);
+
+    this._dispositivoService.obterDispositivos(this.idProcesso, tipo).subscribe({
+      next: (dispositivos) => {
+        this.dispositivos = dispositivos;
+      }
+    });
   }
 
   /**

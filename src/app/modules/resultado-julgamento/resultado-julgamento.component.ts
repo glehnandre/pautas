@@ -11,6 +11,14 @@ import { ProcessoService } from '../services/processo.service';
 import { ResultadoJulgamentoService } from '../services/resultado-julgamento.service';
 import { Capitulo } from '../acervo/model/interfaces/capitulo.interface';
 import { Processo } from '../acervo/model/interfaces/processo.interface';
+import { RecursoService } from '../services/recurso.service';
+import { MatDialog } from '@angular/material/dialog';
+import { FormModeloDecisaoComponent } from './form-modelo-decisao/form-modelo-decisao.component';
+import { ModeloDecisao } from '../acervo/model/interfaces/modeloDecisao.interface';
+import { FormVistaEDestaqueComponent } from './form-vista-e-destaque/form-vista-e-destaque.component';
+import { Vista } from '../acervo/model/interfaces/vista.interface';
+import { Destaque } from '../acervo/model/interfaces/destaque.interface';
+import { FormRelatorComponent } from './form-relator/form-relator.component';
 
 interface Parametros {
   processo: number;
@@ -31,8 +39,6 @@ interface Decisao {
 })
 export class ResultadoJulgamentoComponent implements OnInit {
 
-  @ViewChild('matDrawer', {static: true}) matDrawer: MatDrawer;
-
   dados: DecisoesResultadoJulgamento;
   parametros: Parametros;
   processo: string;
@@ -40,6 +46,7 @@ export class ResultadoJulgamentoComponent implements OnInit {
   dispositivos: Manifestacao[] = [];
   decisoesAdicionadas: Array<Decisao> = [];
   decisaoSelecionada: Decisao = null;
+  modelo: ModeloDecisao;
   show = false;
 
   readonly FORM_CADASTRO_DECISAO = 'formulario-de-cadastro-de-decisao';
@@ -51,6 +58,7 @@ export class ResultadoJulgamentoComponent implements OnInit {
     private _processoService: ProcessoService,
     private _route: ActivatedRoute,
     private _fuseDrawerService: FuseDrawerService,
+    private _dialog: MatDialog,
   ) {}
 
   ngOnInit(): void {
@@ -211,7 +219,75 @@ export class ResultadoJulgamentoComponent implements OnInit {
  
     setTimeout(() => {
       this.show = true
-    }, 50);
+    }, 100);
+  }
+
+  /**
+   * @public Método público
+   * @description Método para exibir modal de alteração de modelo de decisão
+   * @author Douglas da Silva Monteles
+   */
+  public exibirModalDeModeloDecisao(): void {
+    const dialogRef = this._dialog.open(FormModeloDecisaoComponent, {
+      maxHeight: '90vh',
+      data: {
+        processo: {
+          id: this.processo,
+        },
+      }
+    });
+
+    dialogRef.afterClosed().subscribe((modelo: ModeloDecisao) => {
+      this.modelo = modelo;
+    });
+  }
+
+  public exibirModalDeVista(): void {
+    const dialogfRef = this._dialog.open(FormVistaEDestaqueComponent, {
+      data: {
+        titulo: 'Informar Vista',
+      }
+    });
+
+    dialogfRef.afterClosed().subscribe((data: Vista) => {
+      if (data) {
+        const vista: Vista = {
+          ...data,
+          processo: +this.parametros.processo,
+          sessao: this.dados.sessao.numero,
+        };
+
+        this._processoService.salvarVistaDoProcesso(this.parametros.processo, vista).subscribe({
+          next: (data) => {
+            console.log(data);
+          }
+        });
+      }
+    });
+  }
+
+  public exibirModalDeDestaque(): void {
+    const dialogfRef = this._dialog.open(FormVistaEDestaqueComponent, {
+      data: {
+        titulo: 'Informar Destaque',
+      }
+    });
+
+    dialogfRef.afterClosed().subscribe((data: Destaque) => {
+      if (data) {
+        const destaque: Destaque = {
+          ...data,
+          processo: +this.parametros.processo,
+          sessao: this.dados.sessao.numero,
+        };
+
+        this._processoService.salvarDestaqueDoProcesso(this.parametros.processo, destaque).subscribe({
+          next: (data) => {
+            console.log(data);
+          }
+        });
+      }
+    });
   }
 
   /**
@@ -220,7 +296,13 @@ export class ResultadoJulgamentoComponent implements OnInit {
    * @author Douglas da Silva Monteles
    */
   public finalizar(): void {
-    alert('Tarefa finalizada');
+    const dialogRef = this._dialog.open(FormRelatorComponent, {
+      data: {
+        idProcesso: +this.parametros.processo,
+      }
+    });
+
+    dialogRef.afterClosed().subscribe(data => {});
   }
 
   /**

@@ -1,8 +1,9 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { EMPTY, Observable } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { DecisoesResultadoJulgamento } from '../acervo/model/interfaces/decisao.interface';
+import { ModeloDecisao } from '../acervo/model/interfaces/modeloDecisao.interface';
 
 @Injectable({
   providedIn: 'root'
@@ -37,6 +38,36 @@ export class ResultadoJulgamentoService {
 
   public deletarDecisao(id: number): Observable<void> {
     return this._httpClient.delete<void>(`decisoes/${id}`).pipe(
+      catchError(error => {
+        console.log(error);
+        return EMPTY;
+      })
+    );
+  }
+
+  public salvarModeloDecisao(modelo: ModeloDecisao): Observable<void> {
+    return this._httpClient.post<void>(`modelo-decisao`, modelo).pipe(
+      catchError(error => {
+        console.log(error);
+        return EMPTY;
+      })
+    );
+  }
+
+  public obterModeloDecisao(classe: string, tipoCapitulo: string, dispositivo: number, recurso: number): Observable<ModeloDecisao> {
+    const params = new HttpParams()
+      .set('classe', classe)
+      .set('tipo_capitulo', tipoCapitulo)
+      .set('dispositivo', dispositivo)
+      .set('recurso', recurso);
+    
+    return this._httpClient.get<ModeloDecisao>(`modelo-decisao`, {
+      params,
+    });
+  }
+
+  public atualizarModeloDecisao(id: number, modelo: ModeloDecisao): Observable<void> {
+    return this._httpClient.put<void>(`modelo-decisao/${id}`, modelo).pipe(
       catchError(error => {
         console.log(error);
         return EMPTY;

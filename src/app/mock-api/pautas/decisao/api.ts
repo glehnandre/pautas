@@ -1,16 +1,16 @@
 import { Injectable } from '@angular/core';
 import { FuseMockApiService } from '@fuse/lib/mock-api/mock-api.service';
 import { DecisoesResultadoJulgamento } from 'app/modules/acervo/model/interfaces/decisao.interface';
-import { Processo } from 'app/modules/acervo/model/interfaces/processo.interface';
-import { processo } from '../processos/data';
-import { sessao } from '../sessoes-julgamento/data';
-import { decisoes as decisoesData } from './data';
+import { ModeloDecisao } from 'app/modules/acervo/model/interfaces/modeloDecisao.interface';
+import { dispositivos } from '../dispositivo/data';
+import { decisoes as decisoesData, modeloDecisao } from './data';
 
 @Injectable({
     providedIn: 'root'
 })
 export class DecisaoMockApi {
     private _decisoes: Array<DecisoesResultadoJulgamento> = decisoesData;
+    private _modeloDecisao: ModeloDecisao[] = modeloDecisao;
 
     constructor(private _fuseMockApiService: FuseMockApiService) {
         this._decisoes = decisoesData;
@@ -85,6 +85,61 @@ export class DecisaoMockApi {
           }
 
           return [404, { description: 'Tags ou processos não encontrados' }]
+        });
+
+      this._fuseMockApiService
+        .onPost('modelo-decisao')
+        .reply(({request}) => {
+          const body = request.body as ModeloDecisao;
+          const index = this._modeloDecisao.findIndex(m => m.id === body.id);
+
+          if (index === -1) {
+            body.id = this._modeloDecisao.length+1;
+            this._modeloDecisao.push(body);
+            
+            return [200, { description: "Sucesso." }];
+          }
+
+          return [404, { description: "Nenhuma decisão encontrada." }];
+        });
+
+      this._fuseMockApiService
+        .onGet('modelo-decisao')
+        .reply(({request}) => {
+          const classe: string = request.params.get('classe');
+          const tipo_capitulo: string = request.params.get('tipo_capitulo');
+          const dispositivo = request.params.get('dispositivo');
+          const recurso: number = +request.params.get('recurso');
+
+          const modelo = this._modeloDecisao
+            .find(m => (m.classe === classe) && (m.tipoCapitulo === tipo_capitulo) && (m.dispositivo.id === +dispositivo) && (m.recurso === recurso));
+
+          if (modelo !== undefined) {
+            return [200, modelo];
+          } else {
+            return [404, { 
+              description: "Não foram encontrados dispositivos para o processo" 
+            }];
+          }
+
+        });
+
+      this._fuseMockApiService
+        .onPut('modelo-decisao/:id')
+        .reply(({request, urlParams}) => {
+          const id: number = +urlParams.id;
+          const index = this._modeloDecisao.findIndex(m => m.id === id);
+          const body = request.body;
+
+          if (index !== -1) {
+            const dispositivo = dispositivos.find(d => d.id === body.dispositivo);
+            this._modeloDecisao.splice(index, 1);
+            this._modeloDecisao.push({...body, id, dispositivo});
+
+            return [200, this._modeloDecisao[index]];
+          }
+
+          return [404, { description: "Não foram encontrados dispositivos para o processo" }];
         });
 
     }
