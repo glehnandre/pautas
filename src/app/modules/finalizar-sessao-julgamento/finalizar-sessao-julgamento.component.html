@@ -22,96 +22,12 @@
 
     <!-- Main -->
     <div class="flex flex-col mt-8">
-        <span class="text-2xl text-primary font-medium">Composição</span>
-        
-        <div class="grid grid-flow-row max-w-140">
-            <div class="flex flex-row justify-end pr-10">
-                <span class="mr-3">Presente</span>
-                <span class="ml-4 mr-3">Ausente</span>
-                <span class="ml-4">Presidente</span>
-            </div>
-            <div class="flex flex-row items-center py-2 overflow-hidden">
-                <span class="w-15">Presidente</span>
-                <object class="flex w-5 h-10 bg-blue-600 mx-4 -my-20"></object>
-                <span class="flex flex-row items-center w-48 mr-2">
-                    <img [src]="presidente?.imagem" alt="Imagem de perfil"
-                        class="w-10 h-10 mr-2 rounded-full ng-tns-c129-57 ng-star-inserted">
-                    {{presidente.nome}}
-                </span>
-                <mat-checkbox class="mr-15" color="primary"></mat-checkbox>
-                <mat-checkbox class="mr-15" color="primary"></mat-checkbox>
-                <mat-checkbox color="primary"></mat-checkbox>
-            </div>
-            <div class="flex flex-row items-center py-2 overflow-hidden">
-                <span class="w-15">1ª Turma</span>
-                <object class="flex w-5 bg-orange-500 mx-4 -my-20"></object>
-                <div class="flex-col space-y-4">
-                    <div class="flex flex-1" *ngFor="let primeira of primeiraTurma">
-                        <span class="flex flex-row items-center w-48 mr-2">
-                            <img [src]="primeira?.imagem" alt="Imagem de perfil"
-                                class="w-10 h-10 mr-2 rounded-full ng-tns-c129-57 ng-star-inserted">
-                            {{primeira.nome}}
-                        </span>
-                        <mat-checkbox class="mr-15 pt-3" color="primary"></mat-checkbox>
-                        <mat-checkbox class="mr-15 pt-3" color="primary"></mat-checkbox>
-                        <mat-checkbox class="pt-3" color="primary"></mat-checkbox>
-                    </div>
-                </div>
-            </div> 
-            <div class="flex flex-row items-center pt-2 overflow-hidden">
-                <span class="w-15">2ª Turma</span>
-                <object class="flex w-5 bg-green-700 mx-4 -my-20"></object>
-                <div class="flex flex-col space-y-4">
-                    <div class="flex flex-1" *ngFor="let segunda of segundaTurma">
-                        <span class="flex flex-row items-center w-48 mr-2">
-                            <img [src]="segunda?.imagem" alt="Imagem de perfil"
-                                class="w-10 h-10 mr-2 rounded-full ng-tns-c129-57 ng-star-inserted">
-                            {{segunda.nome}}
-                        </span>
-                        <mat-checkbox class="mr-15 pt-3" color="primary"></mat-checkbox>
-                        <mat-checkbox class="mr-15 pt-3" color="primary"></mat-checkbox>
-                        <mat-checkbox class="pt-3" color="primary"></mat-checkbox>
-                    </div>
-                </div>
-            </div> 
-        </div>
+        <app-composicao
+          [presidente]="sessao?.presidencia"
+        ></app-composicao>
 
-        <mat-form-field appearance="fill" class="w-full max-w-80 mt-8">
-            <mat-label class="font-medium">Secretário da Sessão</mat-label>
-            <input 
-                matInput 
-                name="secretario" 
-                type="text" 
-                [formControl]="secretario" 
-                required
-                [matAutocomplete]="auto"
-            >
-            <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
-                <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
-                  {{option}}
-                </mat-option>
-            </mat-autocomplete>
-            <mat-hint>Informe o secretário ou secretária da sessão</mat-hint>
-            <mat-error class="mb-1" *ngIf="secretario.invalid">
-                {{getErrorMessage()}}
-            </mat-error>
-        </mat-form-field>
-
-        <mat-form-field appearance="fill" class="w-full mt-8">
-            <mat-label class="font-medium">Outros presentes</mat-label>
-            <input matInput name="outros" [formControl]="outrosPresente">
-            <mat-hint>Informe o nome de outros presentes caso existam. O texto será gravado e apresentado da forma que escrita.</mat-hint>
-        </mat-form-field>
-
-        <span class="text-2xl font-medium text-primary mt-8">Cabeçalho</span>
-        <mat-form-field appearance="outline" class="w-full mt-4">
-            <mat-label class="font-medium">Digite o cabeçalho ou informações complementares</mat-label>
-            <textarea matInput rows="10" name="cabecalho" [formControl]="cabecalho"></textarea>
-        </mat-form-field>
-
-        <div class="flex flex-row space-x-2 ml-auto">
-            <button mat-button>Cancelar</button>
-            <button mat-button class="text-white bg-primary" (click)="teste()">Salvar</button>
-        </div>
+        <app-form
+          [secretario]="sessao?.secretario"
+        ></app-form>
     </div>
 </div>

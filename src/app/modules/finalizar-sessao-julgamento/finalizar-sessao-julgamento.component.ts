@@ -19,67 +19,31 @@ registerLocaleData(localePT);
 export class FinalizarSessaoJulgamentoComponent implements OnInit {
 
   constructor(
-    private _ministroService: MinistroService,
     private _julgamentoService: JulgamentoService
   ) { }
-
-  presidente: Ministro = {} as Ministro;
-  primeiraTurma: Ministro[] = []
-  segundaTurma: Ministro[] = []
-  options: string[] = [];
-  filteredOptions: Observable<string[]>;
-  secretario = new FormControl('', [Validators.required], );
-  outrosPresente = new FormControl('');
-  cabecalho = new FormControl('');
   sessao: SessaoJulgamento = {} as SessaoJulgamento;
 
   ministros: Ministro[] = [];
 
   ngOnInit(): void {
     this._julgamentoService.listarSessoesDeJulgamento(1000,2021).subscribe(sessao=>{
-      this.options.push(sessao.secretario.nome);
       this.sessao = sessao;
-      this.presidente = sessao.presidencia;
-    })
-    this._ministroService.listarMinistros().subscribe(ministros=>{
-      this.ministros = ministros;
-    })
-    this._ministroService.listarMinistrosDoColegiado('primeira-turma').subscribe(ministros=>{
-      this.primeiraTurma = ministros;
-    })
-    this._ministroService.listarMinistrosDoColegiado('segunda-turma').subscribe(ministros=>{
-      this.segundaTurma = ministros;
-    })
-    
-    this.filteredOptions = this.secretario.valueChanges.pipe(
-      startWith(''),
-      map(value => this._filter(value)),
-    );
-  }
-
-  private _filter(value: string): string[] {
-    const filterValue = value.toLowerCase();
-
-    return this.options.filter(option => option.toLowerCase().includes(filterValue));
-  }
-
-  getErrorMessage() {
-    return this.secretario.hasError('required') ? 'Informe o secretário ou secretária da sessão' : '';
+    });
   }
 
   getData(): string{
     const datepipe: DatePipe = new DatePipe('pt-BR');
     let inicio = '', fim = '', dataInicio, dataFim, semanaInicio = '', semanaFim = '';
-      inicio = datepipe.transform(this.sessao.data_inicio, 'dd/MM,EEEE');
+      inicio = datepipe.transform(this.sessao.data_inicio, 'dd/MM-EEEE');
       if(inicio){
-        dataInicio = inicio.split(',')[0];
-        semanaInicio = inicio.split(',')[1].split('-')[0];
+        dataInicio = inicio.split('-')[0];
+        semanaInicio = inicio.split('-')[1];
         semanaInicio = this.firstToUpperCase(semanaInicio);
       }
-      fim = datepipe.transform(this.sessao.data_fim, 'dd/MM,EEEE');
+      fim = datepipe.transform(this.sessao.data_fim, 'dd/MM-EEEE');
       if(fim){
-        dataFim = fim.split(',')[0];
-        semanaFim = fim.split(',')[1].split('-')[0];
+        dataFim = fim.split('-')[0];
+        semanaFim = fim.split('-')[1];
         semanaFim = this.firstToUpperCase(semanaFim);
       }
 
