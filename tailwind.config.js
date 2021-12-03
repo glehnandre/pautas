@@ -105,7 +105,12 @@ const config = {
             teal       : colors.teal,
             blue       : colors.blue,
             indigo     : colors.indigo,
-            purple     : colors.purple
+            purple     : colors.purple,
+            sentido    : {
+                'Negativo': colors.red[600],
+                'Positivo': colors.green[600],
+                'Neutro'  : colors.yellow[600],
+            },
         },
         fontSize: {
             'xs'  : '0.625rem',

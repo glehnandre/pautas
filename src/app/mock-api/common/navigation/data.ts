@@ -84,6 +84,17 @@ export const defaultNavigation: FuseNavigationItem[] = [
             colegiado: 'pleno',
         },
     },
+    {
+        id   :  'revisar-extrato-ata',
+        title:  'Revisar o Extrato da Ata de Julgamento',
+        type :  'basic',
+        icon :  'heroicons_outline:chart-pie',
+        link :  '/revisar-extrato-ata',
+        queryParams: {
+            numero: 1000,
+            ano: 2021,
+        },
+    },
 ];
 export const compactNavigation: FuseNavigationItem[] = [
     {
@@ -158,6 +169,17 @@ export const compactNavigation: FuseNavigationItem[] = [
         queryParams: {
             processo: '9',
             colegiado: 'pleno',
+        },
+    },
+    {
+        id   :  'revisar-extrato-ata',
+        title:  'Revisar o Extrato da Ata de Julgamento',
+        type :  'basic',
+        icon :  'heroicons_outline:chart-pie',
+        link :  '/revisar-extrato-ata',
+        queryParams: {
+            numero: 1000,
+            ano: 2021,
         },
     },
 ];
@@ -236,6 +258,17 @@ export const futuristicNavigation: FuseNavigationItem[] = [
             colegiado: 'pleno',
         },
     },
+    {
+        id   :  'revisar-extrato-ata',
+        title:  'Revisar o Extrato da Ata de Julgamento',
+        type :  'basic',
+        icon :  'heroicons_outline:chart-pie',
+        link :  '/revisar-extrato-ata',
+        queryParams: {
+            numero: 1000,
+            ano: 2021,
+        },
+    },
 ];
 export const horizontalNavigation: FuseNavigationItem[] = [
     {
@@ -306,6 +339,17 @@ export const horizontalNavigation: FuseNavigationItem[] = [
         queryParams: {
             processo: '9',
             colegiado: 'pleno',
+        },
+    },
+    {
+        id   :  'revisar-extrato-ata',
+        title:  'Revisar o Extrato da Ata de Julgamento',
+        type :  'basic',
+        icon :  'heroicons_outline:chart-pie',
+        link :  '/revisar-extrato-ata',
+        queryParams: {
+            numero: 1000,
+            ano: 2021,
         },
     },
 ];

@@ -3,26 +3,25 @@ import { Dispositivo } from "app/modules/acervo/model/interfaces/dispositivo.int
 export const dispositivos: Dispositivo[] = [
   {
     id: 1,
-    nome: 'Procedente',
-    sentido: 'Positivo',
+    nome: "Procedente",
+    sentido: "Positivo",
   },
 
   {
     id: 2,
-    nome: 'Improcedente',
-    sentido: 'Positivo',
+    nome: "Improcedente",
+    sentido: "Negativo",
   },
 
   {
     id: 3,
-    nome: 'Parcialmente Procedente',
-    sentido: 'Positivo',
+    nome: "Parcialmente Procedente",
+    sentido: "Positivo",
   },
 
   {
     id: 4,
-    nome: 'Parcialmente Improcedente',
-    sentido: 'Positivo',
+    nome: "Parcialmente Improcedente",
+    sentido: "Positivo",
   },
 ];
-  

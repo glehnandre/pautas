@@ -2,7 +2,10 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { EMPTY, Observable } from 'rxjs';
 import { catchError } from 'rxjs/operators';
-import { DecisoesResultadoJulgamento } from '../acervo/model/interfaces/decisao.interface';
+import { Ata } from '../acervo/model/interfaces/ata.interface';
+import { Decisao, DecisoesResultadoJulgamento } from '../acervo/model/interfaces/decisao.interface';
+import { Processo } from '../acervo/model/interfaces/processo.interface';
+import { SessaoJulgamento } from '../acervo/model/interfaces/sessao-julgamento.interface';
 import { ModeloDecisao } from '../acervo/model/interfaces/modeloDecisao.interface';
 
 @Injectable({
@@ -75,4 +78,12 @@ export class ResultadoJulgamentoService {
     );
   }
 
+  public getAta(num: number, ano:number): Observable<Ata> {
+    return this._httpClient.get<Ata>(`ata/${num}&${ano}`).pipe(
+      catchError(error => {
+          console.error(error);
+          return EMPTY;
+      })
+    );
+  }
 }
