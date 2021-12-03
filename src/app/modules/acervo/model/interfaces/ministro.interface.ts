@@ -1,3 +1,4 @@
+import { Genero } from "../enums/genero.enum";
 import { Cadeira } from "./cadeira.interface";
 
 export interface Ministro {
@@ -6,4 +7,5 @@ export interface Ministro {
     abreviacao: string;
     cadeira: Cadeira;
     imagem?: string;
+    genero: Genero;
 }

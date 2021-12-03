@@ -1,9 +1,10 @@
 import { SituacaoDoProcesso } from "app/modules/acervo/model/enums/situacaoDoProcesso.enum";
-import { TipoCapitulo } from "app/modules/acervo/model/enums/tipoCapitulo.enum";
 import { TipoDoProcesso } from "app/modules/acervo/model/enums/tipoDoProcesso.enum";
 import { Processo } from "app/modules/acervo/model/interfaces/processo.interface";
 import { SessaoJulgamento } from "app/modules/acervo/model/interfaces/sessao-julgamento.interface";
-import { ministro } from "../ministro/data";
+
+import { capitulo } from "../capitulo/data";
+import { ministro } from '../ministro/data';
 
 export const julgamentos: SessaoJulgamento[] = [
   {
@@ -15,12 +16,18 @@ export const julgamentos: SessaoJulgamento[] = [
       modalidade: 'VIRTUAL',
       data_inicio: '2016-08-29T09:12:33.001Z',
       data_fim: '2016-08-30T09:12:33.001Z',
-      presidencia: ministro[1],
       secretario: {
         id: 19,
         nome: 'Beatriz Cunha',
       },
       situacao: 'ABERTA',
+      ministros_presentes: [
+        ministro[0],
+      ],
+      ministros_ausentes: [
+          ministro[1],
+      ],
+      presidencia: ministro[0],
   },
   {
     ano: 2021,
@@ -31,8 +38,14 @@ export const julgamentos: SessaoJulgamento[] = [
     tipo: 'Ordinária',
     data_inicio: '2021-06-29T09:12:33.001Z',
     data_fim: '2021-12-29T09:12:33.001Z',
-    presidencia: ministro[1],
-    situacao: 'ABERTA'
+    situacao: 'ABERTA',
+    ministros_presentes: [
+      ministro[0],
+    ],
+    ministros_ausentes: [
+        ministro[1],
+    ],
+    presidencia: ministro[0],
   },
   {
     ano: 2021,
@@ -43,8 +56,14 @@ export const julgamentos: SessaoJulgamento[] = [
     tipo: 'Ordinária',
     data_inicio: '2021-06-29T09:12:33.001Z',
     data_fim: '2021-12-29T09:12:33.001Z',
-    presidencia: ministro[1],
-    situacao: 'ABERTA'
+    situacao: 'ABERTA',
+    ministros_presentes: [
+      ministro[0],
+    ],
+    ministros_ausentes: [
+        ministro[1],
+    ],
+    presidencia: ministro[0],
   },
   {
     ano: 2021,
@@ -55,8 +74,14 @@ export const julgamentos: SessaoJulgamento[] = [
     tipo: 'Ordinária',
     data_inicio: '2021-04-29T09:12:33.001Z',
     data_fim: '2021-11-29T09:12:33.001Z',
-    presidencia: ministro[1],
-    situacao: 'ABERTA'
+    situacao: 'ABERTA',
+    ministros_presentes: [
+      ministro[0],
+    ],
+    ministros_ausentes: [
+        ministro[1],
+    ],
+    presidencia: ministro[0],
   },
   {
     ano: 2021,
@@ -67,8 +92,14 @@ export const julgamentos: SessaoJulgamento[] = [
     tipo: 'Ordinária',
     data_inicio: '2021-04-29T09:12:33.001Z',
     data_fim: '2021-11-29T09:12:33.001Z',
-    presidencia: ministro[1],
-    situacao: 'ABERTA'
+    situacao: 'ABERTA',
+    ministros_presentes: [
+      ministro[0],
+    ],
+    ministros_ausentes: [
+        ministro[1],
+    ],
+    presidencia: ministro[0],
   },
   {
     ano: 2021,
@@ -79,8 +110,14 @@ export const julgamentos: SessaoJulgamento[] = [
     tipo: 'Ordinária',
     data_inicio: '2021-03-29T09:12:33.001Z',
     data_fim: '2021-10-29T09:12:33.001Z',
-    presidencia: ministro[1],
-    situacao: 'ABERTA'
+    situacao: 'ABERTA',
+    ministros_presentes: [
+      ministro[0],
+    ],
+    ministros_ausentes: [
+        ministro[1],
+    ],
+    presidencia: ministro[0],
   },
   {
     ano: 2021,
@@ -91,8 +128,14 @@ export const julgamentos: SessaoJulgamento[] = [
     tipo: 'Ordinária',
     data_inicio: '2021-03-29T09:12:33.001Z',
     data_fim: '2021-10-29T09:12:33.001Z',
-    presidencia: ministro[1],
-    situacao: 'ABERTA'
+    situacao: 'ABERTA',
+    ministros_presentes: [
+      ministro[0],
+    ],
+    ministros_ausentes: [
+        ministro[1],
+    ],
+    presidencia: ministro[0],
   },
   {
     ano: 2021,
@@ -103,8 +146,14 @@ export const julgamentos: SessaoJulgamento[] = [
     tipo: 'Ordinária',
     data_inicio: '2021-03-29T09:12:33.001Z',
     data_fim: '2021-10-29T09:12:33.001Z',
-    presidencia: ministro[1],
-    situacao: 'ABERTA'
+    situacao: 'ABERTA',
+    ministros_presentes: [
+      ministro[0],
+    ],
+    ministros_ausentes: [
+        ministro[1],
+    ],
+    presidencia: ministro[0],
   },
   {
     ano: 2021,
@@ -115,8 +164,14 @@ export const julgamentos: SessaoJulgamento[] = [
     tipo: 'Ordinária',
     data_inicio: '2021-07-29T09:12:33.001Z',
     data_fim: '2021-10-29T09:12:33.001Z',
-    presidencia: ministro[1],
-    situacao: 'ABERTA'
+    situacao: 'ABERTA',
+    ministros_presentes: [
+      ministro[0],
+    ],
+    ministros_ausentes: [
+        ministro[1],
+    ],
+    presidencia: ministro[0],
   },
   {
     ano: 2021,
@@ -127,8 +182,14 @@ export const julgamentos: SessaoJulgamento[] = [
     tipo: 'Ordinária',
     data_inicio: '2021-01-29T09:12:33.001Z',
     data_fim: '2021-12-29T09:12:33.001Z',
-    presidencia: ministro[1],
-    situacao: 'ABERTA'
+    situacao: 'ABERTA',
+    ministros_presentes: [
+      ministro[0],
+    ],
+    ministros_ausentes: [
+        ministro[1],
+    ],
+    presidencia: ministro[0],
   },
   {
     ano: 2021,
@@ -139,8 +200,14 @@ export const julgamentos: SessaoJulgamento[] = [
     tipo: 'Ordinária',
     data_inicio: '2021-09-29T09:12:33.001Z',
     data_fim: '2021-12-29T09:12:33.001Z',
-    presidencia: ministro[1],
-    situacao: 'ABERTA'
+    situacao: 'ABERTA',
+    ministros_presentes: [
+      ministro[0],
+    ],
+    ministros_ausentes: [
+        ministro[1],
+    ],
+    presidencia: ministro[0],
   },
   {
     ano: 2021,
@@ -151,8 +218,14 @@ export const julgamentos: SessaoJulgamento[] = [
     tipo: 'Ordinária',
     data_inicio: '2021-06-29T09:12:33.001Z',
     data_fim: '2021-12-29T09:12:33.001Z',
-    presidencia: ministro[1],
-    situacao: 'ABERTA'
+    situacao: 'ABERTA',
+    ministros_presentes: [
+      ministro[0],
+    ],
+    ministros_ausentes: [
+        ministro[1],
+    ],
+    presidencia: ministro[0],
   },
   {
     ano: 2021,
@@ -163,8 +236,14 @@ export const julgamentos: SessaoJulgamento[] = [
     tipo: 'Ordinária',
     data_inicio: '2021-06-29T09:12:33.001Z',
     data_fim: '2021-12-29T09:12:33.001Z',
-    presidencia: ministro[1],
-    situacao: 'ABERTA'
+    situacao: 'ABERTA',
+    ministros_presentes: [
+      ministro[0],
+    ],
+    ministros_ausentes: [
+        ministro[1],
+    ],
+    presidencia: ministro[0],
   },
   {
     ano: 2021,
@@ -175,8 +254,14 @@ export const julgamentos: SessaoJulgamento[] = [
     tipo: 'Ordinária',
     data_inicio: '2021-04-29T09:12:33.001Z',
     data_fim: '2021-11-29T09:12:33.001Z',
-    presidencia: ministro[1],
-    situacao: 'ABERTA'
+    situacao: 'ABERTA',
+    ministros_presentes: [
+      ministro[0],
+    ],
+    ministros_ausentes: [
+        ministro[1],
+    ],
+    presidencia: ministro[0],
   },
   {
     ano: 2021,
@@ -187,8 +272,14 @@ export const julgamentos: SessaoJulgamento[] = [
     tipo: 'Ordinária',
     data_inicio: '2021-04-29T09:12:33.001Z',
     data_fim: '2021-11-29T09:12:33.001Z',
-    presidencia: ministro[1],
-    situacao: 'ABERTA'
+    situacao: 'ABERTA',
+    ministros_presentes: [
+      ministro[0],
+    ],
+    ministros_ausentes: [
+        ministro[1],
+    ],
+    presidencia: ministro[0],
   },
   {
     ano: 2021,
@@ -199,8 +290,14 @@ export const julgamentos: SessaoJulgamento[] = [
     tipo: 'Ordinária',
     data_inicio: '2021-03-29T09:12:33.001Z',
     data_fim: '2021-10-29T09:12:33.001Z',
-    presidencia: ministro[1],
-    situacao: 'ABERTA'
+    situacao: 'ABERTA',
+    ministros_presentes: [
+      ministro[0],
+    ],
+    ministros_ausentes: [
+        ministro[1],
+    ],
+    presidencia: ministro[0],
   },
   {
     ano: 2021,
@@ -211,8 +308,14 @@ export const julgamentos: SessaoJulgamento[] = [
     tipo: 'Ordinária',
     data_inicio: '2021-03-29T09:12:33.001Z',
     data_fim: '2021-10-29T09:12:33.001Z',
-    presidencia: ministro[1],
-    situacao: 'ABERTA'
+    situacao: 'ABERTA',
+    ministros_presentes: [
+      ministro[0],
+    ],
+    ministros_ausentes: [
+        ministro[1],
+    ],
+    presidencia: ministro[0],
   },
 ];
 
@@ -231,47 +334,8 @@ export const processos: Processo[] = [
     abreviacao: '',
     situacao: SituacaoDoProcesso.Pautado,
     tipo: TipoDoProcesso.Merito,
-    relator: {
-        id: 12314441,
-        nome: "Luiz Fux",
-        abreviacao: "MLF",
-        cadeira: {
-            criacao: '2021-08-02T03:00:00.000Z',
-            numero: 100,
-          }
-    },
-    redator: {
-        id: 12314441,
-        nome: "Luiz Fux",
-        abreviacao: "MLF",
-        cadeira: {
-            criacao: '2021-08-02T03:00:00.000Z',
-            numero: 100,
-          }
-    },
     capitulos: [
-      {
-        id: 1,
-        descricao: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc tempus neque nec ante porta tincidunt eu quis felis. Sed magna libero, sodales ut enim quis, varius faucibus lectus. Sed porttitor pharetra orci, quis fermentum risus rutrum id. Vivamus ornare purus a lorem accumsan cursus. Pellentesque ligula metus, dictum pretium dignissim non, fringilla ac lacus. Sed non dui nibh.',
-        tipo:   TipoCapitulo.Merito,
-        dispositivo: 'Deferida em parte',
-        ministro_condutor: ministro[6],
-        ministros_acordam: [
-          ministro[0],
-          ministro[1],
-          ministro[2],
-          ministro[3],
-          ministro[4],
-          ministro[5],
-        ],
-        ministros_impedidos: [
-          ministro[7],
-        ],
-        ministros_suspeitos: [
-          ministro[8],
-        ],
-        texto: 'Texto do capítulo',
-      },
+      capitulo[1],
     ]
   },
 
@@ -287,53 +351,39 @@ export const processos: Processo[] = [
       },
       publica: false
     }],
-    classe: "ADI",
+    classe: 'ADI',
+    numero: 100,
+    nome: 'Embargo de declaração',
+    abreviacao: '',
+    situacao: SituacaoDoProcesso.Pautado,
+    tipo: TipoDoProcesso.Merito,
+    relator: ministro[10],
+    redator: ministro[10],
+    capitulos: [
+      capitulo[1],
+    ]
+  },
+
+  {
+    id: 123455,
+    ementa: 'Sessão de julgamento extraordinária para tratar da divisão de terras.',
+    lista: [{
+      descricao: 'Semelhante a ADI 100',
+      id: 123445,
+      gestor: {
+          numero: 19,
+          criacao: '2021-08-02T03:00:00.000Z',
+      },
+      publica: false
+    }],
+    classe: 'ADI',
     numero: 100,
     nome: "Embargo de declaração",
     abreviacao: '',
     situacao: SituacaoDoProcesso.Pautado,
     tipo: TipoDoProcesso.Merito,
-    relator: {
-        id: 12314441,
-        nome: "Luiz Fux",
-        abreviacao: "MLF",
-        cadeira: {
-            criacao: '2021-08-02T03:00:00.000Z',
-            numero: 100,
-          }
-    },
-    redator: {
-        id: 12314441,
-        nome: "Luiz Fux",
-        abreviacao: "MLF",
-        cadeira: {
-            criacao: '2021-08-02T03:00:00.000Z',
-            numero: 100,
-          }
-    },
     capitulos: [
-      {
-        id: 1,
-        descricao: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc tempus neque nec ante porta tincidunt eu quis felis. Sed magna libero, sodales ut enim quis, varius faucibus lectus. Sed porttitor pharetra orci, quis fermentum risus rutrum id. Vivamus ornare purus a lorem accumsan cursus. Pellentesque ligula metus, dictum pretium dignissim non, fringilla ac lacus. Sed non dui nibh.',
-        tipo:   TipoCapitulo.Merito,
-        dispositivo: 'Deferida em parte',
-        ministro_condutor: ministro[6],
-        ministros_acordam: [
-          ministro[0],
-          ministro[1],
-          ministro[2],
-          ministro[3],
-          ministro[4],
-          ministro[5],
-        ],
-        ministros_impedidos: [
-          ministro[7],
-        ],
-        ministros_suspeitos: [
-          ministro[8],
-        ],
-        texto: 'Texto do capítulo',
-      },
+      capitulo[1],
     ]
   },
 ]

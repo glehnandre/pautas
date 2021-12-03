@@ -4,6 +4,7 @@ import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { FuseDrawerService } from '@fuse/components/drawer';
 import { TipoDoProcesso } from 'app/modules/acervo/model/enums/tipoDoProcesso.enum';
 import { Ministro } from 'app/modules/acervo/model/interfaces/ministro.interface';
+import { SessaoJulgamento } from 'app/modules/acervo/model/interfaces/sessao-julgamento.interface';
 import { Voto } from 'app/modules/acervo/model/interfaces/voto.interface';
 import { MinistroService } from 'app/modules/services/ministro.service';
 import { ProcessoService } from 'app/modules/services/processo.service';
@@ -18,8 +19,8 @@ export class CabecalhoRelatorComponent implements AfterContentChecked, OnInit {
   @Input() processo: string;
   @Input() colegiado: string;
   @Input() votos: Voto[];
-  @Input() sessao: string;
-  @Input() data_fim: Date;
+  @Input() sessao: SessaoJulgamento;
+  @Input() nomesDasSessoes: string[];
 
   right: number = 0;
   panelOpenState = false;

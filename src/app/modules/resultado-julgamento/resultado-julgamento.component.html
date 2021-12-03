@@ -5,12 +5,49 @@
         <h1 class="mt-4 text-primary font-medium text-xl sm:text-2xl">
             Lançamento do Resultado do Julgamento da {{processo}}
         </h1>
+    </div>
+
+    <hr class="m-0 p-0" />
+
+    <header class="bg-white px-8 pt-4 flex flex-col">
+        <app-cabecalho-relator
+            [processo]="parametros.processo"
+            [colegiado]="parametros.colegiado"
+            [votos]="votos"
+            [sessao]="dados?.sessao"
+        ></app-cabecalho-relator>
+
         <div class="flex flex-row items-end mb-4 sm:my-4 ml-auto">
             <button class="z-0 mr-4" mat-button>
                 <span>Cancelar</span>
             </button>
-            <button
-                class="mr-8"
+
+            <button 
+                mat-raised-button 
+                class="max-w-full mr-4" 
+                (click)="exibirModalDeModeloDecisao()"
+            >
+                Modelos de Texto
+            </button>
+
+            <button 
+                mat-raised-button 
+                class="max-w-full mr-4" 
+                (click)="exibirModalDeVista()"
+            >
+                Vista
+            </button>
+
+            <button 
+                mat-raised-button 
+                class="max-w-full mr-4" 
+                (click)="exibirModalDeDestaque()"
+            >
+                Destaque
+            </button>
+
+            <button 
+                class="mr-4"
                 color="primary" 
                 mat-raised-button 
                 (click)="finalizar()"
@@ -18,19 +55,9 @@
                 Finalizar
             </button>
         </div>
-    </div>
+    </header>
 
     <hr class="m-0 p-0" />
-
-    <header class="bg-white px-8 pt-4">
-        <app-cabecalho-relator
-            [processo]="parametros.processo"
-            [colegiado]="parametros.colegiado"
-            [votos]="votos"
-            [sessao]="descrissaoSessao"
-            [data_fim]="data_fim"
-        ></app-cabecalho-relator>
-    </header>
 
     <!-- Body -->
     <mat-drawer-container class="flex flex-col flex-auto mt-2 rounded-t-2xl shadow bg-card">
@@ -39,8 +66,8 @@
         <mat-drawer
             class="w-90 dark:bg-gray-900"
             [autoFocus]="false"
-            [mode]="verificaModoDaTela()"
-            [opened]="verificaLarguraDaTela()"
+            [mode]="verificarModoDaTela()"
+            [opened]="verificarLarguraDaTela()"
             #matDrawer
         >
             <!-- Sidebar -->
@@ -51,15 +78,6 @@
                             <span class="font-medium">
                                 Decisões
                             </span>
-
-                            <button mat-raised-button color="primary" (click)="limparDecisaoSelecionada()">
-                                <mat-icon class="mr-1" svgIcon="heroicons_outline:plus-circle"></mat-icon>
-                                Nova decisão
-                            </button>
-
-                            <button *ngIf="!verificaLarguraDaTela()" mat-mini-fab color="primary" (click)="matDrawer.toggle()">
-                                <mat-icon svgIcon="heroicons_outline:arrow-left"></mat-icon>
-                            </button>
                         </div>
                     </div>
 
@@ -84,7 +102,7 @@
                                 <div class="flex flex-col flex-auto">
                     
                                     <!-- Header -->
-                                    <div class="flex flex-col sm:flex-row items-start sm:items-center sm:justify-between py-8 px-6 md:px-8">
+                                    <div class="flex flex-col sm:flex-row items-start sm:items-center sm:justify-between py-4 px-6 md:px-8">
                                         <!-- Title -->
                                         <div class="flex justify-center items-center">
                                             <span class="text-base sm:text-2xl font-medium leading-none">
@@ -93,28 +111,28 @@
                                         </div>
                                         <!-- Actions -->
                                         <div class="mt-4 sm:mt-0 flex justify-between items-center">
-                                            <button mat-raised-button color="primary" (click)="limparDecisaoSelecionada()">
+                                            <button mat-raised-button color="primary" (click)="setDecisaoSelecionada(null)">
                                                 <mat-icon class="mr-1" svgIcon="heroicons_outline:plus-circle"></mat-icon>
                                                 Nova decisão
                                             </button>
                 
-                                            <button class="ml-4" *ngIf="!verificaLarguraDaTela()" mat-mini-fab color="primary" (click)="matDrawer.toggle()">
+                                            <button class="ml-4" *ngIf="!verificarLarguraDaTela()" mat-mini-fab color="primary" (click)="matDrawer.toggle()">
                                                 <mat-icon svgIcon="heroicons_outline:arrow-left"></mat-icon>
                                             </button>
                                         </div>
                                     </div>
                     
                                     <!-- decisoes list -->
-                                    <ng-container *ngIf="decisoes && decisoes.length > 0; else semDecisoes">
+                                    <ng-container *ngIf="getDecisoes().length > 0; else semDecisoes">
                                         <div
                                             class="divide-y focus-within:shadow-lg"
                                             cdkDropList
-                                            [cdkDropListData]="decisoes"
+                                            [cdkDropListData]="getDecisoes()"
                                             (cdkDropListDropped)="dropped($event)"
                                         >
                     
                                             <!-- Task -->
-                                            <ng-container *ngFor="let item of decisoes; index as i; let first = first; trackBy: trackByFn">
+                                            <ng-container *ngFor="let item of getDecisoes(); index as i; let first = first; trackBy: trackByFn">
                                                 <div
                                                     class="group w-full select-none hover:bg-gray-100 dark:hover:bg-hover"
                                                     [class.border-t]="first"
@@ -133,7 +151,7 @@
                     
                                                         <!-- Selected indicator -->
                                                         <ng-container 
-                                                            *ngIf="marcaDecisaoSelecionada(decisaoSelecionada, item)"
+                                                            *ngIf="isMarcarDecisao(item)"
                                                         >
                                                             <div class="z-10 absolute -top-px right-0 -bottom-px flex flex-0 w-1 bg-primary"></div>
                                                         </ng-container>
@@ -152,13 +170,13 @@
                                                         <!-- Task link -->
                                                         <a
                                                             class="flex flex-auto py-2 items-center min-w-0 h-full pr-7"
-                                                            (click)="alterarDadosDoFormulario(item)"
+                                                            (click)="setDecisaoSelecionada(null); recarregarComponenteFilho(); setDecisaoSelecionada(item)"
                                                         >
                                                             <!-- Title & Placeholder -->
                                                             <div class="flex-auto mr-2 truncate">
                                                                 <ng-container class="flex items-center justify-center">
-                                                                    <p class="my-auto">
-                                                                        {{(i+1)}}º decisão: <strong>{{item.decisao.tipo}}</strong>
+                                                                    <p class="my-auto" [matTooltip]="item.capitulo.descricao">
+                                                                        {{(i+1)}}º decisão: {{item.capitulo.tipo}} - <strong class="text-primary-500">{{item.capitulo.dispositivo}}</strong>
                                                                     </p>
                                                                 </ng-container>
                                                             </div>
@@ -173,7 +191,7 @@
                                     <ng-template #semDecisoes>
                                         <div class="flex flex-auto flex-col items-center justify-center bg-gray-100 dark:bg-transparent">
                                             <div class="mt-4 text-2xl font-semibold tracking-tight text-secondary">
-                                                Sem dicisões
+                                                Sem decisões
                                             </div>
                                         </div>
                                     </ng-template>
@@ -199,7 +217,7 @@
                     <button
                         mat-mini-fab
                         color="primary"
-                        *ngIf="!verificaLarguraDaTela()"
+                        *ngIf="!verificarLarguraDaTela()"
                         (click)="matDrawer.toggle()"
                     >
                         <mat-icon>menu</mat-icon>
@@ -208,23 +226,22 @@
                     <div class="">
                         <div id="menu-decisao" class="w-full p-4 overflow-y-auto">
                             <app-form-decisao
-                                *ngIf="!decisaoSelecionada; else casoAlgumFormDecisaoSejaSelecionado"
-                                [dispositivos]="dispositivos"
-                                [processo]="parametros.processo"
-                                [processosMesmaDecisoes]="processosMesmaDecisoes"
-                                (decisaoCadastrada)="obterDadosDaDecisao($event); limparDecisaoSelecionada()"
+                                *ngIf="!decisaoSelecionada; else exibirDecisaoNoForm"
+                                [isExibirBtnAdicionarDecisao]="true"
+                                [isExibirBtnModeloDecisao]="true"
+                                (dadosDaDecisao)="setDecisaoAdicionada($event)"
                             ></app-form-decisao>
 
-                           <ng-template #casoAlgumFormDecisaoSejaSelecionado>
+                            <ng-template #exibirDecisaoNoForm>
                                 <app-form-decisao
-                                    [decisao]="decisaoSelecionada.decisao"
-                                    [idsProcessosSelecionados]="decisaoSelecionada.processos_mesma_decisao"
-                                    [dispositivos]="dispositivos"
-                                    [processo]="parametros.processo"
-                                    [processosMesmaDecisoes]="processosMesmaDecisoes"
-                                    [desabilitarForm]="isDecisaoJaSalva()"
-                                    (decisaoCadastrada)="decisaoSalvaViaPost($event)"
-                                    (decisaoExcluida)="removerDecisao($event); limparDecisaoSelecionada()"
+                                    *ngIf="show"
+                                    [isDesabilitarForm]="isDecisaoSalva()"
+                                    [idProcesso]="parametros.processo"
+                                    [decisao]="decisaoSelecionada"
+                                    [isExibirBtnSalvarDecisao]="true"
+                                    [isExibirBtnExcluirDecisao]="true"
+                                    (dadosDaDecisao)="removerDecisao($event)"
+                                    (excluirDadosDaDecisao)="removerDecisao($event)"
                                 ></app-form-decisao>
                             </ng-template>
                         </div>

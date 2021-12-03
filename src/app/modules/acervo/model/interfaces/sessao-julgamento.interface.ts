@@ -9,10 +9,12 @@ export interface SessaoJulgamento {
     modalidade: string;
     data_inicio: string;
     data_fim: string;
-    presidencia: Ministro;
     secretario?: {
         id: number;
         nome: string;
     };
     situacao: 'PUBLICADA' | 'APROVADA' | 'FECHADA' | 'ABERTA' | 'FINALIZADA' | 'REJEITADA';
+    ministros_presentes: Array<Ministro>;
+    ministros_ausentes: Array<Ministro>;
+    presidencia: Ministro;
 }

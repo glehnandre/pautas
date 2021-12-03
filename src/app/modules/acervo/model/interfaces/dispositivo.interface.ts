@@ -1,3 +1,5 @@
 export interface Dispositivo {
-    descricao: string;
+    id: number;
+    nome: string;
+    sentido: 'Positivo' | 'Negativo' | 'Neutro';
 }

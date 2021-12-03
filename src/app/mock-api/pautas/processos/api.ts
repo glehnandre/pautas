@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { FuseMockApiService } from '@fuse/lib/mock-api/mock-api.service';
 import { Filtros } from 'app/modules/acervo/filtros/filtros';
-import { processo as processoData, documentos, votos, tipos } from 'app/mock-api/pautas/processos/data';
+import { processo as processoData, documentos, votos, tipos, vistas, destaques } from 'app/mock-api/pautas/processos/data';
 import { tags as tagData } from 'app/mock-api/pautas/tags/data';
 import { Paginacao } from 'app/modules/acervo/tabela/paginacao/paginacao.component';
 import { Processo } from 'app/modules/acervo/model/interfaces/processo.interface';
@@ -10,8 +10,10 @@ import { Documento } from 'app/modules/acervo/model/interfaces/documento.interfa
 import { SessaoJulgamento } from 'app/modules/acervo/model/interfaces/sessao-julgamento.interface';
 import { julgamentos } from '../julgamentos/data';
 import { Impedimento } from 'app/modules/acervo/model/interfaces/impedimento.interface';
-import { listaImpedimentos } from '../ministro/data'
+import { listaImpedimentos, ministro } from '../ministro/data'
 import { Voto } from 'app/modules/acervo/model/interfaces/voto.interface';
+import { Vista } from 'app/modules/acervo/model/interfaces/vista.interface';
+import { Destaque } from 'app/modules/acervo/model/interfaces/destaque.interface';
 
 @Injectable({
     providedIn: 'root'
@@ -23,6 +25,8 @@ export class ProcessoMockApi {
     private _tag: Tag[] = [];
     private _impedimentos: any[] = listaImpedimentos;
     private _votos: Voto[] = votos;
+    private _vistas: Vista[] = vistas;
+    private _destaques: Destaque[] = destaques;
 
     constructor(
         private _fuseMockApiService: FuseMockApiService,) {
@@ -213,6 +217,47 @@ export class ProcessoMockApi {
             .onGet('processos/tipos')
             .reply(({}) => {
                 return [200, tipos];
+            });
+
+        this._fuseMockApiService
+            .onPost('processos/:id/relator')
+            .reply(({request, urlParams}) => {
+                const idProcesso = +urlParams.id;
+                const idRelator = request.body as number;
+                const index = this._processo.findIndex(p => p.id === idProcesso);
+
+                if (index !== -1) {
+                    const relator = ministro.find(m => m.id === idRelator);
+                    this._processo[index].relator = relator;
+                    console.log(this._processo[index])
+                    return [200, { description: "Sucesso" }];
+                }
+
+                return [404, { description: "Nenhum processo encontrado" }];
+            });
+
+        this._fuseMockApiService
+            .onPost('processos/:id/vista')
+            .reply(({request, urlParams}) => {
+                const idProcesso: number = +urlParams.id;
+                const body = request.body as Vista;
+                body.id = this._vistas.length + 1;
+
+                this._vistas.push(body);
+
+                return [200, this._vistas];
+            });
+
+        this._fuseMockApiService
+            .onPost('processos/:id/destaque')
+            .reply(({request, urlParams}) => {
+                const idProcesso: number = +urlParams.id;
+                const body = request.body as Destaque;
+                body.id = this._destaques.length + 1;
+
+                this._destaques.push(body);
+
+                return [200, this._destaques];
             });
     }
 

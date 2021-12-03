@@ -29,8 +29,7 @@
             [processo]="parametros.processo"
             [colegiado]="parametros.colegiado"
             [votos]="votos"
-            [sessao]="descrissaoSessao"
-            [data_fim]="data_fim"
+            [sessao]="dados?.sessao"
         ></app-cabecalho-relator>
     </header>
     <hr class="m-0 p-0" />
@@ -39,12 +38,12 @@
         <div
           class="flex flex-col mx-0 sm:mx-16"
         >
-            <div class="flex flex-col space-y-0">
+            <div class="flex flex-col space-y-0" *ngIf="acompanharamRelator">
                 <app-icones-votos
-                    [ministros]="acompanharamRelator()"
+                    [ministros]="acompanharamRelator"
                     [quantidade]="20"
                 ></app-icones-votos>
-                <span class="mt-8 font-medium">Acompanham Relator {{ relator?.nome }}</span>
+                <span class="mt-8 font-medium">{{ ministrosString(acompanharamRelator) }} Relator {{ relator?.nome }}</span>
             </div>
             <div class="flex flex-col space-y-0"
                 *ngFor="let voto of relatorDiverge()">
@@ -53,7 +52,7 @@
                     [quantidade]="20"
                 ></app-icones-votos>
                 <span class="mt-8 font-medium">{{ relator?.abreviacao }} Diverge de {{ voto?.autor.nome }}
-                    {{ ministrosString(voto.acompanharam) }} </span>
+                    {{ voto.acompanharam.length ?'e ':'' }}{{ ministrosString(voto.acompanharam) }} </span>
             </div>
         </div>
         <div

@@ -1,7 +1,6 @@
 import { Component, Input, OnChanges, OnInit } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
 import { FuseDrawerService } from '@fuse/components/drawer';
-import { Ministro } from 'app/modules/acervo/model/interfaces/ministro.interface';
 import { Voto } from 'app/modules/acervo/model/interfaces/voto.interface';
 
 @Component({
@@ -22,6 +21,7 @@ export class VisualizadorPdfComponent implements OnInit, OnChanges {
   ) { }
 
   ngOnInit(): void {
+    
   }
 
   ngOnChanges(): void {

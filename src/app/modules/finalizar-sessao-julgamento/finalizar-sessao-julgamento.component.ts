@@ -1,9 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, Validators } from '@angular/forms';
-import { Observable } from 'rxjs';
-import { map, startWith } from 'rxjs/operators';
-import { Ministro } from '../acervo/model/interfaces/ministro.interface';
-import { MinistroService } from '../services/ministro.service';
 import { JulgamentoService } from '../services/julgamento.service';
 import { SessaoJulgamento } from '../acervo/model/interfaces/sessao-julgamento.interface';
 import { registerLocaleData } from '@angular/common';
@@ -16,6 +11,7 @@ registerLocaleData(localePT);
   templateUrl: './finalizar-sessao-julgamento.component.html',
   styleUrls: ['./finalizar-sessao-julgamento.component.scss']
 })
+
 export class FinalizarSessaoJulgamentoComponent implements OnInit {
 
   constructor(
@@ -23,11 +19,11 @@ export class FinalizarSessaoJulgamentoComponent implements OnInit {
   ) { }
   sessao: SessaoJulgamento = {} as SessaoJulgamento;
 
-  ministros: Ministro[] = [];
-
   ngOnInit(): void {
     this._julgamentoService.listarSessoesDeJulgamento(1000,2021).subscribe(sessao=>{
       this.sessao = sessao;
+      console.log(sessao);
+
     });
   }
 
@@ -55,8 +51,5 @@ export class FinalizarSessaoJulgamentoComponent implements OnInit {
     str = str.toLowerCase();
     return str[0].toUpperCase() + str.substr(1);
     }
-  }
-
-  teste(){
   }
 }

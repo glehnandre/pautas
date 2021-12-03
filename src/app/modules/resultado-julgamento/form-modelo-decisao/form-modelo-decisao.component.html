@@ -1,0 +1,161 @@
+<div class="flex flex-col max-w-240 md:min-w-160 -m-6">
+    <header class="flex items-center justify-between h-16 pr-3 sm:pr-5 pl-6 sm:pl-8 bg-primary text-on-primary">
+        <h1 class="mt-4 flex items-center justify-center text-lg font-medium text-white-500">
+            Modelo do texto da decisão
+        </h1>
+
+        <button mat-button mat-dialog-close class="mat-focus-indicator mat-icon-button mat-button-base" tabindex="-1">
+            <span class="mat-button-wrapper">
+                <mat-icon matSuffix class="text-white">close</mat-icon>
+            </span>
+        </button>
+    </header>
+
+    <div class="flex flex-col flex-auto p-6 sm:p-8 overflow-y-auto ng-pristine ng-invalid ng-touched">
+        <form [formGroup]="formModeloDecisao">
+            <div class="w-full grid grid-cols-1 sm:grid-cols-8 gap-4">
+                <mat-form-field class="w-full mb-4 col-span-2" appearance="outline">
+                    <mat-label>Classe processural <span class="text-red-500">*</span></mat-label>
+                    <mat-select
+                        formControlName="classe"
+                        (selectionChange)="carregarModeloDecisao()"
+                    >
+                        <mat-option 
+                            *ngFor="let classe of ['ADI', 'classe2']" 
+                            [value]="classe"
+                        >
+                            {{classe}}
+                        </mat-option>
+                    </mat-select>
+                    <mat-hint>Informe a classe</mat-hint>
+                </mat-form-field>
+            
+                <mat-form-field class="w-full mb-4 col-span-2" appearance="outline">
+                    <mat-label>Tipo do Capítulo <span class="text-red-500">*</span></mat-label>
+                    <mat-select
+                        formControlName="tipoCapitulo"
+                        (valueChange)="buscarDispositivos()"
+                        (selectionChange)="carregarModeloDecisao()"
+                    >
+                        <mat-option 
+                            *ngFor="let capitulo of tiposCapitulo" 
+                            [value]="capitulo"
+                        >
+                            {{capitulo}}
+                        </mat-option>
+                    </mat-select>
+                    <mat-hint>Informe o tipo do capitulo</mat-hint>
+                </mat-form-field>
+
+                <mat-form-field class="w-full mb-4 col-span-2" appearance="outline">
+                    <mat-label>Dispositivo <span class="text-red-500">*</span></mat-label>
+                    <mat-select 
+                        formControlName="dispositivo"
+                        (selectionChange)="carregarModeloDecisao()"
+                    >
+                        <mat-option 
+                            *ngFor="let dispositivo of dispositivos" 
+                            [value]="dispositivo.id"
+                        >
+                            {{dispositivo.nome}}
+                        </mat-option>
+                    </mat-select>
+                    <mat-hint>Informe o dispositivo</mat-hint>
+                </mat-form-field>
+
+                <mat-form-field class="w-full mb-4 col-span-2" appearance="outline">
+                    <mat-label>Recurso <span class="text-red-500">*</span></mat-label>
+                    <mat-select
+                        formControlName="recurso"
+                        (selectionChange)="carregarModeloDecisao()"
+                    >
+                        <mat-option 
+                            *ngFor="let recurso of (recursos$ | async)" 
+                            [value]="recurso.id"
+                        >
+                            {{recurso.descricao}}
+                        </mat-option>
+                    </mat-select>
+                    <mat-hint>Informe o recurso</mat-hint>
+                </mat-form-field>
+            </div>
+
+            <mat-form-field class="w-full mb-4" appearance="outline">
+                <mat-label>Concordam os ministros <span class="text-red-500">*</span></mat-label>
+                
+                <textarea 
+                    id="texto-da-decisao"
+                    matInput 
+                    formControlName="texto"
+                ></textarea>
+
+                <mat-selection-list 
+                    #sugestoes
+                    *ngIf="exibirSugestoes"
+                    class="bg-white w-full overflow-y-auto h-40 shadow-lg drop-shadow-lg top-8 z-20" 
+                    [multiple]="false"
+                    (selectionChange)="adicionarSugestaoAoTexto(sugestoes.selectedOptions.selected[0]?.value)"
+                >
+                    <mat-list-option 
+                        *ngFor="let atributo of atributos" 
+                        [value]="atributo"
+                    >
+                        {{atributo}}
+                    </mat-list-option>
+                </mat-selection-list>
+
+                <mat-hint>
+                    Escreva o modelo do texto para ser aplicado a outras decisões. 
+                    Utilize @colegiado, @processo, @sessao, @data_inicio_sessao, 
+                    @data_fim_sessao, @modalidade e @tipo para referenciar atributos 
+                    do processo no modelo da decisão. 
+                </mat-hint>
+            </mat-form-field>
+
+            <p class="mt-4 text-center flex flex-row gap-4 justify-end items-end">
+                <button
+                    mat-raised-button 
+                    mat-dialog-close
+                    class="mr-2" 
+                >
+                    {{'Cancelar' | uppercase}}
+                </button>
+                
+                <button 
+                    mat-raised-button 
+                    class="max-w-full" 
+                    color="primary"
+                    *ngIf="modelo.id <= 0; else exibirBtnAtualizarDecisao"
+                    [disabled]="formModeloDecisao.invalid"
+                    (click)="salvarModeloDecisao()"
+                >
+                    {{'Salvar' | uppercase}}
+                </button>
+
+                <ng-template #exibirBtnAtualizarDecisao>
+                    <button 
+                        mat-raised-button 
+                        class="max-w-full" 
+                        color="primary"
+                        [disabled]="formModeloDecisao.invalid"
+                        (click)="atualizarModeloDecisao()"
+                    >
+                        {{'Atualizar' | uppercase}}
+                    </button>
+                </ng-template>
+            </p>
+        </form>
+    </div>
+</div>
+
+<fuse-alert
+    class="absolute top-2 right-2 max-w-120 mx-auto z-40"
+    [name]="'aviso-form-modelo-decisao'"
+    [dismissed]="true"
+    [dismissible]="true"
+    [type]="'warning'"
+    [appearance]="'soft'"
+>
+    <span fuseAlertTitle>Aviso</span>
+    Não foi encontrando nenhum modelo de decisão com estes parâmetros.
+</fuse-alert>

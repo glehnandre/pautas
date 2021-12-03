@@ -1,6 +1,13 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { MatCheckboxChange } from '@angular/material/checkbox';
 import { Ministro } from 'app/modules/acervo/model/interfaces/ministro.interface';
 import { MinistroService } from 'app/modules/services/ministro.service';
+
+
+interface presienteChecked {
+    nome: string;
+    checked: boolean;
+}
 
 @Component({
   selector: 'app-composicao',
@@ -17,6 +24,7 @@ export class ComposicaoComponent implements OnInit {
 
   @Input() presidente: Ministro;
 
+  presienteChecked: presienteChecked[] = [];
   ministros: Ministro[];
   primeiraTurma: Ministro[];
   segundaTurma: Ministro[];
@@ -33,4 +41,17 @@ export class ComposicaoComponent implements OnInit {
     });
   }
 
+
+  isChecked(nome: string): boolean{
+    const presidente = this.presienteChecked.find(presidente=>presidente.nome==nome);
+    if(presidente) return presidente.checked;
+    return false;
+  }
+
+  checked(event: MatCheckboxChange){
+    this.presienteChecked.forEach(presidente=>{
+      if(event.source.name == presidente.nome) presidente.checked = event.checked;
+      else presidente.checked = false;
+    })
+  }
 }
