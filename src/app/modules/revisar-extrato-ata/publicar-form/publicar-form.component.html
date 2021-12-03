@@ -1,0 +1,38 @@
+<div class="flex flex-col -m-6 text-base overflow-x-hidden">
+    <!-- Header -->
+    <div class="flex flex-0 h-16 px-8
+        items-center justify-between bg-primary text-on-primary"
+    >
+        <div class="text-lg mt-2 sm:mt-0 font-medium">Revisar Decisão</div>
+    </div>
+
+    <!-- Formulário -->
+    <form
+      class="flex flex-col w-72 space-y-4 md:space-y-2 p-4"
+      [formGroup]="formPublicacao">
+        <!-- Selecionar Data de Publicação -->
+        <mat-radio-group
+          color="primary"
+          class="flex flex-col space-y-2"
+          formControlName="opcaoData">
+            <mat-radio-button
+              *ngFor="let opcao of opcoesDataPublicacao"
+              (click)="dataAutomatica(opcao.value)"
+              [value]="opcao.value">
+                {{ opcao.view }}
+            </mat-radio-button>
+        </mat-radio-group>
+        <mat-form-field
+          class="w-full" appearance="fill"
+          *ngIf="formPublicacao.getRawValue().opcaoData == opcoesDataPublicacao[2].value">
+            <mat-label class="font-medium mb-2">Selecionar Data:</mat-label>
+            <input matInput [matDatepicker]="dp" [formControl]="date" formControlName="dataPublicacao">
+            <mat-datepicker-toggle matSuffix [for]="dp"></mat-datepicker-toggle>
+            <mat-datepicker #dp></mat-datepicker>
+        </mat-form-field>
+    </form>
+    <div class="flex flex-row m-4 space-x-4">
+        <button class="ml-auto text-xs sm:text-base" mat-raised-button mat-dialog-close>Cancelar</button>
+        <button class="text-xs sm:text-base" color="primary" mat-raised-button (click)="salvar()" [disabled]="formPublicacao.invalid">Salvar</button>
+    </div>
+</div>
