@@ -9,19 +9,28 @@ import { SessaoJulgamento } from '../acervo/model/interfaces/sessao-julgamento.i
 import { registerLocaleData } from '@angular/common';
 import localePT from '@angular/common/locales/pt';
 import { DatePipe } from '@angular/common';
+import { MatCheckboxChange } from '@angular/material/checkbox';
 registerLocaleData(localePT);
+
+interface presienteChecked {
+  nome: string;
+  checked: boolean;
+}
 
 @Component({
   selector: 'app-finalizar-sessao-julgamento',
   templateUrl: './finalizar-sessao-julgamento.component.html',
   styleUrls: ['./finalizar-sessao-julgamento.component.scss']
 })
+
 export class FinalizarSessaoJulgamentoComponent implements OnInit {
 
   constructor(
     private _ministroService: MinistroService,
     private _julgamentoService: JulgamentoService
   ) { }
+
+  presienteChecked: presienteChecked[] = [];
 
   presidente: Ministro = {} as Ministro;
   primeiraTurma: Ministro[] = []
@@ -40,15 +49,18 @@ export class FinalizarSessaoJulgamentoComponent implements OnInit {
       this.options.push(sessao.secretario.nome);
       this.sessao = sessao;
       this.presidente = sessao.presidencia;
+      this.presienteChecked.push({nome: sessao.presidencia.nome, checked: false})
     })
     this._ministroService.listarMinistros().subscribe(ministros=>{
       this.ministros = ministros;
     })
     this._ministroService.listarMinistrosDoColegiado('primeira-turma').subscribe(ministros=>{
       this.primeiraTurma = ministros;
+      ministros.forEach(ministro=>this.presienteChecked.push({nome: ministro.nome, checked: false}));
     })
     this._ministroService.listarMinistrosDoColegiado('segunda-turma').subscribe(ministros=>{
       this.segundaTurma = ministros;
+      ministros.forEach(ministro=>this.presienteChecked.push({nome: ministro.nome, checked: false}));
     })
     
     this.filteredOptions = this.secretario.valueChanges.pipe(
@@ -93,6 +105,17 @@ export class FinalizarSessaoJulgamentoComponent implements OnInit {
     }
   }
 
-  teste(){
+  isChecked(nome: string): boolean{
+    const presidente = this.presienteChecked.find(presidente=>presidente.nome==nome);
+    if(presidente) return presidente.checked;
+    return false;
   }
+
+  checked(event: MatCheckboxChange){
+    this.presienteChecked.forEach(presidente=>{
+      if(event.source.name == presidente.nome) presidente.checked = event.checked;
+      else presidente.checked = false;
+    })
+  }
+
 }
