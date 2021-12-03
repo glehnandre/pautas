@@ -10,6 +10,7 @@ import { DispositivoService } from 'app/modules/services/dispositivo.service';
 import { MinistroService } from 'app/modules/services/ministro.service';
 import { ProcessoService } from 'app/modules/services/processo.service';
 import { ResultadoJulgamentoService } from 'app/modules/services/resultado-julgamento.service';
+import { isNull } from 'lodash';
 import { Observable } from 'rxjs';
 
 @Component({
@@ -39,11 +40,10 @@ export class FormDecisaoComponent implements OnInit, OnChanges, OnDestroy {
     capitulo: {
       id: 0,
       descricao: '',
-      dispositivo: '',
+      dispositivo: null,
       ministro_condutor: null,
       ministros_acordam: [],
-      ministros_impedidos: [],
-      ministros_suspeitos: [],
+      ministros_divergem: [],
       texto: '',
       tipo: null,
     },

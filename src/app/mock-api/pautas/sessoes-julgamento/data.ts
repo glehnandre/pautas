@@ -1,10 +1,10 @@
 import { SituacaoDoProcesso } from "app/modules/acervo/model/enums/situacaoDoProcesso.enum";
+import { TipoCapitulo } from "app/modules/acervo/model/enums/tipoCapitulo.enum";
 import { TipoDoProcesso } from "app/modules/acervo/model/enums/tipoDoProcesso.enum";
 import { Processo } from "app/modules/acervo/model/interfaces/processo.interface";
 import { SessaoJulgamento } from "app/modules/acervo/model/interfaces/sessao-julgamento.interface";
-
-import { capitulo } from "../capitulo/data";
 import { ministro } from "../ministro/data";
+
 
 export const sessao: SessaoJulgamento[] = [
   {
@@ -37,38 +37,6 @@ export const sessao: SessaoJulgamento[] = [
       ministro[10],
     ],
     presidencia: ministro[0]
-  {
-  },
-   {
-    numero: 2000,
-    ano: 2021,
-    colegiado: '',
-    tipo: "ORDINARIA",
-    categoria: "REPERCUSSAO_GERAL",
-    modalidade: "VIRTUAL",
-    data_inicio: "2021-08-15T09:12:33.001Z",
-    data_fim: "2021-08-20T09:12:33.001Z",
-    secretario: {
-      id: 19,
-      nome: "Carmen"
-    },
-    situacao: "PUBLICADA"
-  },
-
-  {
-    numero: 3000,
-    ano: 2021,
-    colegiado: '',
-    tipo: "ORDINARIA",
-    categoria: "REPERCUSSAO_GERAL",
-    modalidade: "VIRTUAL",
-    data_inicio: "2021-12-30T09:12:33.001Z",
-    data_fim: "2021-12-31T09:12:33.001Z",
-    secretario: {
-      id: 19,
-      nome: "Carmen"
-    },
-    situacao: "PUBLICADA"
   }
 ];
 
@@ -96,7 +64,25 @@ export const processos: Processo[] = [
     relator: ministro[0],
     redator: ministro[1],
     capitulos: [
-      capitulo[0],
+      {
+        id: 1,
+        tipo: TipoCapitulo.Modulacao,
+        descricao: 'Descrição do capítulo',
+        dispositivo: "",
+        ministro_condutor: ministro[6],
+        ministros_acordam: [
+          ministro[0],
+          ministro[1],
+          ministro[2],
+          ministro[3],
+          ministro[4],
+          ministro[5],
+        ],
+        ministros_divergem: [
+          ministro[7],
+        ],
+        texto: 'Texto do capítulo',
+      }
     ]
   },
 ]

@@ -17,13 +17,7 @@ export const decisoes: Array<DecisoesResultadoJulgamento> = [
           id: 1,
           tipo: TipoCapitulo.Modulacao,
           descricao: 'Descrição do capítulo',
-          dispositivos: [
-            {
-              id: 1,
-              nome: 'Dispositivo',
-              sentido: "Negativo",
-            },
-          ],
+          dispositivo: "",
           ministro_condutor: ministro[6],
           ministros_acordam: [
             ministro[0],

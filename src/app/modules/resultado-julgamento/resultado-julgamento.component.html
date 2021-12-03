@@ -11,9 +11,10 @@
 
     <header class="bg-white px-8 pt-4 flex flex-col">
         <app-cabecalho-relator
-            [processo]="processo"
+            [processo]="parametros.processo"
             [colegiado]="parametros.colegiado"
             [votos]="votos"
+            [sessao]="dados?.sessao"
         ></app-cabecalho-relator>
 
         <div class="flex flex-row items-end mb-4 sm:my-4 ml-auto">
@@ -54,18 +55,9 @@
                 Finalizar
             </button>
         </div>
-    </div>
+    </header>
 
     <hr class="m-0 p-0" />
-
-    <header class="bg-white px-8 pt-4">
-        <app-cabecalho-relator
-            [processo]="parametros.processo"
-            [colegiado]="parametros.colegiado"
-            [votos]="votos"
-            [sessao]="dados?.sessao"
-        ></app-cabecalho-relator>
-    </header>
 
     <!-- Body -->
     <mat-drawer-container class="flex flex-col flex-auto mt-2 rounded-t-2xl shadow bg-card">

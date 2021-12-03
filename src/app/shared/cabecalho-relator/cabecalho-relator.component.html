@@ -50,17 +50,7 @@
     </div>
 </div>
 
-<div class="hidden md:block md:mb-8">
-    <app-carrossel
-        [idChip]="'idDocs'"
-        [chips]="documentos?.nomes"
-        [links]="documentos?.links"
-        [hasIcon]="true"
-        [class]="['border-primary', 'border-solid', 'border-2', 'bg-transparent', 'text-primary']"
-        (nomeDoPdfSelecionado)="obterNomeDoPdf($event)"
-        (linkDoPdfSelecionado)="abrirLink($event)"
-    ></app-carrossel>
-</div>
+
 
 <mat-expansion-panel
     class="md:hidden w-2/3 xs:w-full my-4"

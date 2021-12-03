@@ -14,7 +14,7 @@ export interface Capitulo {
     id: number;
     descricao: string;
     tipo: TipoCapitulo;
-    dispositivos: Array<Dispositivo>;
+    dispositivo: string;
     ministros_acordam: Array<Ministro>;
     ministros_divergem: Array<Ministro>;
     ministro_condutor: Ministro;
