@@ -1,7 +1,6 @@
 import { Ata } from "app/modules/acervo/model/interfaces/ata.interface";
 import { DecisoesResultadoJulgamento } from "app/modules/acervo/model/interfaces/decisao.interface";
 import { TipoCapitulo } from "app/modules/acervo/model/enums/tipoCapitulo.enum";
-import { DecisoesResultadoJulgamento } from "app/modules/acervo/model/interfaces/decisao.interface";
 import { Dispositivo } from "app/modules/acervo/model/interfaces/dispositivo.interface";
 import { ModeloDecisao } from "app/modules/acervo/model/interfaces/modeloDecisao.interface";
 import { dispositivos } from "../dispositivo/data";
