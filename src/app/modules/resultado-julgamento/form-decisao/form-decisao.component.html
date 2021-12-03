@@ -6,7 +6,7 @@
             <mat-select 
                 formControlName="tipo"
                 (value)="buscarDispositivos($event)" 
-                (selectionChange)="buscarDispositivos($event)"
+                (selectionChange)="buscarDispositivos($event); carregarModeloDeDecisao()"
             >
                 <mat-option 
                     *ngFor="let tipo of (tipos$ | async)" 
@@ -22,6 +22,7 @@
             <mat-label>Dispositivo <span class="text-red-500">*</span></mat-label>
             <mat-select 
                 formControlName="dispositivo" 
+                (selectionChange)="carregarModeloDeDecisao()"
             >
                 <mat-option 
                     *ngFor="let dispositivo of dispositivos" 

@@ -104,6 +104,25 @@ export class FormDecisaoComponent implements OnInit, OnChanges, OnDestroy {
     this.idsDosProcessos = idsProcessos;
   }
 
+  public carregarModeloDeDecisao(): void {
+    const { tipo, dispositivo } = this.formDecisao.value;
+    const idDispositivo = this.dispositivos.find(d => d.nome === dispositivo)?.id;
+    
+    if (tipo && dispositivo) {
+      this._resultadoJulgamento.obterModeloDecisao('ADI', tipo, idDispositivo, 1).subscribe({
+        next: (modelo) => {
+          console.log(modelo)
+          this.formDecisao.controls.texto.setValue(modelo.texto);
+        },
+  
+        error: (error) => {
+          console.log(error)
+          this.formDecisao.controls.texto.setValue('');
+        }
+      });
+    }
+  }
+
   /**
    * @public Método público
    * @description Método para adicionar uma Decisão a lista de decisões
