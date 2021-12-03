@@ -16,21 +16,23 @@
         </span>
         <mat-checkbox
             #presente
+            [name]="presidente?.nome"
             class="mr-15"
             color="primary"
-            (change)="ausente.checked=false"
+            (change)="ausente.checked=false; atualizaPresentes($event, 'presidente')"
         ></mat-checkbox>
         <mat-checkbox
             #ausente
+            [name]="presidente?.nome"
             class="mr-15"
             color="primary"
-            (change)="presente.checked=false"
+            (change)="presente.checked=false; atualizaAusentes($event, 'presidente')"
         ></mat-checkbox>
         <mat-checkbox
             [checked]="isChecked(presidente?.nome)"
             [name]="presidente?.nome"
             color="primary"
-            (change)="checked($event)"
+            (change)="check($event)"
         ></mat-checkbox>
     </div>
     <div class="flex flex-row items-center py-2 overflow-hidden">
@@ -45,22 +47,24 @@
                 </span>
                 <mat-checkbox
                     #presente1
+                    [name]="primeira.nome"
                     class="mr-15 pt-3"
                     color="primary"
-                    (change)="ausente1.checked=false"
+                    (change)="ausente1.checked=false; atualizaPresentes($event, 'primeira-turma')"
                 ></mat-checkbox>
                 <mat-checkbox
                     #ausente1
+                    [name]="primeira.nome"
                     class="mr-15 pt-3"
                     color="primary"
-                    (change)="presente1.checked=false"
+                    (change)="presente1.checked=false; atualizaAusentes($event, 'primeira-turma')"
                 ></mat-checkbox>
                 <mat-checkbox
                     [checked]="isChecked(primeira.nome)"
                     [name]="primeira.nome"
                     class="pt-3"
                     color="primary"
-                    (change)="checked($event)"
+                    (change)="check($event)"
                 ></mat-checkbox>
             </div>
         </div>
@@ -78,23 +82,25 @@
                 <mat-checkbox
                     #presente2
                     [checked]="presente2.checked"
+                    [name]="segunda.nome"
                     class="mr-15 pt-3"
                     color="primary"
-                    (change)="ausente2.checked=false"
+                    (change)="ausente2.checked=false; atualizaPresentes($event, 'segunda-turma')"
                 ></mat-checkbox>
                 <mat-checkbox
                     #ausente2
                     [checked]="ausente2.checked"
+                    [name]="segunda.nome"
                     class="mr-15 pt-3"
                     color="primary"
-                    (change)="presente2.checked=false"
+                    (change)="presente2.checked=false; atualizaAusentes($event, 'segunda-turma')"
                 ></mat-checkbox>
                 <mat-checkbox
                     [checked]="isChecked(segunda.nome)"
                     [name]="segunda.nome"
                     class="pt-3"
                     color="primary"
-                    (change)="checked($event)"
+                    (change)="check($event)"
                 ></mat-checkbox>
             </div>
         </div>
