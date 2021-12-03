@@ -6,7 +6,7 @@
         >
             <div class="flex flex-row">
                 <h2 class="text-lg mr-4">{{capitulo.tipo}}</h2>
-                <mat-chip class="bg-green-600" selected>{{capitulo.dispositivo}}</mat-chip>
+                <mat-chip *ngIf="capitulo.dispositivo" class="bg-green-600" selected>{{capitulo.dispositivo}}</mat-chip>
             </div>
 
             <p>{{capitulo.descricao}}</p>
