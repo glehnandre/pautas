@@ -15,7 +15,7 @@ export const julgamentos: SessaoJulgamento[] = [
       categoria: 'REPERCUSSAO_GERAL',
       modalidade: 'VIRTUAL',
       data_inicio: '2016-08-29T09:12:33.001Z',
-      data_fim: '2016-08-29T09:12:33.001Z',
+      data_fim: '2016-08-30T09:12:33.001Z',
       secretario: {
         id: 19,
         nome: 'Beatriz Cunha',

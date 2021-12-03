@@ -14,8 +14,8 @@ export const sessao: SessaoJulgamento[] = [
     tipo: "ORDINARIA",
     categoria: "REPERCUSSAO_GERAL",
     modalidade: "VIRTUAL",
-    data_inicio: "2021-12-31T09:12:33.001Z",
-    data_fim: "2021-12-31T09:12:33.001Z",
+    data_inicio: "2016-08-29T09:12:33.001Z",
+    data_fim: "2016-08-29T09:12:33.001Z",
     secretario: {
       id: 19,
       nome: "Carmén Lillian"
