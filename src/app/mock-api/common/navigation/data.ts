@@ -74,6 +74,24 @@ export const defaultNavigation: FuseNavigationItem[] = [
         },
     },
     {
+        id: 'minhas-tarefas',
+        title: 'Minhas tarefas',
+        type: 'basic',
+        icon : 'heroicons_outline:chart-pie',
+        link: '/minhas-tarefas'
+    },
+    {
+        id: 'revisar-inteiro-teor',
+        title: 'Revisar Inteiro Teor',
+        type: 'basic',
+        icon : 'heroicons_outline:chart-pie',
+        link: '/revisar-inteiro-teor',
+        queryParams: {
+            id: 9,
+            colegiado: 'pleno',
+        },
+    },
+    {
         id   :  'informar-o-redator',
         title:  'Informar o Redator',
         type :  'basic',
@@ -94,6 +112,13 @@ export const defaultNavigation: FuseNavigationItem[] = [
             numero: 1000,
             ano: 2021,
         },
+    },
+    {
+        id   : 'finalizar-sessao-julgamento',
+        title: 'Finalizar Sessao de Julgamento',
+        type : 'basic',
+        icon : 'heroicons_outline:chart-pie',
+        link : '/finalizar-sessao-julgamento'
     },
 ];
 export const compactNavigation: FuseNavigationItem[] = [
@@ -161,6 +186,24 @@ export const compactNavigation: FuseNavigationItem[] = [
         },
     },
     {
+        id: 'minhas-tarefas',
+        title: 'Minhas tarefas',
+        type: 'basic',
+        icon : 'heroicons_outline:chart-pie',
+        link: '/minhas-tarefas'
+    },
+    {
+        id: 'revisar-inteiro-teor',
+        title: 'Revisar Inteiro Teor',
+        type: 'basic',
+        icon : 'heroicons_outline:chart-pie',
+        link: '/revisar-inteiro-teor',
+        queryParams: {
+            id: 9,
+            colegiado: 'pleno',
+        },
+    },
+    {
         id   :  'informar-o-redator',
         title:  'Informar o Redator',
         type :  'basic',
@@ -181,6 +224,13 @@ export const compactNavigation: FuseNavigationItem[] = [
             numero: 1000,
             ano: 2021,
         },
+    },
+    {
+        id   : 'finalizar-sessao-julgamento',
+        title: 'Finalizar Sessao de Julgamento',
+        type : 'basic',
+        icon : 'heroicons_outline:chart-pie',
+        link : '/finalizar-sessao-julgamento'
     },
 ];
 export const futuristicNavigation: FuseNavigationItem[] = [
@@ -248,6 +298,24 @@ export const futuristicNavigation: FuseNavigationItem[] = [
         },
     },
     {
+        id: 'minhas-tarefas',
+        title: 'Minhas tarefas',
+        type: 'basic',
+        icon : 'heroicons_outline:chart-pie',
+        link: '/minhas-tarefas'
+    },
+    {
+        id: 'revisar-inteiro-teor',
+        title: 'Revisar Inteiro Teor',
+        type: 'basic',
+        icon : 'heroicons_outline:chart-pie',
+        link: '/revisar-inteiro-teor',
+        queryParams: {
+            id: 9,
+            colegiado: 'pleno',
+        },
+    },
+    {
         id   :  'informar-o-redator',
         title:  'Informar o Redator',
         type :  'basic',
@@ -268,6 +336,13 @@ export const futuristicNavigation: FuseNavigationItem[] = [
             numero: 1000,
             ano: 2021,
         },
+    },
+    {
+        id   : 'finalizar-sessao-julgamento',
+        title: 'Finalizar Sessao de Julgamento',
+        type : 'basic',
+        icon : 'heroicons_outline:chart-pie',
+        link : '/finalizar-sessao-julgamento'
     },
 ];
 export const horizontalNavigation: FuseNavigationItem[] = [
@@ -331,6 +406,24 @@ export const horizontalNavigation: FuseNavigationItem[] = [
         },
     },
     {
+        id: 'minhas-tarefas',
+        title: 'Minhas tarefas',
+        type: 'basic',
+        icon : 'heroicons_outline:chart-pie',
+        link: '/minhas-tarefas'
+    },
+    {
+        id: 'revisar-inteiro-teor',
+        title: 'Revisar Inteiro Teor',
+        type: 'basic',
+        icon : 'heroicons_outline:chart-pie',
+        link: '/revisar-inteiro-teor',
+        queryParams: {
+            id: 9,
+            colegiado: 'pleno',
+        },
+    },
+    {
         id   :  'informar-o-redator',
         title:  'Informar o Redator',
         type :  'basic',
@@ -351,5 +444,12 @@ export const horizontalNavigation: FuseNavigationItem[] = [
             numero: 1000,
             ano: 2021,
         },
+    },
+    {
+        id   : 'finalizar-sessao-julgamento',
+        title: 'Finalizar Sessao de Julgamento',
+        type : 'basic',
+        icon : 'heroicons_outline:chart-pie',
+        link : '/finalizar-sessao-julgamento'
     },
 ];

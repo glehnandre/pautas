@@ -189,7 +189,7 @@ export const processo: Processo[] = [
         capitulo[2],
         capitulo[3],
     ],
-    relator: ministro[2],
+    relator: ministro[2]
   },
 ];
 
@@ -198,6 +198,7 @@ export const documentos: Documento[] = [
     id: 1,
     nome: 'Relatório',
     tipo: 'pdf',
+    status: 'Assinado',
     url: '/assets/pdf/relatorio-adi6185-Ed.pdf',
   },
 
@@ -205,6 +206,7 @@ export const documentos: Documento[] = [
     id: 4,
     nome: "Voto AM",
     tipo: "pdf",
+    status: 'Assinado',
     url: "/assets/pdf/voto-alexandre-divergenteadi6185-Ed.pdf"
   },
 
@@ -212,6 +214,7 @@ export const documentos: Documento[] = [
     id: 5,
     nome: 'Voto RB',
     tipo: 'pdf',
+    status: 'Assinado',
     url: '/assets/pdf/voto-luis-barroso-barroso-adi6185-Ed.pdf',
   },
 
@@ -219,6 +222,7 @@ export const documentos: Documento[] = [
     id: 6,
     nome: 'Voto MA',
     tipo: 'pdf',
+    status: 'Assinado',
     url: '/assets/pdf/voto-marco-aurelio-relator-adi6185-Ed.pdf',
   },
 ]

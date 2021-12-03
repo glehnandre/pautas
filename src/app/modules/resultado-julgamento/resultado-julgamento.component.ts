@@ -9,6 +9,7 @@ import { Manifestacao } from '../acervo/model/interfaces/manifestacao.interface'
 import { Voto } from '../acervo/model/interfaces/voto.interface';
 import { ProcessoService } from '../services/processo.service';
 import { ResultadoJulgamentoService } from '../services/resultado-julgamento.service';
+import { SessaoJulgamento } from '../acervo/model/interfaces/sessao-julgamento.interface';
 import { Capitulo } from '../acervo/model/interfaces/capitulo.interface';
 import { Processo } from '../acervo/model/interfaces/processo.interface';
 import { RecursoService } from '../services/recurso.service';
@@ -50,8 +51,6 @@ export class ResultadoJulgamentoComponent implements OnInit {
   show = false;
 
   readonly FORM_CADASTRO_DECISAO = 'formulario-de-cadastro-de-decisao';
-  descrissaoSessao: string;
-  data_fim: Date;
 
   constructor(
     private _resultadoJulgamento: ResultadoJulgamentoService,

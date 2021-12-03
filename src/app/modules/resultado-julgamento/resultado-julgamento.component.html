@@ -54,6 +54,17 @@
                 Finalizar
             </button>
         </div>
+    </div>
+
+    <hr class="m-0 p-0" />
+
+    <header class="bg-white px-8 pt-4">
+        <app-cabecalho-relator
+            [processo]="parametros.processo"
+            [colegiado]="parametros.colegiado"
+            [votos]="votos"
+            [sessao]="dados?.sessao"
+        ></app-cabecalho-relator>
     </header>
 
     <!-- Body -->
