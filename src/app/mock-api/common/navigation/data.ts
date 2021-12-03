@@ -63,8 +63,15 @@ export const defaultNavigation: FuseNavigationItem[] = [
         }
     },
     {
+        id: 'minhas-tarefas',
+        title: 'Minhas tarefas',
+        type: 'basic',
+        icon : 'heroicons_outline:chart-pie',
+        link: '/minhas-tarefas'
+    },
+    {
         id   : 'resultado-julgamento',
-        title: 'Resultado do Julgamento',
+        title: '(Pós-Julgamento) Resultado do Julgamento',
         type : 'basic',
         icon : 'heroicons_outline:chart-pie',
         link : '/resultado-julgamento',
@@ -74,8 +81,19 @@ export const defaultNavigation: FuseNavigationItem[] = [
         },
     },
     {
+        id: 'revisar-inteiro-teor',
+        title: '(Pós-Julgamento) Revisar Inteiro Teor',
+        type: 'basic',
+        icon : 'heroicons_outline:chart-pie',
+        link: '/revisar-inteiro-teor',
+        queryParams: {
+            id: 9,
+            colegiado: 'pleno',
+        },
+    },
+    {
         id   :  'informar-o-redator',
-        title:  'Informar o Redator',
+        title:  '(Pós-Julgamento) Informar o Redator',
         type :  'basic',
         icon :  'heroicons_outline:chart-pie',
         link :  '/informar-redator',
@@ -85,8 +103,19 @@ export const defaultNavigation: FuseNavigationItem[] = [
         },
     },
     {
+        id   :  'revisar-extrato-ata',
+        title:  '(Pós-Julgamento) Revisar o Extrato da Ata de Julgamento',
+        type :  'basic',
+        icon :  'heroicons_outline:chart-pie',
+        link :  '/revisar-extrato-ata',
+        queryParams: {
+            numero: 1000,
+            ano: 2021,
+        },
+    },
+    {
         id   : 'finalizar-sessao-julgamento',
-        title: 'Finalizar Sessao de Julgamento',
+        title: '(Pós-Julgamento) Finalizar Sessao de Julgamento',
         type : 'basic',
         icon : 'heroicons_outline:chart-pie',
         link : '/finalizar-sessao-julgamento'
@@ -157,6 +186,24 @@ export const compactNavigation: FuseNavigationItem[] = [
         },
     },
     {
+        id: 'minhas-tarefas',
+        title: 'Minhas tarefas',
+        type: 'basic',
+        icon : 'heroicons_outline:chart-pie',
+        link: '/minhas-tarefas'
+    },
+    {
+        id: 'revisar-inteiro-teor',
+        title: 'Revisar Inteiro Teor',
+        type: 'basic',
+        icon : 'heroicons_outline:chart-pie',
+        link: '/revisar-inteiro-teor',
+        queryParams: {
+            id: 9,
+            colegiado: 'pleno',
+        },
+    },
+    {
         id   :  'informar-o-redator',
         title:  'Informar o Redator',
         type :  'basic',
@@ -165,6 +212,17 @@ export const compactNavigation: FuseNavigationItem[] = [
         queryParams: {
             processo: '9',
             colegiado: 'pleno',
+        },
+    },
+    {
+        id   :  'revisar-extrato-ata',
+        title:  'Revisar o Extrato da Ata de Julgamento',
+        type :  'basic',
+        icon :  'heroicons_outline:chart-pie',
+        link :  '/revisar-extrato-ata',
+        queryParams: {
+            numero: 1000,
+            ano: 2021,
         },
     },
     {
@@ -240,6 +298,24 @@ export const futuristicNavigation: FuseNavigationItem[] = [
         },
     },
     {
+        id: 'minhas-tarefas',
+        title: 'Minhas tarefas',
+        type: 'basic',
+        icon : 'heroicons_outline:chart-pie',
+        link: '/minhas-tarefas'
+    },
+    {
+        id: 'revisar-inteiro-teor',
+        title: 'Revisar Inteiro Teor',
+        type: 'basic',
+        icon : 'heroicons_outline:chart-pie',
+        link: '/revisar-inteiro-teor',
+        queryParams: {
+            id: 9,
+            colegiado: 'pleno',
+        },
+    },
+    {
         id   :  'informar-o-redator',
         title:  'Informar o Redator',
         type :  'basic',
@@ -248,6 +324,17 @@ export const futuristicNavigation: FuseNavigationItem[] = [
         queryParams: {
             processo: '9',
             colegiado: 'pleno',
+        },
+    },
+    {
+        id   :  'revisar-extrato-ata',
+        title:  'Revisar o Extrato da Ata de Julgamento',
+        type :  'basic',
+        icon :  'heroicons_outline:chart-pie',
+        link :  '/revisar-extrato-ata',
+        queryParams: {
+            numero: 1000,
+            ano: 2021,
         },
     },
     {
@@ -319,6 +406,24 @@ export const horizontalNavigation: FuseNavigationItem[] = [
         },
     },
     {
+        id: 'minhas-tarefas',
+        title: 'Minhas tarefas',
+        type: 'basic',
+        icon : 'heroicons_outline:chart-pie',
+        link: '/minhas-tarefas'
+    },
+    {
+        id: 'revisar-inteiro-teor',
+        title: 'Revisar Inteiro Teor',
+        type: 'basic',
+        icon : 'heroicons_outline:chart-pie',
+        link: '/revisar-inteiro-teor',
+        queryParams: {
+            id: 9,
+            colegiado: 'pleno',
+        },
+    },
+    {
         id   :  'informar-o-redator',
         title:  'Informar o Redator',
         type :  'basic',
@@ -327,6 +432,17 @@ export const horizontalNavigation: FuseNavigationItem[] = [
         queryParams: {
             processo: '9',
             colegiado: 'pleno',
+        },
+    },
+    {
+        id   :  'revisar-extrato-ata',
+        title:  'Revisar o Extrato da Ata de Julgamento',
+        type :  'basic',
+        icon :  'heroicons_outline:chart-pie',
+        link :  '/revisar-extrato-ata',
+        queryParams: {
+            numero: 1000,
+            ano: 2021,
         },
     },
     {

@@ -1,0 +1,22 @@
+:host ::ng-deep {
+    @media (max-width: 599px) {
+        .mat-radio-container{
+          height: 15px;
+          width: 15px;
+        }
+        .mat-radio-outer-circle{
+          height: 15px;
+          width: 15px;
+        }
+        .mat-radio-inner-circle{
+          height: 15px;
+          width: 15px;
+        }
+        .mat-radio-button .mat-radio-ripple{
+          height: 20px; /*double of your required circle radius*/
+          width: 20px;  /*double of your required circle radius*/
+          left: calc(50% - 15px); /*'15px'-same as your required circle radius*/
+          top: calc(50% - 15px); /*'15px'-same as your required circle radius*/
+        }
+    }
+}

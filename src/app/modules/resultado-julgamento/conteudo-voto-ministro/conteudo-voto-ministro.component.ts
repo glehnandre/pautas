@@ -17,6 +17,13 @@ export class ConteudoVotoMinistroComponent implements OnInit {
 
   }
 
+  /**
+   * @public Método público
+   * @description Método para realizar a conversão de uma string em base64 para 
+   *              HTML
+   * @returns string
+   * @author Douglas da Silva Monteles
+   */
   public converterDeBase64ParaHtml(): string {
     if (this.voto && this.voto.conteudo) {
       return this._fromBinary(this.voto.conteudo);
@@ -25,6 +32,12 @@ export class ConteudoVotoMinistroComponent implements OnInit {
     return 'aguarde...';
   }
 
+  /**
+   * @private Método private
+   * @param binario Conteúdo em binário
+   * @description Método para converter um binário para string
+   * @author Douglas da Silva Monteles
+   */
   private _fromBinary(binario: string): string {
     const bytes = new Uint8Array(binario.length);
 

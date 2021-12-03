@@ -1,13 +1,5 @@
-<div id="cabecalho" class="flex flex-col lg:flex-row lg:justify-start">
-    <div class="absolute right-4 lg:right-16 flex flex-col items-end">
-        <div class="text-base sm:text-xl text-primary font-medium">
-            SESSÃO {{sessao}}
-        </div>
-        <div class="text-xs sm:text-base text-secondary">
-            Finalizada dia {{data_fim | date:'dd/mm/yyyy'}}
-        </div>
-    </div>
-    <div id="div1" class="flex flex-wrap lg:max-w-3/5">
+<div id="cabecalho" class="flex flex-row justify-between">
+    <div id="div1" class="flex">
         <div class="flex flex-nowrap flex-row">
             <img [src]="relator?.imagem" alt="Imagem de perfil"
                 class="w-14 h-14 mr-6 mb-4 rounded-full ng-tns-c129-57 ng-star-inserted">
@@ -24,33 +16,41 @@
             </div>
         </div>
 
-        <div class="hidden md:flex flex-1 flex-col min-w-20 overflow-x-auto">
-            <div class="flex-1 ml-2 text-xl">
-                {{obterDadosDoProcesso()}}
+        <div class="hidden md:flex flex-1 flex-col min-w-20 overflow-x-hidden">
+            <div class="ml-2 text-xl">
+                <h2 class="mb-0">{{obterDadosDoProcesso()}}</h2>
             </div>
 
-            <div class="hidden md:block">
+            <div class="hidden md:flex">
                 <app-carrossel
+                    [idChip]="'idDocs'"
+                    [chips]="documentos?.nomes"
+                    [links]="documentos?.links"
+                    [hasIcon]="true"
+                    [class]="['border-primary', 'border-solid', 'border-2', 'bg-transparent', 'text-primary']"
+                    (nomeDoPdfSelecionado)="obterNomeDoPdf($event)"
+                    (linkDoPdfSelecionado)="abrirLink($event)"
+                ></app-carrossel>
+        
+                <app-carrossel
+                    *ngIf="nomesDasSessoes"
+                    [idChip]="'idSessao'"
                     [hasArrow]="hasArrow"
-                    [idChip]="'idTags'"
-                    [chips]="tags"
+                    [chips]="nomesDasSessoes"
                 ></app-carrossel>
             </div>
         </div>
     </div>
-    <div class="hidden md:block lg:ml-4 lg:mt-8">
-        <app-carrossel
-            [idChip]="'idDocs'"
-            [chips]="documentos?.nomes"
-            [links]="documentos?.links"
-            [hasIcon]="true"
-            [class]="['border-primary', 'border-solid', 'border-2', 'bg-transparent', 'text-primary']"
-            (nomeDoPdfSelecionado)="obterNomeDoPdf($event)"
-            (linkDoPdfSelecionado)="abrirLink($event)"
-        ></app-carrossel>
-    </div>
 
+    <div *ngIf="sessao" class="right-4 lg:right-16 flex flex-col items-end">
+        <app-dados-da-sessao
+            class="hidden md:block w-60"
+            [sessao]="sessao"
+        ></app-dados-da-sessao>
+    </div>
 </div>
+
+
 
 <mat-expansion-panel
     class="md:hidden w-2/3 xs:w-full my-4"
@@ -74,7 +74,16 @@
             <app-carrossel
                 [idChip]="'idTagsExp'"
                 [chips]="tags"
+                [hasArrow]="true"
             ></app-carrossel>
+
+            <app-carrossel
+                *ngIf="nomesDasSessoes"
+                [idChip]="'idSessaoExp'"
+                [hasArrow]="true"
+                [chips]="nomesDasSessoes"
+            ></app-carrossel>
+
             <app-carrossel
                 [idChip]="'idDocExp'"
                 [chips]="documentos?.nomes"
@@ -89,6 +98,7 @@
 </mat-expansion-panel>
 
 <app-visualizador-pdf
+    *ngIf="link"
     [nome]="'visualizador-pdf-do-colegiado'"
     [link]="link"
     [pdf]="nomePdf"

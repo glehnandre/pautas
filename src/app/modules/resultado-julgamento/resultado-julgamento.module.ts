@@ -20,12 +20,19 @@ import { FuseDrawerModule } from '@fuse/components/drawer/drawer.module';
 import { MatListModule } from '@angular/material/list';
 import { MatRippleModule } from '@angular/material/core';
 import { DragDropModule } from '@angular/cdk/drag-drop';
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
 
 import { ResultadoJulgamentoComponent } from './resultado-julgamento.component';
 import { ConteudoVotoMinistroComponent } from './conteudo-voto-ministro/conteudo-voto-ministro.component';
 import { FormDecisaoComponent } from './form-decisao/form-decisao.component';
 import { AplicarDecisoesComponent } from './aplicar-decisoes/aplicar-decisoes.component';
 import { VotoDosMinistrosComponent } from './voto-dos-ministros/voto-dos-ministros.component';
+import { FormModeloDecisaoComponent } from './form-modelo-decisao/form-modelo-decisao.component';
+import { MatDialogModule } from '@angular/material/dialog';
+import { FormVistaEDestaqueComponent } from './form-vista-e-destaque/form-vista-e-destaque.component';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { FuseAlertModule } from '@fuse/components/alert';
+import { FormRelatorComponent } from './form-relator/form-relator.component';
 
 const ResultadoJulgamentoRoutes: Route[] = [
   {
@@ -41,6 +48,9 @@ const ResultadoJulgamentoRoutes: Route[] = [
     FormDecisaoComponent,
     AplicarDecisoesComponent,
     VotoDosMinistrosComponent,
+    FormModeloDecisaoComponent,
+    FormVistaEDestaqueComponent,
+    FormRelatorComponent,
   ],
   imports: [
     CommonModule,
@@ -65,6 +75,10 @@ const ResultadoJulgamentoRoutes: Route[] = [
     MatListModule,
     MatRippleModule,
     DragDropModule,
+    MatAutocompleteModule,
+    MatDialogModule,
+    MatDatepickerModule,
+    FuseAlertModule,
   ]
 })
 export class ResultadoJulgamentoModule { }
