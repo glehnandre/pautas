@@ -29,21 +29,18 @@ export class FinalizarSessaoJulgamentoComponent implements OnInit {
 
   getData(): string{
     const datepipe: DatePipe = new DatePipe('pt-BR');
-    let inicio = '', fim = '', dataInicio, dataFim, semanaInicio = '', semanaFim = '';
-      inicio = datepipe.transform(this.sessao.data_inicio, 'dd/MM-EEEE');
-      if(inicio){
-        dataInicio = inicio.split('-')[0];
-        semanaInicio = inicio.split('-')[1];
-        semanaInicio = this.firstToUpperCase(semanaInicio);
-      }
-      fim = datepipe.transform(this.sessao.data_fim, 'dd/MM-EEEE');
-      if(fim){
-        dataFim = fim.split('-')[0];
-        semanaFim = fim.split('-')[1];
-        semanaFim = this.firstToUpperCase(semanaFim);
-      }
 
-    return `${semanaInicio} (${dataInicio}) - ${semanaFim} (${dataFim})`;
+    const diaSemana_dia_mes = (data: string) => {
+      if(data == null) return 'Falha ao pegar data';
+      const dataCompleta = datepipe.transform(data, 'EEEE-dd/MM').split('-');
+      const dia_mes = dataCompleta.pop();
+      let diaSemana = dataCompleta.shift()
+      diaSemana = this.firstToUpperCase(diaSemana);
+      return `${diaSemana} (${dia_mes})`;
+    }
+    const dataInicio = diaSemana_dia_mes(this.sessao?.data_inicio);
+    const dataFim = diaSemana_dia_mes(this.sessao?.data_fim);
+    return dataInicio==dataFim? dataFim:`${dataInicio} - ${dataFim}`;
   }
 
   firstToUpperCase(str: string){
