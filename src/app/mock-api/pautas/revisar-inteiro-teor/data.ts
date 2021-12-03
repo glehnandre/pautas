@@ -16,7 +16,6 @@ export const revisoes: Array<RevisaoInteiroTeor> = [
     ],
     sessoes: [
       sessao[0],
-      sessao[2],
     ],
     documentos: [
       {
