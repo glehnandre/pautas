@@ -1,5 +1,6 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { AfterViewChecked, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Secretario } from 'app/modules/acervo/model/interfaces/secretario.interface';
 import { Observable } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
 
@@ -8,13 +9,15 @@ import { map, startWith } from 'rxjs/operators';
   templateUrl: './form.component.html',
   styleUrls: ['./form.component.scss']
 })
-export class FormComponent implements OnInit {
+export class FormComponent implements OnInit, AfterViewChecked {
 
   constructor(
     private _fb: FormBuilder,
   ) { }
 
-  @Input() secretario: { id: number; nome: string };
+  @Input() secretario: Secretario;
+  @Output() statusForm = new EventEmitter<any>();
+
   formFinalizarSessao: FormGroup;
 
   options: string[] = [];
@@ -32,8 +35,10 @@ export class FormComponent implements OnInit {
         startWith(''),
         map(value => this._filter(value)),
       );
+  }
 
-    if(this.secretario)
+  ngAfterViewChecked(): void {
+    if(this.options.length==0 && this.secretario)
       this.options.push(this.secretario.nome);
   }
 
@@ -43,11 +48,12 @@ export class FormComponent implements OnInit {
     return this.options.filter(option => option.toLowerCase().includes(filterValue));
   }
 
-
   getErrorMessage() {
     return this.formFinalizarSessao.controls
       .secretario.hasError('required') ? 'Informe o secretário ou secretária da sessão' : '';
   }
 
-  teste(): void {}
+  emitirForm(): void {
+    this.statusForm.emit(this.formFinalizarSessao.value);
+  }
 }

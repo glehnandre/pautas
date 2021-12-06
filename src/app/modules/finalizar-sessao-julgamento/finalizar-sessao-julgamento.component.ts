@@ -22,8 +22,6 @@ export class FinalizarSessaoJulgamentoComponent implements OnInit {
   ngOnInit(): void {
     this._julgamentoService.listarSessoesDeJulgamento(1000,2021).subscribe(sessao=>{
       this.sessao = sessao;
-      console.log(sessao);
-
     });
   }
 
@@ -48,5 +46,13 @@ export class FinalizarSessaoJulgamentoComponent implements OnInit {
     str = str.toLowerCase();
     return str[0].toUpperCase() + str.substr(1);
     }
+  }
+
+  recuperaComposicao(event){
+    console.log(event);
+  }
+
+  recuperaForm(event){
+    console.log(event);
   }
 }
