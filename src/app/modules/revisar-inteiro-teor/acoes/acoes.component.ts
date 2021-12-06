@@ -95,13 +95,11 @@ export class AcoesComponent implements OnInit {
    * @author
    */
    public incluirNovoDocumento(): void {
-    if (this._isAlgumaLinhaSelecionada()) {
-        const dialogRef = this._matDialog.open(IncluirDocumentoComponent, {
-            maxHeight: '560px',
-        });
+      const dialogRef = this._matDialog.open(IncluirDocumentoComponent, {
+          maxHeight: '560px',
+      });
 
-        dialogRef.afterClosed().subscribe((resultado) => {});
-    }
+      dialogRef.afterClosed().subscribe((resultado) => {});
   }
 
   /**

@@ -10,6 +10,7 @@ import { MatChipsModule } from '@angular/material/chips';
 import { MatButtonModule } from '@angular/material/button';
 import { AcoesComponent } from './acoes.component';
 import { IncluirDocumentoComponent } from './incluir-documento/incluir-documento.component';
+import { FiltroModule } from './incluir-documento/filtros/filtro.module';
 
 @NgModule({
   declarations: [
@@ -25,6 +26,7 @@ import { IncluirDocumentoComponent } from './incluir-documento/incluir-documento
     MatSelectModule,
     MatChipsModule,
     MatButtonModule,
+    FiltroModule
   ],
   providers: [{ provide: MAT_DATE_LOCALE, useValue: 'pt-BR' }],
   exports: [
