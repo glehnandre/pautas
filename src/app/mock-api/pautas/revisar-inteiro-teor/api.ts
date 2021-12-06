@@ -108,7 +108,7 @@ export class RevisaoInteiroTeorMockApi {
           if (revisao !== undefined) {
             revisao.documentos = revisao.documentos.map((documento) => {
                 if (documentos.includes(String(documento.id))) {
-                    documento.situacao = "Cancelado";
+                    documento.situacao = "Removido";
                 }
                 return documento;
             })

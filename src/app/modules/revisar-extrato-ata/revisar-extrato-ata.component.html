@@ -38,7 +38,7 @@
             <button class="ml-auto" color="white" mat-raised-button>
                 <span>Cancelar</span>
             </button>
-            <button color="white" mat-raised-button>
+            <button color="white" mat-raised-button (click)="corrigir()">
                 <span>Solicitar Correção</span>
             </button>
             <button color="primary" mat-raised-button (click)="publicar()">
@@ -51,7 +51,7 @@
                 <mat-option value="revisado" (click)="publicar()" class="bg-primary text-white">
                     Revisado e Publicar
                 </mat-option>
-                <mat-option value="corrigir">Solicitar Correção</mat-option>
+                <mat-option value="corrigir" (click)="corrigir()">Solicitar Correção</mat-option>
                 <mat-option value="cancelar">Cancelar</mat-option>
             </mat-select>
         </mat-form-field>

@@ -115,7 +115,7 @@
 
         <button
             mat-raised-button 
-            class="mr-2"
+            class="text-xs sm:text-base mr-2"
             color="warn" 
             *ngIf="isExibirBtnExcluirDecisao"
             [disabled]="isDesabilitarForm"
@@ -127,6 +127,7 @@
 
         <button 
             mat-raised-button 
+            class="text-xs sm:text-base"
             color="primary" 
             *ngIf="isExibirBtnSalvarDecisao"
             [disabled]="formDecisao.invalid || isDesabilitarForm"

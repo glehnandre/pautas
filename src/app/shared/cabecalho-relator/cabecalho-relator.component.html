@@ -7,10 +7,10 @@
                 <div class="text-base sm:text-lg font-medium text-primary leading-tight">
                     {{relator?.nome | titlecase}}
                 </div>
-                <div class="text-xs sm:text-base leading-tight font-bold">
+                <div class="sm:text-base leading-tight font-bold">
                     {{relator?.abreviacao | uppercase}}
                 </div>
-                <div class="text-xs sm:text-base text-secondary mt-2">
+                <div class="sm:text-base text-secondary mt-2">
                     Relator
                 </div>
             </div>
@@ -53,7 +53,7 @@
 
 
 <mat-expansion-panel
-    class="md:hidden w-2/3 xs:w-full my-4"
+    class="md:hidden md:w-2/3 xs:w-full my-4 w-full"
     (opened)="panelOpenState = true"
     (closed)="panelOpenState = false"
 >
@@ -93,6 +93,13 @@
                 (nomeDoPdfSelecionado)="obterNomeDoPdf($event)"
                 (linkDoPdfSelecionado)="abrirLink($event)"
             ></app-carrossel>
+
+            <div *ngIf="sessao" class="right-4 lg:right-16 flex flex-col items-end">
+                <app-dados-da-sessao
+                    class="w-60 shadow-md"
+                    [sessao]="sessao"
+                ></app-dados-da-sessao>
+            </div>
         </div>
     </div>
 </mat-expansion-panel>
