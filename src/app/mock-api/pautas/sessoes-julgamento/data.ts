@@ -3,7 +3,8 @@ import { TipoCapitulo } from "app/modules/acervo/model/enums/tipoCapitulo.enum";
 import { TipoDoProcesso } from "app/modules/acervo/model/enums/tipoDoProcesso.enum";
 import { Processo } from "app/modules/acervo/model/interfaces/processo.interface";
 import { SessaoJulgamento } from "app/modules/acervo/model/interfaces/sessao-julgamento.interface";
-import { colegiado, ministro } from "../ministro/data";
+import { ministro } from "../ministro/data";
+
 
 export const sessao: SessaoJulgamento[] = [
   {
@@ -17,41 +18,25 @@ export const sessao: SessaoJulgamento[] = [
     data_fim: "2016-08-29T09:12:33.001Z",
     secretario: {
       id: 19,
-      nome: "Carmen"
+      nome: "Carmén Lillian"
     },
-    situacao: "PUBLICADA"
-  },
-
-  {
-    numero: 2000,
-    ano: 2021,
-    colegiado: '',
-    tipo: "ORDINARIA",
-    categoria: "REPERCUSSAO_GERAL",
-    modalidade: "VIRTUAL",
-    data_inicio: "2021-08-15T09:12:33.001Z",
-    data_fim: "2021-08-20T09:12:33.001Z",
-    secretario: {
-      id: 19,
-      nome: "Carmen"
-    },
-    situacao: "PUBLICADA"
-  },
-
-  {
-    numero: 3000,
-    ano: 2021,
-    colegiado: '',
-    tipo: "ORDINARIA",
-    categoria: "REPERCUSSAO_GERAL",
-    modalidade: "VIRTUAL",
-    data_inicio: "2021-12-30T09:12:33.001Z",
-    data_fim: "2021-12-31T09:12:33.001Z",
-    secretario: {
-      id: 19,
-      nome: "Carmen"
-    },
-    situacao: "PUBLICADA"
+    situacao: "PUBLICADA",
+    ministros_presentes: [
+      ministro[2],
+      ministro[6],
+      ministro[7],
+      ministro[0],
+      ministro[1],
+      ministro[3],
+      ministro[4],
+      ministro[8],
+      ministro[5],
+      ministro[9],
+    ],
+    ministros_ausentes: [
+      ministro[10],
+    ],
+    presidencia: ministro[0]
   }
 ];
 
@@ -83,7 +68,7 @@ export const processos: Processo[] = [
         id: 1,
         tipo: TipoCapitulo.Modulacao,
         descricao: 'Descrição do capítulo',
-        dispositivo: 'Dispositivo',
+        dispositivo: "",
         ministro_condutor: ministro[6],
         ministros_acordam: [
           ministro[0],
@@ -93,11 +78,8 @@ export const processos: Processo[] = [
           ministro[4],
           ministro[5],
         ],
-        ministros_impedidos: [
+        ministros_divergem: [
           ministro[7],
-        ],
-        ministros_suspeitos: [
-          ministro[8],
         ],
         texto: 'Texto do capítulo',
       }

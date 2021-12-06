@@ -1,0 +1,91 @@
+<div class="flex flex-col flex-auto w-full">
+
+    <!-- Filtros -->
+    <mat-accordion class="mx-4" multi aria-label="Lista de Filtros possíveis de serem aplicados às publicações">
+
+        <!-- Filtros aplicados -->
+        <mat-expansion-panel *ngIf="pesquisas[0]" class="mb-2 border-solid border-2" [expanded]="true">
+            <mat-expansion-panel-header>
+                <mat-panel-title class="font-semibold text-primary-500 line-clamp-3">
+                    Palavra Chave
+                </mat-panel-title>
+            </mat-expansion-panel-header>
+    
+            <section class="flex flex-row flex-wrap">
+                <mat-chip-list *ngFor="let pesquisa of pesquisas" #chipsfiltros aria-label="Filtros aplicados ao resultado" class="mx-4 mb-6">
+                    <mat-chip [removable]="true" (removed)="removePesquisa(pesquisa)">
+                        {{pesquisa}}
+                        <button matChipRemove aria-label="Clique para remover o filtro André von" class="mb-1.5">
+                            <mat-icon class="h-2 w-2">cancel</mat-icon>
+                        </button>
+                    </mat-chip>
+                </mat-chip-list>
+            </section>
+        </mat-expansion-panel>
+
+        <mat-expansion-panel class="mb-2 border-solid border-2" [expanded]="true">
+            <mat-expansion-panel-header>
+                <mat-panel-title class="font-semibold text-primary-500 line-clamp-3">
+                    Período
+                </mat-panel-title>
+            </mat-expansion-panel-header>
+    
+            <section class="">
+                <mat-form-field class="w-full" appearance="fill">
+                    <mat-date-range-input [rangePicker]="picker">
+                        <input matStartDate placeholder="Início" name="data_inicio" [(ngModel)]="data_inicio" (dateChange)="trataDataInicio($event)">
+                        <input matEndDate placeholder="Fim" name="data_fim" [(ngModel)]="data_fim" (dateChange)="trataDataFim($event)">
+                    </mat-date-range-input>
+    
+                    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                    <mat-date-range-picker #picker></mat-date-range-picker>
+                </mat-form-field>
+                <button class="flex ml-auto" mat-flat-button [color]="'primary'" (click)="limparDatas()">
+                    <span>Limpar datas</span>
+                </button>
+            </section>
+        </mat-expansion-panel>
+
+        <mat-expansion-panel *ngFor="let filtro of recuperaFiltros()" class="mb-2 border-solid border-2">
+            <mat-expansion-panel-header>
+                <mat-panel-title class="font-semibold text-primary-500 line-clamp-3">
+                    {{filtro.agregacao.nome}}
+                    <div class="flex flex-row space-x-1 truncate">
+                        <span *ngFor="let selecionado of filtro.selecionados; let i = index"
+                            style="text-decoration:#2a6894; font:caption; font-size: 0.8rem;"
+                            class="flex-none"
+                        >
+                            {{(i==filtro.selecionados.length-1) ? selecionado : selecionado+"," }}
+                        </span>
+                        <mat-icon
+                            *ngIf="filtro.selecionados.join(', ').length > 29"
+                            class="absolute right-10 pb-4 pl-2 pr-1 bg-white"
+                            style="color: #2a6894;"
+                        >add_circle</mat-icon>
+                    </div>
+                </mat-panel-title>
+            </mat-expansion-panel-header>
+
+            <section class="">
+                <p *ngFor="let item of filtro.agregacao.itens">
+                    <mat-checkbox
+                        [name]="item.descricao"
+                        [color]="'primary'" 
+                        aria-label="Clique para incluir" 
+                        role="checkbox"
+                        (change)="atualizaFiltros($event)"
+                    >
+                        {{item.descricao}} ({{item.quantidade}})
+                    </mat-checkbox>
+                </p>
+            </section>
+        </mat-expansion-panel>
+
+    </mat-accordion>
+
+    <!-- Compose button -->
+    <button class="m-8" mat-flat-button [color]="'primary'" (click)="filtrar()">
+        <mat-icon [svgIcon]="'heroicons_outline:filter'"></mat-icon>
+        <span class="ml-2">Filtrar</span>
+    </button>
+</div>

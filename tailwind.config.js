@@ -83,6 +83,13 @@ const config = {
         }
     },
     theme       : {
+        backgroundSize: {
+           'auto': 'auto',
+           'cover': 'cover',
+           'contain': 'contain',
+           '75%': '75%',
+           '16': '4rem',
+        },
         colors  : {
             transparent: 'transparent',
             current    : 'currentColor',
@@ -98,7 +105,12 @@ const config = {
             teal       : colors.teal,
             blue       : colors.blue,
             indigo     : colors.indigo,
-            purple     : colors.purple
+            purple     : colors.purple,
+            sentido    : {
+                'Negativo': colors.red[600],
+                'Positivo': colors.green[600],
+                'Neutro'  : colors.yellow[600],
+            },
         },
         fontSize: {
             'xs'  : '0.625rem',
@@ -126,6 +138,9 @@ const config = {
             xl   : '1440px'
         },
         extend  : {
+            backgroundImage: {
+                'stf-background': "url('assets/digital/stf-background.png')",
+            },
             animation : {
                 'spin-slow': 'spin 3s linear infinite'
             },

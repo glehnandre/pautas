@@ -16,7 +16,6 @@ import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
-import { MAT_DATE_LOCALE } from '@angular/material/core';
 import { FuseAlertModule } from '@fuse/components/alert';
 
 import { AgruparEmlistaComponent } from './agrupar-emlista/agrupar-emlista.component';
@@ -76,7 +75,6 @@ const routes = [
     FuseAlertModule,
     SharedModule,
   ],
-  providers: [{ provide: MAT_DATE_LOCALE, useValue: 'pt-BR' }],
   exports: [
     AcoesComponent,
   ]

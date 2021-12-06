@@ -1,0 +1,108 @@
+<span class="text-2xl text-primary font-medium">Composição</span>
+
+<div class="grid grid-flow-row max-w-140">
+    <div class="flex flex-row justify-end pr-10">
+        <span class="mr-3">Presente</span>
+        <span class="ml-4 mr-3">Ausente</span>
+        <span class="ml-4">Presidente</span>
+    </div>
+    <div class="flex flex-row items-center py-2 overflow-hidden">
+        <span class="w-15">Presidente</span>
+        <object class="flex w-5 h-10 bg-blue-600 mx-4 -my-20"></object>
+        <span class="flex flex-row items-center w-48 mr-2">
+            <img [src]="presidente?.imagem" alt="Imagem de perfil"
+                class="w-10 h-10 mr-2 rounded-full ng-tns-c129-57 ng-star-inserted">
+            {{presidente?.nome}}
+        </span>
+        <mat-checkbox
+            #presente
+            [name]="presidente?.nome"
+            class="mr-15"
+            color="primary"
+            (change)="ausente.checked=false; atualizaPresentes($event, 'presidente')"
+        ></mat-checkbox>
+        <mat-checkbox
+            #ausente
+            [name]="presidente?.nome"
+            class="mr-15"
+            color="primary"
+            (change)="presente.checked=false; atualizaAusentes($event, 'presidente')"
+        ></mat-checkbox>
+        <mat-checkbox
+            [checked]="isChecked(presidente?.nome)"
+            [name]="presidente?.nome"
+            color="primary"
+            (change)="check($event)"
+        ></mat-checkbox>
+    </div>
+    <div class="flex flex-row items-center py-2 overflow-hidden">
+        <span class="w-15">1ª Turma</span>
+        <object class="flex w-5 bg-orange-500 mx-4 -my-20"></object>
+        <div class="flex-col space-y-4">
+            <div class="flex flex-1" *ngFor="let primeira of primeiraTurma; index as i">
+                <span class="flex flex-row items-center w-48 mr-2">
+                    <img [src]="primeira?.imagem" alt="Imagem de perfil"
+                        class="w-10 h-10 mr-2 rounded-full ng-tns-c129-57 ng-star-inserted">
+                    {{primeira.nome}}
+                </span>
+                <mat-checkbox
+                    #presente1
+                    [name]="primeira.nome"
+                    class="mr-15 pt-3"
+                    color="primary"
+                    (change)="ausente1.checked=false; atualizaPresentes($event, 'primeira-turma')"
+                ></mat-checkbox>
+                <mat-checkbox
+                    #ausente1
+                    [name]="primeira.nome"
+                    class="mr-15 pt-3"
+                    color="primary"
+                    (change)="presente1.checked=false; atualizaAusentes($event, 'primeira-turma')"
+                ></mat-checkbox>
+                <mat-checkbox
+                    [checked]="isChecked(primeira.nome)"
+                    [name]="primeira.nome"
+                    class="pt-3"
+                    color="primary"
+                    (change)="check($event)"
+                ></mat-checkbox>
+            </div>
+        </div>
+    </div>
+    <div class="flex flex-row items-center pt-2 overflow-hidden">
+        <span class="w-15">2ª Turma</span>
+        <object class="flex w-5 bg-green-700 mx-4 -my-20"></object>
+        <div class="flex flex-col space-y-4">
+            <div class="flex flex-1" *ngFor="let segunda of segundaTurma; index as j">
+                <span class="flex flex-row items-center w-48 mr-2">
+                    <img [src]="segunda?.imagem" alt="Imagem de perfil"
+                        class="w-10 h-10 mr-2 rounded-full ng-tns-c129-57 ng-star-inserted">
+                    {{segunda.nome}}
+                </span>
+                <mat-checkbox
+                    #presente2
+                    [checked]="presente2.checked"
+                    [name]="segunda.nome"
+                    class="mr-15 pt-3"
+                    color="primary"
+                    (change)="ausente2.checked=false; atualizaPresentes($event, 'segunda-turma')"
+                ></mat-checkbox>
+                <mat-checkbox
+                    #ausente2
+                    [checked]="ausente2.checked"
+                    [name]="segunda.nome"
+                    class="mr-15 pt-3"
+                    color="primary"
+                    (change)="presente2.checked=false; atualizaAusentes($event, 'segunda-turma')"
+                ></mat-checkbox>
+                <mat-checkbox
+                    [checked]="isChecked(segunda.nome)"
+                    [name]="segunda.nome"
+                    class="pt-3"
+                    color="primary"
+                    (change)="check($event)"
+                ></mat-checkbox>
+            </div>
+        </div>
+    </div>
+</div>

@@ -59,7 +59,7 @@
                                     </div>
                                 </div>
                                 <mat-chip-list #chipList class="mt-2">
-                                    <mat-chip class="flex-none border-green-700 border-solid border-2 bg-transparent text-green-700">
+                                    <mat-chip *ngIf="processo.capitulos[0].dispositivo" class="flex-none border-green-700 border-solid border-2 bg-transparent text-green-700">
                                         {{ processo.capitulos[0].dispositivo }}
                                     </mat-chip>
                                 </mat-chip-list>

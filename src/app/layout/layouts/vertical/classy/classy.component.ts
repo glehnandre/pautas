@@ -41,6 +41,13 @@ export class ClassyLayoutComponent implements OnInit, OnDestroy
         return new Date().getFullYear();
     }
 
+    /**
+     * Getter for screen widths
+     */
+    width(): number
+    {
+        return screen.width;
+    }
     // -----------------------------------------------------------------------------------------------------
     // @ Lifecycle hooks
     // -----------------------------------------------------------------------------------------------------

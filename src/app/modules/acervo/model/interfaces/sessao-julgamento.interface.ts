@@ -1,3 +1,5 @@
+import { Ministro } from "./ministro.interface";
+
 export interface SessaoJulgamento {
     numero: number;
     ano: number;
@@ -12,4 +14,7 @@ export interface SessaoJulgamento {
         nome: string;
     };
     situacao: 'PUBLICADA' | 'APROVADA' | 'FECHADA' | 'ABERTA' | 'FINALIZADA' | 'REJEITADA';
+    ministros_presentes: Array<Ministro>;
+    ministros_ausentes: Array<Ministro>;
+    presidencia: Ministro;
 }

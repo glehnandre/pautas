@@ -1,0 +1,42 @@
+<div class="flex flex-wrap mb-2 items-center justify-between">
+    <div class="flex flex-row space-x-1 sm:space-x-2">
+        <div class="w-2 h-2 sm:w-4 sm:h-4 rounded-full bg-green-600"></div>
+        <span class="text-xs md:text-base  whitespace-nowrap">
+            {{ julgados==1 ? 'Proceso Julgado':'Processos Julgados'}}
+        </span>
+    </div>
+    <div class="flex flex-row space-x-1 sm:space-x-2">
+        <div class="w-2 h-2 sm:w-4 sm:h-4 rounded-full bg-red-600"></div>
+        <span class="text-xs md:text-base  whitespace-nowrap">
+            {{ nao_julgados==1? 'Proceso não Julgado':'Processos não Julgados'}}
+        </span>
+    </div>
+    <div class="flex flex-row space-x-1 sm:space-x-2">
+        <div class="w-2 h-2 sm:w-4 sm:h-4 rounded-full bg-gray-600"></div>
+        <span class="text-xs md:text-base  whitespace-nowrap">
+            {{ suspensos==1? 'Proceso Suspenso':'Processos Suspensos'}}
+        </span>
+    </div>
+</div>
+<div>
+    <div class="overflow-hidden h-4 mb-4 text-base flex rounded-full bg-gray-600">
+        <div
+            [style.width]="getPorcentagem(julgados) + '%'"
+            class="shadow-none flex flex-col text-center whitespace-nowrap text-white justify-center bg-green-600"
+        >
+            {{ julgados }}
+        </div>
+        <div
+            [style.width]="getPorcentagem(nao_julgados) + '%'"
+            class="shadow-none flex flex-col text-center whitespace-nowrap text-white justify-center bg-red-600"
+        >
+            {{ nao_julgados }}
+        </div>
+        <div
+            [style.width]="getPorcentagem(suspensos) + '%'"
+            class="shadow-none flex flex-col text-center whitespace-nowrap text-white justify-center bg-gray-600"
+        >
+            {{ suspensos }}
+        </div>
+    </div>
+</div>

@@ -27,8 +27,10 @@ import { JulgamentoMockApi } from './pautas/julgamentos/api';
 import { SituacaoMockApi } from './pautas/situacaoProcesso/api';
 import { MinistroMockApi } from './pautas/ministro/api';
 import { DecisaoMockApi } from './pautas/decisao/api';
+import { PublicacaoMockApi } from './pautas/publicacoes/api';
 import { DispositivoMockApi } from './pautas/dispositivo/api';
 import { RevisaoInteiroTeorMockApi } from './pautas/revisar-inteiro-teor/api';
+import { RecursoMockApi } from './pautas/recurso/api';
 
 export const mockApiServices = [
     AcademyMockApi,
@@ -60,6 +62,8 @@ export const mockApiServices = [
     SituacaoMockApi,
     MinistroMockApi,
     DecisaoMockApi,
+    PublicacaoMockApi,
     DispositivoMockApi,
     RevisaoInteiroTeorMockApi,
+    RecursoMockApi,
 ];

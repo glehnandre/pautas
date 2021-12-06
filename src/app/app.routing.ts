@@ -32,7 +32,7 @@ export const appRoutes: Route[] = [
             {path: 'forgot-password', loadChildren: () => import('app/modules/auth/forgot-password/forgot-password.module').then(m => m.AuthForgotPasswordModule)},
             {path: 'reset-password', loadChildren: () => import('app/modules/auth/reset-password/reset-password.module').then(m => m.AuthResetPasswordModule)},
             {path: 'sign-in', loadChildren: () => import('app/modules/auth/sign-in/sign-in.module').then(m => m.AuthSignInModule)},
-            {path: 'sign-up', loadChildren: () => import('app/modules/auth/sign-up/sign-up.module').then(m => m.AuthSignUpModule)}
+            {path: 'sign-up', loadChildren: () => import('app/modules/auth/sign-up/sign-up.module').then(m => m.AuthSignUpModule)},
         ]
     },
 
@@ -47,7 +47,7 @@ export const appRoutes: Route[] = [
         },
         children: [
             {path: 'sign-out', loadChildren: () => import('app/modules/auth/sign-out/sign-out.module').then(m => m.AuthSignOutModule)},
-            {path: 'unlock-session', loadChildren: () => import('app/modules/auth/unlock-session/unlock-session.module').then(m => m.AuthUnlockSessionModule)}
+            {path: 'unlock-session', loadChildren: () => import('app/modules/auth/unlock-session/unlock-session.module').then(m => m.AuthUnlockSessionModule)},
         ]
     },
 
@@ -60,6 +60,7 @@ export const appRoutes: Route[] = [
         },
         children   : [
             {path: 'home', loadChildren: () => import('app/modules/landing/home/home.module').then(m => m.LandingHomeModule)},
+            {path: 'publicacoes', loadChildren: () => import('app/modules/publicacoes/publicacoes.module').then(m => m.PublicacoesModule)},
         ]
     },
 
@@ -83,6 +84,8 @@ export const appRoutes: Route[] = [
             {path: 'minhas-tarefas', loadChildren: () => import('app/modules/minhas-tarefas/minhas-tarefas.module').then(m => m.MinhasTarefasModule)},
             {path: 'revisar-inteiro-teor', loadChildren: () => import('app/modules/revisar-inteiro-teor/revisar-inteiro-teor.module').then(m => m.RevisarInteiroTeorModule)},
             {path: 'informar-redator', loadChildren: ()=> import('app/modules/informar-redator/informar-redator.module').then(m => m.InformarRedatorModule)},
+            {path: 'finalizar-sessao-julgamento', loadChildren: ()=> import('app/modules/finalizar-sessao-julgamento/finalizar-sessao-julgamento.module').then(m => m.FinalizarSessaoJulgamentoModule)},
+            {path: 'revisar-extrato-ata', loadChildren: () => import('app/modules/revisar-extrato-ata/revisar-extrato-ata.module').then(m => m.RevisarExtratoAtaModule)},
         ]
     }
 ];

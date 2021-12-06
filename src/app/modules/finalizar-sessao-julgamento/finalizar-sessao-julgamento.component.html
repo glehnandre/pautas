@@ -1,0 +1,33 @@
+<div class="px-40 py-13 w-full bg-white">
+
+    <!-- Header -->
+    <div class="flex flex-row">
+        <div class="flex flex-col text-accent-500 space-y-2 mt-2">
+            <span class="text-2xl text-primary-500 font-medium">ATA DA SESSÃO {{sessao.numero}}/{{sessao.ano}}</span>
+            <span>{{getData()}}</span>
+            <span>100 processos</span>
+        </div>
+        <mat-chip-list class="ml-8">
+            <mat-chip>
+               {{firstToUpperCase(sessao.colegiado)}}
+            </mat-chip>
+            <mat-chip>
+                {{firstToUpperCase(sessao.tipo)}}
+            </mat-chip>
+            <mat-chip>
+                {{firstToUpperCase(sessao.modalidade)}}
+            </mat-chip>
+        </mat-chip-list>
+    </div>
+
+    <!-- Main -->
+    <div class="flex flex-col mt-8">
+        <app-composicao
+          [presidente]="sessao?.presidencia"
+        ></app-composicao>
+
+        <app-form
+          [secretario]="sessao?.secretario"
+        ></app-form>
+    </div>
+</div>

@@ -13,7 +13,6 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
 import localePt from '@angular/common/locales/pt';
 import { registerLocaleData } from '@angular/common';
-import { MAT_DATE_LOCALE } from '@angular/material/core';
 import { MatCardModule } from '@angular/material/card';
 import { FuseCardModule } from '@fuse/components/card';
 import { MatSelectModule } from '@angular/material/select';
@@ -53,9 +52,6 @@ const JulgamentoExtraordinarioRoutes: Route[] = [
   ],
   exports: [
     RespostaSolicitacaoSessaoExtraordinariaoComponent,
-  ],
-  providers: [
-    {provide: MAT_DATE_LOCALE, useValue: 'pt-BR'}
   ],
 })
 export class JulgamentoExtraordinarioModule { }

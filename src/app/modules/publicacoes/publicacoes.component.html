@@ -1,0 +1,88 @@
+<div class="absolute inset-0 flex flex-col ">
+    <div class="flex justify-between bg-white ">
+        <div class="flex justify-start items-center">
+            <img src="assets/digital/stf-logo.png" class="ml-8 w-1/5 h-auto">
+            <div
+                class="text-lg ml-4 md:ml-8 text-primary md:text-3xl md:mt-0 font-extrabold tracking-normal leading-7 sm:leading-10 truncate">
+                Diário de Justiça Eletrônico
+            </div>
+        </div>
+        <div class="">
+            <button mat-icon-button (click)="matDrawer.toggle()">
+                <mat-icon [svgIcon]="'heroicons_outline:menu'"></mat-icon>
+            </button>
+        </div>
+    </div>
+
+    <!-- Header -->
+        <div class="bg-stf-background bg-cover bg-no-repeat bg-bottom min-h-20 h-30 relative">
+            <div class="absolute inset-0 flex items-center justify-center">
+
+                <div class="mx-4 w-full">
+                    <form class="flex mx-auto md:w-180 h-12 border-t pl-4 border-b border-l text-gray-800 border-gray-200 bg-white rounded-full">
+                        <div class="flex flex-1 flex-col justify-center mr-4">
+                            <span class="text-primary font-medium">O que você procura no DJe?</span>
+                            <input
+                            [(ngModel)]="termo"
+                            name="termo"
+                            class=" truncate"
+                            placeholder="Nomes de pessoas, números ou assuntos"
+                            (keyup)="termo = $event.target.value" autofocus
+                            />
+                        </div>
+                        <button
+                            class="flex p-2 my-1 mr-1 bg-primary rounded-full text-white text-sm md:text-base ml-auto uppercase tracking-wider items-center"
+                            (click)="atualizaPesquisa()"
+                            >
+                            <mat-icon class="icon-size-5" style="color: white;">search</mat-icon>
+                            <span class="ml-2 hidden sm:block">Pesquisar no diário</span> 
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+
+    <mat-drawer-container class="flex flex-col flex-auto shadow bg-card">
+
+        <!-- Drawer -->
+        <mat-drawer class="w-80 bg-white pt-12" [autoFocus]="false" [mode]="drawerMode" [opened]="drawerOpened" #matDrawer>
+            <!-- Sidebar -->
+            <app-filtros
+                [agregacoes]="agregacoes"
+                [pesquisas]="pesquisas"
+                (removido)="refazPesquisa()"
+                (emiteFiltros)="trataFiltros($event)"
+                (removeFiltros)="removeFiltros($event)"
+                (emiteData)="filtraData($event)"
+            ></app-filtros>
+        </mat-drawer>
+
+        <!-- Drawer content -->
+        <mat-drawer-content class="flex flex-col overflow-y-auto bg-white">
+
+            <!-- Main -->
+            <div class="bg-gray-200 lg:mx-10 lg:my-12">
+
+                <div *ngIf="filtrados.length>0" class="bg-white pb-2 -mt-7 font-medium flex flex-row">
+                    <span>Consulta retornou {{filtrados.length}} {{(filtrados.length==1) ? "resultado" : "resultados"}}</span>
+                    <div class="ml-auto space-x-4">
+                        <button class="font-medium" style="color: #1170A6;" (click)="anteriorExibidos()">Anterior</button>
+                        <span>Apresentando resultados {{left+1}} a {{right}}</span>
+                        <button class="font-medium" style="color: #1170A6;" (click)="proximoExibidos()">Próximo</button>
+                    </div>
+                </div>
+
+                <app-textos
+                class="space-y-4"
+                    [publicacoesSemFiltro]="publicacoes"
+                    [filtrados]="exibidos"
+                ></app-textos>
+
+            </div>
+
+        </mat-drawer-content>
+
+    </mat-drawer-container>
+
+</div>

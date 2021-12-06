@@ -22,6 +22,9 @@ export class DadosDaSessaoComponent implements OnInit {
       id: 1,
       nome: 'teste',
     },
+    ministros_presentes: [],
+    ministros_ausentes: [],
+    presidencia: null
   };
 
   constructor() { }

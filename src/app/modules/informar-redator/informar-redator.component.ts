@@ -5,6 +5,7 @@ import { ActivatedRoute } from '@angular/router';
 import { DecisoesResultadoJulgamento } from '../acervo/model/interfaces/decisao.interface';
 import { Ministro } from '../acervo/model/interfaces/ministro.interface';
 import { Voto } from '../acervo/model/interfaces/voto.interface';
+import { MinistroService } from '../services/ministro.service';
 import { ProcessoService } from '../services/processo.service';
 import { ResultadoJulgamentoService } from '../services/resultado-julgamento.service';
 
@@ -29,11 +30,13 @@ export class InformarRedatorComponent implements OnInit {
   nomeRedator: string;
   redator: Ministro;
   relator: Ministro;
+  acompanharamRelator: Ministro[];
 
   constructor(
       private _formBuilder: FormBuilder,
       private _processoService: ProcessoService,
       private _resultadoJulgamento: ResultadoJulgamentoService,
+      private _ministroService: MinistroService,
       private _route: ActivatedRoute,
   ) {
     this.redatorForm = this._formBuilder.group({
@@ -67,16 +70,14 @@ export class InformarRedatorComponent implements OnInit {
             .subscribe({
               next: (votos) => {
                 this.votos = votos;
+                this.acompanharamRelator = votos
+                    .find(voto => voto.autor?.id == this.relator.id)
+                    .acompanharam;
                 console.log(this.votos);
             }
           });
         }
     });
-  }
-
-  acompanharamRelator(): Ministro[] {
-    const votoRelator = this.votos.find(voto => voto.autor?.id == this.relator.id);
-    return votoRelator?.acompanharam;
   }
 
   relatorDiverge(): Voto[] {
@@ -93,10 +94,8 @@ export class InformarRedatorComponent implements OnInit {
   }
 
   ministrosString(ministros: Ministro[]): string {
-    let nomesMinistros = [];
-    ministros.forEach(ministro => nomesMinistros.push(ministro.nome));
-    return ministros.length ? 'e ' + nomesMinistros.join(', ') +
-          (ministros.length == 1 ? 'acompanha': ' acompanham'): '';
+    return ministros.length ? this._ministroService.ministrosString(ministros) +
+          (ministros.length == 1 ? ' acompanha': ' acompanham'): '';
   }
 
   selecionarRedator(): void {

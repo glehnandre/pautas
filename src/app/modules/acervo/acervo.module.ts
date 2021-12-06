@@ -1,10 +1,12 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { AcervoComponent } from './acervo.component';
 import { RouterModule, Route } from '@angular/router';
-import { TabelaModule } from './tabela/tabela.module';
 import { MatIconModule } from '@angular/material/icon';
+
 import { EmptyLayoutModule } from 'app/layout/layouts/empty/empty.module';
+
+import { AcervoComponent } from './acervo.component';
+import { TabelaModule } from './tabela/tabela.module';
 import { FiltroModule } from './filtros/filtro.module';
 import { AcoesModule } from './acoes/acoes.module';
 import { SharedModule } from '../../shared/shared.module';
