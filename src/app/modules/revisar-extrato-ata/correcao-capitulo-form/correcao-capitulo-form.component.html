@@ -1,0 +1,37 @@
+<div class="flex flex-col -m-6 text-base overflow-x-hidden">
+    <!-- Header -->
+    <div class="flex flex-0 h-16 px-8
+        items-center justify-between bg-primary text-on-primary"
+    >
+        <div class="text-lg mt-2 sm:mt-0 font-medium">Correção de Capitulo</div>
+    </div>
+
+    <!-- Formulário -->
+    <form
+      class="flex flex-col w-72 space-y-4 md:space-y-2 p-4"
+      [formGroup]="correcaoCapitulosForm">
+        <!-- Selecionar Capitulo para Correção -->
+        <ng-container formArrayName="correcoes">
+            <ng-container *ngFor="let correcao of correcoes.controls; let i = index;">
+                <form [formGroup]="correcao">
+                    <mat-checkbox color="primary" formControlName="marcado" (change)="apagaCorrecao(i)">
+                        {{ capitulos[i].classe_extenso }}
+                    </mat-checkbox>
+                    <mat-form-field class="w-full" *ngIf="correcao.controls.marcado.value">
+                        <textarea matInput formControlName="correcao"></textarea>
+                    </mat-form-field>
+                </form>
+            </ng-container>
+        </ng-container>
+    </form>
+
+    <!-- Conclusão -->
+    <div class="flex flex-row m-4 space-x-4">
+        <button class="ml-auto text-xs sm:text-base" mat-raised-button mat-dialog-close>Cancelar</button>
+        <button
+          class="text-xs sm:text-base" color="primary" mat-raised-button
+          (click)="enviarCorrecao()" [disabled]="correcaoCapitulosForm.invalid">
+            Salvar
+        </button>
+    </div>
+</div>
