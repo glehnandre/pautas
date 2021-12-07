@@ -4,6 +4,7 @@ import { AlertaService } from '../../services/alerta.service';
 import { DocumentoInteiroTeor } from '../../acervo/model/interfaces/documento-inteiro-teor.interface';
 import { SessaoJulgamento } from '../../acervo/model/interfaces/sessao-julgamento.interface';
 import { Tag } from '../../acervo/model/interfaces/tag.interface';
+import { Documento } from '../../acervo/model/interfaces/documento.interface';
 import { RevisarInteiroTeorService } from '../../services/revisar-inteiro-teor.service';
 import { IncluirDocumentoComponent } from './incluir-documento/incluir-documento.component';
 
@@ -27,6 +28,7 @@ export class AcoesComponent implements OnInit {
 
   @Input() linhasSelecionadas: DocumentoInteiroTeor[];
   @Input() idProcesso: number;
+  @Input() documentosDoProcesso: Documento[];
   @Output() todosOsCheckboxSelecionados = new EventEmitter();
   @Output() revisoesAlteradas = new EventEmitter();
   @Output() idsRevisados = new EventEmitter();
@@ -97,6 +99,7 @@ export class AcoesComponent implements OnInit {
    public incluirNovoDocumento(): void {
       const dialogRef = this._matDialog.open(IncluirDocumentoComponent, {
           maxHeight: '560px',
+          data: this.documentosDoProcesso,
       });
 
       dialogRef.afterClosed().subscribe((resultado) => {});
