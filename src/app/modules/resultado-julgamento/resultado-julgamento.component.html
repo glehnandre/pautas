@@ -11,7 +11,7 @@
 
     <header class="bg-white px-8 pt-4 flex flex-col">
         <app-cabecalho-relator
-            [processo]="processo"
+            [processo]="getDadosDoProcesso()"
             [colegiado]="parametros.colegiado"
             [votos]="votos"
         ></app-cabecalho-relator>
@@ -224,6 +224,7 @@
                         <div id="menu-decisao" class="w-full p-4 overflow-y-auto">
                             <app-form-decisao
                                 *ngIf="!decisaoSelecionada; else exibirDecisaoNoForm"
+                                [processo]="processo"
                                 [isExibirBtnAdicionarDecisao]="true"
                                 [isExibirBtnModeloDecisao]="true"
                                 (dadosDaDecisao)="setDecisaoAdicionada($event)"

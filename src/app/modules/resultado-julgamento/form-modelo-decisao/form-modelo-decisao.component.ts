@@ -30,7 +30,7 @@ export class FormModeloDecisaoComponent implements OnInit {
 
   formModeloDecisao: FormGroup;
   dispositivos: Dispositivo[];
-  recursos$: Observable<TipoRecursoDto>;
+  recursos$: Observable<TipoRecursoDto[]>;
   modelo: ModeloDecisao = {
     id: 0,
     classe: '',
