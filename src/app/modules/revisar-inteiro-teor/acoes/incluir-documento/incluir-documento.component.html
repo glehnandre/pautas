@@ -9,8 +9,12 @@
     </div>
   </div>
 
-  <div mat-dialog-content>
+  <div mat-dialog-content class="min-w-160 max-w-240">
+    <app-filtro></app-filtro>
 
+    <app-tabela
+        [dataSource]="dataSource"
+    ></app-tabela>
   </div>
 
   <div class="flex flex-col sm:flex-row sm:items-center justify-between mt-4 sm:mt-6">
