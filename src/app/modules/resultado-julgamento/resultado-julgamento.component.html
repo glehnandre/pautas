@@ -3,7 +3,7 @@
 <!-- Header -->
     <div class="flex flex-col sm:flex-row justify-center items-center sm:justify-between pl-8 bg-white dark:bg-transparent">
         <h1 class="mt-4 text-primary font-medium text-xl sm:text-2xl">
-            Lançamento do Resultado do Julgamento da {{processo}}
+            Lançamento do Resultado do Julgamento da {{getDadosDoProcesso()}}
         </h1>
     </div>
 
@@ -11,49 +11,64 @@
 
     <header class="bg-white pt-2 flex flex-col px-2">
         <app-cabecalho-relator
-            [processo]="parametros.processo"
+            [processo]="getDadosDoProcesso()"
             [colegiado]="parametros.colegiado"
             [votos]="votos"
             [sessao]="dados?.sessao"
         ></app-cabecalho-relator>
 
-        <div class="hidden md:flex md:flex-row md:items-end md:mb-4 sm:my-4 md:ml-auto">
-            <button class="z-0 mr-4" mat-button>
-                <span>Cancelar</span>
-            </button>
+        <div class="flex flex-row items-start mb-4">
+            <div>
+                <button 
+                    class="mr-4"
+                    color="primary" 
+                    mat-raised-button 
+                    (click)="finalizar()"
+                >
+                    Finalizar 
+                </button>
 
-            <button 
-                mat-raised-button 
-                class="max-w-full mr-4" 
-                (click)="exibirModalDeModeloDecisao()"
-            >
-                Modelos de Texto
-            </button>
+                <button 
+                    mat-raised-button 
+                    class="max-w-full mr-4" 
+                    (click)="exibirModalDeModeloDecisao()"
+                >
+                    Modelos de Texto
+                </button>
 
-            <button 
-                mat-raised-button 
-                class="max-w-full mr-4" 
-                (click)="exibirModalDeVista()"
-            >
-                Vista
-            </button>
+                <button 
+                    mat-raised-button 
+                    class="max-w-full mr-4" 
+                    (click)="exibirModalDeVista()"
+                >
+                    Vista
+                </button>
 
-            <button 
-                mat-raised-button 
-                class="max-w-full mr-4" 
-                (click)="exibirModalDeDestaque()"
-            >
-                Destaque
-            </button>
+                <button 
+                    mat-raised-button 
+                    class="max-w-full mr-4" 
+                    (click)="exibirModalDeDestaque()"
+                >
+                    Destaque
+                </button>
 
-            <button 
-                class="mr-4"
-                color="primary" 
-                mat-raised-button 
-                (click)="finalizar()"
-            >
-                Finalizar
-            </button>
+                <button class="z-0 mr-4" mat-button>
+                    <span>Cancelar</span>
+                </button>
+            </div>
+
+            <div class="">
+                <mat-chip-list
+                    class=""
+                >
+                    <mat-chip
+                        class="mt-2"
+                        *ngFor="let chip of ['teste 1', 'teste 2']"
+                    >
+                        {{chip}}
+                    </mat-chip>
+                </mat-chip-list>
+            </div>
         </div>
 
         <div class="md:hidden">
@@ -240,6 +255,7 @@
                         <div id="menu-decisao" class="w-full p-4 overflow-y-auto">
                             <app-form-decisao
                                 *ngIf="!decisaoSelecionada; else exibirDecisaoNoForm"
+                                [processo]="processo"
                                 [isExibirBtnAdicionarDecisao]="true"
                                 [isExibirBtnModeloDecisao]="true"
                                 (dadosDaDecisao)="setDecisaoAdicionada($event)"

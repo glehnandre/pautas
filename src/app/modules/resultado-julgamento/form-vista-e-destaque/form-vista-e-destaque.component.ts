@@ -36,7 +36,7 @@ export class FormVistaEDestaqueComponent implements OnInit {
 
   formVistaEDestaque: FormGroup;
   ministros$: Observable<Ministro[]>;
-  recursos$: Observable<TipoRecursoDto>;
+  recursos$: Observable<TipoRecursoDto[]>;
 
   constructor(
     private _fb: FormBuilder,

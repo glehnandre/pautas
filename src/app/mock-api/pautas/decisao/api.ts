@@ -96,13 +96,15 @@ export class DecisaoMockApi {
       this._fuseMockApiService
         .onPost('modelo-decisao')
         .reply(({request}) => {
-          const body = request.body as ModeloDecisao;
+          const body = request.body;
           const index = this._modeloDecisao.findIndex(m => m.id === body.id);
 
           if (index === -1) {
+            const dispositivo = dispositivos.find(d => d.id === body.dispositivo);
             body.id = this._modeloDecisao.length+1;
-            this._modeloDecisao.push(body);
+            this._modeloDecisao.push({...body, dispositivo});
 
+            console.log(this._modeloDecisao)
             return [200, { description: "Sucesso." }];
           }
 

@@ -34,7 +34,19 @@
 
         <div class="flex flex-row space-x-2 ml-auto">
             <button mat-button>Cancelar</button>
-            <button mat-button class="text-white bg-primary">Salvar</button>
+            <button mat-button class="text-white bg-primary" (click)="salvar()">Salvar</button>
         </div>
+    </div>
+
+    <div class="absolute top-0 right-0 z-9999">
+        <fuse-alert class="max-w-120 mx-auto"
+                    [type]="'error'"
+                    [appearance]="'soft'"
+                    [dismissible]=true
+                    [dismissed]=true
+                    [name]="'alertBox'">
+            <span fuseAlertTitle>Erro de validação</span>
+            {{mensagem}}
+        </fuse-alert>
     </div>
 </div>

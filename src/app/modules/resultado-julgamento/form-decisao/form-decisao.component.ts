@@ -6,12 +6,15 @@ import { Dispositivo } from 'app/modules/acervo/model/interfaces/dispositivo.int
 import { Ministro } from 'app/modules/acervo/model/interfaces/ministro.interface';
 import { ModeloDecisao } from 'app/modules/acervo/model/interfaces/modeloDecisao.interface';
 import { Processo } from 'app/modules/acervo/model/interfaces/processo.interface';
+import { TipoRecursoDto } from 'app/modules/acervo/model/interfaces/tipoRecursoDto';
 import { DispositivoService } from 'app/modules/services/dispositivo.service';
 import { MinistroService } from 'app/modules/services/ministro.service';
 import { ProcessoService } from 'app/modules/services/processo.service';
+import { RecursoService } from 'app/modules/services/recurso.service';
 import { ResultadoJulgamentoService } from 'app/modules/services/resultado-julgamento.service';
 import { isNull } from 'lodash';
 import { Observable } from 'rxjs';
+import { filter, map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-form-decisao',
@@ -28,6 +31,7 @@ export class FormDecisaoComponent implements OnInit, OnChanges, OnDestroy {
   dispositivos: Dispositivo[] = [];
 
   @Input() idProcesso: number = 0;
+  @Input() processo: Processo;
   @Input() isDesabilitarForm: boolean = false;
   @Input() isExibirBtnAdicionarDecisao: boolean = false;
   @Input() isExibirBtnSalvarDecisao: boolean = false;
@@ -102,6 +106,24 @@ export class FormDecisaoComponent implements OnInit, OnChanges, OnDestroy {
    */
   public setIdsDosProcessosSelecionados(idsProcessos: number[]): void {
     this.idsDosProcessos = idsProcessos;
+  }
+
+  public carregarModeloDeDecisao(): void {
+    const { tipo, dispositivo } = this.formDecisao.value;
+    const idDispositivo = this.dispositivos.find(d => d.nome === dispositivo)?.id;
+    
+    if (tipo && dispositivo && this.processo && this.processo.id_tipo_recurso) {
+      this._resultadoJulgamento.obterModeloDecisao(this.processo.classe, tipo, idDispositivo, this.processo.id_tipo_recurso).subscribe({
+        next: (modelo) => {
+          this.formDecisao.controls.texto.setValue(modelo.texto);
+        },
+  
+        error: (error) => {
+          console.log(error)
+          this.formDecisao.controls.texto.setValue('');
+        }
+      });
+    }
   }
 
   /**

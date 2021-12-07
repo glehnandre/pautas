@@ -8,13 +8,17 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSelectModule } from '@angular/material/select';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatButtonModule } from '@angular/material/button';
+import { MatTableModule } from '@angular/material/table';
 import { AcoesComponent } from './acoes.component';
 import { IncluirDocumentoComponent } from './incluir-documento/incluir-documento.component';
+import { FiltroModule } from './incluir-documento/filtros/filtro.module';
+import { TabelaComponent } from './incluir-documento/tabela/tabela.component';
 
 @NgModule({
   declarations: [
     AcoesComponent,
     IncluirDocumentoComponent,
+    TabelaComponent,
   ],
   imports: [
     CommonModule,
@@ -25,6 +29,8 @@ import { IncluirDocumentoComponent } from './incluir-documento/incluir-documento
     MatSelectModule,
     MatChipsModule,
     MatButtonModule,
+    MatTableModule,
+    FiltroModule
   ],
   providers: [{ provide: MAT_DATE_LOCALE, useValue: 'pt-BR' }],
   exports: [
