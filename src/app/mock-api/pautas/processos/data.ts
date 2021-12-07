@@ -23,6 +23,7 @@ export const processo: Processo[] = [
                   tagData[1],
                 ],
     classe:     'ADI',
+    id_tipo_recurso: 1,
     numero:     100,
     situacao:   1,
     tipo:       TipoDoProcesso.Recurso,
@@ -44,6 +45,7 @@ export const processo: Processo[] = [
                   tagData[2],
                 ],
     classe:     'ADI',
+    id_tipo_recurso: 1,
     numero:     200,
     situacao:   2,
     tipo:       TipoDoProcesso.Recurso,
@@ -65,6 +67,7 @@ export const processo: Processo[] = [
                   tagData[3],
                 ],
     classe:     'ADI',
+    id_tipo_recurso: 1,
     numero:     300,
     situacao:   3,
     tipo:       TipoDoProcesso.Merito,
@@ -87,6 +90,7 @@ export const processo: Processo[] = [
                   tagData[2]
                 ],
     classe:     'ADI',
+    id_tipo_recurso: 1,
     numero:     300,
     situacao:   4,
     tipo:       TipoDoProcesso.Recurso,
@@ -108,6 +112,7 @@ export const processo: Processo[] = [
                   tagData[4],
                 ],
     classe:     'RE',
+    id_tipo_recurso: 1,
     numero:     1311742,
     situacao:   1,
     tipo:       TipoDoProcesso.Merito,
@@ -126,6 +131,7 @@ export const processo: Processo[] = [
                   tagData[4],
                 ],
     classe:     'RE',
+    id_tipo_recurso: 1,
     numero:     143255,
     situacao:   1,
     tipo:       TipoDoProcesso.Merito,
@@ -144,6 +150,7 @@ export const processo: Processo[] = [
                   tagData[0],
                 ],
     classe:     'RE',
+    id_tipo_recurso: 1,
     numero:     143255,
     situacao:   1,
     tipo:       TipoDoProcesso.Merito,
@@ -162,6 +169,7 @@ export const processo: Processo[] = [
                   tagData[1],
                 ],
     classe:     'RE',
+    id_tipo_recurso: 1,
     numero:     142685,
     situacao:   1,
     tipo:       TipoDoProcesso.Merito,
@@ -180,6 +188,7 @@ export const processo: Processo[] = [
                   tagData[2],
                 ],
     classe:     'ADI',
+    id_tipo_recurso: 1,
     numero:     6185,
     situacao:   2,
     tipo:       TipoDoProcesso.Merito,
@@ -200,6 +209,8 @@ export const documentos: Documento[] = [
     tipo: 'pdf',
     status: 'Assinado',
     url: '/assets/pdf/relatorio-adi6185-Ed.pdf',
+    data_criacao: '2016-08-29T09:12:33.001Z',
+    data_modificacao: '2016-08-29T09:12:33.001Z',
   },
 
   {
@@ -207,7 +218,9 @@ export const documentos: Documento[] = [
     nome: "Voto AM",
     tipo: "pdf",
     status: 'Assinado',
-    url: "/assets/pdf/voto-alexandre-divergenteadi6185-Ed.pdf"
+    url: "/assets/pdf/voto-alexandre-divergenteadi6185-Ed.pdf",
+    data_criacao: '2016-08-29T09:12:33.001Z',
+    data_modificacao: '2016-08-29T09:12:33.001Z',
   },
 
   {
@@ -216,6 +229,8 @@ export const documentos: Documento[] = [
     tipo: 'pdf',
     status: 'Assinado',
     url: '/assets/pdf/voto-luis-barroso-barroso-adi6185-Ed.pdf',
+    data_criacao: '2016-08-29T09:12:33.001Z',
+    data_modificacao: '2016-08-29T09:12:33.001Z',
   },
 
   {
@@ -224,6 +239,8 @@ export const documentos: Documento[] = [
     tipo: 'pdf',
     status: 'Assinado',
     url: '/assets/pdf/voto-marco-aurelio-relator-adi6185-Ed.pdf',
+    data_criacao: '2016-08-29T09:12:33.001Z',
+    data_modificacao: '2016-08-29T09:12:33.001Z',
   },
 ]
 

@@ -1,4 +1,4 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { AfterContentChecked, AfterContentInit, AfterViewInit, Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatSelectionListChange } from '@angular/material/list';
@@ -30,7 +30,7 @@ export class FormModeloDecisaoComponent implements OnInit {
 
   formModeloDecisao: FormGroup;
   dispositivos: Dispositivo[];
-  recursos$: Observable<TipoRecursoDto>;
+  recursos$: Observable<TipoRecursoDto[]>;
   modelo: ModeloDecisao = {
     id: 0,
     classe: '',
@@ -41,6 +41,7 @@ export class FormModeloDecisaoComponent implements OnInit {
   };
   linhaAtualDoTexto: number = 1;
   exibirSugestoes: boolean = false;
+  exibirAlerta: boolean = false;
 
   constructor(
     private _fb: FormBuilder,
@@ -101,6 +102,7 @@ export class FormModeloDecisaoComponent implements OnInit {
               tipoCapitulo: null,
             };
             this.formModeloDecisao.controls.texto.setValue('');
+            this.exibirAlerta = true;
             this._fuseAlertService.show('aviso-form-modelo-decisao');          
 
             setTimeout(() => {

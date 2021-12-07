@@ -1,0 +1,106 @@
+<table
+    class="table-fixed bg-transparent w-full"
+    mat-table
+    [dataSource]="dataSource"
+>
+    <ng-container matColumnDef="documento">
+        <th
+            class="bg-gray-50 dark:bg-black dark:bg-opacity-5 text-center"
+            mat-header-cell
+            *matHeaderCellDef
+            disableClear
+        >
+            Documento
+        </th>
+        <td
+            class="text-center"
+            mat-cell
+            *matCellDef="let document"
+        >
+            <div class="flex flex-row justify-start">
+                <mat-checkbox
+                    color="primary"
+                    class="mr-12"
+                ></mat-checkbox>
+
+                <span>
+                    {{document.nome}}
+                </span>
+            </div>
+        </td>
+    </ng-container>
+
+    <ng-container matColumnDef="data">
+        <th
+            class="bg-gray-50 dark:bg-black dark:bg-opacity-5 text-center"
+            mat-header-cell
+            *matHeaderCellDef
+            disableClear
+        >
+            Data de criação
+        </th>
+        <td
+            class="text-center"
+            mat-cell
+            *matCellDef="let document"
+        >
+            {{document.data_criacao | date: 'dd/MM/yyyy'}}
+        </td>
+    </ng-container>
+
+    <ng-container matColumnDef="situacao">
+        <th
+            class="bg-gray-50 dark:bg-black dark:bg-opacity-5 text-center"
+            mat-header-cell
+            *matHeaderCellDef
+            disableClear
+        >
+            Situação
+        </th>
+        <td
+            class="text-center"
+            mat-cell
+            *matCellDef="let document"
+        >
+            <mat-chip [class]="document.situacao === 'Removido' ? 'bg-red-700 text-white' : 'bg-green-700 text-white'">
+                {{document.status}}
+            </mat-chip>
+        </td>
+    </ng-container>
+
+    <ng-container matColumnDef="arquivo">
+        <th
+            class="bg-gray-50 dark:bg-black dark:bg-opacity-5 text-center"
+            mat-header-cell
+            *matHeaderCellDef
+            disableClear
+        >
+            Arquivo
+        </th>
+        <td
+            class="text-center"
+            mat-cell
+            *matCellDef="let document"
+        >
+            <mat-chip
+                (click)="emiteLink(document.arquivo)"
+                class="border-primary border-solid border-2 bg-transparent text-primary mr-2 mt-1"
+            >
+                <mat-icon class="mr-2" style="color:red">picture_as_pdf</mat-icon>
+                Abrir
+            </mat-chip>
+        </td>
+    </ng-container>
+
+    <tr
+        class="shadow"
+        mat-header-row
+        *matHeaderRowDef="['documento', 'data', 'situacao', 'arquivo']"
+    ></tr>
+
+    <tr
+        class="hover:bg-gray-100 dark:hover:bg-hover"
+        mat-row
+        *matRowDef="let document; columns: ['documento', 'data', 'situacao', 'arquivo'];"
+    ></tr>
+</table>

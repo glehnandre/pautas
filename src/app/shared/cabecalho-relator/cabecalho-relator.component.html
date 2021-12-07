@@ -1,6 +1,6 @@
 <div id="cabecalho" class="flex flex-row justify-between">
     <div id="div1" class="flex">
-        <div class="flex flex-nowrap flex-row">
+        <div class="flex flex-nowrap flex-row mt-2 ml-2">
             <img [src]="relator?.imagem" alt="Imagem de perfil"
                 class="w-14 h-14 mr-6 mb-4 rounded-full ng-tns-c129-57 ng-star-inserted">
             <div class="flex flex-col flex-none mr-14 ng-tns-c129-56 ng-star-inserted">
@@ -94,9 +94,9 @@
                 (linkDoPdfSelecionado)="abrirLink($event)"
             ></app-carrossel>
 
-            <div *ngIf="sessao" class="right-4 lg:right-16 flex flex-col items-end">
+            <div *ngIf="sessao" class="mr-auto max-w-60 shadow-md p-2">
                 <app-dados-da-sessao
-                    class="w-60 shadow-md"
+                    class=""
                     [sessao]="sessao"
                 ></app-dados-da-sessao>
             </div>

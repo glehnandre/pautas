@@ -20,4 +20,5 @@ export interface Processo {
     redator?: Ministro;
     checked?: boolean;
     documentos?: Documento[];
+    id_tipo_recurso?: number;
   }
