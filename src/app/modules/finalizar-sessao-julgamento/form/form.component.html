@@ -8,8 +8,9 @@
             formControlName="secretario"
             required
             [matAutocomplete]="auto"
+            (input)="emitirForm()"
         >
-        <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
+        <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete" (optionSelected)="emitirForm()">
             <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
               {{option}}
             </mat-option>
@@ -22,18 +23,14 @@
 
     <mat-form-field appearance="fill" class="w-full mt-8">
         <mat-label class="font-medium">Outros presentes</mat-label>
-        <input matInput name="outros" formControlName="outrosPresentes">
+        <input matInput name="outros" formControlName="outrosPresentes" (input)="emitirForm()">
         <mat-hint>Informe o nome de outros presentes caso existam. O texto será gravado e apresentado da forma que escrita.</mat-hint>
     </mat-form-field>
 
     <span class="text-2xl font-medium text-primary mt-8">Cabeçalho</span>
     <mat-form-field appearance="outline" class="w-full mt-4">
         <mat-label class="font-medium">Digite o cabeçalho ou informações complementares</mat-label>
-        <textarea matInput rows="10" name="cabecalho" formControlName="cabecalho"></textarea>
+        <textarea matInput rows="10" name="cabecalho" formControlName="cabecalho" (input)="emitirForm()"></textarea>
     </mat-form-field>
-
-    <div class="flex flex-row space-x-2 ml-auto">
-        <button mat-button>Cancelar</button>
-        <button mat-button class="text-white bg-primary" (click)="teste()">Salvar</button>
-    </div>
+    
 </form>

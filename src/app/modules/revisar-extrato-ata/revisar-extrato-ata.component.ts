@@ -4,6 +4,7 @@ import { ResultadoJulgamentoService } from '../services/resultado-julgamento.ser
 import { Ata } from '../acervo/model/interfaces/ata.interface';
 import { MatDialog } from '@angular/material/dialog';
 import { PublicarFormComponent } from './publicar-form/publicar-form.component';
+import { CorrecaoCapituloFormComponent } from './correcao-capitulo-form/correcao-capitulo-form.component';
 
 interface Parametros {
     numero: number;
@@ -59,5 +60,16 @@ export class RevisarExtratoAtaComponent implements OnInit {
         console.log(form);
       }
     });
+  }
+
+  corrigir(): void {
+    const dialogRef = this._matDialog
+      .open(CorrecaoCapituloFormComponent, {
+        data: this.ata.capitulos_para_publicacao,
+      });
+
+    dialogRef.afterClosed().subscribe({
+      next: () => {}
+    })
   }
 }

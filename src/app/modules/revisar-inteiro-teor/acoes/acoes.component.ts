@@ -1,9 +1,11 @@
 import { Component, EventEmitter, Input, Output, OnInit } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { AlertaService } from '../../services/alerta.service';
 import { DocumentoInteiroTeor } from '../../acervo/model/interfaces/documento-inteiro-teor.interface';
 import { SessaoJulgamento } from '../../acervo/model/interfaces/sessao-julgamento.interface';
 import { Tag } from '../../acervo/model/interfaces/tag.interface';
 import { RevisarInteiroTeorService } from '../../services/revisar-inteiro-teor.service';
+import { IncluirDocumentoComponent } from './incluir-documento/incluir-documento.component';
 
 export interface RevisaoInteiroTeor {
     id_processo: number;
@@ -34,6 +36,7 @@ export class AcoesComponent implements OnInit {
   readonly NOME_DO_ALERTA_DESTA_CLASSE = 'alerta_revisar_inteiro_teor';
 
   constructor(
+    private _matDialog: MatDialog,
     private _alertaService: AlertaService,
     private _inteiroTeorService: RevisarInteiroTeorService,
   ) { }
@@ -93,13 +96,11 @@ export class AcoesComponent implements OnInit {
    */
    public incluirNovoDocumento(): void {
     if (this._isAlgumaLinhaSelecionada()) {
-        const ids = this.linhasSelecionadas.map((linha) => linha.id)
+        const dialogRef = this._matDialog.open(IncluirDocumentoComponent, {
+            maxHeight: '560px',
+        });
 
-        this._inteiroTeorService.incluirDocumentosDoInteiroTeorDoProcesso(this.idProcesso, ids).subscribe({
-            next: (data) => {
-              console.log(data);
-            }
-        })
+        dialogRef.afterClosed().subscribe((resultado) => {});
     }
   }
 

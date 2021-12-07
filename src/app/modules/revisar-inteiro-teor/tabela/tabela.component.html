@@ -149,7 +149,7 @@
             mat-cell
             *matCellDef="let document"
         >
-            <mat-chip [class]="document.situacao === 'Cancelado' ? 'bg-red-700 text-white' : 'bg-green-700 text-white'">
+            <mat-chip [class]="document.situacao === 'Removido' ? 'bg-red-700 text-white' : 'bg-green-700 text-white'">
                 {{document.situacao}}
             </mat-chip>
         </td>
@@ -272,7 +272,7 @@
     ></tr>
 
     <tr
-        [class]="document.situacao === 'Cancelado' ? 'bg-red-100' : 'hover:bg-gray-100 dark:hover:bg-hover'"
+        [class]="document.situacao === 'Removido' ? 'bg-red-100' : 'hover:bg-gray-100 dark:hover:bg-hover'"
         mat-row
         cdkDrag
         [cdkDragLockAxis]="'y'"
