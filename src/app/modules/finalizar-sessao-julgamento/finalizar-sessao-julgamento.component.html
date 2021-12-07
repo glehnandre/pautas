@@ -23,11 +23,18 @@
     <!-- Main -->
     <div class="flex flex-col mt-8">
         <app-composicao
-          [presidente]="sessao?.presidencia"
+          [presidente]="sessao.presidencia"
+          (statusComposicao)="recuperaComposicao($event)"
         ></app-composicao>
 
         <app-form
           [secretario]="sessao?.secretario"
+          (statusForm)="recuperaForm($event)"
         ></app-form>
+
+        <div class="flex flex-row space-x-2 ml-auto">
+            <button mat-button>Cancelar</button>
+            <button mat-button class="text-white bg-primary">Salvar</button>
+        </div>
     </div>
 </div>

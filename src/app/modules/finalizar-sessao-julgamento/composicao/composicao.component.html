@@ -32,7 +32,7 @@
             [checked]="isChecked(presidente?.nome)"
             [name]="presidente?.nome"
             color="primary"
-            (change)="check($event)"
+            (change)="check($event, 'presidente')"
         ></mat-checkbox>
     </div>
     <div class="flex flex-row items-center py-2 overflow-hidden">
@@ -64,7 +64,7 @@
                     [name]="primeira.nome"
                     class="pt-3"
                     color="primary"
-                    (change)="check($event)"
+                    (change)="check($event, 'primeira-turma')"
                 ></mat-checkbox>
             </div>
         </div>
@@ -100,7 +100,7 @@
                     [name]="segunda.nome"
                     class="pt-3"
                     color="primary"
-                    (change)="check($event)"
+                    (change)="check($event, 'segunda-turma')"
                 ></mat-checkbox>
             </div>
         </div>

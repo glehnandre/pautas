@@ -18,6 +18,8 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatInputModule } from '@angular/material/input';
 import { ExtratoAtaComponent } from './extrato-ata/extrato-ata.component';
+import { CorrecaoCapituloFormComponent } from './correcao-capitulo-form/correcao-capitulo-form.component';
+import { MatCheckboxModule } from '@angular/material/checkbox';
 
 const RevisarExtratoAtaRoute: Routes = [
     { path: '', component: RevisarExtratoAtaComponent}
@@ -29,12 +31,14 @@ const RevisarExtratoAtaRoute: Routes = [
     StackedBarProcessosComponent,
     PublicarFormComponent,
     ExtratoAtaComponent,
+    CorrecaoCapituloFormComponent,
   ],
   imports: [
     CommonModule,
     RouterModule.forChild(RevisarExtratoAtaRoute),
     SharedModule,
     MatButtonModule,
+    MatCheckboxModule,
     MatChipsModule,
     MatDatepickerModule,
     MatDialogModule,
