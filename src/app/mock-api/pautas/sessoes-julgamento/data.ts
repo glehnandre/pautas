@@ -46,6 +46,7 @@ export const processos: Processo[] = [
   {
     id: 123455,
     abreviacao: '',
+    id_tipo_recurso: 1,
     ementa: "Sessão de julgamento extraordinária para tratar da divisão de terras.",
     lista: [{
       descricao: "Semelhante a ADI 100",

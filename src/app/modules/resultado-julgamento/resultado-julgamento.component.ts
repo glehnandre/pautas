@@ -42,7 +42,7 @@ export class ResultadoJulgamentoComponent implements OnInit {
 
   dados: DecisoesResultadoJulgamento;
   parametros: Parametros;
-  processo: string;
+  processo: Processo;
   votos: Voto[] = [];
   dispositivos: Manifestacao[] = [];
   decisoesAdicionadas: Array<Decisao> = [];
@@ -289,6 +289,15 @@ export class ResultadoJulgamentoComponent implements OnInit {
     });
   }
 
+  public getDadosDoProcesso(): string {
+    if (this.processo) {
+      const { classe, numero, nome } = this.processo;
+      return `${classe} ${numero} ${nome}`;
+    }
+
+    return '';
+  }
+
   /**
    * @public Método público
    * @description Método para finanizar a tafera de ResultadoJulgamento
@@ -325,8 +334,8 @@ export class ResultadoJulgamentoComponent implements OnInit {
   private _carregarProcessos(): void {
     this._processoService.listarProcessos(new HttpParams().set('processo', this.parametros.processo)).subscribe({
       next: ([processo]) => {
-        const { id, classe, numero, nome } = processo;
-        this.processo = `${classe} ${numero} ${nome}`;
+        const { id, classe, numero, abreviacao } = processo;
+        this.processo = processo;
 
         this._processoService.obterVotosDoProcesso(id).subscribe({
           next: (votos) => {

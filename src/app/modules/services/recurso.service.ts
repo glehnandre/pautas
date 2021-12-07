@@ -13,11 +13,11 @@ export class RecursoService {
     private _httpClient: HttpClient,
   ) { }
 
-  public obterListaDeRecursos(id?: number): Observable<TipoRecursoDto> {
+  public obterListaDeRecursos(id?: number): Observable<TipoRecursoDto[]> {
     let params = new HttpParams();
     params = params.set('id', id);
 
-    return this._httpClient.get<TipoRecursoDto>(`recursos`, {
+    return this._httpClient.get<TipoRecursoDto[]>(`recursos`, {
       params,
     }).pipe(
       catchError(error => {
