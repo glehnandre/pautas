@@ -8,16 +8,17 @@
 
     <!-- Formulário -->
     <form
-      class="flex flex-col w-72 space-y-4 md:space-y-2 p-4"
-      [formGroup]="correcaoCapitulosForm">
+      class="flex flex-col p-4 min-w-72 max-h-80 sm:max-h-100 overflow-y-auto space-y-4 md:space-y-2"
+      [formGroup]="correcaoCapitulosForm" cdkScrollable>
         <!-- Selecionar Capitulo para Correção -->
         <ng-container formArrayName="correcoes">
             <ng-container *ngFor="let correcao of correcoes.controls; let i = index;">
-                <form [formGroup]="correcao">
+                <form [formGroup]="correcao" class="flex flex-col">
                     <mat-checkbox color="primary" formControlName="marcado" (change)="apagaCorrecao(i)">
-                        {{ capitulos[i].classe_extenso }}
+                        {{ capitulos[i].classe }} {{ capitulos[i].numero }} - {{ capitulos[i].cadeia }}
                     </mat-checkbox>
-                    <mat-form-field class="w-full" *ngIf="correcao.controls.marcado.value">
+                    <mat-form-field class="mt-2" appearance="outline" *ngIf="correcao.controls.marcado.value">
+                        <mat-label>Informe o texto a ser corrigido</mat-label>
                         <textarea matInput formControlName="correcao"></textarea>
                     </mat-form-field>
                 </form>
@@ -30,7 +31,7 @@
         <button class="ml-auto text-xs sm:text-base" mat-raised-button mat-dialog-close>Cancelar</button>
         <button
           class="text-xs sm:text-base" color="primary" mat-raised-button
-          (click)="enviarCorrecao()" [disabled]="correcaoCapitulosForm.invalid">
+          (click)="enviarCorrecao()" [disabled]="marcadoCorrecao().length < 1">
             Salvar
         </button>
     </div>

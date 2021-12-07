@@ -1,9 +1,12 @@
 import { Injectable } from '@angular/core';
 import { FuseMockApiService } from '@fuse/lib/mock-api/mock-api.service';
+
 import { Ata } from 'app/modules/acervo/model/interfaces/ata.interface';
 import { DecisoesResultadoJulgamento } from 'app/modules/acervo/model/interfaces/decisao.interface';
 import { ModeloDecisao } from 'app/modules/acervo/model/interfaces/modeloDecisao.interface';
+
 import { dispositivos } from '../dispositivo/data';
+import { processo } from '../processos/data';
 import { decisoes as decisoesData, modeloDecisao } from './data';
 import { ata as ataData} from './data';
 
@@ -36,11 +39,11 @@ export class DecisaoMockApi {
         .reply(({request, urlParams}) => {
           const idProcesso = +urlParams.id;
           const { decisao, processos_mesma_decisao } = request.body;
-          
+
           if (idProcesso) {
             const index = this._decisoes[0].decisoes
               .findIndex(dec => JSON.stringify(dec.capitulo) === JSON.stringify(decisao));
-            
+
             if (decisao.id) {
               const index = this._decisoes[0].decisoes.findIndex(it => it.capitulo.id === decisao.id);
               this._decisoes[0].decisoes.splice(index, 1);
@@ -58,7 +61,7 @@ export class DecisaoMockApi {
               });
             }
 
-            return [201, this._decisoes[0]];     
+            return [201, this._decisoes[0]];
           }
 
           return [404, {
@@ -99,7 +102,7 @@ export class DecisaoMockApi {
           if (index === -1) {
             body.id = this._modeloDecisao.length+1;
             this._modeloDecisao.push(body);
-            
+
             return [200, { description: "Sucesso." }];
           }
 
@@ -120,8 +123,8 @@ export class DecisaoMockApi {
           if (modelo !== undefined) {
             return [200, modelo];
           } else {
-            return [404, { 
-              description: "Não foram encontrados dispositivos para o processo" 
+            return [404, {
+              description: "Não foram encontrados dispositivos para o processo"
             }];
           }
 
@@ -146,15 +149,14 @@ export class DecisaoMockApi {
         });
 
       this._fuseMockApiService
-        .onGet('ata/:num&:ano')
+        .onGet('ata/:id')
         .reply( ({ urlParams }) => {
-          let num: number, ano:number;
+          let id: number;
 
           try {
-            num = +urlParams.num;
-            ano = +urlParams.ano;
+            id = +urlParams.id;
           } catch (error) {
-            return [400, { description: 'Parâmetros incorretos para ação.' }]
+            return [400, { description: 'Parâmetros incorretos para ação.' }];
           }
           const ata = this._ata;
 
@@ -162,6 +164,21 @@ export class DecisaoMockApi {
             [200,  ata]:
             [404, { description: 'Não há sessão de julgamento com esse identificador' }];
         });
+
+      this._fuseMockApiService
+        .onPost('ata/:id')
+        .reply( ({ request, urlParams }) => {
+          let id: number;
+          const {  body } = request;
+          try {
+            id = +urlParams.id;
+          } catch (error) {
+            return [400, { description: 'Parâmetros incorretos para ação.' }];
+          }
+          return processo.filter( ({ id }) => body == id).length ?
+            [200, 'Sucesso']:
+            [404, 'Nenhum processo encontrado'];
+        })
 
     }
 }

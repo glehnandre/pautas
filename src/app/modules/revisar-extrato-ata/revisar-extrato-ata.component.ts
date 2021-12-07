@@ -7,8 +7,7 @@ import { PublicarFormComponent } from './publicar-form/publicar-form.component';
 import { CorrecaoCapituloFormComponent } from './correcao-capitulo-form/correcao-capitulo-form.component';
 
 interface Parametros {
-    numero: number;
-    ano: number;
+    id: number;
 }
 
 @Component({
@@ -34,11 +33,10 @@ export class RevisarExtratoAtaComponent implements OnInit {
     this.parametros = this._route.snapshot.queryParams as Parametros;
 
     this._resultadoJulgamento
-      .getAta(this.parametros.numero, this.parametros.ano)
+      .getAta(this.parametros.id)
       .subscribe({
         next: (ata) => {
           this.ata = ata;
-          console.log(this.ata);
           this.tags = [ ata.sessao.tipo, ata.sessao.modalidade ];
         }
       });
@@ -65,7 +63,11 @@ export class RevisarExtratoAtaComponent implements OnInit {
   corrigir(): void {
     const dialogRef = this._matDialog
       .open(CorrecaoCapituloFormComponent, {
-        data: this.ata.capitulos_para_publicacao,
+        data: {
+          id_sessao: this.ata.sessao.id,
+          capitulos: this.ata.capitulos_para_publicacao,
+        },
+        maxHeight: '100vh', maxWidth: '100vw'
       });
 
     dialogRef.afterClosed().subscribe({

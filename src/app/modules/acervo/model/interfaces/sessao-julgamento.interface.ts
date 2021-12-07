@@ -1,6 +1,7 @@
 import { Ministro } from "./ministro.interface";
 
 export interface SessaoJulgamento {
+    id: number;
     numero: number;
     ano: number;
     colegiado: string;
