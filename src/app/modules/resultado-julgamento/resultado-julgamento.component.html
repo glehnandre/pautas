@@ -16,43 +16,58 @@
             [votos]="votos"
         ></app-cabecalho-relator>
 
-        <div class="flex flex-row items-end mb-4 sm:my-4 ml-auto">
-            <button class="z-0 mr-4" mat-button>
-                <span>Cancelar</span>
-            </button>
+        <div class="flex flex-row items-start mb-4">
+            <div>
+                <button 
+                    class="mr-4"
+                    color="primary" 
+                    mat-raised-button 
+                    (click)="finalizar()"
+                >
+                    Finalizar 
+                </button>
 
-            <button 
-                mat-raised-button 
-                class="max-w-full mr-4" 
-                (click)="exibirModalDeModeloDecisao()"
-            >
-                Modelos de Texto
-            </button>
+                <button 
+                    mat-raised-button 
+                    class="max-w-full mr-4" 
+                    (click)="exibirModalDeModeloDecisao()"
+                >
+                    Modelos de Texto
+                </button>
 
-            <button 
-                mat-raised-button 
-                class="max-w-full mr-4" 
-                (click)="exibirModalDeVista()"
-            >
-                Vista
-            </button>
+                <button 
+                    mat-raised-button 
+                    class="max-w-full mr-4" 
+                    (click)="exibirModalDeVista()"
+                >
+                    Vista
+                </button>
 
-            <button 
-                mat-raised-button 
-                class="max-w-full mr-4" 
-                (click)="exibirModalDeDestaque()"
-            >
-                Destaque
-            </button>
+                <button 
+                    mat-raised-button 
+                    class="max-w-full mr-4" 
+                    (click)="exibirModalDeDestaque()"
+                >
+                    Destaque
+                </button>
 
-            <button 
-                class="mr-4"
-                color="primary" 
-                mat-raised-button 
-                (click)="finalizar()"
-            >
-                Finalizar 
-            </button>
+                <button class="z-0 mr-4" mat-button>
+                    <span>Cancelar</span>
+                </button>
+            </div>
+
+            <div class="">
+                <mat-chip-list
+                    class=""
+                >
+                    <mat-chip
+                        class="mt-2"
+                        *ngFor="let chip of ['teste 1', 'teste 2']"
+                    >
+                        {{chip}}
+                    </mat-chip>
+                </mat-chip-list>
+            </div>
         </div>
     </header>
 

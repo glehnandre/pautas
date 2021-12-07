@@ -68,7 +68,6 @@ export class FormDecisaoComponent implements OnInit, OnChanges, OnDestroy {
     private _ministroService: MinistroService,
     private _dispositivoService: DispositivoService,
     private _processoService: ProcessoService,
-    private _recursoService: RecursoService,
   ) {}
 
   ngOnInit(): void {
@@ -113,27 +112,17 @@ export class FormDecisaoComponent implements OnInit, OnChanges, OnDestroy {
     const { tipo, dispositivo } = this.formDecisao.value;
     const idDispositivo = this.dispositivos.find(d => d.nome === dispositivo)?.id;
     
-    if (tipo && dispositivo && this.processo) {
-      this._recursoService.obterListaDeRecursos()
-        .pipe(
-          map(recursos => recursos
-            .filter(({sigla, descricao}) => (sigla === this.processo.abreviacao && this.processo.nome === descricao))
-          )
-        )
-        .subscribe({
-          next: ([recurso]) => {
-            this._resultadoJulgamento.obterModeloDecisao(this.processo.classe, tipo, idDispositivo, recurso.id).subscribe({
-              next: (modelo) => {
-                this.formDecisao.controls.texto.setValue(modelo.texto);
-              },
-        
-              error: (error) => {
-                console.log(error)
-                this.formDecisao.controls.texto.setValue('');
-              }
-            });
-          }
-        });
+    if (tipo && dispositivo && this.processo && this.processo.id_tipo_recurso) {
+      this._resultadoJulgamento.obterModeloDecisao(this.processo.classe, tipo, idDispositivo, this.processo.id_tipo_recurso).subscribe({
+        next: (modelo) => {
+          this.formDecisao.controls.texto.setValue(modelo.texto);
+        },
+  
+        error: (error) => {
+          console.log(error)
+          this.formDecisao.controls.texto.setValue('');
+        }
+      });
     }
   }
 
