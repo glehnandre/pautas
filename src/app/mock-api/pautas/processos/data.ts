@@ -200,6 +200,8 @@ export const documentos: Documento[] = [
     tipo: 'pdf',
     status: 'Assinado',
     url: '/assets/pdf/relatorio-adi6185-Ed.pdf',
+    data_criacao: '2016-08-29T09:12:33.001Z',
+    data_modificacao: '2016-08-29T09:12:33.001Z',
   },
 
   {
@@ -207,7 +209,9 @@ export const documentos: Documento[] = [
     nome: "Voto AM",
     tipo: "pdf",
     status: 'Assinado',
-    url: "/assets/pdf/voto-alexandre-divergenteadi6185-Ed.pdf"
+    url: "/assets/pdf/voto-alexandre-divergenteadi6185-Ed.pdf",
+    data_criacao: '2016-08-29T09:12:33.001Z',
+    data_modificacao: '2016-08-29T09:12:33.001Z',
   },
 
   {
@@ -216,6 +220,8 @@ export const documentos: Documento[] = [
     tipo: 'pdf',
     status: 'Assinado',
     url: '/assets/pdf/voto-luis-barroso-barroso-adi6185-Ed.pdf',
+    data_criacao: '2016-08-29T09:12:33.001Z',
+    data_modificacao: '2016-08-29T09:12:33.001Z',
   },
 
   {
@@ -224,6 +230,8 @@ export const documentos: Documento[] = [
     tipo: 'pdf',
     status: 'Assinado',
     url: '/assets/pdf/voto-marco-aurelio-relator-adi6185-Ed.pdf',
+    data_criacao: '2016-08-29T09:12:33.001Z',
+    data_modificacao: '2016-08-29T09:12:33.001Z',
   },
 ]
 

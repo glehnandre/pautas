@@ -17,7 +17,16 @@
             mat-cell
             *matCellDef="let document"
         >
-            {{document.nome}}
+            <div class="flex flex-row justify-start">
+                <mat-checkbox
+                    color="primary"
+                    class="mr-12"
+                ></mat-checkbox>
+
+                <span>
+                    {{document.nome}}
+                </span>
+            </div>
         </td>
     </ng-container>
 
@@ -35,7 +44,7 @@
             mat-cell
             *matCellDef="let document"
         >
-            27/08/2021
+            {{document.data_criacao | date: 'dd/MM/yyyy'}}
         </td>
     </ng-container>
 

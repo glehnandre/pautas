@@ -4,4 +4,6 @@ export interface Documento {
     tipo: string;
     status: 'Assinado' | 'Cancelado';
     url: string;
+    data_criacao: string;
+    data_modificacao: string;
   }
