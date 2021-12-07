@@ -11,11 +11,13 @@ import { MatButtonModule } from '@angular/material/button';
 import { AcoesComponent } from './acoes.component';
 import { IncluirDocumentoComponent } from './incluir-documento/incluir-documento.component';
 import { FiltroModule } from './incluir-documento/filtros/filtro.module';
+import { TabelaComponent } from './incluir-documento/tabela/tabela.component';
 
 @NgModule({
   declarations: [
     AcoesComponent,
     IncluirDocumentoComponent,
+    TabelaComponent,
   ],
   imports: [
     CommonModule,
