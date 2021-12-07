@@ -89,4 +89,14 @@ export class JulgamentoService {
     );
   }
 
+  public finalizarSessaoDeJulgamento(numero: number, ano: number, resposta: any): Observable<void> {
+    const numeroAno = `${numero}-${ano}`;
+    return this._httpClient.put<void>(`sessoes-de-julgamento/${numeroAno}/finalizar`, resposta).pipe(
+      catchError((error) => {
+        console.log(error);
+        return EMPTY;
+      }),
+    );
+  }
+
 }
