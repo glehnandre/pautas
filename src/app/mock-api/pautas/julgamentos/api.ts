@@ -131,5 +131,26 @@ export class JulgamentoMockApi {
             return [404, { description: 'Sessao de julgamento não foi encontrada' }];
           }
         });
+
+        this._fuseMockApiService
+        .onPut('sessoes-de-julgamento/:numero-ano/finalizar')
+        .reply(({request, urlParams}) => {
+          const numeroAno = urlParams['numero-ano'];
+
+          let sessaoDeJulgamento;
+          this._julgamentos
+            .map(julg => {
+              let numeroano = `${julg.numero}-${julg.ano}`;
+              if(numeroano == numeroAno){
+                sessaoDeJulgamento = julg;
+              }
+            });
+
+          if (sessaoDeJulgamento) {
+            return [200, { description: 'Sucesso'}];
+          } else {
+            return [404, { description: 'Sessao de julgamento não foi encontrada' }];
+          }
+        });
     }
 }

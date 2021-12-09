@@ -8,6 +8,7 @@ import { ministro } from '../ministro/data';
 
 export const julgamentos: SessaoJulgamento[] = [
   {
+      id: 0,
       numero: 1000,
       ano: 2021,
       colegiado: 'Primeira turma',
@@ -31,6 +32,7 @@ export const julgamentos: SessaoJulgamento[] = [
   },
   {
     ano: 2021,
+    id: 1,
     numero: 1,
     colegiado: 'Primeira Turma',
     modalidade: 'Virtual',
@@ -49,6 +51,7 @@ export const julgamentos: SessaoJulgamento[] = [
   },
   {
     ano: 2021,
+    id: 2,
     numero: 2,
     colegiado: 'Primeira Turma',
     modalidade: 'Virtual',
@@ -67,6 +70,7 @@ export const julgamentos: SessaoJulgamento[] = [
   },
   {
     ano: 2021,
+    id: 3,
     numero: 3,
     colegiado: 'Segunda Turma',
     modalidade: 'Virtual',
@@ -85,6 +89,7 @@ export const julgamentos: SessaoJulgamento[] = [
   },
   {
     ano: 2021,
+    id: 4,
     numero: 4,
     colegiado: 'Segunda Turma',
     modalidade: 'Virtual',
@@ -103,6 +108,7 @@ export const julgamentos: SessaoJulgamento[] = [
   },
   {
     ano: 2021,
+    id: 5,
     numero: 5,
     colegiado: 'Segunda Turma',
     modalidade: 'Virtual',
@@ -121,6 +127,7 @@ export const julgamentos: SessaoJulgamento[] = [
   },
   {
     ano: 2021,
+    id: 6,
     numero: 6,
     colegiado: 'Segunda Turma',
     modalidade: 'Virtual',
@@ -139,6 +146,7 @@ export const julgamentos: SessaoJulgamento[] = [
   },
   {
     ano: 2021,
+    id: 7,
     numero: 7,
     colegiado: 'Segunda Turma',
     modalidade: 'Virtual',
@@ -157,6 +165,7 @@ export const julgamentos: SessaoJulgamento[] = [
   },
   {
     ano: 2021,
+    id: 8,
     numero: 8,
     colegiado: 'Pleno',
     modalidade: 'Virtual',
@@ -175,6 +184,7 @@ export const julgamentos: SessaoJulgamento[] = [
   },
   {
     ano: 2021,
+    id: 9,
     numero: 9,
     colegiado: 'Pleno',
     modalidade: 'Virtual',
@@ -193,6 +203,7 @@ export const julgamentos: SessaoJulgamento[] = [
   },
   {
     ano: 2021,
+    id: 10,
     numero: 10,
     colegiado: 'Pleno',
     modalidade: 'Virtual',
@@ -211,6 +222,7 @@ export const julgamentos: SessaoJulgamento[] = [
   },
   {
     ano: 2021,
+    id: 11,
     numero: 11,
     colegiado: 'Primeira Turma',
     modalidade: 'Presencial',
@@ -229,6 +241,7 @@ export const julgamentos: SessaoJulgamento[] = [
   },
   {
     ano: 2021,
+    id: 12,
     numero: 12,
     colegiado: 'Primeira Turma',
     modalidade: 'Presencial',
@@ -247,6 +260,7 @@ export const julgamentos: SessaoJulgamento[] = [
   },
   {
     ano: 2021,
+    id: 13,
     numero: 13,
     colegiado: 'Segunda Turma',
     modalidade: 'Presencial',
@@ -265,6 +279,7 @@ export const julgamentos: SessaoJulgamento[] = [
   },
   {
     ano: 2021,
+    id: 14,
     numero: 14,
     colegiado: 'Segunda Turma',
     modalidade: 'Presencial',
@@ -283,6 +298,7 @@ export const julgamentos: SessaoJulgamento[] = [
   },
   {
     ano: 2021,
+    id: 15,
     numero: 15,
     colegiado: 'Pleno',
     modalidade: 'Presencial',
@@ -301,6 +317,7 @@ export const julgamentos: SessaoJulgamento[] = [
   },
   {
     ano: 2021,
+    id: 16,
     numero: 16,
     colegiado: 'Pleno',
     modalidade: 'Presencial',

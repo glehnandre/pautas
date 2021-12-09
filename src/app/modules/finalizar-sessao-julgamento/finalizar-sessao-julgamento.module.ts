@@ -10,7 +10,8 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { ComposicaoComponent } from './composicao/composicao.component';
-import { FormComponent } from './form/form.component'
+import { FormComponent } from './form/form.component';
+import { FuseAlertModule } from '@fuse/components/alert';
 
 const FinalizarSessaoJulgamentoRoutes: Routes = [
   { path: '', component: FinalizarSessaoJulgamentoComponent },
@@ -32,6 +33,7 @@ const FinalizarSessaoJulgamentoRoutes: Routes = [
     ReactiveFormsModule,
     MatButtonModule,
     MatAutocompleteModule,
+    FuseAlertModule,
   ],
   exports: [
     FinalizarSessaoJulgamentoComponent,

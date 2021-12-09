@@ -79,6 +79,7 @@ export const ata: Ata = {
           ministro[3],
           ministro[4],
         ],
+        processo: 0,
         capitulos: [
           capitulo[0],
           capitulo[1],
@@ -153,6 +154,7 @@ export const ata: Ata = {
         ministros_suspeitos: [
           ministro[0],
         ],
+        processo: 1,
         capitulos: [
           capitulo[2],
           capitulo[3],
@@ -228,6 +230,7 @@ export const ata: Ata = {
         ministros_suspeitos: [
           ministro[0],
         ],
+        processo: 2,
         capitulos: [
           capitulo[5],
         ],
