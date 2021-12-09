@@ -19,7 +19,7 @@
         ></app-cabecalho-relator>
 
         <div class="hidden md:grid md:grid-cols-6 lg:grid lg:grid-cols-10 my-2">
-            <div class="md:col-span-4 lg:col-span-6 my-auto">
+            <div class="md:col-span-5 lg:col-span-7 my-auto">
                 <button 
                     class="mr-4"
                     color="primary" 
@@ -53,13 +53,22 @@
                     Destaque
                 </button>
 
-                <button class="z-0 mr-4" mat-button>
+                <button 
+                    mat-raised-button 
+                    class="max-w-full mr-4" 
+                    (click)="exibirModalDeIndicacaoDeImpedimentos()"
+                >
+                    Indicar impedimentos
+                </button>
+
+
+                <button class="z-0 mr-4 md:mt-2" mat-button>
                     <span>Cancelar</span>
                 </button>
             </div>
 
             
-            <div class="md:col-span-2 lg:col-span-4">
+            <div class="md:col-span-1 lg:col-span-3">
                 <app-carrossel
                     [idChip]="'idChipsResultadoJulgamento'"
                     [chips]="chips"
@@ -78,6 +87,7 @@
                     <mat-option (click)="exibirModalDeDestaque()">Destaque</mat-option>
                     <mat-option (click)="exibirModalDeVista()">Vista</mat-option>
                     <mat-option (click)="exibirModalDeModeloDecisao()">Modelos de texto</mat-option>
+                    <mat-option (click)="exibirModalDeIndicacaoDeImpedimentos()">Indicar impedimentos</mat-option>
                     <mat-option>Cancelar</mat-option>
                 </mat-select>
             </mat-form-field>
