@@ -15,10 +15,11 @@
             [colegiado]="parametros.colegiado"
             [votos]="votos"
             [sessao]="dados?.sessao"
+            [chips]="chips"
         ></app-cabecalho-relator>
 
-        <div class="flex flex-row items-start mb-4">
-            <div>
+        <div class="hidden md:grid md:grid-cols-6 lg:grid lg:grid-cols-10 my-2">
+            <div class="md:col-span-4 lg:col-span-6">
                 <button 
                     class="mr-4"
                     color="primary" 
@@ -57,17 +58,15 @@
                 </button>
             </div>
 
-            <div class="">
-                <mat-chip-list
-                    class=""
-                >
-                    <mat-chip
-                        class="mt-2"
-                        *ngFor="let chip of ['teste 1', 'teste 2']"
-                    >
-                        {{chip}}
-                    </mat-chip>
-                </mat-chip-list>
+            
+            <div class="md:col-span-2 lg:col-span-4">
+                <app-carrossel
+                    [idChip]="'idChipsResultadoJulgamento'"
+                    [chips]="chips"
+                    [hasArrow]="true"
+                    [hasBtnRemove]="true"
+                    (chipRemovido)="obterChipRemovido($event)"
+                ></app-carrossel>
             </div>
         </div>
 
@@ -81,7 +80,7 @@
                     <mat-option (click)="exibirModalDeModeloDecisao()">Modelos de texto</mat-option>
                     <mat-option>Cancelar</mat-option>
                 </mat-select>
-              </mat-form-field>
+            </mat-form-field>
         </div>
     </header>
 

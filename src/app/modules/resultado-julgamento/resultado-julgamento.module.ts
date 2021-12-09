@@ -21,6 +21,7 @@ import { MatListModule } from '@angular/material/list';
 import { MatRippleModule } from '@angular/material/core';
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
+import { ScrollingModule } from '@angular/cdk/scrolling';
 
 import { ResultadoJulgamentoComponent } from './resultado-julgamento.component';
 import { ConteudoVotoMinistroComponent } from './conteudo-voto-ministro/conteudo-voto-ministro.component';
@@ -55,6 +56,7 @@ const ResultadoJulgamentoRoutes: Route[] = [
   imports: [
     CommonModule,
     RouterModule.forChild(ResultadoJulgamentoRoutes),
+    ScrollingModule,
     FormsModule,
     ReactiveFormsModule,
     MatInputModule,

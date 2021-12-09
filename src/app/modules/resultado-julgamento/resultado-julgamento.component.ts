@@ -49,6 +49,7 @@ export class ResultadoJulgamentoComponent implements OnInit {
   decisaoSelecionada: Decisao = null;
   modelo: ModeloDecisao;
   show = false;
+  chips: string[] = ['teste 1','teste 1','teste 1','teste 1','teste 1','teste 1','teste 1','teste 1','teste 1','teste 1','teste 1','teste 1','teste 1',];
 
   readonly FORM_CADASTRO_DECISAO = 'formulario-de-cadastro-de-decisao';
 
@@ -296,6 +297,10 @@ export class ResultadoJulgamentoComponent implements OnInit {
     }
 
     return '';
+  }
+
+  public obterChipRemovido(chip: string): void {
+    console.log(chip)
   }
 
   /**

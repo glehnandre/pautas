@@ -19,9 +19,11 @@ export class CarrosselComponent implements OnInit, OnDestroy, AfterContentChecke
   @Input() links: string[] = [];
   @Input() hasArrow: boolean = true;
   @Input() idLinha: number;
+  @Input() hasBtnRemove: boolean= false;
 
   @Output() nomeDoPdfSelecionado = new EventEmitter<string>();
   @Output() linkDoPdfSelecionado = new EventEmitter<string>();
+  @Output() chipRemovido = new EventEmitter<string>();
 
   constructor(private cd: ChangeDetectorRef) { }
 
@@ -79,6 +81,21 @@ export class CarrosselComponent implements OnInit, OnDestroy, AfterContentChecke
     if (this.links.length > 0 && this.links[index]) {
       this.nomeDoPdfSelecionado.emit(this.chips[index]);
       this.linkDoPdfSelecionado.emit(this.links[index]);
+    }
+  }
+
+  /**
+   * @public Método público
+   * @description Método para remover o chip da lista de chips
+   * @param chip Chip que deverá ser removido
+   * @author Douglas da Silva Monteles
+   */
+  public removerChip(chip: string): void {
+    const index = this.chips.findIndex(c => c === chip);
+
+    if (index !== -1) {
+      this.chips.splice(index, 1);
+      this.chipRemovido.emit(chip);
     }
   }
 
