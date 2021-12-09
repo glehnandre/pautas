@@ -21,6 +21,8 @@
                 <mat-checkbox
                     color="primary"
                     class="mr-12"
+                    [value]="document"
+                    (change)="emiteStatusDoCheckbox(document)"
                 ></mat-checkbox>
 
                 <span>

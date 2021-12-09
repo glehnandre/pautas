@@ -15,6 +15,7 @@
     <app-tabela
         [dataSource]="dataSource"
         (link)="abrirPdf($event)"
+        (checked)="marcarOuDesmarcarDocumento($event)"
     ></app-tabela>
   </div>
 
@@ -28,6 +29,7 @@
         class="ml-auto"
         color="primary"
         mat-raised-button
+        (click)="incluirDocumentos()"
       >
         SALVAR
       </button>
