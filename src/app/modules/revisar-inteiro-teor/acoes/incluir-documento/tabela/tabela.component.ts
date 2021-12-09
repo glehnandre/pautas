@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { Documento } from 'app/modules/acervo/model/interfaces/documento.interface';
 
@@ -9,10 +9,14 @@ import { Documento } from 'app/modules/acervo/model/interfaces/documento.interfa
 })
 export class TabelaComponent implements OnInit {
   @Input() dataSource: MatTableDataSource<Documento>;
+  @Output() link = new EventEmitter();
 
   constructor() { }
 
   ngOnInit(): void {
   }
 
+  emiteLink(url: string): void {
+    this.link.emit(url);
+  }
 }

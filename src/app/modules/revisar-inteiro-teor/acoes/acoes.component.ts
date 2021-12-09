@@ -32,6 +32,7 @@ export class AcoesComponent implements OnInit {
   @Output() todosOsCheckboxSelecionados = new EventEmitter();
   @Output() revisoesAlteradas = new EventEmitter();
   @Output() idsRevisados = new EventEmitter();
+  @Output() link = new EventEmitter();
 
   documentosRevisados: number[] = [];
 
@@ -102,7 +103,9 @@ export class AcoesComponent implements OnInit {
           data: this.documentosDoProcesso,
       });
 
-      dialogRef.afterClosed().subscribe((resultado) => {});
+      dialogRef.afterClosed().subscribe((url: string) => {
+          this.link.emit(url);
+      });
   }
 
   /**
