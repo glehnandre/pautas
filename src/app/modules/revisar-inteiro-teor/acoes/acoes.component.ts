@@ -103,8 +103,16 @@ export class AcoesComponent implements OnInit {
           data: this.documentosDoProcesso,
       });
 
-      dialogRef.afterClosed().subscribe((url: string) => {
-          this.link.emit(url);
+      dialogRef.afterClosed().subscribe((data: string | number[]) => {
+        if (typeof data === 'string' || data instanceof String) {
+            this.link.emit(data);
+        } else {
+            this._inteiroTeorService.incluirDocumentosDoInteiroTeorDoProcesso(this.idProcesso, data).subscribe({
+                next: (data) => {
+                    console.log(data);
+                }
+            })
+        }
       });
   }
 

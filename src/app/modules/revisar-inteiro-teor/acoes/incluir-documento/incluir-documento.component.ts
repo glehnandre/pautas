@@ -10,10 +10,11 @@ import { Documento } from '../../../acervo/model/interfaces/documento.interface'
 })
 export class IncluirDocumentoComponent implements OnInit {
   dataSource: MatTableDataSource<Documento>;
+  documentosSelecionados: number[] = [];
 
   constructor(
     @Inject(MAT_DIALOG_DATA) private _documentos: Documento[],
-    public dialogRef: MatDialogRef<IncluirDocumentoComponent>
+    public dialogRef: MatDialogRef<IncluirDocumentoComponent>,
   ) { }
 
   ngOnInit(): void {
@@ -24,4 +25,17 @@ export class IncluirDocumentoComponent implements OnInit {
     this.dialogRef.close(url);
   }
 
+  marcarOuDesmarcarDocumento(documento: Documento): void {
+    const index = this.documentosSelecionados.findIndex(m => m === documento.id);
+
+    if (index !== -1) {
+        this.documentosSelecionados.splice(index, 1);
+    } else {
+        this.documentosSelecionados.push(documento.id);
+    }
+  }
+
+  incluirDocumentos(): void {
+    this.dialogRef.close(this.documentosSelecionados);
+  }
 }

@@ -10,6 +10,7 @@ import { Documento } from 'app/modules/acervo/model/interfaces/documento.interfa
 export class TabelaComponent implements OnInit {
   @Input() dataSource: MatTableDataSource<Documento>;
   @Output() link = new EventEmitter();
+  @Output() checked = new EventEmitter();
 
   constructor() { }
 
@@ -18,5 +19,9 @@ export class TabelaComponent implements OnInit {
 
   emiteLink(url: string): void {
     this.link.emit(url);
+  }
+
+  emiteStatusDoCheckbox(documento: Documento): void {
+    this.checked.emit(documento);
   }
 }
