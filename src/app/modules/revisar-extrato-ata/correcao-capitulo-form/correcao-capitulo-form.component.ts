@@ -2,6 +2,7 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { CapitulosParaPublicacao } from 'app/modules/acervo/model/interfaces/capitulo.interface';
+import { ResultadoJulgamentoService } from 'app/modules/services/resultado-julgamento.service';
 
 @Component({
   selector: 'app-correcao-capitulo-form',
@@ -12,7 +13,11 @@ export class CorrecaoCapituloFormComponent implements OnInit {
   constructor(
     private _formBuilder: FormBuilder,
     private _dialogRef: MatDialogRef<CorrecaoCapituloFormComponent>,
-    @Inject(MAT_DIALOG_DATA) private data: CapitulosParaPublicacao[],
+    @Inject(MAT_DIALOG_DATA) private data: {
+      capitulos:CapitulosParaPublicacao[],
+      id_sessao: number;
+    },
+    private _resultadoService: ResultadoJulgamentoService,
   ) { }
 
   correcaoCapitulosForm: FormGroup = this._formBuilder.group({
@@ -22,9 +27,8 @@ export class CorrecaoCapituloFormComponent implements OnInit {
 
 
   ngOnInit(): void {
-    this.capitulos = this.data;
+    this.capitulos = this.data.capitulos;
     this.capitulos.forEach( capitulo => this.addcorrecao(capitulo));
-    console.log(this.correcoes.controls);
   }
 
   get correcoes(): FormArray {
@@ -35,7 +39,7 @@ export class CorrecaoCapituloFormComponent implements OnInit {
     const correcaoForm = this._formBuilder.group({
       marcado: [false, Validators.nullValidator],
       correcao: ['', Validators.nullValidator],
-      capitulo: [capitulo.numero, Validators.nullValidator],
+      capitulo: [capitulo.processo, Validators.nullValidator],
     });
     this.correcoes.push(correcaoForm);
   }
@@ -46,8 +50,14 @@ export class CorrecaoCapituloFormComponent implements OnInit {
     correcao.setValue({ marcado, correcao: '', capitulo });
   }
 
+  marcadoCorrecao(): Array<any> {
+    return this.correcaoCapitulosForm.getRawValue()
+      .correcoes.filter( ({marcado, correcao}) => marcado == true && correcao != '');
+  }
+
   enviarCorrecao(): void {
-    console.log(this.correcaoCapitulosForm.getRawValue());
+    console.log(this.marcadoCorrecao());
+    this._resultadoService.enviarCorrecaoCapitulo(this.data.id_sessao, this.marcadoCorrecao);
     this._dialogRef.close();
   }
 }

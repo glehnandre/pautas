@@ -7,7 +7,7 @@ export const capitulo: Array<Capitulo> = [
         id:     1,
         descricao: 'Recurso Extraordinário com agravo 1.299.544',
         tipo:   TipoCapitulo.Merito,
-        dispositivo: "",
+        dispositivo: "Procedente",
         ministros_acordam: [
             ministro[5],
             ministro[6],

@@ -8,24 +8,7 @@ import { SessaoJulgamento } from 'app/modules/acervo/model/interfaces/sessao-jul
 })
 export class DadosDaSessaoComponent implements OnInit {
 
-  @Input() sessao: SessaoJulgamento = {
-    ano: 2021,
-    categoria: '',
-    colegiado: '',
-    data_fim: '',
-    data_inicio: '',
-    modalidade: '',
-    numero: 1000,
-    situacao: 'ABERTA',
-    tipo: '',
-    secretario: {
-      id: 1,
-      nome: 'teste',
-    },
-    ministros_presentes: [],
-    ministros_ausentes: [],
-    presidencia: null
-  };
+  @Input() sessao: SessaoJulgamento = {} as SessaoJulgamento;
 
   constructor() { }
 

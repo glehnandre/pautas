@@ -8,6 +8,7 @@ import { ministro } from "../ministro/data";
 
 export const sessao: SessaoJulgamento[] = [
   {
+    id: 0,
     numero: 1000,
     ano: 2021,
     colegiado: '',

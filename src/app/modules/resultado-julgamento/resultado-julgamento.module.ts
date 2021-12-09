@@ -21,6 +21,7 @@ import { MatListModule } from '@angular/material/list';
 import { MatRippleModule } from '@angular/material/core';
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
+import { ScrollingModule } from '@angular/cdk/scrolling';
 
 import { ResultadoJulgamentoComponent } from './resultado-julgamento.component';
 import { ConteudoVotoMinistroComponent } from './conteudo-voto-ministro/conteudo-voto-ministro.component';
@@ -33,6 +34,7 @@ import { FormVistaEDestaqueComponent } from './form-vista-e-destaque/form-vista-
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { FuseAlertModule } from '@fuse/components/alert';
 import { FormRelatorComponent } from './form-relator/form-relator.component';
+import { FormIndicacaoImpedimentosComponent } from './form-indicacao-impedimentos/form-indicacao-impedimentos.component';
 
 const ResultadoJulgamentoRoutes: Route[] = [
   {
@@ -51,10 +53,12 @@ const ResultadoJulgamentoRoutes: Route[] = [
     FormModeloDecisaoComponent,
     FormVistaEDestaqueComponent,
     FormRelatorComponent,
+    FormIndicacaoImpedimentosComponent,
   ],
   imports: [
     CommonModule,
     RouterModule.forChild(ResultadoJulgamentoRoutes),
+    ScrollingModule,
     FormsModule,
     ReactiveFormsModule,
     MatInputModule,

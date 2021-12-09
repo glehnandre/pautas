@@ -4,8 +4,6 @@ import { EMPTY, Observable } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { Ata } from '../acervo/model/interfaces/ata.interface';
 import { DecisoesResultadoJulgamento } from '../acervo/model/interfaces/decisao.interface';
-import { Processo } from '../acervo/model/interfaces/processo.interface';
-import { SessaoJulgamento } from '../acervo/model/interfaces/sessao-julgamento.interface';
 import { ModeloDecisao } from '../acervo/model/interfaces/modeloDecisao.interface';
 
 @Injectable({
@@ -63,7 +61,7 @@ export class ResultadoJulgamentoService {
       .set('tipo_capitulo', tipoCapitulo)
       .set('dispositivo', dispositivo)
       .set('recurso', recurso);
-    
+
     return this._httpClient.get<ModeloDecisao>(`modelo-decisao`, {
       params,
     });
@@ -78,11 +76,20 @@ export class ResultadoJulgamentoService {
     );
   }
 
-  public getAta(num: number, ano:number): Observable<Ata> {
-    return this._httpClient.get<Ata>(`ata/${num}&${ano}`).pipe(
+  public getAta(id: number): Observable<Ata> {
+    return this._httpClient.get<Ata>(`ata/${id}`).pipe(
       catchError(error => {
           console.error(error);
           return EMPTY;
+      })
+    );
+  }
+
+  public enviarCorrecaoCapitulo(id: number, correcao: any) {
+    return this._httpClient.post<any>(`ata/${id}`, correcao).pipe(
+      catchError( error => {
+        console.error(error);
+        return EMPTY;
       })
     );
   }
