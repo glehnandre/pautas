@@ -1,7 +1,7 @@
 <span class="text-2xl text-primary font-medium">Composição</span>
 
-<div class="grid grid-flow-row max-w-140">
-    <div class="flex flex-row justify-end pr-10">
+<div class="relative grid grid-flow-row max-w-140">
+    <div class="flex flex-row pl-72 ml-1">
         <span class="mr-3">Presente</span>
         <span class="ml-4 mr-3">Ausente</span>
         <span class="ml-4">Presidente</span>
@@ -9,7 +9,7 @@
     <div class="flex flex-row items-center py-2 overflow-hidden">
         <span class="w-15">Presidente</span>
         <object class="flex w-5 h-10 bg-blue-600 mx-4 -my-20"></object>
-        <span class="flex flex-row items-center w-48 mr-2">
+        <span class="flex flex-none flex-row items-center w-48 mr-2">
             <img [src]="presidente?.imagem" alt="Imagem de perfil"
                 class="w-10 h-10 mr-2 rounded-full ng-tns-c129-57 ng-star-inserted">
             {{presidente?.nome}}
@@ -36,11 +36,11 @@
         ></mat-checkbox>
     </div>
     <div class="flex flex-row items-center py-2 overflow-hidden">
-        <span class="w-15">1ª Turma</span>
+        <span class="flex-none w-15">1ª Turma</span>
         <object class="flex h-full w-5 bg-orange-500 mx-4 -my-20"></object>
         <div class="flex-col space-y-4">
             <div class="flex flex-1" *ngFor="let primeira of primeiraTurma; index as i">
-                <span class="flex flex-row items-center w-48 mr-2">
+                <span class="flex flex-row flex-none items-center w-48 mr-2">
                     <img [src]="primeira?.imagem" alt="Imagem de perfil"
                         class="w-10 h-10 mr-2 rounded-full ng-tns-c129-57 ng-star-inserted">
                     {{primeira.nome}}
@@ -70,7 +70,7 @@
         </div>
     </div>
     <div class="flex flex-row items-center pt-2 overflow-hidden">
-        <span class="w-15">2ª Turma</span>
+        <span class="flex-none w-15">2ª Turma</span>
         <object class="flex h-full w-5 bg-green-700 mx-4 -my-20"></object>
         <div class="flex flex-col space-y-4">
             <div class="flex flex-1" *ngFor="let segunda of segundaTurma; index as j">

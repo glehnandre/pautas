@@ -1,7 +1,7 @@
 <div class="absolute inset-0 flex flex-col w-full overflow-hidden">
 
     <!-- Header -->
-    <div class="flex flex-row bg-white px-40 py-13">
+    <div class="flex flex-row bg-white py-4 px-4 sm:px-8 lg:px-40 lg:py-13">
         <div class="flex flex-col text-accent-500 space-y-2 mt-2">
             <span class="text-2xl text-primary-500 font-medium">ATA DA SESSÃO {{sessao.numero}}/{{sessao.ano}}</span>
             <span>{{getData()}}</span>
@@ -25,7 +25,7 @@
     </div>
 
     <!-- Main -->
-    <div class="flex flex-col py-8 overflow-y-auto px-40" cdkScrollable>
+    <div class="flex flex-col overflow-y-auto py-4 px-4 sm:px-8 lg:py-8 lg:px-40" cdkScrollable>
         <app-composicao
           [presidente]="sessao.presidencia"
           (statusComposicao)="recuperaComposicao($event)"
