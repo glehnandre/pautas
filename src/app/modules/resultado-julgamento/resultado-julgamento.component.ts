@@ -327,6 +327,7 @@ export class ResultadoJulgamentoComponent implements OnInit {
     this._resultadoJulgamento.listarDecisoes(this.parametros.processo).subscribe({
       next: (data) => {
         this.dados = data;
+        console.log(this.dados)
       }
     });
   }
