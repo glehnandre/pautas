@@ -11,14 +11,39 @@
         </button>
     </header>
 
-    <div class="flex flex-col flex-auto p-6 sm:p-8 overflow-y-auto ng-pristine ng-invalid ng-touched">
-            <form>
+    <div class="flex flex-col flex-auto p-6 sm:p-8 max-h-120 overflow-y-auto ng-pristine ng-invalid ng-touched">
+        <form class="md:mx-8">
+            <div class="grid grid-cols-3">
+                <div class="col-span-1"><h3>Ministros</h3></div>
+                <div class="col-span-1 text-center"><h3>Impedidos</h3></div>
+                <div class="col-span-1 text-center"><h3>Suspeitos</h3></div>
+            </div>
+            
+            <mat-radio-group 
+                class="grid grid-cols-3 mb-2"
+                *ngFor="let ministro of (ministros$ | async)" 
+            >
+                <div class="col-span-1 flex flex-row items-center">
+                    <img 
+                        [src]="ministro.imagem" 
+                        class="w-10 h-10 mr-2" 
+                        [alt]="'Foto do ministro ' + ministro.nome"
+                    >
+                    <span>{{ministro.nome}}</span>
+                </div>
 
-            <mat-form-field class="w-full mb-4" appearance="outline">
-                <mat-label>Informe os ministros suspeitos e impedidos<span class="text-red-500">*</span></mat-label>
-                <input matInput type="text">
-                <mat-hint>Marque os ministros</mat-hint>
-            </mat-form-field>
+                <mat-radio-button 
+                    class="col-span-1 m-auto"
+                    [value]="'impedido'"
+                    color="primary"
+                ></mat-radio-button>
+
+                <mat-radio-button 
+                    class="col-span-1 m-auto"
+                    [value]="'suspeito'"
+                    color="primary"
+                ></mat-radio-button>
+            </mat-radio-group>
 
             <p class="mt-4 text-center flex flex-row gap-4 justify-end items-end">
                 <button

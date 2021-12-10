@@ -22,6 +22,7 @@ import { MatRippleModule } from '@angular/material/core';
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { ScrollingModule } from '@angular/cdk/scrolling';
+import { MatRadioModule } from '@angular/material/radio';
 
 import { ResultadoJulgamentoComponent } from './resultado-julgamento.component';
 import { ConteudoVotoMinistroComponent } from './conteudo-voto-ministro/conteudo-voto-ministro.component';
@@ -83,6 +84,7 @@ const ResultadoJulgamentoRoutes: Route[] = [
     MatDialogModule,
     MatDatepickerModule,
     FuseAlertModule,
+    MatRadioModule,
   ]
 })
 export class ResultadoJulgamentoModule { }
