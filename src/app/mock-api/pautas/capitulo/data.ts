@@ -7,7 +7,7 @@ export const capitulo: Array<Capitulo> = [
         id:     1,
         descricao: 'Recurso Extraordinário com agravo 1.299.544',
         tipo:   TipoCapitulo.Merito,
-        dispositivo: "",
+        dispositivo: { id:0, nome: 'Recurso Negado', sentido: "Negativo" },
         ministros_acordam: [
             ministro[5],
             ministro[6],
@@ -23,7 +23,7 @@ export const capitulo: Array<Capitulo> = [
         id:     2,
         descricao: 'Recurso Extraordinário com agravo 1.299.544',
         tipo:   TipoCapitulo.Merito,
-        dispositivo: "",
+        dispositivo: { id:0, nome: 'Fixa a Tese', sentido: 'Positivo' },
         ministros_acordam: [
             ministro[1]
         ],
@@ -41,7 +41,7 @@ export const capitulo: Array<Capitulo> = [
         id:     3,
         descricao: 'Recurso Extraordinário com agravo 1.299.544',
         tipo:   TipoCapitulo.Merito,
-        dispositivo: "",
+        dispositivo: { id:0, nome: 'Lorem Ipsum', sentido: 'Neutro' },
         ministros_acordam: [
             ministro[3]
         ],
@@ -55,7 +55,7 @@ export const capitulo: Array<Capitulo> = [
         id:     4,
         descricao: 'Recurso Extraordinário com agravo 1.299.544',
         tipo:   TipoCapitulo.Merito,
-        dispositivo: "",
+        dispositivo: { id:0, nome: 'Lorem Ipsum', sentido: 'Neutro' },
         ministros_acordam: [
             ministro[1]
         ],
@@ -69,7 +69,7 @@ export const capitulo: Array<Capitulo> = [
         id:     5,
         descricao: 'Recurso Extraordinário com agravo 1.299.544',
         tipo:   TipoCapitulo.Preliminar,
-        dispositivo: "",
+        dispositivo: { id:0, nome: 'Lorem Ipsum', sentido: 'Neutro' },
         ministros_acordam: [
             ministro[1]
         ],
@@ -83,7 +83,7 @@ export const capitulo: Array<Capitulo> = [
         id:     6,
         descricao: 'Recurso Extraordinário com agravo 1.299.544',
         tipo:   TipoCapitulo.Tese,
-        dispositivo: "",
+        dispositivo: { id:0, nome: 'Lorem Ipsum', sentido: 'Neutro' },
         ministros_acordam: [
             ministro[1]
         ],
@@ -97,7 +97,7 @@ export const capitulo: Array<Capitulo> = [
         id:     7,
         descricao: 'É constitucional o artigo 8º da Lei Complementar 173/2020, editado no âmbito do Programa Federativo de Enfrentamento ao Coronavírus SARS-CoV-2 (Covid-19).',
         tipo:   TipoCapitulo.Questão_de_Ordem,
-        dispositivo: "",
+        dispositivo: { id:0, nome: 'Lorem Ipsum', sentido: 'Neutro' },
         ministros_acordam: [
             ministro[1]
         ],
