@@ -21,6 +21,8 @@
                 <mat-checkbox
                     color="primary"
                     class="mr-12"
+                    [value]="document"
+                    (change)="emiteStatusDoCheckbox(document)"
                 ></mat-checkbox>
 
                 <span>
@@ -83,7 +85,7 @@
             *matCellDef="let document"
         >
             <mat-chip
-                (click)="emiteLink(document.arquivo)"
+                (click)="emiteLink(document.url)"
                 class="border-primary border-solid border-2 bg-transparent text-primary mr-2 mt-1"
             >
                 <mat-icon class="mr-2" style="color:red">picture_as_pdf</mat-icon>

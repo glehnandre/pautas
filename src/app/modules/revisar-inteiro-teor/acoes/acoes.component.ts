@@ -32,6 +32,7 @@ export class AcoesComponent implements OnInit {
   @Output() todosOsCheckboxSelecionados = new EventEmitter();
   @Output() revisoesAlteradas = new EventEmitter();
   @Output() idsRevisados = new EventEmitter();
+  @Output() link = new EventEmitter();
 
   documentosRevisados: number[] = [];
 
@@ -102,7 +103,17 @@ export class AcoesComponent implements OnInit {
           data: this.documentosDoProcesso,
       });
 
-      dialogRef.afterClosed().subscribe((resultado) => {});
+      dialogRef.afterClosed().subscribe((data: string | number[]) => {
+        if (typeof data === 'string' || data instanceof String) {
+            this.link.emit(data);
+        } else {
+            this._inteiroTeorService.incluirDocumentosDoInteiroTeorDoProcesso(this.idProcesso, data).subscribe({
+                next: (data) => {
+                    console.log(data);
+                }
+            })
+        }
+      });
   }
 
   /**

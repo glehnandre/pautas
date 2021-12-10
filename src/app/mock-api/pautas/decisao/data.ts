@@ -1,17 +1,53 @@
 import { Ata } from "app/modules/acervo/model/interfaces/ata.interface";
 import { DecisoesResultadoJulgamento } from "app/modules/acervo/model/interfaces/decisao.interface";
 import { TipoCapitulo } from "app/modules/acervo/model/enums/tipoCapitulo.enum";
-import { Dispositivo } from "app/modules/acervo/model/interfaces/dispositivo.interface";
 import { ModeloDecisao } from "app/modules/acervo/model/interfaces/modeloDecisao.interface";
 import { dispositivos } from "../dispositivo/data";
 import { capitulo } from "../capitulo/data"
 import { ministro } from "../ministro/data";
-import { processo } from "../processos/data";
 import { sessao } from "../sessoes-julgamento/data";
+import { processo } from "../processos/data";
 
-export const decisoes: Array<DecisoesResultadoJulgamento> = [
+export const decisoes: DecisoesResultadoJulgamento[] = [
   {
     decisoes: [
+      {
+        capitulo: capitulo[0],
+        processos_mesma_decisao: [
+          processo[0],
+          processo[1],
+        ],
+        ministros_impedidos: [
+          ministro[0],
+          ministro[1],
+          ministro[2],
+        ],
+        ministros_suspeitos: [
+          ministro[3],
+          ministro[4],
+          ministro[5],
+        ],
+        vistas: [
+          {
+            id: 1,
+            data: '2016-08-29T09:12:33.001Z',
+            processo: 1231,
+            ministro: 12313,
+            sessao: 123,
+            texto: "Após o voto do Ministro Marco Aurélio, Relator, que implementava a ordem, pediu vista dos autos o Ministro Alexandre de Moraes. Primeira Turma, Sessão Virtual de 13.11.2020 a 20.11.2020."
+          }
+        ],
+        destaques: [
+          {
+            id: 1,
+            data: '2016-08-29T09:12:33.001Z',
+            processo: 1231,
+            ministro: 12313,
+            sessao: 123,
+            texto: "Após o voto do Ministro Marco Aurélio, Relator, que implementava a ordem, pediu destaque do processo do plenário virtual."
+          }
+        ],
+      }
     ],
     sessao: sessao[0],
   }

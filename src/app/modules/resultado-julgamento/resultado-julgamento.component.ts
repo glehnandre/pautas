@@ -20,6 +20,7 @@ import { FormVistaEDestaqueComponent } from './form-vista-e-destaque/form-vista-
 import { Vista } from '../acervo/model/interfaces/vista.interface';
 import { Destaque } from '../acervo/model/interfaces/destaque.interface';
 import { FormRelatorComponent } from './form-relator/form-relator.component';
+import { FormIndicacaoImpedimentosComponent } from './form-indicacao-impedimentos/form-indicacao-impedimentos.component';
 
 interface Parametros {
   processo: number;
@@ -49,6 +50,7 @@ export class ResultadoJulgamentoComponent implements OnInit {
   decisaoSelecionada: Decisao = null;
   modelo: ModeloDecisao;
   show = false;
+  chips: string[] = ['teste 1','teste 1','teste 1','teste 1','teste 1','teste 1','teste 1','teste 1','teste 1','teste 1','teste 1','teste 1','teste 1',];
 
   readonly FORM_CADASTRO_DECISAO = 'formulario-de-cadastro-de-decisao';
 
@@ -243,6 +245,7 @@ export class ResultadoJulgamentoComponent implements OnInit {
 
   public exibirModalDeVista(): void {
     const dialogfRef = this._dialog.open(FormVistaEDestaqueComponent, {
+      maxHeight: '90vh',
       data: {
         titulo: 'Informar Vista',
       }
@@ -267,6 +270,7 @@ export class ResultadoJulgamentoComponent implements OnInit {
 
   public exibirModalDeDestaque(): void {
     const dialogfRef = this._dialog.open(FormVistaEDestaqueComponent, {
+      maxHeight: '90vh',
       data: {
         titulo: 'Informar Destaque',
       }
@@ -289,6 +293,14 @@ export class ResultadoJulgamentoComponent implements OnInit {
     });
   }
 
+  public exibirModalDeIndicacaoDeImpedimentos(): void {
+    const dialogRef = this._dialog.open(FormIndicacaoImpedimentosComponent, {
+      maxHeight: '90vh',
+    });
+    
+    dialogRef.afterClosed().subscribe(data => {});
+  }
+
   public getDadosDoProcesso(): string {
     if (this.processo) {
       const { classe, numero, nome } = this.processo;
@@ -296,6 +308,10 @@ export class ResultadoJulgamentoComponent implements OnInit {
     }
 
     return '';
+  }
+
+  public obterChipRemovido(chip: string): void {
+    console.log(chip)
   }
 
   /**
@@ -322,6 +338,7 @@ export class ResultadoJulgamentoComponent implements OnInit {
     this._resultadoJulgamento.listarDecisoes(this.parametros.processo).subscribe({
       next: (data) => {
         this.dados = data;
+        console.log(this.dados)
       }
     });
   }

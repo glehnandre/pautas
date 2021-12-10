@@ -14,40 +14,42 @@
     <div class="flex flex-col flex-auto p-6 sm:p-8 overflow-y-auto ng-pristine ng-invalid ng-touched">
         <form [formGroup]="formRelator">
 
-        <mat-form-field class="w-full mb-4" appearance="outline">
-            <mat-label>Informe quem deverá ser o relator do acórdão<span class="text-red-500">*</span></mat-label>
-            <mat-select formControlName="id">
-                <mat-option 
-                    *ngFor="let ministro of (ministros$ | async)" 
-                    [value]="ministro.id"
-                >
-                    <div class="flex items-center">
-                        <div>
-                            <img class="w-8 h-8 mr-4" [src]="ministro.imagem">
+            <mat-form-field class="w-full mb-4" appearance="outline">
+                <mat-label>Informe quem deverá ser o relator do acórdão<span class="text-red-500">*</span></mat-label>
+                <mat-select formControlName="id">
+                    <mat-option 
+                        *ngFor="let ministro of (ministros$ | async)" 
+                        [value]="ministro.id"
+                    >
+                        <div class="flex items-center">
+                            <div>
+                                <img class="w-8 h-8 mr-4" [src]="ministro.imagem">
+                            </div>
+                            <div>{{ ministro.nome }}</div>
                         </div>
-                        <div>{{ ministro.nome }}</div>
-                    </div>
-                </mat-option>
-            </mat-select>
-            <mat-hint>Informe o ministro relator</mat-hint>
-        </mat-form-field>
+                    </mat-option>
+                </mat-select>
+                <mat-hint>Informe o ministro relator</mat-hint>
+            </mat-form-field>
 
-        <p class="mt-4 text-center flex flex-row gap-4 justify-end items-end">
-            <button
-                mat-raised-button 
-                class="mr-2"
-            >
-                CANCELAR
-            </button>
+            <p class="mt-4 text-center flex flex-row gap-4 justify-end items-end">
+                <button
+                    mat-raised-button 
+                    mat-dialog-close
+                    class="mr-2"
+                >
+                    CANCELAR
+                </button>
 
-            <button 
-                mat-raised-button 
-                color="primary"
-                [disabled]="formRelator.invalid" 
-                (click)="publicar()"
-            >
-                PUBLICAR
-            </button>
-        </p>
-    </form>
+                <button 
+                    mat-raised-button 
+                    color="primary"
+                    [disabled]="formRelator.invalid" 
+                    (click)="publicar()"
+                >
+                    PUBLICAR
+                </button>
+            </p>
+        </form>
+    </div>
 </div>

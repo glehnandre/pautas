@@ -28,7 +28,7 @@ export const julgamentos: SessaoJulgamento[] = [
       ministros_ausentes: [
           ministro[1],
       ],
-      presidencia: ministro[0],
+      presidencia: ministro[10],
   },
   {
     ano: 2021,

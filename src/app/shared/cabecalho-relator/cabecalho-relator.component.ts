@@ -21,6 +21,7 @@ export class CabecalhoRelatorComponent implements AfterContentChecked, OnInit {
   @Input() votos: Voto[];
   @Input() sessao: SessaoJulgamento;
   @Input() nomesDasSessoes: string[];
+  @Input() chips: string[] = [];
 
   right: number = 0;
   panelOpenState = false;
@@ -68,10 +69,14 @@ export class CabecalhoRelatorComponent implements AfterContentChecked, OnInit {
     this.nomePdf = nome;
   }
 
-  abrirLink(link: string): void {
+  public abrirLink(link: string): void {
     if (link !== this.link) {
       this.link = this._sanitizer.bypassSecurityTrustResourceUrl(link);
     }
+  }
+
+  public obterChipRemovido(chip: string): void {
+    console.log(chip);
   }
 
   private _buscarProcessos(): void {

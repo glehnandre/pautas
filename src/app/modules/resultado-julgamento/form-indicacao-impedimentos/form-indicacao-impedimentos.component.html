@@ -1,0 +1,73 @@
+<div class="flex flex-col max-w-240 md:min-w-160 -m-6">
+    <header class="flex items-center justify-between h-16 pr-3 sm:pr-5 pl-6 sm:pl-8 bg-primary text-on-primary">
+        <h1 class="mt-4 flex items-center justify-center text-lg font-medium text-white-500">
+            Indicação dos ministros suspeitos e impedidos
+        </h1>
+
+        <button mat-button mat-dialog-close class="mat-focus-indicator mat-icon-button mat-button-base" tabindex="-1">
+            <span class="mat-button-wrapper">
+                <mat-icon matSuffix class="text-white">close</mat-icon>
+            </span>
+        </button>
+    </header>
+
+    <div class="flex flex-col flex-auto p-6 sm:p-8 max-h-120 overflow-y-auto ng-pristine ng-invalid ng-touched">
+        <form [formGroup]="formIndicacao" class="md:mx-8">
+            <div class="grid grid-cols-3">
+                <div class="col-span-1"><h3>Ministros</h3></div>
+                <div class="col-span-1 text-center"><h3>Impedidos</h3></div>
+                <div class="col-span-1 text-center"><h3>Suspeitos</h3></div>
+            </div>
+            
+            <mat-radio-group 
+                class="grid grid-cols-3 mb-2"
+                *ngFor="let ministro of ministros"
+                [formControlName]="ministro.id"
+            >
+                <div class="col-span-1 flex flex-row items-center">
+                    <img 
+                        [src]="ministro.imagem" 
+                        class="w-10 h-10 mr-2" 
+                        [alt]="'Foto do ministro ' + ministro.nome"
+                    >
+                    <span>{{ministro.nome}}</span>
+                </div>
+
+                <mat-radio-button 
+                    class="col-span-1 m-auto"
+                    [value]="'impedido'"
+                    color="primary"
+                ></mat-radio-button>
+
+                <mat-radio-button 
+                    class="col-span-1 m-auto"
+                    [value]="'suspeito'"
+                    color="primary"
+                ></mat-radio-button>
+            </mat-radio-group>
+
+            <p class="mt-4 text-center flex flex-row gap-4 justify-end items-end">
+                <mat-hint *ngIf="formIndicacao.invalid" class="mr-auto my-auto">
+                    Marque uma opção para cada ministro
+                </mat-hint>
+                
+                <button
+                    mat-raised-button 
+                    mat-dialog-close
+                    class="mr-2"
+                >
+                    CANCELAR
+                </button>
+
+                <button 
+                    mat-raised-button 
+                    color="primary"
+                    [disabled]="formIndicacao.invalid"
+                    (click)="salvar()"
+                >
+                    SALVAR
+                </button>
+            </p>
+        </form>
+    </div>
+</div>
