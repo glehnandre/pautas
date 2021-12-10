@@ -12,7 +12,7 @@
     </header>
 
     <div class="flex flex-col flex-auto p-6 sm:p-8 max-h-120 overflow-y-auto ng-pristine ng-invalid ng-touched">
-        <form class="md:mx-8">
+        <form [formGroup]="formIndicacao" class="md:mx-8">
             <div class="grid grid-cols-3">
                 <div class="col-span-1"><h3>Ministros</h3></div>
                 <div class="col-span-1 text-center"><h3>Impedidos</h3></div>
@@ -21,7 +21,8 @@
             
             <mat-radio-group 
                 class="grid grid-cols-3 mb-2"
-                *ngFor="let ministro of (ministros$ | async)" 
+                *ngFor="let ministro of ministros"
+                [formControlName]="ministro.id"
             >
                 <div class="col-span-1 flex flex-row items-center">
                     <img 
@@ -46,6 +47,10 @@
             </mat-radio-group>
 
             <p class="mt-4 text-center flex flex-row gap-4 justify-end items-end">
+                <mat-hint *ngIf="formIndicacao.invalid" class="mr-auto my-auto">
+                    Marque uma opção para cada ministro
+                </mat-hint>
+                
                 <button
                     mat-raised-button 
                     mat-dialog-close
@@ -57,6 +62,8 @@
                 <button 
                     mat-raised-button 
                     color="primary"
+                    [disabled]="formIndicacao.invalid"
+                    (click)="salvar()"
                 >
                     SALVAR
                 </button>
