@@ -102,4 +102,9 @@ export class FinalizarSessaoJulgamentoComponent implements OnInit {
       this._fuseAlertService.dismiss('alertBox');
     }, 5000);
   }
+
+  teste(a){
+    console.log(a);
+    
+  }
 }

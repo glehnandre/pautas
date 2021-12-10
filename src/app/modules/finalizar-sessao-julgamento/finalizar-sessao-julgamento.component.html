@@ -2,16 +2,55 @@
 
     <!-- Header -->
     <div class="flex flex-row py-4 px-4 sm:px-8 lg:px-40 lg:py-13">
-        <div class="flex flex-col text-accent-500 space-y-2 mt-2">
+        <div class="flex flex-col text-accent-500 space-y-2 mt-2 flex-1 sm:flex-0">
             <span class="text-2xl text-primary-500 font-medium">ATA DA SESSÃO {{sessao.numero}}/{{sessao.ano}}</span>
-            <span>{{getData()}}</span>
-            <mat-chip-list>
+            <span class="hidden sm:block">{{getData()}}</span>
+            <mat-chip-list class="hidden sm:block">
                 <mat-chip>
                    100 processos
                 </mat-chip>
             </mat-chip-list>
+            <mat-expansion-panel
+                #expansionPanel
+                class="sm:hidden sm:w-2/3 xs:w-full my-4"
+                (opened)="expansionPanel.expanded = true"
+                (closed)="expansionPanel.expanded = false"
+            >
+                <mat-expansion-panel-header
+                    [collapsedHeight]="'40px'"
+                    class="p-4 h-15"
+                >
+                    <div class="flex flex-none my-auto ml-2 pt-4">
+                        <h2 class="font-medium">
+                            Informações da Sessão
+                        </h2>
+                    </div>
+                </mat-expansion-panel-header>
+            
+                <!--Conteúdo de dentro da área expansível-->
+                <div class="flex flex-col space-y-2">
+                    <span class="">{{getData()}}</span>
+                    <mat-chip-list class="">
+                        <mat-chip>
+                           100 processos
+                        </mat-chip>
+                    </mat-chip-list>
+                </div>
+                <mat-chip-list class="flex flex-row mt-2">
+                    <mat-chip>
+                       {{firstToUpperCase(sessao.colegiado)}}
+                    </mat-chip>
+                    <mat-chip>
+                        {{firstToUpperCase(sessao.tipo)}}
+                    </mat-chip>
+                    <mat-chip>
+                        {{firstToUpperCase(sessao.modalidade)}}
+                    </mat-chip>
+                </mat-chip-list>
+            </mat-expansion-panel>
         </div>
-        <mat-chip-list class="ml-8">
+
+        <mat-chip-list class="hidden sm:block ml-8">
             <mat-chip>
                {{firstToUpperCase(sessao.colegiado)}}
             </mat-chip>
