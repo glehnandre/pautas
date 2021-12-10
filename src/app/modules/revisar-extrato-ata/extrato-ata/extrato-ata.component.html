@@ -66,14 +66,8 @@
                 </div>
                 <div class="w-full" *ngFor="let capitulo of capituloPublicacao?.capitulos">
                     <div class="ml-4 sm:ml-8 md:ml-16 mr-4">
-                        <div class="flex flex-wrap">
-                            <div
-                            *ngFor="let dispositivo of capitulo?.dispositivos"
-                              [class]="'bg-sentido-'+dispositivo.sentido"
-                              class="rounded-full px-2 text-white mb-4 mr-2 inline-block"
-                            >
-                            {{ dispositivo.nome }}
-                        </div>
+                        <div [class]="'bg-sentido-'+capitulo.dispositivo.sentido+' rounded-full px-2 text-white mb-4 mr-2 inline-block'">
+                            {{ capitulo.dispositivo.nome }}
                         </div>
                         <div [innerHtml]="capitulo?.texto"></div><br>
                         <div [innerHtml]="

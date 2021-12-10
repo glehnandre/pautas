@@ -39,25 +39,35 @@ export class CorrecaoCapituloFormComponent implements OnInit {
     const correcaoForm = this._formBuilder.group({
       marcado: [false, Validators.nullValidator],
       correcao: ['', Validators.nullValidator],
-      capitulo: [capitulo.processo, Validators.nullValidator],
+      processo: [capitulo.processo, Validators.nullValidator],
     });
     this.correcoes.push(correcaoForm);
   }
 
   apagaCorrecao(index: number): void {
     const correcao = this.correcoes.controls[index];
-    const { marcado, capitulo } = correcao.value
-    correcao.setValue({ marcado, correcao: '', capitulo });
+    const { marcado, processo } = correcao.value
+    correcao.setValue({ marcado, correcao: '', processo });
   }
 
-  marcadoCorrecao(): Array<any> {
+  get marcadoCorrecao(): Array<any> {
     return this.correcaoCapitulosForm.getRawValue()
-      .correcoes.filter( ({marcado, correcao}) => marcado == true && correcao != '');
+      .correcoes.filter( ({ marcado }) => marcado == true);
+  }
+
+  get marcadoECorrigido(): boolean {
+    const corrigidos = this.correcaoCapitulosForm.getRawValue()
+      .correcoes.filter( ({ correcao }) => correcao != '');
+
+    return corrigidos.length == this.marcadoCorrecao.length && corrigidos.length != 0;
   }
 
   enviarCorrecao(): void {
-    console.log(this.marcadoCorrecao());
-    this._resultadoService.enviarCorrecaoCapitulo(this.data.id_sessao, this.marcadoCorrecao);
+    let correcoes = [];
+    for(let correcao of this.marcadoCorrecao)
+      correcoes.push({ processo: correcao.processo, correcao: correcao.correcao });
+
+    this._resultadoService.enviarCorrecaoCapitulo(this.data.id_sessao, correcoes);
     this._dialogRef.close();
   }
 }

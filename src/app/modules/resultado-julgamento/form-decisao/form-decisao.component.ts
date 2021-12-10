@@ -25,7 +25,7 @@ export class FormDecisaoComponent implements OnInit, OnChanges, OnDestroy {
 
   formDecisao: FormGroup;
   ministros$: Observable<Ministro []>
-  tipos$: Observable<string[]>; 
+  tipos$: Observable<string[]>;
   idsDosProcessos: number[] = [];
   limparProcessosSelecionados: boolean = false;
   dispositivos: Dispositivo[] = [];
@@ -84,7 +84,7 @@ export class FormDecisaoComponent implements OnInit, OnChanges, OnDestroy {
 
   /**
    * @public Método público
-   * @param event Evento contendo o tipo de dispositivo a ser buscado via 
+   * @param event Evento contendo o tipo de dispositivo a ser buscado via
    *              requisição GET
    * @description Método para obter a lista de dispositivos pelo tipo
    * @author Douglas da Silva Monteles
@@ -111,13 +111,13 @@ export class FormDecisaoComponent implements OnInit, OnChanges, OnDestroy {
   public carregarModeloDeDecisao(): void {
     const { tipo, dispositivo } = this.formDecisao.value;
     const idDispositivo = this.dispositivos.find(d => d.nome === dispositivo)?.id;
-    
+
     if (tipo && dispositivo && this.processo && this.processo.id_tipo_recurso) {
       this._resultadoJulgamento.obterModeloDecisao(this.processo.classe, tipo, idDispositivo, this.processo.id_tipo_recurso).subscribe({
         next: (modelo) => {
           this.formDecisao.controls.texto.setValue(modelo.texto);
         },
-  
+
         error: (error) => {
           console.log(error)
           this.formDecisao.controls.texto.setValue('');
@@ -179,13 +179,13 @@ export class FormDecisaoComponent implements OnInit, OnChanges, OnDestroy {
       dispositivo: [{value: this.decisao.capitulo.dispositivo, disabled: this.isDesabilitarForm}, Validators.required],
       ministros_acordam: [{value: this.decisao.capitulo.ministros_acordam, disabled: this.isDesabilitarForm}, Validators.required],
       ministro_condutor: [{value: this.decisao.capitulo.ministro_condutor, disabled: this.isDesabilitarForm}, Validators.required],
-      texto: [{value: this.decisao.capitulo.texto, disabled: this.isDesabilitarForm}, Validators.required], 
+      texto: [{value: this.decisao.capitulo.texto, disabled: this.isDesabilitarForm}, Validators.required],
     });
 
     this.ministros$ = this._ministroService.listarMinistros();
     this.tipos$ = this._processoService.obterTiposDoProcesso();
 
-    if (this.decisao.capitulo.dispositivo && this.decisao.capitulo.dispositivo != '') {
+    if (this.decisao.capitulo.dispositivo) {
       const e: EventEmitter<MatSelectChange> = {} as EventEmitter<MatSelectChange>;
       e['value'] = this.decisao.capitulo.tipo;
       this.buscarDispositivos(e);
