@@ -29,6 +29,7 @@ export class AcoesComponent implements OnInit {
   @Input() linhasSelecionadas: DocumentoInteiroTeor[];
   @Input() idProcesso: number;
   @Input() documentosDoProcesso: Documento[];
+  @Input() idsDocumentosInteiroTeor: number[];
   @Output() todosOsCheckboxSelecionados = new EventEmitter();
   @Output() revisoesAlteradas = new EventEmitter();
   @Output() idsRevisados = new EventEmitter();
@@ -98,9 +99,11 @@ export class AcoesComponent implements OnInit {
    * @author
    */
    public incluirNovoDocumento(): void {
+      const documentosNaoIncluidos = this.documentosDoProcesso.filter(documento => !this.idsDocumentosInteiroTeor.includes(documento.id));
+
       const dialogRef = this._matDialog.open(IncluirDocumentoComponent, {
           maxHeight: '560px',
-          data: this.documentosDoProcesso,
+          data: documentosNaoIncluidos,
       });
 
       dialogRef.afterClosed().subscribe((data: string | number[]) => {
