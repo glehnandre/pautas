@@ -298,7 +298,11 @@ export class ResultadoJulgamentoComponent implements OnInit {
       maxHeight: '90vh',
     });
     
-    dialogRef.afterClosed().subscribe(data => {});
+    dialogRef.afterClosed().subscribe(data => {
+      if (data) {
+        console.log(data);
+      }
+    });
   }
 
   public getDadosDoProcesso(): string {
