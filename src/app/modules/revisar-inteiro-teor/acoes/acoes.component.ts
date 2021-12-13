@@ -29,13 +29,10 @@ export class AcoesComponent implements OnInit {
   @Input() linhasSelecionadas: DocumentoInteiroTeor[];
   @Input() idProcesso: number;
   @Input() documentosDoProcesso: Documento[];
-  @Input() idsDocumentosInteiroTeor: number[];
+  @Input() documentosInteiroTeor: DocumentoInteiroTeor[];
   @Output() todosOsCheckboxSelecionados = new EventEmitter();
   @Output() revisoesAlteradas = new EventEmitter();
-  @Output() idsRevisados = new EventEmitter();
   @Output() link = new EventEmitter();
-
-  documentosRevisados: number[] = [];
 
   readonly NOME_DO_ALERTA_DESTA_CLASSE = 'alerta_revisar_inteiro_teor';
 
@@ -99,7 +96,9 @@ export class AcoesComponent implements OnInit {
    * @author
    */
    public incluirNovoDocumento(): void {
-      const documentosNaoIncluidos = this.documentosDoProcesso.filter(documento => !this.idsDocumentosInteiroTeor.includes(documento.id));
+      const idsDocumentosInteiroTeor = this.documentosInteiroTeor.map(documento => documento.id);
+
+      const documentosNaoIncluidos = this.documentosDoProcesso.filter(documento => !idsDocumentosInteiroTeor.includes(documento.id));
 
       const dialogRef = this._matDialog.open(IncluirDocumentoComponent, {
           maxHeight: '560px',
@@ -127,18 +126,21 @@ export class AcoesComponent implements OnInit {
    */
   public revisar(): void {
     if (this._isAlgumaLinhaSelecionada()) {
+        const idsDocumentosSelecionados = this.linhasSelecionadas.map(documento => documento.id);
 
-        this.linhasSelecionadas.forEach((linha) => {
-            const index = this.documentosRevisados.findIndex(id => id === linha.id);
-
-            if (index !== -1) {
-                this.documentosRevisados.splice(index, 1);
-            } else {
-                this.documentosRevisados.push(linha.id);
+        const documentosModificados = this.documentosInteiroTeor.map(documento => {
+            if (idsDocumentosSelecionados.includes(documento.id)) {
+                documento.revisado = !documento.revisado;
             }
+
+            return documento;
         })
 
-        this.idsRevisados.emit(this.documentosRevisados);
+        this._inteiroTeorService.atualizarDocumentoDoInteiroTeor(this.idProcesso, documentosModificados).subscribe({
+            next: (data) => {
+                this.revisoesAlteradas.emit(data);
+            }
+        });
     }
   }
 

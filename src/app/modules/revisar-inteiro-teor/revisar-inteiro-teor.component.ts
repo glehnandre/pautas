@@ -32,7 +32,6 @@ export class RevisarInteiroTeorComponent implements OnInit {
   colegiado: string = '';
   processo: Processo;
   documentosDoProcesso: Documento[];
-  idsDocumentosInteiroTeor: number[];
   revisoes: RevisaoInteiroTeor;
   link: SafeResourceUrl;
   nomesDasSessoes: string[] = [];
@@ -42,8 +41,6 @@ export class RevisarInteiroTeorComponent implements OnInit {
   dataSource = new DataSourceInteiroTeor([]);
   linhasSelecionadas: DocumentoInteiroTeor[] = [];
   todosOsCheckboxSelecionados = false;
-
-  documentosRevisados: number[] = [];
 
   readonly NOME_DO_ALERTA_DESTA_CLASSE = 'alerta_revisar_inteiro_teor';
 
@@ -65,7 +62,6 @@ export class RevisarInteiroTeorComponent implements OnInit {
         this.revisoes = revisoes;
         this.dataSource = new DataSourceInteiroTeor(this.revisoes.documentos);
         this.obterNomesDasSessoes();
-        this.obterIdsDocumentosInteiroTeor();
         console.log(this.revisoes);
       }
     });
@@ -78,22 +74,10 @@ export class RevisarInteiroTeorComponent implements OnInit {
     });
   }
 
-  obterIdsDocumentosInteiroTeor(): void {
-    const documentosInteiroTeor = this.revisoes.documentos;
-
-    this.idsDocumentosInteiroTeor = documentosInteiroTeor.map(documento => documento.id);
-  }
-
   atualizarConteudo(revisao: RevisaoInteiroTeor): void {
     this.revisoes = revisao;
 
-    this.obterIdsDocumentosInteiroTeor();
-
     this.dataSource = new DataSourceInteiroTeor(this.revisoes.documentos);
-  }
-
-  revisarDocumentos(idsDocumentos: number[]): void {
-      this.documentosRevisados = idsDocumentos;
   }
 
   /**

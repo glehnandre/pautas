@@ -32,7 +32,6 @@ export class TabelaComponent implements OnInit {
   @Input() revisoes: RevisaoInteiroTeor;
   @Input() todosOsCheckboxSelecionados: boolean;
   @Input() idProcesso: number;
-  @Input() documentosRevisados: number[];
   @Output() checked = new EventEmitter();
   @Output() link = new EventEmitter();
   displayedColumns: string[] = ['autor', 'responsavel', 'comentarios', 'documento', 'data', 'situacao', 'arquivo'];
