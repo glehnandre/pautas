@@ -185,7 +185,7 @@
                     <mat-icon class="icon-size-5" [svgIcon]="documentoSelecionado?.id === document.id ? 'heroicons_solid:chevron-up' : 'heroicons_solid:chevron-down'"></mat-icon>
                 </button>
 
-                <div *ngIf="documentosRevisados.includes(document.id)" class="border-2 border-solid border-green-800 rounded h-auto"></div>
+                <div *ngIf="document.revisado" class="border-2 border-solid border-green-800 rounded h-auto"></div>
             </div>
         </td>
     </ng-container>

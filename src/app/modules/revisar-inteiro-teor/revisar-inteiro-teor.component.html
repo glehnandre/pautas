@@ -33,9 +33,9 @@
             [linhasSelecionadas]="linhasSelecionadas"
             [idProcesso]="idProcesso"
             [documentosDoProcesso]="documentosDoProcesso"
+            [documentosInteiroTeor]="revisoes?.documentos"
             (todosOsCheckboxSelecionados)="selecionarOuDeselecionarTodosOsCheckbox()"
             (revisoesAlteradas)="atualizarConteudo($event)"
-            (idsRevisados)="revisarDocumentos($event)"
             (link)="abrirPdf($event)"
         ></app-acoes>
     </header>
@@ -47,7 +47,6 @@
             [revisoes]="revisoes"
             [todosOsCheckboxSelecionados]="todosOsCheckboxSelecionados"
             [idProcesso]="idProcesso"
-            [documentosRevisados]="documentosRevisados"
             (checked)="selecionarOuDeselecionarLinha($event)"
             (link)="abrirPdf($event)"
         ></app-tabela>

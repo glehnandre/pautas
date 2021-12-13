@@ -70,7 +70,7 @@ export const processos: Processo[] = [
         id: 1,
         tipo: TipoCapitulo.Modulacao,
         descricao: 'Descrição do capítulo',
-        dispositivo: "",
+        dispositivo: { id:0, nome: '', sentido: 'Positivo' },
         ministro_condutor: ministro[6],
         ministros_acordam: [
           ministro[0],
