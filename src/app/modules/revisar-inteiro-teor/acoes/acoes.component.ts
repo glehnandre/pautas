@@ -109,7 +109,7 @@ export class AcoesComponent implements OnInit {
         } else {
             this._inteiroTeorService.incluirDocumentosDoInteiroTeorDoProcesso(this.idProcesso, data).subscribe({
                 next: (data) => {
-                    console.log(data);
+                    this.revisoesAlteradas.emit(data);
                 }
             })
         }
