@@ -353,7 +353,9 @@ export const processos: Processo[] = [
     tipo: TipoDoProcesso.Merito,
     capitulos: [
       capitulo[1],
-    ]
+    ],
+    ministros_impedidos: [],
+    ministros_suspeitos: [],
   },
 
   {
@@ -378,7 +380,9 @@ export const processos: Processo[] = [
     redator: ministro[10],
     capitulos: [
       capitulo[1],
-    ]
+    ],
+    ministros_impedidos: [],
+    ministros_suspeitos: [],
   },
 
   {
@@ -401,6 +405,8 @@ export const processos: Processo[] = [
     tipo: TipoDoProcesso.Merito,
     capitulos: [
       capitulo[1],
-    ]
+    ],
+    ministros_impedidos: [],
+    ministros_suspeitos: [],
   },
 ]

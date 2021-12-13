@@ -296,9 +296,17 @@ export class ResultadoJulgamentoComponent implements OnInit {
   public exibirModalDeIndicacaoDeImpedimentos(): void {
     const dialogRef = this._dialog.open(FormIndicacaoImpedimentosComponent, {
       maxHeight: '90vh',
+      data: {
+        idProcesso: +this.parametros.processo,
+      }
     });
     
-    dialogRef.afterClosed().subscribe(data => {});
+    dialogRef.afterClosed().subscribe(data => {
+      if (data && data === 'ok') {
+        console.log(data);
+        this._carregarProcessos();
+      }
+    });
   }
 
   public getDadosDoProcesso(): string {
@@ -351,10 +359,10 @@ export class ResultadoJulgamentoComponent implements OnInit {
   private _carregarProcessos(): void {
     this._processoService.listarProcessos(new HttpParams().set('processo', this.parametros.processo)).subscribe({
       next: ([processo]) => {
-        const { id, classe, numero, abreviacao } = processo;
         this.processo = processo;
+        console.log(this.processo)
 
-        this._processoService.obterVotosDoProcesso(id).subscribe({
+        this._processoService.obterVotosDoProcesso(this.processo.id).subscribe({
           next: (votos) => {
             this.votos = votos;
           }

@@ -62,7 +62,7 @@
                 </button>
 
 
-                <button class="z-0 mr-4 md:mt-2" mat-button>
+                <button mat-raised-button class="z-0 mr-4 md:mt-2" mat-button>
                     <span>Cancelar</span>
                 </button>
             </div>
@@ -213,7 +213,7 @@
                                                             <div class="flex-auto mr-2 truncate">
                                                                 <ng-container class="flex items-center justify-center">
                                                                     <p class="my-auto" [matTooltip]="item.capitulo.descricao">
-                                                                        {{(i+1)}}º decisão: {{item.capitulo.tipo}} - <strong class="text-primary-500">{{item.capitulo.dispositivo}}</strong>
+                                                                        {{(i+1)}}º decisão: {{item.capitulo.tipo}} - <strong class="text-primary-500">{{item.capitulo.dispositivo.nome}}</strong>
                                                                     </p>
                                                                 </ng-container>
                                                             </div>

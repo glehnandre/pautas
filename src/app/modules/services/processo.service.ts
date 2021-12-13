@@ -125,6 +125,15 @@ export class ProcessoService {
     );
   }
 
+  public salvarImpedimentos(id: number, obj: any): Observable<void> {
+    return this._httpClient.post<void>(`processos/${id}/impedimentos`, obj).pipe(
+      catchError(error => {
+        console.log(error);
+        return EMPTY;
+      }),
+    );
+  }
+
   public setCarregarProcessos(carregarProcessos: boolean): void {
     this.isCarregarProcessos.next(carregarProcessos);
   }

@@ -31,7 +31,7 @@ export const revisoes: Array<RevisaoInteiroTeor> = [
         nome: 'Relatório',
         data_criacao: '2021-08-29T09:12:33.001Z',
         situacao: 'Assinado',
-        revisado: true,
+        revisado: false,
         ordem: 1,
       },
 
@@ -48,7 +48,7 @@ export const revisoes: Array<RevisaoInteiroTeor> = [
         nome: 'Voto',
         data_criacao: '2021-09-20T09:12:33.001Z',
         situacao: 'Assinado',
-        revisado: true,
+        revisado: false,
         ordem: 2,
       },
 
@@ -65,7 +65,7 @@ export const revisoes: Array<RevisaoInteiroTeor> = [
         nome: 'Voto',
         data_criacao: '2021-10-15T09:12:33.001Z',
         situacao: 'Assinado',
-        revisado: true,
+        revisado: false,
         ordem: 3,
       },
     ]

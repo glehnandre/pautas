@@ -72,22 +72,38 @@ export class RevisaoInteiroTeorMockApi {
             .find(rev => rev.id_processo === id);
 
           if (revisao !== undefined) {
-            const processo = this._processos.find(p => p.id === revisao.id_processo);
-            let documentosDoProcesso = [];
+            let documentosAdicionados: DocumentoInteiroTeor[] = [];
+
+            let ordemDoDocumentoAdicionado = revisao.documentos.length;
 
             documentos.forEach(idDoc => {
               const documento = this._documentos.find(d => d.id === idDoc);
 
+              ordemDoDocumentoAdicionado++;
+
+              const documentoModificado = {
+                    id: documento.id,
+                    arquivo: documento.url,
+                    autores: [],
+                    responsavel: {},
+                    comentario: '',
+                    nome: documento.nome,
+                    data_criacao: documento.data_criacao,
+                    situacao: documento.status,
+                    revisado: false,
+                    ordem: ordemDoDocumentoAdicionado,
+              } as DocumentoInteiroTeor;
+
               if (documento !== undefined) {
-                documentosDoProcesso.push(documento);
+                documentosAdicionados.push(documentoModificado);
               }
             });
 
-            processo.documentos = documentosDoProcesso;
+            revisao.documentos = [...revisao.documentos, ...documentosAdicionados];
 
-            console.log(processo)
+            console.log(revisao);
 
-            return [200, processo];
+            return [200, revisao];
           } else {
             return [200, {
               description: "Não há processo associado a esse processo.",

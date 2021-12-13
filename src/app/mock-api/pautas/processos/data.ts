@@ -34,6 +34,8 @@ export const processo: Processo[] = [
       capitulo[3],
     ],
     relator: ministro[1],
+    ministros_impedidos: [],
+    ministros_suspeitos: [],
   },
 
   {
@@ -56,6 +58,8 @@ export const processo: Processo[] = [
       capitulo[3],
     ],
     relator: ministro[1],
+    ministros_impedidos: [],
+    ministros_suspeitos: [],
   },
 
   {
@@ -78,6 +82,8 @@ export const processo: Processo[] = [
         capitulo[3],
     ],
     relator: ministro[1],
+    ministros_impedidos: [],
+    ministros_suspeitos: [],
   },
 
   {
@@ -101,6 +107,8 @@ export const processo: Processo[] = [
         capitulo[3],
     ],
     relator: ministro[1],
+    ministros_impedidos: [],
+    ministros_suspeitos: [],
   },
 
   {
@@ -120,6 +128,8 @@ export const processo: Processo[] = [
       capitulo[4],
     ],
     relator: ministro[1],
+    ministros_impedidos: [],
+    ministros_suspeitos: [],
   },
 
   {
@@ -139,6 +149,8 @@ export const processo: Processo[] = [
       capitulo[5],
     ],
     relator: ministro[1],
+    ministros_impedidos: [],
+    ministros_suspeitos: [],
   },
 
   {
@@ -158,6 +170,8 @@ export const processo: Processo[] = [
       capitulo[4],
     ],
     relator: ministro[1],
+    ministros_impedidos: [],
+    ministros_suspeitos: [],
   },
 
   {
@@ -177,6 +191,8 @@ export const processo: Processo[] = [
       capitulo[6],
     ],
     relator: ministro[1],
+    ministros_impedidos: [],
+    ministros_suspeitos: [],
   },
 
   {
@@ -198,13 +214,15 @@ export const processo: Processo[] = [
         capitulo[2],
         capitulo[3],
     ],
-    relator: ministro[2]
+    relator: ministro[2],
+    ministros_impedidos: [],
+    ministros_suspeitos: [],
   },
 ];
 
 export const documentos: Documento[] = [
   {
-    id: 1,
+    id: 4,
     nome: 'Relatório',
     tipo: 'pdf',
     status: 'Assinado',
@@ -214,7 +232,7 @@ export const documentos: Documento[] = [
   },
 
   {
-    id: 4,
+    id: 5,
     nome: "Voto AM",
     tipo: "pdf",
     status: 'Assinado',
@@ -224,7 +242,7 @@ export const documentos: Documento[] = [
   },
 
   {
-    id: 5,
+    id: 6,
     nome: 'Voto RB',
     tipo: 'pdf',
     status: 'Assinado',
@@ -234,7 +252,7 @@ export const documentos: Documento[] = [
   },
 
   {
-    id: 6,
+    id: 7,
     nome: 'Voto MA',
     tipo: 'pdf',
     status: 'Assinado',

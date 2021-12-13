@@ -23,6 +23,7 @@
                 class="grid grid-cols-3 mb-2"
                 *ngFor="let ministro of ministros"
                 [formControlName]="ministro.id"
+                (change)="registrarMinistroComoSuspeitoOuImpedido($event)"
             >
                 <div class="col-span-1 flex flex-row items-center">
                     <img 
@@ -35,14 +36,14 @@
 
                 <mat-radio-button 
                     class="col-span-1 m-auto"
-                    [value]="'impedido'"
                     color="primary"
+                    [value]="{id: ministro.id, situacao: 'impedido'}"
                 ></mat-radio-button>
 
                 <mat-radio-button 
                     class="col-span-1 m-auto"
-                    [value]="'suspeito'"
                     color="primary"
+                    [value]="{id: ministro.id, situacao: 'suspeito'}"
                 ></mat-radio-button>
             </mat-radio-group>
 
@@ -63,7 +64,7 @@
                     mat-raised-button 
                     color="primary"
                     [disabled]="formIndicacao.invalid"
-                    (click)="salvar()"
+                    (click)="registrar()"
                 >
                     SALVAR
                 </button>

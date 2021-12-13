@@ -16,6 +16,8 @@ export interface Processo {
     situacao: SituacaoDoProcesso;
     tipo: TipoDoProcesso;
     capitulos: Capitulo[];
+    ministros_suspeitos: Ministro[];
+    ministros_impedidos: Ministro[];
     relator?: Ministro;
     redator?: Ministro;
     checked?: boolean;
