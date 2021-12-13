@@ -43,6 +43,9 @@ export class FinalizarSessaoJulgamentoComponent implements OnInit {
 
   mensagem: string;
 
+  /**
+   * On init
+   */
   ngOnInit(): void {
     const { numero, ano } = this._route.snapshot.queryParams;
     this.queryParams = {
@@ -55,6 +58,10 @@ export class FinalizarSessaoJulgamentoComponent implements OnInit {
     });
   }
 
+  /**
+   * Retorna uma string contendo o dia da semana e a data em números
+   * Ex: Segunda (12/10)
+   */
   getData(): string{
     const datepipe: DatePipe = new DatePipe('pt-BR');
 
@@ -71,6 +78,10 @@ export class FinalizarSessaoJulgamentoComponent implements OnInit {
     return dataInicio==dataFim? dataFim:`${dataInicio} - ${dataFim}`;
   }
 
+  /**
+   * Transforma apenas a primeira letra da string em maiúscula
+   * @param str string para ser tratada
+   */
   firstToUpperCase(str: string){
     if(str){
     str = str.toLowerCase();
@@ -78,12 +89,20 @@ export class FinalizarSessaoJulgamentoComponent implements OnInit {
     }
   }
 
+  /**
+   * Recupera a composição da sessão
+   * @param event evento que é retornado do componente
+   */
   recuperaComposicao(event: any){
     this.sessaoFinalizada.ministros_presentes = event.presentes;
     this.sessaoFinalizada.ministros_ausentes = event.ausentes;
     this.sessaoFinalizada.presidencia = event.presidencia;
   }
 
+  /**
+   * Recupera o form da sessão inserido pelo usuário
+   * @param event evento que é retornado do componente
+   */
   recuperaForm(event: any){
     this.sessaoFinalizada.cabecalho = event.cabecalho;
     this.sessaoFinalizada.outros_presentes = event.outrosPresentes;
@@ -93,6 +112,10 @@ export class FinalizarSessaoJulgamentoComponent implements OnInit {
     else this.sessaoFinalizada.secretario = null;
   }
 
+  /**
+   * Verifica se não há erro na finalização da sessão e emite o resultado para
+   * JulgamentoService.
+   */
   salvar(){
     if(!this.sessaoFinalizada.presidencia)
       this.alertaDeErro("Selecione um presidente");
@@ -105,6 +128,10 @@ export class FinalizarSessaoJulgamentoComponent implements OnInit {
     }
   }
 
+  /**
+   * Exibe uma mensagem de erro na tela
+   * @param mensagem mensagem para ser exibida
+   */
   alertaDeErro(mensagem: string): void {
     
     this.mensagem = mensagem;
