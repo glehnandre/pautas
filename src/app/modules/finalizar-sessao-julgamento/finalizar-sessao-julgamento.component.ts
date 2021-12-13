@@ -7,6 +7,7 @@ import { DatePipe } from '@angular/common';
 import { Ministro } from '../acervo/model/interfaces/ministro.interface';
 import { Secretario } from '../acervo/model/interfaces/secretario.interface';
 import { FuseAlertService } from '@fuse/components/alert';
+import { ActivatedRoute } from '@angular/router';
 registerLocaleData(localePT);
 
 interface SessaoFinalizada {
@@ -29,7 +30,13 @@ export class FinalizarSessaoJulgamentoComponent implements OnInit {
   constructor(
     private _julgamentoService: JulgamentoService,
     private _fuseAlertService: FuseAlertService,
+    private _route: ActivatedRoute,
   ) { }
+
+  queryParams: {
+    numero: number;
+    ano: number;
+  };
 
   sessao: SessaoJulgamento = {} as SessaoJulgamento;
   sessaoFinalizada: SessaoFinalizada = {} as SessaoFinalizada;
@@ -37,7 +44,13 @@ export class FinalizarSessaoJulgamentoComponent implements OnInit {
   mensagem: string;
 
   ngOnInit(): void {
-    this._julgamentoService.listarSessoesDeJulgamento(1000,2021).subscribe(sessao=>{
+    const { numero, ano } = this._route.snapshot.queryParams;
+    this.queryParams = {
+      numero,
+      ano
+    };
+
+    this._julgamentoService.listarSessoesDeJulgamento(numero,ano).subscribe(sessao=>{
       this.sessao = sessao;
     });
   }
@@ -86,7 +99,7 @@ export class FinalizarSessaoJulgamentoComponent implements OnInit {
     else if(!this.sessaoFinalizada.secretario)
       this.alertaDeErro("Secretário da sessão inválido");
     else {
-      this._julgamentoService.finalizarSessaoDeJulgamento(1000, 2021, this.sessaoFinalizada).subscribe(data=>{
+      this._julgamentoService.finalizarSessaoDeJulgamento(this.queryParams.numero, this.queryParams.ano, this.sessaoFinalizada).subscribe(data=>{
         console.log(data, this.sessaoFinalizada);
       });
     }
@@ -101,10 +114,5 @@ export class FinalizarSessaoJulgamentoComponent implements OnInit {
     setTimeout(() => {
       this._fuseAlertService.dismiss('alertBox');
     }, 5000);
-  }
-
-  teste(a){
-    console.log(a);
-    
   }
 }
