@@ -14,6 +14,7 @@ import { listaImpedimentos, ministro } from '../ministro/data'
 import { Voto } from 'app/modules/acervo/model/interfaces/voto.interface';
 import { Vista } from 'app/modules/acervo/model/interfaces/vista.interface';
 import { Destaque } from 'app/modules/acervo/model/interfaces/destaque.interface';
+import { Ministro } from 'app/modules/acervo/model/interfaces/ministro.interface';
 
 @Injectable({
     providedIn: 'root'
@@ -259,6 +260,34 @@ export class ProcessoMockApi {
 
                 return [200, this._destaques];
             });
+
+        this._fuseMockApiService
+            .onPost('processos/:id/impedimentos')
+            .reply(({request, urlParams}) => {
+                const idProcesso: number = +urlParams.id;
+                const { body } = request;
+
+                const index = this._processo
+                    .findIndex(p => p.id === idProcesso);
+
+                if (index !== -1) {
+                    const processo = this._processo[index];
+                    
+                    body.ministros_impedidos.forEach((id: number) => {
+                        processo.ministros_impedidos.push(this._obterMinistroPeloId(id));
+                    });
+
+                    body.ministros_suspeitos.forEach((id: number) => {
+                        processo.ministros_suspeitos.push(this._obterMinistroPeloId(id));
+                    });
+
+                    return [200, processo];
+                }
+
+                return [404, { 
+                    msg: 'Nenhum processo com id informado.' 
+                }];
+            });
     }
 
     private _obterTagsPelosIds(tags: Tag[]): Tag[] {
@@ -272,5 +301,15 @@ export class ProcessoMockApi {
         });
 
         return tagsObtidas;
+    }
+
+    private _obterMinistroPeloId(id: number): Ministro {
+        const index = ministro.findIndex(m => m.id == id);
+
+        if (index !== -1) {
+            return ministro[index];
+        }
+
+        return null;
     }
 }

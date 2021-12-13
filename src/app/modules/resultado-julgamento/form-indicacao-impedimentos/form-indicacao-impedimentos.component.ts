@@ -1,9 +1,10 @@
 import { Component, EventEmitter, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { MatDialogRef } from '@angular/material/dialog';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatRadioChange } from '@angular/material/radio';
 import { Ministro } from 'app/modules/acervo/model/interfaces/ministro.interface';
 import { MinistroService } from 'app/modules/services/ministro.service';
+import { ProcessoService } from 'app/modules/services/processo.service';
 
 @Component({
   selector: 'app-form-indicacao-impedimentos',
@@ -24,8 +25,10 @@ export class FormIndicacaoImpedimentosComponent implements OnInit {
 
   constructor(
     private _ministroService: MinistroService,
+    private _processoService: ProcessoService,
     private _fb: FormBuilder,
     private _dialogRef: MatDialogRef<FormIndicacaoImpedimentosComponent>,
+    @Inject(MAT_DIALOG_DATA) private _data: { idProcesso: number }, 
   ) { 
     this._construirFormulario(); // Garante que uma instância de FormGroup vazia seja criada durante a criação do componente
 
@@ -53,9 +56,15 @@ export class FormIndicacaoImpedimentosComponent implements OnInit {
 
   public registrar(): void {
     if (this.formIndicacao.valid) {
-      this._dialogRef.close({
+      const obj = {
         ministros_impedidos: [...this.resultado.ministrosImpedidos],
         ministros_suspeitos: [...this.resultado.ministrosSuspeitos],
+      };
+
+      this._processoService.salvarImpedimentos(this._data.idProcesso, obj).subscribe({
+        next: () => {
+          this._dialogRef.close('ok');
+        },
       });
     }
   }

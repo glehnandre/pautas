@@ -20,6 +20,8 @@ export class ProcessoCapituloComponent implements OnInit {
     situacao: SituacaoDoProcesso['Apto a Pautar'],
     tipo: TipoDoProcesso.Merito,
     capitulos: [],
+    ministros_impedidos: [],
+    ministros_suspeitos: [],
   };
 
   constructor() { }
