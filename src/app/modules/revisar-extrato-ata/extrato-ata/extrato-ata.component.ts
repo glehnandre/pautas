@@ -18,6 +18,7 @@ registerLocaleData(localePt);
   ],
 })
 export class ExtratoAtaComponent implements OnInit {
+  @Input() cabecalho: string;
   @Input() sessao: SessaoJulgamento;
   @Input() capitulosPublicacao: CapitulosParaPublicacao[];
   @Input() form: any;
@@ -36,18 +37,18 @@ export class ExtratoAtaComponent implements OnInit {
     PM:'Se declararam suspeitos os Ministros, ',
   };
 
-  FraseVencidos: Frase = {
+  FraseAcompanham: Frase = {
+    F:'Acompanha a Ministra ',
+    M: 'Acompanha o Ministro ',
+    PF:'Acompanham as Ministras, ',
+    PM:'Acompanham os Ministros, ',
+  };
+
+  FraseDivergem: Frase = {
     F:'Vencida a Ministra ',
     M: 'Vencido o Ministro ',
     PF:'Vencidas as Ministras, ',
     PM:'Vencidos os Ministros, ',
-  };
-
-  FraseDiscordam: Frase = {
-    F:'Discorda a Ministra ',
-    M: 'Discorda o Ministro ',
-    PF:'Discordam as Ministras, ',
-    PM:'Discordam os Ministros, ',
   };
 
   FraseCondutor: Frase = {

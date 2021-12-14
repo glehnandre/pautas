@@ -17,16 +17,6 @@ export const decisoes: DecisoesResultadoJulgamento[] = [
           processo[0],
           processo[1],
         ],
-        ministros_impedidos: [
-          ministro[0],
-          ministro[1],
-          ministro[2],
-        ],
-        ministros_suspeitos: [
-          ministro[3],
-          ministro[4],
-          ministro[5],
-        ],
         vistas: [
           {
             id: 1,
@@ -54,6 +44,7 @@ export const decisoes: DecisoesResultadoJulgamento[] = [
 ];
 
 export const ata: Ata = {
+    cabecalho: 'Cabeçalho da Ata de Julgamento',
     total_julgados: 3,
     total_vista: 5,
     total_destaque: 0,
@@ -65,7 +56,7 @@ export const ata: Ata = {
         classe: "ARE",
         classe_extenso: "RECURSO EXTRAORDINÁRIO COM AGRAVO",
         numero: "1311742",
-        cadeia: "string",
+        cadeia: "Ag",
         envolvidos: [
           {
             nome: "Instituto Nacional do Seguro Social",
@@ -145,7 +136,7 @@ export const ata: Ata = {
         classe: "AG",
         classe_extenso: "AGRAVO REGIMENTAL",
         numero: "100",
-        cadeia: "string",
+        cadeia: "Ag",
         envolvidos: [
           {
             nome: "Instituto Nacional do Seguro Social",
@@ -218,7 +209,7 @@ export const ata: Ata = {
         ],
       },
       {
-        classe: "CCP",
+        classe: "classe",
         classe_extenso: "CLASSE DE CAPITULO PARA PUBLICACAO",
         numero: "numero",
         cadeia: "cadeia",
