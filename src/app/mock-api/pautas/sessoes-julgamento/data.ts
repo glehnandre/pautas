@@ -85,7 +85,9 @@ export const processos: Processo[] = [
         ],
         texto: 'Texto do capítulo',
       }
-    ]
+    ],
+    ministros_impedidos: [],
+    ministros_suspeitos: [],
   },
 ]
 

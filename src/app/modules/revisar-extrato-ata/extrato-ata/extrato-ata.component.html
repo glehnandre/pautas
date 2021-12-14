@@ -54,15 +54,15 @@
                         </span>
                     </div><hr>
                 </div>
-                <div class="text-center">
+                <div class="text-center mx-4">
                     <h1>Extrato da Ata</h1>
-                    <h2>
-                        Sessão {{ sessao?.tipo }} {{ sessao?.numero }}/{{ sessao?.ano }} de {{ sessao?.colegiado }} {{
+                    <h3 class="font-medium">
+                        Sessão {{ sessao?.modalidade}} {{ sessao?.tipo }} {{ sessao?.numero }}/{{ sessao?.ano }} realizada {{
                           (sessao?.data_inicio | date: "dd/mm/yyyy") == (sessao?.data_fim | date: "dd/mm/yyyy")?
-                            (sessao?.data_fim | date: "dd/mm/yyyy"):
-                            (sessao?.data_inicio | date: "dd/mm/yyyy") + '-' + (sessao?.data_fim | date: "dd/mm/yyyy")
-                        }} por {{ sessao?.modalidade }}
-                    </h2>
+                            'no dia ' + (sessao?.data_fim | date: "longDate"):
+                            'entre os dias ' + (sessao?.data_inicio | date: "longDate") + ' e ' + (sessao?.data_fim | date: "longDate")
+                        }}
+                    </h3>
                 </div>
                 <div class="w-full" *ngFor="let capitulo of capituloPublicacao?.capitulos">
                     <div class="ml-4 sm:ml-8 md:ml-16 mr-4">
@@ -91,9 +91,7 @@
                 </div>
                 <footer class="text-center mt-4">
                     <span *ngIf="form">
-                        Brasília, {{ form?.dataPublicacao | date: 'dd' }} de
-                        {{ form?.dataPublicacao | date: 'MMMM':'':'pt-PT' }} de
-                        {{ form?.dataPublicacao | date: 'YYYY' }}
+                        Brasília, {{ form?.dataPublicacao | date: 'longDate' }}
                     </span><br>
                     {{ sessao?.secretario.nome }}<br>
                     Assessor(a) Chefe do Plenário

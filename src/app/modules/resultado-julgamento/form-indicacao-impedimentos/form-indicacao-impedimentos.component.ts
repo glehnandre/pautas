@@ -1,8 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MatRadioChange } from '@angular/material/radio';
 import { Ministro } from 'app/modules/acervo/model/interfaces/ministro.interface';
 import { MinistroService } from 'app/modules/services/ministro.service';
-import { Observable } from 'rxjs';
+import { ProcessoService } from 'app/modules/services/processo.service';
 
 @Component({
   selector: 'app-form-indicacao-impedimentos',
@@ -13,10 +15,20 @@ export class FormIndicacaoImpedimentosComponent implements OnInit {
 
   formIndicacao: FormGroup;
   ministros: Ministro[] = [];
+  resultado: {
+    ministrosImpedidos: Set<number>;
+    ministrosSuspeitos: Set<number>;
+  } = {
+    ministrosImpedidos: new Set(),
+    ministrosSuspeitos: new Set(),
+  };
 
   constructor(
     private _ministroService: MinistroService,
+    private _processoService: ProcessoService,
     private _fb: FormBuilder,
+    private _dialogRef: MatDialogRef<FormIndicacaoImpedimentosComponent>,
+    @Inject(MAT_DIALOG_DATA) private _data: { idProcesso: number }, 
   ) { 
     this._construirFormulario(); // Garante que uma instância de FormGroup vazia seja criada durante a criação do componente
 
@@ -28,13 +40,32 @@ export class FormIndicacaoImpedimentosComponent implements OnInit {
     });
   }
 
-  ngOnInit(): void {
-    
+  ngOnInit(): void {}
+
+  public registrarMinistroComoSuspeitoOuImpedido(event: EventEmitter<MatRadioChange>): void {
+    const { id, situacao } = event['value'];
+
+    if (situacao === 'impedido') {
+      this.resultado.ministrosImpedidos.add(id);
+      this.resultado.ministrosSuspeitos.delete(id);
+    } else {
+      this.resultado.ministrosSuspeitos.add(id);
+      this.resultado.ministrosImpedidos.delete(id);
+    }
   }
 
-  public salvar(): void {
+  public registrar(): void {
     if (this.formIndicacao.valid) {
-      console.log(this.formIndicacao.value)
+      const obj = {
+        ministros_impedidos: [...this.resultado.ministrosImpedidos],
+        ministros_suspeitos: [...this.resultado.ministrosSuspeitos],
+      };
+
+      this._processoService.salvarImpedimentos(this._data.idProcesso, obj).subscribe({
+        next: () => {
+          this._dialogRef.close('ok');
+        },
+      });
     }
   }
 

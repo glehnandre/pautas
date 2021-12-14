@@ -23,6 +23,9 @@ export class FormComponent implements OnInit, AfterViewChecked {
   options: string[] = [];
   filteredOptions: Observable<string[]>;
 
+  /**
+   * On init
+   */
   ngOnInit(): void {
     this.formFinalizarSessao = this._fb.group({
       secretario: ['', Validators.required],
@@ -37,6 +40,9 @@ export class FormComponent implements OnInit, AfterViewChecked {
       );
   }
 
+  /**
+   * After view checked
+   */
   ngAfterViewChecked(): void {
     if(this.options.length==0 && this.secretario)
       this.options.push(this.secretario.nome);
@@ -48,11 +54,17 @@ export class FormComponent implements OnInit, AfterViewChecked {
     return this.options.filter(option => option.toLowerCase().includes(filterValue));
   }
 
+  /**
+   * Verifica se o secretário da sessão foi indicado
+   */
   getErrorMessage() {
     return this.formFinalizarSessao.controls
       .secretario.hasError('required') ? 'Informe o secretário ou secretária da sessão' : '';
   }
 
+  /**
+   * Emite o que foi preenchido nos campos
+   */
   emitirForm(): void {
     this.statusForm.emit(this.formFinalizarSessao.value);
   }
