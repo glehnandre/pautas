@@ -17,16 +17,6 @@ export const decisoes: DecisoesResultadoJulgamento[] = [
           processo[0],
           processo[1],
         ],
-        ministros_impedidos: [
-          ministro[0],
-          ministro[1],
-          ministro[2],
-        ],
-        ministros_suspeitos: [
-          ministro[3],
-          ministro[4],
-          ministro[5],
-        ],
         vistas: [
           {
             id: 1,
