@@ -18,6 +18,7 @@ registerLocaleData(localePt);
   ],
 })
 export class ExtratoAtaComponent implements OnInit {
+  @Input() cabecalho: string;
   @Input() sessao: SessaoJulgamento;
   @Input() capitulosPublicacao: CapitulosParaPublicacao[];
   @Input() form: any;
