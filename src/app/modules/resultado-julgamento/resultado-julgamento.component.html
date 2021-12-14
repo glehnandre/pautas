@@ -73,7 +73,7 @@
                     [idChip]="'idChipsResultadoJulgamento'"
                     [chips]="chips"
                     [hasArrow]="true"
-                    [hasBtnRemove]="true"
+                    [hasBtnRemove]="false"
                     (chipRemovido)="obterChipRemovido($event)"
                 ></app-carrossel>
             </div>
@@ -213,7 +213,7 @@
                                                             <div class="flex-auto mr-2 truncate">
                                                                 <ng-container class="flex items-center justify-center">
                                                                     <p class="my-auto" [matTooltip]="item.capitulo.descricao">
-                                                                        {{(i+1)}}º decisão: {{item.capitulo.tipo}} - <strong class="text-primary-500">{{item.capitulo.dispositivo.nome}}</strong>
+                                                                        {{(i+1)}}º decisão: {{item.capitulo.tipo}} - <strong class="text-primary-500">{{item.capitulo.dispositivo.nome || item.capitulo.dispositivo}}</strong>
                                                                     </p>
                                                                 </ng-container>
                                                             </div>
