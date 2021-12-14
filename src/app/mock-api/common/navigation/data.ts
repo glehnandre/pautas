@@ -118,7 +118,11 @@ export const defaultNavigation: FuseNavigationItem[] = [
         title: '(Pós-Julgamento) Finalizar Sessao de Julgamento',
         type : 'basic',
         icon : 'heroicons_outline:chart-pie',
-        link : '/finalizar-sessao-julgamento'
+        link : '/finalizar-sessao-julgamento',
+        queryParams: {
+            numero: 1000,
+            ano: 2021,
+        },
     },
 ];
 export const compactNavigation: FuseNavigationItem[] = [
@@ -227,10 +231,14 @@ export const compactNavigation: FuseNavigationItem[] = [
     },
     {
         id   : 'finalizar-sessao-julgamento',
-        title: 'Finalizar Sessao de Julgamento',
+        title: '(Pós-Julgamento) Finalizar Sessao de Julgamento',
         type : 'basic',
         icon : 'heroicons_outline:chart-pie',
-        link : '/finalizar-sessao-julgamento'
+        link : '/finalizar-sessao-julgamento',
+        queryParams: {
+            numero: 1000,
+            ano: 2021,
+        },
     },
 ];
 export const futuristicNavigation: FuseNavigationItem[] = [
@@ -339,10 +347,14 @@ export const futuristicNavigation: FuseNavigationItem[] = [
     },
     {
         id   : 'finalizar-sessao-julgamento',
-        title: 'Finalizar Sessao de Julgamento',
+        title: '(Pós-Julgamento) Finalizar Sessao de Julgamento',
         type : 'basic',
         icon : 'heroicons_outline:chart-pie',
-        link : '/finalizar-sessao-julgamento'
+        link : '/finalizar-sessao-julgamento',
+        queryParams: {
+            numero: 1000,
+            ano: 2021,
+        },
     },
 ];
 export const horizontalNavigation: FuseNavigationItem[] = [
@@ -447,9 +459,13 @@ export const horizontalNavigation: FuseNavigationItem[] = [
     },
     {
         id   : 'finalizar-sessao-julgamento',
-        title: 'Finalizar Sessao de Julgamento',
+        title: '(Pós-Julgamento) Finalizar Sessao de Julgamento',
         type : 'basic',
         icon : 'heroicons_outline:chart-pie',
-        link : '/finalizar-sessao-julgamento'
+        link : '/finalizar-sessao-julgamento',
+        queryParams: {
+            numero: 1000,
+            ano: 2021,
+        },
     },
 ];
