@@ -71,15 +71,13 @@
                             </div>
                             <div [innerHtml]="capitulo?.texto"></div><br>
                             <div [innerHtml]="
-                              fraseEMinistros(capitulo?.ministros_acordam, FraseVencidos)+
-                              fraseEMinistros(capitulo?.ministros_divergem, FraseDiscordam)
+                                fraseEMinistros(capitulo?.ministros_acordam, FraseAcompanham)+
+                                fraseEMinistros(capitulo?.ministros_divergem, FraseDivergem)
                             "></div>
                         </div>
                         <br class="mb-2">
                     </div>
                     <div [innerHtml]="
-                      fraseEMinistros(capituloPublicacao?.ministros_impedidos, FraseImpedidos)+
-                      fraseEMinistros(capituloPublicacao?.ministros_suspeitos, FraseSuspeitos)+
                       fraseEMinistros(sessao?.ministros_presentes, FrasePresentes)+
                       fraseEMinistros(sessao?.ministros_ausentes, FraseAusentes)
                     "></div>
