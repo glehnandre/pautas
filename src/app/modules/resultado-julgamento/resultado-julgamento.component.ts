@@ -50,7 +50,7 @@ export class ResultadoJulgamentoComponent implements OnInit {
   decisaoSelecionada: Decisao = null;
   modelo: ModeloDecisao;
   show = false;
-  chips: string[] = ['teste 1','teste 1','teste 1','teste 1','teste 1','teste 1','teste 1','teste 1','teste 1','teste 1','teste 1','teste 1','teste 1',];
+  chips: string[] = [];
 
   readonly FORM_CADASTRO_DECISAO = 'formulario-de-cadastro-de-decisao';
 
@@ -262,6 +262,7 @@ export class ResultadoJulgamentoComponent implements OnInit {
         this._processoService.salvarVistaDoProcesso(this.parametros.processo, vista).subscribe({
           next: (data) => {
             console.log(data);
+            this._carregarDecisoes(); // atualiza a lista de Vistas
           }
         });
       }
@@ -287,6 +288,7 @@ export class ResultadoJulgamentoComponent implements OnInit {
         this._processoService.salvarDestaqueDoProcesso(this.parametros.processo, destaque).subscribe({
           next: (data) => {
             console.log(data);
+            this._carregarDecisoes(); // atualiza a lista de Destaque
           }
         });
       }
@@ -304,7 +306,7 @@ export class ResultadoJulgamentoComponent implements OnInit {
     dialogRef.afterClosed().subscribe(data => {
       if (data && data === 'ok') {
         console.log(data);
-        this._carregarProcessos();
+        this._carregarProcessos(); // atualiza os chips de ministros suspeitos e impedidos
       }
     });
   }
@@ -367,7 +369,28 @@ export class ResultadoJulgamentoComponent implements OnInit {
             this.votos = votos;
           }
         });
+
+        this._criarChips();
       }
+    });
+  }
+
+  private _criarChips(): void {
+    this.chips = [];
+
+    const { 
+      ministros_impedidos, 
+      ministros_suspeitos, 
+    } = this.processo;
+
+    ministros_impedidos.forEach(({abreviacao}) => {
+      const str = `${abreviacao} - Impedido(a)`;
+      this.chips.push(str);
+    });
+
+    ministros_suspeitos.forEach(({abreviacao}) => {
+      const str = `${abreviacao} - Suspeito(a)`;
+      this.chips.push(str);
     });
   }
 

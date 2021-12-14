@@ -8,8 +8,6 @@ export interface DecisoesResultadoJulgamento {
     decisoes: Array<{
         capitulo: Capitulo;
         processos_mesma_decisao: Processo[];
-        ministros_impedidos?: Ministro[];
-        ministros_suspeitos?: Ministro[];
         vistas?: Vista[];
         destaques?: Destaque[];
     }>;

@@ -31,6 +31,9 @@ export class ComposicaoComponent implements OnInit, AfterViewChecked {
   ausentes: Ministro[] = [];
   presidencia: Ministro;
 
+  /**
+   * On init
+   */
   ngOnInit(): void {
     this._ministroService.listarMinistrosDoColegiado('primeira-turma').subscribe(ministros=>{
       this.primeiraTurma = ministros;
@@ -42,17 +45,29 @@ export class ComposicaoComponent implements OnInit, AfterViewChecked {
     });
   }
 
+  /**
+   * After view checked
+   */
   ngAfterViewChecked(): void{
     if(this.presidente) 
     if(this.presidenteChecked.indexOf({nome: this.presidente.nome, checked: false})==-1) this.presidenteChecked.push({nome: this.presidente.nome, checked: false});
   }
 
+  /**
+   * Verifica se o checkbox do ministro está marcado.
+   * @param nome nome do ministro
+   */
   isChecked(nome: string): boolean{
     const presidente = this.presidenteChecked.find(presidente=>presidente.nome==nome);
     if(presidente) return presidente.checked;
     return false;
   }
 
+  /**
+   * Atualiza o status do checkbox do ministro
+   * @param event evento que é retornado do checkbox
+   * @param colegiado colegiado ao qual o ministro pertence
+   */
   check(event: MatCheckboxChange, colegiado: string){
     const nome = event.source.name;
     this.presidenteChecked.forEach(presidente=>{
@@ -74,6 +89,11 @@ export class ComposicaoComponent implements OnInit, AfterViewChecked {
     this.emiteComposicao();
   }
 
+  /**
+   * Atualiza a lista de ministros presentes
+   * @param event evento que é retornado do checkbox
+   * @param colegiado colegiado ao qual o ministro pertence
+   */
   atualizaPresentes(event: MatCheckboxChange, colegiado: string){
     const nome = event.source.name;
 
@@ -110,6 +130,11 @@ export class ComposicaoComponent implements OnInit, AfterViewChecked {
     this.emiteComposicao();
   }
 
+  /**
+   * Atualiza a lista de ministros ausentes
+   * @param event evento que é retornado do checkbox
+   * @param colegiado colegiado ao qual o ministro pertence
+   */
   atualizaAusentes(event: MatCheckboxChange, colegiado: string){
     const nome = event.source.name;
 
@@ -146,6 +171,9 @@ export class ComposicaoComponent implements OnInit, AfterViewChecked {
     this.emiteComposicao();
   }
 
+  /**
+   * Emite a composição da sessão
+   */
   emiteComposicao(){
     this.statusComposicao.emit({
       presidencia: this.presidencia,
