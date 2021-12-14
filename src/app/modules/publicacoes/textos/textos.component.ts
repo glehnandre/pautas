@@ -15,7 +15,6 @@ registerLocaleData(localePT);
 })
 export class TextosComponent implements OnInit, AfterContentChecked {
 
-  @Input() publicacoesSemFiltro: PublicacaoDto[] = [];
   @Input() filtrados: PublicacaoDto[] = [];
 
   publicacoes: PublicacaoDto[];

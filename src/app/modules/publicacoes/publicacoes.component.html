@@ -55,6 +55,7 @@
                 (emiteFiltros)="trataFiltros($event)"
                 (removeFiltros)="removeFiltros($event)"
                 (emiteData)="filtraData($event)"
+                (emiteProcesso)="trataProcesso($event)"
             ></app-filtros>
         </mat-drawer>
 
@@ -75,7 +76,6 @@
 
                 <app-textos
                 class="space-y-4"
-                    [publicacoesSemFiltro]="publicacoes"
                     [filtrados]="exibidos"
                 ></app-textos>
 

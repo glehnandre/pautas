@@ -275,7 +275,17 @@ export const item: ItemDto[] = [
         codigo: "MIN. DIAS TOFFOLI",
         quantidade: 2,
         descricao: "MIN. DIAS TOFFOLI"
-    }
+    },
+    {
+        codigo: "ARE",
+        quantidade: 9,
+        descricao: "ARE"
+    },
+    {
+        codigo: "AI",
+        quantidade: 3,
+        descricao: "AI"
+    },
 ]
 
 export const informacoes: InformacoesDto[] = [
@@ -290,6 +300,12 @@ export const informacoes: InformacoesDto[] = [
         tipo: "",
         criterio: "",
         itens: [item[2], item[3], item[4]]
+    },
+    {
+        nome: "Classe processual",
+        tipo: "",
+        criterio: "",
+        itens: [item[5], item[6]]
     },
 ]
 

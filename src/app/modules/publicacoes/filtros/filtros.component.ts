@@ -1,4 +1,5 @@
 import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
+import { FormControl, Validators } from '@angular/forms';
 import { MatCheckboxChange } from '@angular/material/checkbox';
 import { InformacoesDto } from 'app/modules/acervo/model/interfaces/informacoesDto.interface';
 
@@ -25,10 +26,12 @@ export class FiltrosComponent implements OnInit{
   @Output() emiteFiltros = new EventEmitter<any>();
   @Output() removeFiltros = new EventEmitter<any>();
   @Output() emiteData = new EventEmitter<any>();
+  @Output() emiteProcesso = new EventEmitter<any>();
 
   filtros: Filtros[] = [];
   data_inicio: Date = new Date();
   data_fim: Date = new Date();
+  numeroProcesso = new FormControl('');
 
   filtrados: Filtrados[] = [];
 
@@ -77,6 +80,7 @@ export class FiltrosComponent implements OnInit{
    */
   filtrar(){
     this.filtrarData();
+    this.filtrarProcesso();
     let emitir = this.filtrados;
     if(this.filtrados[0]){
       this.emiteFiltros.emit(this.filtrados);
@@ -113,6 +117,13 @@ export class FiltrosComponent implements OnInit{
       data_inicio: this.data_inicio,
       data_fim: this.data_fim
     })
+  }
+
+  /**
+   * Emite o número do processo inserido para a filtragem
+   */
+   filtrarProcesso(){
+    this.emiteProcesso.emit(this.numeroProcesso.value);
   }
 
   /**
