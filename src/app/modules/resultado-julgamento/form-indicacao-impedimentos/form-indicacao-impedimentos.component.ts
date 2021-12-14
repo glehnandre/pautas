@@ -1,5 +1,6 @@
 import { Component, EventEmitter, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { MatCheckboxChange } from '@angular/material/checkbox';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatRadioChange } from '@angular/material/radio';
 import { Ministro } from 'app/modules/acervo/model/interfaces/ministro.interface';
@@ -42,31 +43,63 @@ export class FormIndicacaoImpedimentosComponent implements OnInit {
 
   ngOnInit(): void {}
 
-  public registrarMinistroComoSuspeitoOuImpedido(event: EventEmitter<MatRadioChange>): void {
-    const { id, situacao } = event['value'];
+  /**
+   * @public Método público
+   * @param event Evento que contém os dados de value do checkbox
+   * @description Realiza o registro do ministro como suspeito ou impedido
+   * @author Douglas da Silva Monteles
+   */
+  public registrarMinistroComoSuspeitoOuImpedido(event: MatCheckboxChange): void {
+    const { id, situacao } = event.source.value as any;
+    const isChecked = event.checked;
 
-    if (situacao === 'impedido') {
-      this.resultado.ministrosImpedidos.add(id);
-      this.resultado.ministrosSuspeitos.delete(id);
+    if (isChecked) {
+      if (situacao === 'suspeito') {
+        this.resultado.ministrosSuspeitos.add(id);
+        this.resultado.ministrosImpedidos.delete(id);
+      } else {
+        this.resultado.ministrosImpedidos.add(id);
+        this.resultado.ministrosSuspeitos.delete(id);
+      }
     } else {
-      this.resultado.ministrosSuspeitos.add(id);
-      this.resultado.ministrosImpedidos.delete(id);
+      if (situacao === 'suspeito') {
+        this.resultado.ministrosSuspeitos.delete(id);
+      } else {
+        this.resultado.ministrosImpedidos.delete(id);
+      }
     }
+
+    console.log(this.resultado)
   }
 
-  public registrar(): void {
-    if (this.formIndicacao.valid) {
-      const obj = {
-        ministros_impedidos: [...this.resultado.ministrosImpedidos],
-        ministros_suspeitos: [...this.resultado.ministrosSuspeitos],
-      };
+  /**
+   * @public Método público
+   * @param checkbox Template variable que faz referência ao mat-checkbox
+   * @description A variável de template referencia a instancia do componente,
+   *              podendo realizar modificações em seu estado. Neste caso, ele
+   *              vai alterar o estado do mat-checkbox false.
+   * @author Douglas da Silva Monteles
+   */
+  public gerenciarSelecao(checkbox: MatCheckboxChange): void {
+    checkbox.checked = false;
+  }
 
-      this._processoService.salvarImpedimentos(this._data.idProcesso, obj).subscribe({
-        next: () => {
-          this._dialogRef.close('ok');
-        },
-      });
-    }
+  /**
+   * @public Método público
+   * @description Realiza a chamada para a API para salvar os ids dos ministros.
+   * @author Douglas da Silva Monteles
+   */
+  public registrar(): void {
+    const obj = {
+      ministros_impedidos: [...this.resultado.ministrosImpedidos],
+      ministros_suspeitos: [...this.resultado.ministrosSuspeitos],
+    };
+
+    this._processoService.salvarImpedimentos(this._data.idProcesso, obj).subscribe({
+      next: () => {
+        this._dialogRef.close('ok');
+      },
+    });
   }
 
   /**
@@ -80,7 +113,7 @@ export class FormIndicacaoImpedimentosComponent implements OnInit {
     let formMinistros = {};
 
     this.ministros.forEach(({id}) => {
-      formMinistros[`${id}`] = [null, Validators.required];
+      formMinistros[`${id}`] = [null, []];
     });
 
     this.formIndicacao = this._fb.group(formMinistros);
