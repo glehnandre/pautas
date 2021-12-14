@@ -9,6 +9,8 @@ import { DocumentoInteiroTeor } from '../../acervo/model/interfaces/documento-in
 import { SessaoJulgamento } from '../../acervo/model/interfaces/sessao-julgamento.interface';
 import { Tag } from '../../acervo/model/interfaces/tag.interface';
 import { RevisarInteiroTeorService } from '../../services/revisar-inteiro-teor.service';
+import { MinistroService } from 'app/modules/services/ministro.service';
+import { Ministro } from 'app/modules/acervo/model/interfaces/ministro.interface';
 
 export interface RevisaoInteiroTeor {
     id_processo: number;
@@ -39,8 +41,11 @@ export class TabelaComponent implements OnInit {
   documentoSelecionado: DocumentoInteiroTeor | null = null;
   editarDocumentoForm: FormGroup;
 
+  ministros$: Observable<Ministro[]>
+
   constructor(
     private _inteiroTeorService: RevisarInteiroTeorService,
+    private _ministroService: MinistroService,
     private _formBuilder: FormBuilder,
   ) { }
 
@@ -57,6 +62,8 @@ export class TabelaComponent implements OnInit {
         revisado             : [''],
         ordem                : [''],
     });
+
+    this.ministros$ = this._ministroService.listarMinistros();
   }
 
   emiteStatusDoCheckbox(documento: DocumentoInteiroTeor): void {
