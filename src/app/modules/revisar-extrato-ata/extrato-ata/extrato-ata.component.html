@@ -13,17 +13,15 @@
                     <span>{{ form?.dataPublicacao | date: 'MMM/yyyy':'':'pt-BR'}}</span>
                 </div>
                 <div class="flex flex-col bg-primary p-2 w-full">
-                    <div>
-                        <span class="text-base sm:text-2xl">
-                            {{ capituloPublicacao?.classe_extenso }} {{ addPontoNumero(capituloPublicacao?.numero) }}
-                        </span>
-                    </div>
+                    <span class="text-base sm:text-2xl">
+                        {{ capituloPublicacao?.classe }} {{ capituloPublicacao?.numero }} {{ capituloPublicacao?.cadeia}}
+                    </span>
                     <div>
                         <span>
-                            ({{ capituloPublicacao?.classe }} {{ capituloPublicacao?.numero }}) Relatoria
+                            {{ capituloPublicacao?.classe_extenso }} {{ addPontoNumero(capituloPublicacao?.numero) }}
                         </span>
                         <span class="font-medium">
-                            Ministr{{ capituloPublicacao?.relator?.genero == 'Masculino' ? 'o': 'a' }}
+                            Relatoria Ministr{{ capituloPublicacao?.relator?.genero == 'Masculino' ? 'o': 'a' }}
                             {{ capituloPublicacao?.relator?.nome }}
                         </span>
                     </div>
@@ -64,20 +62,21 @@
                         }}
                     </h3>
                 </div>
-                <div class="w-full" *ngFor="let capitulo of capituloPublicacao?.capitulos">
-                    <div class="ml-4 sm:ml-8 md:ml-16 mr-4">
-                        <div [class]="'bg-sentido-'+capitulo.dispositivo.sentido+' rounded-full px-2 text-white mb-4 mr-2 inline-block'">
-                            {{ capitulo.dispositivo.nome }}
+                <div class="ml-4 sm:ml-8 md:ml-16 mr-4">
+                    {{ cabecalho }} <br class="mb-8">
+                    <div *ngFor="let capitulo of capituloPublicacao?.capitulos">
+                        <div>
+                            <div [class]="'bg-sentido-'+capitulo.dispositivo.sentido+' rounded-full px-2 text-white mb-4 mr-2 inline-block'">
+                                {{ capitulo.dispositivo.nome }}
+                            </div>
+                            <div [innerHtml]="capitulo?.texto"></div><br>
+                            <div [innerHtml]="
+                              fraseEMinistros(capitulo?.ministros_acordam, FraseVencidos)+
+                              fraseEMinistros(capitulo?.ministros_divergem, FraseDiscordam)
+                            "></div>
                         </div>
-                        <div [innerHtml]="capitulo?.texto"></div><br>
-                        <div [innerHtml]="
-                          fraseEMinistros(capitulo?.ministros_acordam, FraseVencidos)+
-                          fraseEMinistros(capitulo?.ministros_divergem, FraseDiscordam)
-                        "></div>
+                        <br class="mb-2">
                     </div>
-                    <br class="mb-2">
-                </div>
-                <div class="ml-4 sm:ml-8 md:ml-16">
                     <div [innerHtml]="
                       fraseEMinistros(capituloPublicacao?.ministros_impedidos, FraseImpedidos)+
                       fraseEMinistros(capituloPublicacao?.ministros_suspeitos, FraseSuspeitos)+
@@ -85,8 +84,8 @@
                       fraseEMinistros(sessao?.ministros_ausentes, FraseAusentes)
                     "></div>
                     <div class="mt-2">
-                        <span *ngFor="let vista of capituloPublicacao?.vistas">{{ vista.texto+'a' }}</span><br>
-                        <span *ngFor="let destaque of capituloPublicacao?.destaques">{{ destaque.texto+'b' }}</span>
+                      <span *ngFor="let vista of capituloPublicacao?.vistas">{{ vista.texto+'a' }}</span><br>
+                      <span *ngFor="let destaque of capituloPublicacao?.destaques">{{ destaque.texto+'b' }}</span>
                     </div>
                 </div>
                 <footer class="text-center mt-4">

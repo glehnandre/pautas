@@ -1,11 +1,33 @@
 <div class="absolute inset-0 flex flex-col min-w-0 overflow-hidden">
     <!-- Header -->
     <div class="justify-center px-2 sm:px-4 pb-2 bg-white dark:bg-gray-800">
-        <h1 class="mt-4 text-primary font-medium text-base sm:text-xl md:text-2xl w-full">
-            Revisar Extrato da Ata Sessão {{ ata?.sessao.categoria }}
-            {{ ata?.sessao?.numero }}/{{ ata?.sessao?.ano }}
-            {{ ata?.sessao?.modalidade }}
-        </h1>
+        <div class="flex flex-row">
+            <h1 class="mt-4 text-primary font-medium text-base sm:text-xl md:text-2xl w-full">
+                Revisar Extrato da Ata Sessão {{ ata?.sessao.categoria }}
+                {{ ata?.sessao?.numero }}/{{ ata?.sessao?.ano }}
+                {{ ata?.sessao?.modalidade }}
+            </h1>
+            <!-- Botões -->
+            <div class="hidden sm:flex sm:flex-row mt-2 mb-auto mx-8 items-end space-x-4">
+                <button class="ml-auto" color="white" mat-raised-button>
+                    <span>Cancelar</span>
+                </button>
+                <button color="primary" mat-raised-button (click)="publicar()">
+                    <span>Revisado e Publicar</span>
+                </button>
+            </div>
+        </div>
+        <!-- DropBox -->
+        <mat-form-field class="w-full text-xs sm:hidden">
+            <mat-select style="height: 4px;" placeholder="Escolha sua ação">
+                <mat-option value="revisado" (click)="publicar()" class="bg-primary text-white">
+                    Revisado e Publicar
+                </mat-option>
+                <mat-option value="corrigir" (click)="corrigir()">Solicitar Correção</mat-option>
+                <mat-option value="cancelar">Cancelar</mat-option>
+            </mat-select>
+        </mat-form-field>
+
         <hr class="-mx-4 p-0 -mt-2">
         <div class="flex flex-col sm:flex-row -mt-4 items-center justify-between mx-2 md:mx-8 pb-4 space-y-2 sm:space-x-4">
             <div class="flex flex-row space-x-4">
@@ -25,41 +47,25 @@
                     </mat-chip-list>
                 </div>
             </div>
-            <div class="flex flex-col-reverse sm:flex-col -pt-4 w-full">
+            <div class="flex flex-row -pt-4 w-full">
                 <app-stacked-bar-processos
+                  class="w-full"
                   [julgados]="ata?.total_julgados"
                   [nao_julgados]="ata?.total_nao_julgados"
                   [suspensos]="ata?.total_suspensos"
                 ></app-stacked-bar-processos>
+
+                <button class="ml-2 hidden sm:flex" color="primary" mat-raised-button (click)="corrigir()">
+                    <span>Solicitar Correção</span>
+                </button>
             </div>
         </div>
-        <!-- Botões -->
-        <div class="hidden sm:flex flex-row mx-8 items-end space-x-4">
-            <button class="ml-auto" color="white" mat-raised-button>
-                <span>Cancelar</span>
-            </button>
-            <button color="white" mat-raised-button (click)="corrigir()">
-                <span>Solicitar Correção</span>
-            </button>
-            <button color="primary" mat-raised-button (click)="publicar()">
-                <span>Revisado e Publicar</span>
-            </button>
-        </div>
-        <!-- DropBox -->
-        <mat-form-field class="w-full text-xs sm:hidden">
-            <mat-select style="height: 4px;" placeholder="Escolha sua ação">
-                <mat-option value="revisado" (click)="publicar()" class="bg-primary text-white">
-                    Revisado e Publicar
-                </mat-option>
-                <mat-option value="corrigir" (click)="corrigir()">Solicitar Correção</mat-option>
-                <mat-option value="cancelar">Cancelar</mat-option>
-            </mat-select>
-        </mat-form-field>
     </div>
 
     <!-- Body -->
     <div class="overflow-y-auto w-full" cdkScrollable>
         <app-extrato-ata
+          [cabecalho]="ata?.cabecalho"
           [sessao]="ata?.sessao"
           [capitulosPublicacao]="ata?.capitulos_para_publicacao"
           [form]="form"
