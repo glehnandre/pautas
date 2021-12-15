@@ -12,7 +12,7 @@
     </header>
 
     <div class="flex flex-col flex-auto p-6 sm:p-8 max-h-120 overflow-y-auto ng-pristine ng-invalid ng-touched">
-        <form [formGroup]="formIndicacao" class="md:mx-8">
+        <form class="md:mx-8">
             <div class="grid grid-cols-3">
                 <div class="col-span-1"><h3>Ministros</h3></div>
                 <div class="col-span-1 text-center"><h3>Impedidos</h3></div>
@@ -64,9 +64,9 @@
                     #box_1
                     class="col-span-1 m-auto"
                     color="primary"
-                    (click)="gerenciarSelecao(box_2)"
-                    [formControlName]="ministro.id"
+                    [checked]="isMinistroImpedidoSelecionado(ministro.id)"
                     [value]="{id: ministro.id, situacao: 'impedido'}"
+                    (click)="gerenciarSelecao(box_2)"
                     (change)="registrarMinistroComoSuspeitoOuImpedido($event)"
                 ></mat-checkbox>
 
@@ -74,9 +74,9 @@
                     #box_2
                     class="col-span-1 m-auto"
                     color="primary"
-                    (click)="gerenciarSelecao(box_1)"
-                    [formControlName]="ministro.id"
+                    [checked]="isMinistroSuspeitoSelecionado(ministro.id)"
                     [value]="{id: ministro.id, situacao: 'suspeito'}"
+                    (click)="gerenciarSelecao(box_1)"
                     (change)="registrarMinistroComoSuspeitoOuImpedido($event)"
                 ></mat-checkbox>
             </section>

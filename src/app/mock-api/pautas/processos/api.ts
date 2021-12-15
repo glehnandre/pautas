@@ -272,14 +272,20 @@ export class ProcessoMockApi {
 
                 if (index !== -1) {
                     const processo = this._processo[index];
+                    const ministrosImpedidos: Ministro[] = [];
+                    const ministrosSuspeitos: Ministro[] = [];
                     
                     body.ministros_impedidos.forEach((id: number) => {
-                        processo.ministros_impedidos.push(this._obterMinistroPeloId(id));
+                        ministrosImpedidos.push(this._obterMinistroPeloId(id));
                     });
 
+                    processo.ministros_impedidos = ministrosImpedidos;
+
                     body.ministros_suspeitos.forEach((id: number) => {
-                        processo.ministros_suspeitos.push(this._obterMinistroPeloId(id));
+                        ministrosSuspeitos.push(this._obterMinistroPeloId(id));
                     });
+
+                    processo.ministros_suspeitos = ministrosSuspeitos;
 
                     return [200, processo];
                 }

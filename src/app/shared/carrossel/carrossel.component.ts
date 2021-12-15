@@ -24,11 +24,11 @@ export class CarrosselComponent implements OnInit, OnDestroy, AfterContentChecke
   @Output() nomeDoPdfSelecionado = new EventEmitter<string>();
   @Output() linkDoPdfSelecionado = new EventEmitter<string>();
   @Output() chipRemovido = new EventEmitter<string>();
+  @Output() onClick = new EventEmitter<boolean>(false);
 
   constructor(private cd: ChangeDetectorRef) { }
 
-  ngOnInit(): void {
-  }
+  ngOnInit(): void {}
   
   ngAfterContentChecked(){
     this.cd.detectChanges();

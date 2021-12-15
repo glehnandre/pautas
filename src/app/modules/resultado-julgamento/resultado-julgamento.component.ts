@@ -300,6 +300,10 @@ export class ResultadoJulgamentoComponent implements OnInit {
       maxHeight: '90vh',
       data: {
         idProcesso: +this.parametros.processo,
+        resultado: {
+          ministrosImpedidos: this.processo.ministros_impedidos,
+          ministrosSuspeitos: this.processo.ministros_suspeitos,
+        }
       }
     });
     
