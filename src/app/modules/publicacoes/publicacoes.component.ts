@@ -23,6 +23,7 @@ export class PublicacoesComponent implements OnInit, OnDestroy {
   agregacoes: InformacoesDto[] = [];
   filtrados: PublicacaoDto[] = [];
   hasFiltros: boolean = false;
+  hasNumeroProcesso: boolean = false;
   exibidos: PublicacaoDto[] = [];
   right: number;
   left: number;
@@ -158,7 +159,7 @@ export class PublicacoesComponent implements OnInit, OnDestroy {
   }
 
   /**
-   * Faz o tratamento dos e filtra as publicações a partir dos filtos dinâmicos selecionados.
+   * Faz o tratamento e filtra as publicações a partir dos filtos dinâmicos selecionados.
    * @param filtros filtros selecionados.
    */
   trataFiltros(filtros: any[]){
@@ -182,13 +183,27 @@ export class PublicacoesComponent implements OnInit, OnDestroy {
   }
 
   /**
+   * Faz o tratamento e filtra as publicações a partir do numero do processo.
+   * @param numeroProcesso numero do processo inserido.
+   */
+  trataProcesso(numeroProcesso: string){
+    this.hasNumeroProcesso = true;
+    let filtros = [];
+    this.filtrar(numeroProcesso).forEach(filtrado=>{
+      if(filtros.indexOf(filtrado)==-1) filtros.push(filtrado);
+    })
+    this.filtrados = filtros;
+    this.trataExibidos();
+  }
+
+  /**
    * Faz a filtragem de quando todos os filtros dinâmicos forem desmarcados.
    * @param event contem os atributos "data_inicio" e "data_inicio" que
    * serão utilizados para chamar a função filtraData().
    */
   removeFiltros(event: any){
       if(this.pesquisas.length!=0) this.refazPesquisa();
-      else this.filtraData(event);
+      else if(!this.hasNumeroProcesso) this.filtraData(event);
       this.hasFiltros = true;
   }
 

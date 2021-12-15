@@ -46,6 +46,21 @@
             </section>
         </mat-expansion-panel>
 
+        <mat-expansion-panel class="mb-2 border-solid border-2" [expanded]="true">
+            <mat-expansion-panel-header>
+                <mat-panel-title class="font-semibold text-primary-500 line-clamp-3">
+                    Número do processo
+                </mat-panel-title>
+            </mat-expansion-panel-header>
+    
+            <section class="">
+                <mat-form-field appearance="fill" class="w-full">
+                    <input matInput name="outros" [formControl]="numeroProcesso">
+                    <mat-hint>Informe o número do processo para a pesquisa</mat-hint>
+                </mat-form-field>
+            </section>
+        </mat-expansion-panel>
+
         <mat-expansion-panel *ngFor="let filtro of recuperaFiltros()" class="mb-2 border-solid border-2">
             <mat-expansion-panel-header>
                 <mat-panel-title class="font-semibold text-primary-500 line-clamp-3">
