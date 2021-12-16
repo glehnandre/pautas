@@ -6,7 +6,7 @@ import { dispositivos } from "../dispositivo/data";
 import { capitulo } from "../capitulo/data"
 import { ministro } from "../ministro/data";
 import { sessao } from "../sessoes-julgamento/data";
-import { processo } from "../processos/data";
+import { destaques, processo, vistas } from "../processos/data";
 
 export const decisoes: DecisoesResultadoJulgamento[] = [
   {
@@ -17,26 +17,8 @@ export const decisoes: DecisoesResultadoJulgamento[] = [
           processo[0],
           processo[1],
         ],
-        vistas: [
-          {
-            id: 1,
-            data: '2016-08-29T09:12:33.001Z',
-            processo: 1231,
-            ministro: 12313,
-            sessao: 123,
-            texto: "Após o voto do Ministro Marco Aurélio, Relator, que implementava a ordem, pediu vista dos autos o Ministro Alexandre de Moraes. Primeira Turma, Sessão Virtual de 13.11.2020 a 20.11.2020."
-          }
-        ],
-        destaques: [
-          {
-            id: 1,
-            data: '2016-08-29T09:12:33.001Z',
-            processo: 1231,
-            ministro: 12313,
-            sessao: 123,
-            texto: "Após o voto do Ministro Marco Aurélio, Relator, que implementava a ordem, pediu destaque do processo do plenário virtual."
-          }
-        ],
+        vistas: vistas,
+        destaques: destaques,
       }
     ],
     sessao: sessao[0],

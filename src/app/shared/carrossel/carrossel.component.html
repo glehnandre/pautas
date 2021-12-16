@@ -11,7 +11,7 @@
             <mat-chip-list *ngFor="let chip of chips; index as i" class="m-1 flex-none">
                 <mat-chip 
                     [ngClass]="class" 
-                    (click)="abrirLink(i); onClick.emit(true)"
+                    (click)="abrirLink(i); onClick.emit({click: true, chip: chip})"
                     (removed)="removerChip(chip)"
                 >
                     <mat-icon *ngIf="hasIcon" class="mr-2" style="color:red">picture_as_pdf</mat-icon>

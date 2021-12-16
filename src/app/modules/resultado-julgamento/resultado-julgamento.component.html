@@ -74,7 +74,7 @@
                     [chips]="chips"
                     [hasArrow]="true"
                     [hasBtnRemove]="false"
-                    (onClick)="$event && exibirModalDeIndicacaoDeImpedimentos()"
+                    (onClick)="abrirModal($event)"
                     (chipRemovido)="obterChipRemovido($event)"
                 ></app-carrossel>
             </div>
