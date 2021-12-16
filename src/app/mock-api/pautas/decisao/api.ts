@@ -50,6 +50,8 @@ export class DecisaoMockApi {
               this._decisoes[0].decisoes.push({
                 capitulo: decisao,
                 processos_mesma_decisao,
+                destaques: [],
+                vistas: [],
               });
             } else {
               this._decisoes[0].decisoes.push({
@@ -58,6 +60,8 @@ export class DecisaoMockApi {
                   ...decisao,
                 },
                 processos_mesma_decisao,
+                destaques: [],
+                vistas: [],
               });
             }
 

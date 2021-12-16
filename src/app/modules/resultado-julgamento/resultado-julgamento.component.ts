@@ -396,6 +396,18 @@ export class ResultadoJulgamentoComponent implements OnInit {
       const str = `${abreviacao} - Suspeito(a)`;
       this.chips.push(str);
     });
+
+    this.dados.decisoes.forEach(({vistas, destaques}) => {
+      vistas.forEach(v => {
+        const str = `Vista - ${v.texto.substr(0, 40)}...`;
+        this.chips.push(str);
+      });
+
+      destaques.forEach(d => {
+        const str = `Destaque - ${d.texto.substr(0, 40)}...`;
+        this.chips.push(str);
+      });
+    });
   }
 
 }
