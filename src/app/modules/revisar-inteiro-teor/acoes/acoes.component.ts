@@ -55,23 +55,6 @@ export class AcoesComponent implements OnInit {
     this.todosOsCheckboxSelecionados.emit();
    }
 
-   /**
-   * @public
-   * @description Publicar o(s) inteiro(s) teor(es) que foram selecionados
-   * @author
-   */
-    public publicarInteiroTeor(): void {
-        if (this._isAlgumaLinhaSelecionada()) {
-          const ids = this.linhasSelecionadas.map((linha) => linha.id);
-
-          this._inteiroTeorService.publicarInteiroTeorDoAcordao(this.idProcesso, ids).subscribe({
-              next: (data) => {
-                  console.log(data);
-              }
-          });
-        }
-    }
-
     /**
    * @public
    * @description Remove o(s) inteiro(s) teor(es) que foram selecionados

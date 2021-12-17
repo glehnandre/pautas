@@ -250,6 +250,23 @@ export class ProcessoMockApi {
             });
 
         this._fuseMockApiService
+            .onDelete('processos/:id/vista')
+            .reply(({request, urlParams}) => {
+                const idProcesso: number = +urlParams.id;
+                const idVista: number = +urlParams.idVista;
+                const index = this._vistas.findIndex(v => v.id === idVista);
+
+                if (index !== -1) {
+                    this._vistas.splice(index, 1);
+                    return [200, this._vistas];
+                }
+
+                return [404, {
+                    msg: 'Nenhuma Vista com id informado.'
+                }];
+            });
+
+        this._fuseMockApiService
             .onPost('processos/:id/destaque')
             .reply(({request, urlParams}) => {
                 const idProcesso: number = +urlParams.id;
@@ -259,6 +276,23 @@ export class ProcessoMockApi {
                 this._destaques.push(body);
 
                 return [200, this._destaques];
+            });
+
+        this._fuseMockApiService
+            .onDelete('processos/:id/destaque/:idDestaque')
+            .reply(({request, urlParams}) => {
+                const idProcesso: number = +urlParams.id;
+                const idDestaque: number = +urlParams.idDestaque;
+                const index = this._destaques.findIndex(v => v.id === idDestaque);
+
+                if (index !== -1) {
+                    this._destaques.splice(index, 1);
+                    return [200, this._destaques];
+                }
+
+                return [404, {
+                    msg: 'Nenhuma Vista com id informado.'
+                }];
             });
 
         this._fuseMockApiService

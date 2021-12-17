@@ -243,11 +243,17 @@ export class ResultadoJulgamentoComponent implements OnInit {
     });
   }
 
-  public exibirModalDeVista(): void {
+  /**
+   * @public Método público
+   * @description Método para exibir modal de cadastro de Vista
+   * @author Douglas da Silva Monteles
+   */
+  public exibirModalDeVista(id?: number): void {
     const dialogfRef = this._dialog.open(FormVistaEDestaqueComponent, {
       maxHeight: '90vh',
       data: {
         titulo: 'Informar Vista',
+        dados: this._obterDadosDaVistaNaListaDeDecisoes(id),
       }
     });
 
@@ -269,11 +275,17 @@ export class ResultadoJulgamentoComponent implements OnInit {
     });
   }
 
-  public exibirModalDeDestaque(): void {
+  /**
+   * @public Método público
+   * @description Método para exibir modal de cadastro de Destaque
+   * @author Douglas da Silva Monteles
+   */
+  public exibirModalDeDestaque(id?: number): void {
     const dialogfRef = this._dialog.open(FormVistaEDestaqueComponent, {
       maxHeight: '90vh',
       data: {
         titulo: 'Informar Destaque',
+        dados: this._obterDadosDoDestaqueNaListaDeDecisoes(id),
       }
     });
 
@@ -295,6 +307,11 @@ export class ResultadoJulgamentoComponent implements OnInit {
     });
   }
 
+  /**
+   * @public Método público
+   * @description Método para exibir modal de cadastro de Indicação de Impedimentos
+   * @author Douglas da Silva Monteles
+   */
   public exibirModalDeIndicacaoDeImpedimentos(): void {
     const dialogRef = this._dialog.open(FormIndicacaoImpedimentosComponent, {
       maxHeight: '90vh',
@@ -315,6 +332,27 @@ export class ResultadoJulgamentoComponent implements OnInit {
     });
   }
 
+  public abrirModal(event: {click: boolean, chip: string}): void {
+    const str = event.chip.toLocaleLowerCase();
+
+    if (event.click) {
+      if (str.includes('vista')) {
+        const id: number = +str.split(' ')[1];
+        this.exibirModalDeVista(id);
+      } else if (str.includes('destaque')) {
+        const id: number = +str.split(' ')[1];
+        this.exibirModalDeDestaque(id);
+      } else {
+        this.exibirModalDeIndicacaoDeImpedimentos();
+      }
+    }
+  }
+
+  /**
+   * @public Método público
+   * @description Método para concatenar algumas informações sobre o processo
+   * @author Douglas da Silva Monteles
+   */
   public getDadosDoProcesso(): string {
     if (this.processo) {
       const { classe, numero, nome } = this.processo;
@@ -325,7 +363,28 @@ export class ResultadoJulgamentoComponent implements OnInit {
   }
 
   public obterChipRemovido(chip: string): void {
-    console.log(chip)
+    try {
+      const tipo: string = chip.split(' ')[0].toLocaleLowerCase();
+      const id: number = +chip.split(' ')[1];
+      
+      if (tipo === 'vista') {
+        this._processoService.excluirVistaDoProcesso(this.parametros.processo, id)
+          .subscribe({
+            next: () => {
+              console.log(`Vista ${id} excluida`);
+            }
+          });
+      } else { // destaque
+        this._processoService.excluirDestaqueDoProcesso(this.parametros.processo, id)
+          .subscribe({
+            next: () => {
+              console.log(`Destaque ${id} excluida`);
+            }
+          });
+      }
+    } catch (error) {
+      console.log(error);
+    }
   }
 
   /**
@@ -352,6 +411,7 @@ export class ResultadoJulgamentoComponent implements OnInit {
     this._resultadoJulgamento.listarDecisoes(this.parametros.processo).subscribe({
       next: (data) => {
         this.dados = data;
+        this._criarChips();
         console.log(this.dados)
       }
     });
@@ -379,23 +439,65 @@ export class ResultadoJulgamentoComponent implements OnInit {
     });
   }
 
+  /**
+   * @private Método privado
+   * @description Método que cria uma lista de chips com os dados dos ministros
+   *              impedidos ou suspeitos e com os dados de vistas e destaques.
+   * @author Douglas da Silva Monteles
+   */
   private _criarChips(): void {
     this.chips = [];
 
-    const { 
-      ministros_impedidos, 
-      ministros_suspeitos, 
-    } = this.processo;
+    if (this.processo) {
+      const { 
+        ministros_impedidos, 
+        ministros_suspeitos, 
+      } = this.processo;
+  
+      ministros_impedidos.forEach(({abreviacao}) => {
+        const str = `Impedido(a) - ${abreviacao}`;
+        this.chips.push(str);
+      });
+  
+      ministros_suspeitos.forEach(({abreviacao}) => {
+        const str = `Suspeito(a) - ${abreviacao}`;
+        this.chips.push(str);
+      });
+    }
 
-    ministros_impedidos.forEach(({abreviacao}) => {
-      const str = `${abreviacao} - Impedido(a)`;
-      this.chips.push(str);
+    if (this.dados) {
+      this.dados.decisoes.forEach(({vistas, destaques}) => {
+        vistas.forEach(({id, texto}) => {
+          const str = `Vista ${id} - ${texto.substr(0, 40)}...`;
+          this.chips.push(str);
+        });
+  
+        destaques.forEach(({id, texto}) => {
+          const str = `Destaque ${id} - ${texto.substr(0, 40)}...`;
+          this.chips.push(str);
+        });
+      });
+    }
+  }
+
+  private _obterDadosDaVistaNaListaDeDecisoes(id: number): Vista {
+    let vista: Vista = null;
+
+    this.dados.decisoes.forEach(dec => {
+      vista = dec.vistas.find(v => v.id === id);
     });
 
-    ministros_suspeitos.forEach(({abreviacao}) => {
-      const str = `${abreviacao} - Suspeito(a)`;
-      this.chips.push(str);
+    return vista;
+  }
+
+  private _obterDadosDoDestaqueNaListaDeDecisoes(id: number): Vista {
+    let destaque: Destaque = null;
+
+    this.dados.decisoes.forEach(dec => {
+      destaque = dec.destaques.find(d => d.id === id);
     });
+
+    return destaque;
   }
 
 }
