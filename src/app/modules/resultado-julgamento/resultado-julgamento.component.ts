@@ -363,7 +363,28 @@ export class ResultadoJulgamentoComponent implements OnInit {
   }
 
   public obterChipRemovido(chip: string): void {
-    console.log(chip)
+    try {
+      const tipo: string = chip.split(' ')[0].toLocaleLowerCase();
+      const id: number = +chip.split(' ')[1];
+      
+      if (tipo === 'vista') {
+        this._processoService.excluirVistaDoProcesso(this.parametros.processo, id)
+          .subscribe({
+            next: () => {
+              console.log(`Vista ${id} excluida`);
+            }
+          });
+      } else { // destaque
+        this._processoService.excluirDestaqueDoProcesso(this.parametros.processo, id)
+          .subscribe({
+            next: () => {
+              console.log(`Destaque ${id} excluida`);
+            }
+          });
+      }
+    } catch (error) {
+      console.log(error);
+    }
   }
 
   /**

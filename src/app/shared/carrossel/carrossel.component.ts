@@ -20,6 +20,7 @@ export class CarrosselComponent implements OnInit, OnDestroy, AfterContentChecke
   @Input() hasArrow: boolean = true;
   @Input() idLinha: number;
   @Input() hasBtnRemove: boolean= false;
+  @Input() conteudosNoChipParaSerRemovivel: string[]= [];
 
   @Output() nomeDoPdfSelecionado = new EventEmitter<string>();
   @Output() linkDoPdfSelecionado = new EventEmitter<string>();
@@ -97,6 +98,15 @@ export class CarrosselComponent implements OnInit, OnDestroy, AfterContentChecke
       this.chips.splice(index, 1);
       this.chipRemovido.emit(chip);
     }
+  }
+
+  public isChipRemovivel(chip: string): boolean {
+    for (let i = 0; i < this.conteudosNoChipParaSerRemovivel.length; i++) {
+      if (chip.toLocaleLowerCase().includes(this.conteudosNoChipParaSerRemovivel[i].toLocaleLowerCase())) {
+        return true;
+      }
+    }
+    return false;
   }
 
 }

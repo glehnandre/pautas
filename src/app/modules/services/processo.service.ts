@@ -134,6 +134,24 @@ export class ProcessoService {
     );
   }
 
+  public excluirVistaDoProcesso(id: number, idVista: number): Observable<void> {
+    return this._httpClient.delete<void>(`processos/${id}/vista/${idVista}`).pipe(
+      catchError(error => {
+        console.log(error);
+        return EMPTY;
+      })
+    );
+  }
+
+  public excluirDestaqueDoProcesso(id: number, idDestaque: number): Observable<void> {
+    return this._httpClient.delete<void>(`processos/${id}/destaque/${idDestaque}`).pipe(
+      catchError(error => {
+        console.log(error);
+        return EMPTY;
+      })
+    );
+  }
+
   public setCarregarProcessos(carregarProcessos: boolean): void {
     this.isCarregarProcessos.next(carregarProcessos);
   }

@@ -73,7 +73,8 @@
                     [idChip]="'idChipsResultadoJulgamento'"
                     [chips]="chips"
                     [hasArrow]="true"
-                    [hasBtnRemove]="false"
+                    [hasBtnRemove]="true"
+                    [conteudosNoChipParaSerRemovivel]="['vista', 'destaque']"
                     (onClick)="abrirModal($event)"
                     (chipRemovido)="obterChipRemovido($event)"
                 ></app-carrossel>
