@@ -1,9 +1,11 @@
 import { Envolvido } from "./envolvido.interface";
+import { SessaoJulgamento } from "./sessao-julgamento.interface";
 
 export interface PublicacaoDto{
     id: number;
     processo: string;
     processoId: number;
+    sessao?: SessaoJulgamento;
     tipo: string;
     relator: string;
     divulgacao: string;

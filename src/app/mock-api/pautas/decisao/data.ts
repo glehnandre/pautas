@@ -60,19 +60,19 @@ export const ata: Ata = {
         envolvidos: [
           {
             nome: "Instituto Nacional do Seguro Social",
-            polo: "REQUERENTE",
+            polo: "ATIVO",
             categoria: "REQUERENTE",
             identificacoes: [],
           },
           {
             nome: "Francisco Chagas Ferreira Lima",
-            polo: "RECORRIDO",
+            polo: "PASSIVO",
             categoria: "RECORRIDO",
             identificacoes: [],
           },
           {
             nome: "Andrea Ponte Barbosa",
-            polo: "REQUERENTE",
+            polo: "ATIVO",
             categoria: "ADVOGADA",
             identificacoes: [
               "OAB 13190-B/CE",
@@ -81,7 +81,7 @@ export const ata: Ata = {
           },
           {
             nome: "Geissa Braga Calvacante",
-            polo: "RECORRIDO",
+            polo: "PASSIVO",
             categoria: "ADVOGADA",
             identificacoes: [
               "OAB 12314-B/CE",
@@ -90,7 +90,7 @@ export const ata: Ata = {
           },
           {
             nome: "Andrea Ponte Barbosa",
-            polo: "RECORRIDO",
+            polo: "PASSIVO",
             categoria: "ADVOGADA",
             identificacoes: [
               "OAB 56782-B/CE",
@@ -140,33 +140,37 @@ export const ata: Ata = {
         envolvidos: [
           {
             nome: "Instituto Nacional do Seguro Social",
-            polo: "REQUERENTE",
+            polo: "ATIVO",
             categoria: "REQUERENTE",
             identificacoes: [],
           },
           {
             nome: "Francisco Chagas Ferreira Lima",
-            polo: "RECORRIDO",
+            polo: "PASSIVO",
             categoria: "RECORRIDO",
             identificacoes: [],
           },
           {
             nome: "Andrea Ponte Barbosa",
-            polo: "REQUERENTE",
+            polo: "ATIVO",
             categoria: "ADVOGADA",
-            identificacoes: ["OAB 13190-B/CE"],
+            identificacoes: [
+              "OAB 13190-B/CE",
+              "RG 12345-6",
+            ],
           },
           {
             nome: "Geissa Braga Calvacante",
-            polo: "RECORRIDO",
+            polo: "PASSIVO",
             categoria: "ADVOGADA",
             identificacoes: [
               "OAB 12314-B/CE",
+              "RG 12345-6",
             ],
           },
           {
             nome: "Andrea Ponte Barbosa",
-            polo: "RECORRIDO",
+            polo: "PASSIVO",
             categoria: "ADVOGADA",
             identificacoes: [
               "OAB 56782-B/CE",
@@ -216,33 +220,37 @@ export const ata: Ata = {
         envolvidos: [
           {
             nome: "Instituto Nacional do Seguro Social",
-            polo: "REQUERENTE",
+            polo: "ATIVO",
             categoria: "REQUERENTE",
             identificacoes: [],
           },
           {
             nome: "Francisco Chagas Ferreira Lima",
-            polo: "RECORRIDO",
+            polo: "PASSIVO",
             categoria: "RECORRIDO",
             identificacoes: [],
           },
           {
             nome: "Andrea Ponte Barbosa",
-            polo: "REQUERENTE",
+            polo: "ATIVO",
             categoria: "ADVOGADA",
-            identificacoes: ["OAB 13190-B/CE"],
+            identificacoes: [
+              "OAB 13190-B/CE",
+              "RG 12345-6",
+            ],
           },
           {
             nome: "Geissa Braga Calvacante",
-            polo: "RECORRIDO",
+            polo: "PASSIVO",
             categoria: "ADVOGADA",
             identificacoes: [
               "OAB 12314-B/CE",
+              "RG 12345-6",
             ],
           },
           {
             nome: "Andrea Ponte Barbosa",
-            polo: "RECORRIDO",
+            polo: "PASSIVO",
             categoria: "ADVOGADA",
             identificacoes: [
               "OAB 56782-B/CE",
