@@ -97,7 +97,7 @@ export class ExtratoAtaComponent implements OnInit {
    *
    * @author Rodrigo Carvalho dos Santos
   **/
-   fraseEMinistros(ministros: Ministro[], frase: Frase): string {
+   fraseEMinistros(ministros: Ministro[] = {} as Ministro[], frase: Frase): string {
     return ministros.length?
         `<span> ${ this._ministroService.generoEPlural(ministros, frase) }</span>
         <span class="font-medium">${ this._ministroService.ministrosString(ministros) }</span>
