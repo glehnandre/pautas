@@ -26,7 +26,7 @@
                     mat-raised-button 
                     (click)="finalizar()"
                 >
-                    Finalizar 
+                    FINALIZAR 
                 </button>
 
                 <button 
@@ -34,7 +34,7 @@
                     class="max-w-full mr-4" 
                     (click)="exibirModalDeModeloDecisao()"
                 >
-                    Modelos de Texto
+                    MODELOS DE TEXTO
                 </button>
 
                 <button 
@@ -42,7 +42,7 @@
                     class="max-w-full mr-4" 
                     (click)="exibirModalDeVista()"
                 >
-                    Vista
+                    PEDIDOS DE VISTA
                 </button>
 
                 <button 
@@ -50,7 +50,7 @@
                     class="max-w-full mr-4" 
                     (click)="exibirModalDeDestaque()"
                 >
-                    Destaque
+                    PEDIDOS DE DESTAQUE
                 </button>
 
                 <button 
@@ -58,12 +58,12 @@
                     class="max-w-full mr-4" 
                     (click)="exibirModalDeIndicacaoDeImpedimentos()"
                 >
-                    Indicar impedimentos
+                    IMPEDIMENTOS
                 </button>
 
 
                 <button mat-raised-button class="z-0 mr-4 md:mt-2" mat-button>
-                    <span>Cancelar</span>
+                    <span>CANCELAR</span>
                 </button>
             </div>
 
@@ -73,7 +73,9 @@
                     [idChip]="'idChipsResultadoJulgamento'"
                     [chips]="chips"
                     [hasArrow]="true"
-                    [hasBtnRemove]="false"
+                    [hasBtnRemove]="true"
+                    [conteudosNoChipParaSerRemovivel]="['vista', 'destaque']"
+                    (onClick)="abrirModal($event)"
                     (chipRemovido)="obterChipRemovido($event)"
                 ></app-carrossel>
             </div>

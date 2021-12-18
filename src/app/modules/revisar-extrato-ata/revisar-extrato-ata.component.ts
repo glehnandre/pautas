@@ -35,7 +35,7 @@ export class RevisarExtratoAtaComponent implements OnInit {
 
   ngOnInit(): void {
     this.parametros = this._route.snapshot.queryParams as Parametros;
-
+    
     this._resultadoJulgamento
       .getAta(this.parametros.id)
       .subscribe({

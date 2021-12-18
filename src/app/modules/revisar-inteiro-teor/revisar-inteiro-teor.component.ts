@@ -9,6 +9,7 @@ import { Processo } from '../acervo/model/interfaces/processo.interface';
 import { SessaoJulgamento } from '../acervo/model/interfaces/sessao-julgamento.interface';
 import { Tag } from '../acervo/model/interfaces/tag.interface';
 import { ProcessoService } from '../services/processo.service';
+import { AlertaService } from '../services/alerta.service';
 import { RevisarInteiroTeorService } from '../services/revisar-inteiro-teor.service';
 
 export interface RevisaoInteiroTeor {
@@ -43,11 +44,13 @@ export class RevisarInteiroTeorComponent implements OnInit {
   todosOsCheckboxSelecionados = false;
 
   readonly NOME_DO_ALERTA_DESTA_CLASSE = 'alerta_revisar_inteiro_teor';
+  MENSAGEM_SUCESSO = '';
 
   constructor(
     private _route: ActivatedRoute,
     private _inteiroTeorService: RevisarInteiroTeorService,
     private _processoService: ProcessoService,
+    private _alertaService: AlertaService,
     private _sanitize: DomSanitizer,
   ) {
     this.link = this._sanitize.bypassSecurityTrustResourceUrl('');
@@ -62,6 +65,7 @@ export class RevisarInteiroTeorComponent implements OnInit {
         this.revisoes = revisoes;
         this.dataSource = new DataSourceInteiroTeor(this.revisoes.documentos);
         this.obterNomesDasSessoes();
+        this.MENSAGEM_SUCESSO = `O Inteiro Teor do julgamento do ${this.revisoes?.nome} remontam da ${this.revisoes?.classe} ${this.revisoes?.numero} foi liberado para publicação`;
         console.log(this.revisoes);
       }
     });
@@ -73,6 +77,21 @@ export class RevisarInteiroTeorComponent implements OnInit {
       }
     });
   }
+
+  /**
+   * @public
+   * @description Publicar o(s) inteiro(s) teor(es) que foram selecionados
+   * @author
+   */
+   public publicarInteiroTeor(): void {
+        const ids = this.revisoes.documentos.map((documento) => documento.id);
+
+        this._inteiroTeorService.publicarInteiroTeorDoAcordao(this.idProcesso, ids).subscribe({
+            next: (data) => {
+                this._alertaService.exibirAlertaDeSucesso();
+            }
+        });
+    }
 
   atualizarConteudo(revisao: RevisaoInteiroTeor): void {
     this.revisoes = revisao;

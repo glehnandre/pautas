@@ -1,8 +1,6 @@
-import { Component, EventEmitter, Inject, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Component, Inject, OnInit } from '@angular/core';
 import { MatCheckboxChange } from '@angular/material/checkbox';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { MatRadioChange } from '@angular/material/radio';
 import { Ministro } from 'app/modules/acervo/model/interfaces/ministro.interface';
 import { MinistroService } from 'app/modules/services/ministro.service';
 import { ProcessoService } from 'app/modules/services/processo.service';
@@ -14,8 +12,8 @@ import { ProcessoService } from 'app/modules/services/processo.service';
 })
 export class FormIndicacaoImpedimentosComponent implements OnInit {
 
-  formIndicacao: FormGroup;
   ministros: Ministro[] = [];
+
   resultado: {
     ministrosImpedidos: Set<number>;
     ministrosSuspeitos: Set<number>;
@@ -27,21 +25,57 @@ export class FormIndicacaoImpedimentosComponent implements OnInit {
   constructor(
     private _ministroService: MinistroService,
     private _processoService: ProcessoService,
-    private _fb: FormBuilder,
     private _dialogRef: MatDialogRef<FormIndicacaoImpedimentosComponent>,
-    @Inject(MAT_DIALOG_DATA) private _data: { idProcesso: number }, 
+    @Inject(MAT_DIALOG_DATA) private _data: { idProcesso: number, resultado: { ministrosImpedidos: Ministro[], ministrosSuspeitos: Ministro[] } }, 
   ) { 
-    this._construirFormulario(); // Garante que uma instância de FormGroup vazia seja criada durante a criação do componente
-
     this._ministroService.listarMinistros().subscribe({
       next: (ministros) => {
         this.ministros = ministros;
-        this._construirFormulario();
       }
     });
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    if (this._data.resultado) {
+      const { ministrosImpedidos, ministrosSuspeitos } = this._data.resultado;
+
+      ministrosImpedidos.forEach(ministro => {
+        const obj = { source: { value: { id: ministro.id, situacao: 'impedido' } }, checked: true };
+        this.registrarMinistroComoSuspeitoOuImpedido(obj);
+      });
+
+      ministrosSuspeitos.forEach(ministro => {
+        const obj = { source: { value: { id: ministro.id, situacao: 'suspeito' } }, checked: true };
+        this.registrarMinistroComoSuspeitoOuImpedido(obj);
+      });
+    }
+  }
+
+  /**
+   * @public Método público
+   * @param id Identificador do ministro
+   * @description Método que verifica se o id de um minsitro estar presente na
+   *              lista de ids dos ministros impedidos
+   * @returns true caso o id do ministro esteja na lista de ids dos ministros 
+   *          impedidos, e false caso contrário
+   * @author Douglas da Silva Monteles
+   */
+  public isMinistroImpedidoSelecionado(id: number): boolean {
+    return this.resultado.ministrosImpedidos.has(id);
+  }
+
+  /**
+   * @public Método público
+   * @param id Identificador do ministro
+   * @description Método que verifica se o id de um minsitro estar presente na
+   *              lista de ids dos ministros suspeitos
+   * @returns true caso o id do ministro esteja na lista de ids dos ministros 
+   *          suspeitos, e false caso contrário
+   * @author Douglas da Silva Monteles
+   */
+  public isMinistroSuspeitoSelecionado(id: number): boolean {
+    return this.resultado.ministrosSuspeitos.has(id);
+  }
 
   /**
    * @public Método público
@@ -49,8 +83,8 @@ export class FormIndicacaoImpedimentosComponent implements OnInit {
    * @description Realiza o registro do ministro como suspeito ou impedido
    * @author Douglas da Silva Monteles
    */
-  public registrarMinistroComoSuspeitoOuImpedido(event: MatCheckboxChange): void {
-    const { id, situacao } = event.source.value as any;
+  public registrarMinistroComoSuspeitoOuImpedido(event: any): void {
+    const { id, situacao } = event.source.value;
     const isChecked = event.checked;
 
     if (isChecked) {
@@ -100,23 +134,6 @@ export class FormIndicacaoImpedimentosComponent implements OnInit {
         this._dialogRef.close('ok');
       },
     });
-  }
-
-  /**
-   * @private Método privado
-   * @description Cria uma instância de FormGroup cujo os atributos do objeto 
-   *              são criados de forma dinâmica, neste caso, o formControlName
-   *              será o id de cada ministro.
-   * @author Douglas da Silva Monteles
-   */
-  private _construirFormulario(): void {
-    let formMinistros = {};
-
-    this.ministros.forEach(({id}) => {
-      formMinistros[`${id}`] = [null, []];
-    });
-
-    this.formIndicacao = this._fb.group(formMinistros);
   }
 
 }

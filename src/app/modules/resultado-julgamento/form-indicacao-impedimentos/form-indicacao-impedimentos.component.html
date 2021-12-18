@@ -12,40 +12,12 @@
     </header>
 
     <div class="flex flex-col flex-auto p-6 sm:p-8 max-h-120 overflow-y-auto ng-pristine ng-invalid ng-touched">
-        <form [formGroup]="formIndicacao" class="md:mx-8">
+        <form class="md:mx-8">
             <div class="grid grid-cols-3">
                 <div class="col-span-1"><h3>Ministros</h3></div>
                 <div class="col-span-1 text-center"><h3>Impedidos</h3></div>
                 <div class="col-span-1 text-center"><h3>Suspeitos</h3></div>
             </div>
-            
-            <!--<mat-radio-group 
-                class="grid grid-cols-3 mb-2"
-                *ngFor="let ministro of ministros"
-                [formControlName]="ministro.id"
-                (change)="registrarMinistroComoSuspeitoOuImpedido($event)"
-            >
-                <div class="col-span-1 flex flex-row items-center">
-                    <img 
-                        [src]="ministro.imagem" 
-                        class="w-10 h-10 mr-2" 
-                        [alt]="'Foto do ministro ' + ministro.nome"
-                    >
-                    <span>{{ministro.nome}}</span>
-                </div>
-
-                <mat-radio-button 
-                    class="col-span-1 m-auto"
-                    color="primary"
-                    [value]="{id: ministro.id, situacao: 'impedido'}"
-                ></mat-radio-button>
-
-                <mat-radio-button 
-                    class="col-span-1 m-auto"
-                    color="primary"
-                    [value]="{id: ministro.id, situacao: 'suspeito'}"
-                ></mat-radio-button>
-            </mat-radio-group>-->
 
             <section
                 class="grid grid-cols-3 mb-2"
@@ -64,9 +36,9 @@
                     #box_1
                     class="col-span-1 m-auto"
                     color="primary"
-                    (click)="gerenciarSelecao(box_2)"
-                    [formControlName]="ministro.id"
+                    [checked]="isMinistroImpedidoSelecionado(ministro.id)"
                     [value]="{id: ministro.id, situacao: 'impedido'}"
+                    (click)="gerenciarSelecao(box_2)"
                     (change)="registrarMinistroComoSuspeitoOuImpedido($event)"
                 ></mat-checkbox>
 
@@ -74,34 +46,24 @@
                     #box_2
                     class="col-span-1 m-auto"
                     color="primary"
-                    (click)="gerenciarSelecao(box_1)"
-                    [formControlName]="ministro.id"
+                    [checked]="isMinistroSuspeitoSelecionado(ministro.id)"
                     [value]="{id: ministro.id, situacao: 'suspeito'}"
+                    (click)="gerenciarSelecao(box_1)"
                     (change)="registrarMinistroComoSuspeitoOuImpedido($event)"
                 ></mat-checkbox>
             </section>
 
-            <p class="mt-4 text-center flex flex-row gap-4 justify-end items-end">
-                <mat-hint class="mr-auto my-auto">
-                    Somente uma opção poderá ser marcada para cada ministro.
-                </mat-hint>
-                
-                <button
-                    mat-raised-button 
-                    mat-dialog-close
-                    class="mr-2"
-                >
+            <div class="mt-4 flex flex-row justify-end items-end">
+                <div>
+                    <button mat-raised-button mat-dialog-close class="mr-2">
                     CANCELAR
-                </button>
+                    </button>
 
-                <button 
-                    mat-raised-button 
-                    color="primary"
-                    (click)="registrar()"
-                >
-                    SALVAR
-                </button>
-            </p>
+                    <button mat-raised-button color="primary" (click)="registrar()">
+                        SALVAR
+                    </button>
+                </div>
+            </div>
         </form>
     </div>
 </div>

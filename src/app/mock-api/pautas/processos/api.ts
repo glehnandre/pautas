@@ -250,6 +250,23 @@ export class ProcessoMockApi {
             });
 
         this._fuseMockApiService
+            .onDelete('processos/:id/vista')
+            .reply(({request, urlParams}) => {
+                const idProcesso: number = +urlParams.id;
+                const idVista: number = +urlParams.idVista;
+                const index = this._vistas.findIndex(v => v.id === idVista);
+
+                if (index !== -1) {
+                    this._vistas.splice(index, 1);
+                    return [200, this._vistas];
+                }
+
+                return [404, {
+                    msg: 'Nenhuma Vista com id informado.'
+                }];
+            });
+
+        this._fuseMockApiService
             .onPost('processos/:id/destaque')
             .reply(({request, urlParams}) => {
                 const idProcesso: number = +urlParams.id;
@@ -259,6 +276,23 @@ export class ProcessoMockApi {
                 this._destaques.push(body);
 
                 return [200, this._destaques];
+            });
+
+        this._fuseMockApiService
+            .onDelete('processos/:id/destaque/:idDestaque')
+            .reply(({request, urlParams}) => {
+                const idProcesso: number = +urlParams.id;
+                const idDestaque: number = +urlParams.idDestaque;
+                const index = this._destaques.findIndex(v => v.id === idDestaque);
+
+                if (index !== -1) {
+                    this._destaques.splice(index, 1);
+                    return [200, this._destaques];
+                }
+
+                return [404, {
+                    msg: 'Nenhuma Vista com id informado.'
+                }];
             });
 
         this._fuseMockApiService
@@ -272,14 +306,20 @@ export class ProcessoMockApi {
 
                 if (index !== -1) {
                     const processo = this._processo[index];
+                    const ministrosImpedidos: Ministro[] = [];
+                    const ministrosSuspeitos: Ministro[] = [];
                     
                     body.ministros_impedidos.forEach((id: number) => {
-                        processo.ministros_impedidos.push(this._obterMinistroPeloId(id));
+                        ministrosImpedidos.push(this._obterMinistroPeloId(id));
                     });
 
+                    processo.ministros_impedidos = ministrosImpedidos;
+
                     body.ministros_suspeitos.forEach((id: number) => {
-                        processo.ministros_suspeitos.push(this._obterMinistroPeloId(id));
+                        ministrosSuspeitos.push(this._obterMinistroPeloId(id));
                     });
+
+                    processo.ministros_suspeitos = ministrosSuspeitos;
 
                     return [200, processo];
                 }

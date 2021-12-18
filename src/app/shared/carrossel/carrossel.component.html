@@ -11,12 +11,12 @@
             <mat-chip-list *ngFor="let chip of chips; index as i" class="m-1 flex-none">
                 <mat-chip 
                     [ngClass]="class" 
-                    (click)="abrirLink(i)"
+                    (click)="abrirLink(i); onClick.emit({click: true, chip: chip})"
                     (removed)="removerChip(chip)"
                 >
                     <mat-icon *ngIf="hasIcon" class="mr-2" style="color:red">picture_as_pdf</mat-icon>
                     {{chip}}
-                    <button *ngIf="hasBtnRemove" matChipRemove class="mb-2 mr-1">
+                    <button *ngIf="hasBtnRemove && isChipRemovivel(chip)" matChipRemove class="mb-2 mr-1">
                         <mat-icon>cancel</mat-icon>
                     </button>
                 </mat-chip>

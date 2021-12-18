@@ -13,9 +13,11 @@ import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/materia
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { TipoRecursoDto } from 'app/modules/acervo/model/interfaces/tipoRecursoDto';
 import { RecursoService } from 'app/modules/services/recurso.service';
+import { Destaque, Vista } from 'app/modules/acervo/model/interfaces/vista-e-destaque.interface';
 
 interface FormVistaEDestaqueData {
   titulo: string;
+  dados: any;
 }
 
 @Component({
@@ -45,11 +47,21 @@ export class FormVistaEDestaqueComponent implements OnInit {
     public dialogRef: MatDialogRef<FormVistaEDestaqueComponent>,
     @Inject(MAT_DIALOG_DATA) public data: FormVistaEDestaqueData,
   ) { 
-    this.formVistaEDestaque = this._fb.group({
-      data:       [null,      Validators.required],
-      ministro:   [null,      Validators.required],
-      texto:      ['',        Validators.required],
-    });
+    if (this.data.dados) {
+      const { data, ministro, texto } = this.data.dados;
+
+      this.formVistaEDestaque = this._fb.group({
+        data:       [data,            Validators.required],
+        ministro:   [ministro,     Validators.required],
+        texto:      [texto,           Validators.required],
+      });
+    } else {
+      this.formVistaEDestaque = this._fb.group({
+        data:       [null,      Validators.required],
+        ministro:   [null,      Validators.required],
+        texto:      ['',        Validators.required],
+      });
+    }
   }
 
   ngOnInit(): void {

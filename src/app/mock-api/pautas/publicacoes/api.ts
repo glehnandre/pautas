@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { FuseMockApiService } from '@fuse/lib/mock-api/mock-api.service';
 import { DjeDto } from 'app/modules/acervo/model/interfaces/djeDto.interface';
 import { dje as djeData, pecas as pecasData } from './data';
-import { ata as ataData } from '../decisao/data';
+import { capitulos_para_publicacao as ataData } from '../ata/data';
 
 @Injectable({
     providedIn: 'root'
@@ -46,7 +46,7 @@ export class PublicacaoMockApi {
         .reply(({request}) => {
           const { body } = request;
 
-          this._ata.capitulos_para_publicacao.forEach(ata=>{
+          this._ata.forEach(ata=>{
             djeData.publicacoes.push({
               id: ata.processo,
               processo: `${ata.classe} ${ata.numero}`,
