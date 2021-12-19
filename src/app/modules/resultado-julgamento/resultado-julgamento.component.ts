@@ -18,8 +18,6 @@ import { Vista } from '../acervo/model/interfaces/vista.interface';
 import { Destaque } from '../acervo/model/interfaces/destaque.interface';
 import { FormRelatorComponent } from './form-relator/form-relator.component';
 import { FormIndicacaoImpedimentosComponent } from './form-indicacao-impedimentos/form-indicacao-impedimentos.component';
-import { map } from 'rxjs/operators';
-import { Observable, Subject } from 'rxjs';
 
 interface Parametros {
   processo: number;
@@ -50,7 +48,7 @@ export class ResultadoJulgamentoComponent implements OnInit, OnDestroy, AfterCon
   modelo: ModeloDecisao;
   exibirListaDeDecisoes = false;
   exibirChips = true;
-  chips: string[] = [];
+  chips: Array<{id?: number; nome: string}> = [];
 
   readonly FORM_CADASTRO_DECISAO = 'formulario-de-cadastro-de-decisao';
 
@@ -346,11 +344,11 @@ export class ResultadoJulgamentoComponent implements OnInit, OnDestroy, AfterCon
    * 
    * @param event 
    */
-  public abrirModal(event: {click: boolean, chip: string}): void {
-    const str = event.chip.toLocaleLowerCase();
+  public abrirModal(event: {click: boolean, chip: {id?:number; nome: string}}): void {
+    const str = event.chip.nome.toLocaleLowerCase();
 
     if (event.click) {
-      const id: number = +str.split(' ')[1];
+      const id: number = +event.chip.id;
 
       if (str.includes('vista')) {
         this.exibirModalDeVista(id);
@@ -383,10 +381,10 @@ export class ResultadoJulgamentoComponent implements OnInit, OnDestroy, AfterCon
    *              Destaque) e o seu respectivo id.
    * @author Douglas da Silva Monteles 
    */
-  public obterChipRemovido(chip: string): void {
+  public obterChipRemovido(chip: {id?:number; nome: string}): void {
     try {
-      const tipo: string = chip.split(' ')[0].toLocaleLowerCase();
-      const id: number = +chip.split(' ')[1];
+      const tipo: string = chip.nome.split(' ')[0].toLocaleLowerCase();
+      const id: number = +chip.id;
       
       if (tipo === 'vista') {
         this._processoService.excluirVistaDoProcesso(this.parametros.processo, id)
@@ -470,14 +468,14 @@ export class ResultadoJulgamentoComponent implements OnInit, OnDestroy, AfterCon
 
     if (this.dados) {
       this.dados.decisoes.forEach(({vistas, destaques}) => {
-        vistas.forEach(({id, texto}) => {
-          const str = `Vista ${id} - ${texto.substr(0, 40)}...`;
-          this.chips.push(str);
+        vistas.forEach(({id, ministro}) => {
+          const str = `Vista - ${ministro['abreviacao']}`;
+          this.chips.push({ id, nome: str });
         });
   
-        destaques.forEach(({id, texto}) => {
-          const str = `Destaque ${id} - ${texto.substr(0, 40)}...`;
-          this.chips.push(str);
+        destaques.forEach(({id, ministro}) => {
+          const str = `Destaque - ${ministro['abreviacao']}`;
+          this.chips.push({ id, nome: str });
         });
       });
     }
@@ -490,12 +488,12 @@ export class ResultadoJulgamentoComponent implements OnInit, OnDestroy, AfterCon
   
       ministros_impedidos.forEach(({abreviacao}) => {
         const str = `Impedido(a) - ${abreviacao}`;
-        this.chips.push(str);
+        this.chips.push({nome: str});
       });
   
       ministros_suspeitos.forEach(({abreviacao}) => {
         const str = `Suspeito(a) - ${abreviacao}`;
-        this.chips.push(str);
+        this.chips.push({nome: str});
       });
     }
 
