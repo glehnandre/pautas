@@ -20,6 +20,8 @@ import { ScrumboardMockApi } from 'app/mock-api/apps/scrumboard/api';
 import { ShortcutsMockApi } from 'app/mock-api/common/shortcuts/api';
 import { TasksMockApi } from 'app/mock-api/apps/tasks/api';
 import { UserMockApi } from 'app/mock-api/common/user/api';
+
+import { AtaMockApi } from './pautas/ata/api'
 import { ProcessoMockApi } from './pautas/processos/api';
 import { TagMockApi } from './pautas/tags/api';
 import { PautaMockApi } from './pautas/pautar/api';
@@ -55,6 +57,7 @@ export const mockApiServices = [
     ShortcutsMockApi,
     TasksMockApi,
     UserMockApi,
+    AtaMockApi,
     ProcessoMockApi,
     TagMockApi,
     PautaMockApi,

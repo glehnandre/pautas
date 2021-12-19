@@ -91,7 +91,7 @@ export const envolvidos: Envolvido[] = [
     }
 ]
 
-export const publicacao: PublicacaoDto[] = [
+export let publicacao: PublicacaoDto[] = [
     {
         id: 1,
         processo: "ARE 1343898",

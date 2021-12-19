@@ -6,7 +6,7 @@ import { SessaoJulgamento } from "app/modules/acervo/model/interfaces/sessao-jul
 import { ministro } from "../ministro/data";
 
 
-export const sessao: SessaoJulgamento[] = [
+export let sessao: SessaoJulgamento[] = [
   {
     id: 0,
     numero: 1000,
@@ -17,27 +17,7 @@ export const sessao: SessaoJulgamento[] = [
     modalidade: "VIRTUAL",
     data_inicio: "2016-08-29T09:12:33.001Z",
     data_fim: "2016-08-29T09:12:33.001Z",
-    secretario: {
-      id: 19,
-      nome: "Carmén Lillian"
-    },
     situacao: "PUBLICADA",
-    ministros_presentes: [
-      ministro[2],
-      ministro[6],
-      ministro[7],
-      ministro[0],
-      ministro[1],
-      ministro[3],
-      ministro[4],
-      ministro[8],
-      ministro[5],
-      ministro[9],
-    ],
-    ministros_ausentes: [
-      ministro[10],
-    ],
-    presidencia: ministro[0]
   }
 ];
 

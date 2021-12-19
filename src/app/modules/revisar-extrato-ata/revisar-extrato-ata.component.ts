@@ -5,6 +5,8 @@ import { Ata } from '../acervo/model/interfaces/ata.interface';
 import { MatDialog } from '@angular/material/dialog';
 import { PublicarFormComponent } from './publicar-form/publicar-form.component';
 import { CorrecaoCapituloFormComponent } from './correcao-capitulo-form/correcao-capitulo-form.component';
+import { PublicacaoService } from '../services/publicacao.service';
+import { SessaoJulgamento } from '../acervo/model/interfaces/sessao-julgamento.interface';
 
 interface Parametros {
     id: number;
@@ -22,22 +24,25 @@ export class RevisarExtratoAtaComponent implements OnInit {
   ata: Ata;
   form: any;
   tags: string[];
+  sessao: SessaoJulgamento;
 
   constructor(
       private _resultadoJulgamento: ResultadoJulgamentoService,
+      private _publicacaoService: PublicacaoService,
       private _matDialog: MatDialog,
       private _route: ActivatedRoute,
   ) { }
 
   ngOnInit(): void {
     this.parametros = this._route.snapshot.queryParams as Parametros;
-
+    
     this._resultadoJulgamento
       .getAta(this.parametros.id)
       .subscribe({
         next: (ata) => {
           this.ata = ata;
           this.tags = [ ata.sessao.tipo, ata.sessao.modalidade ];
+          this.sessao = ata.sessao;
         }
       });
   }
@@ -55,7 +60,14 @@ export class RevisarExtratoAtaComponent implements OnInit {
     dialogRef.afterClosed().subscribe({
       next: (form) => {
         this.form = form;
-        console.log(form);
+        
+        let data;
+        if(form.dataPublicacao._d) data = new Date(form.dataPublicacao._d);
+        else data = new Date(form.dataPublicacao);
+
+        this._publicacaoService.publicarAta(data.toISOString(), this.sessao).subscribe(r=>{
+          console.log(r);
+        })
       }
     });
   }

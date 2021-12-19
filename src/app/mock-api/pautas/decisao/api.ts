@@ -8,7 +8,6 @@ import { ModeloDecisao } from 'app/modules/acervo/model/interfaces/modeloDecisao
 import { dispositivos } from '../dispositivo/data';
 import { processo } from '../processos/data';
 import { decisoes as decisoesData, modeloDecisao } from './data';
-import { ata as ataData} from './data';
 
 @Injectable({
     providedIn: 'root'
@@ -16,7 +15,6 @@ import { ata as ataData} from './data';
 export class DecisaoMockApi {
     private _decisoes: Array<DecisoesResultadoJulgamento> = decisoesData;
     private _modeloDecisao: ModeloDecisao[] = modeloDecisao;
-    private _ata: Ata = ataData;
 
     constructor(private _fuseMockApiService: FuseMockApiService) {
         this._decisoes = decisoesData;
@@ -153,38 +151,5 @@ export class DecisaoMockApi {
 
           return [404, { description: "Não foram encontrados dispositivos para o processo" }];
         });
-
-      this._fuseMockApiService
-        .onGet('ata/:id')
-        .reply( ({ urlParams }) => {
-          let id: number;
-
-          try {
-            id = +urlParams.id;
-          } catch (error) {
-            return [400, { description: 'Parâmetros incorretos para ação.' }];
-          }
-          const ata = this._ata;
-
-          return (ata) ?
-            [200,  ata]:
-            [404, { description: 'Não há sessão de julgamento com esse identificador' }];
-        });
-
-      this._fuseMockApiService
-        .onPost('ata/:id')
-        .reply( ({ request, urlParams }) => {
-          let id: number;
-          const {  body } = request;
-          try {
-            id = +urlParams.id;
-          } catch (error) {
-            return [400, { description: 'Parâmetros incorretos para ação.' }];
-          }
-          return processo.filter( ({ id }) => body == id).length ?
-            [200, 'Sucesso']:
-            [404, 'Nenhum processo encontrado'];
-        })
-
     }
 }
