@@ -274,10 +274,11 @@
 
                             <ng-template #exibirDecisaoNoForm>
                                 <app-form-decisao
-                                    *ngIf="show"
+                                    *ngIf="exibirListaDeDecisoes"
                                     [isDesabilitarForm]="isDecisaoSalva()"
                                     [idProcesso]="parametros.processo"
                                     [decisao]="decisaoSelecionada"
+                                    [processo]="processo"
                                     [isExibirBtnSalvarDecisao]="true"
                                     [isExibirBtnExcluirDecisao]="true"
                                     (dadosDaDecisao)="removerDecisao($event)"

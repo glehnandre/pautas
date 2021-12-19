@@ -18,6 +18,7 @@ import { Vista } from '../acervo/model/interfaces/vista.interface';
 import { Destaque } from '../acervo/model/interfaces/destaque.interface';
 import { FormRelatorComponent } from './form-relator/form-relator.component';
 import { FormIndicacaoImpedimentosComponent } from './form-indicacao-impedimentos/form-indicacao-impedimentos.component';
+import { Ministro } from '../acervo/model/interfaces/ministro.interface';
 
 interface Parametros {
   processo: number;
@@ -335,7 +336,8 @@ export class ResultadoJulgamentoComponent implements OnInit, OnDestroy, AfterCon
 
     dialogRef.afterClosed().subscribe(data => {
       if (data && data === 'ok') {
-        this._carregarProcessos(); // atualiza os chips de ministros suspeitos e impedidos
+        this.processo = null;       // A mudança no valor do processo força uma nova renderização do componente
+        this._carregarProcessos();  // Atualiza os chips de ministros suspeitos e impedidos
       }
     });
   }
@@ -445,6 +447,7 @@ export class ResultadoJulgamentoComponent implements OnInit, OnDestroy, AfterCon
     this._processoService.listarProcessos(new HttpParams().set('processo', this.parametros.processo)).subscribe({
       next: ([processo]) => {
         this.processo = processo;
+        this.cd.detectChanges();
         this._criarChips();
         console.log(this.processo)
 
