@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, Output, EventEmitter, ChangeDetectorRef, AfterContentChecked, OnDestroy } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, ChangeDetectorRef, AfterContentChecked, OnDestroy, OnChanges } from '@angular/core';
 
 @Component({
   selector: 'app-carrossel',
@@ -9,7 +9,7 @@ import { Component, OnInit, Input, Output, EventEmitter, ChangeDetectorRef, Afte
   }
 })
 
-export class CarrosselComponent implements OnInit, OnDestroy, AfterContentChecked {
+export class CarrosselComponent implements OnInit, OnChanges, OnDestroy, AfterContentChecked {
 
   @Input() chips: string[] = [];
   @Input() hasIcon: boolean = false;
@@ -30,6 +30,10 @@ export class CarrosselComponent implements OnInit, OnDestroy, AfterContentChecke
   constructor(private cd: ChangeDetectorRef) { }
 
   ngOnInit(): void {}
+
+  ngOnChanges(changes): void {
+    console.log(changes);
+  }
   
   ngAfterContentChecked(){
     this.cd.detectChanges();
