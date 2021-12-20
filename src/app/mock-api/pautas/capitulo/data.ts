@@ -7,7 +7,7 @@ export const capitulo: Array<Capitulo> = [
     {
         id:     1,
         descricao: 'Recurso Extraordinário com agravo 1.299.544',
-        tipo:   TipoCapitulo.Merito,
+        tipo:   TipoCapitulo.Preliminar,
         dispositivo: dispositivos[0],
         ministros_acordam: [
             ministro[5],
@@ -42,7 +42,7 @@ export const capitulo: Array<Capitulo> = [
         id:     3,
         descricao: 'Recurso Extraordinário com agravo 1.299.544',
         tipo:   TipoCapitulo.Merito,
-        dispositivo: { id:0, nome: 'Lorem Ipsum', sentido: 'Neutro' },
+        dispositivo: { id:0, nome: 'Procedente', sentido: 'Neutro' },
         ministros_acordam: [
             ministro[3]
         ],
@@ -55,7 +55,7 @@ export const capitulo: Array<Capitulo> = [
     {
         id:     4,
         descricao: 'Recurso Extraordinário com agravo 1.299.544',
-        tipo:   TipoCapitulo.Merito,
+        tipo:   TipoCapitulo.Modulacao,
         dispositivo: { id:0, nome: 'Lorem Ipsum', sentido: 'Neutro' },
         ministros_acordam: [
             ministro[1]

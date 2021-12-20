@@ -171,7 +171,7 @@
                                         >
                     
                                             <!-- Task -->
-                                            <ng-container *ngFor="let item of getDecisoes(); index as i; let first = first; trackBy: trackByFn">
+                                            <ng-container *ngFor="let item of (getDecisoes() | ordenar); index as i; let first = first; trackBy: trackByFn">
                                                 <div
                                                     class="group w-full select-none hover:bg-gray-100 dark:hover:bg-hover"
                                                     [class.border-t]="first"
@@ -215,7 +215,7 @@
                                                             <div class="flex-auto mr-2 truncate">
                                                                 <ng-container class="flex items-center justify-center">
                                                                     <p class="my-auto" [matTooltip]="item.capitulo.descricao">
-                                                                        {{(i+1)}}º decisão: {{item.capitulo.tipo}} - <strong class="text-primary-500">{{item.capitulo.dispositivo.nome || item.capitulo.dispositivo}}</strong>
+                                                                        {{(i+1)}}º: {{item.capitulo.tipo}} - <strong class="text-primary-500">{{item.capitulo.dispositivo.nome || item.capitulo.dispositivo}}</strong>
                                                                     </p>
                                                                 </ng-container>
                                                             </div>

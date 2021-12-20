@@ -52,10 +52,12 @@ export class DecisaoMockApi {
                 vistas: [],
               });
             } else {
+              const dispositivo = dispositivos.find(d => d.id === decisao.dispositivo);
               this._decisoes[0].decisoes.push({
                 capitulo: {
-                  id: this._decisoes[0].decisoes.length + 1,
                   ...decisao,
+                  id: this._decisoes[0].decisoes.length + 1,
+                  dispositivo,
                 },
                 processos_mesma_decisao,
                 destaques: [],

@@ -190,7 +190,7 @@ export class FormDecisaoComponent implements OnInit, OnChanges, OnDestroy {
     this.formDecisao = this._fb.group({
       descricao: [{value: this.decisao.capitulo.descricao, disabled: this.isDesabilitarForm}, Validators.required],
       tipo: [{value: this.decisao.capitulo.tipo, disabled: this.isDesabilitarForm}, Validators.required],
-      dispositivo: [{value: this.decisao.capitulo.dispositivo?.id, disabled: this.isDesabilitarForm}, Validators.required],
+      dispositivo: [{value: this.decisao.capitulo.dispositivo, disabled: this.isDesabilitarForm}, Validators.required],
       ministros_acordam: [{value: this.decisao.capitulo.ministros_acordam, disabled: this.isDesabilitarForm}, Validators.required],
       ministro_condutor: [{value: this.decisao.capitulo.ministro_condutor, disabled: this.isDesabilitarForm}, Validators.required],
       texto: [{value: this.decisao.capitulo.texto, disabled: this.isDesabilitarForm}, Validators.required],

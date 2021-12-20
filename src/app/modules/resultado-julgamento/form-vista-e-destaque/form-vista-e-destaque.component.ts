@@ -52,7 +52,7 @@ export class FormVistaEDestaqueComponent implements OnInit {
 
       this.formVistaEDestaque = this._fb.group({
         data:       [data,            Validators.required],
-        ministro:   [ministro,     Validators.required],
+        ministro:   [ministro.id,      Validators.required],
         texto:      [texto,           Validators.required],
       });
     } else {
