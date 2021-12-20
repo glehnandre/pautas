@@ -45,6 +45,7 @@ export class ResultadoJulgamentoComponent implements OnInit, OnDestroy, AfterCon
   votos: Voto[] = [];
   dispositivos: Manifestacao[] = [];
   decisoesAdicionadas: Array<Decisao> = [];
+  todasAsDecisoes: Decisao[] = [];
   decisaoSelecionada: Decisao = null;
   modelo: ModeloDecisao;
   exibirListaDeDecisoes = false;
@@ -126,6 +127,7 @@ export class ResultadoJulgamentoComponent implements OnInit, OnDestroy, AfterCon
    */
   public dropped(event: CdkDragDrop<any[]>): void {
     moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
+    console.log(event.container.data)
   }
 
   /**
@@ -143,15 +145,14 @@ export class ResultadoJulgamentoComponent implements OnInit, OnDestroy, AfterCon
   /**
    * @public Método público
    * @description Método para obter a lista de Decisoes cadastradas
-   * @returns Array<Decisao>
    * @author Douglas da Silva Monteles
    */
-  public getDecisoes(): Decisao[] {
+  public getDecisoes(): void {
     if (this.dados && this.dados.decisoes) {
-      return [...this.decisoesAdicionadas, ...this.dados.decisoes];
+      this.todasAsDecisoes = [ ...this.decisoesAdicionadas, ...this.dados.decisoes ];
+    } else {
+      this.todasAsDecisoes = [ ...this.decisoesAdicionadas ];
     }
-
-    return this.decisoesAdicionadas;
   }
 
   /**
@@ -432,6 +433,7 @@ export class ResultadoJulgamentoComponent implements OnInit, OnDestroy, AfterCon
     this._resultadoJulgamento.listarDecisoes(this.parametros.processo).subscribe({
       next: (data) => {
         this.dados = data;
+        this.getDecisoes();
         this._criarChips();
         console.log(this.dados)
       }

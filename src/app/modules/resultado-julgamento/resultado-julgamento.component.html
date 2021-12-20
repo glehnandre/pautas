@@ -162,16 +162,16 @@
                                     </div>
                     
                                     <!-- decisoes list -->
-                                    <ng-container *ngIf="getDecisoes().length > 0; else semDecisoes">
+                                    <ng-container *ngIf="todasAsDecisoes.length > 0; else semDecisoes">
                                         <div
                                             class="divide-y focus-within:shadow-lg"
                                             cdkDropList
-                                            [cdkDropListData]="getDecisoes()"
+                                            [cdkDropListData]="todasAsDecisoes"
                                             (cdkDropListDropped)="dropped($event)"
                                         >
                     
                                             <!-- Task -->
-                                            <ng-container *ngFor="let item of (getDecisoes() | ordenar); index as i; let first = first; trackBy: trackByFn">
+                                            <ng-container *ngFor="let item of todasAsDecisoes; index as i; let first = first; trackBy: trackByFn">
                                                 <div
                                                     class="group w-full select-none hover:bg-gray-100 dark:hover:bg-hover"
                                                     [class.border-t]="first"
