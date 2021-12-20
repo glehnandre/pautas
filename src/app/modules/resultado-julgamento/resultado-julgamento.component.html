@@ -69,7 +69,7 @@
 
             
             <div class="md:col-span-1 lg:col-span-3">
-                <app-carrossel
+                <app-chips
                     [idChip]="'idChipsResultadoJulgamento'"
                     [chips]="chips"
                     [hasArrow]="true"
@@ -77,7 +77,7 @@
                     [conteudosNoChipParaSerRemovivel]="['vista', 'destaque']"
                     (onClick)="abrirModal($event)"
                     (chipRemovido)="obterChipRemovido($event)"
-                ></app-carrossel>
+                ></app-chips>
             </div>
         </div>
 
@@ -171,7 +171,7 @@
                                         >
                     
                                             <!-- Task -->
-                                            <ng-container *ngFor="let item of getDecisoes(); index as i; let first = first; trackBy: trackByFn">
+                                            <ng-container *ngFor="let item of (getDecisoes() | ordenar); index as i; let first = first; trackBy: trackByFn">
                                                 <div
                                                     class="group w-full select-none hover:bg-gray-100 dark:hover:bg-hover"
                                                     [class.border-t]="first"
@@ -209,13 +209,13 @@
                                                         <!-- Task link -->
                                                         <a
                                                             class="flex flex-auto py-2 items-center min-w-0 h-full pr-7"
-                                                            (click)="setDecisaoSelecionada(null); recarregarComponenteFilho(); setDecisaoSelecionada(item)"
+                                                            (click)="setDecisaoSelecionada(null); recarregarListaDeDecisoes(); setDecisaoSelecionada(item)"
                                                         >
                                                             <!-- Title & Placeholder -->
                                                             <div class="flex-auto mr-2 truncate">
                                                                 <ng-container class="flex items-center justify-center">
                                                                     <p class="my-auto" [matTooltip]="item.capitulo.descricao">
-                                                                        {{(i+1)}}º decisão: {{item.capitulo.tipo}} - <strong class="text-primary-500">{{item.capitulo.dispositivo.nome || item.capitulo.dispositivo}}</strong>
+                                                                        {{(i+1)}}º: {{item.capitulo.tipo}} - <strong class="text-primary-500">{{item.capitulo.dispositivo.nome || item.capitulo.dispositivo}}</strong>
                                                                     </p>
                                                                 </ng-container>
                                                             </div>
@@ -274,10 +274,11 @@
 
                             <ng-template #exibirDecisaoNoForm>
                                 <app-form-decisao
-                                    *ngIf="show"
+                                    *ngIf="exibirListaDeDecisoes"
                                     [isDesabilitarForm]="isDecisaoSalva()"
                                     [idProcesso]="parametros.processo"
                                     [decisao]="decisaoSelecionada"
+                                    [processo]="processo"
                                     [isExibirBtnSalvarDecisao]="true"
                                     [isExibirBtnExcluirDecisao]="true"
                                     (dadosDaDecisao)="removerDecisao($event)"

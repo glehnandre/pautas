@@ -1,13 +1,14 @@
 import { TipoCapitulo } from "app/modules/acervo/model/enums/tipoCapitulo.enum";
 import { Capitulo } from "app/modules/acervo/model/interfaces/capitulo.interface";
+import { dispositivos } from "../dispositivo/data";
 import { ministro } from "../ministro/data";
 
 export const capitulo: Array<Capitulo> = [
     {
         id:     1,
         descricao: 'Recurso Extraordinário com agravo 1.299.544',
-        tipo:   TipoCapitulo.Merito,
-        dispositivo: { id:0, nome: 'Recurso Negado', sentido: "Negativo" },
+        tipo:   TipoCapitulo.Preliminar,
+        dispositivo: dispositivos[0],
         ministros_acordam: [
             ministro[5],
             ministro[6],
@@ -23,7 +24,7 @@ export const capitulo: Array<Capitulo> = [
         id:     2,
         descricao: 'Recurso Extraordinário com agravo 1.299.544',
         tipo:   TipoCapitulo.Merito,
-        dispositivo: { id:0, nome: 'Fixa a Tese', sentido: 'Positivo' },
+        dispositivo: { id:1, nome: 'Fixa a Tese', sentido: 'Positivo' },
         ministros_acordam: [
             ministro[1]
         ],
@@ -41,7 +42,7 @@ export const capitulo: Array<Capitulo> = [
         id:     3,
         descricao: 'Recurso Extraordinário com agravo 1.299.544',
         tipo:   TipoCapitulo.Merito,
-        dispositivo: { id:0, nome: 'Lorem Ipsum', sentido: 'Neutro' },
+        dispositivo: { id:0, nome: 'Procedente', sentido: 'Neutro' },
         ministros_acordam: [
             ministro[3]
         ],
@@ -54,7 +55,7 @@ export const capitulo: Array<Capitulo> = [
     {
         id:     4,
         descricao: 'Recurso Extraordinário com agravo 1.299.544',
-        tipo:   TipoCapitulo.Merito,
+        tipo:   TipoCapitulo.Modulacao,
         dispositivo: { id:0, nome: 'Lorem Ipsum', sentido: 'Neutro' },
         ministros_acordam: [
             ministro[1]

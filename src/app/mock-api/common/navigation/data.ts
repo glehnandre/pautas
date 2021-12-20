@@ -109,8 +109,7 @@ export const defaultNavigation: FuseNavigationItem[] = [
         icon :  'heroicons_outline:chart-pie',
         link :  '/revisar-extrato-ata',
         queryParams: {
-            numero: 1000,
-            ano: 2021,
+            id: 0
         },
     },
     {
@@ -225,8 +224,7 @@ export const compactNavigation: FuseNavigationItem[] = [
         icon :  'heroicons_outline:chart-pie',
         link :  '/revisar-extrato-ata',
         queryParams: {
-            numero: 1000,
-            ano: 2021,
+            id: 0
         },
     },
     {
@@ -341,8 +339,7 @@ export const futuristicNavigation: FuseNavigationItem[] = [
         icon :  'heroicons_outline:chart-pie',
         link :  '/revisar-extrato-ata',
         queryParams: {
-            numero: 1000,
-            ano: 2021,
+            id: 0
         },
     },
     {
@@ -453,8 +450,7 @@ export const horizontalNavigation: FuseNavigationItem[] = [
         icon :  'heroicons_outline:chart-pie',
         link :  '/revisar-extrato-ata',
         queryParams: {
-            numero: 1000,
-            ano: 2021,
+            id: 0
         },
     },
     {

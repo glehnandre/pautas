@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnChanges, OnDestroy, OnInit, Output } from '@angular/core';
+import { ChangeDetectorRef, Component, EventEmitter, Input, OnChanges, OnDestroy, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatSelectChange } from '@angular/material/select';
 import { Capitulo } from 'app/modules/acervo/model/interfaces/capitulo.interface';
@@ -68,6 +68,7 @@ export class FormDecisaoComponent implements OnInit, OnChanges, OnDestroy {
     private _ministroService: MinistroService,
     private _dispositivoService: DispositivoService,
     private _processoService: ProcessoService,
+    private _cd: ChangeDetectorRef,
   ) {}
 
   ngOnInit(): void {
@@ -126,6 +127,19 @@ export class FormDecisaoComponent implements OnInit, OnChanges, OnDestroy {
     }
   }
 
+  public getMinistrosSuspeitosOuImpedidos(): Ministro[] {
+    if (this.processo) {
+      const {
+        ministros_suspeitos,
+        ministros_impedidos,
+      } = this.processo;
+
+      return [...ministros_suspeitos, ...ministros_impedidos ];
+    }
+
+    return [];
+  }
+
   /**
    * @public Método público
    * @description Método para adicionar uma Decisão a lista de decisões
@@ -182,7 +196,10 @@ export class FormDecisaoComponent implements OnInit, OnChanges, OnDestroy {
       texto: [{value: this.decisao.capitulo.texto, disabled: this.isDesabilitarForm}, Validators.required],
     });
 
-    this.ministros$ = this._ministroService.listarMinistros();
+    this.ministros$ = this._ministroService.listarMinistros().pipe(
+      map(ministros => this._filtrarMinistros(ministros)),
+    );
+
     this.tipos$ = this._processoService.obterTiposDoProcesso();
 
     if (this.decisao.capitulo.dispositivo) {
@@ -194,6 +211,11 @@ export class FormDecisaoComponent implements OnInit, OnChanges, OnDestroy {
     this.idsDosProcessos = [];
     this.decisao.processos_mesma_decisao
       .forEach(id => this.idsDosProcessos.push(+id));
+  }
+
+  private _filtrarMinistros(ministros: Ministro[]): Ministro[] {
+    const ministrosSuspeitosOuImpedidos = this.getMinistrosSuspeitosOuImpedidos();
+    return ministros.filter(m => ministrosSuspeitosOuImpedidos.findIndex(({id}) => id === m.id) === -1);
   }
 
   /**

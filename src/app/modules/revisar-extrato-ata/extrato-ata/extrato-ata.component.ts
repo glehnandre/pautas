@@ -1,11 +1,13 @@
 import { Component, Input, LOCALE_ID, OnInit } from '@angular/core';
+import localePt from '@angular/common/locales/pt';
+import { registerLocaleData } from '@angular/common';
+
 import { Envolvido, CapitulosParaPublicacao } from 'app/modules/acervo/model/interfaces/capitulo.interface';
 import { Frase } from 'app/modules/acervo/model/interfaces/frase-genero-plural.interface';
 import { Ministro } from 'app/modules/acervo/model/interfaces/ministro.interface';
 import { SessaoJulgamento } from 'app/modules/acervo/model/interfaces/sessao-julgamento.interface';
 import { MinistroService } from 'app/modules/services/ministro.service';
-import localePt from '@angular/common/locales/pt';
-import { registerLocaleData } from '@angular/common';
+import { Ata } from 'app/modules/acervo/model/interfaces/ata.interface';
 
 registerLocaleData(localePt);
 
@@ -18,7 +20,7 @@ registerLocaleData(localePt);
   ],
 })
 export class ExtratoAtaComponent implements OnInit {
-  @Input() cabecalho: string;
+  @Input() ata: Ata;
   @Input() sessao: SessaoJulgamento;
   @Input() capitulosPublicacao: CapitulosParaPublicacao[];
   @Input() form: any;
@@ -97,7 +99,7 @@ export class ExtratoAtaComponent implements OnInit {
    *
    * @author Rodrigo Carvalho dos Santos
   **/
-   fraseEMinistros(ministros: Ministro[], frase: Frase): string {
+   fraseEMinistros(ministros: Ministro[] = {} as Ministro[], frase: Frase): string {
     return ministros.length?
         `<span> ${ this._ministroService.generoEPlural(ministros, frase) }</span>
         <span class="font-medium">${ this._ministroService.ministrosString(ministros) }</span>

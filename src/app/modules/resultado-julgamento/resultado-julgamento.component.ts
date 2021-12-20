@@ -1,7 +1,6 @@
 import { HttpParams } from '@angular/common/http';
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
-import { ChangeDetectionStrategy, Component, HostListener, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
-import { MatDrawer } from '@angular/material/sidenav';
+import { AfterContentChecked, AfterContentInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, HostListener, OnChanges, OnDestroy, OnInit, ViewEncapsulation } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { FuseDrawerService } from '@fuse/components/drawer';
 import { DecisoesResultadoJulgamento } from '../acervo/model/interfaces/decisao.interface';
@@ -9,10 +8,8 @@ import { Manifestacao } from '../acervo/model/interfaces/manifestacao.interface'
 import { Voto } from '../acervo/model/interfaces/voto.interface';
 import { ProcessoService } from '../services/processo.service';
 import { ResultadoJulgamentoService } from '../services/resultado-julgamento.service';
-import { SessaoJulgamento } from '../acervo/model/interfaces/sessao-julgamento.interface';
 import { Capitulo } from '../acervo/model/interfaces/capitulo.interface';
 import { Processo } from '../acervo/model/interfaces/processo.interface';
-import { RecursoService } from '../services/recurso.service';
 import { MatDialog } from '@angular/material/dialog';
 import { FormModeloDecisaoComponent } from './form-modelo-decisao/form-modelo-decisao.component';
 import { ModeloDecisao } from '../acervo/model/interfaces/modeloDecisao.interface';
@@ -21,6 +18,7 @@ import { Vista } from '../acervo/model/interfaces/vista.interface';
 import { Destaque } from '../acervo/model/interfaces/destaque.interface';
 import { FormRelatorComponent } from './form-relator/form-relator.component';
 import { FormIndicacaoImpedimentosComponent } from './form-indicacao-impedimentos/form-indicacao-impedimentos.component';
+import { Ministro } from '../acervo/model/interfaces/ministro.interface';
 
 interface Parametros {
   processo: number;
@@ -39,7 +37,7 @@ interface Decisao {
   encapsulation  : ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class ResultadoJulgamentoComponent implements OnInit {
+export class ResultadoJulgamentoComponent implements OnInit, OnDestroy, AfterContentChecked {
 
   dados: DecisoesResultadoJulgamento;
   parametros: Parametros;
@@ -49,8 +47,9 @@ export class ResultadoJulgamentoComponent implements OnInit {
   decisoesAdicionadas: Array<Decisao> = [];
   decisaoSelecionada: Decisao = null;
   modelo: ModeloDecisao;
-  show = false;
-  chips: string[] = [];
+  exibirListaDeDecisoes = false;
+  exibirChips = true;
+  chips: Array<{id?: number; nome: string}> = [];
 
   readonly FORM_CADASTRO_DECISAO = 'formulario-de-cadastro-de-decisao';
 
@@ -60,6 +59,7 @@ export class ResultadoJulgamentoComponent implements OnInit {
     private _route: ActivatedRoute,
     private _fuseDrawerService: FuseDrawerService,
     private _dialog: MatDialog,
+    private cd: ChangeDetectorRef,
   ) {}
 
   ngOnInit(): void {
@@ -67,6 +67,15 @@ export class ResultadoJulgamentoComponent implements OnInit {
 
     this._carregarDecisoes();
     this._carregarProcessos();
+    this.cd.detectChanges();
+  }
+
+  ngAfterContentChecked(): void {
+    this.cd.detectChanges();
+  }
+
+  ngOnDestroy(): void {
+    this.cd.detectChanges();
   }
 
   /**
@@ -211,16 +220,17 @@ export class ResultadoJulgamentoComponent implements OnInit {
 
   /**
    * @public Método público
+   * @param show Atributo que controla a exibição do componente
    * @description Método para recarregar um componente filho sempre que for chamado
    * @returns boolean
    * @author Douglas da Silva Monteles
    */
-  public recarregarComponenteFilho(): void {
-    this.show = false;
+  public recarregarListaDeDecisoes(): void {
+    this.exibirListaDeDecisoes = false;
  
     setTimeout(() => {
-      this.show = true
-    }, 100);
+      this.exibirListaDeDecisoes = true;
+    }, 500);
   }
 
   /**
@@ -323,24 +333,28 @@ export class ResultadoJulgamentoComponent implements OnInit {
         }
       }
     });
-    
+
     dialogRef.afterClosed().subscribe(data => {
       if (data && data === 'ok') {
-        console.log(data);
-        this._carregarProcessos(); // atualiza os chips de ministros suspeitos e impedidos
+        this.processo = null;       // A mudança no valor do processo força uma nova renderização do componente
+        this._carregarProcessos();  // Atualiza os chips de ministros suspeitos e impedidos
       }
     });
   }
 
-  public abrirModal(event: {click: boolean, chip: string}): void {
-    const str = event.chip.toLocaleLowerCase();
+  /**
+   * 
+   * @param event 
+   */
+  public abrirModal(event: {click: boolean, chip: {id?:number; nome: string}}): void {
+    const str = event.chip.nome.toLocaleLowerCase();
 
     if (event.click) {
+      const id: number = +event.chip.id;
+
       if (str.includes('vista')) {
-        const id: number = +str.split(' ')[1];
         this.exibirModalDeVista(id);
       } else if (str.includes('destaque')) {
-        const id: number = +str.split(' ')[1];
         this.exibirModalDeDestaque(id);
       } else {
         this.exibirModalDeIndicacaoDeImpedimentos();
@@ -362,10 +376,17 @@ export class ResultadoJulgamentoComponent implements OnInit {
     return '';
   }
 
-  public obterChipRemovido(chip: string): void {
+  /**
+   * @public Método público
+   * @param chip Conteúdo exibido no chip
+   * @description Método que recebe a string do chip e separa o tipo (Vista ou 
+   *              Destaque) e o seu respectivo id.
+   * @author Douglas da Silva Monteles 
+   */
+  public obterChipRemovido(chip: {id?:number; nome: string}): void {
     try {
-      const tipo: string = chip.split(' ')[0].toLocaleLowerCase();
-      const id: number = +chip.split(' ')[1];
+      const tipo: string = chip.nome.split(' ')[0].toLocaleLowerCase();
+      const id: number = +chip.id;
       
       if (tipo === 'vista') {
         this._processoService.excluirVistaDoProcesso(this.parametros.processo, id)
@@ -426,6 +447,8 @@ export class ResultadoJulgamentoComponent implements OnInit {
     this._processoService.listarProcessos(new HttpParams().set('processo', this.parametros.processo)).subscribe({
       next: ([processo]) => {
         this.processo = processo;
+        this.cd.detectChanges();
+        this._criarChips();
         console.log(this.processo)
 
         this._processoService.obterVotosDoProcesso(this.processo.id).subscribe({
@@ -433,8 +456,6 @@ export class ResultadoJulgamentoComponent implements OnInit {
             this.votos = votos;
           }
         });
-
-        this._criarChips();
       }
     });
   }
@@ -448,6 +469,20 @@ export class ResultadoJulgamentoComponent implements OnInit {
   private _criarChips(): void {
     this.chips = [];
 
+    if (this.dados) {
+      this.dados.decisoes.forEach(({vistas, destaques}) => {
+        vistas.forEach(({id, ministro}) => {
+          const str = `Vista - ${ministro['abreviacao']}`;
+          this.chips.push({ id, nome: str });
+        });
+  
+        destaques.forEach(({id, ministro}) => {
+          const str = `Destaque - ${ministro['abreviacao']}`;
+          this.chips.push({ id, nome: str });
+        });
+      });
+    }
+
     if (this.processo) {
       const { 
         ministros_impedidos, 
@@ -456,28 +491,16 @@ export class ResultadoJulgamentoComponent implements OnInit {
   
       ministros_impedidos.forEach(({abreviacao}) => {
         const str = `Impedido(a) - ${abreviacao}`;
-        this.chips.push(str);
+        this.chips.push({nome: str});
       });
   
       ministros_suspeitos.forEach(({abreviacao}) => {
         const str = `Suspeito(a) - ${abreviacao}`;
-        this.chips.push(str);
+        this.chips.push({nome: str});
       });
     }
 
-    if (this.dados) {
-      this.dados.decisoes.forEach(({vistas, destaques}) => {
-        vistas.forEach(({id, texto}) => {
-          const str = `Vista ${id} - ${texto.substr(0, 40)}...`;
-          this.chips.push(str);
-        });
-  
-        destaques.forEach(({id, texto}) => {
-          const str = `Destaque ${id} - ${texto.substr(0, 40)}...`;
-          this.chips.push(str);
-        });
-      });
-    }
+    this.cd.detectChanges();
   }
 
   private _obterDadosDaVistaNaListaDeDecisoes(id: number): Vista {

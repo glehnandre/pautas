@@ -6,29 +6,28 @@ import { SessaoJulgamento } from "app/modules/acervo/model/interfaces/sessao-jul
 import { capitulo } from "../capitulo/data";
 import { ministro } from '../ministro/data';
 
+export function getJulgamentos() {
+    if(sessionStorage.getItem('julgamentos') == null)
+      sessionStorage.setItem('julgamentos', JSON.stringify(julgamentos));
+    return JSON.parse(sessionStorage.getItem('julgamentos'));
+  };
 export const julgamentos: SessaoJulgamento[] = [
   {
+    id: 0,
+    numero: 1000,
+    ano: 2021,
+    colegiado: 'Primeira turma',
+    tipo: 'ORDINARIA',
+    categoria: 'REPERCUSSAO_GERAL',
+    modalidade: 'VIRTUAL',
+    data_inicio: '2016-08-29T09:12:33.001Z',
+    data_fim: '2016-08-30T09:12:33.001Z',
+    situacao: 'ABERTA',
+    secretario: {
       id: 0,
-      numero: 1000,
-      ano: 2021,
-      colegiado: 'Primeira turma',
-      tipo: 'ORDINARIA',
-      categoria: 'REPERCUSSAO_GERAL',
-      modalidade: 'VIRTUAL',
-      data_inicio: '2016-08-29T09:12:33.001Z',
-      data_fim: '2016-08-30T09:12:33.001Z',
-      secretario: {
-        id: 19,
-        nome: 'Beatriz Cunha',
-      },
-      situacao: 'ABERTA',
-      ministros_presentes: [
-        ministro[0],
-      ],
-      ministros_ausentes: [
-          ministro[1],
-      ],
-      presidencia: ministro[10],
+      nome: 'Beatriz Cunha',
+    },
+    presidencia: ministro[10],
   },
   {
     ano: 2021,
@@ -41,12 +40,10 @@ export const julgamentos: SessaoJulgamento[] = [
     data_inicio: '2021-06-29T09:12:33.001Z',
     data_fim: '2021-12-29T09:12:33.001Z',
     situacao: 'ABERTA',
-    ministros_presentes: [
-      ministro[0],
-    ],
-    ministros_ausentes: [
-        ministro[1],
-    ],
+    secretario: {
+      id: 0,
+      nome: 'Beatriz Cunha',
+    },
     presidencia: ministro[0],
   },
   {
@@ -60,12 +57,10 @@ export const julgamentos: SessaoJulgamento[] = [
     data_inicio: '2021-06-29T09:12:33.001Z',
     data_fim: '2021-12-29T09:12:33.001Z',
     situacao: 'ABERTA',
-    ministros_presentes: [
-      ministro[0],
-    ],
-    ministros_ausentes: [
-        ministro[1],
-    ],
+    secretario: {
+      id: 0,
+      nome: 'Beatriz Cunha',
+    },
     presidencia: ministro[0],
   },
   {
@@ -79,12 +74,10 @@ export const julgamentos: SessaoJulgamento[] = [
     data_inicio: '2021-04-29T09:12:33.001Z',
     data_fim: '2021-11-29T09:12:33.001Z',
     situacao: 'ABERTA',
-    ministros_presentes: [
-      ministro[0],
-    ],
-    ministros_ausentes: [
-        ministro[1],
-    ],
+    secretario: {
+      id: 0,
+      nome: 'Beatriz Cunha',
+    },
     presidencia: ministro[0],
   },
   {
@@ -98,12 +91,10 @@ export const julgamentos: SessaoJulgamento[] = [
     data_inicio: '2021-04-29T09:12:33.001Z',
     data_fim: '2021-11-29T09:12:33.001Z',
     situacao: 'ABERTA',
-    ministros_presentes: [
-      ministro[0],
-    ],
-    ministros_ausentes: [
-        ministro[1],
-    ],
+    secretario: {
+      id: 0,
+      nome: 'Beatriz Cunha',
+    },
     presidencia: ministro[0],
   },
   {
@@ -117,12 +108,10 @@ export const julgamentos: SessaoJulgamento[] = [
     data_inicio: '2021-03-29T09:12:33.001Z',
     data_fim: '2021-10-29T09:12:33.001Z',
     situacao: 'ABERTA',
-    ministros_presentes: [
-      ministro[0],
-    ],
-    ministros_ausentes: [
-        ministro[1],
-    ],
+    secretario: {
+      id: 0,
+      nome: 'Beatriz Cunha',
+    },
     presidencia: ministro[0],
   },
   {
@@ -136,12 +125,10 @@ export const julgamentos: SessaoJulgamento[] = [
     data_inicio: '2021-03-29T09:12:33.001Z',
     data_fim: '2021-10-29T09:12:33.001Z',
     situacao: 'ABERTA',
-    ministros_presentes: [
-      ministro[0],
-    ],
-    ministros_ausentes: [
-        ministro[1],
-    ],
+    secretario: {
+      id: 0,
+      nome: 'Beatriz Cunha',
+    },
     presidencia: ministro[0],
   },
   {
@@ -155,12 +142,10 @@ export const julgamentos: SessaoJulgamento[] = [
     data_inicio: '2021-03-29T09:12:33.001Z',
     data_fim: '2021-10-29T09:12:33.001Z',
     situacao: 'ABERTA',
-    ministros_presentes: [
-      ministro[0],
-    ],
-    ministros_ausentes: [
-        ministro[1],
-    ],
+    secretario: {
+      id: 0,
+      nome: 'Beatriz Cunha',
+    },
     presidencia: ministro[0],
   },
   {
@@ -174,12 +159,10 @@ export const julgamentos: SessaoJulgamento[] = [
     data_inicio: '2021-07-29T09:12:33.001Z',
     data_fim: '2021-10-29T09:12:33.001Z',
     situacao: 'ABERTA',
-    ministros_presentes: [
-      ministro[0],
-    ],
-    ministros_ausentes: [
-        ministro[1],
-    ],
+    secretario: {
+      id: 0,
+      nome: 'Beatriz Cunha',
+    },
     presidencia: ministro[0],
   },
   {
@@ -193,12 +176,10 @@ export const julgamentos: SessaoJulgamento[] = [
     data_inicio: '2021-01-29T09:12:33.001Z',
     data_fim: '2021-12-29T09:12:33.001Z',
     situacao: 'ABERTA',
-    ministros_presentes: [
-      ministro[0],
-    ],
-    ministros_ausentes: [
-        ministro[1],
-    ],
+    secretario: {
+      id: 0,
+      nome: 'Beatriz Cunha',
+    },
     presidencia: ministro[0],
   },
   {
@@ -212,12 +193,10 @@ export const julgamentos: SessaoJulgamento[] = [
     data_inicio: '2021-09-29T09:12:33.001Z',
     data_fim: '2021-12-29T09:12:33.001Z',
     situacao: 'ABERTA',
-    ministros_presentes: [
-      ministro[0],
-    ],
-    ministros_ausentes: [
-        ministro[1],
-    ],
+    secretario: {
+      id: 0,
+      nome: 'Beatriz Cunha',
+    },
     presidencia: ministro[0],
   },
   {
@@ -231,12 +210,10 @@ export const julgamentos: SessaoJulgamento[] = [
     data_inicio: '2021-06-29T09:12:33.001Z',
     data_fim: '2021-12-29T09:12:33.001Z',
     situacao: 'ABERTA',
-    ministros_presentes: [
-      ministro[0],
-    ],
-    ministros_ausentes: [
-        ministro[1],
-    ],
+    secretario: {
+      id: 0,
+      nome: 'Beatriz Cunha',
+    },
     presidencia: ministro[0],
   },
   {
@@ -250,12 +227,10 @@ export const julgamentos: SessaoJulgamento[] = [
     data_inicio: '2021-06-29T09:12:33.001Z',
     data_fim: '2021-12-29T09:12:33.001Z',
     situacao: 'ABERTA',
-    ministros_presentes: [
-      ministro[0],
-    ],
-    ministros_ausentes: [
-        ministro[1],
-    ],
+    secretario: {
+      id: 0,
+      nome: 'Beatriz Cunha',
+    },
     presidencia: ministro[0],
   },
   {
@@ -269,12 +244,10 @@ export const julgamentos: SessaoJulgamento[] = [
     data_inicio: '2021-04-29T09:12:33.001Z',
     data_fim: '2021-11-29T09:12:33.001Z',
     situacao: 'ABERTA',
-    ministros_presentes: [
-      ministro[0],
-    ],
-    ministros_ausentes: [
-        ministro[1],
-    ],
+    secretario: {
+      id: 0,
+      nome: 'Beatriz Cunha',
+    },
     presidencia: ministro[0],
   },
   {
@@ -288,12 +261,10 @@ export const julgamentos: SessaoJulgamento[] = [
     data_inicio: '2021-04-29T09:12:33.001Z',
     data_fim: '2021-11-29T09:12:33.001Z',
     situacao: 'ABERTA',
-    ministros_presentes: [
-      ministro[0],
-    ],
-    ministros_ausentes: [
-        ministro[1],
-    ],
+    secretario: {
+      id: 0,
+      nome: 'Beatriz Cunha',
+    },
     presidencia: ministro[0],
   },
   {
@@ -307,12 +278,10 @@ export const julgamentos: SessaoJulgamento[] = [
     data_inicio: '2021-03-29T09:12:33.001Z',
     data_fim: '2021-10-29T09:12:33.001Z',
     situacao: 'ABERTA',
-    ministros_presentes: [
-      ministro[0],
-    ],
-    ministros_ausentes: [
-        ministro[1],
-    ],
+    secretario: {
+      id: 0,
+      nome: 'Beatriz Cunha',
+    },
     presidencia: ministro[0],
   },
   {
@@ -326,12 +295,10 @@ export const julgamentos: SessaoJulgamento[] = [
     data_inicio: '2021-03-29T09:12:33.001Z',
     data_fim: '2021-10-29T09:12:33.001Z',
     situacao: 'ABERTA',
-    ministros_presentes: [
-      ministro[0],
-    ],
-    ministros_ausentes: [
-        ministro[1],
-    ],
+    secretario: {
+      id: 0,
+      nome: 'Beatriz Cunha',
+    },
     presidencia: ministro[0],
   },
 ];
