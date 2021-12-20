@@ -160,7 +160,11 @@ export class JulgamentoMockApi {
 
             this._julgamentos.splice(indexJulgamento, 1);
             this._julgamentos.push(sessaoDeJulgamento);
-            this._atas.pop();
+
+            let indexAta = this._atas.findIndex(({ sessao }) => sessao.id == sessaoDeJulgamento.id);
+            if( indexAta == -1)
+              this._atas.splice(indexAta, 1);
+
             this._atas.push({
               cabecalho,
               outros_presentes,

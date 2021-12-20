@@ -5,6 +5,7 @@ import { CapitulosParaPublicacao, Envolvido } from "app/modules/acervo/model/int
 import { capitulo } from "../capitulo/data"
 import { ministro } from "../ministro/data";
 import { Destaque, Vista } from "app/modules/acervo/model/interfaces/vista-e-destaque.interface";
+import { julgamentos } from "../julgamentos/data";
 
 export function getAtas() {
   if(sessionStorage.getItem('atas') == null)
@@ -138,4 +139,18 @@ export const capitulos_para_publicacao: CapitulosParaPublicacao[] = [
 ]
 
 export const atas: Ata[] = [
+  {
+    cabecalho: `Isto é uma demonstração de como será exibido
+        o cabeçalho de Revisar Extrato da Ata, para colocar o
+        seu próprio cabeçalho, por favor conclua o formulário
+        Finalizar Sessão de Julgamento`,
+    outros_presentes: 'André Von Glehn',
+    total_destaque: 0,
+    total_julgados: 3,
+    total_nao_julgados: 1,
+    total_vista: 4,
+    total_suspensos: 1,
+    sessao: julgamentos[0],
+    capitulos_para_publicacao
+  }
 ]

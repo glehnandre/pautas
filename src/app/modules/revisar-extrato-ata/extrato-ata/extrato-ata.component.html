@@ -35,7 +35,7 @@
                             <span class="font-medium" *ngFor="let requerente of filtraEnvolvidos(capituloPublicacao?.envolvidos, 'REQUERENTE')">
                                 {{ requerente.nome }}
                             </span><br>
-                            <span *ngFor="let advogado of filtraEnvolvidos(capituloPublicacao?.envolvidos, 'ADVOGAD', 'REQUERENTE')">
+                            <span *ngFor="let advogado of filtraEnvolvidos(capituloPublicacao?.envolvidos, 'ADVOGAD', 'ATIVO')">
                                 {{ advogado.categoria }}:
                                 <span class="font-medium">{{ advogado.nome }} | {{ advogado.identificacoes.join(' | ') }} |</span><br>
                             </span><br class="mb-2 sm:my-0">
@@ -45,7 +45,7 @@
                             <span class="font-medium" *ngFor="let envolvido of filtraEnvolvidos(capituloPublicacao?.envolvidos, 'RECORRID')">
                                 {{ envolvido.nome}}
                             </span><br>
-                            <span *ngFor="let advogado of filtraEnvolvidos(capituloPublicacao?.envolvidos, 'ADVOGAD', 'RECORRID')">
+                            <span *ngFor="let advogado of filtraEnvolvidos(capituloPublicacao?.envolvidos, 'ADVOGAD', 'PASSIVO')">
                                 {{ advogado.categoria }}:
                                 <span class="font-medium">{{ advogado.nome }} | {{ advogado.identificacoes.join(' | ') }} |</span><br>
                             </span>
@@ -63,7 +63,7 @@
                     </h3>
                 </div>
                 <div class="ml-4 sm:ml-8 md:ml-16 mr-4">
-                    {{ cabecalho }} <br class="mb-8">
+                    {{ ata?.cabecalho }} <br class="mb-8">
                     <div *ngFor="let capitulo of capituloPublicacao?.capitulos">
                         <div>
                             <div [class]="'bg-sentido-'+capitulo.dispositivo.sentido+' rounded-full px-2 text-white mb-4 mr-2 inline-block'">
@@ -77,7 +77,9 @@
                         <br class="mb-2">
                     </div>
                     <div [innerHtml]="
-                      fraseEMinistros(sessao?.ministros_presentes, FrasePresentes)+
+                      (ata?.outros_presentes ?
+                        'Também estavam presentes na Sessão ' + ata?.outros_presentes: '') +
+                      fraseEMinistros(sessao?.ministros_presentes, FrasePresentes) +
                       fraseEMinistros(sessao?.ministros_ausentes, FraseAusentes)
                     "></div>
                     <div class="mt-2">
