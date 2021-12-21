@@ -5,6 +5,7 @@ import { FuseMediaWatcherService } from '@fuse/services/media-watcher';
 import { PublicacaoService } from '../services/publicacao.service';
 import { PublicacaoDto } from '../acervo/model/interfaces/publicacaoDto.interface';
 import { InformacoesDto } from '../acervo/model/interfaces/informacoesDto.interface';
+import { ActivatedRoute, Params, Router } from '@angular/router';
 
 
 @Component({
@@ -28,18 +29,30 @@ export class PublicacoesComponent implements OnInit, OnDestroy {
   right: number;
   left: number;
 
+  queryParams: Params;
+  tiposParams: string[] = [];
+
   pesquisas: string[] = [];
   termo: string;
 
   constructor(
     private _fuseMediaWatcherService: FuseMediaWatcherService,
     private _publicacaoService: PublicacaoService,
+    private _route: ActivatedRoute,
+    private _router: Router,
   ) { }
 
   /**
      * On init
      */
   ngOnInit(): void {
+    this._router.navigate(
+      [], 
+      {
+        relativeTo: this._route,
+        queryParams: null, 
+        replaceUrl: true,
+      });
     // Subscribe to media changes
     this._fuseMediaWatcherService.onMediaChange$
       .pipe(takeUntil(this._unsubscribeAll))
@@ -58,6 +71,7 @@ export class PublicacoesComponent implements OnInit, OnDestroy {
 
       this.recuperaPublicacoes();
       this.filtraData({data_inicio: new Date(), data_fim: new Date()});
+
   }
 
   /**
@@ -166,16 +180,23 @@ export class PublicacoesComponent implements OnInit, OnDestroy {
     let filtrar = filtros.filter(filtro=>filtro.tipo==filtros[0].tipo);
     let filtrados = [];
     let tipos = [];
-
+    let params = [];
+    
     while(filtrar[0]){
       tipos.push(filtrar[0].tipo);
       filtrar.forEach(filtro=>{
         this.filtrar(filtro.filtro).forEach(filtrado=>{
           if(filtrados.indexOf(filtrado)==-1) filtrados.push(filtrado);
         })
+        params.push(filtro.filtro.replace(/ /g, '-'));
       })
       this.filtrados = filtrados;
       this.trataExibidos();
+      
+      this.tiposParams.push(filtrar[0].tipo);
+      this.montaParams(filtrar[0].tipo, params);
+
+      params = [];
       filtrados = [];
       filtrar = filtros.filter(filtro=>tipos.indexOf(filtro.tipo)==-1)
     }
@@ -204,6 +225,9 @@ export class PublicacoesComponent implements OnInit, OnDestroy {
   removeFiltros(event: any){
       if(this.pesquisas.length!=0) this.refazPesquisa();
       else if(!this.hasNumeroProcesso) this.filtraData(event);
+      this.tiposParams.forEach(tipo=>{
+        this.montaParams(tipo, null);
+      })
       this.hasFiltros = true;
   }
 
@@ -216,12 +240,13 @@ export class PublicacoesComponent implements OnInit, OnDestroy {
     if(!event.data_inicio) {
         this.filtrados = this.publicacoes;
         this.trataExibidos();
+        this.montaParams("data", null)
     }
     else{
       let data_inicio: Date = new Date(event.data_inicio.toString().slice(0, 16));
       let data_fim: Date = new Date(new Date(event.data_fim.toString().slice(0, 16)).setHours(23,59,59));
       let filtros = [];
-
+      this.montaParams("data", [data_inicio.toISOString() + "_" + data_fim.toISOString()])
       filtros = this.publicacoes.filter(publicacao=>{
         let day: number;
         
@@ -272,6 +297,24 @@ export class PublicacoesComponent implements OnInit, OnDestroy {
       this.left -= 30;
       this.exibidos = this.filtrados.slice(this.left,this.right);
     }
+  }
+
+  montaParams(tipo: string, descricoes: any[]){
+    let param: string = null;
+    if(descricoes)
+    descricoes.forEach((descricao, i)=>{
+      if(i==0) param = `${descricao}`;
+      else param += `_${descricao}`
+    })
+    this.queryParams = { [tipo]: param };
+    
+    this._router.navigate(
+      [], 
+      {
+        relativeTo: this._route,
+        queryParams: this.queryParams, 
+        queryParamsHandling: 'merge',
+      });
   }
 
 }
