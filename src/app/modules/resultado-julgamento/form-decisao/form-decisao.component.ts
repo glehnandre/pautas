@@ -4,17 +4,13 @@ import { MatSelectChange } from '@angular/material/select';
 import { Capitulo } from 'app/modules/acervo/model/interfaces/capitulo.interface';
 import { Dispositivo } from 'app/modules/acervo/model/interfaces/dispositivo.interface';
 import { Ministro } from 'app/modules/acervo/model/interfaces/ministro.interface';
-import { ModeloDecisao } from 'app/modules/acervo/model/interfaces/modeloDecisao.interface';
 import { Processo } from 'app/modules/acervo/model/interfaces/processo.interface';
-import { TipoRecursoDto } from 'app/modules/acervo/model/interfaces/tipoRecursoDto';
 import { DispositivoService } from 'app/modules/services/dispositivo.service';
 import { MinistroService } from 'app/modules/services/ministro.service';
 import { ProcessoService } from 'app/modules/services/processo.service';
-import { RecursoService } from 'app/modules/services/recurso.service';
 import { ResultadoJulgamentoService } from 'app/modules/services/resultado-julgamento.service';
-import { isNull } from 'lodash';
 import { Observable } from 'rxjs';
-import { filter, map } from 'rxjs/operators';
+import {  map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-form-decisao',

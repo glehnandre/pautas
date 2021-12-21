@@ -161,8 +161,8 @@ export class ResultadoJulgamentoComponent implements OnInit, OnDestroy, AfterCon
    * @description Método para adicionar uma decisão a lista de decisões
    * @author Douglas da Silva Monteles
    */
-  public setDecisaoAdicionada(decisao: Decisao): void {
-    this.decisoesAdicionadas.push(decisao);
+  public addDecisao(decisao: Decisao): void {
+    this.todasAsDecisoes.push(decisao);
   }
 
   /**
@@ -193,16 +193,15 @@ export class ResultadoJulgamentoComponent implements OnInit, OnDestroy, AfterCon
    * @description Método para remover uma decisão da lista de decisões
    * @author Douglas da Silva Monteles
    */
-  public removerDecisao(isRemoverDecisao: boolean): void {
-    if (isRemoverDecisao) {
-      const index = this.decisoesAdicionadas
-        .findIndex(d => JSON.stringify(d) === JSON.stringify(this.decisaoSelecionada));
-      
-      if (index !== -1) {
-        this.decisoesAdicionadas.splice(index, 1);
-        this.setDecisaoSelecionada(null);
-      }
-    }
+  public excluirDecisao(decisao: Decisao): void {
+     const index = this.todasAsDecisoes
+       .findIndex(d => JSON.stringify(d) === JSON.stringify(this.decisaoSelecionada));
+     console.log("EXCLUIR UMA DECISAO")
+     console.log(index);
+     if (index !== -1) {
+       this.todasAsDecisoes.splice(index, 1);
+       this.setDecisaoSelecionada(null);
+     }
   }
 
   /**
