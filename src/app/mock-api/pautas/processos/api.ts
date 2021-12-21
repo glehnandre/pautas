@@ -241,10 +241,11 @@ export class ProcessoMockApi {
             .onPost('processos/:id/vista')
             .reply(({request, urlParams}) => {
                 const idProcesso: number = +urlParams.id;
-                const body = request.body as Vista;
+                const { body } = request;
                 body.id = this._vistas.length + 1;
 
-                this._vistas.push(body);
+                const m = ministro.find(({id}) => id === body.ministro);
+                this._vistas.push({...body, ministro: m});
 
                 return [200, this._vistas];
             });
@@ -270,10 +271,11 @@ export class ProcessoMockApi {
             .onPost('processos/:id/destaque')
             .reply(({request, urlParams}) => {
                 const idProcesso: number = +urlParams.id;
-                const body = request.body as Destaque;
+                const body = request.body;
                 body.id = this._destaques.length + 1;
 
-                this._destaques.push(body);
+                const m = ministro.find(({id}) => id === body.ministro);
+                this._destaques.push({...body, ministro: m});
 
                 return [200, this._destaques];
             });

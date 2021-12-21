@@ -18,10 +18,40 @@ export const decisoes: DecisoesResultadoJulgamento[] = [
         ],
         vistas: vistas,
         destaques: destaques,
+      },
+
+      {
+        capitulo: capitulo[1],
+        processos_mesma_decisao: [
+          processo[0],
+          processo[1],
+        ],
+        vistas: vistas,
+        destaques: destaques,
+      },
+
+      {
+        capitulo: capitulo[2],
+        processos_mesma_decisao: [
+          processo[0],
+          processo[1],
+        ],
+        vistas: vistas,
+        destaques: destaques,
+      },
+
+      {
+        capitulo: capitulo[3],
+        processos_mesma_decisao: [
+          processo[0],
+          processo[1],
+        ],
+        vistas: vistas,
+        destaques: destaques,
       }
     ],
     sessao: sessao[0],
-  }
+  },
 ];
 
 export const modeloDecisao: ModeloDecisao[] = [
