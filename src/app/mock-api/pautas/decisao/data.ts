@@ -9,47 +9,7 @@ import { destaques, processo, vistas } from "../processos/data";
 
 export const decisoes: DecisoesResultadoJulgamento[] = [
   {
-    decisoes: [
-      {
-        capitulo: capitulo[0],
-        processos_mesma_decisao: [
-          processo[0],
-          processo[1],
-        ],
-        vistas: vistas,
-        destaques: destaques,
-      },
-
-      {
-        capitulo: capitulo[1],
-        processos_mesma_decisao: [
-          processo[0],
-          processo[1],
-        ],
-        vistas: vistas,
-        destaques: destaques,
-      },
-
-      {
-        capitulo: capitulo[2],
-        processos_mesma_decisao: [
-          processo[0],
-          processo[1],
-        ],
-        vistas: vistas,
-        destaques: destaques,
-      },
-
-      {
-        capitulo: capitulo[3],
-        processos_mesma_decisao: [
-          processo[0],
-          processo[1],
-        ],
-        vistas: vistas,
-        destaques: destaques,
-      }
-    ],
+    decisoes: [],
     sessao: sessao[0],
   },
 ];

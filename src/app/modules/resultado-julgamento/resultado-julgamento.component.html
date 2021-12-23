@@ -279,8 +279,8 @@
                                     [idProcesso]="parametros.processo"
                                     [decisao]="decisaoSelecionada"
                                     [processo]="processo"
-                                    [isExibirBtnSalvarDecisao]="true"
-                                    [isExibirBtnExcluirDecisao]="true"
+                                    [isExibirBtnSalvarDecisao]=true
+                                    [isExibirBtnExcluirDecisao]=true
                                     (dadosDaDecisao)="excluirDecisao($event)"
                                     (excluirDadosDaDecisao)="excluirDecisao($event)"
                                 ></app-form-decisao>

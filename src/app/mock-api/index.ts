@@ -29,6 +29,7 @@ import { JulgamentoMockApi } from './pautas/julgamentos/api';
 import { SituacaoMockApi } from './pautas/situacaoProcesso/api';
 import { MinistroMockApi } from './pautas/ministro/api';
 import { DecisaoMockApi } from './pautas/decisao/api';
+import { ClasseMockApi } from './pautas/classes/api';
 import { PublicacaoMockApi } from './pautas/publicacoes/api';
 import { DispositivoMockApi } from './pautas/dispositivo/api';
 import { RevisaoInteiroTeorMockApi } from './pautas/revisar-inteiro-teor/api';
@@ -42,6 +43,7 @@ export const mockApiServices = [
     CalendarMockApi,
     ChatMockApi,
     ContactsMockApi,
+    ClasseMockApi,
     ECommerceInventoryMockApi,
     FileManagerMockApi,
     HelpCenterMockApi,

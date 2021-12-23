@@ -3,9 +3,11 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatSelectionListChange } from '@angular/material/list';
 import { FuseAlertService } from '@fuse/components/alert';
+import { Classe } from 'app/modules/acervo/model/interfaces/classe.interface';
 import { Dispositivo } from 'app/modules/acervo/model/interfaces/dispositivo.interface';
 import { ModeloDecisao } from 'app/modules/acervo/model/interfaces/modeloDecisao.interface';
 import { TipoRecursoDto } from 'app/modules/acervo/model/interfaces/tipoRecursoDto';
+import { ClasseService } from 'app/modules/services/classe.service';
 import { DispositivoService } from 'app/modules/services/dispositivo.service';
 import { RecursoService } from 'app/modules/services/recurso.service';
 import { ResultadoJulgamentoService } from 'app/modules/services/resultado-julgamento.service';
@@ -31,6 +33,7 @@ export class FormModeloDecisaoComponent implements OnInit {
   formModeloDecisao: FormGroup;
   dispositivos: Dispositivo[];
   recursos$: Observable<TipoRecursoDto[]>;
+  classes$: Observable<Classe[]>;
   modelo: ModeloDecisao = {
     id: 0,
     classe: '',
@@ -48,6 +51,7 @@ export class FormModeloDecisaoComponent implements OnInit {
     private _resultadoJulgamento: ResultadoJulgamentoService,
     private _dispositivoService: DispositivoService,
     private _recursoService: RecursoService,
+    private _classeService: ClasseService,
     private _fuseAlertService: FuseAlertService,
     public dialogRef: MatDialogRef<FormModeloDecisaoComponent>,
     @Inject(MAT_DIALOG_DATA) public data: ModeloDecisaoData,
@@ -63,6 +67,9 @@ export class FormModeloDecisaoComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.classes$ = this._classeService.getClasses();
+    console.log("CLASSES");
+    console.log(this.classes$);
     this.recursos$ = this._recursoService.obterListaDeRecursos();
 
     this.formModeloDecisao.controls.texto.valueChanges.subscribe((texto: string) => {

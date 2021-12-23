@@ -21,10 +21,10 @@
                         (selectionChange)="carregarModeloDecisao()"
                     >
                         <mat-option 
-                            *ngFor="let classe of ['ADI', 'classe2']" 
-                            [value]="classe"
+                            *ngFor="let classe of (classes$ | async)" 
+                            [value]="classe.sigla"
                         >
-                            {{classe}}
+                            {{classe.sigla}}
                         </mat-option>
                     </mat-select>
                     <mat-hint>Informe a classe</mat-hint>
