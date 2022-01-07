@@ -92,17 +92,6 @@ export const defaultNavigation: FuseNavigationItem[] = [
         },
     },
     {
-        id   :  'informar-o-redator',
-        title:  '(Pós-Julgamento) Informar o Redator',
-        type :  'basic',
-        icon :  'heroicons_outline:chart-pie',
-        link :  '/informar-redator',
-        queryParams: {
-            processo: '9',
-            colegiado: 'pleno',
-        },
-    },
-    {
         id   :  'revisar-extrato-ata',
         title:  '(Pós-Julgamento) Revisar o Extrato da Ata de Julgamento',
         type :  'basic',
