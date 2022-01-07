@@ -32,7 +32,6 @@ export class AcoesComponent implements OnInit {
   @Input() documentosInteiroTeor: DocumentoInteiroTeor[];
   @Output() todosOsCheckboxSelecionados = new EventEmitter();
   @Output() revisoesAlteradas = new EventEmitter();
-  @Output() link = new EventEmitter();
 
   readonly NOME_DO_ALERTA_DESTA_CLASSE = 'alerta_revisar_inteiro_teor';
 
@@ -88,16 +87,12 @@ export class AcoesComponent implements OnInit {
           data: documentosNaoIncluidos,
       });
 
-      dialogRef.afterClosed().subscribe((data: string | number[]) => {
-        if (typeof data === 'string' || data instanceof String) {
-            this.link.emit(data);
-        } else {
-            this._inteiroTeorService.incluirDocumentosDoInteiroTeorDoProcesso(this.idProcesso, data).subscribe({
-                next: (data) => {
-                    this.revisoesAlteradas.emit(data);
-                }
-            })
-        }
+      dialogRef.afterClosed().subscribe((data: number[]) => {
+        this._inteiroTeorService.incluirDocumentosDoInteiroTeorDoProcesso(this.idProcesso, data).subscribe({
+            next: (data) => {
+                this.revisoesAlteradas.emit(data);
+            }
+        })
       });
   }
 

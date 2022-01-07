@@ -21,10 +21,6 @@ export class IncluirDocumentoComponent implements OnInit {
     this.dataSource = new MatTableDataSource(this._documentos);
   }
 
-  abrirPdf(url: string): void {
-    this.dialogRef.close(url);
-  }
-
   marcarOuDesmarcarDocumento(documento: Documento): void {
     const index = this.documentosSelecionados.findIndex(m => m === documento.id);
 
