@@ -9,6 +9,7 @@ import { SessaoJulgamento } from 'app/modules/acervo/model/interfaces/sessao-jul
 export class DadosDaSessaoComponent implements OnInit {
 
   @Input() sessao: SessaoJulgamento = {} as SessaoJulgamento;
+  @Input() isExibirStatus: boolean = false;
 
   constructor() { }
 
