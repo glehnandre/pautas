@@ -73,7 +73,14 @@
             mat-cell
             *matCellDef="let document"
         >
-            {{document.responsavel.abreviacao}}
+            <div class="flex flex-row justify-center items-center">
+                <div class="mb-3">
+                    <app-icones-votos
+                        [ministros]="[document.responsavel]"
+                        [quantidade]="1"
+                    ></app-icones-votos>
+                </div>
+            </div>
         </td>
     </ng-container>
 
