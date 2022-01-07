@@ -6,21 +6,21 @@ export const defaultNavigation: FuseNavigationItem[] = [
         id   : 'example',
         title: 'Example',
         type : 'basic',
-        icon : 'heroicons_outline:chart-pie',
+        icon : '',
         link : '/example'
     },
     {
         id   : 'acervo',
         title: 'Acervo Efetivo',
         type : 'basic',
-        icon : 'heroicons_outline:chart-pie',
+        icon : '',
         link : '/acervo'
     },
     {
         id   : 'resposta-solicitacao-sessao-extraordinaria',
         title: 'Resposta de Solicitação de Julgamento Extraordinario',
         type : 'basic',
-        icon : 'heroicons_outline:chart-pie',
+        icon : '',
         link : '/resposta-solicitacao-sessao-extraordinaria',
         queryParams: {
             numero: 1000,
@@ -31,7 +31,7 @@ export const defaultNavigation: FuseNavigationItem[] = [
         id   : 'sessao-extraordinaria',
         title: 'Solicitar Sessão Extraordinária',
         type : 'basic',
-        icon : 'heroicons_outline:chart-pie',
+        icon : '',
         link : '/sessao-extraordinaria',
         queryParams: {
             numero: 1000,
@@ -42,7 +42,7 @@ export const defaultNavigation: FuseNavigationItem[] = [
         id   : 'criacao-colegiado',
         title: 'Criação do Colegiado',
         type : 'basic',
-        icon : 'heroicons_outline:chart-pie',
+        icon : '',
         link : '/criacao-colegiado',
         queryParams: {
             processo: 1,
@@ -55,7 +55,7 @@ export const defaultNavigation: FuseNavigationItem[] = [
         id   : 'sessoes-julgamento',
         title: 'Processos pautados',
         type : 'basic',
-        icon : 'heroicons_outline:chart-pie',
+        icon : '',
         link : '/sessoes-julgamento',
         queryParams: {
             numero: 1000,
@@ -66,14 +66,21 @@ export const defaultNavigation: FuseNavigationItem[] = [
         id: 'minhas-tarefas',
         title: 'Minhas tarefas',
         type: 'basic',
-        icon : 'heroicons_outline:chart-pie',
+        icon : '',
         link: '/minhas-tarefas'
+    },
+    {
+        id: 'publicacoes',
+        title: '(Pós-Julgamento) DJe',
+        type: 'basic',
+        icon : '',
+        link: '/publicacoes'
     },
     {
         id   : 'resultado-julgamento',
         title: '(Pós-Julgamento) Resultado do Julgamento',
         type : 'basic',
-        icon : 'heroicons_outline:chart-pie',
+        icon : '',
         link : '/resultado-julgamento',
         queryParams: {
             processo: '9',
@@ -84,7 +91,7 @@ export const defaultNavigation: FuseNavigationItem[] = [
         id: 'revisar-inteiro-teor',
         title: '(Pós-Julgamento) Revisar Inteiro Teor',
         type: 'basic',
-        icon : 'heroicons_outline:chart-pie',
+        icon : '',
         link: '/revisar-inteiro-teor',
         queryParams: {
             id: 9,
@@ -92,21 +99,10 @@ export const defaultNavigation: FuseNavigationItem[] = [
         },
     },
     {
-        id   :  'informar-o-redator',
-        title:  '(Pós-Julgamento) Informar o Redator',
-        type :  'basic',
-        icon :  'heroicons_outline:chart-pie',
-        link :  '/informar-redator',
-        queryParams: {
-            processo: '9',
-            colegiado: 'pleno',
-        },
-    },
-    {
         id   :  'revisar-extrato-ata',
         title:  '(Pós-Julgamento) Revisar o Extrato da Ata de Julgamento',
         type :  'basic',
-        icon :  'heroicons_outline:chart-pie',
+        icon :  '',
         link :  '/revisar-extrato-ata',
         queryParams: {
             id: 0
@@ -116,7 +112,7 @@ export const defaultNavigation: FuseNavigationItem[] = [
         id   : 'finalizar-sessao-julgamento',
         title: '(Pós-Julgamento) Finalizar Sessao de Julgamento',
         type : 'basic',
-        icon : 'heroicons_outline:chart-pie',
+        icon : '',
         link : '/finalizar-sessao-julgamento',
         queryParams: {
             numero: 1000,
