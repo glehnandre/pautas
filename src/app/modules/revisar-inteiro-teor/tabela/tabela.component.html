@@ -73,7 +73,7 @@
             mat-cell
             *matCellDef="let document"
         >
-            <div class="flex flex-row justify-center items-center">
+            <div class="flex flex-row justify-center items-center" *ngIf="(document.responsavel | json) !== '{}'">
                 <div class="mb-3">
                     <app-icones-votos
                         [ministros]="[document.responsavel]"
