@@ -1,5 +1,6 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
+import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { Documento } from 'app/modules/acervo/model/interfaces/documento.interface';
 
 @Component({
@@ -9,16 +10,23 @@ import { Documento } from 'app/modules/acervo/model/interfaces/documento.interfa
 })
 export class TabelaComponent implements OnInit {
   @Input() dataSource: MatTableDataSource<Documento>;
-  @Output() link = new EventEmitter();
   @Output() checked = new EventEmitter();
 
-  constructor() { }
+  link: SafeResourceUrl;
+
+  constructor(
+    private _sanitize: DomSanitizer,
+  ) {
+    this.link = this._sanitize.bypassSecurityTrustResourceUrl('');
+  }
 
   ngOnInit(): void {
   }
 
-  emiteLink(url: string): void {
-    this.link.emit(url);
+  abrirPdf(url: string): void {
+    this.link = this._sanitize.bypassSecurityTrustResourceUrl(url);
+
+    window.open(this.link['changingThisBreaksApplicationSecurity'], "_blank");
   }
 
   emiteStatusDoCheckbox(documento: Documento): void {

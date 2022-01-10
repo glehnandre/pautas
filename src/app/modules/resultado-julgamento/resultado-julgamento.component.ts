@@ -18,7 +18,6 @@ import { Vista } from '../acervo/model/interfaces/vista.interface';
 import { Destaque } from '../acervo/model/interfaces/destaque.interface';
 import { FormRelatorComponent } from './form-relator/form-relator.component';
 import { FormIndicacaoImpedimentosComponent } from './form-indicacao-impedimentos/form-indicacao-impedimentos.component';
-import { Ministro } from '../acervo/model/interfaces/ministro.interface';
 
 interface Parametros {
   processo: number;
@@ -94,7 +93,7 @@ export class ResultadoJulgamentoComponent implements OnInit, OnDestroy, AfterCon
    * @public Método público
    * @param largura Tamanho da largura da tela para ser comparado
    * @default largura Valor padrão da largura é 720px
-   * @description Método para verificar se a largura atual da tela estar maior 
+   * @description Método para verificar se a largura atual da tela estar maior
    *              que a largura informada
    * @returns boolean
    * @author Douglas da Silva Monteles
@@ -178,7 +177,7 @@ export class ResultadoJulgamentoComponent implements OnInit, OnDestroy, AfterCon
   /**
    * @public Método público
    * @param decisao Objeto javascript com os dados de uma decisão
-   * @description Método para verificar se uma dada decisão é igual a decisão 
+   * @description Método para verificar se uma dada decisão é igual a decisão
    *              selecionada atualmente
    * @returns boolean
    * @author Douglas da Silva Monteles
@@ -227,7 +226,7 @@ export class ResultadoJulgamentoComponent implements OnInit, OnDestroy, AfterCon
    */
   public recarregarListaDeDecisoes(): void {
     this.exibirListaDeDecisoes = false;
- 
+
     setTimeout(() => {
       this.exibirListaDeDecisoes = true;
     }, 500);
@@ -343,8 +342,8 @@ export class ResultadoJulgamentoComponent implements OnInit, OnDestroy, AfterCon
   }
 
   /**
-   * 
-   * @param event 
+   *
+   * @param event
    */
   public abrirModal(event: {click: boolean, chip: {id?:number; nome: string}}): void {
     const str = event.chip.nome.toLocaleLowerCase();
@@ -379,15 +378,15 @@ export class ResultadoJulgamentoComponent implements OnInit, OnDestroy, AfterCon
   /**
    * @public Método público
    * @param chip Conteúdo exibido no chip
-   * @description Método que recebe a string do chip e separa o tipo (Vista ou 
+   * @description Método que recebe a string do chip e separa o tipo (Vista ou
    *              Destaque) e o seu respectivo id.
-   * @author Douglas da Silva Monteles 
+   * @author Douglas da Silva Monteles
    */
   public obterChipRemovido(chip: {id?:number; nome: string}): void {
     try {
       const tipo: string = chip.nome.split(' ')[0].toLocaleLowerCase();
       const id: number = +chip.id;
-      
+
       if (tipo === 'vista') {
         this._processoService.excluirVistaDoProcesso(this.parametros.processo, id)
           .subscribe({
@@ -406,6 +405,15 @@ export class ResultadoJulgamentoComponent implements OnInit, OnDestroy, AfterCon
     } catch (error) {
       console.log(error);
     }
+  }
+
+	/**
+   * @public Método público
+   * @description Método obter os nomes dos chips
+   * @author Douglas da Silva Monteles
+   */
+  public obterNomeDosChips(): string[] {
+		return this.chips.map(chip => chip.nome);
   }
 
   /**
@@ -476,7 +484,7 @@ export class ResultadoJulgamentoComponent implements OnInit, OnDestroy, AfterCon
           const str = `Vista - ${ministro['abreviacao']}`;
           this.chips.push({ id, nome: str });
         });
-  
+
         destaques.forEach(({id, ministro}) => {
           const str = `Destaque - ${ministro['abreviacao']}`;
           this.chips.push({ id, nome: str });
@@ -485,16 +493,16 @@ export class ResultadoJulgamentoComponent implements OnInit, OnDestroy, AfterCon
     }
 
     if (this.processo) {
-      const { 
-        ministros_impedidos, 
-        ministros_suspeitos, 
+      const {
+        ministros_impedidos,
+        ministros_suspeitos,
       } = this.processo;
-  
+
       ministros_impedidos.forEach(({abreviacao}) => {
         const str = `Impedido(a) - ${abreviacao}`;
         this.chips.push({nome: str});
       });
-  
+
       ministros_suspeitos.forEach(({abreviacao}) => {
         const str = `Suspeito(a) - ${abreviacao}`;
         this.chips.push({nome: str});

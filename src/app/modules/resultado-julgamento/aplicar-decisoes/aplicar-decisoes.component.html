@@ -13,12 +13,12 @@
         ></mat-spinner>
 
         <ng-template #exibirProcessos class="max-h-36 overflow-auto grid grid-cols-1 sm:grid-cols-3 gap-4">
-            <mat-checkbox 
-                class="ml-2 mb-2" 
+            <mat-checkbox
+                class="ml-2 mb-2"
                 *ngFor="let processo of processos"
                 [checked]="isProcessoSelecionado(processo) || selecionarTodos"
                 [disabled]="desabilitar"
-                (change)="selecionarProcesso(processo)" 
+                (change)="selecionarProcesso(processo)"
                 color="primary"
             >
                 <span class="font-bold text-primary-600">
@@ -28,7 +28,7 @@
                 <br/>
 
                 <span class="text-hint">
-                    Relator prevaleceu
+                    {{processo.abreviacao}}
                 </span>
             </mat-checkbox>
         </ng-template>

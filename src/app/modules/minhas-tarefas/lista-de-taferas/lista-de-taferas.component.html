@@ -1,0 +1,41 @@
+<div class="overflow-y-auto flex flex-col mx-4 my-2">
+    <h1 class="text-center">Lista de tarefas</h1>
+
+    <mat-selection-list [multiple]="false">
+        <mat-list-option
+            routerLink="/criacao-colegiado"
+            [queryParams]="{
+                processo: '1',
+                data: '2016-08-29T09%253A12%253A33.001Z',
+                colegiado: 'pleno',
+                sessao: '1000-2021'
+            }"
+        >
+            Criação de colegiado
+        </mat-list-option>
+
+        <mat-list-option
+            routerLink="/criacao-colegiado"
+            [queryParams]="{
+                processo: '1',
+                data: '2016-08-29T09%253A12%253A33.001Z',
+                colegiado: 'pleno',
+                sessao: '1000-2021'
+            }"
+        >
+            Criação de colegiado
+        </mat-list-option>
+
+        <mat-list-option
+            routerLink="/criacao-colegiado"
+            [queryParams]="{
+                processo: '1',
+                data: '2016-08-29T09%253A12%253A33.001Z',
+                colegiado: 'pleno',
+                sessao: '1000-2021'
+            }"
+        >
+            Criação de colegiado
+        </mat-list-option>
+    </mat-selection-list>
+</div>

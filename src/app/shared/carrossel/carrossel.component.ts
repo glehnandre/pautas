@@ -32,9 +32,9 @@ export class CarrosselComponent implements OnInit, OnChanges, OnDestroy, AfterCo
   ngOnInit(): void {}
 
   ngOnChanges(changes): void {
-    console.log(changes);
+
   }
-  
+
   ngAfterContentChecked(){
     this.cd.detectChanges();
   }
