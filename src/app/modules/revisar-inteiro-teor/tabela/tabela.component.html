@@ -73,7 +73,14 @@
             mat-cell
             *matCellDef="let document"
         >
-            {{document.responsavel.abreviacao}}
+            <div class="flex flex-row justify-center items-center" *ngIf="(document.responsavel | json) !== '{}'">
+                <div class="mb-3">
+                    <app-icones-votos
+                        [ministros]="[document.responsavel]"
+                        [quantidade]="1"
+                    ></app-icones-votos>
+                </div>
+            </div>
         </td>
     </ng-container>
 
@@ -209,7 +216,7 @@
                             <div class="flex flex-auto">
                                 <div class="flex flex-col w-full pl-8">
                                     <div class="flex">
-                                        <mat-form-field class="w-1/2 pr-2">
+                                        <mat-form-field class="w-1/3 pr-2">
                                             <mat-label>Autores</mat-label>
                                             <mat-select [formControlName]="'autores'" multiple>
                                                 <mat-select-trigger>
@@ -234,7 +241,7 @@
                                             </mat-select>
                                         </mat-form-field>
 
-                                        <mat-form-field class="w-1/2 pl-2">
+                                        <mat-form-field class="w-1/3 px-2">
                                             <mat-label>Responsável</mat-label>
                                             <mat-select [formControlName]="'responsavel'">
                                                 <mat-option
@@ -250,29 +257,21 @@
                                                 </mat-option>
                                             </mat-select>
                                         </mat-form-field>
-                                    </div>
 
-                                    <div class="flex">
-                                        <mat-form-field class="w-1/2 pr-2">
+                                        <mat-form-field class="w-1/3 pl-2">
                                             <mat-label>Nome do Documento</mat-label>
                                             <input
                                                 matInput
                                                 [formControlName]="'nome'">
                                         </mat-form-field>
-                                        <mat-form-field class="w-1/2 pl-2">
-                                            <mat-label>Comentários</mat-label>
-                                            <input
-                                                matInput
-                                                [formControlName]="'comentario'">
-                                        </mat-form-field>
                                     </div>
 
                                     <mat-form-field class="w-full" appearance="outline">
                                         <mat-label>
-                                            Observação
+                                            Comentários
                                             <span class="text-red-500">*</span>
                                         </mat-label>
-                                        <textarea matInput></textarea>
+                                        <textarea matInput [formControlName]="'comentario'"></textarea>
                                     </mat-form-field>
                                 </div>
                             </div>

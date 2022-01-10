@@ -88,7 +88,6 @@ export const defaultNavigation: FuseNavigationItem[] = [
         link: '/revisar-inteiro-teor',
         queryParams: {
             id: 9,
-            colegiado: 'pleno',
         },
     },
     {
@@ -192,7 +191,6 @@ export const compactNavigation: FuseNavigationItem[] = [
         link: '/revisar-inteiro-teor',
         queryParams: {
             id: 9,
-            colegiado: 'pleno',
         },
     },
     {
@@ -307,7 +305,6 @@ export const futuristicNavigation: FuseNavigationItem[] = [
         link: '/revisar-inteiro-teor',
         queryParams: {
             id: 9,
-            colegiado: 'pleno',
         },
     },
     {
@@ -418,7 +415,6 @@ export const horizontalNavigation: FuseNavigationItem[] = [
         link: '/revisar-inteiro-teor',
         queryParams: {
             id: 9,
-            colegiado: 'pleno',
         },
     },
     {

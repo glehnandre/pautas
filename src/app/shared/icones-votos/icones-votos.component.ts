@@ -15,7 +15,6 @@ export class IconesVotosComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
-
   }
 
   public getIconesMinistros(): Ministro[] {

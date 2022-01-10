@@ -30,7 +30,6 @@ export interface RevisaoInteiroTeor {
 })
 export class RevisarInteiroTeorComponent implements OnInit {
   idProcesso: number = 0;
-  colegiado: string = '';
   processo: Processo;
   documentosDoProcesso: Documento[];
   revisoes: RevisaoInteiroTeor;
@@ -58,7 +57,6 @@ export class RevisarInteiroTeorComponent implements OnInit {
 
   ngOnInit(): void {
     this.idProcesso = +this._route.snapshot.queryParamMap.get('id');
-    this.colegiado = this._route.snapshot.queryParamMap.get('colegiado')
 
     this._inteiroTeorService.obterInteiroTeorDoAcordao(this.idProcesso).subscribe({
       next: (revisoes) => {
