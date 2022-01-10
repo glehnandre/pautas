@@ -9,6 +9,11 @@ import { MatChipsModule } from '@angular/material/chips';
 import { FuseNavigationModule } from '@fuse/components/navigation';
 import { MinhasTarefasComponent } from './minhas-tarefas.component';
 import { CriacaoColegiadoComponent } from '../criacao-colegiado/criacao-colegiado.component';
+import { FuseCardModule } from '@fuse/components/card';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { FiltrosComponent } from './filtros/filtros.component';
+import { ListaDeTaferasComponent } from './lista-de-taferas/lista-de-taferas.component';
+import { MatListModule } from '@angular/material/list';
 
 const minhasTarefasRoutes: Route[] = [
     {
@@ -25,17 +30,23 @@ const minhasTarefasRoutes: Route[] = [
 
 @NgModule({
   declarations: [
-    MinhasTarefasComponent
+    MinhasTarefasComponent,
+    FiltrosComponent,
+    ListaDeTaferasComponent
   ],
   imports: [
     CommonModule,
+    FormsModule,
+    ReactiveFormsModule,
     MatIconModule,
     MatSidenavModule,
     MatExpansionModule,
     MatCheckboxModule,
     MatChipsModule,
     FuseNavigationModule,
+    FuseCardModule,
     RouterModule.forChild(minhasTarefasRoutes),
+    MatListModule,
   ]
 })
 export class MinhasTarefasModule { }
