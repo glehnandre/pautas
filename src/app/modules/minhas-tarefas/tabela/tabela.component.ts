@@ -1,20 +1,21 @@
-import { DataSource } from '@angular/cdk/collections';
-import { Component, OnInit } from '@angular/core';
+import { SelectionModel } from '@angular/cdk/collections';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { MatTableDataSource } from '@angular/material/table';
 import { Tarefa } from 'app/modules/acervo/model/interfaces/tarefa.interface';
 import { TarefaService } from 'app/modules/services/tarefa.service';
-import { Observable, ReplaySubject } from 'rxjs';
 
 @Component({
     selector: 'app-tabela',
     templateUrl: './tabela.component.html',
     styleUrls: ['./tabela.component.scss']
 })
-export class TabelaComponent implements OnInit {
-
-    displayedColumns: string[] = ['checkbox', 'descricao', 'responsavel', 'data_criacao', 'opcoes'];
-    dataSource = new TarefasDataSource([]);
+export class TabelaComponent implements OnInit, OnDestroy {
 
     tarefas: any[] = [];
+
+    displayedColumns: string[] = ['checkbox', 'descricao', 'responsavel', 'data_criacao', 'opcoes'];
+    dataSource = new MatTableDataSource<Tarefa>([]);
+    selection = new SelectionModel<Tarefa>(true, []);
 
     constructor(
         private _tarefaService: TarefaService,
@@ -24,29 +25,48 @@ export class TabelaComponent implements OnInit {
         this._tarefaService.obterTaferas().subscribe({
             next: (tarefas) => {
                 this.tarefas = tarefas;
-                this.dataSource.setData(this.tarefas);
+                this.dataSource = new MatTableDataSource<Tarefa>(this.tarefas);
                 console.log(this.tarefas);
             }
         });
     }
 
-}
-
-class TarefasDataSource extends DataSource<Tarefa> {
-    private _dataStream = new ReplaySubject<Tarefa[]>();
-
-    constructor(initialData: Tarefa[]) {
-        super();
-        this.setData(initialData);
+    ngOnDestroy(): void {
+        this.dataSource.disconnect();
     }
 
-    connect(): Observable<Tarefa[]> {
-        return this._dataStream;
+    /**
+     * @description Whether the number of selected elements matches the total number of rows.
+     * @author Douglas da Silva Monteles
+    */
+    public isAllSelected() {
+        const numSelected = this.selection.selected.length;
+        const numRows = this.dataSource.data.length;
+        return numSelected === numRows;
     }
 
-    disconnect() { }
+    /**
+     * @description Selects all rows if they are not all selected; otherwise clear selection.
+     * @author Douglas da Silva Monteles
+    */
+    public masterToggle() {
+        if (this.isAllSelected()) {
+            this.selection.clear();
+            return;
+        }
 
-    setData(data: Tarefa[]) {
-        this._dataStream.next(data);
+        this.selection.select(...this.dataSource.data);
     }
+
+    /**
+     * @description The label for the checkbox on the passed row
+     * @author Douglas da Silva Monteles
+    */
+    public checkboxLabel(row?: Tarefa): string {
+        if (!row) {
+            return `${this.isAllSelected() ? 'deselect' : 'select'} all`;
+        }
+        return `${this.selection.isSelected(row) ? 'deselect' : 'select'} row ${row.id}`;
+    }
+
 }
