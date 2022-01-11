@@ -3,6 +3,12 @@ import { ministro } from "../ministro/data";
 import { sessao } from "../sessoes-julgamento/data";
 import { tags } from "../tags/data";
 
+export function getRevisoes() {
+    if(sessionStorage.getItem('revisoes') == null)
+      sessionStorage.setItem('revisoes', JSON.stringify(revisoes));
+    return JSON.parse(sessionStorage.getItem('revisoes'));
+};
+
 export const revisoes: Array<RevisaoInteiroTeor> = [
   {
     id_processo: 9,

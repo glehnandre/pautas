@@ -5,13 +5,13 @@ import { Documento } from 'app/modules/acervo/model/interfaces/documento.interfa
 import { Processo } from 'app/modules/acervo/model/interfaces/processo.interface';
 import { RevisaoInteiroTeor } from 'app/modules/revisar-inteiro-teor/revisar-inteiro-teor.component';
 import { processo as processosData, documentos as documentosData } from '../processos/data';
-import { revisoes as revisoesData } from './data';
+import { getRevisoes } from './data';
 
 @Injectable({
     providedIn: 'root'
 })
 export class RevisaoInteiroTeorMockApi {
-    private _revisoes: Array<RevisaoInteiroTeor> = revisoesData;
+    private _revisoes: Array<RevisaoInteiroTeor> = getRevisoes();
     private _processos: Processo[] = processosData;
     private _documentos: Documento[] = documentosData;
 
@@ -52,7 +52,7 @@ export class RevisaoInteiroTeorMockApi {
 
           if (revisao !== undefined) {
             revisao.documentos = documentos;
-            console.log(revisao);
+
             return [200, revisao];
           } else {
             return [200, {
@@ -101,8 +101,6 @@ export class RevisaoInteiroTeorMockApi {
 
             revisao.documentos = [...revisao.documentos, ...documentosAdicionados];
 
-            console.log(revisao);
-
             return [200, revisao];
           } else {
             return [200, {
@@ -128,8 +126,6 @@ export class RevisaoInteiroTeorMockApi {
                 }
                 return documento;
             })
-
-            console.log(revisao)
 
             return [200, revisao];
           } else {
@@ -163,8 +159,7 @@ export class RevisaoInteiroTeorMockApi {
 
               processo.documentos = documentosDoProcesso;
 
-              console.log('aqui');
-              console.log(processo)
+              sessionStorage.setItem('revisoes', JSON.stringify(this._revisoes));
 
               return [200, processo];
             } else {
