@@ -1,26 +1,8 @@
 import { DataSource } from '@angular/cdk/collections';
 import { Component, OnInit } from '@angular/core';
+import { Tarefa } from 'app/modules/acervo/model/interfaces/tarefa.interface';
+import { TarefaService } from 'app/modules/services/tarefa.service';
 import { Observable, ReplaySubject } from 'rxjs';
-
-interface PeriodicElement {
-    name: string;
-    position: number;
-    weight: number;
-    symbol: string;
-}
-
-const ELEMENT_DATA: PeriodicElement[] = [
-    { position: 1, name: 'Hydrogen', weight: 1.0079, symbol: 'H' },
-    { position: 2, name: 'Helium', weight: 4.0026, symbol: 'He' },
-    { position: 3, name: 'Lithium', weight: 6.941, symbol: 'Li' },
-    { position: 4, name: 'Beryllium', weight: 9.0122, symbol: 'Be' },
-    { position: 5, name: 'Boron', weight: 10.811, symbol: 'B' },
-    { position: 6, name: 'Carbon', weight: 12.0107, symbol: 'C' },
-    { position: 7, name: 'Nitrogen', weight: 14.0067, symbol: 'N' },
-    { position: 8, name: 'Oxygen', weight: 15.9994, symbol: 'O' },
-    { position: 9, name: 'Fluorine', weight: 18.9984, symbol: 'F' },
-    { position: 10, name: 'Neon', weight: 20.1797, symbol: 'Ne' },
-];
 
 @Component({
     selector: 'app-tabela',
@@ -29,33 +11,42 @@ const ELEMENT_DATA: PeriodicElement[] = [
 })
 export class TabelaComponent implements OnInit {
 
-    displayedColumns: string[] = ['position', 'name', 'weight', 'symbol'];
-    dataToDisplay = [...ELEMENT_DATA];
+    displayedColumns: string[] = ['checkbox', 'descricao', 'responsavel', 'data_criacao', 'opcoes'];
+    dataSource = new TarefasDataSource([]);
 
-    dataSource = new ExampleDataSource(this.dataToDisplay);
+    tarefas: any[] = [];
 
-    constructor() { }
+    constructor(
+        private _tarefaService: TarefaService,
+    ) { }
 
     ngOnInit(): void {
+        this._tarefaService.obterTaferas().subscribe({
+            next: (tarefas) => {
+                this.tarefas = tarefas;
+                this.dataSource.setData(this.tarefas);
+                console.log(this.tarefas);
+            }
+        });
     }
 
 }
 
-class ExampleDataSource extends DataSource<PeriodicElement> {
-    private _dataStream = new ReplaySubject<PeriodicElement[]>();
+class TarefasDataSource extends DataSource<Tarefa> {
+    private _dataStream = new ReplaySubject<Tarefa[]>();
 
-    constructor(initialData: PeriodicElement[]) {
+    constructor(initialData: Tarefa[]) {
         super();
         this.setData(initialData);
     }
 
-    connect(): Observable<PeriodicElement[]> {
+    connect(): Observable<Tarefa[]> {
         return this._dataStream;
     }
 
     disconnect() { }
 
-    setData(data: PeriodicElement[]) {
+    setData(data: Tarefa[]) {
         this._dataStream.next(data);
     }
 }

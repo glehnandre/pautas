@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
+import { TarefaService } from '../services/tarefa.service';
 
 @Component({
     selector: 'app-minhas-tarefas',
