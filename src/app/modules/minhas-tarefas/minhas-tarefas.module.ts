@@ -12,8 +12,10 @@ import { CriacaoColegiadoComponent } from '../criacao-colegiado/criacao-colegiad
 import { FuseCardModule } from '@fuse/components/card';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { FiltrosComponent } from './filtros/filtros.component';
-import { ListaDeTaferasComponent } from './lista-de-taferas/lista-de-taferas.component';
 import { MatListModule } from '@angular/material/list';
+import { TabelaComponent } from './tabela/tabela.component';
+import { MatTableModule } from '@angular/material/table';
+import { MatButtonModule } from '@angular/material/button';
 
 const minhasTarefasRoutes: Route[] = [
     {
@@ -32,10 +34,11 @@ const minhasTarefasRoutes: Route[] = [
   declarations: [
     MinhasTarefasComponent,
     FiltrosComponent,
-    ListaDeTaferasComponent
+    TabelaComponent
   ],
   imports: [
     CommonModule,
+    RouterModule.forChild(minhasTarefasRoutes),
     FormsModule,
     ReactiveFormsModule,
     MatIconModule,
@@ -45,8 +48,9 @@ const minhasTarefasRoutes: Route[] = [
     MatChipsModule,
     FuseNavigationModule,
     FuseCardModule,
-    RouterModule.forChild(minhasTarefasRoutes),
     MatListModule,
+    MatTableModule,
+    MatButtonModule,
   ]
 })
 export class MinhasTarefasModule { }
