@@ -1,4 +1,4 @@
-export interface Tarefa {
+export interface ITask {
     id: number;
     processBusinessKey: string;
     informationId: string;
@@ -19,10 +19,17 @@ export interface Tarefa {
     readOnly: boolean;
     cancellation: null;
     draft: null;
-    etags: Array<string>;
     extraInfo: {} | null;
+    etags: Array<string>;
     name?: string;
-    mobile?: {};
     restricted?: boolean;
     assigner?: string;
+    mobile?: {
+        type: string;
+        entry: string;
+    } | null;
+}
+
+export interface ITaskTag {
+
 }

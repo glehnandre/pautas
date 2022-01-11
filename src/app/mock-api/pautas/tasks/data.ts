@@ -1,9 +1,9 @@
 // 20220110160633
 // https://digitalqa.stf.jus.br/integracoes-modulos/api/tasks?access_token=915741ce-7434-4fac-a111-133a058519fb
 
-import { Tarefa } from "app/modules/acervo/model/interfaces/tarefa.interface";
+import { ITask } from "app/modules/acervo/model/interfaces/itask";
 
-export const tasks: Tarefa[] = [
+export const tasks: ITask[] = [
   {
     "id": 1135361,
     "processBusinessKey": "EPT:106811/2021",

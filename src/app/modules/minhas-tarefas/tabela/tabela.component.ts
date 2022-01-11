@@ -1,7 +1,7 @@
 import { SelectionModel } from '@angular/cdk/collections';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
-import { Tarefa } from 'app/modules/acervo/model/interfaces/tarefa.interface';
+import { ITask } from 'app/modules/acervo/model/interfaces/itask';
 import { TarefaService } from 'app/modules/services/tarefa.service';
 
 @Component({
@@ -14,8 +14,8 @@ export class TabelaComponent implements OnInit, OnDestroy {
     tarefas: any[] = [];
 
     displayedColumns: string[] = ['checkbox', 'descricao', 'responsavel', 'data_criacao', 'opcoes'];
-    dataSource = new MatTableDataSource<Tarefa>([]);
-    selection = new SelectionModel<Tarefa>(true, []);
+    dataSource = new MatTableDataSource<ITask>([]);
+    selection = new SelectionModel<ITask>(true, []);
 
     constructor(
         private _tarefaService: TarefaService,
@@ -25,7 +25,7 @@ export class TabelaComponent implements OnInit, OnDestroy {
         this._tarefaService.obterTaferas().subscribe({
             next: (tarefas) => {
                 this.tarefas = tarefas;
-                this.dataSource = new MatTableDataSource<Tarefa>(this.tarefas);
+                this.dataSource = new MatTableDataSource<ITask>(this.tarefas);
                 console.log(this.tarefas);
             }
         });
@@ -62,7 +62,7 @@ export class TabelaComponent implements OnInit, OnDestroy {
      * @description The label for the checkbox on the passed row
      * @author Douglas da Silva Monteles
     */
-    public checkboxLabel(row?: Tarefa): string {
+    public checkboxLabel(row?: ITask): string {
         if (!row) {
             return `${this.isAllSelected() ? 'deselect' : 'select'} all`;
         }
