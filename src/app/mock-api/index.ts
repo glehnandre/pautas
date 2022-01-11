@@ -34,6 +34,7 @@ import { PublicacaoMockApi } from './pautas/publicacoes/api';
 import { DispositivoMockApi } from './pautas/dispositivo/api';
 import { RevisaoInteiroTeorMockApi } from './pautas/revisar-inteiro-teor/api';
 import { RecursoMockApi } from './pautas/recurso/api';
+import { TaskMockApi } from './pautas/tasks/api';
 
 export const mockApiServices = [
     AcademyMockApi,
@@ -71,4 +72,5 @@ export const mockApiServices = [
     DispositivoMockApi,
     RevisaoInteiroTeorMockApi,
     RecursoMockApi,
+    TaskMockApi,
 ];

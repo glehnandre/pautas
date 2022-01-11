@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { TarefaService } from 'app/modules/services/tarefa.service';
 
 @Component({
   selector: 'app-lista-de-taferas',
@@ -7,9 +8,14 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ListaDeTaferasComponent implements OnInit {
 
-  constructor() { }
+  constructor(
+      private _tarefaService: TarefaService,
+  ) { }
 
   ngOnInit(): void {
+    this._tarefaService.obterTaferas().subscribe({
+        next: (data) => console.log(data)
+    });
   }
 
 }
