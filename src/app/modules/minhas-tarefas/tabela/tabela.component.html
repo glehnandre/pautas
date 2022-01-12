@@ -38,7 +38,7 @@
 
                 <div class="flex flex-col gap-y-4">
                     <strong class="text-primary-600">
-                        {{element.command}}
+                        {{element.title}}
                     </strong>
 
                     <app-carrossel-chips
@@ -54,7 +54,7 @@
         <th class="text-center" mat-header-cell *matHeaderCellDef>Responsável</th>
         <td class="text-center text-primary-400" mat-cell *matCellDef="let element">
             {{element.assignee || 'Sem Responsável'}} <br/>
-            Grupo: {{element.assigneeGroup}}
+            {{element.assigneeGroup ? 'Grupo: ' + element.assigneeGroup : 'Sem Grupo'}}
         </td>
     </ng-container>
 
@@ -76,6 +76,25 @@
             <button mat-raised-button color="primary" class="">
                 ASSUMIR
             </button>
+        </td>
+    </ng-container>
+
+    <!-- prioridade Column -->
+    <ng-container matColumnDef="prioridade">
+        <th mat-header-cell *matHeaderCellDef></th>
+        <td class="p-0" mat-cell *matCellDef="let element">
+            <div
+                *ngIf="element.priority; else noPriority"
+                class="w-2 h-22 rounded-md bg-green-700 ml-auto"
+            ></div>
+
+            <ng-template
+                #noPriority
+            >
+                <div
+                    class="w-2 h-22 rounded-md bg-yellow-400 ml-auto"
+                ></div>
+            </ng-template>
         </td>
     </ng-container>
 

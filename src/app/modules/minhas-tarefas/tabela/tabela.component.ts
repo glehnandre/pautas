@@ -13,7 +13,7 @@ export class TabelaComponent implements OnInit, OnDestroy {
 
     tarefas: any[] = [];
 
-    displayedColumns: string[] = ['checkbox', 'descricao', 'responsavel', 'data_criacao', 'opcoes'];
+    displayedColumns: string[] = ['checkbox', 'descricao', 'responsavel', 'data_criacao', 'opcoes', 'prioridade'];
     dataSource = new MatTableDataSource<ITask>([]);
     selection = new SelectionModel<ITask>(true, []);
 
