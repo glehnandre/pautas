@@ -11,6 +11,7 @@ export class MinhasTarefasComponent implements OnInit {
 
     url: SafeResourceUrl = '';
     urlSelecionada: boolean = false;
+    panelOpenState: boolean = false;
 
     constructor(
         private _sanitizer: DomSanitizer,

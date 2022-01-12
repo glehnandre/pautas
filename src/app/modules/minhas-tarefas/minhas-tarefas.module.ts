@@ -21,6 +21,9 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 import { CarrosselChipsComponent } from './carrossel-chips/carrossel-chips.component';
 import { MatRippleModule } from '@angular/material/core';
+import { MatSelectModule } from '@angular/material/select';
+import { MatInputModule } from '@angular/material/input';
+import { MatFormFieldModule } from '@angular/material/form-field';
 
 const minhasTarefasRoutes: Route[] = [
     {
@@ -47,6 +50,7 @@ const minhasTarefasRoutes: Route[] = [
     RouterModule.forChild(minhasTarefasRoutes),
     FormsModule,
     ReactiveFormsModule,
+    MatFormFieldModule,
     MatIconModule,
     MatSidenavModule,
     MatExpansionModule,
@@ -60,6 +64,7 @@ const minhasTarefasRoutes: Route[] = [
     MatProgressSpinnerModule,
     MatChipsModule,
     MatRippleModule,
+    MatSelectModule,
     SharedModule,
   ]
 })

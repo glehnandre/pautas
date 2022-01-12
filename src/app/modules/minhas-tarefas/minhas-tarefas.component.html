@@ -12,7 +12,7 @@
             <div class="absolute inset-0 flex flex-col min-w-0 overflow-hidden">
                 <!-- Header -->
                 <div class="sm:items-center sm:justify-between bg-default dark:bg-transparent">
-                    <div class="flex items-center h-16 border-b bg-gray-50 dark:bg-transparent">
+                    <div class="flex items-center justify-between h-16 border-b bg-gray-50 dark:bg-transparent">
                         <div class="flex items-center">
                             <button mat-icon-button
                                 class="ml-6 mr-6 mat-focus-indicator mat-icon-button mat-button-base"
@@ -33,15 +33,54 @@
                             </button>
                         </div>
 
-                        <div class="flex ">
-                            <div class="mx-2 my-4 flex gap-4">
+                        <div class="flex w-full my-auto mr-2">
+                            <div class="hidden md:flex md:gap-4 md:mx-2">
                                 <button mat-raised-button color="primary">
-                                    Add data
+                                    ATRIBUIR
                                 </button>
 
                                 <button mat-raised-button>
-                                    Remove data
+                                    ASSUMIR
                                 </button>
+
+                                <button mat-raised-button>
+                                    INCLUIR COMENTÁRIO
+                                </button>
+
+                                <button mat-raised-button>
+                                    VISUALIZAR
+                                </button>
+
+                                <button mat-raised-button>
+                                    PRIORIZAR
+                                </button>
+                            </div>
+
+                            <div class="block md:hidden w-full">
+                                <mat-form-field class="w-full my-auto" appearance="outline">
+                                    <mat-label>Toppings</mat-label>
+                                    <mat-select>
+                                        <mat-option color="primary">
+                                            ATRIBUIR
+                                        </mat-option>
+
+                                        <mat-option>
+                                            ASSUMIR
+                                        </mat-option>
+
+                                        <mat-option>
+                                            INCLUIR COMENTÁRIO
+                                        </mat-option>
+
+                                        <mat-option>
+                                            VISUALIZAR
+                                        </mat-option>
+
+                                        <mat-option>
+                                            PRIORIZAR
+                                        </mat-option>
+                                    </mat-select>
+                                </mat-form-field>
                             </div>
                         </div>
                     </div>

@@ -13,7 +13,7 @@ export class CarrosselChipsComponent implements OnInit, AfterContentChecked {
     isActiveScroll: boolean = false;
     isChipsLoaded: boolean = false;
 
-    readonly SCROLL_SIZE: number = 60;
+    readonly SCROLL_SIZE: number = 80;
 
     ngOnInit(): void {
 
