@@ -1,0 +1,39 @@
+<div *ngIf="isChipsLoaded else spinner" class="flex flex-row w-30 sm:w-60 md:w-70 lg:w-120">
+    <button
+        *ngIf="isActiveScroll"
+        (click)="onPreviousPosition()"
+    >
+        <mat-icon>navigate_before</mat-icon>
+    </button>
+
+    <div
+        #panel
+        class="overflow-y-scroll flex flex-row flex-nowrap
+            justify-start items-center h-6 overflow-hidden px-2"
+        style="scroll-behavior: smooth;"
+    >
+        <div
+            *ngFor="let chip of chips; let i = index"
+            [id]="i"
+            class="py-0.5 px-3 mr-2 rounded-full text-sm font-semibold
+                text-black bg-gray-300 dark:text-blue-50
+                dark:bg-blue-500 ng-star-inserted whitespace-nowrap"
+        >
+            {{chip}}
+        </div>
+    </div>
+
+    <button
+        *ngIf="isActiveScroll"
+        (click)="onNextPosition()"
+    >
+        <mat-icon>navigate_next</mat-icon>
+    </button>
+</div>
+
+<ng-template #spinner>
+    <mat-spinner
+        [diameter]="20"
+    ></mat-spinner>
+</ng-template>
+

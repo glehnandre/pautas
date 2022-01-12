@@ -12,8 +12,8 @@ export class TarefaService {
     private _httpClient: HttpClient,
   ) { }
 
-  public obterTaferas(): Observable<any> {
-    return this._httpClient.get<any>('/tasks').pipe(
+  public obterTaferas(): Observable<Task[]> {
+    return this._httpClient.get<Task[]>('/tasks').pipe(
         catchError(error => {
             console.log(error);
             return EMPTY;

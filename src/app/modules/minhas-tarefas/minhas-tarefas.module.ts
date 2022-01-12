@@ -16,6 +16,11 @@ import { MatListModule } from '@angular/material/list';
 import { TabelaComponent } from './tabela/tabela.component';
 import { MatTableModule } from '@angular/material/table';
 import { MatButtonModule } from '@angular/material/button';
+import { SharedModule } from 'app/shared/shared.module';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+
+import { CarrosselChipsComponent } from './carrossel-chips/carrossel-chips.component';
+import { MatRippleModule } from '@angular/material/core';
 
 const minhasTarefasRoutes: Route[] = [
     {
@@ -34,7 +39,8 @@ const minhasTarefasRoutes: Route[] = [
   declarations: [
     MinhasTarefasComponent,
     FiltrosComponent,
-    TabelaComponent
+    TabelaComponent,
+    CarrosselChipsComponent
   ],
   imports: [
     CommonModule,
@@ -51,6 +57,10 @@ const minhasTarefasRoutes: Route[] = [
     MatListModule,
     MatTableModule,
     MatButtonModule,
+    MatProgressSpinnerModule,
+    MatChipsModule,
+    MatRippleModule,
+    SharedModule,
   ]
 })
 export class MinhasTarefasModule { }
