@@ -123,7 +123,7 @@ export class FinalizarSessaoJulgamentoComponent implements OnInit {
       this.alertaDeErro("Secretário da sessão inválido");
     else {
       this._julgamentoService.finalizarSessaoDeJulgamento(this.queryParams.numero, this.queryParams.ano, this.sessaoFinalizada).subscribe(data=>{
-        console.log(data, this.sessaoFinalizada);
+        console.log(this.sessaoFinalizada);
       });
     }
   }
@@ -133,7 +133,7 @@ export class FinalizarSessaoJulgamentoComponent implements OnInit {
    * @param mensagem mensagem para ser exibida
    */
   alertaDeErro(mensagem: string): void {
-    
+
     this.mensagem = mensagem;
 
     this._fuseAlertService.show('alertBox');
