@@ -4,14 +4,16 @@ import { DocumentoInteiroTeor } from 'app/modules/acervo/model/interfaces/docume
 import { Documento } from 'app/modules/acervo/model/interfaces/documento.interface';
 import { Processo } from 'app/modules/acervo/model/interfaces/processo.interface';
 import { RevisaoInteiroTeor } from 'app/modules/revisar-inteiro-teor/revisar-inteiro-teor.component';
+
+import { revisoes } from './data';
 import { processo as processosData, documentos as documentosData } from '../processos/data';
-import { getRevisoes } from './data';
+import { getStorage, setStorage } from '../storage';
 
 @Injectable({
     providedIn: 'root'
 })
 export class RevisaoInteiroTeorMockApi {
-    private _revisoes: Array<RevisaoInteiroTeor> = getRevisoes();
+    private _revisoes: Array<RevisaoInteiroTeor> = getStorage('revisoes', revisoes);
     private _processos: Processo[] = processosData;
     private _documentos: Documento[] = documentosData;
 
@@ -159,7 +161,7 @@ export class RevisaoInteiroTeorMockApi {
 
               processo.documentos = documentosDoProcesso;
 
-              sessionStorage.setItem('revisoes', JSON.stringify(this._revisoes));
+              setStorage('revisoes', this._revisoes);
 
               return [200, processo];
             } else {

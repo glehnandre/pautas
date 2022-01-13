@@ -6,11 +6,6 @@ import { SessaoJulgamento } from "app/modules/acervo/model/interfaces/sessao-jul
 import { capitulo } from "../capitulo/data";
 import { ministro } from '../ministro/data';
 
-export function getJulgamentos() {
-    if(sessionStorage.getItem('julgamentos') == null)
-      sessionStorage.setItem('julgamentos', JSON.stringify(julgamentos));
-    return JSON.parse(sessionStorage.getItem('julgamentos'));
-  };
 export const julgamentos: SessaoJulgamento[] = [
   {
     id: 0,

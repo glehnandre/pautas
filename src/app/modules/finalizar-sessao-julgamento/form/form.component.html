@@ -26,11 +26,11 @@
         <input matInput name="outros" formControlName="outrosPresentes" (input)="emitirForm()">
         <mat-hint>Informe o nome de outros presentes caso existam. O texto será gravado e apresentado da forma que foi escrito.</mat-hint>
     </mat-form-field>
-
+    <mat-divider class="mb-8 mt-4 -mx-4"></mat-divider>
     <span class="text-2xl font-medium text-primary mt-8">Cabeçalho</span>
     <mat-form-field appearance="outline" class="w-full mt-4">
         <mat-label class="font-medium">Digite o cabeçalho ou informações complementares</mat-label>
         <textarea matInput rows="10" name="cabecalho" formControlName="cabecalho" (input)="emitirForm()"></textarea>
     </mat-form-field>
-    
+
 </form>

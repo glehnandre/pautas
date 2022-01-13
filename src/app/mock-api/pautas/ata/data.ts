@@ -7,12 +7,6 @@ import { ministro } from "../ministro/data";
 import { Destaque, Vista } from "app/modules/acervo/model/interfaces/vista-e-destaque.interface";
 import { julgamentos } from "../julgamentos/data";
 
-export function getAtas() {
-  if(sessionStorage.getItem('atas') == null)
-    sessionStorage.setItem('atas', JSON.stringify(atas));
-  return JSON.parse(sessionStorage.getItem('atas'));
-};
-
 export const envolvidos: Envolvido[] = [
   {
     nome: "Instituto Nacional do Seguro Social",

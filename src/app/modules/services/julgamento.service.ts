@@ -89,9 +89,9 @@ export class JulgamentoService {
     );
   }
 
-  public finalizarSessaoDeJulgamento(numero: number, ano: number, resposta: any): Observable<void> {
+  public finalizarSessaoDeJulgamento(numero: number, ano: number, dadosDaSessaoJulgamento: any): Observable<void> {
     const numeroAno = `${numero}-${ano}`;
-    return this._httpClient.put<void>(`sessoes-de-julgamento/${numeroAno}/finalizar`, resposta).pipe(
+    return this._httpClient.put<void>(`sessoes-de-julgamento/${numeroAno}/finalizar`, dadosDaSessaoJulgamento).pipe(
       catchError((error) => {
         console.log(error);
         return EMPTY;
