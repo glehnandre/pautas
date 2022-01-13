@@ -1,103 +1,140 @@
-<table mat-table [dataSource]="dataSource" class="mat-elevation-z8 w-full overflow-y-auto">
-    <!-- Checkbox Column -->
-    <ng-container matColumnDef="checkbox">
-        <th mat-header-cell *matHeaderCellDef>
-            <mat-checkbox
-                (change)="$event ? masterToggle() : null"
-                [checked]="selection.hasValue() && isAllSelected()"
-                [indeterminate]="selection.hasValue() && !isAllSelected()"
-                [aria-label]="checkboxLabel()"
-                color="primary"
-            ></mat-checkbox>
-        </th>
+<div class="example-container mat-elevation-z8">
+    <div
+        class="example-loading-shade"
+        *ngIf="isLoadingResults || isRateLimitReached"
+    >
+        <mat-spinner
+            *ngIf="isLoadingResults"
+            class="mt-12"
+        ></mat-spinner>
 
-        <td mat-cell *matCellDef="let row">
-            <mat-checkbox
-                (click)="$event.stopPropagation()"
-                (change)="$event ? selection.toggle(row) : null"
-                [checked]="selection.isSelected(row)"
-                [aria-label]="checkboxLabel(row)"
-                color="primary"
-            ></mat-checkbox>
-        </td>
-    </ng-container>
+        <div
+            class="example-rate-limit-reached"
+            *ngIf="isRateLimitReached"
+        >
+            Aguarde alguns segundos...
+        </div>
+    </div>
 
-    <!-- Descrição Column -->
-    <ng-container matColumnDef="descricao">
-        <th mat-header-cell *matHeaderCellDef>Descrição</th>
-        <td mat-cell *matCellDef="let element">
-            <div
-                class="flex flex-row gap-4 justify-start items-center
-                    py-4"
-            >
-                <img
-                    class="w-8 h-8"
-                    [src]="'/assets/icons/account_circle_gray_24dp.svg'"
-                    [alt]="element.title"
-                >
+    <div class="example-table-container">
+        <table
+            mat-table
+            [dataSource]="dataSource"
+            class="mat-elevation-z8 w-full overflow-y-auto"
+        >
+            <!-- Checkbox Column -->
+            <ng-container matColumnDef="checkbox">
+                <th mat-header-cell *matHeaderCellDef>
+                    <mat-checkbox
+                        (change)="$event ? masterToggle() : null"
+                        [checked]="selection.hasValue() && isAllSelected()"
+                        [indeterminate]="selection.hasValue() && !isAllSelected()"
+                        [aria-label]="checkboxLabel()"
+                        color="primary"
+                    ></mat-checkbox>
+                </th>
 
-                <div class="flex flex-col gap-y-4">
-                    <strong class="text-primary-600">
-                        {{element.title}}
+                <td mat-cell *matCellDef="let row">
+                    <mat-checkbox
+                        (click)="$event.stopPropagation()"
+                        (change)="$event ? selection.toggle(row) : null"
+                        [checked]="selection.isSelected(row)"
+                        [aria-label]="checkboxLabel(row)"
+                        color="primary"
+                    ></mat-checkbox>
+                </td>
+            </ng-container>
+
+            <!-- Descrição Column -->
+            <ng-container matColumnDef="descricao">
+                <th mat-header-cell *matHeaderCellDef>Descrição</th>
+                <td mat-cell *matCellDef="let element">
+                    <div
+                        class="flex flex-row gap-4 justify-start items-center
+                            py-4"
+                    >
+                        <img
+                            class="w-8 h-8"
+                            [src]="'/assets/icons/account_circle_gray_24dp.svg'"
+                            [alt]="element.title"
+                        >
+
+                        <div class="flex flex-col gap-y-4">
+                            <strong class="flex gap-x-4 text-primary-600">
+                                {{element.title}}
+
+                                <mat-icon>
+                                    add_comment
+                                </mat-icon>
+                            </strong>
+
+                            <app-carrossel-chips
+                                *ngIf="element.etags"
+                                [chips]="element.etags"
+                            ></app-carrossel-chips>
+                        </div>
+                    </div>
+                </td>
+            </ng-container>
+
+            <!-- Responsavel Column -->
+            <ng-container matColumnDef="responsavel">
+                <th class="text-center" mat-header-cell *matHeaderCellDef>Responsável</th>
+                <td class="text-center text-primary-400" mat-cell *matCellDef="let element">
+                    {{element.assignee || 'Sem Responsável'}} <br/>
+                    {{element.assigneeGroup ? 'Grupo: ' + element.assigneeGroup : 'Sem Grupo'}}
+                </td>
+            </ng-container>
+
+            <!-- data_criacao Column -->
+            <ng-container matColumnDef="data_criacao">
+                <th class="text-center" mat-header-cell *matHeaderCellDef>Data de Criação</th>
+                <td class="text-center" mat-cell *matCellDef="let element">
+                    <strong>
+                        {{element.startDate | date: 'dd/MM/yyyy'}} <br/>
+                        {{element.startDate | date: 'HH:mm'}}
                     </strong>
+                </td>
+            </ng-container>
 
-                    <app-carrossel-chips
-                        [chips]="element.etags"
-                    ></app-carrossel-chips>
-                </div>
-            </div>
-        </td>
-    </ng-container>
+            <!-- opcoes Column -->
+            <ng-container matColumnDef="opcoes">
+                <th mat-header-cell *matHeaderCellDef></th>
+                <td mat-cell *matCellDef="let element" class="text-center">
+                    <button mat-raised-button color="primary" class="">
+                        ASSUMIR
+                    </button>
+                </td>
+            </ng-container>
 
-    <!-- Responsavel Column -->
-    <ng-container matColumnDef="responsavel">
-        <th class="text-center" mat-header-cell *matHeaderCellDef>Responsável</th>
-        <td class="text-center text-primary-400" mat-cell *matCellDef="let element">
-            {{element.assignee || 'Sem Responsável'}} <br/>
-            {{element.assigneeGroup ? 'Grupo: ' + element.assigneeGroup : 'Sem Grupo'}}
-        </td>
-    </ng-container>
+            <!-- prioridade Column -->
+            <ng-container matColumnDef="prioridade">
+                <th mat-header-cell *matHeaderCellDef></th>
+                <td class="p-0" mat-cell *matCellDef="let element">
+                    <div
+                        *ngIf="element.priority; else noPriority"
+                        class="w-2 h-22 rounded-md bg-green-700 ml-auto"
+                    ></div>
 
-    <!-- data_criacao Column -->
-    <ng-container matColumnDef="data_criacao">
-        <th class="text-center" mat-header-cell *matHeaderCellDef>Data de Criação</th>
-        <td class="text-center" mat-cell *matCellDef="let element">
-            <strong>
-                {{element.startDate | date: 'dd/MM/yyyy'}} <br/>
-                {{element.startDate | date: 'HH:mm'}}
-            </strong>
-        </td>
-    </ng-container>
+                    <ng-template
+                        #noPriority
+                    >
+                        <div
+                            class="w-2 h-22 rounded-md bg-yellow-400 ml-auto"
+                        ></div>
+                    </ng-template>
+                </td>
+            </ng-container>
 
-    <!-- opcoes Column -->
-    <ng-container matColumnDef="opcoes">
-        <th mat-header-cell *matHeaderCellDef></th>
-        <td mat-cell *matCellDef="let element" class="text-center">
-            <button mat-raised-button color="primary" class="">
-                ASSUMIR
-            </button>
-        </td>
-    </ng-container>
+            <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        </table>
+    </div>
 
-    <!-- prioridade Column -->
-    <ng-container matColumnDef="prioridade">
-        <th mat-header-cell *matHeaderCellDef></th>
-        <td class="p-0" mat-cell *matCellDef="let element">
-            <div
-                *ngIf="element.priority; else noPriority"
-                class="w-2 h-22 rounded-md bg-green-700 ml-auto"
-            ></div>
-
-            <ng-template
-                #noPriority
-            >
-                <div
-                    class="w-2 h-22 rounded-md bg-yellow-400 ml-auto"
-                ></div>
-            </ng-template>
-        </td>
-    </ng-container>
-
-    <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
-    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-</table>
+    <mat-paginator
+        [length]="resultsLength"
+        [pageSize]="pageSize"
+        [pageSizeOptions]="pageSizeOptions"
+        (page)="pageEvent = $event"
+    ></mat-paginator>
+</div>

@@ -1,15 +1,20 @@
 import { SelectionModel } from '@angular/cdk/collections';
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { AfterViewInit, Component, Injectable, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { MatPaginator, MatPaginatorIntl, PageEvent } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
-import { ITask } from 'app/modules/acervo/model/interfaces/itask';
+import { ITask } from 'app/modules/acervo/model/interfaces/itask.interface';
+import { PaginacaoCustomizadaComponent } from 'app/modules/acervo/tabela/paginacao/paginacao-customizada.component';
 import { TarefaService } from 'app/modules/services/tarefa.service';
+import { EMPTY, merge } from 'rxjs';
+import { catchError, map, startWith, switchMap } from 'rxjs/operators';
 
 @Component({
     selector: 'app-tabela',
     templateUrl: './tabela.component.html',
-    styleUrls: ['./tabela.component.scss']
+    styleUrls: ['./tabela.component.scss'],
+    providers: [{provide: MatPaginatorIntl, useClass: PaginacaoCustomizadaComponent}],
 })
-export class TabelaComponent implements OnInit, OnDestroy {
+export class TabelaComponent implements OnInit, AfterViewInit, OnDestroy {
 
     tarefas: any[] = [];
 
@@ -17,12 +22,48 @@ export class TabelaComponent implements OnInit, OnDestroy {
     dataSource = new MatTableDataSource<ITask>([]);
     selection = new SelectionModel<ITask>(true, []);
 
+    resultsLength = 0;
+    pageSize = 30;
+    pageSizeOptions: number[] = [30, 50, 80, 100];
+    pageEvent: PageEvent;
+
+    isLoadingResults = true;
+    isRateLimitReached = false;
+
+    @ViewChild(MatPaginator) paginator: MatPaginator;
+
     constructor(
         private _tarefaService: TarefaService,
     ) { }
 
-    ngOnInit(): void {
-        this._tarefaService.obterTaferas().subscribe({
+    ngAfterViewInit(): void {
+        merge(this.paginator.page)
+          .pipe(
+            startWith({}),
+            switchMap(() => {
+              this.isLoadingResults = true;
+              console.log('page event')
+              console.log(this.pageEvent)
+              return this._tarefaService
+                .obterTaferas(
+                    this.pageEvent?.pageSize,
+                    this.pageEvent?.pageIndex
+                )
+                .pipe(catchError(() => EMPTY));
+            }),
+            map(data => {
+              this.isLoadingResults = false;
+              this.isRateLimitReached = data === null;
+
+              if (data === null) {
+                return [];
+              }
+
+              // Alterar o length para o atributo que informa o total de resultados
+              this.resultsLength = data['totalDeItens'];
+              return data['data'];
+            }),
+          ).subscribe({
             next: (tarefas) => {
                 this.tarefas = tarefas;
                 this.dataSource = new MatTableDataSource<ITask>(this.tarefas);
@@ -30,6 +71,8 @@ export class TabelaComponent implements OnInit, OnDestroy {
             }
         });
     }
+
+    ngOnInit(): void {}
 
     ngOnDestroy(): void {
         this.dataSource.disconnect();
@@ -67,6 +110,14 @@ export class TabelaComponent implements OnInit, OnDestroy {
             return `${this.isAllSelected() ? 'deselect' : 'select'} all`;
         }
         return `${this.selection.isSelected(row) ? 'deselect' : 'select'} row ${row.id}`;
+    }
+
+    public setPageSizeOptions(setPageSizeOptionsInput: string) {
+        if (setPageSizeOptionsInput) {
+            this.pageSizeOptions = setPageSizeOptionsInput
+                .split(',')
+                .map(str => +str);
+        }
     }
 
 }

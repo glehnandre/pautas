@@ -1,7 +1,7 @@
 // 20220110160633
 // https://digitalqa.stf.jus.br/integracoes-modulos/api/tasks?access_token=915741ce-7434-4fac-a111-133a058519fb
 
-import { ITask } from "app/modules/acervo/model/interfaces/itask";
+import { ITask } from "app/modules/acervo/model/interfaces/itask.interface";
 
 export const tasks: ITask[] = [
   {

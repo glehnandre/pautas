@@ -19,7 +19,9 @@ export interface ITask {
     readOnly: boolean;
     cancellation: null;
     draft: null;
-    extraInfo: {} | null;
+    extraInfo: {
+        [key: string]: string;
+    } | null;
     etags: Array<string>;
     name?: string;
     restricted?: boolean;

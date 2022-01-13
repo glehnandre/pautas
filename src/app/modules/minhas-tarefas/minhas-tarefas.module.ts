@@ -24,6 +24,7 @@ import { MatRippleModule } from '@angular/material/core';
 import { MatSelectModule } from '@angular/material/select';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatPaginatorModule } from '@angular/material/paginator';
 
 const minhasTarefasRoutes: Route[] = [
     {
@@ -65,6 +66,7 @@ const minhasTarefasRoutes: Route[] = [
     MatChipsModule,
     MatRippleModule,
     MatSelectModule,
+    MatPaginatorModule,
     SharedModule,
   ]
 })
