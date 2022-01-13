@@ -1,8 +1,10 @@
 import { Injectable } from '@angular/core';
 import { FuseMockApiService } from '@fuse/lib/mock-api/mock-api.service';
 import { DjeDto } from 'app/modules/acervo/model/interfaces/djeDto.interface';
+
 import { dje as djeData, pecas as pecasData } from './data';
 import { capitulos_para_publicacao as ataData } from '../ata/data';
+import { getStorage, setStorage } from '../storage';
 
 @Injectable({
     providedIn: 'root'
@@ -13,19 +15,15 @@ export class PublicacaoMockApi {
     private _ata = ataData;
 
     constructor(private _fuseMockApiService: FuseMockApiService) {
-        this._dje = djeData;
-        this._pecas = pecasData;
-        this._ata = ataData;
         this.registerHandlers();
     }
-    
+
     registerHandlers(): void {
       this._fuseMockApiService
         .onGet('publicacoes')
         .reply(() => {
-          const publicacoes = JSON.parse(sessionStorage.getItem('publicacoes'));
-          const agregacoes = JSON.parse(sessionStorage.getItem('agregacoes'));
-          sessionStorage.clear();
+          const publicacoes = getStorage('publicacoes', null);
+          const agregacoes = getStorage('agregacoes', null);
           if(publicacoes) this._dje.publicacoes = publicacoes;
           if(agregacoes) this._dje.agregacoes = agregacoes;
           return [201, this._dje];
@@ -69,8 +67,8 @@ export class PublicacaoMockApi {
             descricao: "Extrato de Ata de Julgamento"
           })
 
-          sessionStorage.setItem('publicacoes', JSON.stringify(djeData.publicacoes))
-          sessionStorage.setItem('agregacoes', JSON.stringify(djeData.agregacoes))
+          setStorage('publicacoes', djeData.publicacoes)
+          setStorage('agregacoes', djeData.agregacoes)
 
           return [201, { description: 'Sucesso' }];
         });

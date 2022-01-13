@@ -4,21 +4,19 @@ import { Ata } from 'app/modules/acervo/model/interfaces/ata.interface';
 import { Processo } from 'app/modules/acervo/model/interfaces/processo.interface';
 import { SessaoJulgamento } from 'app/modules/acervo/model/interfaces/sessao-julgamento.interface'
 
-import { capitulos_para_publicacao, getAtas } from '../ata/data';
-import { getJulgamentos, processos as processosData } from './data';
+import { capitulos_para_publicacao, atas } from '../ata/data';
+import { julgamentos, processos as processosData } from './data';
+import { getStorage, setStorage } from '../storage';
 
 @Injectable({
     providedIn: 'root'
 })
 export class JulgamentoMockApi {
-    private _julgamentos: SessaoJulgamento[] = getJulgamentos();
+    private _julgamentos: SessaoJulgamento[] = getStorage('julgamentos', julgamentos);
     private _processos: Processo[] = processosData;
-    private _atas: Ata[] = getAtas();
+    private _atas: Ata[] = getStorage('atas', atas);
 
     constructor(private _fuseMockApiService: FuseMockApiService) {
-        this._julgamentos = getJulgamentos();
-        this._processos = processosData;
-        this._atas = getAtas();
         this.registerHandlers();
     }
 
@@ -176,9 +174,8 @@ export class JulgamentoMockApi {
               sessao: sessaoDeJulgamento,
               capitulos_para_publicacao
             } as Ata);
-            sessionStorage.setItem('julgamentos', JSON.stringify(this._julgamentos));
-            sessionStorage.setItem('atas', JSON.stringify(this._atas));
-            console.log(JSON.stringify(this._atas));
+            setStorage('julgamentos', this._julgamentos);
+            setStorage('atas', this._atas);
 
             return [200, { description: 'Sucesso'}];
           } else {

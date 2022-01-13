@@ -4,13 +4,14 @@ import { FuseMockApiService } from '@fuse/lib/mock-api/mock-api.service';
 import { Ata } from 'app/modules/acervo/model/interfaces/ata.interface';
 
 import { processo } from '../processos/data';
-import { atas, getAtas } from './data';
+import { atas } from './data';
+import { getStorage } from '../storage';
 
 @Injectable({
     providedIn: 'root'
 })
 export class AtaMockApi {
-    private _atas: Ata[] = getAtas();
+    private _atas: Ata[] = getStorage('atas', atas);
 
     constructor(private _fuseMockApiService: FuseMockApiService) {
       this.registerHandlers();
