@@ -16,8 +16,6 @@ import { catchError, map, startWith, switchMap } from 'rxjs/operators';
 })
 export class TabelaComponent implements OnInit, AfterViewInit, OnDestroy {
 
-    tarefas: any[] = [];
-
     displayedColumns: string[] = ['checkbox', 'descricao', 'responsavel', 'data_criacao', 'opcoes', 'prioridade'];
     dataSource = new MatTableDataSource<ITask>([]);
     selection = new SelectionModel<ITask>(true, []);
@@ -42,8 +40,7 @@ export class TabelaComponent implements OnInit, AfterViewInit, OnDestroy {
             startWith({}),
             switchMap(() => {
               this.isLoadingResults = true;
-              console.log('page event')
-              console.log(this.pageEvent)
+
               return this._tarefaService
                 .obterTaferas(
                     this.pageEvent?.pageSize,
@@ -65,9 +62,8 @@ export class TabelaComponent implements OnInit, AfterViewInit, OnDestroy {
             }),
           ).subscribe({
             next: (tarefas) => {
-                this.tarefas = tarefas;
-                this.dataSource = new MatTableDataSource<ITask>(this.tarefas);
-                console.log(this.tarefas);
+                this.dataSource = new MatTableDataSource<ITask>(tarefas);
+                console.log(this.dataSource.data);
             }
         });
     }
@@ -118,6 +114,21 @@ export class TabelaComponent implements OnInit, AfterViewInit, OnDestroy {
                 .split(',')
                 .map(str => +str);
         }
+    }
+
+    public criarChipsDaTarefa(extraInfo: {[key: string]: string}): Array<string> {
+        if (extraInfo) {
+            const chips: string[] = [];
+
+            Object.keys(extraInfo).forEach((key: string) => {
+                const newKey = `${key[0].toUpperCase()}${key.substring(1)}`;
+                chips.push(`${newKey}: ${extraInfo[key]}`);
+            });
+
+            return chips;
+        }
+
+        return [];
     }
 
 }

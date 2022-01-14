@@ -33,5 +33,9 @@ export interface ITask {
 }
 
 export interface ITaskTag {
-
+    id: string;
+    name: string;
+    color: string;
+    type: string;
+    tasks: Array<string>;
 }

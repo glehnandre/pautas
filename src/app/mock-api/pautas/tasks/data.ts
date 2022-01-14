@@ -5,6 +5,42 @@ import { ITask } from "app/modules/acervo/model/interfaces/itask.interface";
 
 export const tasks: ITask[] = [
   {
+    "id": 485174,
+    "processBusinessKey": "ARE 1363823",
+    "informationId": "6322125",
+    "searchableId": "ARE 1363823",
+    "tenantId": null,
+    "name": "Realizar análise cotejada / qualificada",
+    "title": "Realizar análise cotejada / qualificada ARE 1363823",
+    "command": "realizar-analise-cotejada",
+    "context": "decisoes-minutas",
+    "assignee": "glauce",
+    "assigneeGroup": 154,
+    "startDate": "2022-01-08T20:30:18.405+0000",
+    "completedDate": null,
+    "claimDate": null,
+    "notes": null,
+    "completed": false,
+    "priority": false,
+    "cancelable": true,
+    "readOnly": false,
+    "cancellation": null,
+    "draft": null,
+    "etags": [
+      "cpc:2015",
+      "direito:administrativo",
+      "ramo-direito:civel",
+      "ARE",
+      "classe-processual:are",
+      "suficiencia-recurso"
+    ],
+    "extraInfo": {
+      "recursos": "RUCHESTER MARREIROS BARBOSA - TRIBUNAL DE JUSTIÇA DO ESTADO DO RIO DE JANEIRO (RIO DE JANEIRO/RJ)",
+      "assuntos": "9992 - DIREITO ADMINISTRATIVO E OUTRAS MATÉRIAS DE DIREITO PÚBLICO || Responsabilidade da Administração || Indenização por Dano Moral, 9991 - DIREITO ADMINISTRATIVO E OUTRAS MATÉRIAS DE DIREITO PÚBLICO || Responsabilidade da Administração"
+    },
+    "mobile": null
+  },
+  {
     "id": 1135361,
     "processBusinessKey": "EPT:106811/2021",
     "informationId": "106811/2021",
@@ -4402,42 +4438,6 @@ export const tasks: ITask[] = [
     "extraInfo": null,
     "mobile": null,
     "assigner": null
-  },
-  {
-    "id": 485174,
-    "processBusinessKey": "ARE 1363823",
-    "informationId": "6322125",
-    "searchableId": "ARE 1363823",
-    "tenantId": null,
-    "name": "Realizar análise cotejada / qualificada",
-    "title": "Realizar análise cotejada / qualificada ARE 1363823",
-    "command": "realizar-analise-cotejada",
-    "context": "decisoes-minutas",
-    "assignee": "glauce",
-    "assigneeGroup": 154,
-    "startDate": "2022-01-08T20:30:18.405+0000",
-    "completedDate": null,
-    "claimDate": null,
-    "notes": null,
-    "completed": false,
-    "priority": false,
-    "cancelable": true,
-    "readOnly": false,
-    "cancellation": null,
-    "draft": null,
-    "etags": [
-      "cpc:2015",
-      "direito:administrativo",
-      "ramo-direito:civel",
-      "ARE",
-      "classe-processual:are",
-      "suficiencia-recurso"
-    ],
-    "extraInfo": {
-      "recursos": "RUCHESTER MARREIROS BARBOSA - TRIBUNAL DE JUSTIÇA DO ESTADO DO RIO DE JANEIRO (RIO DE JANEIRO/RJ)",
-      "assuntos": "9992 - DIREITO ADMINISTRATIVO E OUTRAS MATÉRIAS DE DIREITO PÚBLICO || Responsabilidade da Administração || Indenização por Dano Moral, 9991 - DIREITO ADMINISTRATIVO E OUTRAS MATÉRIAS DE DIREITO PÚBLICO || Responsabilidade da Administração"
-    },
-    "mobile": null
   },
   {
     "id": 480127,
