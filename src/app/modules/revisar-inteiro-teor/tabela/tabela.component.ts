@@ -52,13 +52,11 @@ export class TabelaComponent implements OnInit {
   ngOnInit(): void {
     this.editarDocumentoForm = this._formBuilder.group({
         id                   : [''],
-        arquivo              : [''],
+        documento            : [''],
         autores              : [''],
         responsavel          : [''],
         comentario           : [''],
-        nome                 : [''],
         data_criacao         : [''],
-        situacao             : [''],
         revisado             : [''],
         ordem                : [''],
     });
@@ -77,16 +75,17 @@ export class TabelaComponent implements OnInit {
   /**
     * Alternar edição do documento
     *
-    * @param documento
+    * @param documentoInteiroTeor
     */
-  alternarEdicaoDocumento(documento: DocumentoInteiroTeor): void {
-    if (this.documentoSelecionado && this.documentoSelecionado.id === documento.id) {
+  alternarEdicaoDocumento(documentoInteiroTeor: DocumentoInteiroTeor): void {
+    if (this.documentoSelecionado && this.documentoSelecionado.id === documentoInteiroTeor.id) {
         this.fecharEdicaoDocumento();
         return;
     }
 
-    this.documentoSelecionado = documento;
-    this.editarDocumentoForm.patchValue(documento);
+    this.documentoSelecionado = documentoInteiroTeor;
+
+    this.editarDocumentoForm.patchValue({...documentoInteiroTeor, documento: documentoInteiroTeor.documento.nome});
   }
 
   fecharEdicaoDocumento(): void {
@@ -94,11 +93,15 @@ export class TabelaComponent implements OnInit {
   }
 
   atualizarDocumento(): void {
-      const documentoEditado = this.editarDocumentoForm.getRawValue();
+      const informacoesDoFormulario = this.editarDocumentoForm.getRawValue();
+
+      const documentoAtualizado = {...this.documentoSelecionado.documento, nome: informacoesDoFormulario.documento};
+
+      const documentoInteiroTeorAtualizado = {...informacoesDoFormulario, documento: documentoAtualizado};
 
       this.revisoes.documentos = this.revisoes.documentos.map((documento) => {
-          if (documento.id === documentoEditado.id) {
-              documento = documentoEditado;
+          if (documento.id === documentoInteiroTeorAtualizado.id) {
+              documento = documentoInteiroTeorAtualizado;
           }
           return documento;
       })
@@ -136,11 +139,11 @@ export class TabelaComponent implements OnInit {
             case 'comentarios':
                 return this.compare(a.comentario, b.comentario, isAsc);
             case 'documento':
-                return this.compare(a.nome, b.nome, isAsc);
+                return this.compare(a.documento.nome, b.documento.nome, isAsc);
             case 'data':
                 return this.compare(a.data_criacao, b.data_criacao, isAsc);
             case 'situacao':
-                return this.compare(a.situacao, b.situacao, isAsc);
+                return this.compare(a.documento.status, b.documento.status, isAsc);
             default:
                 return 0;
         }

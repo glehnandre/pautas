@@ -118,7 +118,7 @@
             mat-cell
             *matCellDef="let document"
         >
-            {{document.nome}}
+            {{document.documento.nome}}
         </td>
     </ng-container>
 
@@ -156,8 +156,8 @@
             mat-cell
             *matCellDef="let document"
         >
-            <mat-chip [class]="document.situacao === 'Removido' ? 'bg-red-700 text-white' : 'bg-green-700 text-white'">
-                {{document.situacao}}
+            <mat-chip [class]="document.documento.status === 'Removido' ? 'bg-red-700 text-white' : 'bg-green-700 text-white'">
+                {{document.documento.status}}
             </mat-chip>
         </td>
     </ng-container>
@@ -177,7 +177,7 @@
         >
             <div class="flex flex-row h-full w-full">
                 <mat-chip
-                (click)="emiteLink(document.arquivo)"
+                (click)="emiteLink(document.documento.url)"
                 class="border-primary border-solid border-2 bg-transparent text-primary mr-2 mt-1"
                 >
                     <mat-icon class="mr-2" style="color:red">picture_as_pdf</mat-icon>
@@ -262,7 +262,7 @@
                                             <mat-label>Nome do Documento</mat-label>
                                             <input
                                                 matInput
-                                                [formControlName]="'nome'">
+                                                [formControlName]="'documento'">
                                         </mat-form-field>
                                     </div>
 
@@ -309,7 +309,7 @@
     ></tr>
 
     <tr
-        [class]="document.situacao === 'Removido' ? 'bg-red-100' : 'hover:bg-gray-100 dark:hover:bg-hover'"
+        [class]="document.documento.status === 'Removido' ? 'bg-red-100' : 'hover:bg-gray-100 dark:hover:bg-hover'"
         mat-row
         cdkDrag
         [cdkDragLockAxis]="'y'"
