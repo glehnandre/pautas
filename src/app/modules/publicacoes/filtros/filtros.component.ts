@@ -109,7 +109,11 @@ export class FiltrosComponent implements OnInit{
       data_fim: this.data_fim
     });
 
-    this.filtrar();
+    this.limparDatas();
+  }
+
+  selecionado(filtro: any, descricao: string): boolean {
+    return filtro.selecionados.find(selecionado => selecionado === descricao) ? true: false;
   }
 
   /**

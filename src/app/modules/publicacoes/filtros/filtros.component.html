@@ -85,6 +85,7 @@
                 <p *ngFor="let item of filtro.agregacao.itens">
                     <mat-checkbox
                         [name]="item.descricao"
+                        [checked]="selecionado(filtro, item.descricao)"
                         [color]="'primary'"
                         aria-label="Clique para incluir"
                         role="checkbox"
