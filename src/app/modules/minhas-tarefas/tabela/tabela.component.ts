@@ -156,9 +156,19 @@ export class TabelaComponent implements OnInit, AfterViewInit, OnDestroy, OnChan
         if (this.filtros.length > 0) {
             this.filtros.forEach((filtro) => {
                 this.tarefas.forEach(t => {
+                    /*
+                        Para cada tarefa, é criado um id formado pela junção
+                        de context com commad separados por dois pontos, e esse
+                        id é comparado com o id dos obj de tasks-2.json
+                    */
                     const id = `${t.context}:${t.command}`;
 
                     if (filtro.id === id) {
+                        tarefasFiltradas.push(t);
+                    }
+
+                    // Verifica se as etags das tarefas tem o id do filtro
+                    if (t.etags && t.etags.includes(filtro.id)) {
                         tarefasFiltradas.push(t);
                     }
                 });
