@@ -16,6 +16,7 @@ import { catchError, map, startWith, switchMap } from 'rxjs/operators';
 })
 export class TabelaComponent implements OnInit, AfterViewInit, OnDestroy, OnChanges {
 
+    tarefas: ITask[] = [];
     displayedColumns: string[] = ['checkbox', 'descricao', 'responsavel', 'data_criacao', 'opcoes', 'prioridade'];
     dataSource = new MatTableDataSource<ITask>([]);
     selection = new SelectionModel<ITask>(true, []);
@@ -42,7 +43,7 @@ export class TabelaComponent implements OnInit, AfterViewInit, OnDestroy, OnChan
 
     ngOnChanges(changes: SimpleChanges): void {
         console.log(changes)
-        if (!changes.filtros.firstChange) {
+        if (changes.filtros.firstChange === false) {
             this._filtrarListaDeTarefas();
         }
 
@@ -142,25 +143,29 @@ export class TabelaComponent implements OnInit, AfterViewInit, OnDestroy, OnChan
             }),
           ).subscribe({
             next: (tarefas: ITask[]) => {
-                this.dataSource = new MatTableDataSource<ITask>(tarefas);
+                this.tarefas = tarefas;
+                this.dataSource = new MatTableDataSource<ITask>(this.tarefas);
                 console.log(this.dataSource.data);
             }
         });
     }
 
     private _filtrarListaDeTarefas(): void {
-        const tarefas = this.dataSource.data;
-        
-        const tarefasFiltradas = tarefas.filter(({context, command}) => {
-            if (this.filtros.length > 0) {
-                const index = this.filtros
-                    .findIndex(t => t.id === `${context}:${command}`);
+        const tarefasFiltradas = [];
 
-                return index !== -1;
-            }
-            return false;
-        });
+        if (this.filtros.length > 0) {
+            this.filtros.forEach((filtro) => {
+                this.tarefas.forEach(t => {
+                    const id = `${t.context}:${t.command}`;
 
+                    if (filtro.id === id) {
+                        tarefasFiltradas.push(t);
+                    }
+                });
+            });
+        }
+
+        console.log("Resultados filtrados: " + tarefasFiltradas.length);
         this.dataSource = new MatTableDataSource<ITask>(tarefasFiltradas);
     }
 
