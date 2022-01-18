@@ -85,13 +85,11 @@ export class RevisaoInteiroTeorMockApi {
 
               const documentoModificado = {
                     id: documento.id,
-                    arquivo: documento.url,
+                    documento: documento,
                     autores: [],
                     responsavel: {},
                     comentario: '',
-                    nome: documento.nome,
                     data_criacao: documento.data_criacao,
-                    situacao: documento.status,
                     revisado: false,
                     ordem: ordemDoDocumentoAdicionado,
               } as DocumentoInteiroTeor;
@@ -124,7 +122,7 @@ export class RevisaoInteiroTeorMockApi {
           if (revisao !== undefined) {
             revisao.documentos = revisao.documentos.map((documento) => {
                 if (documentos.includes(String(documento.id))) {
-                    documento.situacao = "Removido";
+                    documento.documento.status = "Removido";
                 }
                 return documento;
             })

@@ -35,7 +35,7 @@
                             (click)="atualizaPesquisa()"
                             >
                             <mat-icon class="icon-size-5" style="color: white;">search</mat-icon>
-                            <span class="ml-2 hidden sm:block">Pesquisar no diário</span> 
+                            <span class="ml-2 hidden sm:block">Pesquisar no diário</span>
                         </button>
                     </form>
                 </div>
@@ -66,7 +66,7 @@
             <div class="bg-gray-200 lg:mx-10 lg:my-12">
 
                 <div *ngIf="filtrados.length>0" class="bg-white pb-2 -mt-7 font-medium flex flex-row">
-                    <span>Consulta retornou {{filtrados.length}} {{(filtrados.length==1) ? "resultado" : "resultados"}}</span>
+                    <span>Consulta retornou {{filtrados.length}} {{(filtrados.length===1) ? "resultado" : "resultados"}}</span>
                     <div class="ml-auto space-x-4">
                         <button class="font-medium" style="color: #1170A6;" (click)="anteriorExibidos()">Anterior</button>
                         <span>Apresentando resultados {{left+1}} a {{right}}</span>

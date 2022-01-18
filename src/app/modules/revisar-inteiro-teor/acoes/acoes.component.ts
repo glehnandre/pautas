@@ -44,6 +44,10 @@ export class AcoesComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  public visualizarInteiroTeor(): void {
+    console.log("visualizar");
+  }
+
   /**
    * @public Método público
    * @description Seleciona ou deseleciona todas as linhas da tabela e as regista

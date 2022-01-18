@@ -1,27 +1,32 @@
 import { Injectable } from '@angular/core';
 import { FuseMockApiService } from '@fuse/lib/mock-api/mock-api.service';
 import { Filtros } from 'app/modules/acervo/filtros/filtros';
-import { processo as processoData, documentos, votos, tipos, vistas, destaques } from 'app/mock-api/pautas/processos/data';
-import { tags as tagData } from 'app/mock-api/pautas/tags/data';
+
 import { Paginacao } from 'app/modules/acervo/tabela/paginacao/paginacao.component';
-import { Processo } from 'app/modules/acervo/model/interfaces/processo.interface';
-import { Tag } from 'app/modules/acervo/model/interfaces/tag.interface';
-import { Documento } from 'app/modules/acervo/model/interfaces/documento.interface';
-import { SessaoJulgamento } from 'app/modules/acervo/model/interfaces/sessao-julgamento.interface';
-import { julgamentos } from '../julgamentos/data';
-import { Impedimento } from 'app/modules/acervo/model/interfaces/impedimento.interface';
-import { listaImpedimentos, ministro } from '../ministro/data'
+
 import { Voto } from 'app/modules/acervo/model/interfaces/voto.interface';
 import { Vista } from 'app/modules/acervo/model/interfaces/vista.interface';
 import { Destaque } from 'app/modules/acervo/model/interfaces/destaque.interface';
 import { Ministro } from 'app/modules/acervo/model/interfaces/ministro.interface';
+import { Impedimento } from 'app/modules/acervo/model/interfaces/impedimento.interface';
+import { Processo } from 'app/modules/acervo/model/interfaces/processo.interface';
+import { Tag } from 'app/modules/acervo/model/interfaces/tag.interface';
+import { Documento } from 'app/modules/acervo/model/interfaces/documento.interface';
+import { SessaoJulgamento } from 'app/modules/acervo/model/interfaces/sessao-julgamento.interface';
+
+import { processo as processoData, documentos, votos, tipos, vistas, destaques } from '../processos/data';
+import { tags as tagData } from '../tags/data';
+import { julgamentos } from '../julgamentos/data';
+import { listaImpedimentos, ministro } from '../ministro/data'
+
+import { getStorage, setStorage } from '../storage';
 
 @Injectable({
     providedIn: 'root'
 })
 export class ProcessoMockApi {
-    private _processo: Processo[] = processoData;
-    private _julgamentos: SessaoJulgamento[] = julgamentos;
+    private _processo: Processo[] = getStorage('processos', processoData);
+    private _julgamentos: SessaoJulgamento[] = getStorage('julgamentos', julgamentos);
     private _documentos: Documento[] = documentos;
     private _tag: Tag[] = [];
     private _impedimentos: any[] = listaImpedimentos;
@@ -31,7 +36,6 @@ export class ProcessoMockApi {
 
     constructor(
         private _fuseMockApiService: FuseMockApiService,) {
-        this._processo = processoData;
         this._tag = tagData;
         this.registerHandlers();
     }
@@ -50,7 +54,7 @@ export class ProcessoMockApi {
                         processosAtualizados.push(processo);
                     }
                 });
-
+                setStorage('processos', this._processo);
                 return [201, processosAtualizados];
             });
 
@@ -230,7 +234,8 @@ export class ProcessoMockApi {
                 if (index !== -1) {
                     const relator = ministro.find(m => m.id === idRelator);
                     this._processo[index].relator = relator;
-                    console.log(this._processo[index])
+                    setStorage('processos', this._processo);
+                    console.log(this._processo[index]);
                     return [200, { description: "Sucesso" }];
                 }
 
@@ -310,7 +315,7 @@ export class ProcessoMockApi {
                     const processo = this._processo[index];
                     const ministrosImpedidos: Ministro[] = [];
                     const ministrosSuspeitos: Ministro[] = [];
-                    
+
                     body.ministros_impedidos.forEach((id: number) => {
                         ministrosImpedidos.push(this._obterMinistroPeloId(id));
                     });
@@ -322,12 +327,14 @@ export class ProcessoMockApi {
                     });
 
                     processo.ministros_suspeitos = ministrosSuspeitos;
+                    this._processo[index] = processo;
+                    setStorage('processos', this._processo);
 
                     return [200, processo];
                 }
 
-                return [404, { 
-                    msg: 'Nenhum processo com id informado.' 
+                return [404, {
+                    msg: 'Nenhum processo com id informado.'
                 }];
             });
     }

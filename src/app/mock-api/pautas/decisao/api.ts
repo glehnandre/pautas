@@ -1,19 +1,19 @@
 import { Injectable } from '@angular/core';
 import { FuseMockApiService } from '@fuse/lib/mock-api/mock-api.service';
 
-import { Ata } from 'app/modules/acervo/model/interfaces/ata.interface';
 import { DecisoesResultadoJulgamento } from 'app/modules/acervo/model/interfaces/decisao.interface';
 import { ModeloDecisao } from 'app/modules/acervo/model/interfaces/modeloDecisao.interface';
 
 import { dispositivos } from '../dispositivo/data';
-import { processo } from '../processos/data';
 import { decisoes as decisoesData, modeloDecisao } from './data';
+
+import { getStorage, setStorage } from '../storage';
 
 @Injectable({
     providedIn: 'root'
 })
 export class DecisaoMockApi {
-    private _decisoes: Array<DecisoesResultadoJulgamento> = decisoesData;
+    private _decisoes: Array<DecisoesResultadoJulgamento> = getStorage('decisoes', decisoesData);
     private _modeloDecisao: ModeloDecisao[] = modeloDecisao;
 
     constructor(private _fuseMockApiService: FuseMockApiService) {
@@ -64,7 +64,7 @@ export class DecisaoMockApi {
                 vistas: [],
               });
             }
-
+            setStorage('decisoes', this._decisoes);
             return [201, this._decisoes[0]];
           }
 
@@ -91,6 +91,7 @@ export class DecisaoMockApi {
 
           if (index !== -1) {
             this._decisoes.splice(index, 1);
+            setStorage('decisoes', this._decisoes);
             return [201, { description: 'Sucesso' }]
           }
 
