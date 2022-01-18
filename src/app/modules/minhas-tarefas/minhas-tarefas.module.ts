@@ -25,6 +25,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatPaginatorModule } from '@angular/material/paginator';
+import { FiltrarTagPorTipoPipe } from './filtros/filtrar-tag-por-tipo.pipe';
 
 const minhasTarefasRoutes: Route[] = [
     {
@@ -44,7 +45,8 @@ const minhasTarefasRoutes: Route[] = [
     MinhasTarefasComponent,
     FiltrosComponent,
     TabelaComponent,
-    CarrosselChipsComponent
+    CarrosselChipsComponent,
+    FiltrarTagPorTipoPipe
   ],
   imports: [
     CommonModule,

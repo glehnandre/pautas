@@ -5,7 +5,9 @@
                 <h1 class="my-2">Filtros</h1>
             </div>
 
-            <app-filtros></app-filtros>
+            <app-filtros
+                (emitirFiltrosSelecionados)="obterFiltrosSelecionados($event);"
+            ></app-filtros>
         </mat-drawer>
 
         <mat-drawer-content class="">
@@ -89,7 +91,9 @@
                 <!-- Main -->
                 <div class="flex-auto overflow-y-auto px-2 mt-2" cdkScrollable>
                     <!-- CONTENT GOES HERE -->
-                    <app-tabela></app-tabela>
+                    <app-tabela
+                        [filtros]="filtrosSelecionados"
+                    ></app-tabela>
                 </div>
             </div>
         </mat-drawer-content>

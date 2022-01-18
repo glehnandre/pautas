@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
+import { ITaskTag } from '../acervo/model/interfaces/itask.interface';
 
 @Component({
     selector: 'app-minhas-tarefas',
@@ -10,7 +11,9 @@ export class MinhasTarefasComponent implements OnInit {
 
     url: SafeResourceUrl = '';
     urlSelecionada: boolean = false;
+
     panelOpenState: boolean = false;
+    filtrosSelecionados: ITaskTag[] = [];
 
     constructor(
         private _sanitizer: DomSanitizer,
@@ -28,6 +31,10 @@ export class MinhasTarefasComponent implements OnInit {
     mostrarOutraPagina(): void {
         this.urlSelecionada = true;
         this.url = this._sanitizer.bypassSecurityTrustResourceUrl('/acervo');
+    }
+
+    public obterFiltrosSelecionados(filtros: ITaskTag[]): void {
+        this.filtrosSelecionados = [...filtros];
     }
 
 }

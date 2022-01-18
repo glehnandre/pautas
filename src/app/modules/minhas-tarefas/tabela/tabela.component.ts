@@ -1,8 +1,8 @@
 import { SelectionModel } from '@angular/cdk/collections';
-import { AfterViewInit, Component, Injectable, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, Injectable, Input, OnChanges, OnDestroy, OnInit, SimpleChanges, ViewChild } from '@angular/core';
 import { MatPaginator, MatPaginatorIntl, PageEvent } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
-import { ITask } from 'app/modules/acervo/model/interfaces/itask.interface';
+import { ITask, ITaskTag } from 'app/modules/acervo/model/interfaces/itask.interface';
 import { PaginacaoCustomizadaComponent } from 'app/modules/acervo/tabela/paginacao/paginacao-customizada.component';
 import { TarefaService } from 'app/modules/services/tarefa.service';
 import { EMPTY, merge } from 'rxjs';
@@ -14,7 +14,7 @@ import { catchError, map, startWith, switchMap } from 'rxjs/operators';
     styleUrls: ['./tabela.component.scss'],
     providers: [{provide: MatPaginatorIntl, useClass: PaginacaoCustomizadaComponent}],
 })
-export class TabelaComponent implements OnInit, AfterViewInit, OnDestroy {
+export class TabelaComponent implements OnInit, AfterViewInit, OnDestroy, OnChanges {
 
     displayedColumns: string[] = ['checkbox', 'descricao', 'responsavel', 'data_criacao', 'opcoes', 'prioridade'];
     dataSource = new MatTableDataSource<ITask>([]);
@@ -22,7 +22,7 @@ export class TabelaComponent implements OnInit, AfterViewInit, OnDestroy {
 
     resultsLength = 0;
     pageSize = 30;
-    pageSizeOptions: number[] = [30, 50, 80, 100];
+    pageSizeOptions: number[] = [30, 50, 80, 100, 1000];
     pageEvent: PageEvent;
 
     isLoadingResults = true;
@@ -30,42 +30,25 @@ export class TabelaComponent implements OnInit, AfterViewInit, OnDestroy {
 
     @ViewChild(MatPaginator) paginator: MatPaginator;
 
+    @Input() filtros: ITaskTag[];
+
     constructor(
         private _tarefaService: TarefaService,
     ) { }
 
     ngAfterViewInit(): void {
-        merge(this.paginator.page)
-          .pipe(
-            startWith({}),
-            switchMap(() => {
-              this.isLoadingResults = true;
+        this._carregarTarefas();
+    }
 
-              return this._tarefaService
-                .obterTaferas(
-                    this.pageEvent?.pageSize,
-                    this.pageEvent?.pageIndex
-                )
-                .pipe(catchError(() => EMPTY));
-            }),
-            map(data => {
-              this.isLoadingResults = false;
-              this.isRateLimitReached = data === null;
+    ngOnChanges(changes: SimpleChanges): void {
+        console.log(changes)
+        if (!changes.filtros.firstChange) {
+            this._filtrarListaDeTarefas();
+        }
 
-              if (data === null) {
-                return [];
-              }
-
-              // Alterar o length para o atributo que informa o total de resultados
-              this.resultsLength = data['totalDeItens'];
-              return data['data'];
-            }),
-          ).subscribe({
-            next: (tarefas) => {
-                this.dataSource = new MatTableDataSource<ITask>(tarefas);
-                console.log(this.dataSource.data);
-            }
-        });
+        if (changes.filtros.currentValue.length === 0 && !changes.filtros.firstChange) {
+            this._carregarTarefas();
+        }
     }
 
     ngOnInit(): void {}
@@ -129,6 +112,56 @@ export class TabelaComponent implements OnInit, AfterViewInit, OnDestroy {
         }
 
         return [];
+    }
+
+    private _carregarTarefas(): void {
+        merge(this.paginator.page, this.filtros)
+          .pipe(
+            startWith({}),
+            switchMap(() => {
+              this.isLoadingResults = true;
+
+              return this._tarefaService
+                .obterTaferas(
+                    this.pageEvent?.pageSize,
+                    this.pageEvent?.pageIndex
+                )
+                .pipe(catchError(() => EMPTY));
+            }),
+            map(data => {
+              this.isLoadingResults = false;
+              this.isRateLimitReached = data === null;
+
+              if (data === null) {
+                return [];
+              }
+
+              // Alterar o length para o atributo que informa o total de resultados
+              this.resultsLength = data['totalDeItens'];
+              return data['data'];
+            }),
+          ).subscribe({
+            next: (tarefas: ITask[]) => {
+                this.dataSource = new MatTableDataSource<ITask>(tarefas);
+                console.log(this.dataSource.data);
+            }
+        });
+    }
+
+    private _filtrarListaDeTarefas(): void {
+        const tarefas = this.dataSource.data;
+        
+        const tarefasFiltradas = tarefas.filter(({context, command}) => {
+            if (this.filtros.length > 0) {
+                const index = this.filtros
+                    .findIndex(t => t.id === `${context}:${command}`);
+
+                return index !== -1;
+            }
+            return false;
+        });
+
+        this.dataSource = new MatTableDataSource<ITask>(tarefasFiltradas);
     }
 
 }

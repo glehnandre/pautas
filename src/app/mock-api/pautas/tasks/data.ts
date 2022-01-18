@@ -1,7 +1,7 @@
 // 20220110160633
 // https://digitalqa.stf.jus.br/integracoes-modulos/api/tasks?access_token=915741ce-7434-4fac-a111-133a058519fb
 
-import { ITask } from "app/modules/acervo/model/interfaces/itask.interface";
+import { ITask, ITaskTag } from "app/modules/acervo/model/interfaces/itask.interface";
 
 export const tasks: ITask[] = [
   {
@@ -14794,5 +14794,2658 @@ export const tasks: ITask[] = [
       "assuntos": "6017 - DIREITO TRIBUTÁRIO | Dívida Ativa "
     },
     "mobile": null
+  }
+];
+
+
+/**
+ * @description O Id é formado pela junção de 'ITask.context':'ITask.commad'
+ */
+export const taskTags: ITaskTag[] = [
+  {
+    "id": "decisoes-monocraticas:analisar-processo",
+    "tasks": [
+      "analisar-processo"
+    ],
+    "name": "Analisar processo",
+    "color": "blue",
+    "type": "Tarefas"
+  },
+  {
+    "id": "decisoes-monocraticas:elaborar-minuta",
+    "tasks": [
+      "elaborar-minuta"
+    ],
+    "name": "Elaborar minuta",
+    "color": "blue",
+    "type": "Tarefas"
+  },
+  {
+    "id": "decisoes-monocraticas:revisar-minuta",
+    "tasks": [
+      "revisar-minuta"
+    ],
+    "name": "Revisar minuta",
+    "color": "blue",
+    "type": "Tarefas"
+  },
+  {
+    "id": "decisoes-monocraticas:revisar-gramatica-minuta",
+    "tasks": [
+      "revisar-gramatica-minuta"
+    ],
+    "name": "Revisar gramática",
+    "color": "blue",
+    "type": "Tarefas"
+  },
+  {
+    "id": "decisoes-monocraticas:corrigir-minuta",
+    "tasks": [
+      "corrigir-minuta"
+    ],
+    "name": "Corrigir minuta",
+    "color": "blue",
+    "type": "Tarefas"
+  },
+  {
+    "id": "decisoes-monocraticas:corrigir-gramatica-minuta",
+    "tasks": [
+      "corrigir-gramatica-minuta"
+    ],
+    "name": "Corrigir gramática",
+    "color": "blue",
+    "type": "Tarefas"
+  },
+  {
+    "id": "decisoes-monocraticas:liberar-minuta-para-assinatura",
+    "tasks": [
+      "liberar-minuta-para-assinatura"
+    ],
+    "name": "Liberar para assinatura",
+    "color": "blue",
+    "type": "Tarefas"
+  },
+  {
+    "id": "decisoes-monocraticas:minuta-tratada-no-legado",
+    "tasks": [
+      "minuta-tratada-no-legado"
+    ],
+    "name": "Liberado para pauta",
+    "color": "blue",
+    "type": "Pauta"
+  },
+  {
+    "id": "decisoes-monocraticas:realizar-triagem",
+    "tasks": [
+      "realizar-triagem"
+    ],
+    "name": "Analisar liberação",
+    "color": "blue",
+    "type": "Tarefas"
+  },
+  {
+    "id": "decisoes-monocraticas:aprovar-liberacao",
+    "tasks": [
+      "aprovar-liberacao"
+    ],
+    "name": "Cancelar assinatura",
+    "color": "blue",
+    "type": "Tarefas"
+  },
+  {
+    "id": "decisoes:analisar-decisao",
+    "tasks": [
+      "analisar-decisao"
+    ],
+    "name": "Analisar decisão",
+    "color": "blue",
+    "type": "Tarefas"
+  },
+  {
+    "id": "decisoes-monocraticas:are",
+    "tasks": [
+      "ARE"
+    ],
+    "name": "Classe ARE",
+    "color": "blue",
+    "type": "Classes"
+  },
+  {
+    "id": "decisoes-monocraticas:ai",
+    "tasks": [
+      "AI"
+    ],
+    "name": "Classe AI",
+    "color": "blue",
+    "type": "Classes"
+  },
+  {
+    "id": "decisoes-monocraticas:re",
+    "tasks": [
+      "RE"
+    ],
+    "name": "Classe RE",
+    "color": "blue",
+    "type": "Classes"
+  },
+  {
+    "id": "decisoes-monocraticas:ac",
+    "tasks": [
+      "AC"
+    ],
+    "name": "Classe AC",
+    "color": "blue",
+    "type": "Classes"
+  },
+  {
+    "id": "decisoes-monocraticas:aco",
+    "tasks": [
+      "ACO"
+    ],
+    "name": "Classe ACO",
+    "color": "blue",
+    "type": "Classes"
+  },
+  {
+    "id": "decisoes-monocraticas:adc",
+    "tasks": [
+      "ADC"
+    ],
+    "name": "Classe ADC",
+    "color": "blue",
+    "type": "Classes"
+  },
+  {
+    "id": "decisoes-monocraticas:adi",
+    "tasks": [
+      "ADI"
+    ],
+    "name": "Classe ADI",
+    "color": "blue",
+    "type": "Classes"
+  },
+  {
+    "id": "decisoes-monocraticas:ado",
+    "tasks": [
+      "ADO"
+    ],
+    "name": "Classe ADO",
+    "color": "blue",
+    "type": "Classes"
+  },
+  {
+    "id": "decisoes-monocraticas:adpf",
+    "tasks": [
+      "ADPF"
+    ],
+    "name": "Classe ADPF",
+    "color": "blue",
+    "type": "Classes"
+  },
+  {
+    "id": "decisoes-monocraticas:re",
+    "tasks": [
+      "RE"
+    ],
+    "name": "Classe RE",
+    "color": "blue",
+    "type": "Classes"
+  },
+  {
+    "id": "decisoes-monocraticas:aimp",
+    "tasks": [
+      "AImp"
+    ],
+    "name": "Classe AImp",
+    "color": "blue",
+    "type": "Classes"
+  },
+  {
+    "id": "decisoes-monocraticas:ao",
+    "tasks": [
+      "AO"
+    ],
+    "name": "Classe AO",
+    "color": "blue",
+    "type": "Classes"
+  },
+  {
+    "id": "decisoes-monocraticas:aoe",
+    "tasks": [
+      "AOE"
+    ],
+    "name": "Classe AOE",
+    "color": "blue",
+    "type": "Classes"
+  },
+  {
+    "id": "decisoes-monocraticas:ap",
+    "tasks": [
+      "AP"
+    ],
+    "name": "Classe AP",
+    "color": "blue",
+    "type": "Classes"
+  },
+  {
+    "id": "decisoes-monocraticas:ar",
+    "tasks": [
+      "AR"
+    ],
+    "name": "Classe AR",
+    "color": "blue",
+    "type": "Classes"
+  },
+  {
+    "id": "decisoes-monocraticas:as",
+    "tasks": [
+      "AS"
+    ],
+    "name": "Classe AS",
+    "color": "blue",
+    "type": "Classes"
+  },
+  {
+    "id": "decisoes-monocraticas:cc",
+    "tasks": [
+      "CC"
+    ],
+    "name": "Classe CC",
+    "color": "blue",
+    "type": "Classes"
+  },
+  {
+    "id": "decisoes-monocraticas:cm",
+    "tasks": [
+      "Cm"
+    ],
+    "name": "Classe Cm",
+    "color": "blue",
+    "type": "Classes"
+  },
+  {
+    "id": "decisoes-monocraticas:ei",
+    "tasks": [
+      "EI"
+    ],
+    "name": "Classe EI",
+    "color": "blue",
+    "type": "Classes"
+  },
+  {
+    "id": "decisoes-monocraticas:el",
+    "tasks": [
+      "EL"
+    ],
+    "name": "Classe EL",
+    "color": "blue",
+    "type": "Classes"
+  },
+  {
+    "id": "decisoes-monocraticas:ep",
+    "tasks": [
+      "EP"
+    ],
+    "name": "Classe EP",
+    "color": "blue",
+    "type": "Classes"
+  },
+  {
+    "id": "decisoes-monocraticas:ext",
+    "tasks": [
+      "Ext"
+    ],
+    "name": "Classe Ext",
+    "color": "blue",
+    "type": "Classes"
+  },
+  {
+    "id": "decisoes-monocraticas:hc",
+    "tasks": [
+      "HC"
+    ],
+    "name": "Classe HC",
+    "color": "blue",
+    "type": "Classes"
+  },
+  {
+    "id": "decisoes-monocraticas:hd",
+    "tasks": [
+      "HD"
+    ],
+    "name": "Classe HD",
+    "color": "blue",
+    "type": "Classes"
+  },
+  {
+    "id": "decisoes-monocraticas:if",
+    "tasks": [
+      "IF"
+    ],
+    "name": "Classe IF",
+    "color": "blue",
+    "type": "Classes"
+  },
+  {
+    "id": "decisoes-monocraticas:inq",
+    "tasks": [
+      "Inq"
+    ],
+    "name": "Classe Inq",
+    "color": "blue",
+    "type": "Classes"
+  },
+  {
+    "id": "decisoes-monocraticas:mi",
+    "tasks": [
+      "MI"
+    ],
+    "name": "Classe MI",
+    "color": "blue",
+    "type": "Classes"
+  },
+  {
+    "id": "decisoes-monocraticas:ms",
+    "tasks": [
+      "MS"
+    ],
+    "name": "Classe MS",
+    "color": "blue",
+    "type": "Classes"
+  },
+  {
+    "id": "decisoes-monocraticas:ppe",
+    "tasks": [
+      "PPE"
+    ],
+    "name": "Classe PPE",
+    "color": "blue",
+    "type": "Classes"
+  },
+  {
+    "id": "decisoes-monocraticas:psv",
+    "tasks": [
+      "PSV"
+    ],
+    "name": "Classe PSV",
+    "color": "blue",
+    "type": "Classes"
+  },
+  {
+    "id": "decisoes-monocraticas:pet",
+    "tasks": [
+      "Pet"
+    ],
+    "name": "Classe Pet",
+    "color": "blue",
+    "type": "Classes"
+  },
+  {
+    "id": "decisoes-monocraticas:rc",
+    "tasks": [
+      "RC"
+    ],
+    "name": "Classe RC",
+    "color": "blue",
+    "type": "Classes"
+  },
+  {
+    "id": "decisoes-monocraticas:rhc",
+    "tasks": [
+      "RHC"
+    ],
+    "name": "Classe RHC",
+    "color": "blue",
+    "type": "Classes"
+  },
+  {
+    "id": "decisoes-monocraticas:rhd",
+    "tasks": [
+      "RHD"
+    ],
+    "name": "Classe RHD",
+    "color": "blue",
+    "type": "Classes"
+  },
+  {
+    "id": "decisoes-monocraticas:rmi",
+    "tasks": [
+      "RMI"
+    ],
+    "name": "Classe RMI",
+    "color": "blue",
+    "type": "Classes"
+  },
+  {
+    "id": "decisoes-monocraticas:rms",
+    "tasks": [
+      "RMS"
+    ],
+    "name": "Classe RMS",
+    "color": "blue",
+    "type": "Classes"
+  },
+  {
+    "id": "decisoes-monocraticas:rcl",
+    "tasks": [
+      "Rcl"
+    ],
+    "name": "Classe Rcl",
+    "color": "blue",
+    "type": "Classes"
+  },
+  {
+    "id": "decisoes-monocraticas:rvc",
+    "tasks": [
+      "RvC"
+    ],
+    "name": "Classe RvC",
+    "color": "blue",
+    "type": "Classes"
+  },
+  {
+    "id": "decisoes-monocraticas:sirdr",
+    "tasks": [
+      "SIRDR"
+    ],
+    "name": "Classe SIRDR",
+    "color": "blue",
+    "type": "Classes"
+  },
+  {
+    "id": "decisoes-monocraticas:sl",
+    "tasks": [
+      "SL"
+    ],
+    "name": "Classe SL",
+    "color": "blue",
+    "type": "Classes"
+  },
+  {
+    "id": "decisoes-monocraticas:ss",
+    "tasks": [
+      "SS"
+    ],
+    "name": "Classe SS",
+    "color": "blue",
+    "type": "Classes"
+  },
+  {
+    "id": "decisoes-monocraticas:sta",
+    "tasks": [
+      "STA"
+    ],
+    "name": "Classe STA",
+    "color": "blue",
+    "type": "Classes"
+  },
+  {
+    "id": "decisoes-monocraticas:stp",
+    "tasks": [
+      "STP"
+    ],
+    "name": "Classe STP",
+    "color": "blue",
+    "type": "Classes"
+  },
+  {
+    "id": "decisoes-monocraticas:tpa",
+    "tasks": [
+      "TPA"
+    ],
+    "name": "Classe TPA",
+    "color": "blue",
+    "type": "Classes"
+  },
+  {
+    "id": "decisoes-monocraticas:tipo-texto-60",
+    "tasks": [
+      "tipo-texto-60"
+    ],
+    "name": "Despacho",
+    "color": "blue",
+    "type": "Textos"
+  },
+  {
+    "id": "decisoes-monocraticas:tipo-texto-65",
+    "tasks": [
+      "tipo-texto-65"
+    ],
+    "name": "Decisão Final",
+    "color": "blue",
+    "type": "Textos"
+  },
+  {
+    "id": "decisoes-monocraticas:tipo-texto-70",
+    "tasks": [
+      "tipo-texto-70"
+    ],
+    "name": "Acórdão",
+    "color": "blue",
+    "type": "Textos"
+  },
+  {
+    "id": "decisoes-monocraticas:tipo-texto-80",
+    "tasks": [
+      "tipo-texto-80"
+    ],
+    "name": "Ementa",
+    "color": "blue",
+    "type": "Textos"
+  },
+  {
+    "id": "decisoes-monocraticas:tipo-texto-100",
+    "tasks": [
+      "tipo-texto-100"
+    ],
+    "name": "Relatório",
+    "color": "blue",
+    "type": "Textos"
+  },
+  {
+    "id": "decisoes-monocraticas:tipo-texto-200",
+    "tasks": [
+      "tipo-texto-200"
+    ],
+    "name": "Voto",
+    "color": "blue",
+    "type": "Textos"
+  },
+  {
+    "id": "decisoes-monocraticas:tipo-texto-528",
+    "tasks": [
+      "tipo-texto-528"
+    ],
+    "name": "Decisão Liminar",
+    "color": "blue",
+    "type": "Textos"
+  },
+  {
+    "id": "decisoes-monocraticas:tipo-texto-529",
+    "tasks": [
+      "tipo-texto-529"
+    ],
+    "name": "Decisão Interloc.",
+    "color": "blue",
+    "type": "Textos"
+  },
+  {
+    "id": "ramo-direito:eleitoral",
+    "tasks": [
+      "ramo-direito:eleitoral"
+    ],
+    "name": "Ramo eleitoral",
+    "color": "silver",
+    "type": "Ramos"
+  },
+  {
+    "id": "ramo-direito:criminal",
+    "tasks": [
+      "ramo-direito:criminal"
+    ],
+    "name": "Ramo criminal",
+    "color": "silver",
+    "type": "Ramos"
+  },
+  {
+    "id": "ramo-direito:civel",
+    "tasks": [
+      "ramo-direito:civel"
+    ],
+    "name": "Ramo cível",
+    "color": "silver",
+    "type": "Ramos"
+  },
+  {
+    "id": "ramo-direito:juizado-especial",
+    "tasks": [
+      "ramo-direito:juizado-especial"
+    ],
+    "name": "Juizados especiais",
+    "color": "gray",
+    "type": "Origem"
+  },
+  {
+    "id": "direito:civil",
+    "tasks": [
+      "direito:civil"
+    ],
+    "name": "Direito civil",
+    "color": "black",
+    "type": "Assuntos"
+  },
+  {
+    "id": "direito:eleitoral",
+    "tasks": [
+      "direito:eleitoral"
+    ],
+    "name": "Direito eleitoral",
+    "color": "black",
+    "type": "Assuntos"
+  },
+  {
+    "id": "direito:penal",
+    "tasks": [
+      "direito:penal"
+    ],
+    "name": "Direito penal",
+    "color": "black",
+    "type": "Assuntos"
+  },
+  {
+    "id": "direito:penal-militar",
+    "tasks": [
+      "direito:penal-militar"
+    ],
+    "name": "Direito penal militar",
+    "color": "black",
+    "type": "Assuntos"
+  },
+  {
+    "id": "direito:processual-penal",
+    "tasks": [
+      "direito:processual-penal"
+    ],
+    "name": "Direito processual penal",
+    "color": "black",
+    "type": "Assuntos"
+  },
+  {
+    "id": "direito:processual-penal-militar",
+    "tasks": [
+      "direito:processual-penal-militar"
+    ],
+    "name": "Direito processual penal militar",
+    "color": "black",
+    "type": "Assuntos"
+  },
+  {
+    "id": "direito:administrativo",
+    "tasks": [
+      "direito:administrativo"
+    ],
+    "name": "Direito administrativo",
+    "color": "black",
+    "type": "Assuntos"
+  },
+  {
+    "id": "direito:administrativo-ambiental",
+    "tasks": [
+      "direito:administrativo-ambiental"
+    ],
+    "name": "Direito adm. ambiental",
+    "color": "black",
+    "type": "Assuntos"
+  },
+  {
+    "id": "direito:consumidor",
+    "tasks": [
+      "direito:consumidor"
+    ],
+    "name": "Direito do consumidor",
+    "color": "black",
+    "type": "Assuntos"
+  },
+  {
+    "id": "direito:crianca-adolescente",
+    "tasks": [
+      "direito:crianca-adolescente"
+    ],
+    "name": "Direito da crianca e do adolescente",
+    "color": "black",
+    "type": "Assuntos"
+  },
+  {
+    "id": "direito:internacional",
+    "tasks": [
+      "direito:internacional"
+    ],
+    "name": "Direito internacional",
+    "color": "black",
+    "type": "Assuntos"
+  },
+  {
+    "id": "direito:maritimo",
+    "tasks": [
+      "direito:maritimo"
+    ],
+    "name": "Direito marítimo",
+    "color": "black",
+    "type": "Assuntos"
+  },
+  {
+    "id": "direito:previdenciario",
+    "tasks": [
+      "direito:previdenciario"
+    ],
+    "name": "Direito previdenciário",
+    "color": "black",
+    "type": "Assuntos"
+  },
+  {
+    "id": "direito:processual-civil-trabalho",
+    "tasks": [
+      "direito:processual-civil-trabalho"
+    ],
+    "name": "Direito processual civil trabalhista",
+    "color": "black",
+    "type": "Assuntos"
+  },
+  {
+    "id": "direito:saude",
+    "tasks": [
+      "direito:saude"
+    ],
+    "name": "Direito de saúde",
+    "color": "black",
+    "type": "Assuntos"
+  },
+  {
+    "id": "direito:trabalho",
+    "tasks": [
+      "direito:trabalho"
+    ],
+    "name": "Direito do trabalho",
+    "color": "black",
+    "type": "Assuntos"
+  },
+  {
+    "id": "direito:tributario",
+    "tasks": [
+      "direito:tributario"
+    ],
+    "name": "Direito tributário",
+    "color": "black",
+    "type": "Assuntos"
+  },
+  {
+    "id": "direito:registros-publicos",
+    "tasks": [
+      "direito:registros-publicos"
+    ],
+    "name": "Registros públicos",
+    "color": "black",
+    "type": "Assuntos"
+  },
+  {
+    "id": "pronunciamento:canc_susp_nacional",
+    "tasks": [
+      "pronunciamento:11",
+      "pronunciamento:189"
+    ],
+    "name": "Canc. Susp. Nacional",
+    "color": "grey",
+    "type": "Pronunciamentos"
+  },
+  {
+    "id": "pronunciamento:det_susp_nacional",
+    "tasks": [
+      "pronunciamento:12",
+      "pronunciamento:206"
+    ],
+    "name": "Det. Susp. Nacional",
+    "color": "grey",
+    "type": "Pronunciamentos"
+  },
+  {
+    "id": "pronunciamento:vista_para_contrarrazoes",
+    "tasks": [
+      
+    ],
+    "name": "Vista para contrarrazões",
+    "color": "grey",
+    "type": "Pronunciamentos"
+  },
+  {
+    "id": "pronunciamento:reconsid_distribuicao",
+    "tasks": [
+      "pronunciamento:13",
+      "pronunciamento:134",
+      "pronunciamento:137"
+    ],
+    "name": "Reconsid/Distribuição",
+    "color": "grey",
+    "type": "Pronunciamentos"
+  },
+  {
+    "id": "pronunciamento:admissao_de_edv",
+    "tasks": [
+      "pronunciamento:14",
+      "pronunciamento:177"
+    ],
+    "name": "Admissão de EDV",
+    "color": "grey",
+    "type": "Pronunciamentos"
+  },
+  {
+    "id": "pronunciamento:nao_conhecimento_de_agr",
+    "tasks": [
+      "pronunciamento:15",
+      "pronunciamento:254"
+    ],
+    "name": "Não Conhecimento de AgR",
+    "color": "grey",
+    "type": "Pronunciamentos"
+  },
+  {
+    "id": "pronunciamento:neg_prov_de_agr",
+    "tasks": [
+      "pronunciamento:16",
+      "pronunciamento:41",
+      "pronunciamento:257",
+      "pronunciamento:266"
+    ],
+    "name": "Neg/prov de AgR",
+    "color": "grey",
+    "type": "Pronunciamentos"
+  },
+  {
+    "id": "pronunciamento:provimento_de_agr",
+    "tasks": [
+      "pronunciamento:17",
+      "pronunciamento:241",
+      "pronunciamento:267"
+    ],
+    "name": "Provimento de AgR",
+    "color": "grey",
+    "type": "Pronunciamentos"
+  },
+  {
+    "id": "pronunciamento:prov_parc_de_agr",
+    "tasks": [
+      "pronunciamento:18",
+      "pronunciamento:268",
+      "pronunciamento:239"
+    ],
+    "name": "Prov/parc de AgR",
+    "color": "grey",
+    "type": "Pronunciamentos"
+  },
+  {
+    "id": "pronunciamento:nao_conhecimento_de_ed",
+    "tasks": [
+      "pronunciamento:42",
+      "pronunciamento:169",
+      "pronunciamento:333"
+    ],
+    "name": "Não conhecimento de ED",
+    "color": "grey",
+    "type": "Pronunciamentos"
+  },
+  {
+    "id": "pronunciamento:recebimento_de_ed",
+    "tasks": [
+      "pronunciamento:43",
+      "pronunciamento:168"
+    ],
+    "name": "Recebimento de ED",
+    "color": "grey",
+    "type": "Pronunciamentos"
+  },
+  {
+    "id": "pronunciamento:ed_como_agr_nao_conhecido",
+    "tasks": [
+      "pronunciamento:19",
+      "pronunciamento:223",
+      "pronunciamento:341"
+    ],
+    "name": "ED como AgR não conhecido",
+    "color": "grey",
+    "type": "Pronunciamentos"
+  },
+  {
+    "id": "pronunciamento:ed_como_agr_nao_prov",
+    "tasks": [
+      "pronunciamento:44",
+      "pronunciamento:224",
+      "pronunciamento:339"
+    ],
+    "name": "ED como AgR não provido",
+    "color": "grey",
+    "type": "Pronunciamentos"
+  },
+  {
+    "id": "pronunciamento:rec_de_ed_como_agr_provido",
+    "tasks": [
+      "pronunciamento:45",
+      "pronunciamento:243",
+      "pronunciamento:340"
+    ],
+    "name": "Rec de ED como AgR provido",
+    "color": "grey",
+    "type": "Pronunciamentos"
+  },
+  {
+    "id": "pronunciamento:rec_parc_de_ed",
+    "tasks": [
+      "pronunciamento:46",
+      "pronunciamento:167"
+    ],
+    "name": "Rec/parc de ED",
+    "color": "grey",
+    "type": "Pronunciamentos"
+  },
+  {
+    "id": "pronunciamento:rejeicao_de_ed",
+    "tasks": [
+      "pronunciamento:47",
+      "pronunciamento:130",
+      "pronunciamento:166"
+    ],
+    "name": "Rejeição de ED",
+    "color": "grey",
+    "type": "Pronunciamentos"
+  },
+  {
+    "id": "pronunciamento:inadmissao_de_adv",
+    "tasks": [
+      "pronunciamento:21",
+      "pronunciamento:219"
+    ],
+    "name": "Inadmissão de AdV",
+    "color": "grey",
+    "type": "Pronunciamentos"
+  },
+  {
+    "id": "pronunciamento:reconsideracao",
+    "tasks": [
+      "pronunciamento:22",
+      "pronunciamento:165",
+      "pronunciamento:332"
+    ],
+    "name": "Reconsideração",
+    "color": "grey",
+    "type": "Pronunciamentos"
+  },
+  {
+    "id": "pronunciamento:recons_agr_prejudicado",
+    "tasks": [
+      "pronunciamento:27",
+      "pronunciamento:164"
+    ],
+    "name": "Recons/AgR - prejudicado",
+    "color": "grey",
+    "type": "Pronunciamentos"
+  },
+  {
+    "id": "pronunciamento:recebimento_de_queixa",
+    "tasks": [
+      "pronunciamento:23",
+      "pronunciamento:245",
+      "pronunciamento:342"
+    ],
+    "name": "Recebimento de queixa",
+    "color": "grey",
+    "type": "Pronunciamentos"
+  },
+  {
+    "id": "pronunciamento:rec_parc_de_queixa",
+    "tasks": [
+      "pronunciamento:24",
+      "pronunciamento:343"
+    ],
+    "name": "Rec/parc de queixa",
+    "color": "grey",
+    "type": "Pronunciamentos"
+  },
+  {
+    "id": "pronunciamento:rec_da_denuncia",
+    "tasks": [
+      "pronunciamento:26",
+      "pronunciamento:244",
+      "pronunciamento:344"
+    ],
+    "name": "Rec da denúncia",
+    "color": "grey",
+    "type": "Pronunciamentos"
+  },
+  {
+    "id": "pronunciamento:rec_parc_da_denuncia",
+    "tasks": [
+      "pronunciamento:25",
+      "pronunciamento:225",
+      "pronunciamento:345"
+    ],
+    "name": "Rec/parc. da denúncia",
+    "color": "grey",
+    "type": "Pronunciamentos"
+  },
+  {
+    "id": "pronunciamento:rejeicao_da_denuncia",
+    "tasks": [
+      "pronunciamento:20",
+      "pronunciamento:234",
+      "pronunciamento:346"
+    ],
+    "name": "Rejeição da denúncia",
+    "color": "grey",
+    "type": "Pronunciamentos"
+  },
+  {
+    "id": "pronunciamento:rejeicao_da_queixa",
+    "tasks": [
+      "pronunciamento:28",
+      "pronunciamento:230",
+      "pronunciamento:347"
+    ],
+    "name": "Rejeição da queixa",
+    "color": "grey",
+    "type": "Pronunciamentos"
+  },
+  {
+    "id": "pronunciamento:homol_trans_penal",
+    "tasks": [
+      "pronunciamento:29",
+      "pronunciamento:217",
+      "pronunciamento:348"
+    ],
+    "name": "Homol. trans/penal",
+    "color": "grey",
+    "type": "Pronunciamentos"
+  },
+  {
+    "id": "pronunciamento:neg_de_seg_aus_de_rg",
+    "tasks": [
+      "pronunciamento:30",
+      "pronunciamento:256"
+    ],
+    "name": "Neg. de Seg - Aus de RG",
+    "color": "grey",
+    "type": "Pronunciamentos"
+  },
+  {
+    "id": "pronunciamento:julg_s_pron_inconst",
+    "tasks": [
+      "pronunciamento:31",
+      "pronunciamento:181"
+    ],
+    "name": "Julg s/ pron. Inconst",
+    "color": "grey",
+    "type": "Pronunciamentos"
+  },
+  {
+    "id": "pronunciamento:acolh_proposta_de_sv",
+    "tasks": [
+      "pronunciamento-32",
+      "pronunciamento-175"
+    ],
+    "name": "Acolh/Proposta de SV",
+    "color": "grey",
+    "type": "Pronunciamentos"
+  },
+  {
+    "id": "pronunciamento:rej_proposta_sv",
+    "tasks": [
+      "pronunciamento:33",
+      "pronunciamento:232"
+    ],
+    "name": "Rej. Proposta SV",
+    "color": "grey",
+    "type": "Pronunciamentos"
+  },
+  {
+    "id": "pronunciamento:acolh_proposta_de_rev_sv",
+    "tasks": [
+      "pronunciamento:34",
+      "pronunciamento:176"
+    ],
+    "name": "Acolh. proposta de rev. SV",
+    "color": "grey",
+    "type": "Pronunciamentos"
+  },
+  {
+    "id": "pronunciamento:rej_proposta_de_rev_sv",
+    "tasks": [
+      "pronunciamento:35",
+      "pronunciamento:231"
+    ],
+    "name": "Rej. proposta de rev. SV",
+    "color": "grey",
+    "type": "Pronunciamentos"
+  },
+  {
+    "id": "pronunciamento:acol_proposta_canc_sv",
+    "tasks": [
+      "pronunciamento:36",
+      "pronunciamento:174"
+    ],
+    "name": "Acol. proposta canc. SV",
+    "color": "grey",
+    "type": "Pronunciamentos"
+  },
+  {
+    "id": "pronunciamento:rej_proposta_de_canc_sv",
+    "tasks": [
+      "pronunciamento:37",
+      "pronunciamento:233"
+    ],
+    "name": "Rej. proposta de canc. SV",
+    "color": "grey",
+    "type": "Pronunciamentos"
+  },
+  {
+    "id": "pronunciamento:referendo_de_decisao",
+    "tasks": [
+      "pronunciamento:38",
+      "pronunciamento:334"
+    ],
+    "name": "Referendo de decisão",
+    "color": "grey",
+    "type": "Pronunciamentos"
+  },
+  {
+    "id": "pronunciamento:ratificacao_de_decisao",
+    "tasks": [
+      "pronunciamento:39",
+      "pronunciamento:237",
+      "pronunciamento:349"
+    ],
+    "name": "Ratificação de decisão",
+    "color": "grey",
+    "type": "Pronunciamentos"
+  },
+  {
+    "id": "pronunciamento:provimento_de_ai",
+    "tasks": [
+      "pronunciamento:40",
+      "pronunciamento:249"
+    ],
+    "name": "Provimento de AI",
+    "color": "grey",
+    "type": "Pronunciamentos"
+  },
+  {
+    "id": "pronunciamento:nao_prov_de_agravo",
+    "tasks": [
+      "pronunciamento:331"
+    ],
+    "name": "Não prov de Agravo",
+    "color": "grey",
+    "type": "Pronunciamentos"
+  },
+  {
+    "id": "pronunciamento:prov_are_e_neg_re",
+    "tasks": [
+      "pronunciamento:48",
+      "pronunciamento:247"
+    ],
+    "name": "Prov. ARE e negação RE",
+    "color": "grey",
+    "type": "Pronunciamentos"
+  },
+  {
+    "id": "pronunciamento:prov_are_e_prov_re",
+    "tasks": [
+      "pronunciamento:49",
+      "pronunciamento:246"
+    ],
+    "name": "Prov. ARE e prov. RE",
+    "color": "grey",
+    "type": "Pronunciamentos"
+  },
+  {
+    "id": "pronunciamento:prov_are_e_prov_parc_re",
+    "tasks": [
+      "pronunciamento:50",
+      "pronunciamento:242"
+    ],
+    "name": "Prov. ARE e prov. parc. RE",
+    "color": "grey",
+    "type": "Pronunciamentos"
+  },
+  {
+    "id": "pronunciamento:extincao_de_punibilidade",
+    "tasks": [
+      "pronunciamento:51",
+      "pronunciamento:184",
+      "pronunciamento:330"
+    ],
+    "name": "Extinção de punibilidade",
+    "color": "grey",
+    "type": "Pronunciamentos"
+  },
+  {
+    "id": "pronunciamento:restauracao_dos_autos",
+    "tasks": [
+      "pronunciamento:52",
+      "pronunciamento:185"
+    ],
+    "name": "Restauração dos autos",
+    "color": "grey",
+    "type": "Pronunciamentos"
+  },
+  {
+    "id": "pronunciamento:declinacao_competencia",
+    "tasks": [
+      "pronunciamento:53",
+      "pronunciamento:186",
+      "pronunciamento:329"
+    ],
+    "name": "Declinação - competência",
+    "color": "grey",
+    "type": "Pronunciamentos"
+  },
+  {
+    "id": "pronunciamento:decretacao_de_desercao",
+    "tasks": [
+      "pronunciamento:54",
+      "pronunciamento:193"
+    ],
+    "name": "Decretação de deserção",
+    "color": "grey",
+    "type": "Pronunciamentos"
+  },
+  {
+    "id": "pronunciamento:prov_are_dev_rg",
+    "tasks": [
+      "pronunciamento:55",
+      "pronunciamento:250"
+    ],
+    "name": "Prov. ARE - Dev. RG",
+    "color": "grey",
+    "type": "Pronunciamentos"
+  },
+  {
+    "id": "pronunciamento:are_provido_re_pendente",
+    "tasks": [
+      "pronunciamento:56",
+      "pronunciamento:248"
+    ],
+    "name": "ARE provido RE pendente",
+    "color": "grey",
+    "type": "Pronunciamentos"
+  },
+  {
+    "id": "pronunciamento:ai_prov_conversao_em_re",
+    "tasks": [
+      "pronunciamento:57",
+      "pronunciamento:252"
+    ],
+    "name": "AI prov. conversão em RE",
+    "color": "grey",
+    "type": "Pronunciamentos"
+  },
+  {
+    "id": "pronunciamento:ai_prov_det_subida_re",
+    "tasks": [
+      "pronunciamento:58",
+      "pronunciamento:253"
+    ],
+    "name": "AI prov. det. subida RE",
+    "color": "grey",
+    "type": "Pronunciamentos"
+  },
+  {
+    "id": "pronunciamento:concessao_da_ordem",
+    "tasks": [
+      "pronunciamento:59",
+      "pronunciamento:179",
+      "pronunciamento:273"
+    ],
+    "name": "Concessão da ordem",
+    "color": "grey",
+    "type": "Pronunciamentos"
+  },
+  {
+    "id": "pronunciamento:ordem_de_oficio",
+    "tasks": [
+      "pronunciamento:60",
+      "pronunciamento:187",
+      "pronunciamento:274"
+    ],
+    "name": "Ordem de ofício",
+    "color": "grey",
+    "type": "Pronunciamentos"
+  },
+  {
+    "id": "pronunciamento:concessao_de_seguranca",
+    "tasks": [
+      "pronunciamento:61",
+      "pronunciamento:180",
+      "pronunciamento:275"
+    ],
+    "name": "Concessão de segurança",
+    "color": "grey",
+    "type": "Pronunciamentos"
+  },
+  {
+    "id": "pronunciamento:concessao_da_suspensao",
+    "tasks": [
+      "pronunciamento:62",
+      "pronunciamento:188",
+      "pronunciamento:276"
+    ],
+    "name": "Concessão da Suspensão",
+    "color": "grey",
+    "type": "Pronunciamentos"
+  },
+  {
+    "id": "pronunciamento:ordem_concedida_em_parte",
+    "tasks": [
+      "pronunciamento:128",
+      "pronunciamento:191",
+      "pronunciamento:277"
+    ],
+    "name": "Ordem concedida em parte",
+    "color": "grey",
+    "type": "Pronunciamentos"
+  },
+  {
+    "id": "pronunciamento:Conc/par da segurança",
+    "tasks": [
+      "pronunciamento:63",
+      "pronunciamento:192",
+      "pronunciamento:278"
+    ],
+    "name": "Conc/par da segurança",
+    "color": "grey",
+    "type": "Pronunciamentos"
+  },
+  {
+    "id": "pronunciamento:conc_par_da_suspensao",
+    "tasks": [
+      "pronunciamento:279"
+    ],
+    "name": "Conc/par da suspensão",
+    "color": "grey",
+    "type": "Pronunciamentos"
+  },
+  {
+    "id": "pronunciamento:decisao_sj",
+    "tasks": [
+      "pronunciamento:64",
+      "pronunciamento:183"
+    ],
+    "name": "Decisão SJ",
+    "color": "grey",
+    "type": "Pronunciamentos"
+  },
+  {
+    "id": "pronunciamento:denegacao_da_ordem",
+    "tasks": [
+      "pronunciamento:65",
+      "pronunciamento:201",
+      "pronunciamento:280"
+    ],
+    "name": "Denegação da Ordem",
+    "color": "grey",
+    "type": "Pronunciamentos"
+  },
+  {
+    "id": "pronunciamento:denegacao_da_seguranca",
+    "tasks": [
+      "pronunciamento:66",
+      "pronunciamento:202",
+      "pronunciamento:283"
+    ],
+    "name": "Denegação da Segurança",
+    "color": "grey",
+    "type": "Pronunciamentos"
+  },
+  {
+    "id": "pronunciamento:denegacao_da_suspensao",
+    "tasks": [
+      "pronunciamento:67",
+      "pronunciamento:203",
+      "pronunciamento:284"
+    ],
+    "name": "Denegação da suspensão",
+    "color": "grey",
+    "type": "Pronunciamentos"
+  },
+  {
+    "id": "pronunciamento:dev_repr_controversia",
+    "tasks": [
+      "pronunciamento:68",
+      "pronunciamento:207"
+    ],
+    "name": "Dev - Repr. Controversia",
+    "color": "grey",
+    "type": "Pronunciamentos"
+  },
+  {
+    "id": "pronunciamento:devolucao_rg",
+    "tasks": [
+      "pronunciamento:69",
+      "pronunciamento:141"
+    ],
+    "name": "Devolução - RG",
+    "color": "grey",
+    "type": "Pronunciamentos"
+  },
+  {
+    "id": "pronunciamento:det_arquivamento",
+    "tasks": [
+      "pronunciamento:70",
+      "pronunciamento:210",
+      "pronunciamento:281"
+    ],
+    "name": "Det. Arquivamento",
+    "color": "grey",
+    "type": "Pronunciamentos"
+  },
+  {
+    "id": "pronunciamento:extincao_do_processo",
+    "tasks": [
+      "pronunciamento:71",
+      "pronunciamento:214",
+      "pronunciamento:282"
+    ],
+    "name": "Extinção do Processo",
+    "color": "grey",
+    "type": "Pronunciamentos"
+  },
+  {
+    "id": "pronunciamento:homologacao_desistencia",
+    "tasks": [
+      "pronunciamento:72",
+      "pronunciamento:135",
+      "pronunciamento:159"
+    ],
+    "name": "Homologação - desistência",
+    "color": "grey",
+    "type": "Pronunciamentos"
+  },
+  {
+    "id": "pronunciamento:homologacao_de_acordo",
+    "tasks": [
+      "pronunciamento:73",
+      "pronunciamento:215",
+      "pronunciamento:285"
+    ],
+    "name": "Homologação de acordo",
+    "color": "grey",
+    "type": "Pronunciamentos"
+  },
+  {
+    "id": "pronunciamento:improcedencia",
+    "tasks": [
+      "pronunciamento:126",
+      "pronunciamento:218",
+      "pronunciamento:286"
+    ],
+    "name": "Improcedência",
+    "color": "grey",
+    "type": "Pronunciamentos"
+  },
+  {
+    "id": "pronunciamento:nao_conhecimento",
+    "tasks": [
+      "pronunciamento:74",
+      "pronunciamento:255",
+      "pronunciamento:287"
+    ],
+    "name": "Não conhecimento",
+    "color": "grey",
+    "type": "Pronunciamentos"
+  },
+  {
+    "id": "pronunciamento:negativa_de_provimento",
+    "tasks": [
+      "pronunciamento:75",
+      "pronunciamento:139",
+      "pronunciamento:288"
+    ],
+    "name": "Negativa de provimento",
+    "color": "grey",
+    "type": "Pronunciamentos"
+  },
+  {
+    "id": "pronunciamento:negativa_de_seguimento",
+    "tasks": [
+      "pronunciamento:102",
+      "pronunciamento:131",
+      "pronunciamento:140"
+    ],
+    "name": "Negativa de seguimento",
+    "color": "grey",
+    "type": "Pronunciamentos"
+  },
+  {
+    "id": "pronunciamento:prejudicado",
+    "tasks": [
+      "pronunciamento:103",
+      "pronunciamento:161"
+    ],
+    "name": "Prejudicado",
+    "color": "grey",
+    "type": "Pronunciamentos"
+  },
+  {
+    "id": "pronunciamento:procedencia",
+    "tasks": [
+      "pronunciamento:104",
+      "pronunciamento:289"
+    ],
+    "name": "Procedência",
+    "color": "grey",
+    "type": "Pronunciamentos"
+  },
+  {
+    "id": "pronunciamento:procedencia_em_parte",
+    "tasks": [
+      "pronunciamento:105",
+      "pronunciamento:290"
+    ],
+    "name": "Procedência em parte",
+    "color": "grey",
+    "type": "Pronunciamentos"
+  },
+  {
+    "id": "pronunciamento:provimento",
+    "tasks": [
+      "pronunciamento:106",
+      "pronunciamento:251",
+      "pronunciamento:291"
+    ],
+    "name": "Provimento",
+    "color": "grey",
+    "type": "Pronunciamentos"
+  },
+  {
+    "id": "pronunciamento:provimento_em_parte",
+    "tasks": [
+      "pronunciamento:107",
+      "pronunciamento:240",
+      "pronunciamento:292"
+    ],
+    "name": "Provimento em parte",
+    "color": "grey",
+    "type": "Pronunciamentos"
+  },
+  {
+    "id": "pronunciamento:questao_de_ordem",
+    "tasks": [
+      "pronunciamento:108",
+      "pronunciamento:238",
+      "pronunciamento:295"
+    ],
+    "name": "Questão de ordem",
+    "color": "grey",
+    "type": "Pronunciamentos"
+  },
+  {
+    "id": "pronunciamento:recons_dev_por_rg",
+    "tasks": [
+      "pronunciamento:109",
+      "pronunciamento:351"
+    ],
+    "name": "Recons. dev. por RG",
+    "color": "grey",
+    "type": "Pronunciamentos"
+  },
+  {
+    "id": "pronunciamento:deferimento",
+    "tasks": [
+      "pronunciamento:110",
+      "pronunciamento:195",
+      "pronunciamento:293"
+    ],
+    "name": "Deferimento",
+    "color": "grey",
+    "type": "Pronunciamentos"
+  },
+  {
+    "id": "pronunciamento:deferimento_em_parte",
+    "tasks": [
+      "pronunciamento:111",
+      "pronunciamento:199",
+      "pronunciamento:294"
+    ],
+    "name": "Deferimento em parte",
+    "color": "grey",
+    "type": "Pronunciamentos"
+  },
+  {
+    "id": "pronunciamento:conversao_em_diligencia",
+    "tasks": [
+      "pronunciamento:112",
+      "pronunciamento:182",
+      "pronunciamento:296"
+    ],
+    "name": "Conversão em diligência",
+    "color": "grey",
+    "type": "Pronunciamentos"
+  },
+  {
+    "id": "pronunciamento:decretacao_de_prisao",
+    "tasks": [
+      "pronunciamento:124",
+      "pronunciamento:194",
+      "pronunciamento:297"
+    ],
+    "name": "Decretação de prisão",
+    "color": "grey",
+    "type": "Pronunciamentos"
+  },
+  {
+    "id": "pronunciamento:revogacao_de_prisao",
+    "tasks": [
+      "pronunciamento:113",
+      "pronunciamento:228",
+      "pronunciamento:298"
+    ],
+    "name": "Revogação de prisão",
+    "color": "grey",
+    "type": "Pronunciamentos"
+  },
+  {
+    "id": "pronunciamento:indeferimento",
+    "tasks": [
+      "pronunciamento:114",
+      "pronunciamento:220",
+      "pronunciamento:299"
+    ],
+    "name": "Indeferimento",
+    "color": "grey",
+    "type": "Pronunciamentos"
+  },
+  {
+    "id": "pronunciamento:regularizacao_de_tramite",
+    "tasks": [
+      "pronunciamento:115",
+      "pronunciamento:312"
+    ],
+    "name": "Regularização de trâmite",
+    "color": "grey",
+    "type": "Pronunciamentos"
+  },
+  {
+    "id": "pronunciamento:rito_do_art_12_Lei_9_868",
+    "tasks": [
+      "pronunciamento:116",
+      "pronunciamento:178",
+      "pronunciamento:311"
+    ],
+    "name": "Rito do art. 12 - Lei 9.868",
+    "color": "grey",
+    "type": "Pronunciamentos"
+  },
+  {
+    "id": "pronunciamento:liminar_sj",
+    "tasks": [
+      "pronunciamento:117",
+      "pronunciamento:261",
+      "pronunciamento:310"
+    ],
+    "name": "Liminar SJ",
+    "color": "grey",
+    "type": "Pronunciamentos"
+  },
+  {
+    "id": "pronunciamento:deferimento_de_liminar",
+    "tasks": [
+      "pronunciamento:118",
+      "pronunciamento:198",
+      "pronunciamento:309"
+    ],
+    "name": "Deferimento de Liminar",
+    "color": "grey",
+    "type": "Pronunciamentos"
+  },
+  {
+    "id": "pronunciamento:liminar_ad_referendum",
+    "tasks": [
+      "pronunciamento:127",
+      "pronunciamento:196",
+      "pronunciamento:308"
+    ],
+    "name": "Liminar ad referendum",
+    "color": "grey",
+    "type": "Pronunciamentos"
+  },
+  {
+    "id": "pronunciamento:def_parcial_liminar",
+    "tasks": [
+      "pronunciamento:119",
+      "pronunciamento:200",
+      "pronunciamento:307"
+    ],
+    "name": "Def. parcial - liminar",
+    "color": "grey",
+    "type": "Pronunciamentos"
+  },
+  {
+    "id": "pronunciamento:indeferimento_de_liminar",
+    "tasks": [
+      "pronunciamento:120",
+      "pronunciamento:222",
+      "pronunciamento:306"
+    ],
+    "name": "Indeferimento de liminar",
+    "color": "grey",
+    "type": "Pronunciamentos"
+  },
+  {
+    "id": "pronunciamento:ind_liminar_ad_referendum",
+    "tasks": [
+      "pronunciamento:123",
+      "pronunciamento:221",
+      "pronunciamento:305"
+    ],
+    "name": "Ind. Liminar ad referendum",
+    "color": "grey",
+    "type": "Pronunciamentos"
+  },
+  {
+    "id": "pronunciamento:liminar_nao_referendada",
+    "tasks": [
+      "pronunciamento:80",
+      "pronunciamento:304"
+    ],
+    "name": "Liminar não referendada",
+    "color": "grey",
+    "type": "Pronunciamentos"
+  },
+  {
+    "id": "pronunciamento:def_parcial_ad_ref_liminar",
+    "tasks": [
+      "pronunciamento:79",
+      "pronunciamento:197",
+      "pronunciamento:303"
+    ],
+    "name": "Def. parcial. ad ref. liminar",
+    "color": "grey",
+    "type": "Pronunciamentos"
+  },
+  {
+    "id": "pronunciamento:liminar_prejudicada",
+    "tasks": [
+      "pronunciamento:76",
+      "pronunciamento:260",
+      "pronunciamento:302"
+    ],
+    "name": "Liminar prejudicada",
+    "color": "grey",
+    "type": "Pronunciamentos"
+  },
+  {
+    "id": "pronunciamento:liminar_referendada",
+    "tasks": [
+      "pronunciamento:77",
+      "pronunciamento:259",
+      "pronunciamento:301"
+    ],
+    "name": "Liminar referendada",
+    "color": "grey",
+    "type": "Pronunciamentos"
+  },
+  {
+    "id": "pronunciamento:liminar_ref_em_parte",
+    "tasks": [
+      "pronunciamento:78",
+      "pronunciamento:258",
+      "pronunciamento:300"
+    ],
+    "name": "Liminar ref. em parte",
+    "color": "grey",
+    "type": "Pronunciamentos"
+  },
+  {
+    "id": "pronunciamento:sobrestamento",
+    "tasks": [
+      "pronunciamento:81",
+      "pronunciamento:227",
+      "pronunciamento:313"
+    ],
+    "name": "Sobrestamento",
+    "color": "grey",
+    "type": "Pronunciamentos"
+  },
+  {
+    "id": "pronunciamento:sobrestamento_decisao_stj",
+    "tasks": [
+      "pronunciamento:82",
+      "pronunciamento:226",
+      "pronunciamento:314"
+    ],
+    "name": "Sobrestamento - decisão STJ",
+    "color": "grey",
+    "type": "Pronunciamentos"
+  },
+  {
+    "id": "pronunciamento:impedimento_suspeicao",
+    "tasks": [
+      "pronunciamento:83",
+      "pronunciamento:148",
+      "pronunciamento:315"
+    ],
+    "name": "Impedimento/suspeição",
+    "color": "grey",
+    "type": "Pronunciamentos"
+  },
+  {
+    "id": "pronunciamento:despacho",
+    "tasks": [
+      "pronunciamento:84",
+      "pronunciamento:143",
+      "pronunciamento:149"
+    ],
+    "name": "Despacho",
+    "color": "grey",
+    "type": "Pronunciamentos"
+  },
+  {
+    "id": "pronunciamento:determinacao_redistribuicao",
+    "tasks": [
+      "pronunciamento:85",
+      "pronunciamento:138",
+      "pronunciamento:211"
+    ],
+    "name": "Determinação redistribuição",
+    "color": "grey",
+    "type": "Pronunciamentos"
+  },
+  {
+    "id": "pronunciamento:remessa_indevida",
+    "tasks": [
+      "pronunciamento:4",
+      "pronunciamento:96",
+      "pronunciamento:229"
+    ],
+    "name": "Remessa indevida",
+    "color": "grey",
+    "type": "Pronunciamentos"
+  },
+  {
+    "id": "pronunciamento:distribuicao",
+    "tasks": [
+      "pronunciamento:3"
+    ],
+    "name": "Distribuição",
+    "color": "grey",
+    "type": "Pronunciamentos"
+  },
+  {
+    "id": "pronunciamento:citacao",
+    "tasks": [
+      "pronunciamento:86",
+      "pronunciamento:150",
+      "pronunciamento:316"
+    ],
+    "name": "Citação",
+    "color": "grey",
+    "type": "Pronunciamentos"
+  },
+  {
+    "id": "pronunciamento:citacao_p_carta_de_ordem",
+    "tasks": [
+      "pronunciamento:87",
+      "pronunciamento:151",
+      "pronunciamento:317"
+    ],
+    "name": "Citação p/ carta de ordem",
+    "color": "grey",
+    "type": "Pronunciamentos"
+  },
+  {
+    "id": "pronunciamento:citacao_p_carta_rogatoria",
+    "tasks": [
+      "pronunciamento:88",
+      "pronunciamento:152",
+      "pronunciamento:318"
+    ],
+    "name": "Citação p/carta rogatória",
+    "color": "grey",
+    "type": "Pronunciamentos"
+  },
+  {
+    "id": "pronunciamento:citacao_por_edital",
+    "tasks": [
+      "pronunciamento:122",
+      "pronunciamento:153",
+      "pronunciamento:319"
+    ],
+    "name": "Citação por edital",
+    "color": "grey",
+    "type": "Pronunciamentos"
+  },
+  {
+    "id": "pronunciamento:correcao_de_autuacao",
+    "tasks": [
+      "pronunciamento:89",
+      "pronunciamento:154",
+      "pronunciamento:320"
+    ],
+    "name": "Correção de autuação",
+    "color": "grey",
+    "type": "Pronunciamentos"
+  },
+  {
+    "id": "pronunciamento:diligencia",
+    "tasks": [
+      "pronunciamento:90",
+      "pronunciamento:208",
+      "pronunciamento:321"
+    ],
+    "name": "Diligência",
+    "color": "grey",
+    "type": "Pronunciamentos"
+  },
+  {
+    "id": "pronunciamento:intimacao",
+    "tasks": [
+      "pronunciamento:91",
+      "pronunciamento:156",
+      "pronunciamento:322"
+    ],
+    "name": "Intimação",
+    "color": "grey",
+    "type": "Pronunciamentos"
+  },
+  {
+    "id": "pronunciamento:notificacao",
+    "tasks": [
+      "pronunciamento:121",
+      "pronunciamento:157",
+      "pronunciamento:323"
+    ],
+    "name": "Notificação",
+    "color": "grey",
+    "type": "Pronunciamentos"
+  },
+  {
+    "id": "pronunciamento:requisicao_autos_originais",
+    "tasks": [
+      "pronunciamento:92",
+      "pronunciamento:212",
+      "pronunciamento:324"
+    ],
+    "name": "Requisição - autos originais",
+    "color": "grey",
+    "type": "Pronunciamentos"
+  },
+  {
+    "id": "pronunciamento:interrogatorio",
+    "tasks": [
+      "pronunciamento:93",
+      "pronunciamento:209",
+      "pronunciamento:325"
+    ],
+    "name": "Interrogatório",
+    "color": "grey",
+    "type": "Pronunciamentos"
+  },
+  {
+    "id": "pronunciamento:desapensamento",
+    "tasks": [
+      "pronunciamento:125",
+      "pronunciamento:204",
+      "pronunciamento:326"
+    ],
+    "name": "Desapensamento",
+    "color": "grey",
+    "type": "Pronunciamentos"
+  },
+  {
+    "id": "pronunciamento:apensamento",
+    "tasks": [
+      "pronunciamento:94",
+      "pronunciamento:190",
+      "pronunciamento:327"
+    ],
+    "name": "Apensamento",
+    "color": "grey",
+    "type": "Pronunciamentos"
+  },
+  {
+    "id": "pronunciamento:peticao_avulsa",
+    "tasks": [
+      "pronunciamento:95",
+      "pronunciamento:205",
+      "pronunciamento:328"
+    ],
+    "name": "Petição Avulsa",
+    "color": "grey",
+    "type": "Pronunciamentos"
+  },
+  {
+    "id": "pronunciamento:existencia_de_rg",
+    "tasks": [
+      "pronunciamento:97",
+      "pronunciamento:213"
+    ],
+    "name": "Existência de RG",
+    "color": "grey",
+    "type": "Pronunciamentos"
+  },
+  {
+    "id": "pronunciamento:inexistencia_de_rg",
+    "tasks": [
+      "pronunciamento:98",
+      "pronunciamento:264"
+    ],
+    "name": "Inexistência de RG",
+    "color": "grey",
+    "type": "Pronunciamentos"
+  },
+  {
+    "id": "pronunciamento:inext_rg_materia_infra",
+    "tasks": [
+      "pronunciamento:99",
+      "pronunciamento:265"
+    ],
+    "name": "Inext. RG - matéria infra",
+    "color": "grey",
+    "type": "Pronunciamentos"
+  },
+  {
+    "id": "pronunciamento:merito_de_rg",
+    "tasks": [
+      "pronunciamento:100",
+      "pronunciamento:262"
+    ],
+    "name": "Mérito de RG",
+    "color": "grey",
+    "type": "Pronunciamentos"
+  },
+  {
+    "id": "pronunciamento:reconh_rg_reafirm_em_pv",
+    "tasks": [
+      "pronunciamento:101",
+      "pronunciamento:235"
+    ],
+    "name": "Reconh. RG - Reafirm em PV",
+    "color": "grey",
+    "type": "Pronunciamentos"
+  },
+  {
+    "id": "pronunciamento:are_prov_merito_de_rg",
+    "tasks": [
+      
+    ],
+    "name": "ARE prov. Mérito de RG",
+    "color": "grey",
+    "type": "Pronunciamentos"
+  },
+  {
+    "id": "pronunciamento:reafirmacao_juris_em_pv",
+    "tasks": [
+      "pronunciamento:129",
+      "pronunciamento:236"
+    ],
+    "name": "Reafirmação - juris em PV",
+    "color": "grey",
+    "type": "Pronunciamentos"
+  },
+];
+
+/** 
+ * @description O Id é composto pelo ITask.etags[index]
+ * */ 
+export const taskITaskTag: ITaskTag[] = [
+  {
+    "id": "classe-processo:are",
+    "tasks": [
+      "ARE"
+    ],
+    "name": "Classe ARE",
+    "color": "green",
+    "type": "Classes"
+  },
+  {
+    "id": "classe-processo:ai",
+    "tasks": [
+      "AI"
+    ],
+    "name": "Classe AI",
+    "color": "green",
+    "type": "Classes"
+  },
+  {
+    "id": "classe-processo:re",
+    "tasks": [
+      "RE"
+    ],
+    "name": "Classe RE",
+    "color": "green",
+    "type": "Classes"
+  },
+  {
+    "id": "decisoes-minutas:nao-aplicacao-rg-origem",
+    "tasks": [
+      "tipo-analise:nao-aplicacao-rg-origem"
+    ],
+    "name": "RG - retorno da origem",
+    "color": "green",
+    "type": "Tipo de Análise"
+  },
+  {
+    "id": "decisoes-minutas:correcao-saneamento",
+    "tasks": [
+      "tipo-analise:correcao-saneamento"
+    ],
+    "name": "Retorno saneamento",
+    "color": "red",
+    "type": "Tipo de Análise"
+  },
+  {
+    "id": "decisoes-minutas:preparar-analise",
+    "tasks": [
+      "preparar-analise-admissibilidade"
+    ],
+    "name": "Preparar análise",
+    "color": "blue",
+    "type": "Tarefas"
+  },
+  {
+    "id": "decisoes-minutas:realizar-analise",
+    "tasks": [
+      "analisar-pressupostos-objetivos",
+      "analisar-enquadramento-repercussao-geral",
+      "realizar-analise-cotejada"
+    ],
+    "name": "Realizar análise",
+    "color": "blue",
+    "type": "Tarefas"
+  },
+  {
+    "id": "decisoes-minutas:revisar-analise",
+    "tasks": [
+      "revisar-analise-pressupostos-objetivos",
+      "revisar-analise-enquadramento-repercussao-geral",
+      "revisar-analise-cotejada"
+    ],
+    "name": "Revisar análise",
+    "color": "blue",
+    "type": "Tarefas"
+  },
+  {
+    "id": "decisoes-minutas:conferir-revisao",
+    "tasks": [
+      "conferir-revisao-afipo",
+      "conferir-revisao-aerg",
+      "conferir-revisao-acote"
+    ],
+    "name": "Conferir análise",
+    "color": "blue",
+    "type": "Tarefas"
+  },
+  {
+    "id": "decisoes-minutas:aprovar-analise",
+    "tasks": [
+      "aprovar-analise-pressupostos-objetivos",
+      "aprovar-analise-enquadramento-repercussao-geral",
+      "aprovar-analise-cotejada"
+    ],
+    "name": "Aprovar análise",
+    "color": "blue",
+    "type": "Tarefas"
+  },
+  {
+    "id": "decisoes-minutas:corrigir-analise",
+    "tasks": [
+      "corrigir-analise-pressupostos-objetivos",
+      "corrigir-analise-enquadramento-repercussao-geral",
+      "corrigir-analise-cotejada"
+    ],
+    "name": "Corrigir análise",
+    "color": "blue",
+    "type": "Tarefas"
+  },
+  {
+    "id": "decisoes-minutas:reavaliar-pressupostos",
+    "tasks": [
+      "reavaliar-pressupostos-objetivos"
+    ],
+    "name": "Reavaliar pressupostos",
+    "color": "blue",
+    "type": "Tarefas"
+  },
+  {
+    "id": "decisoes-minutas:reavaliar-enquadramento",
+    "tasks": [
+      "reavaliar-enquadramento-repercussao-geral"
+    ],
+    "name": "Reavaliar enquadramento",
+    "color": "blue",
+    "type": "Tarefas"
+  },
+  {
+    "id": "decisoes-minutas:retificar-minuta",
+    "tasks": [
+      "retificar-minuta-afipo-para-assinatura",
+      "retificar-minuta-aerg-para-assinatura",
+      "retificar-minuta-acote-para-assinatura"
+    ],
+    "name": "Retificar minuta",
+    "color": "blue",
+    "type": "Tarefas"
+  },
+  {
+    "id": "decisoes-minutas:aguardar-afetacao",
+    "tasks": [
+      "aguardar-afetacao-ao-plenario-virtual"
+    ],
+    "name": "Aguardar afetação ao PV",
+    "color": "blue",
+    "type": "Tarefas"
+  },
+  {
+    "id": "decisoes-minutas:motivo-inaptidao-9",
+    "tasks": [
+      "motivo-inaptidao-9"
+    ],
+    "name": "Outro",
+    "color": "red",
+    "type": "Óbices"
+  },
+  {
+    "id": "decisoes-minutas:motivo-inaptidao-25",
+    "tasks": [
+      "motivo-inaptidao-25"
+    ],
+    "name": "Ofensa reflexa",
+    "color": "red",
+    "type": "Óbices"
+  },
+  {
+    "id": "decisoes-minutas:motivo-inaptidao-28",
+    "tasks": [
+      "motivo-inaptidao-28"
+    ],
+    "name": "Aus. prequestionamento",
+    "color": "red",
+    "type": "Óbices"
+  },
+  {
+    "id": "decisoes-minutas:motivo-inaptidao-29",
+    "tasks": [
+      "motivo-inaptidao-29"
+    ],
+    "name": "ARE/AI incabível",
+    "color": "red",
+    "type": "Óbices"
+  },
+  {
+    "id": "decisoes-minutas:motivo-inaptidao-30",
+    "tasks": [
+      "motivo-inaptidao-30"
+    ],
+    "name": "Súmula 513",
+    "color": "red",
+    "type": "Óbices"
+  },
+  {
+    "id": "decisoes-minutas:motivo-inaptidao-31",
+    "tasks": [
+      "motivo-inaptidao-31"
+    ],
+    "name": "Súmula 281",
+    "color": "red",
+    "type": "Óbices"
+  },
+  {
+    "id": "decisoes-minutas:motivo-inaptidao-33",
+    "tasks": [
+      "motivo-inaptidao-33"
+    ],
+    "name": "Súmula 287",
+    "color": "red",
+    "type": "Óbices"
+  },
+  {
+    "id": "decisoes-minutas:motivo-inaptidao-34",
+    "tasks": [
+      "motivo-inaptidao-34",
+      "analise-desistencia"
+    ],
+    "name": "Desistência",
+    "color": "red",
+    "type": "Óbices"
+  },
+  {
+    "id": "decisoes-minutas:motivo-inaptidao-35",
+    "tasks": [
+      "motivo-inaptidao-35"
+    ],
+    "name": "Enquadramento em RG",
+    "color": "red",
+    "type": "Óbices"
+  },
+  {
+    "id": "decisoes-minutas:motivo-inaptidao-recurso-prejudicado",
+    "tasks": [
+      "motivo-inaptidao-36",
+      "motivo-inaptidao-37",
+      "motivo-inaptidao-10"
+    ],
+    "name": "Recurso prejudicado",
+    "color": "red",
+    "type": "Óbices"
+  },
+  {
+    "id": "decisoes-minutas:motivo-inaptidao-15",
+    "tasks": [
+      "motivo-inaptidao-15"
+    ],
+    "name": "Súmula 283",
+    "color": "red",
+    "type": "Óbices"
+  },
+  {
+    "id": "decisoes-minutas:motivo-inaptidao-38",
+    "tasks": [
+      "motivo-inaptidao-38"
+    ],
+    "name": "Deserção do RE",
+    "color": "red",
+    "type": "Óbices"
+  },
+  {
+    "id": "decisoes-minutas:motivo-inaptidao-39",
+    "tasks": [
+      "motivo-inaptidao-39"
+    ],
+    "name": "Súmula 284",
+    "color": "red",
+    "type": "Óbices"
+  },
+  {
+    "id": "decisoes-minutas:motivo-inaptidao-40",
+    "tasks": [
+      "motivo-inaptidao-40",
+      "analise-remessa"
+    ],
+    "name": "Remessa indevida",
+    "color": "red",
+    "type": "Óbices"
+  },
+  {
+    "id": "decisoes-minutas:motivo-inaptidao-41",
+    "tasks": [
+      "motivo-inaptidao-41"
+    ],
+    "name": "Irregularidade formal - AI/ARE",
+    "color": "red",
+    "type": "Óbices"
+  },
+  {
+    "id": "decisoes-minutas:motivo-inaptidao-42",
+    "tasks": [
+      "motivo-inaptidao-42"
+    ],
+    "name": "Irregularidade formal - RE",
+    "color": "red",
+    "type": "Óbices"
+  },
+  {
+    "id": "decisoes-minutas:motivo-inaptidao-43",
+    "tasks": [
+      "motivo-inaptidao-43"
+    ],
+    "name": "Intempestividade do ARE/AI",
+    "color": "red",
+    "type": "Óbices"
+  },
+  {
+    "id": "decisoes-minutas:motivo-inaptidao-44",
+    "tasks": [
+      "motivo-inaptidao-44"
+    ],
+    "name": "Intempestividade do RE",
+    "color": "red",
+    "type": "Óbices"
+  },
+  {
+    "id": "decisoes-minutas:motivo-inaptidao-45",
+    "tasks": [
+      "motivo-inaptidao-45"
+    ],
+    "name": "Aus. de tópico de RG",
+    "color": "red",
+    "type": "Óbices"
+  },
+  {
+    "id": "decisoes-minutas:motivo-inaptidao-46",
+    "tasks": [
+      "motivo-inaptidao-46"
+    ],
+    "name": "Súmula 280",
+    "color": "red",
+    "type": "Óbices"
+  },
+  {
+    "id": "decisoes-minutas:motivo-inaptidao-47",
+    "tasks": [
+      "motivo-inaptidao-47"
+    ],
+    "name": "Súmula 279",
+    "color": "red",
+    "type": "Óbices"
+  },
+  {
+    "id": "decisoes-minutas:motivo-inaptidao-48",
+    "tasks": [
+      "motivo-inaptidao-48"
+    ],
+    "name": "Súmula 636",
+    "color": "red",
+    "type": "Óbices"
+  },
+  {
+    "id": "decisoes-minutas:motivo-inaptidao-49",
+    "tasks": [
+      "motivo-inaptidao-49"
+    ],
+    "name": "Súmula 454",
+    "color": "red",
+    "type": "Óbices"
+  },
+  {
+    "id": "decisoes-minutas:motivo-inaptidao-51",
+    "tasks": [
+      "motivo-inaptidao-51"
+    ],
+    "name": "Súmula 735",
+    "color": "red",
+    "type": "Óbices"
+  },
+  {
+    "id": "decisoes-minutas:motivo-inaptidao-55",
+    "tasks": [
+      "motivo-inaptidao-55"
+    ],
+    "name": "Distribuição",
+    "color": "red",
+    "type": "Óbices"
+  },
+  {
+    "id": "ramo-direito:eleitoral",
+    "tasks": [
+      "ramo-direito:eleitoral"
+    ],
+    "name": "Ramo eleitoral",
+    "color": "silver",
+    "type": "Ramos"
+  },
+  {
+    "id": "ramo-direito:criminal",
+    "tasks": [
+      "ramo-direito:criminal"
+    ],
+    "name": "Ramo criminal",
+    "color": "silver",
+    "type": "Ramos"
+  },
+  {
+    "id": "ramo-direito:civel",
+    "tasks": [
+      "ramo-direito:civel"
+    ],
+    "name": "Ramo cível",
+    "color": "silver",
+    "type": "Ramos"
+  },
+  {
+    "id": "ramo-direito:juizados-especiais",
+    "tasks": [
+      "ramo-direito:juizados-especiais"
+    ],
+    "name": "Juizados especiais",
+    "color": "gray",
+    "type": "Origem"
+  },
+  {
+    "id": "direito:civil",
+    "tasks": [
+      "direito:civil"
+    ],
+    "name": "Direito civil",
+    "color": "black",
+    "type": "Assuntos"
+  },
+  {
+    "id": "direito:eleitoral",
+    "tasks": [
+      "direito:eleitoral"
+    ],
+    "name": "Direito eleitoral",
+    "color": "black",
+    "type": "Assuntos"
+  },
+  {
+    "id": "direito:penal",
+    "tasks": [
+      "direito:penal"
+    ],
+    "name": "Direito penal",
+    "color": "black",
+    "type": "Assuntos"
+  },
+  {
+    "id": "direito:penal-militar",
+    "tasks": [
+      "direito:penal-militar"
+    ],
+    "name": "Direito penal militar",
+    "color": "black",
+    "type": "Assuntos"
+  },
+  {
+    "id": "direito:processual-penal",
+    "tasks": [
+      "direito:processual-penal"
+    ],
+    "name": "Direito processual penal",
+    "color": "black",
+    "type": "Assuntos"
+  },
+  {
+    "id": "direito:processual-penal-militar",
+    "tasks": [
+      "direito:processual-penal-militar"
+    ],
+    "name": "Direito processual penal militar",
+    "color": "black",
+    "type": "Assuntos"
+  },
+  {
+    "id": "direito:administrativo",
+    "tasks": [
+      "direito:administrativo"
+    ],
+    "name": "Direito administrativo",
+    "color": "black",
+    "type": "Assuntos"
+  },
+  {
+    "id": "direito:administrativo-ambiental",
+    "tasks": [
+      "direito:administrativo-ambiental"
+    ],
+    "name": "Direito adm. ambiental",
+    "color": "black",
+    "type": "Assuntos"
+  },
+  {
+    "id": "direito:consumidor",
+    "tasks": [
+      "direito:consumidor"
+    ],
+    "name": "Direito do consumidor",
+    "color": "black",
+    "type": "Assuntos"
+  },
+  {
+    "id": "direito:crianca-adolescente",
+    "tasks": [
+      "direito:crianca-adolescente"
+    ],
+    "name": "Direito da crianca e do adolescente",
+    "color": "black",
+    "type": "Assuntos"
+  },
+  {
+    "id": "direito:internacional",
+    "tasks": [
+      "direito:internacional"
+    ],
+    "name": "Direito internacional",
+    "color": "black",
+    "type": "Assuntos"
+  },
+  {
+    "id": "direito:maritimo",
+    "tasks": [
+      "direito:maritimo"
+    ],
+    "name": "Direito marítimo",
+    "color": "black",
+    "type": "Assuntos"
+  },
+  {
+    "id": "direito:previdenciario",
+    "tasks": [
+      "direito:previdenciario"
+    ],
+    "name": "Direito previdenciário",
+    "color": "black",
+    "type": "Assuntos"
+  },
+  {
+    "id": "direito:processual-civil-trabalho",
+    "tasks": [
+      "direito:processual-civil-trabalho"
+    ],
+    "name": "Direito processual civil trabalhista",
+    "color": "black",
+    "type": "Assuntos"
+  },
+  {
+    "id": "direito:saude",
+    "tasks": [
+      "direito:saude"
+    ],
+    "name": "Direito de saúde",
+    "color": "black",
+    "type": "Assuntos"
+  },
+  {
+    "id": "direito:trabalho",
+    "tasks": [
+      "direito:trabalho"
+    ],
+    "name": "Direito do trabalho",
+    "color": "black",
+    "type": "Assuntos"
+  },
+  {
+    "id": "direito:tributario",
+    "tasks": [
+      "direito:tributario"
+    ],
+    "name": "Direito tributário",
+    "color": "black",
+    "type": "Assuntos"
+  },
+  {
+    "id": "direito:registros-publicos",
+    "tasks": [
+      "direito:registros-publicos"
+    ],
+    "name": "Registros públicos",
+    "color": "black",
+    "type": "Assuntos"
   }
 ];

@@ -1,60 +1,29 @@
 <div class="mx-2 flex flex-col gap-2">
-    <mat-accordion>
+    <mat-accordion
+        *ngFor="let tipo of tipos"
+    >
         <mat-expansion-panel
             (opened)="panelOpenState = true"
             (closed)="panelOpenState = false"
         >
             <mat-expansion-panel-header>
                 <mat-panel-title>
-                    Filtro específico
+                    {{tipo}}
                 </mat-panel-title>
             </mat-expansion-panel-header>
 
             <section>
-                <h4>Select your toppings:</h4>
-                <p><mat-checkbox color="primary">Pepperoni</mat-checkbox></p>
-                <p><mat-checkbox color="primary">Extra Cheese</mat-checkbox></p>
-                <p><mat-checkbox color="primary">Mushroom</mat-checkbox></p>
-            </section>
-        </mat-expansion-panel>
-    </mat-accordion>
-
-    <mat-accordion>
-        <mat-expansion-panel
-            (opened)="panelOpenState = true"
-            (closed)="panelOpenState = false"
-        >
-            <mat-expansion-panel-header>
-                <mat-panel-title>
-                    Filtro específico
-                </mat-panel-title>
-            </mat-expansion-panel-header>
-
-            <section>
-                <h4>Select your toppings:</h4>
-                <p><mat-checkbox color="primary">Pepperoni</mat-checkbox></p>
-                <p><mat-checkbox color="primary">Extra Cheese</mat-checkbox></p>
-                <p><mat-checkbox color="primary">Mushroom</mat-checkbox></p>
-            </section>
-        </mat-expansion-panel>
-    </mat-accordion>
-
-    <mat-accordion>
-        <mat-expansion-panel
-            (opened)="panelOpenState = true"
-            (closed)="panelOpenState = false"
-        >
-            <mat-expansion-panel-header>
-                <mat-panel-title>
-                    Filtro específico
-                </mat-panel-title>
-            </mat-expansion-panel-header>
-
-            <section>
-                <h4>Select your toppings:</h4>
-                <p><mat-checkbox color="primary">Pepperoni</mat-checkbox></p>
-                <p><mat-checkbox color="primary">Extra Cheese</mat-checkbox></p>
-                <p><mat-checkbox color="primary">Mushroom</mat-checkbox></p>
+                <h4>Selecione o(s) filtro(s):</h4>
+                <p
+                    *ngFor="let tag of (tags | filtrarTagPorTipo: tags : tipo)"
+                >
+                    <mat-checkbox 
+                        color="primary"
+                        (change)="marcarOuDesmarcarFiltro(tag)"
+                    >
+                        {{tag.name}}
+                    </mat-checkbox>
+                </p>
             </section>
         </mat-expansion-panel>
     </mat-accordion>

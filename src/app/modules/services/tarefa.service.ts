@@ -2,7 +2,7 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { EMPTY, Observable } from 'rxjs';
 import { catchError } from 'rxjs/operators';
-import { ITask } from '../acervo/model/interfaces/itask.interface';
+import { ITask, ITaskTag } from '../acervo/model/interfaces/itask.interface';
 
 @Injectable({
   providedIn: 'root'
@@ -21,6 +21,24 @@ export class TarefaService {
     return this._httpClient.get<ITask[]>('/tasks', {
         params,
     }).pipe(
+        catchError(error => {
+            console.log(error);
+            return EMPTY;
+        }),
+    );
+  }
+
+  public obterListaDeFiltrosTags2(): Observable<ITaskTag[]> {
+    return this._httpClient.get<ITaskTag[]>('/tasks/filters/tags2').pipe(
+        catchError(error => {
+            console.log(error);
+            return EMPTY;
+        }),
+    );
+  }
+
+  public obterListaDeFiltrosTags3(): Observable<ITaskTag[]> {
+    return this._httpClient.get<ITaskTag[]>('/tasks/filters/tags3').pipe(
         catchError(error => {
             console.log(error);
             return EMPTY;
