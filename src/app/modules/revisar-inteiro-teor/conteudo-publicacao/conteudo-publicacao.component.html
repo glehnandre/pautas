@@ -60,7 +60,7 @@
     <mat-divider role="separator" class="mb-4 mx-8"></mat-divider>
 
     <span *ngFor="let documento of documentos; let i = index" class="ml-4">
-        <a (click)="navigateToSection(documento.id)" class="text-primary-700 cursor-pointer underline">
+        <a fragment="documento.id" (click)="navigateToSection(documento.id)" class="text-primary-700 cursor-pointer underline">
             {{ i + 1 }} - {{ documento.documento.nome }}
         </a>
     </span>
@@ -72,7 +72,7 @@
 
         <div class="">
             <div *ngFor="let documento of documentos; let i = index" class="ml-4">
-                <div class="mb-4 mt-12 text-xl w-full text-center font-semibold" id="documento.id">
+                <div class="mb-4 mt-12 text-xl w-full text-center font-semibold" [id]="documento.id">
                     {{ documento.documento.nome }}
                 </div>
 

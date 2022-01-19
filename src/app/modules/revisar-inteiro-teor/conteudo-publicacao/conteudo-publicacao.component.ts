@@ -1,6 +1,7 @@
 import { DatePipe } from '@angular/common';
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, AfterViewInit } from '@angular/core';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
+import { ActivatedRoute } from '@angular/router';
 import { Envolvido } from 'app/modules/acervo/model/interfaces/capitulo.interface';
 import { PublicacaoDto } from 'app/modules/acervo/model/interfaces/publicacaoDto.interface';
 import { publicacao } from 'app/mock-api/pautas/publicacoes/data';
@@ -12,10 +13,12 @@ import { DocumentoInteiroTeor } from 'app/modules/acervo/model/interfaces/docume
   templateUrl: './conteudo-publicacao.component.html',
   styleUrls: ['./conteudo-publicacao.component.scss']
 })
-export class ConteudoPublicacaoComponent implements OnInit {
+export class ConteudoPublicacaoComponent implements OnInit, AfterViewInit {
 
   publicacao: PublicacaoDto = publicacao[0];
   link: SafeResourceUrl;
+
+  fragment: string;
 
   documentos: DocumentoInteiroTeor[];
 
@@ -23,12 +26,23 @@ export class ConteudoPublicacaoComponent implements OnInit {
 
   constructor(
     private _sanitizer: DomSanitizer,
+    private _route: ActivatedRoute
   ) { }
 
   ngOnInit(): void {
     this.link = this._sanitizer.bypassSecurityTrustResourceUrl('');
 
+    this._route.fragment.subscribe(fragment => { this.fragment = fragment; });
+
     this.documentos = this.revisao.documentos.filter((documento) => documento.documento.status !== "Removido");
+  }
+
+  ngAfterViewInit(): void {
+    try {
+      document.getElementById(this.fragment)?.scrollIntoView();
+    } catch (e) {
+      console.log(e);
+    }
   }
 
   public navigateToSection(section: string) {
