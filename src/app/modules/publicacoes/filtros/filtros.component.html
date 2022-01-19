@@ -1,5 +1,4 @@
 <div class="flex flex-col flex-auto w-full">
-
     <!-- Filtros -->
     <mat-accordion class="mx-4" multi aria-label="Lista de Filtros possíveis de serem aplicados às publicações">
 
@@ -100,11 +99,11 @@
     </mat-accordion>
 
     <!-- Compose button -->
-    <div class="m-4 flex flex-col space-y-2">
-        <button mat-flat-button [color]="'warn'" (click)="limparFiltros()">
+    <div class="mx-4 mb-4 flex flex-col-reverse md:flex-col">
+        <button class="mt-2" mat-flat-button [color]="'warn'" (click)="limparFiltros()">
             <span class="ml-2">Limpar Filtros</span>
         </button>
-        <button mat-flat-button [color]="'primary'" (click)="filtrar()">
+        <button class="mt-2" mat-flat-button [color]="'primary'" (click)="filtrar()">
             <mat-icon [svgIcon]="'heroicons_outline:filter'"></mat-icon>
             <span class="ml-2">Filtrar</span>
         </button>
