@@ -2,6 +2,7 @@ import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { MatCheckboxChange } from '@angular/material/checkbox';
 import { InformacoesDto } from 'app/modules/acervo/model/interfaces/informacoesDto.interface';
+import { AlertaService } from 'app/modules/services/alerta.service';
 
 interface Filtros {
   agregacao: InformacoesDto;
@@ -35,7 +36,9 @@ export class FiltrosComponent implements OnInit{
 
   filtrados: Filtrados[] = [];
 
-  constructor() { }
+  constructor(
+    private alertaService: AlertaService,
+  ) { }
 
   ngOnInit(): void {
   }
@@ -73,6 +76,7 @@ export class FiltrosComponent implements OnInit{
         filtro.selecionados.splice(filtro.selecionados.indexOf(name), 1);
       })
     }
+    this.alertaFiltroVazio();
   }
 
   /**
@@ -92,6 +96,7 @@ export class FiltrosComponent implements OnInit{
         data_fim: this.data_fim
       });
     }
+    this.alertaFiltroVazio();
   }
 
   /**
@@ -109,11 +114,24 @@ export class FiltrosComponent implements OnInit{
       data_fim: this.data_fim
     });
 
+    this.pesquisas.forEach(pesquisa =>
+      this.removido.emit(pesquisa))
+    this.pesquisas.splice(0, this.pesquisas.length);
     this.limparDatas();
   }
 
   selecionado(filtro: any, descricao: string): boolean {
     return filtro.selecionados.find(selecionado => selecionado === descricao) ? true: false;
+  }
+
+  alertaFiltroVazio() {
+    const isFiltros = this.filtros.filter(filtro => filtro.selecionados.length > 0).length > 0,
+          isPequisas = this.pesquisas.length > 0,
+          isData = this.data_inicio !== null && this.data_fim !== null;
+    if(!(isFiltros || isPequisas || isData)) {
+      this.alertaService.exibirAlertaDeErro('Filtro Vazio', 100000);
+      console.log('Filtro Vazio')
+    }
   }
 
   /**
