@@ -1,0 +1,83 @@
+<fuse-card class="flex flex-col w-full filter-post filter-interactive border-solid border-2" style="border-radius: 0px;">
+    <fuse-card class="flex flex-col w-full filter-post filter-interactive" style="box-shadow: none; border-radius: 0px;" #expandableCard02="fuseCard">
+        <div class="flex items-center text-white"  style="background: #47A6E0;">
+            <div class="flex flex-col w-1/12 min-w-22 h-20 justify-center items-center font-bold" style="background: #2A6894;">
+                <span class="text-4xl">
+                    <mat-icon style="color: white;">calendar_today</mat-icon>
+                    {{getData(publicacao?.publicacao, true) | slice:0:2}}
+                </span>
+                <span class="text-xl mt-2">{{getData(publicacao?.publicacao, true) | slice:3:11}}</span>
+            </div>
+            <div class="flex flex-col ml-4 gap-2">
+                <span class="font-semibold leading-none text-2xl">{{ publicacao?.processo }}</span>
+                <span>Relatoria: <span class="font-semibold leading-none">{{publicacao?.relator | uppercase}}</span></span>
+            </div>
+            <div class="hidden sm:flex ml-auto -mr-4">
+                <button class="nml-auto text-black bg-white mr-8 border-solid border-2 border-primary-800" mat-button (click)="abrirLink(publicacao)">
+                    <mat-icon class="mr-2" style="color:red">picture_as_pdf</mat-icon>
+                    <span>Baixar PDF</span>
+                </button>
+            </div>
+            <div class="sm:hidden ml-auto">
+                <button
+                    class="flex p-2 mr-4 bg-white rounded-full text-white text-sm ml-auto items-center border-solid border-2 border-primary-800"
+                    [routerLink]="['./']"
+                    >
+                    <mat-icon class="" style="color:red;">picture_as_pdf</mat-icon>
+                </button>
+            </div>
+        </div>
+
+        <ng-container fuseCardExpansion>
+            <div class="flex-1 mx-8 grid grid-cols-1 md:grid-cols-2">
+                <div class="mr-4 my-2">
+                    <div *ngFor="let left of envolvidosLeft(publicacao?.envolvidos)" class="flex flex-row flex-wrap">
+                        <span class="text-accent-500 mr-1">{{left?.categoria}}</span> <span class="font-medium">{{left?.nome}}</span>
+                        <div *ngFor="let identificacao of left?.identificacoes"
+                            class="ml-2 mr-8 text-accent-500 mb-2 truncate"
+                            [aria-label]="identificacao">
+                                {{"| "+identificacao}}
+                        </div>
+                    </div>
+                </div>
+                <div class="my-2">
+                    <div *ngFor="let right of envolvidosRight(publicacao?.envolvidos)" class="flex flex-row flex-wrap">
+                        <span class="text-accent-500 mr-1">{{right?.categoria}}</span> <span class="font-medium">{{right?.nome}}</span>
+                        <div *ngFor="let identificacao of right?.identificacoes"
+                            class="ml-2 text-accent-500 mb-2 truncate"
+                            [aria-label]="identificacao">
+                                {{"| "+identificacao}}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </ng-container>
+    </fuse-card>
+
+    <u class="mx-auto text-primary-700 mt-2" (click)="expandableCard02.expanded = !expandableCard02.expanded" style="cursor: pointer;">
+        {{(expandableCard02.expanded) ? "Recolher todas as partes" : "Exibir todas as partes"}}
+    </u>
+    <mat-divider role="separator" class="mb-4 mx-8"></mat-divider>
+
+    <span *ngFor="let documento of documentos; let i = index" class="ml-4">
+        <a (click)="navigateToSection(documento.id)" class="text-primary-700 cursor-pointer underline">
+            {{ i + 1 }} - {{ documento.documento.nome }}
+        </a>
+    </span>
+
+    <div class="my-4 text-3xl w-full text-center font-semibold">
+        INTEIRO TEOR
+    </div>
+
+    <div class="">
+        <div *ngFor="let documento of documentos; let i = index" class="ml-4">
+            <div class="mb-4 mt-12 text-xl w-full text-center font-semibold" id="documento.id">
+                {{ documento.documento.nome }}
+            </div>
+
+            <div [innerHtml]="documento.documento.textoSemFormatacao" class="mx-6 my-4 sm:mx-8"></div>
+
+            <mat-divider role="separator" class="mb-4 mx-8"></mat-divider>
+        </div>
+    </div>
+</fuse-card>
