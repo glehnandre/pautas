@@ -18,6 +18,7 @@ import { MatDividerModule } from '@angular/material/divider';
 import { FuseAlertModule } from '@fuse/components/alert';
 import { FuseDrawerModule } from '@fuse/components/drawer';
 import { FuseCardModule } from '@fuse/components/card';
+import { FuseScrollbarModule } from '@fuse/directives/scrollbar';
 import { TabelaComponent } from './tabela/tabela.component';
 import { AcoesModule } from './acoes/acoes.module';
 import { VisualizadorInteiroTeorComponent } from './visualizador-inteiro-teor/visualizador-inteiro-teor.component';
@@ -55,6 +56,7 @@ const revisarInteiroTeorRoutes: Route[] = [
     FuseAlertModule,
     FuseDrawerModule,
     FuseCardModule,
+    FuseScrollbarModule,
     DragDropModule,
     AcoesModule
   ]

@@ -65,19 +65,21 @@
         </a>
     </span>
 
-    <div class="my-4 text-3xl w-full text-center font-semibold">
-        INTEIRO TEOR
-    </div>
+    <div class="h-96" fuseScrollbar [fuseScrollbarOptions]="{wheelPropagation: false, suppressScrollX: true}">
+        <div class="my-4 text-3xl w-full text-center font-semibold">
+            INTEIRO TEOR
+        </div>
 
-    <div class="">
-        <div *ngFor="let documento of documentos; let i = index" class="ml-4">
-            <div class="mb-4 mt-12 text-xl w-full text-center font-semibold" id="documento.id">
-                {{ documento.documento.nome }}
+        <div class="">
+            <div *ngFor="let documento of documentos; let i = index" class="ml-4">
+                <div class="mb-4 mt-12 text-xl w-full text-center font-semibold" id="documento.id">
+                    {{ documento.documento.nome }}
+                </div>
+
+                <div [innerHtml]="documento.documento.textoSemFormatacao" class="mx-6 my-4 sm:mx-8"></div>
+
+                <mat-divider role="separator" class="mb-4 mx-8"></mat-divider>
             </div>
-
-            <div [innerHtml]="documento.documento.textoSemFormatacao" class="mx-6 my-4 sm:mx-8"></div>
-
-            <mat-divider role="separator" class="mb-4 mx-8"></mat-divider>
         </div>
     </div>
 </fuse-card>
