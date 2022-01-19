@@ -14,9 +14,14 @@ import { MatTableModule } from '@angular/material/table';
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
+import { MatDividerModule } from '@angular/material/divider';
 import { FuseAlertModule } from '@fuse/components/alert';
+import { FuseDrawerModule } from '@fuse/components/drawer';
+import { FuseCardModule } from '@fuse/components/card';
 import { TabelaComponent } from './tabela/tabela.component';
 import { AcoesModule } from './acoes/acoes.module';
+import { VisualizadorInteiroTeorComponent } from './visualizador-inteiro-teor/visualizador-inteiro-teor.component';
+import { ConteudoPublicacaoComponent } from './conteudo-publicacao/conteudo-publicacao.component';
 
 const revisarInteiroTeorRoutes: Route[] = [
     {
@@ -29,6 +34,8 @@ const revisarInteiroTeorRoutes: Route[] = [
   declarations: [
     RevisarInteiroTeorComponent,
     TabelaComponent,
+    VisualizadorInteiroTeorComponent,
+    ConteudoPublicacaoComponent,
   ],
   imports: [
     CommonModule,
@@ -44,7 +51,10 @@ const revisarInteiroTeorRoutes: Route[] = [
     MatTableModule,
     MatFormFieldModule,
     MatInputModule,
+    MatDividerModule,
     FuseAlertModule,
+    FuseDrawerModule,
+    FuseCardModule,
     DragDropModule,
     AcoesModule
   ]

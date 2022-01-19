@@ -6,11 +6,13 @@ import { BehaviorSubject, Observable } from 'rxjs';
 import { DocumentoInteiroTeor } from '../acervo/model/interfaces/documento-inteiro-teor.interface';
 import { Documento } from '../acervo/model/interfaces/documento.interface';
 import { Processo } from '../acervo/model/interfaces/processo.interface';
+import { PublicacaoDto } from '../acervo/model/interfaces/publicacaoDto.interface';
 import { SessaoJulgamento } from '../acervo/model/interfaces/sessao-julgamento.interface';
 import { Tag } from '../acervo/model/interfaces/tag.interface';
 import { ProcessoService } from '../services/processo.service';
 import { AlertaService } from '../services/alerta.service';
 import { RevisarInteiroTeorService } from '../services/revisar-inteiro-teor.service';
+import { publicacao } from '../../mock-api/pautas/publicacoes/data';
 
 export interface RevisaoInteiroTeor {
   id_processo: number;
@@ -34,8 +36,10 @@ export class RevisarInteiroTeorComponent implements OnInit {
   documentosDoProcesso: Documento[];
   revisoes: RevisaoInteiroTeor;
   link: SafeResourceUrl;
+  publicacao: PublicacaoDto | SafeResourceUrl;
   nomesDasSessoes: string[] = [];
   documentoSelecionado: DocumentoInteiroTeor | null = null;
+  conteudo: PublicacaoDto = publicacao[0];
 
   displayedColumns: string[] = ['autor', 'responsavel', 'comentarios', 'documento', 'data', 'situacao', 'arquivo'];
   dataSource = new DataSourceInteiroTeor([]);
@@ -95,6 +99,11 @@ export class RevisarInteiroTeorComponent implements OnInit {
     this.revisoes = revisao;
 
     this.dataSource = new DataSourceInteiroTeor(this.revisoes.documentos);
+  }
+
+  public abrirPublicacao(publicacao: PublicacaoDto): void {
+    // this.publicacao = publicacao;
+    this.publicacao = this._sanitize.bypassSecurityTrustResourceUrl('/assets/pdf/voto-marco-aurelio-relator-adi6185-Ed.pdf');
   }
 
   /**
