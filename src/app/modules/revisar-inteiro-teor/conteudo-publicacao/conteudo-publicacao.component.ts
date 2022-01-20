@@ -34,7 +34,7 @@ export class ConteudoPublicacaoComponent implements OnInit, AfterViewInit {
 
     this._route.fragment.subscribe(fragment => { this.fragment = fragment; });
 
-    this.documentos = this.revisao.documentos.filter((documento) => documento.documento.status !== "Removido");
+    this.documentos = this.revisao?.documentos?.filter((documento) => documento.documento.status !== "Removido");
   }
 
   ngAfterViewInit(): void {

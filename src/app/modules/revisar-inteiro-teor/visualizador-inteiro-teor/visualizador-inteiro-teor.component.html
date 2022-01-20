@@ -1,31 +1,27 @@
-<div class="flex-auto overflow-y-auto px-8 py-4" cdkScrollable>
-    <fuse-drawer
-        *ngIf="link"
-        id="visualizador-pdf"
-        [name]="nome"
-        [opened]="false"
-        [position]="posicao"
-        [mode]="'over'"
-    >
-        <div class="w-screen">
-            <button
-                class="bg-red-500 mt-22 position-left-90 absolute"
-                mat-icon-button
-                [tabIndex]="-1"
-                [style.z-index]="1"
-                (click)="toggleDrawerOpen()"
-            >
-                <mat-icon class="text-current text-white" [svgIcon]="'heroicons_outline:x'"></mat-icon>
-            </button>
+<fuse-drawer
+    id="visualizador-pdf"
+    [name]="nome"
+    [opened]="false"
+    [position]="posicao"
+    [mode]="'over'"
+>
+    <div class="w-screen">
+        <button
+            class="bg-red-500 mt-22 position-left-90 absolute"
+            mat-icon-button
+            [tabIndex]="-1"
+            [style.z-index]="1"
+            (click)="toggleDrawerOpen()"
+        >
+            <mat-icon class="text-current text-white" [svgIcon]="'heroicons_outline:x'"></mat-icon>
+        </button>
 
-            <app-conteudo-publicacao
-                #publicacao
-                [publicacao]="publicacao"
-                [revisao]="revisao"
-            ></app-conteudo-publicacao>
-        </div>
-    </fuse-drawer>
-</div>
+        <app-conteudo-publicacao
+            #publicacao
+            [revisao]="revisao"
+        ></app-conteudo-publicacao>
+    </div>
+</fuse-drawer>
 
 
 
