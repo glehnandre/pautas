@@ -1,8 +1,8 @@
-import { Component, OnInit, Input, OnChanges } from '@angular/core';
-import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
+import { Component, OnInit, Input, OnChanges, ViewChild } from '@angular/core';
+import { SafeResourceUrl } from '@angular/platform-browser';
 import { FuseDrawerService } from '@fuse/components/drawer';
 import { PublicacaoDto } from 'app/modules/acervo/model/interfaces/publicacaoDto.interface';
-import { Voto } from 'app/modules/acervo/model/interfaces/voto.interface';
+import { ConteudoPublicacaoComponent } from '../conteudo-publicacao/conteudo-publicacao.component';
 import { RevisaoInteiroTeor } from '../revisar-inteiro-teor.component';
 
 @Component({
@@ -20,6 +20,8 @@ export class VisualizadorInteiroTeorComponent implements OnInit, OnChanges {
 
   @Input() revisao: RevisaoInteiroTeor;
 
+  @ViewChild('publicacao') _conteudoPublicacao: ConteudoPublicacaoComponent;
+
   constructor(
     private _fuseDrawerService: FuseDrawerService,
   ) { }
@@ -31,6 +33,8 @@ export class VisualizadorInteiroTeorComponent implements OnInit, OnChanges {
     if (this.link && this.link['changingThisBreaksApplicationSecurity'] !== '') {
         this.toggleDrawerOpen();
     }
+
+    this._conteudoPublicacao?.atualizarRevisao(this.revisao);
   }
 
   public toggleDrawerOpen(): void {
