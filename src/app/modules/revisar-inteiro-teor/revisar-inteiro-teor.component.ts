@@ -101,8 +101,7 @@ export class RevisarInteiroTeorComponent implements OnInit {
     this.dataSource = new DataSourceInteiroTeor(this.revisoes.documentos);
   }
 
-  public abrirPublicacao(publicacao: PublicacaoDto): void {
-    // this.publicacao = publicacao;
+  public abrirPublicacao(): void {
     this.publicacao = this._sanitize.bypassSecurityTrustResourceUrl('/assets/pdf/voto-marco-aurelio-relator-adi6185-Ed.pdf');
   }
 

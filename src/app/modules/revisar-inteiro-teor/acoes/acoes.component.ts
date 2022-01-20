@@ -47,7 +47,7 @@ export class AcoesComponent implements OnInit {
   }
 
   public visualizarInteiroTeor(): void {
-    this.publicacao.emit(publicacao[0]);
+    this.publicacao.emit();
   }
 
   /**
