@@ -6,6 +6,7 @@ import { PublicacaoService } from '../services/publicacao.service';
 import { PublicacaoDto } from '../acervo/model/interfaces/publicacaoDto.interface';
 import { InformacoesDto } from '../acervo/model/interfaces/informacoesDto.interface';
 import { ActivatedRoute, Params, Router } from '@angular/router';
+import { AlertaService } from '../services/alerta.service';
 
 
 @Component({
@@ -37,6 +38,7 @@ export class PublicacoesComponent implements OnInit, OnDestroy {
 
   constructor(
     private _fuseMediaWatcherService: FuseMediaWatcherService,
+    private _alertaService: AlertaService,
     private _publicacaoService: PublicacaoService,
     private _route: ActivatedRoute,
     private _router: Router,
@@ -47,10 +49,10 @@ export class PublicacoesComponent implements OnInit, OnDestroy {
      */
   ngOnInit(): void {
     this._router.navigate(
-      [], 
+      [],
       {
         relativeTo: this._route,
-        queryParams: null, 
+        queryParams: null,
         replaceUrl: true,
       });
     // Subscribe to media changes
@@ -149,9 +151,9 @@ export class PublicacoesComponent implements OnInit, OnDestroy {
           || publicacao.envolvidos.find(envolvido=>envolvido.nome.toLowerCase().includes(termo.toLowerCase()))
           || publicacao.envolvidos.find(envolvido=>envolvido.identificacoes.find(identificacao=>identificacao.toLowerCase().includes(termo.toLowerCase())));
     })
-    
+
     return filtros;
-    
+
   }
 
   /**
@@ -163,9 +165,9 @@ export class PublicacoesComponent implements OnInit, OnDestroy {
     let str = [];
     if(termo.indexOf('"')==-1)
       str1 = termo.split(' ');
-    else 
+    else
       str1 = termo.split('"');
-    
+
     str1.forEach(string=>{
       if(string!='') str.push(string);
     })
@@ -181,7 +183,7 @@ export class PublicacoesComponent implements OnInit, OnDestroy {
     let filtrados = [];
     let tipos = [];
     let params = [];
-    
+
     while(filtrar[0]){
       tipos.push(filtrar[0].tipo);
       filtrar.forEach(filtro=>{
@@ -192,7 +194,7 @@ export class PublicacoesComponent implements OnInit, OnDestroy {
       })
       this.filtrados = filtrados;
       this.trataExibidos();
-      
+
       this.tiposParams.push(filtrar[0].tipo);
       this.montaParams(filtrar[0].tipo, params);
 
@@ -249,21 +251,21 @@ export class PublicacoesComponent implements OnInit, OnDestroy {
       this.montaParams("data", [data_inicio.toISOString() + "_" + data_fim.toISOString()])
       filtros = this.publicacoes.filter(publicacao=>{
         let day: number;
-        
+
         if(publicacao.publicacao.length>10)
           day = new Date(publicacao.publicacao).getDate();
         else
           day = new Date(publicacao.publicacao).getDate()+1;
-          
+
         const data_publicacao = new Date(new Date(publicacao.publicacao).setDate(day));
-        
-        return data_publicacao >= data_inicio 
+
+        return data_publicacao >= data_inicio
             && data_publicacao <= data_fim;
       })
         this.filtrados = filtros;
         this.trataExibidos();
     }
-    
+
     this.refazPesquisa();
   }
 
@@ -307,14 +309,19 @@ export class PublicacoesComponent implements OnInit, OnDestroy {
       else param += `_${descricao}`
     })
     this.queryParams = { [tipo]: param };
-    
+
     this._router.navigate(
-      [], 
+      [],
       {
         relativeTo: this._route,
-        queryParams: this.queryParams, 
+        queryParams: this.queryParams,
         queryParamsHandling: 'merge',
       });
   }
 
+  alertaFiltroVazio() {
+    if(this.pesquisas.length == 0) {
+      this._alertaService.exibirAlerta('Filtro Vazio');
+    }
+  }
 }

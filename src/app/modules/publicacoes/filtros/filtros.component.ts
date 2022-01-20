@@ -28,6 +28,7 @@ export class FiltrosComponent implements OnInit{
   @Output() removeFiltros = new EventEmitter<any>();
   @Output() emiteData = new EventEmitter<any>();
   @Output() emiteProcesso = new EventEmitter<any>();
+  @Output() emiteAlerta = new EventEmitter<void>();
 
   filtros: Filtros[] = [];
   data_inicio: Date = new Date();
@@ -36,9 +37,7 @@ export class FiltrosComponent implements OnInit{
 
   filtrados: Filtrados[] = [];
 
-  constructor(
-    private alertaService: AlertaService,
-  ) { }
+  constructor() { }
 
   ngOnInit(): void {
   }
@@ -76,7 +75,6 @@ export class FiltrosComponent implements OnInit{
         filtro.selecionados.splice(filtro.selecionados.indexOf(name), 1);
       })
     }
-    this.alertaFiltroVazio();
   }
 
   /**
@@ -126,11 +124,9 @@ export class FiltrosComponent implements OnInit{
 
   alertaFiltroVazio() {
     const isFiltros = this.filtros.filter(filtro => filtro.selecionados.length > 0).length > 0,
-          isPequisas = this.pesquisas.length > 0,
           isData = this.data_inicio !== null && this.data_fim !== null;
-    if(!(isFiltros || isPequisas || isData)) {
-      this.alertaService.exibirAlertaDeErro('Filtro Vazio', 100000);
-      console.log('Filtro Vazio')
+    if(!(isFiltros || isData)) {
+      this.emiteAlerta.emit();
     }
   }
 
