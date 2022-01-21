@@ -1,7 +1,8 @@
 import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
-import { FormControl, Validators } from '@angular/forms';
+import { FormControl } from '@angular/forms';
 import { MatCheckboxChange } from '@angular/material/checkbox';
 import { InformacoesDto } from 'app/modules/acervo/model/interfaces/informacoesDto.interface';
+import { AlertaService } from 'app/modules/services/alerta.service';
 
 interface Filtros {
   agregacao: InformacoesDto;
@@ -27,6 +28,7 @@ export class FiltrosComponent implements OnInit{
   @Output() removeFiltros = new EventEmitter<any>();
   @Output() emiteData = new EventEmitter<any>();
   @Output() emiteProcesso = new EventEmitter<any>();
+  @Output() emiteAlerta = new EventEmitter<void>();
 
   filtros: Filtros[] = [];
   data_inicio: Date = new Date();
@@ -59,7 +61,7 @@ export class FiltrosComponent implements OnInit{
     const tipo = this.agregacoes.find(agregacao=>agregacao.itens.find(item=>item.descricao==name)).nome;
     if(status.checked){
       this.filtrados.push({filtro: name, tipo: tipo});
-      
+
       this.filtros.forEach(filtro=>{
         if(filtro.agregacao.itens.find(item=>item.descricao==name))
         filtro.selecionados.push(name);
@@ -67,12 +69,12 @@ export class FiltrosComponent implements OnInit{
     }
     else{
       this.filtrados.splice(this.filtrados.indexOf(this.filtrados.find(filtrado=>filtrado.filtro==name)), 1);
-      
+
       this.filtros.forEach(filtro=>{
         if(filtro.agregacao.itens.find(item=>item.descricao==name))
         filtro.selecionados.splice(filtro.selecionados.indexOf(name), 1);
       })
-    } 
+    }
   }
 
   /**
@@ -85,15 +87,49 @@ export class FiltrosComponent implements OnInit{
     if(this.filtrados[0]){
       this.emiteFiltros.emit(this.filtrados);
       this.filtrados = emitir;
-    } 
+    }
     else{
       this.removeFiltros.emit({
         data_inicio: this.data_inicio,
         data_fim: this.data_fim
       });
-    } 
+    }
+    this.alertaFiltroVazio();
   }
-  
+
+  /**
+   * Apaga todos os dados no filtro
+   */
+  limparFiltros() {
+    this.filtrados.splice(0, this.filtrados.length);
+
+    this.filtros.forEach(filtro=>{
+      filtro.selecionados.splice(0, filtro.selecionados.length);
+    });
+
+    this.removeFiltros.emit({
+      data_inicio: this.data_inicio,
+      data_fim: this.data_fim
+    });
+
+    this.pesquisas.forEach(pesquisa =>
+      this.removido.emit(pesquisa))
+    this.pesquisas.splice(0, this.pesquisas.length);
+    this.limparDatas();
+  }
+
+  selecionado(filtro: any, descricao: string): boolean {
+    return filtro.selecionados.find(selecionado => selecionado === descricao) ? true: false;
+  }
+
+  alertaFiltroVazio() {
+    const isFiltros = this.filtros.filter(filtro => filtro.selecionados.length > 0).length > 0,
+          isData = this.data_inicio !== null && this.data_fim !== null;
+    if(!(isFiltros || isData)) {
+      this.emiteAlerta.emit();
+    }
+  }
+
   /**
    * Retorna um array da interface Filtros, que será usado na geração dos
    * componentes dos filtros dinâmicos no arquivo html
@@ -127,20 +163,20 @@ export class FiltrosComponent implements OnInit{
   }
 
   /**
-   * Trata o evento que contém a data de inicio para conter apenas a data 
+   * Trata o evento que contém a data de inicio para conter apenas a data
    * @param event momentum que contem a data selecionada
    */
   trataDataInicio(event: any){
-    if(event.value) 
+    if(event.value)
       this.data_inicio = event.value._d;
   }
 
   /**
-   * Trata o evento que contém a data de fim para conter apenas a data 
+   * Trata o evento que contém a data de fim para conter apenas a data
    * @param event momentum que contem a data selecionada
    */
   trataDataFim(event: any){
-    if(event.value) 
+    if(event.value)
       this.data_fim = event.value._d;
   }
 

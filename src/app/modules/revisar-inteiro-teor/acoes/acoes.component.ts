@@ -5,6 +5,7 @@ import { DocumentoInteiroTeor } from '../../acervo/model/interfaces/documento-in
 import { SessaoJulgamento } from '../../acervo/model/interfaces/sessao-julgamento.interface';
 import { Tag } from '../../acervo/model/interfaces/tag.interface';
 import { Documento } from '../../acervo/model/interfaces/documento.interface';
+import { publicacao } from '../../../mock-api/pautas/publicacoes/data';
 import { RevisarInteiroTeorService } from '../../services/revisar-inteiro-teor.service';
 import { IncluirDocumentoComponent } from './incluir-documento/incluir-documento.component';
 
@@ -32,6 +33,7 @@ export class AcoesComponent implements OnInit {
   @Input() documentosInteiroTeor: DocumentoInteiroTeor[];
   @Output() todosOsCheckboxSelecionados = new EventEmitter();
   @Output() revisoesAlteradas = new EventEmitter();
+  @Output() publicacao = new EventEmitter();
 
   readonly NOME_DO_ALERTA_DESTA_CLASSE = 'alerta_revisar_inteiro_teor';
 
@@ -45,7 +47,7 @@ export class AcoesComponent implements OnInit {
   }
 
   public visualizarInteiroTeor(): void {
-    console.log("visualizar");
+    this.publicacao.emit();
   }
 
   /**

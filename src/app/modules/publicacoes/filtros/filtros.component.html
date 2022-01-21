@@ -1,5 +1,4 @@
 <div class="flex flex-col flex-auto w-full">
-
     <!-- Filtros -->
     <mat-accordion class="mx-4" multi aria-label="Lista de Filtros possíveis de serem aplicados às publicações">
 
@@ -10,7 +9,7 @@
                     Palavra Chave
                 </mat-panel-title>
             </mat-expansion-panel-header>
-    
+
             <section class="flex flex-row flex-wrap">
                 <mat-chip-list *ngFor="let pesquisa of pesquisas" #chipsfiltros aria-label="Filtros aplicados ao resultado" class="mx-4 mb-6">
                     <mat-chip [removable]="true" (removed)="removePesquisa(pesquisa)">
@@ -29,14 +28,14 @@
                     Período
                 </mat-panel-title>
             </mat-expansion-panel-header>
-    
+
             <section class="">
                 <mat-form-field class="w-full" appearance="fill">
                     <mat-date-range-input [rangePicker]="picker">
                         <input matStartDate placeholder="Início" name="data_inicio" [(ngModel)]="data_inicio" (dateChange)="trataDataInicio($event)">
                         <input matEndDate placeholder="Fim" name="data_fim" [(ngModel)]="data_fim" (dateChange)="trataDataFim($event)">
                     </mat-date-range-input>
-    
+
                     <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                     <mat-date-range-picker #picker></mat-date-range-picker>
                 </mat-form-field>
@@ -52,7 +51,7 @@
                     Número do processo
                 </mat-panel-title>
             </mat-expansion-panel-header>
-    
+
             <section class="">
                 <mat-form-field appearance="fill" class="w-full">
                     <input matInput name="outros" [formControl]="numeroProcesso">
@@ -85,8 +84,9 @@
                 <p *ngFor="let item of filtro.agregacao.itens">
                     <mat-checkbox
                         [name]="item.descricao"
-                        [color]="'primary'" 
-                        aria-label="Clique para incluir" 
+                        [checked]="selecionado(filtro, item.descricao)"
+                        [color]="'primary'"
+                        aria-label="Clique para incluir"
                         role="checkbox"
                         (change)="atualizaFiltros($event)"
                     >
@@ -99,8 +99,13 @@
     </mat-accordion>
 
     <!-- Compose button -->
-    <button class="m-8" mat-flat-button [color]="'primary'" (click)="filtrar()">
-        <mat-icon [svgIcon]="'heroicons_outline:filter'"></mat-icon>
-        <span class="ml-2">Filtrar</span>
-    </button>
+    <div class="mx-4 mb-4 flex flex-col-reverse md:flex-col">
+        <button class="mt-2" mat-flat-button [color]="'warn'" (click)="limparFiltros()">
+            <span class="ml-2">Limpar Filtros</span>
+        </button>
+        <button class="mt-2" mat-flat-button [color]="'primary'" (click)="filtrar()">
+            <mat-icon [svgIcon]="'heroicons_outline:filter'"></mat-icon>
+            <span class="ml-2">Filtrar</span>
+        </button>
+    </div>
 </div>

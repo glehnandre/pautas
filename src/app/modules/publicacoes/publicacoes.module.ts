@@ -25,6 +25,7 @@ import { EmptyLayoutModule } from 'app/layout/layouts/empty/empty.module';
 import { PublicacoesComponent } from './publicacoes.component';
 import { FiltrosComponent } from './filtros/filtros.component';
 import { TextosComponent } from './textos/textos.component';
+import { SharedModule } from 'app/shared/shared.module';
 
 
 
@@ -60,6 +61,7 @@ const PublicacoesRoutes: Routes = [
     MatExpansionModule,
     FormsModule,
     ReactiveFormsModule,
+    SharedModule,
   ],
   exports:[
     PublicacoesComponent

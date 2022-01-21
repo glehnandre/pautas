@@ -37,6 +37,7 @@
             [documentosInteiroTeor]="revisoes?.documentos"
             (todosOsCheckboxSelecionados)="selecionarOuDeselecionarTodosOsCheckbox()"
             (revisoesAlteradas)="atualizarConteudo($event)"
+            (publicacao)="abrirPublicacao()"
         ></app-acoes>
     </header>
 
@@ -59,6 +60,14 @@
     [link]="link"
     [posicao]="'left'"
 ></app-visualizador-pdf>
+
+<app-visualizador-inteiro-teor
+    [nome]="'visualizador-inteiro-teor'"
+    [link]="publicacao"
+    [conteudo]="conteudo"
+    [posicao]="'left'"
+    [revisao]="revisoes"
+></app-visualizador-inteiro-teor>
 
 <app-alerta
     [nome]="NOME_DO_ALERTA_DESTA_CLASSE"
