@@ -25,10 +25,7 @@ export class TaskMockApi {
 
                 const gruposDeTasks = this.sliceIntoChunks(this._tasks, itens);
 
-                return [200, {
-                    data: gruposDeTasks[page],
-                    totalDeItens: this._tasks.length,
-                }];
+                return [200, this._tasks];
             });
 
         this._fuseMockApiService

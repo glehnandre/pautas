@@ -13,7 +13,7 @@ export class MinhasTarefasComponent implements OnInit {
     urlSelecionada: boolean = false;
 
     panelOpenState: boolean = false;
-    filtrosSelecionados: ITaskTag[] = [];
+    filtrosSelecionados: any;
 
     constructor(
         private _sanitizer: DomSanitizer,
@@ -33,8 +33,8 @@ export class MinhasTarefasComponent implements OnInit {
         this.url = this._sanitizer.bypassSecurityTrustResourceUrl('/acervo');
     }
 
-    public obterFiltrosSelecionados(filtros: ITaskTag[]): void {
-        this.filtrosSelecionados = [...filtros];
+    public obterFiltrosSelecionados(filtros: any): void {
+        this.filtrosSelecionados = filtros;
     }
 
 }

@@ -31,7 +31,7 @@ export class TabelaComponent implements OnInit, AfterViewInit, OnDestroy, OnChan
 
     @ViewChild(MatPaginator) paginator: MatPaginator;
 
-    @Input() filtros: ITaskTag[];
+    @Input() filtros: any;
 
     constructor(
         private _tarefaService: TarefaService,
@@ -44,10 +44,11 @@ export class TabelaComponent implements OnInit, AfterViewInit, OnDestroy, OnChan
     ngOnChanges(changes: SimpleChanges): void {
         console.log(changes)
         if (changes.filtros.firstChange === false) {
+            this.paginator.firstPage();
             this._filtrarListaDeTarefas();
         }
 
-        if (changes.filtros.currentValue.length === 0 && !changes.filtros.firstChange) {
+        if (changes.filtros.currentValue === null) {
             this._carregarTarefas();
         }
     }
@@ -115,19 +116,23 @@ export class TabelaComponent implements OnInit, AfterViewInit, OnDestroy, OnChan
         return [];
     }
 
-    private _carregarTarefas(): void {
-        merge(this.paginator.page, this.filtros)
+    private _carregarTarefas(tarefas: ITask[] = []): void {
+        merge(this.paginator.page)
           .pipe(
             startWith({}),
             switchMap(() => {
               this.isLoadingResults = true;
 
-              return this._tarefaService
-                .obterTaferas(
-                    this.pageEvent?.pageSize,
-                    this.pageEvent?.pageIndex
-                )
-                .pipe(catchError(() => EMPTY));
+              if (this.filtros) {
+                return Promise.resolve(tarefas);
+              } else {
+                return this._tarefaService
+                    .obterTaferas(
+                        this.pageEvent?.pageSize,
+                        this.pageEvent?.pageIndex
+                    )
+                    .pipe(catchError(() => EMPTY));
+              }
             }),
             map(data => {
               this.isLoadingResults = false;
@@ -138,45 +143,102 @@ export class TabelaComponent implements OnInit, AfterViewInit, OnDestroy, OnChan
               }
 
               // Alterar o length para o atributo que informa o total de resultados
-              this.resultsLength = data['totalDeItens'];
-              return data['data'];
+              this.resultsLength = data.length;
+              return data;
             }),
           ).subscribe({
-            next: (tarefas: ITask[]) => {
-                this.tarefas = tarefas;
-                this.dataSource = new MatTableDataSource<ITask>(this.tarefas);
+            next: (data: ITask[]) => {
+                if (!this.filtros) {
+                    this.tarefas = data;
+                }
+
+                const grupoDeTarefas = this._sliceIntoChunks(data, this.pageEvent?.pageSize);
+
+                this.dataSource = new MatTableDataSource<ITask>(grupoDeTarefas[this.pageEvent?.pageIndex || 0]);
                 console.log(this.dataSource.data);
             }
         });
     }
 
     private _filtrarListaDeTarefas(): void {
-        const tarefasFiltradas = [];
+        const tarefasFiltradas: ITask[] = [];
 
-        if (this.filtros.length > 0) {
-            this.filtros.forEach((filtro) => {
-                this.tarefas.forEach(t => {
-                    /*
-                        Para cada tarefa, é criado um id formado pela junção
-                        de context com commad separados por dois pontos, e esse
-                        id é comparado com o id dos obj de tasks-2.json
-                    */
-                    const id = `${t.context}:${t.command}`;
+        this.tarefas.forEach(t => {
+            if (this.filtros?.data_inicio && this.filtros?.data_fim) {
+                const { data_inicio, data_fim } = this.filtros;
 
-                    if (filtro.id === id) {
-                        tarefasFiltradas.push(t);
+                const dataInicioDoFiltro = new Date(data_inicio);
+                dataInicioDoFiltro.setHours(0,0,0,0);
+
+                const dataFimDoFiltro = new Date(data_fim);
+                dataFimDoFiltro.setHours(0,0,0,0);
+
+                const dataInicioDaTarefa = new Date(t.startDate);
+                dataInicioDaTarefa.setHours(0,0,0,0);
+
+                const dataFimDaTarefa = new Date(t.completedDate);
+                dataFimDaTarefa.setHours(0,0,0,0);
+
+                if (dataInicioDaTarefa.getTime() >= dataInicioDoFiltro.getTime()) {
+                    if (dataFimDaTarefa.getTime() > 0) {
+                        if (dataFimDaTarefa.getTime() <= dataFimDoFiltro.getTime()) {
+                            tarefasFiltradas.push(t);
+                        }
+                    } else {
+                        if (dataInicioDaTarefa.getTime() <= dataFimDoFiltro.getTime()) {
+                            tarefasFiltradas.push(t);
+                        }
                     }
+                }
+            }
+        });
 
-                    // Verifica se as etags das tarefas tem o id do filtro
-                    if (t.etags && t.etags.includes(filtro.id)) {
-                        tarefasFiltradas.push(t);
-                    }
-                });
-            });
+        console.log(tarefasFiltradas)
+        console.log(tarefasFiltradas.length)
+
+        this._carregarTarefas(tarefasFiltradas);
+
+        // this.paginator.firstPage();
+
+        // merge(this.paginator.page)
+        //   .pipe(
+        //     startWith({}),
+        //     switchMap(() => {
+        //       this.isLoadingResults = true;
+
+        //       return Promise.resolve(tarefasFiltradas);
+        //     }),
+        //     map(data => {
+        //       this.isLoadingResults = false;
+        //       this.isRateLimitReached = data === null;
+
+        //       if (data === null) {
+        //         return [];
+        //       }
+
+        //       // Alterar o length para o atributo que informa o total de resultados
+        //       this.resultsLength = data.length;
+        //       return data;
+        //     }),
+        //   ).subscribe({
+        //     next: (tarefas: ITask[]) => {
+        //         const grupoDeTarefas = this._sliceIntoChunks(tarefas, this.pageEvent?.pageSize);
+
+        //         this.dataSource = new MatTableDataSource<ITask>(grupoDeTarefas[this.pageEvent?.pageIndex || 0]);
+        //         console.log(this.dataSource.data);
+        //     }
+        // });
+    }
+
+    private _sliceIntoChunks(arr: Array<any>, chunkSize: number = 30): Array<any> {
+        const res = [];
+
+        for (let i = 0; i < arr.length; i += chunkSize) {
+            const chunk = arr.slice(i, i + chunkSize);
+            res.push(chunk);
         }
 
-        console.log("Resultados filtrados: " + tarefasFiltradas.length);
-        this.dataSource = new MatTableDataSource<ITask>(tarefasFiltradas);
+        return res;
     }
 
 }

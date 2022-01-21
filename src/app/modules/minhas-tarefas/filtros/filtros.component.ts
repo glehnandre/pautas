@@ -1,4 +1,5 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { FormGroup, FormControl, FormBuilder } from '@angular/forms';
 import { ITaskTag } from 'app/modules/acervo/model/interfaces/itask.interface';
 import { TarefaService } from 'app/modules/services/tarefa.service';
 
@@ -17,11 +18,20 @@ export class FiltrosComponent implements OnInit {
     filtrosSelecionados: ITaskTag[] = [];
     tipos: string[] = [];
 
-    @Output() emitirFiltrosSelecionados = new EventEmitter<ITaskTag[]>();
+    formFiltro: FormGroup;
+
+    @Output() emitirFiltrosSelecionados = new EventEmitter<any>();
 
     constructor(
         private _tarefaService: TarefaService,
-    ) { }
+        private _fb: FormBuilder,
+    ) { 
+        this.formFiltro = this._fb.group({
+            data_inicio: [new Date()],
+            data_fim: [new Date()],
+            numeroProcesso: [null],
+        });
+    }
 
     ngOnInit(): void {
         this._tarefaService.obterListaDeFiltrosTags2().subscribe({
@@ -51,7 +61,21 @@ export class FiltrosComponent implements OnInit {
         }
 
         console.log(this.filtrosSelecionados)
-        this.emitirFiltrosSelecionados.emit(this.filtrosSelecionados);
+        // this.emitirFiltrosSelecionados.emit(this.filtrosSelecionados);
+    }
+
+    public limparDatasDoPeriodo(): void {
+        this.formFiltro.controls.data_inicio.setValue(null);
+        this.formFiltro.controls.data_fim.setValue(null);
+    }
+
+    public limparFiltros(): void {
+        this.formFiltro.reset();
+        this.emitirFiltrosSelecionados.emit(null);
+    }
+
+    public filtrar(): void {
+        this.emitirFiltrosSelecionados.emit(this.formFiltro.value);
     }
 
     private _obterOsTiposDasTarefas(): void {

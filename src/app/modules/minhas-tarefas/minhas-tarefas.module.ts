@@ -11,21 +11,22 @@ import { MinhasTarefasComponent } from './minhas-tarefas.component';
 import { CriacaoColegiadoComponent } from '../criacao-colegiado/criacao-colegiado.component';
 import { FuseCardModule } from '@fuse/components/card';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { FiltrosComponent } from './filtros/filtros.component';
 import { MatListModule } from '@angular/material/list';
-import { TabelaComponent } from './tabela/tabela.component';
 import { MatTableModule } from '@angular/material/table';
 import { MatButtonModule } from '@angular/material/button';
 import { SharedModule } from 'app/shared/shared.module';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
-
-import { CarrosselChipsComponent } from './carrossel-chips/carrossel-chips.component';
 import { MatRippleModule } from '@angular/material/core';
 import { MatSelectModule } from '@angular/material/select';
-import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatDatepickerModule, MatDateRangePicker, MatDateSelectionModel } from '@angular/material/datepicker';
+
+import { FiltrosComponent } from './filtros/filtros.component';
+import { TabelaComponent } from './tabela/tabela.component';
+import { CarrosselChipsComponent } from './carrossel-chips/carrossel-chips.component';
 import { FiltrarTagPorTipoPipe } from './filtros/filtrar-tag-por-tipo.pipe';
+import { MatInputModule } from '@angular/material/input';
 
 const minhasTarefasRoutes: Route[] = [
     {
@@ -54,6 +55,7 @@ const minhasTarefasRoutes: Route[] = [
     FormsModule,
     ReactiveFormsModule,
     MatFormFieldModule,
+    MatInputModule,
     MatIconModule,
     MatSidenavModule,
     MatExpansionModule,
@@ -69,6 +71,7 @@ const minhasTarefasRoutes: Route[] = [
     MatRippleModule,
     MatSelectModule,
     MatPaginatorModule,
+    MatDatepickerModule,
     SharedModule,
   ]
 })

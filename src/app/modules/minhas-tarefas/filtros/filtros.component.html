@@ -1,30 +1,156 @@
-<div class="mx-2 flex flex-col gap-2">
-    <mat-accordion
-        *ngFor="let tipo of tipos"
-    >
-        <mat-expansion-panel
-            (opened)="panelOpenState = true"
-            (closed)="panelOpenState = false"
-        >
-            <mat-expansion-panel-header>
-                <mat-panel-title>
-                    {{tipo}}
-                </mat-panel-title>
-            </mat-expansion-panel-header>
+<div class="mx-0 flex flex-col gap-2">
+    <div class="flex flex-col flex-auto w-full">
+        <!-- Filtros -->
+        <mat-accordion class="mx-4" multi aria-label="Lista de Filtros possíveis de serem aplicados às publicações">
+            <!-- Filtros aplicados -->
+            <form [formGroup]="formFiltro">
+                <mat-expansion-panel class="mb-2 border-solid border-2" [expanded]="true">
+                    <mat-expansion-panel-header class="">
+                        <mat-panel-title class="font-semibold text-primary-500 line-clamp-3">
+                            Período
+                        </mat-panel-title>
+                    </mat-expansion-panel-header>
 
-            <section>
-                <h4>Selecione o(s) filtro(s):</h4>
-                <p
-                    *ngFor="let tag of (tags | filtrarTagPorTipo: tags : tipo)"
-                >
-                    <mat-checkbox 
-                        color="primary"
-                        (change)="marcarOuDesmarcarFiltro(tag)"
-                    >
-                        {{tag.name}}
-                    </mat-checkbox>
-                </p>
-            </section>
-        </mat-expansion-panel>
-    </mat-accordion>
+                    <section class="">
+                        <mat-form-field class="w-full" appearance="fill">
+                            <mat-date-range-input 
+                                [rangePicker]="picker"
+                                class="flex w-full"
+                            >
+                                <input 
+                                    matStartDate 
+                                    placeholder="Início" 
+                                    name="data_inicio" 
+                                    formControlName="data_inicio"
+                                    class="px-0"
+                                >
+
+                                <input 
+                                    matEndDate 
+                                    placeholder="Fim" 
+                                    name="data_fim" 
+                                    formControlName="data_fim"
+                                >
+                            </mat-date-range-input>
+
+                            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                            <mat-date-range-picker #picker></mat-date-range-picker>
+                        </mat-form-field>
+
+                        <button 
+                            class="flex ml-auto" 
+                            mat-flat-button 
+                            [color]="'primary'" 
+                            (click)="limparDatasDoPeriodo()"
+                        >
+                            <span>Limpar datas</span>
+                        </button>
+                    </section>
+                </mat-expansion-panel>
+
+                <mat-expansion-panel class="mb-2 border-solid border-2" [expanded]="true">
+                    <mat-expansion-panel-header>
+                        <mat-panel-title class="font-semibold text-primary-500 line-clamp-3">
+                            Número do processo
+                        </mat-panel-title>
+                    </mat-expansion-panel-header>
+
+                    <section class="">
+                        <mat-form-field appearance="fill" class="w-full">
+                            <input 
+                                matInput 
+                                name="outros" 
+                                formControlName="numeroProcesso"
+                            >
+                            <mat-hint>Informe o número do processo para a pesquisa</mat-hint>
+                        </mat-form-field>
+                    </section>
+                </mat-expansion-panel>
+
+                <mat-expansion-panel class="mb-2 border-solid border-2">
+                    <mat-expansion-panel-header>
+                        <mat-panel-title class="font-semibold text-primary-500 line-clamp-3">
+                            Tipo
+                        </mat-panel-title>
+                    </mat-expansion-panel-header>
+
+                    <section>
+                        <h4>Selecione o(s) filtro(s):</h4>
+                        <p
+                            *ngFor="let filtro of ['teste1']"
+                        >
+                            <mat-checkbox 
+                                color="primary"
+                            >
+                                {{filtro}}
+                            </mat-checkbox>
+                        </p>
+                    </section>
+                </mat-expansion-panel>
+
+                <mat-expansion-panel class="mb-2 border-solid border-2">
+                    <mat-expansion-panel-header>
+                        <mat-panel-title class="font-semibold text-primary-500 line-clamp-3">
+                            Relator
+                        </mat-panel-title>
+                    </mat-expansion-panel-header>
+
+                    <section>
+                        <h4>Selecione o(s) filtro(s):</h4>
+                        <p
+                            *ngFor="let filtro of ['teste1']"
+                        >
+                            <mat-checkbox 
+                                color="primary"
+                            >
+                                {{filtro}}
+                            </mat-checkbox>
+                        </p>
+                    </section>
+                </mat-expansion-panel>
+
+                <mat-expansion-panel class="mb-2 border-solid border-2">
+                    <mat-expansion-panel-header>
+                        <mat-panel-title class="font-semibold text-primary-500 line-clamp-3">
+                            Classe Processural
+                        </mat-panel-title>
+                    </mat-expansion-panel-header>
+
+                    <section>
+                        <h4>Selecione o(s) filtro(s):</h4>
+                        <p
+                            *ngFor="let filtro of ['teste1']"
+                        >
+                            <mat-checkbox 
+                                color="primary"
+                            >
+                                {{filtro}}
+                            </mat-checkbox>
+                        </p>
+                    </section>
+                </mat-expansion-panel>
+            </form>
+        </mat-accordion>
+
+        <!-- Compose button -->
+        <button 
+            class="mx-8 mt-8 mb-2" 
+            mat-flat-button 
+            [color]="'primary'"
+            (click)="filtrar()"
+        >
+            <mat-icon [svgIcon]="'heroicons_outline:filter'"></mat-icon>
+            <span class="ml-2">Filtrar</span>
+        </button>
+
+        <button 
+            class="mx-8 mt-2 mb-4" 
+            mat-flat-button
+            (click)="limparFiltros()"
+        >
+            <span class="ml-2">Limpar filtros</span>
+        </button>
+
+        <mat-hint class="m-4 text-center">Limpar os filtros faz com que todos os dados da tabela sejam recarregados</mat-hint>
+    </div>
 </div>
