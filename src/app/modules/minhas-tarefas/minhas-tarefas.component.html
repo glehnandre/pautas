@@ -1,10 +1,6 @@
 <div class="absolute inset-0 flex flex-col min-w-0">
     <mat-drawer-container class="flex-auto h-full" [hasBackdrop]="false">
         <mat-drawer #drawer tabindex="-1" class="w-80 dark:bg-gray-900" [mode]="'side'" opened="true">
-            <div class="flex justify-center items-center">
-                <h1 class="my-2">Filtros</h1>
-            </div>
-
             <app-filtros
                 [classes]="classes"
                 (emitirFiltrosSelecionados)="obterFiltrosSelecionados($event);"
@@ -37,26 +33,32 @@
                         </div>
 
                         <div class="flex w-full my-auto mr-2">
-                            <div class="hidden md:flex md:gap-4 md:mx-2">
-                                <button mat-raised-button color="primary">
-                                    ATRIBUIR
-                                </button>
-
-                                <button mat-raised-button>
-                                    ASSUMIR
-                                </button>
-
-                                <button mat-raised-button>
-                                    INCLUIR COMENTÁRIO
-                                </button>
-
-                                <button mat-raised-button>
-                                    VISUALIZAR
-                                </button>
-
-                                <button mat-raised-button>
-                                    PRIORIZAR
-                                </button>
+                            <div class="hidden md:flex md:gap-4 space-x-2 md:mx-2">
+                                <div>
+                                    <button mat-raised-button color="primary">
+                                        ATRIBUIR
+                                    </button>
+                                </div>
+                                <div>
+                                    <button mat-raised-button>
+                                        ASSUMIR
+                                    </button>
+                                </div>
+                                <div>
+                                    <button mat-raised-button>
+                                        INCLUIR COMENTÁRIO
+                                    </button>
+                                </div>
+                                <div>
+                                    <button mat-raised-button>
+                                        VISUALIZAR
+                                    </button>
+                                </div>
+                                <div>
+                                    <button mat-raised-button>
+                                        PRIORIZAR
+                                    </button>
+                                </div>
                             </div>
 
                             <div class="block md:hidden w-full">
