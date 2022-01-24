@@ -119,12 +119,13 @@
                     <section>
                         <h4>Selecione o(s) filtro(s):</h4>
                         <p
-                            *ngFor="let filtro of ['teste1']"
+                            *ngFor="let classe of classes"
                         >
                             <mat-checkbox 
                                 color="primary"
+                                (change)="selecionarOuDeselecionarClasse(classe)"
                             >
-                                {{filtro}}
+                                {{classe.nome}} ({{classe.total}})
                             </mat-checkbox>
                         </p>
                     </section>

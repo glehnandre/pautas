@@ -1,6 +1,5 @@
-import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
-import { ITaskTag } from '../acervo/model/interfaces/itask.interface';
 
 @Component({
     selector: 'app-minhas-tarefas',
@@ -14,6 +13,7 @@ export class MinhasTarefasComponent implements OnInit {
 
     panelOpenState: boolean = false;
     filtrosSelecionados: any;
+    classes: Array<{nome:string, total:number}> = [];
 
     constructor(
         private _sanitizer: DomSanitizer,
@@ -35,6 +35,10 @@ export class MinhasTarefasComponent implements OnInit {
 
     public obterFiltrosSelecionados(filtros: any): void {
         this.filtrosSelecionados = filtros;
+    }
+
+    public obterClassesDosProcessos(classes: Array<{nome:string, total:number}>) {
+        this.classes = classes;
     }
 
 }

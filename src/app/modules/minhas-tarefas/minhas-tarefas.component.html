@@ -1,7 +1,10 @@
 <div class="absolute inset-0 flex flex-col min-w-0">
     <mat-drawer-container class="flex-auto h-full" [hasBackdrop]="false">
         <mat-drawer #drawer tabindex="-1" class="w-80 dark:bg-gray-900" [mode]="'side'" opened="true">
-            <app-filtros (emitirFiltrosSelecionados)="obterFiltrosSelecionados($event);"></app-filtros>
+            <app-filtros
+                [classes]="classes"
+                (emitirFiltrosSelecionados)="obterFiltrosSelecionados($event);"
+            ></app-filtros>
         </mat-drawer>
 
         <mat-drawer-content class="">
@@ -91,7 +94,10 @@
                 <!-- Main -->
                 <div class="flex-auto overflow-y-auto px-2 mt-2" cdkScrollable>
                     <!-- CONTENT GOES HERE -->
-                    <app-tabela [filtros]="filtrosSelecionados"></app-tabela>
+                    <app-tabela
+                        [filtros]="filtrosSelecionados"
+                        (emitirClassesDosProcessos)="obterClassesDosProcessos($event)"
+                    ></app-tabela>
                 </div>
             </div>
         </mat-drawer-content>
