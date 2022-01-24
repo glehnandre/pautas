@@ -1,6 +1,7 @@
 import { Component, OnInit, Input, OnChanges, ViewChild } from '@angular/core';
 import { SafeResourceUrl } from '@angular/platform-browser';
 import { FuseDrawerService } from '@fuse/components/drawer';
+import { Processo } from 'app/modules/acervo/model/interfaces/processo.interface';
 import { PublicacaoDto } from 'app/modules/acervo/model/interfaces/publicacaoDto.interface';
 import { ConteudoPublicacaoComponent } from '../conteudo-publicacao/conteudo-publicacao.component';
 import { RevisaoInteiroTeor } from '../revisar-inteiro-teor.component';
@@ -19,6 +20,7 @@ export class VisualizadorInteiroTeorComponent implements OnInit, OnChanges {
   @Input() conteudo: PublicacaoDto;
 
   @Input() revisao: RevisaoInteiroTeor;
+  @Input() processo: Processo;
 
   @ViewChild('publicacao') _conteudoPublicacao: ConteudoPublicacaoComponent;
 
@@ -35,6 +37,12 @@ export class VisualizadorInteiroTeorComponent implements OnInit, OnChanges {
     }
 
     this._conteudoPublicacao?.atualizarRevisao(this.revisao);
+  }
+
+  public abrirEmNovaAba(): void {
+    var newWindow = window.open();
+
+    newWindow.document.write(this.revisao.documentos[0].documento.textoSemFormatacao);
   }
 
   public toggleDrawerOpen(): void {

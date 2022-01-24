@@ -16,9 +16,22 @@
             <mat-icon class="text-current text-white" [svgIcon]="'heroicons_outline:x'"></mat-icon>
         </button>
 
+        <button
+            class="bg-primary-500 mt-36 position-left-90 absolute"
+            mat-icon-button
+            [tabIndex]="-1"
+            [style.z-index]="1"
+            (click)="abrirEmNovaAba()"
+        >
+            <mat-icon
+                class="text-current text-white"
+            >launch</mat-icon>
+        </button>
+
         <app-conteudo-publicacao
             #publicacao
             [revisao]="revisao"
+            [processo]="processo"
         ></app-conteudo-publicacao>
     </div>
 </fuse-drawer>
