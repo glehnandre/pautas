@@ -1,9 +1,7 @@
 <div class="absolute inset-0 flex flex-col min-w-0">
     <mat-drawer-container class="flex-auto h-full" [hasBackdrop]="false">
         <mat-drawer #drawer tabindex="-1" class="w-80 dark:bg-gray-900" [mode]="'side'" opened="true">
-            <app-filtros
-                (emitirFiltrosSelecionados)="obterFiltrosSelecionados($event);"
-            ></app-filtros>
+            <app-filtros (emitirFiltrosSelecionados)="obterFiltrosSelecionados($event);"></app-filtros>
         </mat-drawer>
 
         <mat-drawer-content class="">
@@ -32,26 +30,32 @@
                         </div>
 
                         <div class="flex w-full my-auto mr-2">
-                            <div class="hidden md:flex md:gap-4 md:mx-2">
-                                <button mat-raised-button color="primary">
-                                    ATRIBUIR
-                                </button>
-
-                                <button mat-raised-button>
-                                    ASSUMIR
-                                </button>
-
-                                <button mat-raised-button>
-                                    INCLUIR COMENTÁRIO
-                                </button>
-
-                                <button mat-raised-button>
-                                    VISUALIZAR
-                                </button>
-
-                                <button mat-raised-button>
-                                    PRIORIZAR
-                                </button>
+                            <div class="hidden md:flex md:gap-4 space-x-2 md:mx-2">
+                                <div>
+                                    <button mat-raised-button color="primary">
+                                        ATRIBUIR
+                                    </button>
+                                </div>
+                                <div>
+                                    <button mat-raised-button>
+                                        ASSUMIR
+                                    </button>
+                                </div>
+                                <div>
+                                    <button mat-raised-button>
+                                        INCLUIR COMENTÁRIO
+                                    </button>
+                                </div>
+                                <div>
+                                    <button mat-raised-button>
+                                        VISUALIZAR
+                                    </button>
+                                </div>
+                                <div>
+                                    <button mat-raised-button>
+                                        PRIORIZAR
+                                    </button>
+                                </div>
                             </div>
 
                             <div class="block md:hidden w-full">
@@ -87,9 +91,7 @@
                 <!-- Main -->
                 <div class="flex-auto overflow-y-auto px-2 mt-2" cdkScrollable>
                     <!-- CONTENT GOES HERE -->
-                    <app-tabela
-                        [filtros]="filtrosSelecionados"
-                    ></app-tabela>
+                    <app-tabela [filtros]="filtrosSelecionados"></app-tabela>
                 </div>
             </div>
         </mat-drawer-content>
