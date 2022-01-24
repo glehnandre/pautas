@@ -8,6 +8,12 @@ import { TarefaService } from 'app/modules/services/tarefa.service';
 import { EMPTY, merge } from 'rxjs';
 import { catchError, map, startWith, switchMap } from 'rxjs/operators';
 
+interface Filtro {
+    numeroProcesso?: number;
+    data_inicio?: string;
+    data_fim?: string;
+}
+
 @Component({
     selector: 'app-tabela',
     templateUrl: './tabela.component.html',
@@ -31,7 +37,7 @@ export class TabelaComponent implements OnInit, AfterViewInit, OnDestroy, OnChan
 
     @ViewChild(MatPaginator) paginator: MatPaginator;
 
-    @Input() filtros: any;
+    @Input() filtros: Filtro;
 
     constructor(
         private _tarefaService: TarefaService,
@@ -142,7 +148,6 @@ export class TabelaComponent implements OnInit, AfterViewInit, OnDestroy, OnChan
                 return [];
               }
 
-              // Alterar o length para o atributo que informa o total de resultados
               this.resultsLength = data.length;
               return data;
             }),
@@ -161,9 +166,10 @@ export class TabelaComponent implements OnInit, AfterViewInit, OnDestroy, OnChan
     }
 
     private _filtrarListaDeTarefas(): void {
-        const tarefasFiltradas: ITask[] = [];
+        let tarefasFiltradas: ITask[] = [];
 
         this.tarefas.forEach(t => {
+            // Filtrar por data de inicio e fim
             if (this.filtros?.data_inicio && this.filtros?.data_fim) {
                 const { data_inicio, data_fim } = this.filtros;
 
@@ -190,6 +196,22 @@ export class TabelaComponent implements OnInit, AfterViewInit, OnDestroy, OnChan
                         }
                     }
                 }
+            }
+
+            // Filtrar por número do processo
+            if (this.filtros?.numeroProcesso) {
+                const tarefasFiltradasPorNumero = [];
+                const { numeroProcesso } = this.filtros;
+
+                for (const tarefa of this.tarefas) {
+                    const numero = tarefa.searchableId.split(' ')[1];
+                    
+                    if (+numeroProcesso === +numero) {
+                        tarefasFiltradasPorNumero.push(tarefa);
+                    }
+                }
+
+                tarefasFiltradas = tarefasFiltradasPorNumero;
             }
         });
 
