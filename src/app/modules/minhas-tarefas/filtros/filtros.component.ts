@@ -1,4 +1,4 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormGroup, FormControl, FormBuilder } from '@angular/forms';
 import { ITaskTag } from 'app/modules/acervo/model/interfaces/itask.interface';
 import { TarefaService } from 'app/modules/services/tarefa.service';
@@ -20,6 +20,7 @@ export class FiltrosComponent implements OnInit {
 
     formFiltro: FormGroup;
 
+    @Input() classes: Array<{nome:string, total:number}> = [];
     @Output() emitirFiltrosSelecionados = new EventEmitter<any>();
 
     constructor(
@@ -30,6 +31,7 @@ export class FiltrosComponent implements OnInit {
             data_inicio: [new Date()],
             data_fim: [new Date()],
             numeroProcesso: [null],
+            classesSelecionadas: [[]],
         });
     }
 
@@ -41,7 +43,7 @@ export class FiltrosComponent implements OnInit {
                 this._tarefaService.obterListaDeFiltrosTags3().subscribe({
                     next: (tags3) => {
                         this.tags3 = tags3;
-                        this.tags = [...this.tags2, ...this.tags3];
+                        this.tags = [...new Set([...this.tags2, ...this.tags3])];
 
                         this._obterOsTiposDasTarefas();
                     }
@@ -67,6 +69,19 @@ export class FiltrosComponent implements OnInit {
     public limparDatasDoPeriodo(): void {
         this.formFiltro.controls.data_inicio.setValue(null);
         this.formFiltro.controls.data_fim.setValue(null);
+    }
+
+    public selecionarOuDeselecionarClasse(classe: {nome:string, total:number}): void {
+        const classes = this.formFiltro.controls.classesSelecionadas.value;
+        const index = classes.findIndex(c => c.nome === classe.nome);
+
+        if (index === -1) {
+            classes.push(classe);
+        } else {
+            classes.splice(index, 1);
+        }
+
+        this.formFiltro.controls.classesSelecionadas.setValue(classes);
     }
 
     public limparFiltros(): void {

@@ -6,6 +6,7 @@
             </div>
 
             <app-filtros
+                [classes]="classes"
                 (emitirFiltrosSelecionados)="obterFiltrosSelecionados($event);"
             ></app-filtros>
         </mat-drawer>
@@ -93,6 +94,7 @@
                     <!-- CONTENT GOES HERE -->
                     <app-tabela
                         [filtros]="filtrosSelecionados"
+                        (emitirClassesDosProcessos)="obterClassesDosProcessos($event)"
                     ></app-tabela>
                 </div>
             </div>

@@ -1,5 +1,5 @@
 import { SelectionModel } from '@angular/cdk/collections';
-import { AfterViewInit, Component, Injectable, Input, OnChanges, OnDestroy, OnInit, SimpleChanges, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, EventEmitter, Injectable, Input, OnChanges, OnDestroy, OnInit, Output, SimpleChanges, ViewChild } from '@angular/core';
 import { MatPaginator, MatPaginatorIntl, PageEvent } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { ITask, ITaskTag } from 'app/modules/acervo/model/interfaces/itask.interface';
@@ -12,6 +12,7 @@ interface Filtro {
     numeroProcesso?: number;
     data_inicio?: string;
     data_fim?: string;
+    classesSelecionadas?: Array<{nome:string, total:number}>;
 }
 
 @Component({
@@ -35,9 +36,12 @@ export class TabelaComponent implements OnInit, AfterViewInit, OnDestroy, OnChan
     isLoadingResults = true;
     isRateLimitReached = false;
 
+    classes: Array<{nome: string; total: number}> = [];
+
     @ViewChild(MatPaginator) paginator: MatPaginator;
 
     @Input() filtros: Filtro;
+    @Output() emitirClassesDosProcessos = new EventEmitter();
 
     constructor(
         private _tarefaService: TarefaService,
@@ -155,6 +159,7 @@ export class TabelaComponent implements OnInit, AfterViewInit, OnDestroy, OnChan
             next: (data: ITask[]) => {
                 if (!this.filtros) {
                     this.tarefas = data;
+                    this._obterAsClassesDosProcessos();
                 }
 
                 const grupoDeTarefas = this._sliceIntoChunks(data, this.pageEvent?.pageSize);
@@ -219,37 +224,30 @@ export class TabelaComponent implements OnInit, AfterViewInit, OnDestroy, OnChan
         console.log(tarefasFiltradas.length)
 
         this._carregarTarefas(tarefasFiltradas);
+    }
 
-        // this.paginator.firstPage();
+    private _obterAsClassesDosProcessos(): void {
+        for (const t of this.tarefas) {
+            const nome: any = t.searchableId.split(" ")[0];
 
-        // merge(this.paginator.page)
-        //   .pipe(
-        //     startWith({}),
-        //     switchMap(() => {
-        //       this.isLoadingResults = true;
+            if (isNaN(nome)) { // true caso contenha letras
+                const index = this.classes.findIndex(c => c.nome === nome);
+                
+                if (index === -1) {
+                    this.classes.push({ nome, total: 1 });
+                } else {
+                    const aux = this.classes[index];
 
-        //       return Promise.resolve(tarefasFiltradas);
-        //     }),
-        //     map(data => {
-        //       this.isLoadingResults = false;
-        //       this.isRateLimitReached = data === null;
+                    this.classes.splice(index, 1);
+                    this.classes.push({
+                        nome: aux.nome, 
+                        total: aux.total+1,
+                    });
+                }
+            }
+        }
 
-        //       if (data === null) {
-        //         return [];
-        //       }
-
-        //       // Alterar o length para o atributo que informa o total de resultados
-        //       this.resultsLength = data.length;
-        //       return data;
-        //     }),
-        //   ).subscribe({
-        //     next: (tarefas: ITask[]) => {
-        //         const grupoDeTarefas = this._sliceIntoChunks(tarefas, this.pageEvent?.pageSize);
-
-        //         this.dataSource = new MatTableDataSource<ITask>(grupoDeTarefas[this.pageEvent?.pageIndex || 0]);
-        //         console.log(this.dataSource.data);
-        //     }
-        // });
+        this.emitirClassesDosProcessos.emit(this.classes);
     }
 
     private _sliceIntoChunks(arr: Array<any>, chunkSize: number = 30): Array<any> {
