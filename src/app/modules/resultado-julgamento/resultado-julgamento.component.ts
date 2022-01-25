@@ -64,18 +64,17 @@ export class ResultadoJulgamentoComponent implements OnInit, OnDestroy, AfterCon
 
   ngOnInit(): void {
     this.parametros = this._route.snapshot.queryParams as Parametros;
-
-    this._carregarDecisoes();
     this._carregarProcessos();
-    this.cd.detectChanges();
+    this._carregarDecisoes();
+    //this.cd.detectChanges();
   }
 
   ngAfterContentChecked(): void {
-    this.cd.detectChanges();
+    //this.cd.detectChanges();
   }
 
   ngOnDestroy(): void {
-    this.cd.detectChanges();
+    //this.cd.detectChanges();
   }
 
   /**
