@@ -50,6 +50,8 @@
             <app-filtros
                 [agregacoes]="agregacoes"
                 [pesquisas]="pesquisas"
+                [data_inicio]="data_inicio"
+                [data_fim]="data_fim"
                 (removido)="refazPesquisa()"
                 (emiteFiltros)="trataFiltros($event)"
                 (removeFiltros)="removeFiltros($event)"

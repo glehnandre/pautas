@@ -29,6 +29,8 @@ export class PublicacoesComponent implements OnInit, OnDestroy {
   exibidos: PublicacaoDto[] = [];
   right: number;
   left: number;
+  data_inicio: Date = new Date();
+  data_fim: Date = new Date();
 
   queryParams: Params;
   tiposParams: string[] = [];
@@ -72,7 +74,11 @@ export class PublicacoesComponent implements OnInit, OnDestroy {
       });
 
       this.recuperaPublicacoes();
-      this.filtraData({data_inicio: new Date(), data_fim: new Date()});
+      if(this.data_inicio.getDay()==6) this.data_inicio.setDate(this.data_inicio.getDate()-1);
+      else if(this.data_inicio.getDay()==0) this.data_inicio.setDate(this.data_inicio.getDate()-2);
+      if(this.data_fim.getDay()==6) this.data_fim.setDate(this.data_fim.getDate()-1);
+      else if(this.data_fim.getDay()==0) this.data_fim.setDate(this.data_fim.getDate()-2);
+      this.filtraData({data_inicio: this.data_inicio, data_fim: this.data_fim});
 
   }
 
