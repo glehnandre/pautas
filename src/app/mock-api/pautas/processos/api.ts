@@ -31,8 +31,8 @@ export class ProcessoMockApi {
     private _tag: Tag[] = [];
     private _impedimentos: any[] = listaImpedimentos;
     private _votos: Voto[] = votos;
-    private _vistas: Vista[] = vistas;
-    private _destaques: Destaque[] = destaques;
+    private _vistas: Vista[] = getStorage('vistas', vistas);
+    private _destaques: Destaque[] = getStorage('destaques', destaques);
 
     constructor(
         private _fuseMockApiService: FuseMockApiService,) {
@@ -252,6 +252,8 @@ export class ProcessoMockApi {
                 const m = ministro.find(({id}) => id === body.ministro);
                 this._vistas.push({...body, ministro: m});
 
+                setStorage('vistas', this._vistas);
+
                 return [200, this._vistas];
             });
 
@@ -264,6 +266,9 @@ export class ProcessoMockApi {
 
                 if (index !== -1) {
                     this._vistas.splice(index, 1);
+
+                    setStorage('vistas', this._vistas);
+
                     return [200, this._vistas];
                 }
 
@@ -282,6 +287,8 @@ export class ProcessoMockApi {
                 const m = ministro.find(({id}) => id === body.ministro);
                 this._destaques.push({...body, ministro: m});
 
+                setStorage('destaques', this._destaques);
+
                 return [200, this._destaques];
             });
 
@@ -294,6 +301,9 @@ export class ProcessoMockApi {
 
                 if (index !== -1) {
                     this._destaques.splice(index, 1);
+
+                    setStorage('destaques', this._destaques);
+
                     return [200, this._destaques];
                 }
 

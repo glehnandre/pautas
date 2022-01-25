@@ -6,6 +6,7 @@ import { capitulo } from "../capitulo/data"
 import { ministro } from "../ministro/data";
 import { Destaque, Vista } from "app/modules/acervo/model/interfaces/vista-e-destaque.interface";
 import { julgamentos } from "../julgamentos/data";
+import { getStorage } from "../storage";
 
 export const envolvidos: Envolvido[] = [
   {
@@ -40,7 +41,7 @@ export const envolvidos: Envolvido[] = [
   },
 ];
 
-export const destaques: Destaque[] = [
+export const destaques: Destaque[] = getStorage('destaques', [
   {
     id: 1,
     ministro: 1,
@@ -49,9 +50,9 @@ export const destaques: Destaque[] = [
     data: "2016-08-29T09:12:33.001Z",
     texto: "Após o voto do Ministro Marco Aurélio, Relator, que implementava a ordem, pediu destaque do processo do plenário virtual.",
   },
-];
+]);
 
-export const vistas: Vista[] = [
+export const vistas: Vista[] = getStorage('vistas', [
   {
     id: 1,
     ministro: 1,
@@ -60,7 +61,7 @@ export const vistas: Vista[] = [
     data: "2016-08-29T09:12:33.001Z",
     texto: "Após o voto do Ministro Marco Aurélio, Relator, que implementava a ordem, pediu vista dos autos o Ministro Alexandre de Moraes. Primeira Turma, Sessão Virtual de 13.11.2020 a 20.11.2020.",
   },
-]
+]);
 
 export const capitulos_para_publicacao: CapitulosParaPublicacao[] = [
   {
@@ -78,13 +79,35 @@ export const capitulos_para_publicacao: CapitulosParaPublicacao[] = [
       ministro[3],
       ministro[4],
     ],
-    processo: 0,
+    processo: 1311742,
     capitulos: [
       capitulo[0],
       capitulo[1],
     ],
-    destaques,
-    vistas,
+    destaques: destaques.filter(({processo}) => processo == 1311742),
+    vistas: vistas.filter(({processo}) => processo == 1311742),
+  },
+  {
+    classe: "ADI",
+    classe_extenso: "AÇÃO DE INCONSTITUCIONALIDADE",
+    numero: "6185",
+    cadeia: "ED",
+    cadeia_extenso: "Embargo de Declaração",
+    envolvidos,
+    relator: ministro[2],
+    redator: ministro[8],
+    ministros_impedidos: [
+      ministro[0],
+    ],
+    ministros_suspeitos: [
+      ministro[0],
+    ],
+    processo: 2,
+    capitulos: [
+      capitulo[5],
+    ],
+    destaques: destaques.filter(({processo}) => processo == 6185),
+    vistas: vistas.filter(({processo}) => processo == 6185),
   },
   {
     classe: "AG",
@@ -106,29 +129,8 @@ export const capitulos_para_publicacao: CapitulosParaPublicacao[] = [
       capitulo[3],
       capitulo[4],
     ],
-    destaques,
-    vistas,
-  },
-  {
-    classe: "classe",
-    classe_extenso: "CLASSE DE CAPITULO PARA PUBLICACAO",
-    numero: "numero",
-    cadeia: "cadeia",
-    envolvidos,
-    relator: ministro[2],
-    redator: ministro[8],
-    ministros_impedidos: [
-      ministro[0],
-    ],
-    ministros_suspeitos: [
-      ministro[0],
-    ],
-    processo: 2,
-    capitulos: [
-      capitulo[5],
-    ],
-    destaques,
-    vistas,
+    destaques: destaques.filter(({processo}) => processo == 1),
+    vistas: vistas.filter(({processo}) => processo == 1),
   },
 ]
 

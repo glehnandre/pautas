@@ -19,6 +19,7 @@
                     <div>
                         <span>
                             {{ capituloPublicacao?.classe_extenso }} {{ addPontoNumero(capituloPublicacao?.numero) }}
+                            {{ capituloPublicacao?.cadeia_extenso }}
                         </span>
                         <span class="font-medium">
                             Relatoria Ministr{{ capituloPublicacao?.relator?.genero == 'Masculino' ? 'o': 'a' }}
@@ -77,9 +78,8 @@
                         <br class="mb-2">
                     </div>
                     <div [innerHtml]="
-                      (ata?.outros_presentes ?
-                        'Também estavam presentes na Sessão ' + ata?.outros_presentes: '') +
                       fraseEMinistros(sessao?.ministros_presentes, FrasePresentes) +
+                      (ata?.outros_presentes ? 'Também estavam presentes na Sessão ' + ata?.outros_presentes: '') +
                       fraseEMinistros(sessao?.ministros_ausentes, FraseAusentes)
                     "></div>
                     <div class="mt-2">
