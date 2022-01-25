@@ -1,8 +1,9 @@
+import { animate, state, style, transition, trigger } from '@angular/animations';
 import { SelectionModel } from '@angular/cdk/collections';
 import { AfterViewInit, Component, EventEmitter, Injectable, Input, OnChanges, OnDestroy, OnInit, Output, SimpleChanges, ViewChild } from '@angular/core';
 import { MatPaginator, MatPaginatorIntl, PageEvent } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
-import { ITask, ITaskTag } from 'app/modules/acervo/model/interfaces/itask.interface';
+import { ITask } from 'app/modules/acervo/model/interfaces/itask.interface';
 import { PaginacaoCustomizadaComponent } from 'app/modules/acervo/tabela/paginacao/paginacao-customizada.component';
 import { TarefaService } from 'app/modules/services/tarefa.service';
 import { EMPTY, merge } from 'rxjs';
@@ -20,6 +21,13 @@ interface Filtro {
     templateUrl: './tabela.component.html',
     styleUrls: ['./tabela.component.scss'],
     providers: [{provide: MatPaginatorIntl, useClass: PaginacaoCustomizadaComponent}],
+    animations: [
+        trigger('detailExpand', [
+            state('collapsed', style({height: '0px', minHeight: '0'})),
+            state('expanded', style({height: '*'})),
+            transition('expanded <=> collapsed', animate('225ms cubic-bezier(0.4, 0.0, 0.2, 1)')),
+        ]),
+    ],
 })
 export class TabelaComponent implements OnInit, AfterViewInit, OnDestroy, OnChanges {
 
@@ -27,6 +35,7 @@ export class TabelaComponent implements OnInit, AfterViewInit, OnDestroy, OnChan
     displayedColumns: string[] = ['checkbox', 'descricao', 'responsavel', 'data_criacao', 'opcoes', 'prioridade'];
     dataSource = new MatTableDataSource<ITask>([]);
     selection = new SelectionModel<ITask>(true, []);
+    expandedElement: ITask | null;
 
     resultsLength = 0;
     pageSize = 30;
@@ -111,19 +120,8 @@ export class TabelaComponent implements OnInit, AfterViewInit, OnDestroy, OnChan
         }
     }
 
-    public criarChipsDaTarefa(extraInfo: {[key: string]: string}): Array<string> {
-        if (extraInfo) {
-            const chips: string[] = [];
-
-            Object.keys(extraInfo).forEach((key: string) => {
-                const newKey = `${key[0].toUpperCase()}${key.substring(1)}`;
-                chips.push(`${newKey}: ${extraInfo[key]}`);
-            });
-
-            return chips;
-        }
-
-        return [];
+    public obterChavesDoObj(obj: any) {
+        return Object.keys(obj);
     }
 
     private _carregarTarefas(tarefas: ITask[] = []): void {
@@ -247,7 +245,7 @@ export class TabelaComponent implements OnInit, AfterViewInit, OnDestroy, OnChan
 
     private _obterAsClassesDosProcessos(): void {
         this.classes = [];
-        
+
         for (const t of this.tarefas) {
             const nome: any = t.searchableId.split(" ")[0];
 
