@@ -177,6 +177,7 @@ export class TabelaComponent implements OnInit, AfterViewInit, OnDestroy, OnChan
             // Filtrar por data de inicio e fim
             if (this.filtros?.data_inicio && this.filtros?.data_fim) {
                 const { data_inicio, data_fim } = this.filtros;
+                const tarefasFiltradasPorPeriodo = [];
 
                 const dataInicioDoFiltro = new Date(data_inicio);
                 dataInicioDoFiltro.setHours(0,0,0,0);
@@ -193,14 +194,16 @@ export class TabelaComponent implements OnInit, AfterViewInit, OnDestroy, OnChan
                 if (dataInicioDaTarefa.getTime() >= dataInicioDoFiltro.getTime()) {
                     if (dataFimDaTarefa.getTime() > 0) {
                         if (dataFimDaTarefa.getTime() <= dataFimDoFiltro.getTime()) {
-                            tarefasFiltradas.push(t);
+                            tarefasFiltradasPorPeriodo.push(t);
                         }
                     } else {
                         if (dataInicioDaTarefa.getTime() <= dataFimDoFiltro.getTime()) {
-                            tarefasFiltradas.push(t);
+                            tarefasFiltradasPorPeriodo.push(t);
                         }
                     }
                 }
+
+                tarefasFiltradas = tarefasFiltradasPorPeriodo;
             }
 
             // Filtrar por número do processo
@@ -217,6 +220,22 @@ export class TabelaComponent implements OnInit, AfterViewInit, OnDestroy, OnChan
                 }
 
                 tarefasFiltradas = tarefasFiltradasPorNumero;
+            }
+
+            // Filtrar por classe
+            if (this.filtros?.classesSelecionadas && this.filtros.classesSelecionadas.length > 0) {
+                const { classesSelecionadas } = this.filtros;
+                const tarefasFiltradasPorClasse = [];
+
+                for (const t of this.tarefas) {
+                    const classe = t.searchableId.split(" ")[0];
+
+                    if (classesSelecionadas.findIndex(c => c.nome === classe) !== -1) {
+                        tarefasFiltradasPorClasse.push(t);
+                    }
+                }
+
+                tarefasFiltradas = tarefasFiltradasPorClasse;
             }
         });
 
