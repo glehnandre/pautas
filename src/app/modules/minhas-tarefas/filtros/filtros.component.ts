@@ -72,7 +72,7 @@ export class FiltrosComponent implements OnInit {
     }
 
     public selecionarOuDeselecionarClasse(classe: {nome:string, total:number}): void {
-        const classes = this.formFiltro.controls.classesSelecionadas.value;
+        const classes = this.formFiltro.controls.classesSelecionadas.value ?? [];
         const index = classes.findIndex(c => c.nome === classe.nome);
 
         if (index === -1) {

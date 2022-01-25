@@ -246,6 +246,8 @@ export class TabelaComponent implements OnInit, AfterViewInit, OnDestroy, OnChan
     }
 
     private _obterAsClassesDosProcessos(): void {
+        this.classes = [];
+        
         for (const t of this.tarefas) {
             const nome: any = t.searchableId.split(" ")[0];
 
