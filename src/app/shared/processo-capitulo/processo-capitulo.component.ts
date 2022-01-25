@@ -22,6 +22,7 @@ export class ProcessoCapituloComponent implements OnInit {
     capitulos: [],
     ministros_impedidos: [],
     ministros_suspeitos: [],
+    envolvidos: [],
   };
 
   constructor() { }
