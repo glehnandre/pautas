@@ -10,12 +10,15 @@
     <hr class="m-0 p-0" />
 
     <header class="bg-white pt-2 flex flex-col px-2">
+
+        
         <app-cabecalho-relator
-            [processo]="processo.id"
+            [processo]="processo"
             [colegiado]="parametros.colegiado"
             [votos]="votos"
             [sessao]="dados?.sessao"
             [chips]="obterNomeDosChips()"
+            *ngIf="processo"
         ></app-cabecalho-relator>
 
         <div class="hidden md:grid md:grid-cols-6 lg:grid lg:grid-cols-10 my-2">

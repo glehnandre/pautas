@@ -1,7 +1,5 @@
-import { HttpParams } from '@angular/common/http';
 import { AfterContentChecked, Component, Input, OnInit } from '@angular/core';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
-import { FuseDrawerService } from '@fuse/components/drawer';
 import { TipoDoProcesso } from 'app/modules/acervo/model/enums/tipoDoProcesso.enum';
 import { Ministro } from 'app/modules/acervo/model/interfaces/ministro.interface';
 import { Processo } from 'app/modules/acervo/model/interfaces/processo.interface';
@@ -17,7 +15,7 @@ import { ProcessoService } from 'app/modules/services/processo.service';
 })
 export class CabecalhoRelatorComponent implements AfterContentChecked, OnInit {
 
-  @Input() processo: string;
+  @Input() processo: Processo;
   @Input() colegiado: string;
   @Input() votos: Voto[];
   @Input() sessao: SessaoJulgamento;
@@ -50,7 +48,8 @@ export class CabecalhoRelatorComponent implements AfterContentChecked, OnInit {
 
   ngOnInit(): void {
     this.link = this._sanitizer.bypassSecurityTrustResourceUrl('');
-    this._buscarProcessos();
+    this.carregarDocumentosProcesso(this.processo);
+    this.carregarTags(this.processo)
     this._buscarColegiados();
   }
 
@@ -61,9 +60,8 @@ export class CabecalhoRelatorComponent implements AfterContentChecked, OnInit {
   }
 
   public obterDadosDoProcesso(): string {
-    if(this.dadosProcesso)
-    return `${this.dadosProcesso.classe} ${this.dadosProcesso.numero} ${this.dadosProcesso.nome}`;
-    return "Aguarde..."
+    if(this.processo != null)
+    return `${this.processo.classe} ${this.processo.numero} ${this.processo.nome}`;
   }
 
   public obterNomeDoPdf(nome): void {
@@ -80,27 +78,20 @@ export class CabecalhoRelatorComponent implements AfterContentChecked, OnInit {
     console.log(chip);
   }
 
-  private _buscarProcessos(): void {
-    this._processoService
-      .listarProcessos(new HttpParams().set('processo', this.processo)).subscribe({
-        next: ([processo]) => {
-          const { id, lista, classe, numero, nome } = processo;
+  private carregarDocumentosProcesso(processo: Processo){
+    this._processoService.obterDocumentosDoProcesso(processo.id).subscribe(data => {
+      this.documentos = { nomes: [], links: [] };
+      data.forEach(documento => {
+        this.documentos.nomes.push(documento.nome);
+        this.documentos.links.push(documento.url);
+      });
+    });
+  }
 
-          this.dadosProcesso = {classe, numero, nome};
-
-          this.tags = [];
-          lista.forEach(tag => {
-            this.tags.push(tag.descricao);
-          });
-
-          this._processoService.obterDocumentosDoProcesso(id).subscribe(data => {
-            this.documentos = { nomes: [], links: [] };
-            data.forEach(documento => {
-              this.documentos.nomes.push(documento.nome);
-              this.documentos.links.push(documento.url);
-            });
-          });
-        }
+  private carregarTags(processo: Processo){
+    this.tags = [];
+    this.processo.lista.forEach(tag => {
+      this.tags.push(tag.descricao);
     });
   }
 

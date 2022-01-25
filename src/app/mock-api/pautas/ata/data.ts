@@ -79,13 +79,13 @@ export const capitulos_para_publicacao: CapitulosParaPublicacao[] = [
       ministro[3],
       ministro[4],
     ],
-    processo: 1311742,
+    processo: 1,
     capitulos: [
       capitulo[0],
       capitulo[1],
     ],
-    destaques: destaques.filter(({processo}) => processo == 1311742),
-    vistas: vistas.filter(({processo}) => processo == 1311742),
+    destaques: destaques.filter(({processo}) => processo == 1),
+    vistas: vistas.filter(({processo}) => processo == 1),
   },
   {
     classe: "ADI",
@@ -102,7 +102,7 @@ export const capitulos_para_publicacao: CapitulosParaPublicacao[] = [
     ministros_suspeitos: [
       ministro[0],
     ],
-    processo: 2,
+    processo: 9,
     capitulos: [
       capitulo[5],
     ],
