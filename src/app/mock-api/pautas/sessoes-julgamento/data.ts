@@ -1,6 +1,7 @@
 import { SituacaoDoProcesso } from "app/modules/acervo/model/enums/situacaoDoProcesso.enum";
 import { TipoCapitulo } from "app/modules/acervo/model/enums/tipoCapitulo.enum";
 import { TipoDoProcesso } from "app/modules/acervo/model/enums/tipoDoProcesso.enum";
+import { Envolvido } from "app/modules/acervo/model/interfaces/envolvido.interface";
 import { Processo } from "app/modules/acervo/model/interfaces/processo.interface";
 import { SessaoJulgamento } from "app/modules/acervo/model/interfaces/sessao-julgamento.interface";
 import { ministro } from "../ministro/data";
@@ -21,7 +22,38 @@ export let sessao: SessaoJulgamento[] = [
   }
 ];
 
-
+export const envolvidos: Envolvido[] = [
+    {
+      nome: "Instituto Nacional do Seguro Social",
+      polo: "ATIVO",
+      categoria: "REQUERENTE",
+      identificacoes: [],
+    },
+    {
+      nome: "Francisco Chagas Ferreira Lima",
+      polo: "PASSIVO",
+      categoria: "RECORRIDO",
+      identificacoes: [],
+    },
+    {
+      nome: "Andrea Ponte Barbosa",
+      polo: "ATIVO",
+      categoria: "ADVOGADA",
+      identificacoes: [
+        "OAB 13190-B/CE",
+        "RG 12345-6",
+      ],
+    },
+    {
+      nome: "Geissa Braga Calvacante",
+      polo: "PASSIVO",
+      categoria: "ADVOGADA",
+      identificacoes: [
+        "OAB 12314-B/CE",
+        "RG 12345-6",
+      ],
+    },
+  ];
 
 export const processos: Processo[] = [
   {
@@ -68,6 +100,7 @@ export const processos: Processo[] = [
     ],
     ministros_impedidos: [],
     ministros_suspeitos: [],
+    envolvidos,
   },
 ]
 

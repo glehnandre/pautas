@@ -42,7 +42,14 @@ export class VisualizadorInteiroTeorComponent implements OnInit, OnChanges {
   public abrirEmNovaAba(): void {
     var newWindow = window.open();
 
-    newWindow.document.write(this.revisao.documentos[0].documento.textoSemFormatacao);
+    const documentos = this.revisao.documentos;
+
+    documentos.forEach(documento => {
+        if (documento.documento.status !== "Removido") {
+            newWindow.document.write(documento.documento.textoSemFormatacao);
+            newWindow.document.write("<hr></hr>");
+        }
+    })
   }
 
   public toggleDrawerOpen(): void {

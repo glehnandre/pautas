@@ -4,6 +4,7 @@ import { Capitulo } from './capitulo.interface';
 import { Ministro } from './ministro.interface';
 import { Documento } from './documento.interface';
 import { Tag } from './tag.interface';
+import { Envolvido } from './envolvido.interface';
 
 export interface Processo {
     id: number;
@@ -23,4 +24,5 @@ export interface Processo {
     checked?: boolean;
     documentos?: Documento[];
     id_tipo_recurso?: number;
+    envolvidos: Envolvido[];
   }

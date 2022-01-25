@@ -40,6 +40,8 @@ export class RevisarExtratoAtaComponent implements OnInit {
       .getAta(this.parametros.id)
       .subscribe({
         next: (ata) => {
+          console.log("TESTE ATA");
+          console.log(ata);
           this.ata = ata;
           this.tags = [ ata.sessao.tipo, ata.sessao.modalidade ];
           this.sessao = ata.sessao;

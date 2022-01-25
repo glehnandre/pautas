@@ -9,7 +9,7 @@
                 <span class="text-xl mt-2">{{getData() | slice:3:11}}</span>
             </div>
             <div class="flex flex-col ml-4 gap-2">
-                <span class="font-semibold leading-none text-2xl">{{ processo?.nome }}</span>
+                <span class="font-semibold leading-none text-2xl">{{ processo?.ementa }}</span>
                 <span>Relatoria: <span class="font-semibold leading-none">{{ processo?.relator?.nome }}</span></span>
             </div>
         </div>
@@ -17,7 +17,7 @@
         <ng-container fuseCardExpansion>
             <div class="flex-1 mx-8 grid grid-cols-1 md:grid-cols-2">
                 <div class="mr-4 my-2">
-                    <div *ngFor="let left of envolvidosLeft(publicacao?.envolvidos)" class="flex flex-row flex-wrap">
+                    <div *ngFor="let left of envolvidosLeft(processo?.envolvidos)" class="flex flex-row flex-wrap">
                         <span class="text-accent-500 mr-1">{{left?.categoria}}</span> <span class="font-medium">{{left?.nome}}</span>
                         <div *ngFor="let identificacao of left?.identificacoes"
                             class="ml-2 mr-8 text-accent-500 mb-2 truncate"
@@ -27,7 +27,7 @@
                     </div>
                 </div>
                 <div class="my-2">
-                    <div *ngFor="let right of envolvidosRight(publicacao?.envolvidos)" class="flex flex-row flex-wrap">
+                    <div *ngFor="let right of envolvidosRight(processo?.envolvidos)" class="flex flex-row flex-wrap">
                         <span class="text-accent-500 mr-1">{{right?.categoria}}</span> <span class="font-medium">{{right?.nome}}</span>
                         <div *ngFor="let identificacao of right?.identificacoes"
                             class="ml-2 text-accent-500 mb-2 truncate"
