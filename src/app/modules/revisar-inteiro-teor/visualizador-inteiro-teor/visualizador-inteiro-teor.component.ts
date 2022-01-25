@@ -46,6 +46,7 @@ export class VisualizadorInteiroTeorComponent implements OnInit, OnChanges {
 
     documentos.forEach(documento => {
         newWindow.document.write(documento.documento.textoSemFormatacao);
+        newWindow.document.write("<hr></hr>");
     })
   }
 
