@@ -108,30 +108,7 @@ export const capitulos_para_publicacao: CapitulosParaPublicacao[] = [
     ],
     destaques: destaques.filter(({processo}) => processo == 6185),
     vistas: vistas.filter(({processo}) => processo == 6185),
-  },
-  {
-    classe: "AG",
-    classe_extenso: "AGRAVO REGIMENTAL",
-    numero: "100",
-    cadeia: "Ag",
-    envolvidos,
-    relator: ministro[1],
-    redator: ministro[9],
-    ministros_impedidos: [
-      ministro[0],
-    ],
-    ministros_suspeitos: [
-      ministro[0],
-    ],
-    processo: 1,
-    capitulos: [
-      capitulo[2],
-      capitulo[3],
-      capitulo[4],
-    ],
-    destaques: destaques.filter(({processo}) => processo == 1),
-    vistas: vistas.filter(({processo}) => processo == 1),
-  },
+  }
 ]
 
 export const atas: Ata[] = [
