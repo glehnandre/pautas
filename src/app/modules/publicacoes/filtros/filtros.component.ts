@@ -23,6 +23,8 @@ export class FiltrosComponent implements OnInit{
 
   @Input() agregacoes: InformacoesDto[] = [];
   @Input() pesquisas: string[] = [];
+  @Input() data_inicio: Date = new Date();
+  @Input() data_fim: Date = new Date();
   @Output() removido = new EventEmitter<any>();
   @Output() emiteFiltros = new EventEmitter<any>();
   @Output() removeFiltros = new EventEmitter<any>();
@@ -31,8 +33,6 @@ export class FiltrosComponent implements OnInit{
   @Output() emiteAlerta = new EventEmitter<void>();
 
   filtros: Filtros[] = [];
-  data_inicio: Date = new Date();
-  data_fim: Date = new Date();
   numeroProcesso = new FormControl('');
 
   filtrados: Filtrados[] = [];

@@ -7,6 +7,7 @@ import { PublicacaoDto } from 'app/modules/acervo/model/interfaces/publicacaoDto
 import { publicacao } from 'app/mock-api/pautas/publicacoes/data';
 import { RevisaoInteiroTeor } from '../revisar-inteiro-teor.component';
 import { DocumentoInteiroTeor } from 'app/modules/acervo/model/interfaces/documento-inteiro-teor.interface';
+import { Processo } from 'app/modules/acervo/model/interfaces/processo.interface';
 
 @Component({
   selector: 'app-conteudo-publicacao',
@@ -23,6 +24,7 @@ export class ConteudoPublicacaoComponent implements OnInit, AfterViewInit {
   documentos: DocumentoInteiroTeor[];
 
   @Input() revisao: RevisaoInteiroTeor;
+  @Input() processo: Processo;
 
   constructor(
     private _sanitizer: DomSanitizer,
@@ -89,12 +91,12 @@ export class ConteudoPublicacaoComponent implements OnInit, AfterViewInit {
    * @param data data da publicação
    * @param firstDate indica se sera a data em destaque no card (primeira data que aparece) ou não
    */
-  getData(isoDate: string, firstDate?: boolean): string{
-    const meses = ["Jan", "Fev", "Mar", "Abr", "Mai", "Jun", "Jul","Ago","Set","Out","Nov","Dez"];
+  getData(isoDate: string = new Date().toISOString(), firstDate: boolean = true): string{
+    const meses = ["Jan", "Fev", "Mar", "Abr", "Mai", "Jun", "Jul", "Ago", "Set", "Out", "Nov", "Dez"];
     const datepipe: DatePipe = new DatePipe('pt-BR')
     let newDate = new Date(isoDate);
     let data: string;
-    (firstDate) ? data = newDate.getDate()+1+'/'+meses[newDate.getMonth()]+'/'+newDate.getFullYear().toString().slice(2,4)
+    (firstDate) ? data = newDate.getDate()+'/'+meses[newDate.getMonth()]+'/'+newDate.getFullYear().toString().slice(2,4)
                 : data = datepipe.transform(isoDate, "dd/MM/YYYY hh:mm");
     return data;
   }

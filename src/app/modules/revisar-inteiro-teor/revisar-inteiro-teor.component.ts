@@ -13,6 +13,7 @@ import { ProcessoService } from '../services/processo.service';
 import { AlertaService } from '../services/alerta.service';
 import { RevisarInteiroTeorService } from '../services/revisar-inteiro-teor.service';
 import { publicacao } from '../../mock-api/pautas/publicacoes/data';
+import { HttpParams } from '@angular/common/http';
 
 export interface RevisaoInteiroTeor {
   id_processo: number;
@@ -77,6 +78,13 @@ export class RevisarInteiroTeorComponent implements OnInit {
         this.documentosDoProcesso = documentos;
         console.log(this.documentosDoProcesso);
       }
+    });
+
+    this._processoService
+      .listarProcessos(new HttpParams().set('processo', this.idProcesso)).subscribe({
+        next: ([processo]) => {
+          this.processo = processo;
+        }
     });
   }
 
