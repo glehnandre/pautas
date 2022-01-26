@@ -295,3 +295,25 @@
         </mat-drawer-content>
     </mat-drawer-container>
 </div>
+<div class="absolute top-0 right-0 z-9999">
+    <fuse-alert class="max-w-120 mx-auto"
+                [type]="'error'"
+                [appearance]="'soft'"
+                [dismissible]=true
+                [dismissed]=true
+                [name]="'alertBox'">
+        <span fuseAlertTitle>{{alerta.titulo}}</span>
+        {{alerta.mensagem}}
+    </fuse-alert>
+
+    <fuse-alert
+        class="max-w-120 mx-auto z-40"
+        [dismissed]=true
+        [dismissible]=true
+        [name]="'sucessoBox'"
+        [type]="'success'"
+        [appearance]="'soft'">
+        <span fuseAlertTitle>Sucesso</span>
+        Operação efetuada com êxito
+    </fuse-alert>
+</div>

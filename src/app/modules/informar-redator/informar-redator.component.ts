@@ -52,7 +52,6 @@ export class InformarRedatorComponent implements OnInit {
       .subscribe({
         next: (data) => {
           this.dados = data;
-          console.log(this.dados);
         }
     });
 
@@ -73,7 +72,6 @@ export class InformarRedatorComponent implements OnInit {
                 this.acompanharamRelator = votos
                     .find(voto => voto.autor?.id == this.relator.id)
                     .acompanharam;
-                console.log(this.votos);
             }
           });
         }
@@ -106,6 +104,6 @@ export class InformarRedatorComponent implements OnInit {
   }
 
   informarRedator(): void {
-      console.log(this.redator);
+      
   }
 }

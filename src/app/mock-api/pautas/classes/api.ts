@@ -15,7 +15,6 @@ export class ClasseMockApi {
     }
 
     registerHandlers(): void {
-      console.log("ENTROU NO MOCK");
       this._fuseMockApiService.onGet('classes')
         .reply(() => {
           return [200, this._classes];

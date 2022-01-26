@@ -61,7 +61,6 @@ export class TabelaComponent implements OnInit, AfterViewInit, OnDestroy, OnChan
     }
 
     ngOnChanges(changes: SimpleChanges): void {
-        console.log(changes)
         if (changes.filtros.firstChange === false) {
             this.paginator.firstPage();
             this._filtrarListaDeTarefas();
@@ -163,7 +162,7 @@ export class TabelaComponent implements OnInit, AfterViewInit, OnDestroy, OnChan
                 const grupoDeTarefas = this._sliceIntoChunks(data, this.pageEvent?.pageSize);
 
                 this.dataSource = new MatTableDataSource<ITask>(grupoDeTarefas[this.pageEvent?.pageIndex || 0]);
-                console.log(this.dataSource.data);
+                
             }
         });
     }
@@ -236,9 +235,6 @@ export class TabelaComponent implements OnInit, AfterViewInit, OnDestroy, OnChan
                 tarefasFiltradas = tarefasFiltradasPorClasse;
             }
         });
-
-        console.log(tarefasFiltradas)
-        console.log(tarefasFiltradas.length)
 
         this._carregarTarefas(tarefasFiltradas);
     }

@@ -61,8 +61,6 @@ export class FiltrosComponent implements OnInit {
         } else { // Essa tag já estar selecionada
             this.filtrosSelecionados.splice(index, 1);
         }
-
-        console.log(this.filtrosSelecionados)
         // this.emitirFiltrosSelecionados.emit(this.filtrosSelecionados);
     }
 

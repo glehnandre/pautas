@@ -30,7 +30,7 @@ export class ChipsComponent implements OnInit, OnChanges, OnDestroy, AfterConten
   ngOnInit(): void {}
 
   ngOnChanges(changes): void {
-    console.log(changes);
+    
   }
   
   ngAfterContentChecked(){
