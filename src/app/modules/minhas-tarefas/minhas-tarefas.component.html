@@ -2,7 +2,7 @@
     <mat-drawer-container class="flex-auto h-full" [hasBackdrop]="false">
         <mat-drawer #drawer tabindex="-1" class="w-80 dark:bg-gray-900" [mode]="'side'" opened="true">
             <app-filtros
-                [classes]="classes"
+                [tarefas]="tarefas"
                 (emitirFiltrosSelecionados)="obterFiltrosSelecionados($event);"
             ></app-filtros>
         </mat-drawer>
@@ -96,7 +96,7 @@
                     <!-- CONTENT GOES HERE -->
                     <app-tabela
                         [filtros]="filtrosSelecionados"
-                        (emitirClassesDosProcessos)="obterClassesDosProcessos($event)"
+                        (emitirTarefas)="tarefas = $event"
                     ></app-tabela>
                 </div>
             </div>

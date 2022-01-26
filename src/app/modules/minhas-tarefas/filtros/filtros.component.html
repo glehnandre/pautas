@@ -67,65 +67,28 @@
                     </section>
                 </mat-expansion-panel>
 
-                <mat-expansion-panel class="mb-2 border-solid border-2">
+                <mat-expansion-panel 
+                    class="mb-2 border-solid border-2"
+                    *ngFor="let tipo of tiposDasTags"
+                >
                     <mat-expansion-panel-header>
-                        <mat-panel-title class="font-semibold text-primary-500 line-clamp-3">
-                            Tipo
+                        <mat-panel-title 
+                            class="font-semibold text-primary-500 line-clamp-3"
+                        >
+                            {{tipo}}
                         </mat-panel-title>
                     </mat-expansion-panel-header>
 
                     <section>
                         <h4>Selecione o(s) filtro(s):</h4>
                         <p
-                            *ngFor="let filtro of ['teste1']"
+                            *ngFor="let tag of (tags | filtrarTagPorTipo : tipo)"
                         >
                             <mat-checkbox 
                                 color="primary"
+                                (change)="selecionarOuDeselecionarFiltro(tag)"
                             >
-                                {{filtro}}
-                            </mat-checkbox>
-                        </p>
-                    </section>
-                </mat-expansion-panel>
-
-                <mat-expansion-panel class="mb-2 border-solid border-2">
-                    <mat-expansion-panel-header>
-                        <mat-panel-title class="font-semibold text-primary-500 line-clamp-3">
-                            Relator
-                        </mat-panel-title>
-                    </mat-expansion-panel-header>
-
-                    <section>
-                        <h4>Selecione o(s) filtro(s):</h4>
-                        <p
-                            *ngFor="let filtro of ['teste1']"
-                        >
-                            <mat-checkbox 
-                                color="primary"
-                            >
-                                {{filtro}}
-                            </mat-checkbox>
-                        </p>
-                    </section>
-                </mat-expansion-panel>
-
-                <mat-expansion-panel class="mb-2 border-solid border-2">
-                    <mat-expansion-panel-header>
-                        <mat-panel-title class="font-semibold text-primary-500 line-clamp-3">
-                            Classe Processual
-                        </mat-panel-title>
-                    </mat-expansion-panel-header>
-
-                    <section>
-                        <h4>Selecione o(s) filtro(s):</h4>
-                        <p
-                            *ngFor="let classe of classes"
-                        >
-                            <mat-checkbox 
-                                color="primary"
-                                (change)="selecionarOuDeselecionarClasse(classe)"
-                            >
-                                {{classe.nome}} ({{classe.total}})
+                                {{tag.name}} ({{contarTarefasComEsseFiltro(tag)}})
                             </mat-checkbox>
                         </p>
                     </section>
@@ -152,6 +115,9 @@
             <span class="ml-2">Limpar filtros</span>
         </button>
 
-        <mat-hint class="m-4 text-center">Limpar os filtros faz com que todos os dados da tabela sejam recarregados</mat-hint>
+        <mat-hint class="m-4 text-center">
+            Limpar os filtros fará com que todos os dados da tabela 
+            sejam recarregados
+        </mat-hint>
     </div>
 </div>

@@ -1,6 +1,6 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
 import { FormGroup, FormControl, FormBuilder } from '@angular/forms';
-import { ITaskTag } from 'app/modules/acervo/model/interfaces/itask.interface';
+import { ITask, ITaskTag } from 'app/modules/acervo/model/interfaces/itask.interface';
 import { TarefaService } from 'app/modules/services/tarefa.service';
 
 @Component({
@@ -8,19 +8,17 @@ import { TarefaService } from 'app/modules/services/tarefa.service';
     templateUrl: './filtros.component.html',
     styleUrls: ['./filtros.component.scss']
 })
-export class FiltrosComponent implements OnInit {
+export class FiltrosComponent implements OnInit, OnChanges {
 
     panelOpenState = false;
     
     tags: ITaskTag[] = [];
-    tags2: ITaskTag[] = [];
-    tags3: ITaskTag[] = [];
+    tiposDasTags: string[] = [];
     filtrosSelecionados: ITaskTag[] = [];
-    tipos: string[] = [];
 
     formFiltro: FormGroup;
 
-    @Input() classes: Array<{nome:string, total:number}> = [];
+    @Input() tarefas: ITask[] = [];
     @Output() emitirFiltrosSelecionados = new EventEmitter<any>();
 
     constructor(
@@ -32,38 +30,21 @@ export class FiltrosComponent implements OnInit {
             data_fim: [new Date()],
             numeroProcesso: [null],
             classesSelecionadas: [[]],
+            tags: [[]],
         });
     }
 
     ngOnInit(): void {
-        this._tarefaService.obterListaDeFiltrosTags2().subscribe({
-            next: (tags2) => {
-                this.tags2 = tags2;
-
-                this._tarefaService.obterListaDeFiltrosTags3().subscribe({
-                    next: (tags3) => {
-                        this.tags3 = tags3;
-                        this.tags = [...new Set([...this.tags2, ...this.tags3])];
-
-                        this._obterOsTiposDasTarefas();
-                    }
-                });
+        this._tarefaService.obterTags().subscribe({
+            next: (tags) => {
+                this.tags = tags;
+                this._obterTiposDasTags();
             }
         });
     }
 
-    public marcarOuDesmarcarFiltro(tag: ITaskTag): void {
-        const index = this.filtrosSelecionados
-            .findIndex(filtro => filtro.id === tag.id);
-        
-        if (index === -1) { // Essa tag ainda não foi selecionada
-            this.filtrosSelecionados.push(tag);
-        } else { // Essa tag já estar selecionada
-            this.filtrosSelecionados.splice(index, 1);
-        }
-
-        console.log(this.filtrosSelecionados)
-        // this.emitirFiltrosSelecionados.emit(this.filtrosSelecionados);
+    ngOnChanges(changes: SimpleChanges): void {
+        console.log(changes.tarefas.currentValue);
     }
 
     public limparDatasDoPeriodo(): void {
@@ -84,23 +65,53 @@ export class FiltrosComponent implements OnInit {
         this.formFiltro.controls.classesSelecionadas.setValue(classes);
     }
 
+    public selecionarOuDeselecionarFiltro(tag: ITaskTag) {
+        const tags = this.formFiltro.controls.tags.value ?? [];
+        const index = tags.findIndex(t => t.id === tag.id);
+
+        if (index === -1) {
+            tags.push(tag);
+        } else {
+            tags.splice(index, 1);
+        }
+
+        this.formFiltro.controls.tags.setValue(tags);
+    }
+
+    public contarTarefasComEsseFiltro(tag: ITaskTag): number {
+        let cont: number = 0;
+
+        for (const t of this.tarefas) {
+            if (t.etags && t.etags.length > 0 && tag.tasks && tag.tasks.length > 0) {
+                for (const task of tag.tasks) {
+                    if (t.etags.includes(task)) {
+                        cont++;
+                    }
+                }
+            }
+        }
+
+        return cont;
+    }
+    
     public limparFiltros(): void {
         this.formFiltro.reset();
         this.emitirFiltrosSelecionados.emit(null);
     }
-
+    
     public filtrar(): void {
         this.emitirFiltrosSelecionados.emit(this.formFiltro.value);
     }
-
-    private _obterOsTiposDasTarefas(): void {
-        this.tipos = [];
-
-        this.tags.forEach(tag => {
-            if (!this.tipos.includes(tag.type)) {
-                this.tipos.push(tag.type);
+    
+    private _obterTiposDasTags(): void {
+        const tipos = [];
+    
+        for (const tag of this.tags) {
+            if (!tipos.includes(tag.type)) {
+                tipos.push(tag.type);
             }
-        });
+        }
+    
+        this.tiposDasTags = tipos;
     }
-
 }

@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { FuseMockApiService } from '@fuse/lib/mock-api/mock-api.service';
 import { ITask, ITaskTag } from 'app/modules/acervo/model/interfaces/itask.interface';
-import { taskITaskTag, tasks, taskTags } from './data';
+import { tasks, taskTags } from './data';
 
 @Injectable({
     providedIn: 'root'
@@ -9,7 +9,6 @@ import { taskITaskTag, tasks, taskTags } from './data';
 export class TaskMockApi {
     private _tasks: ITask[] = tasks;
     private _taskTags: ITaskTag[] = taskTags;
-    private _taskITaskTag: ITaskTag[] = taskITaskTag;
 
     constructor(private _fuseMockApiService: FuseMockApiService) {
         this.registerHandlers();
@@ -29,15 +28,9 @@ export class TaskMockApi {
             });
 
         this._fuseMockApiService
-            .onGet('/tasks/filters/tags2')
+            .onGet('/tasks/tags.json')
             .reply(() => {
                 return [200, this._taskTags];
-            });
-
-        this._fuseMockApiService
-            .onGet('/tasks/filters/tags3')
-            .reply(() => {
-                return [200, this._taskITaskTag];
             });
     }
 

@@ -28,17 +28,8 @@ export class TarefaService {
     );
   }
 
-  public obterListaDeFiltrosTags2(): Observable<ITaskTag[]> {
-    return this._httpClient.get<ITaskTag[]>('/tasks/filters/tags2').pipe(
-        catchError(error => {
-            console.log(error);
-            return EMPTY;
-        }),
-    );
-  }
-
-  public obterListaDeFiltrosTags3(): Observable<ITaskTag[]> {
-    return this._httpClient.get<ITaskTag[]>('/tasks/filters/tags3').pipe(
+  public obterTags(): Observable<ITaskTag[]> {
+    return this._httpClient.get<ITaskTag[]>('/tasks/tags.json').pipe(
         catchError(error => {
             console.log(error);
             return EMPTY;

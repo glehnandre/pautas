@@ -45,12 +45,9 @@ export class TabelaComponent implements OnInit, AfterViewInit, OnDestroy, OnChan
     isLoadingResults = true;
     isRateLimitReached = false;
 
-    classes: Array<{nome: string; total: number}> = [];
-
     @ViewChild(MatPaginator) paginator: MatPaginator;
-
     @Input() filtros: Filtro;
-    @Output() emitirClassesDosProcessos = new EventEmitter();
+    @Output() emitirTarefas = new EventEmitter<ITask[]>();
 
     constructor(
         private _tarefaService: TarefaService,
@@ -157,7 +154,7 @@ export class TabelaComponent implements OnInit, AfterViewInit, OnDestroy, OnChan
             next: (data: ITask[]) => {
                 if (!this.filtros) {
                     this.tarefas = data;
-                    this._obterAsClassesDosProcessos();
+                    this.emitirTarefas.emit(this.tarefas);
                 }
 
                 const grupoDeTarefas = this._sliceIntoChunks(data, this.pageEvent?.pageSize);
@@ -241,32 +238,6 @@ export class TabelaComponent implements OnInit, AfterViewInit, OnDestroy, OnChan
         console.log(tarefasFiltradas.length)
 
         this._carregarTarefas(tarefasFiltradas);
-    }
-
-    private _obterAsClassesDosProcessos(): void {
-        this.classes = [];
-
-        for (const t of this.tarefas) {
-            const nome: any = t.searchableId.split(" ")[0];
-
-            if (isNaN(nome)) { // true caso contenha letras
-                const index = this.classes.findIndex(c => c.nome === nome);
-                
-                if (index === -1) {
-                    this.classes.push({ nome, total: 1 });
-                } else {
-                    const aux = this.classes[index];
-
-                    this.classes.splice(index, 1);
-                    this.classes.push({
-                        nome: aux.nome, 
-                        total: aux.total+1,
-                    });
-                }
-            }
-        }
-
-        this.emitirClassesDosProcessos.emit(this.classes);
     }
 
     private _sliceIntoChunks(arr: Array<any>, chunkSize: number = 30): Array<any> {
