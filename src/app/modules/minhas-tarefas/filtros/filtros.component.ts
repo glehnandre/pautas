@@ -11,7 +11,7 @@ import { TarefaService } from 'app/modules/services/tarefa.service';
 export class FiltrosComponent implements OnInit, OnChanges {
 
     panelOpenState = false;
-    
+
     tags: ITaskTag[] = [];
     tiposDasTags: string[] = [];
     filtrosSelecionados: ITaskTag[] = [];
@@ -24,7 +24,7 @@ export class FiltrosComponent implements OnInit, OnChanges {
     constructor(
         private _tarefaService: TarefaService,
         private _fb: FormBuilder,
-    ) { 
+    ) {
         this.formFiltro = this._fb.group({
             data_inicio: [new Date()],
             data_fim: [new Date()],
@@ -45,6 +45,18 @@ export class FiltrosComponent implements OnInit, OnChanges {
 
     ngOnChanges(changes: SimpleChanges): void {
         console.log(changes.tarefas.currentValue);
+    }
+
+    public marcarOuDesmarcarFiltro(tag: ITaskTag): void {
+        const index = this.filtrosSelecionados
+            .findIndex(filtro => filtro.id === tag.id);
+
+        if (index === -1) { // Essa tag ainda não foi selecionada
+            this.filtrosSelecionados.push(tag);
+        } else { // Essa tag já estar selecionada
+            this.filtrosSelecionados.splice(index, 1);
+        }
+        // this.emitirFiltrosSelecionados.emit(this.filtrosSelecionados);
     }
 
     public limparDatasDoPeriodo(): void {
@@ -93,25 +105,25 @@ export class FiltrosComponent implements OnInit, OnChanges {
 
         return cont;
     }
-    
+
     public limparFiltros(): void {
         this.formFiltro.reset();
         this.emitirFiltrosSelecionados.emit(null);
     }
-    
+
     public filtrar(): void {
         this.emitirFiltrosSelecionados.emit(this.formFiltro.value);
     }
-    
+
     private _obterTiposDasTags(): void {
         const tipos = [];
-    
+
         for (const tag of this.tags) {
             if (!tipos.includes(tag.type)) {
                 tipos.push(tag.type);
             }
         }
-    
+
         this.tiposDasTags = tipos;
     }
 }

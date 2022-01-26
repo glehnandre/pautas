@@ -1,6 +1,6 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, EMPTY, Subject, BehaviorSubject } from 'rxjs';
+import { Observable, EMPTY, Subject, BehaviorSubject, empty } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { TipoCapitulo } from '../acervo/model/enums/tipoCapitulo.enum';
 import { Destaque } from '../acervo/model/interfaces/destaque.interface';
@@ -89,13 +89,8 @@ export class ProcessoService {
     );
   }
 
-  public definirRelatorDoProcesso(idProcesso: number, idRelator: number): Observable<void> {
-    return this._httpClient.post<void>(`processos/${idProcesso}/relator`, idRelator).pipe(
-      catchError(error => {
-        console.log(error);
-        return EMPTY;
-      })
-    );
+  public definirRelatorDoProcesso(idProcesso: number, idRelator: number): Observable<string> {
+    return this._httpClient.post<string>(`processos/${idProcesso}/relator`, idRelator);
   }
 
   public obterTiposDoProcesso(): Observable<string[]> {

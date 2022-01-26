@@ -44,8 +44,17 @@ export class FormRelatorComponent implements OnInit {
   public publicar(): void {
     if (this.formRelator.valid) {
       this._processoService.definirRelatorDoProcesso(this.data.idProcesso, this.formRelator.value.id).subscribe({
-        next: () => {
-          this._dialogRef.close();
+        next: (data) => {
+          console.log("RESULTADO DA CHAMADA API");
+          console.log(data);
+          this._dialogRef.close({status:true, mensagem_tratada:"Resultados salvos", mensagem_servidor:data}); 
+        },
+        error: (data) => {
+          if(data.status == 404){
+            this._dialogRef.close({status:false, mensagem_tratada:"Processo não encontrado", mensagem_servidor:data.message}); 
+          }else{
+            this._dialogRef.close({status:false, mensagem_tratada:"Ocorreu um erro inesperado no serviço", mensagem_servidor:data.message}); 
+          }
         }
       });
     }

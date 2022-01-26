@@ -104,7 +104,6 @@ export class AlterarSessaoComponent implements OnInit {
   }
 
   alterarDataDeJulgamento(): void {
-    console.log(this.pauta);
     this._julgamentoService.pautarProcesso(this.pauta).subscribe({
         next: () => {
             this._alertService.exibirAlertaDeSucesso();

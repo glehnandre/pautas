@@ -18,6 +18,7 @@ import { Vista } from '../acervo/model/interfaces/vista.interface';
 import { Destaque } from '../acervo/model/interfaces/destaque.interface';
 import { FormRelatorComponent } from './form-relator/form-relator.component';
 import { FormIndicacaoImpedimentosComponent } from './form-indicacao-impedimentos/form-indicacao-impedimentos.component';
+import { FuseAlertService } from '@fuse/components/alert';
 
 interface Parametros {
   processo: number;
@@ -51,12 +52,18 @@ export class ResultadoJulgamentoComponent implements OnInit, OnDestroy, AfterCon
   exibirChips = true;
   chips: Array<{id?: number; nome: string}> = [];
 
+  public alerta: {
+    titulo: string;
+    mensagem: string;
+  };
+
   readonly FORM_CADASTRO_DECISAO = 'formulario-de-cadastro-de-decisao';
 
   constructor(
     private _resultadoJulgamento: ResultadoJulgamentoService,
     private _processoService: ProcessoService,
     private _route: ActivatedRoute,
+    private _fuseAlertService: FuseAlertService,
     private _fuseDrawerService: FuseDrawerService,
     private _dialog: MatDialog,
     private cd: ChangeDetectorRef,
@@ -66,15 +73,18 @@ export class ResultadoJulgamentoComponent implements OnInit, OnDestroy, AfterCon
     this.parametros = this._route.snapshot.queryParams as Parametros;
     this._carregarProcessos();
     this._carregarDecisoes();
-    //this.cd.detectChanges();
+    this.alerta = {
+      titulo: '',
+      mensagem: ''
+    };
   }
 
   ngAfterContentChecked(): void {
-    //this.cd.detectChanges();
+    
   }
 
   ngOnDestroy(): void {
-    //this.cd.detectChanges();
+    
   }
 
   /**
@@ -125,7 +135,6 @@ export class ResultadoJulgamentoComponent implements OnInit, OnDestroy, AfterCon
    */
   public dropped(event: CdkDragDrop<any[]>): void {
     moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
-    console.log(event.container.data)
   }
 
   /**
@@ -194,8 +203,6 @@ export class ResultadoJulgamentoComponent implements OnInit, OnDestroy, AfterCon
   public excluirDecisao(decisao: Decisao): void {
      const index = this.todasAsDecisoes
        .findIndex(d => JSON.stringify(d) === JSON.stringify(this.decisaoSelecionada));
-     console.log("EXCLUIR UMA DECISAO")
-     console.log(index);
      if (index !== -1) {
        this.todasAsDecisoes.splice(index, 1);
        this.setDecisaoSelecionada(null);
@@ -275,6 +282,7 @@ export class ResultadoJulgamentoComponent implements OnInit, OnDestroy, AfterCon
 
         this._processoService.salvarVistaDoProcesso(this.parametros.processo, vista).subscribe({
           next: (data) => {
+            console.log("LISTA DE VISTAS");
             console.log(data);
             this._carregarDecisoes(); // atualiza a lista de Vistas
           }
@@ -307,7 +315,6 @@ export class ResultadoJulgamentoComponent implements OnInit, OnDestroy, AfterCon
 
         this._processoService.salvarDestaqueDoProcesso(this.parametros.processo, destaque).subscribe({
           next: (data) => {
-            console.log(data);
             this._carregarDecisoes(); // atualiza a lista de Destaque
           }
         });
@@ -390,14 +397,14 @@ export class ResultadoJulgamentoComponent implements OnInit, OnDestroy, AfterCon
         this._processoService.excluirVistaDoProcesso(this.parametros.processo, id)
           .subscribe({
             next: () => {
-              console.log(`Vista ${id} excluida`);
+              
             }
           });
       } else { // destaque
         this._processoService.excluirDestaqueDoProcesso(this.parametros.processo, id)
           .subscribe({
             next: () => {
-              console.log(`Destaque ${id} excluida`);
+              
             }
           });
       }
@@ -421,13 +428,20 @@ export class ResultadoJulgamentoComponent implements OnInit, OnDestroy, AfterCon
    * @author Douglas da Silva Monteles
    */
   public finalizar(): void {
+    
     const dialogRef = this._dialog.open(FormRelatorComponent, {
       data: {
-        idProcesso: +this.parametros.processo,
+        idProcesso: + this.parametros.processo,
       }
     });
 
-    dialogRef.afterClosed().subscribe(data => {});
+    dialogRef.afterClosed().subscribe(data => {
+      if(data.status){
+        this.showMessage('Sucesso', data.mensagem_tratada);
+      }else{
+        this.showError('Erro ao finalizar a publicação', data.mensagem_tratada);
+      }
+    });
   }
 
   /**
@@ -441,7 +455,6 @@ export class ResultadoJulgamentoComponent implements OnInit, OnDestroy, AfterCon
         this.dados = data;
         this.getDecisoes();
         this._criarChips();
-        console.log(this.dados)
       }
     });
   }
@@ -457,7 +470,6 @@ export class ResultadoJulgamentoComponent implements OnInit, OnDestroy, AfterCon
         this.processo = processo;
         this.cd.detectChanges();
         this._criarChips();
-        console.log(this.processo)
 
         this._processoService.obterVotosDoProcesso(this.processo.id).subscribe({
           next: (votos) => {
@@ -529,6 +541,33 @@ export class ResultadoJulgamentoComponent implements OnInit, OnDestroy, AfterCon
     });
 
     return destaque;
+  }
+
+
+  showMessage(titulo: string, mensagem: string): void {
+    this.alerta = {
+      titulo,
+      mensagem
+    };
+
+    this._fuseAlertService.show('sucessoBox');
+
+    setTimeout(() => {
+      this._fuseAlertService.dismiss('sucessoBox');
+    }, 5000);
+  }
+
+  showError(titulo: string, mensagem: string): void {
+    this.alerta = {
+      titulo,
+      mensagem
+    };
+
+    this._fuseAlertService.show('alertBox');
+
+    setTimeout(() => {
+      this._fuseAlertService.dismiss('alertBox');
+    }, 5000);
   }
 
 }

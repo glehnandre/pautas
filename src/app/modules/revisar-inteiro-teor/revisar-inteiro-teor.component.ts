@@ -69,14 +69,12 @@ export class RevisarInteiroTeorComponent implements OnInit {
         this.dataSource = new DataSourceInteiroTeor(this.revisoes.documentos);
         this.obterNomesDasSessoes();
         this.MENSAGEM_SUCESSO = `O Inteiro Teor do julgamento do ${this.revisoes?.nome} da ${this.revisoes?.classe} ${this.revisoes?.numero} foi liberado para publicação`;
-        console.log(this.revisoes);
       }
     });
 
     this._processoService.obterDocumentosDoProcesso(this.idProcesso).subscribe({
       next: (documentos) => {
         this.documentosDoProcesso = documentos;
-        console.log(this.documentosDoProcesso);
       }
     });
 

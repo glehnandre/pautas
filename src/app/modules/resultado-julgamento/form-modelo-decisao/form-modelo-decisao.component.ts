@@ -68,8 +68,6 @@ export class FormModeloDecisaoComponent implements OnInit {
 
   ngOnInit(): void {
     this.classes$ = this._classeService.getClasses();
-    console.log("CLASSES");
-    console.log(this.classes$);
     this.recursos$ = this._recursoService.obterListaDeRecursos();
 
     this.formModeloDecisao.controls.texto.valueChanges.subscribe((texto: string) => {

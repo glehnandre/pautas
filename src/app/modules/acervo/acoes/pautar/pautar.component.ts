@@ -72,7 +72,6 @@ export class PautarComponent implements OnInit {
         if (this.pautarForm.valid) {
             this._julgamentoService.pautarProcesso(this.pautarForm.value).subscribe({
                 next: (data) => {
-                    console.log(data)
                     this._alertService.exibirAlertaDeSucesso();
                 }
             });

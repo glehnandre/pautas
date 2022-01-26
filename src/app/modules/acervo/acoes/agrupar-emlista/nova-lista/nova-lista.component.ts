@@ -35,7 +35,6 @@ export class NovaListaComponent implements OnInit {
   }
 
   cadastrarNovaTag(): void {
-    console.log(this.listaFormGroup)
     if (this.listaFormGroup.valid) {
       this.cadastrarTagViaApi().subscribe({
         next: (data) => {

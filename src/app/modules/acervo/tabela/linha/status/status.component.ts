@@ -55,6 +55,6 @@ export class StatusComponent implements OnInit {
   }
 
   print() {
-    console.log(this.display)
+
   }
 }

@@ -236,11 +236,10 @@ export class ProcessoMockApi {
                     const relator = ministro.find(m => m.id === idRelator);
                     this._processo[index].relator = relator;
                     setStorage('processos', this._processo);
-                    console.log(this._processo[index]);
-                    return [200, { description: "Sucesso" }];
+                    return [200, "Sucesso"];
                 }
 
-                return [404, { description: "Nenhum processo encontrado" }];
+                return [404, "Nenhum processo encontrado"];
             });
 
         this._fuseMockApiService

@@ -112,8 +112,6 @@ export class DecisaoMockApi {
             const dispositivo = dispositivos.find(d => d.id === body.dispositivo);
             body.id = this._modeloDecisao.length+1;
             this._modeloDecisao.push({...body, dispositivo});
-
-            console.log(this._modeloDecisao)
             return [200, { description: "Sucesso." }];
           }
 

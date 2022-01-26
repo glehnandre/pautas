@@ -83,8 +83,6 @@ export class PublicarFormComponent implements OnInit {
     const form = {
       dataPublicacao,
     }
-    console.log('Ata Publicada:')
-    console.log(this.opcoesDataPublicacao[opcaoData]);
 
     this._dialogRef.close(form);
   }

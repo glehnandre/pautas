@@ -54,7 +54,6 @@ export class SessaoExtraordinariaComponent implements OnInit {
     if (this.sessaoExtraordinariaForm.valid) {
       this._julgamentoSerivce.socilitarSessaoExtraordinaria(this.sessaoExtraordinariaForm.value).subscribe({
         next: (data) => {
-          console.log(data);
           this._alertService.exibirAlertaDeSucesso();
           this._dialogRef.close();
         }

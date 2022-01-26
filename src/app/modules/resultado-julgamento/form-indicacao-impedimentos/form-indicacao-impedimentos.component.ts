@@ -102,8 +102,6 @@ export class FormIndicacaoImpedimentosComponent implements OnInit {
         this.resultado.ministrosImpedidos.delete(id);
       }
     }
-
-    console.log(this.resultado)
   }
 
   /**
