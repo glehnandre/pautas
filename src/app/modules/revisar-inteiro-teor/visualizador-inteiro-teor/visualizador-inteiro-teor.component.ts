@@ -45,8 +45,10 @@ export class VisualizadorInteiroTeorComponent implements OnInit, OnChanges {
     const documentos = this.revisao.documentos;
 
     documentos.forEach(documento => {
-        newWindow.document.write(documento.documento.textoSemFormatacao);
-        newWindow.document.write("<hr></hr>");
+        if (documento.documento.status !== "Removido") {
+            newWindow.document.write(documento.documento.textoSemFormatacao);
+            newWindow.document.write("<hr></hr>");
+        }
     })
   }
 

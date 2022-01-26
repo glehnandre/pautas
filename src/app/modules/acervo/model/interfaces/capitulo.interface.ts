@@ -24,6 +24,7 @@ export interface Capitulo {
 export interface CapitulosParaPublicacao {
     processo: number;
     cadeia: string;
+    cadeia_extenso?: string;
     classe: string;
     classe_extenso: string;
     numero: string;

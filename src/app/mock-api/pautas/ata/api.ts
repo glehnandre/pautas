@@ -12,6 +12,7 @@ import { getStorage } from '../storage';
 })
 export class AtaMockApi {
     private _atas: Ata[] = getStorage('atas', atas);
+    private _processos = getStorage('processos', processo);
 
     constructor(private _fuseMockApiService: FuseMockApiService) {
       this.registerHandlers();
@@ -44,7 +45,7 @@ export class AtaMockApi {
           } catch (error) {
             return [400, { description: 'Parâmetros incorretos para ação.' }];
           }
-          return processo.filter( ({ id }) => body == id).length ?
+          return this._processos.filter( ({ id }) => body == id).length ?
             [200, 'Sucesso']:
             [404, 'Nenhum processo encontrado'];
         })

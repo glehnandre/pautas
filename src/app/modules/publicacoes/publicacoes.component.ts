@@ -184,12 +184,14 @@ export class PublicacoesComponent implements OnInit, OnDestroy {
    * Faz o tratamento e filtra as publicações a partir dos filtos dinâmicos selecionados.
    * @param filtros filtros selecionados.
    */
-  trataFiltros(filtros: any[]){
+  trataFiltros(filtros: any[], toParams: boolean = true){
     let filtrar = filtros.filter(filtro=>filtro.tipo==filtros[0].tipo);
     let filtrados = [];
     let tipos = [];
     let params = [];
-
+    
+    this.redefinirParams();
+    
     while(filtrar[0]){
       tipos.push(filtrar[0].tipo);
       filtrar.forEach(filtro=>{
@@ -198,9 +200,12 @@ export class PublicacoesComponent implements OnInit, OnDestroy {
         })
         params.push(filtro.filtro.replace(/ /g, '-'));
       })
-      this.filtrados = filtrados;
-      this.trataExibidos();
+      if(!toParams){
+        this.filtrados = filtrados;
+        this.trataExibidos();
+      }
 
+      if(this.tiposParams.indexOf(filtrar[0].tipo)==-1)
       this.tiposParams.push(filtrar[0].tipo);
       this.montaParams(filtrar[0].tipo, params);
 
@@ -208,6 +213,8 @@ export class PublicacoesComponent implements OnInit, OnDestroy {
       filtrados = [];
       filtrar = filtros.filter(filtro=>tipos.indexOf(filtro.tipo)==-1)
     }
+
+    //console.log(this.tiposParams);
     this.hasFiltros = true;
   }
 
@@ -248,13 +255,13 @@ export class PublicacoesComponent implements OnInit, OnDestroy {
     if(!event.data_inicio) {
         this.filtrados = this.publicacoes;
         this.trataExibidos();
-        this.montaParams("data", null)
+        this.montaParams("Data", null)
     }
     else{
       let data_inicio: Date = new Date(event.data_inicio.toString().slice(0, 16));
       let data_fim: Date = new Date(new Date(event.data_fim.toString().slice(0, 16)).setHours(23,59,59));
       let filtros = [];
-      this.montaParams("data", [data_inicio.toISOString() + "_" + data_fim.toISOString()])
+      this.montaParams("Data", [data_inicio.toISOString() + "_" + data_fim.toISOString()])
       filtros = this.publicacoes.filter(publicacao=>{
         let day: number;
 
@@ -309,6 +316,8 @@ export class PublicacoesComponent implements OnInit, OnDestroy {
 
   montaParams(tipo: string, descricoes: any[]){
     let param: string = null;
+    //console.log("tipo: "+tipo, "desc: "+descricoes);
+    //console.log(descricoes);
     if(descricoes)
     descricoes.forEach((descricao, i)=>{
       if(i==0) param = `${descricao}`;
@@ -322,6 +331,16 @@ export class PublicacoesComponent implements OnInit, OnDestroy {
         relativeTo: this._route,
         queryParams: this.queryParams,
         queryParamsHandling: 'merge',
+      });
+      //console.log(this.queryParams)
+  }
+
+  redefinirParams(){
+    this._router.navigate(
+      [],
+      {
+        relativeTo: this._route,
+        replaceUrl: true
       });
   }
 

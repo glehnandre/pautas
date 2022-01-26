@@ -31,6 +31,7 @@ export class FiltrosComponent implements OnInit{
   @Output() emiteData = new EventEmitter<any>();
   @Output() emiteProcesso = new EventEmitter<any>();
   @Output() emiteAlerta = new EventEmitter<void>();
+  @Output() emiteParams = new EventEmitter<any>();
 
   filtros: Filtros[] = [];
   numeroProcesso = new FormControl('');
@@ -75,6 +76,7 @@ export class FiltrosComponent implements OnInit{
         filtro.selecionados.splice(filtro.selecionados.indexOf(name), 1);
       })
     }
+    this.emitirParams();
   }
 
   /**
@@ -95,6 +97,10 @@ export class FiltrosComponent implements OnInit{
       });
     }
     this.alertaFiltroVazio();
+  }
+
+  emitirParams(){
+    this.emiteParams.emit(this.filtrados);
   }
 
   /**
