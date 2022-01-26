@@ -5,14 +5,14 @@ import { ModeloDecisao } from "app/modules/acervo/model/interfaces/modeloDecisao
 import { dispositivos } from "../dispositivo/data";
 import { capitulo } from "../capitulo/data"
 import { sessao } from "../sessoes-julgamento/data";
-import { destaques, processo, vistas } from "../processos/data";
+import { getStorage } from "../storage";
 
-export const decisoes: DecisoesResultadoJulgamento[] = [
+export const decisoes: DecisoesResultadoJulgamento[] = getStorage('decisoes', [
   {
     decisoes: [],
     sessao: sessao[0],
   },
-];
+]);
 
 export const modeloDecisao: ModeloDecisao[] = [
   {

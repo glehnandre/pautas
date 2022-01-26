@@ -14,25 +14,26 @@ import { Tag } from 'app/modules/acervo/model/interfaces/tag.interface';
 import { Documento } from 'app/modules/acervo/model/interfaces/documento.interface';
 import { SessaoJulgamento } from 'app/modules/acervo/model/interfaces/sessao-julgamento.interface';
 
-import { processo as processoData, documentos, votos, tipos, vistas, destaques } from '../processos/data';
+import { processo as processoData, documentos, votos, tipos } from '../processos/data';
+import { vistas, destaques } from '../ata/data';
 import { tags as tagData } from '../tags/data';
 import { julgamentos } from '../julgamentos/data';
 import { listaImpedimentos, ministro } from '../ministro/data'
 
-import { getStorage, setStorage } from '../storage';
+import { setStorage } from '../storage';
 
 @Injectable({
     providedIn: 'root'
 })
 export class ProcessoMockApi {
-    private _processo: Processo[] = getStorage('processos', processoData);
-    private _julgamentos: SessaoJulgamento[] = getStorage('julgamentos', julgamentos);
+    private _processo: Processo[] = processoData;
+    private _julgamentos: SessaoJulgamento[] = julgamentos;
     private _documentos: Documento[] = documentos;
     private _tag: Tag[] = [];
     private _impedimentos: any[] = listaImpedimentos;
     private _votos: Voto[] = votos;
-    private _vistas: Vista[] = getStorage('vistas', vistas);
-    private _destaques: Destaque[] = getStorage('destaques', destaques);
+    private _vistas: Vista[] = vistas;
+    private _destaques: Destaque[] = destaques;
 
     constructor(
         private _fuseMockApiService: FuseMockApiService,) {

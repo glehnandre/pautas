@@ -3,17 +3,21 @@ import { FuseMockApiService } from '@fuse/lib/mock-api/mock-api.service';
 
 import { DecisoesResultadoJulgamento } from 'app/modules/acervo/model/interfaces/decisao.interface';
 import { ModeloDecisao } from 'app/modules/acervo/model/interfaces/modeloDecisao.interface';
+import { Destaque, Vista } from 'app/modules/acervo/model/interfaces/vista-e-destaque.interface';
 
 import { dispositivos } from '../dispositivo/data';
 import { decisoes as decisoesData, modeloDecisao } from './data';
 
-import { getStorage, setStorage } from '../storage';
+import { setStorage } from '../storage';
+import { destaques, vistas } from '../ata/data';
 
 @Injectable({
     providedIn: 'root'
 })
 export class DecisaoMockApi {
-    private _decisoes: Array<DecisoesResultadoJulgamento> = getStorage('decisoes', decisoesData);
+    private _decisoes: Array<DecisoesResultadoJulgamento> = decisoesData;
+    private _vistas: Array<Vista> = vistas;
+    private _destaques: Array<Destaque> = destaques;
     private _modeloDecisao: ModeloDecisao[] = modeloDecisao;
 
     constructor(private _fuseMockApiService: FuseMockApiService) {
@@ -48,8 +52,8 @@ export class DecisaoMockApi {
               this._decisoes[0].decisoes.push({
                 capitulo: decisao,
                 processos_mesma_decisao,
-                destaques: [],
-                vistas: [],
+                destaques: this._destaques.filter(({ processo }) => processo == idProcesso),
+                vistas: this._vistas.filter(({ processo }) => processo == idProcesso),
               });
             } else {
               const dispositivo = dispositivos.find(d => d.id === decisao.dispositivo);
@@ -60,8 +64,8 @@ export class DecisaoMockApi {
                   dispositivo,
                 },
                 processos_mesma_decisao,
-                destaques: [],
-                vistas: [],
+                destaques: this._destaques.filter(({ processo }) => processo == idProcesso),
+                vistas: this._vistas.filter(({ processo }) => processo == idProcesso),
               });
             }
             setStorage('decisoes', this._decisoes);
