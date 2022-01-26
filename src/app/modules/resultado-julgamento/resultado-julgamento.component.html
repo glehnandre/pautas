@@ -11,7 +11,7 @@
 
     <header class="bg-white pt-2 flex flex-col px-2">
 
-        
+
         <app-cabecalho-relator
             [processo]="processo"
             [colegiado]="parametros.colegiado"
@@ -218,7 +218,7 @@
                                                             <div class="flex-auto mr-2 truncate">
                                                                 <ng-container class="flex items-center justify-center">
                                                                     <p class="my-auto" [matTooltip]="item.capitulo.descricao">
-                                                                        {{(i+1)}}º: {{item.capitulo.tipo}} - <strong class="text-primary-500">{{item.capitulo.dispositivo.nome || item.capitulo.dispositivo}}</strong>
+                                                                        {{(i+1)}}º: {{item.capitulo.tipo}} - <strong class="text-primary-500">{{item.capitulo.dispositivo?.nome || item.capitulo?.dispositivo}}</strong>
                                                                     </p>
                                                                 </ng-container>
                                                             </div>
