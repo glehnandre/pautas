@@ -56,12 +56,10 @@ export class DecisaoMockApi {
                 vistas: this._vistas.filter(({ processo }) => processo == idProcesso),
               });
             } else {
-              const dispositivo = dispositivos.find(d => d.id === decisao.dispositivo);
               this._decisoes[0].decisoes.push({
                 capitulo: {
                   ...decisao,
                   id: this._decisoes[0].decisoes.length + 1,
-                  dispositivo,
                 },
                 processos_mesma_decisao,
                 destaques: this._destaques.filter(({ processo }) => processo == idProcesso),
@@ -127,7 +125,7 @@ export class DecisaoMockApi {
           const recurso: number = +request.params.get('recurso');
 
           const modelo = this._modeloDecisao
-            .find(m => (m.classe === classe) && (m.tipoCapitulo === tipo_capitulo) && (m.dispositivo.id === +dispositivo) && (m.recurso === recurso));
+            // .find(m => (m.classe === classe) && (m.tipoCapitulo === tipo_capitulo) && (m.dispositivo.id === +dispositivo) && (m.recurso === recurso));
 
           if (modelo !== undefined) {
             return [200, modelo];

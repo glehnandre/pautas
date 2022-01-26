@@ -71,7 +71,7 @@
                                 {{ capitulo.dispositivo?.nome }}
                             </div>
                             <div [innerHtml]="capitulo?.texto + '<br>' +
-                                              fraseEMinistros(capitulo?.ministros_acordam, FraseAcompanham)+
+                                              capitulo?.ministros_acordam+
                                               fraseEMinistros(capitulo?.ministros_divergem, FraseDivergem)
                             "></div>
                         </div>
