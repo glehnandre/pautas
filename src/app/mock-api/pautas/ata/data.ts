@@ -1,12 +1,21 @@
 import { Ata } from "app/modules/acervo/model/interfaces/ata.interface";
 
 import { CapitulosParaPublicacao, Envolvido } from "app/modules/acervo/model/interfaces/capitulo.interface";
-
-import { capitulo } from "../capitulo/data"
-import { ministro } from "../ministro/data";
 import { Destaque, Vista } from "app/modules/acervo/model/interfaces/vista-e-destaque.interface";
+
+import { capitulo } from "../capitulo/data";
+import { decisoes } from "../decisao/data";
 import { julgamentos } from "../julgamentos/data";
+import { ministro } from "../ministro/data";
+
 import { getStorage } from "../storage";
+
+const capitulos_decissao = [];
+
+decisoes[0]?.decisoes.forEach((decisao) => {
+  capitulos_decissao.push(decisao?.capitulo);
+  console.log('Adicionado Capitulo');
+});
 
 export const envolvidos: Envolvido[] = [
   {
@@ -69,6 +78,7 @@ export const capitulos_para_publicacao: CapitulosParaPublicacao[] = [
     classe_extenso: "RECURSO EXTRAORDINÁRIO COM AGRAVO",
     numero: "1311742",
     cadeia: "Ag",
+    cadeia_extenso: "Agravo",
     envolvidos,
     relator: ministro[0],
     redator: ministro[1],
@@ -103,15 +113,13 @@ export const capitulos_para_publicacao: CapitulosParaPublicacao[] = [
       ministro[0],
     ],
     processo: 9,
-    capitulos: [
-      capitulo[5],
-    ],
-    destaques: destaques.filter(({processo}) => processo == 6185),
-    vistas: vistas.filter(({processo}) => processo == 6185),
+    capitulos: capitulos_decissao.length ? capitulos_decissao: [capitulo[5]],
+    destaques: destaques.filter(({processo}) => processo == 9),
+    vistas: vistas.filter(({processo}) => processo == 9),
   }
 ]
 
-export const atas: Ata[] = [
+export const atas: Ata[] = getStorage('atas', [
   {
     cabecalho: `Isto é uma demonstração de como será exibido
         o cabeçalho de Revisar Extrato da Ata, para colocar o
@@ -126,4 +134,4 @@ export const atas: Ata[] = [
     sessao: julgamentos[0],
     capitulos_para_publicacao
   }
-]
+]);
