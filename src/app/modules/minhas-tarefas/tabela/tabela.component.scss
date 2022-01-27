@@ -1,9 +1,12 @@
-tr.example-element-row:not(.example-expanded-row):hover {
-  background: whitesmoke;
+.example-table-container {
+  position: relative;
+  min-height: 200px;
+  max-height: 400px;
+  overflow: auto;
 }
 
-tr.example-element-row:not(.example-expanded-row):active {
-  background: #efefef;
+tr.example-element-row:not(.example-expanded-row):hover {
+  background: whitesmoke;
 }
 
 .example-element-row td {

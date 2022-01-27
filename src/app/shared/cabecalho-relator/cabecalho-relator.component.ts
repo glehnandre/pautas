@@ -79,7 +79,7 @@ export class CabecalhoRelatorComponent implements AfterContentChecked, OnInit {
   }
 
   private carregarDocumentosProcesso(processo: Processo){
-    this._processoService.obterDocumentosDoProcesso(processo.id).subscribe(data => {
+    this._processoService.obterDocumentosDoProcesso(processo?.id).subscribe(data => {
       this.documentos = { nomes: [], links: [] };
       data.forEach(documento => {
         this.documentos.nomes.push(documento.nome);
@@ -90,7 +90,7 @@ export class CabecalhoRelatorComponent implements AfterContentChecked, OnInit {
 
   private carregarTags(processo: Processo){
     this.tags = [];
-    this.processo.lista.forEach(tag => {
+    this.processo?.lista.forEach(tag => {
       this.tags.push(tag.descricao);
     });
   }

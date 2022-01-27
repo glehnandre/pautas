@@ -65,7 +65,7 @@ export class ConteudoPublicacaoComponent implements OnInit, AfterViewInit {
    */
    envolvidosLeft(envolvidos: Envolvido[]): Envolvido[]{
     let left: Envolvido[] = [];
-    envolvidos.forEach(envolvido=>{
+    envolvidos?.forEach(envolvido=>{
       if(envolvido.polo == 'ATIVO') left.push(envolvido);
     });
 
@@ -79,7 +79,7 @@ export class ConteudoPublicacaoComponent implements OnInit, AfterViewInit {
    */
   envolvidosRight(envolvidos: Envolvido[]): Envolvido[]{
     let right: Envolvido[] = [];
-    envolvidos.forEach(envolvido=>{
+    envolvidos?.forEach(envolvido=>{
       if(envolvido.polo == 'PASSIVO') right.push(envolvido);
     });
 

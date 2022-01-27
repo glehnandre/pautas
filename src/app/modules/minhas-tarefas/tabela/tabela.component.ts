@@ -3,7 +3,7 @@ import { SelectionModel } from '@angular/cdk/collections';
 import { AfterViewInit, Component, EventEmitter, Injectable, Input, OnChanges, OnDestroy, OnInit, Output, SimpleChanges, ViewChild } from '@angular/core';
 import { MatPaginator, MatPaginatorIntl, PageEvent } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
-import { ITask } from 'app/modules/acervo/model/interfaces/itask.interface';
+import { ITask, ITaskTag } from 'app/modules/acervo/model/interfaces/itask.interface';
 import { PaginacaoCustomizadaComponent } from 'app/modules/acervo/tabela/paginacao/paginacao-customizada.component';
 import { TarefaService } from 'app/modules/services/tarefa.service';
 import { EMPTY, merge } from 'rxjs';
@@ -13,7 +13,7 @@ interface Filtro {
     numeroProcesso?: number;
     data_inicio?: string;
     data_fim?: string;
-    classesSelecionadas?: Array<{nome:string, total:number}>;
+    tags?: ITaskTag[];
 }
 
 @Component({
@@ -32,7 +32,7 @@ interface Filtro {
 export class TabelaComponent implements OnInit, AfterViewInit, OnDestroy, OnChanges {
 
     tarefas: ITask[] = [];
-    displayedColumns: string[] = ['checkbox', 'descricao', 'responsavel', 'data_criacao', 'opcoes', 'prioridade'];
+    displayedColumns: string[] = ['checkbox', 'descricao', 'responsavel', 'data_criacao', 'assumir', 'expandir', 'prioridade'];
     dataSource = new MatTableDataSource<ITask>([]);
     selection = new SelectionModel<ITask>(true, []);
     expandedElement: ITask | null;
@@ -73,6 +73,8 @@ export class TabelaComponent implements OnInit, AfterViewInit, OnDestroy, OnChan
     ngOnDestroy(): void {
         this.dataSource.disconnect();
     }
+
+    log(e) {console.log(e)}
 
     /**
      * @description Whether the number of selected elements matches the total number of rows.
@@ -216,20 +218,22 @@ export class TabelaComponent implements OnInit, AfterViewInit, OnDestroy, OnChan
                 tarefasFiltradas = tarefasFiltradasPorNumero;
             }
 
-            // Filtrar por classe
-            if (this.filtros?.classesSelecionadas && this.filtros.classesSelecionadas.length > 0) {
-                const { classesSelecionadas } = this.filtros;
-                const tarefasFiltradasPorClasse = [];
+            // Filtrar por tag
+            if (this.filtros?.tags && this.filtros.tags.length > 0) {
+                const { tags } = this.filtros;
+                const tarefasFiltradasPorTags = [];
 
                 for (const t of this.tarefas) {
-                    const classe = t.searchableId.split(" ")[0];
-
-                    if (classesSelecionadas.findIndex(c => c.nome === classe) !== -1) {
-                        tarefasFiltradasPorClasse.push(t);
+                    for (const tag of tags) {
+                        for (const task of tag.tasks) {
+                            if (t?.etags && t.etags.includes(task)) {
+                                tarefasFiltradasPorTags.push(t);
+                            }
+                        }
                     }
                 }
 
-                tarefasFiltradas = tarefasFiltradasPorClasse;
+                tarefasFiltradas = tarefasFiltradasPorTags;
             }
         });
 
