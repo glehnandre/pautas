@@ -7,7 +7,9 @@ import { SessaoJulgamento } from "app/modules/acervo/model/interfaces/sessao-jul
 import { capitulo } from "../capitulo/data";
 import { ministro } from '../ministro/data';
 
-export const julgamentos: SessaoJulgamento[] = [
+import { getStorage } from "../storage";
+
+export const julgamentos: SessaoJulgamento[] = getStorage('julgamentos', [
   {
     id: 0,
     numero: 1000,
@@ -297,7 +299,7 @@ export const julgamentos: SessaoJulgamento[] = [
     },
     presidencia: ministro[0],
   },
-];
+]);
 
 export const envolvidos: Envolvido[] = [
     {

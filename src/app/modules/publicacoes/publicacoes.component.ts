@@ -316,8 +316,6 @@ export class PublicacoesComponent implements OnInit, OnDestroy {
 
   montaParams(tipo: string, descricoes: any[]){
     let param: string = null;
-    //console.log("tipo: "+tipo, "desc: "+descricoes);
-    //console.log(descricoes);
     if(descricoes)
     descricoes.forEach((descricao, i)=>{
       if(i==0) param = `${descricao}`;
@@ -332,7 +330,6 @@ export class PublicacoesComponent implements OnInit, OnDestroy {
         queryParams: this.queryParams,
         queryParamsHandling: 'merge',
       });
-      //console.log(this.queryParams)
   }
 
   redefinirParams(){

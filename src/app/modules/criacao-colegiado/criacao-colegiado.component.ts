@@ -161,7 +161,7 @@ export class CriacaoColegiadoComponent implements OnInit {
       console.table(this.formVotacao.value);
       this._ministroService.criarColegiado(this.formVotacao.value).subscribe({
         next: (data) => {
-          console.log(data);
+          
         }
       });
     }

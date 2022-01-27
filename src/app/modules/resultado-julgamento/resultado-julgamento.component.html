@@ -11,7 +11,7 @@
 
     <header class="bg-white pt-2 flex flex-col px-2">
 
-        
+
         <app-cabecalho-relator
             [processo]="processo"
             [colegiado]="parametros.colegiado"
@@ -218,7 +218,7 @@
                                                             <div class="flex-auto mr-2 truncate">
                                                                 <ng-container class="flex items-center justify-center">
                                                                     <p class="my-auto" [matTooltip]="item.capitulo.descricao">
-                                                                        {{(i+1)}}º: {{item.capitulo.tipo}} - <strong class="text-primary-500">{{item.capitulo.dispositivo.nome || item.capitulo.dispositivo}}</strong>
+                                                                        {{(i+1)}}º: {{item.capitulo.tipo}} - <strong class="text-primary-500">{{item.capitulo.dispositivo?.nome || item.capitulo?.dispositivo}}</strong>
                                                                     </p>
                                                                 </ng-container>
                                                             </div>
@@ -294,4 +294,26 @@
             </div>
         </mat-drawer-content>
     </mat-drawer-container>
+</div>
+<div class="absolute top-0 right-0 z-9999">
+    <fuse-alert class="max-w-120 mx-auto"
+                [type]="'error'"
+                [appearance]="'soft'"
+                [dismissible]=true
+                [dismissed]=true
+                [name]="'alertBox'">
+        <span fuseAlertTitle>{{alerta.titulo}}</span>
+        {{alerta.mensagem}}
+    </fuse-alert>
+
+    <fuse-alert
+        class="max-w-120 mx-auto z-40"
+        [dismissed]=true
+        [dismissible]=true
+        [name]="'sucessoBox'"
+        [type]="'success'"
+        [appearance]="'soft'">
+        <span fuseAlertTitle>Sucesso</span>
+        Operação efetuada com êxito
+    </fuse-alert>
 </div>

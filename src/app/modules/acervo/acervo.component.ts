@@ -64,7 +64,7 @@ export class AcervoComponent implements OnInit {
     this.processo.idsProcessos.forEach((id) => {
       this.atualizarTagsDoProcesso(id).subscribe({
         next: (data) => {
-          console.log(data);
+        
         }
       });
     });

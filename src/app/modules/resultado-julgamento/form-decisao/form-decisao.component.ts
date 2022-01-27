@@ -168,8 +168,6 @@ export class FormDecisaoComponent implements OnInit, OnChanges, OnDestroy {
         processos_mesma_decisao: this.idsDosProcessos,
       }).subscribe({
         next: (data) => {
-          console.log('Decisao salva');
-          console.log(data);
           this.excluirDecisao();
           this.formDecisao.reset();
         }

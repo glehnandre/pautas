@@ -6,15 +6,15 @@ import { SessaoJulgamento } from 'app/modules/acervo/model/interfaces/sessao-jul
 
 import { capitulos_para_publicacao, atas } from '../ata/data';
 import { julgamentos, processos as processosData } from './data';
-import { getStorage, setStorage } from '../storage';
+import { setStorage } from '../storage';
 
 @Injectable({
     providedIn: 'root'
 })
 export class JulgamentoMockApi {
-    private _julgamentos: SessaoJulgamento[] = getStorage('julgamentos', julgamentos);
+    private _julgamentos: SessaoJulgamento[] = julgamentos;
     private _processos: Processo[] = processosData;
-    private _atas: Ata[] = getStorage('atas', atas);
+    private _atas: Ata[] = atas;
 
     constructor(private _fuseMockApiService: FuseMockApiService) {
         this.registerHandlers();

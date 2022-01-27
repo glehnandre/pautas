@@ -106,7 +106,7 @@ export class GerenciarListasComponent implements OnInit {
         // DELETE via API
         this._deletarProcessoDaTag(processo.id).subscribe({
           next: (data) => {
-            console.log(data);
+            
           }
         });
       }
@@ -203,8 +203,7 @@ export class GerenciarListasComponent implements OnInit {
           this.processosSelecionados.forEach(processo => {
             this._atualizaProcessos(processo.id, tag).subscribe({
               next: (data) => {
-                console.log('processos atualizados');
-                console.log(data);
+
               }
             });
           });

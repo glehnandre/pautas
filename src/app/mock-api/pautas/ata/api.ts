@@ -11,8 +11,8 @@ import { getStorage } from '../storage';
     providedIn: 'root'
 })
 export class AtaMockApi {
-    private _atas: Ata[] = getStorage('atas', atas);
-    private _processos = getStorage('processos', processo);
+    private _atas: Ata[] = atas;
+    private _processos = processo;
 
     constructor(private _fuseMockApiService: FuseMockApiService) {
       this.registerHandlers();

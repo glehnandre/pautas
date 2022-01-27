@@ -22,7 +22,6 @@ export class RecursoMockApi {
         const index = this._recursos.findIndex(r => r.id === id);
 
         if (id !== NaN && index !== -1) {
-          console.log([this._recursos[index]])
           return [200, [this._recursos[index]]];
         }
 

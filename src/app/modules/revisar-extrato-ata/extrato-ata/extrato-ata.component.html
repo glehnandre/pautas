@@ -67,11 +67,11 @@
                     {{ ata?.cabecalho }} <br class="mb-8">
                     <div *ngFor="let capitulo of capituloPublicacao?.capitulos">
                         <div>
-                            <div [class]="'bg-sentido-'+capitulo.dispositivo.sentido+' rounded-full px-2 text-white mb-4 mr-2 inline-block'">
-                                {{ capitulo.dispositivo.nome }}
+                            <div [class]="'bg-sentido-'+capitulo.dispositivo?.sentido+' rounded-full px-2 text-white mb-4 mr-2 inline-block'">
+                                {{ capitulo.dispositivo?.nome }}
                             </div>
                             <div [innerHtml]="capitulo?.texto + '<br>' +
-                                              fraseEMinistros(capitulo?.ministros_acordam, FraseAcompanham)+
+                                              capitulo?.ministros_acordam+
                                               fraseEMinistros(capitulo?.ministros_divergem, FraseDivergem)
                             "></div>
                         </div>
@@ -83,8 +83,8 @@
                       fraseEMinistros(sessao?.ministros_ausentes, FraseAusentes)
                     "></div>
                     <div class="mt-2">
-                      <span *ngFor="let vista of capituloPublicacao?.vistas">{{ vista.texto }}</span><br>
-                      <span *ngFor="let destaque of capituloPublicacao?.destaques">{{ destaque.texto }}</span>
+                      <span *ngFor="let vista of capituloPublicacao?.vistas">{{ vista.texto }}<br></span>
+                      <span *ngFor="let destaque of capituloPublicacao?.destaques">{{ destaque.texto }}<br></span>
                     </div>
                 </div>
                 <footer class="text-center mt-4">

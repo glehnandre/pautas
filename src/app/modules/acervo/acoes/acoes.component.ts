@@ -58,8 +58,6 @@ export class AcoesComponent implements OnInit {
   }
 
   selectAll(completed): void {
-    //console.log(this.processos);
-
     this.processos.forEach((processo) => {
       processo.checked = completed.checked;
     });
