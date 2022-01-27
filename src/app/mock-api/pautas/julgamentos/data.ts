@@ -355,6 +355,8 @@ export const processos: Processo[] = [
     ministros_impedidos: [],
     ministros_suspeitos: [],
     envolvidos,
+    vistas: [],
+    destaques: []
   },
 
   {
@@ -383,6 +385,8 @@ export const processos: Processo[] = [
     ministros_impedidos: [],
     ministros_suspeitos: [],
     envolvidos,
+    vistas: [],
+    destaques: []
   },
 
   {
@@ -409,5 +413,7 @@ export const processos: Processo[] = [
     ministros_impedidos: [],
     ministros_suspeitos: [],
     envolvidos,
+    vistas: [],
+    destaques: []
   },
 ]

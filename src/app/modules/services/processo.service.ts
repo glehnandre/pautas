@@ -103,6 +103,8 @@ export class ProcessoService {
   }
 
   public salvarVistaDoProcesso(id: number, vista: Vista): Observable<void> {
+    console.log("%cVista", "colo: red;font-size: 15px");
+    console.log(vista);
     return this._httpClient.post<void>(`processos/${id}/vista`, vista).pipe(
       catchError(error => {
         console.log(error);

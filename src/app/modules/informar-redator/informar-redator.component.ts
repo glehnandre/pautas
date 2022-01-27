@@ -2,7 +2,6 @@ import { HttpParams } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
-import { DecisoesResultadoJulgamento } from '../acervo/model/interfaces/decisao.interface';
 import { Ministro } from '../acervo/model/interfaces/ministro.interface';
 import { Voto } from '../acervo/model/interfaces/voto.interface';
 import { MinistroService } from '../services/ministro.service';
@@ -12,6 +11,7 @@ import { ResultadoJulgamentoService } from '../services/resultado-julgamento.ser
 interface Parametros {
     processo: number;
     colegiado: string;
+    sessao: number;
 }
 
 @Component({
@@ -20,8 +20,6 @@ interface Parametros {
   styleUrls: ['./informar-redator.component.scss']
 })
 export class InformarRedatorComponent implements OnInit {
-
-  dados: DecisoesResultadoJulgamento;
   parametros: Parametros;
   processo: string;
   votos: Voto[] = [];
@@ -46,14 +44,6 @@ export class InformarRedatorComponent implements OnInit {
 
   ngOnInit(): void {
     this.parametros = this._route.snapshot.queryParams as Parametros;
-
-    this._resultadoJulgamento
-      .listarDecisoes(this.parametros.processo)
-      .subscribe({
-        next: (data) => {
-          this.dados = data;
-        }
-    });
 
     this._processoService
       .listarProcessos(new HttpParams().set('processo', this.parametros.processo))

@@ -3,8 +3,8 @@ import { Injectable } from '@angular/core';
 import { EMPTY, Observable } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { Ata } from '../acervo/model/interfaces/ata.interface';
-import { DecisoesResultadoJulgamento } from '../acervo/model/interfaces/decisao.interface';
 import { ModeloDecisao } from '../acervo/model/interfaces/modeloDecisao.interface';
+import { Processo } from '../acervo/model/interfaces/processo.interface';
 
 @Injectable({
   providedIn: 'root'
@@ -15,9 +15,9 @@ export class ResultadoJulgamentoService {
     private _httpClient: HttpClient,
   ) { }
 
-  public listarDecisoes(id: number): Observable<DecisoesResultadoJulgamento> {
+  public listarCapitulos(id: number): Observable<Processo> {
     return this._httpClient
-      .get<DecisoesResultadoJulgamento>(`processo/${id}/decisoes`).pipe(
+      .get<Processo>(`processo/${id}/capitulos`).pipe(
         catchError(error => {
           console.log(error);
           return EMPTY;
@@ -25,9 +25,9 @@ export class ResultadoJulgamentoService {
       );
   }
 
-  public savarDecisao(id: number, {decisao, processos_mesma_decisao}): Observable<void> {
-    return this._httpClient.post<void>(`processo/${id}/decisoes`, {
-      decisao,
+  public salvarCapitulo(id: number, {capitulo, processos_mesma_decisao}): Observable<void> {
+    return this._httpClient.post<void>(`processo/${id}/capitulos`, {
+      capitulo,
       processos_mesma_decisao,
     }).pipe(
       catchError(error => {
@@ -37,8 +37,8 @@ export class ResultadoJulgamentoService {
     );
   }
 
-  public deletarDecisao(id: number): Observable<void> {
-    return this._httpClient.delete<void>(`decisoes/${id}`).pipe(
+  public deletarCapitulo(id: number, id_capitulo: number): Observable<void> {
+    return this._httpClient.delete<void>(`processo/${id}/capitulos/${id_capitulo}`).pipe(
       catchError(error => {
         console.log(error);
         return EMPTY;

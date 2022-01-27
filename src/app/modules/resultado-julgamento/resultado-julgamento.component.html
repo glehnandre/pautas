@@ -153,7 +153,7 @@
                                         </div>
                                         <!-- Actions -->
                                         <div class="mt-4 sm:mt-0 flex justify-between items-center">
-                                            <button mat-raised-button color="primary" (click)="setDecisaoSelecionada(null)">
+                                            <button mat-raised-button color="primary" (click)="setCapituloSelecionado(null)">
                                                 <mat-icon class="mr-1" svgIcon="heroicons_outline:plus-circle"></mat-icon>
                                                 Nova decisão
                                             </button>
@@ -165,16 +165,16 @@
                                     </div>
 
                                     <!-- decisoes list -->
-                                    <ng-container *ngIf="todasAsDecisoes.length > 0; else semDecisoes">
+                                    <ng-container *ngIf="todosCapitulos.length > 0; else semDecisoes">
                                         <div
                                             class="divide-y focus-within:shadow-lg"
                                             cdkDropList
-                                            [cdkDropListData]="todasAsDecisoes"
+                                            [cdkDropListData]="todosCapitulos"
                                             (cdkDropListDropped)="dropped($event)"
                                         >
 
                                             <!-- Task -->
-                                            <ng-container *ngFor="let item of todasAsDecisoes; index as i; let first = first; trackBy: trackByFn">
+                                            <ng-container *ngFor="let item of todosCapitulos; index as i; let first = first; trackBy: trackByFn">
                                                 <div
                                                     class="group w-full select-none hover:bg-gray-100 dark:hover:bg-hover"
                                                     [class.border-t]="first"
@@ -212,13 +212,13 @@
                                                         <!-- Task link -->
                                                         <a
                                                             class="flex flex-auto py-2 items-center min-w-0 h-full pr-7"
-                                                            (click)="setDecisaoSelecionada(null); recarregarListaDeDecisoes(); setDecisaoSelecionada(item)"
+                                                            (click)="setCapituloSelecionado(null); recarregarListaDeDecisoes(); setCapituloSelecionado(item)"
                                                         >
                                                             <!-- Title & Placeholder -->
                                                             <div class="flex-auto mr-2 truncate">
                                                                 <ng-container class="flex items-center justify-center">
-                                                                    <p class="my-auto" [matTooltip]="item.capitulo.descricao">
-                                                                        {{(i+1)}}º: {{item.capitulo.tipo}} - <strong class="text-primary-500">{{item.capitulo.dispositivo?.nome || item.capitulo?.dispositivo}}</strong>
+                                                                    <p class="my-auto" [matTooltip]="item.descricao" *ngIf="item">
+                                                                        {{(i+1)}}º: {{item.tipo}} - <strong class="text-primary-500">{{item.dispositivo?.nome || item.dispositivo}}</strong>
                                                                     </p>
                                                                 </ng-container>
                                                             </div>
@@ -268,24 +268,24 @@
                     <div class="">
                         <div id="menu-decisao" class="w-full p-4 overflow-y-auto">
                             <app-form-decisao
-                                *ngIf="!decisaoSelecionada; else exibirDecisaoNoForm"
+                                *ngIf="!capituloSelecionado; else exibirDecisaoNoForm"
                                 [processo]="processo"
                                 [isExibirBtnAdicionarDecisao]="true"
                                 [isExibirBtnModeloDecisao]="true"
-                                (dadosDaDecisao)="addDecisao($event)"
+                                (dadosDoCapitulo)="adicionarCapitulo($event)"
                             ></app-form-decisao>
 
                             <ng-template #exibirDecisaoNoForm>
                                 <app-form-decisao
                                     *ngIf="exibirListaDeDecisoes"
-                                    [isDesabilitarForm]="isDecisaoSalva()"
+                                    [isDesabilitarForm]="isCapituloSalvo()"
                                     [idProcesso]="parametros.processo"
-                                    [decisao]="decisaoSelecionada"
+                                    [capitulo]="capituloSelecionado"
                                     [processo]="processo"
                                     [isExibirBtnSalvarDecisao]=true
-                                    [isExibirBtnExcluirDecisao]=true
-                                    (dadosDaDecisao)="excluirDecisao($event)"
-                                    (excluirDadosDaDecisao)="excluirDecisao($event)"
+                                    [isExibirBtnExcluirCapitulo]=true
+                                    (dadosDoCapitulo)="excluirCapitulo($event)"
+                                    (excluirDadosDoCapitulo)="excluirCapitulo($event)"
                                 ></app-form-decisao>
                             </ng-template>
                         </div>

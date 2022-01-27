@@ -19,6 +19,8 @@ export const capitulo: Array<Capitulo> = [
         ministro_condutor: ministro[3],
         texto: `O tribunal por maioria, apreciando o tema 386 da repercursão geral,
         negou provimento ao recurso extraordinário, nos termos do voto do Ministro Edson Fachin, Redator para o Acordão`,
+        sessao: null,
+        processos_mesma_decisao: []
     },
     {
         id:     2,
@@ -36,7 +38,9 @@ export const capitulo: Array<Capitulo> = [
         publico em datas e horários distintos dos previstos em edital, por candidato que invoca escusa de consciência por
         motivo de crença religiosa, desde que presentes a razoabilidade da alteração, a preservação da igualdade entre
         todos os candidatos e que não acarrete ônus desproporcional à Administração Pública, que deverá decidir de
-        maneira fundamentada"`
+        maneira fundamentada"`,
+        sessao: null,
+        processos_mesma_decisao: []
     },
     {
         id:     3,
@@ -50,7 +54,9 @@ export const capitulo: Array<Capitulo> = [
             ministro[0]
         ],
         ministro_condutor: ministro[2],
-        texto: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc tempus neque nec ante porta tincidunt eu quis felis. Sed magna libero, sodales ut enim quis, varius faucibus lectus. Sed porttitor pharetra orci, quis fermentum risus rutrum id. Vivamus ornare purus a lorem accumsan cursus. Pellentesque ligula metus, dictum pretium dignissim non, fringilla ac lacus. Sed non dui nibh.'
+        texto: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc tempus neque nec ante porta tincidunt eu quis felis. Sed magna libero, sodales ut enim quis, varius faucibus lectus. Sed porttitor pharetra orci, quis fermentum risus rutrum id. Vivamus ornare purus a lorem accumsan cursus. Pellentesque ligula metus, dictum pretium dignissim non, fringilla ac lacus. Sed non dui nibh.',
+        sessao: null,
+        processos_mesma_decisao: []
     },
     {
         id:     4,
@@ -64,7 +70,9 @@ export const capitulo: Array<Capitulo> = [
             ministro[2]
         ],
         ministro_condutor: ministro[0],
-        texto: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc tempus neque nec ante porta tincidunt eu quis felis. Sed magna libero, sodales ut enim quis, varius faucibus lectus. Sed porttitor pharetra orci, quis fermentum risus rutrum id. Vivamus ornare purus a lorem accumsan cursus. Pellentesque ligula metus, dictum pretium dignissim non, fringilla ac lacus. Sed non dui nibh.'
+        texto: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc tempus neque nec ante porta tincidunt eu quis felis. Sed magna libero, sodales ut enim quis, varius faucibus lectus. Sed porttitor pharetra orci, quis fermentum risus rutrum id. Vivamus ornare purus a lorem accumsan cursus. Pellentesque ligula metus, dictum pretium dignissim non, fringilla ac lacus. Sed non dui nibh.',
+        sessao: null,
+        processos_mesma_decisao: []
     },
     {
         id:     5,
@@ -78,7 +86,9 @@ export const capitulo: Array<Capitulo> = [
             ministro[2]
         ],
         ministro_condutor: ministro[0],
-        texto: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc tempus neque nec ante porta tincidunt eu quis felis. Sed magna libero, sodales ut enim quis, varius faucibus lectus. Sed porttitor pharetra orci, quis fermentum risus rutrum id. Vivamus ornare purus a lorem accumsan cursus. Pellentesque ligula metus, dictum pretium dignissim non, fringilla ac lacus. Sed non dui nibh.'
+        texto: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc tempus neque nec ante porta tincidunt eu quis felis. Sed magna libero, sodales ut enim quis, varius faucibus lectus. Sed porttitor pharetra orci, quis fermentum risus rutrum id. Vivamus ornare purus a lorem accumsan cursus. Pellentesque ligula metus, dictum pretium dignissim non, fringilla ac lacus. Sed non dui nibh.',        
+        sessao: null,
+        processos_mesma_decisao: []
     },
     {
         id:     6,
@@ -92,7 +102,9 @@ export const capitulo: Array<Capitulo> = [
             ministro[2]
         ],
         ministro_condutor: ministro[0],
-        texto: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc tempus neque nec ante porta tincidunt eu quis felis. Sed magna libero, sodales ut enim quis, varius faucibus lectus. Sed porttitor pharetra orci, quis fermentum risus rutrum id. Vivamus ornare purus a lorem accumsan cursus. Pellentesque ligula metus, dictum pretium dignissim non, fringilla ac lacus. Sed non dui nibh.'
+        texto: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc tempus neque nec ante porta tincidunt eu quis felis. Sed magna libero, sodales ut enim quis, varius faucibus lectus. Sed porttitor pharetra orci, quis fermentum risus rutrum id. Vivamus ornare purus a lorem accumsan cursus. Pellentesque ligula metus, dictum pretium dignissim non, fringilla ac lacus. Sed non dui nibh.',
+        sessao: null,
+        processos_mesma_decisao: []
     },
     {
         id:     7,
@@ -106,6 +118,8 @@ export const capitulo: Array<Capitulo> = [
             ministro[2]
         ],
         ministro_condutor: ministro[0],
-        texto: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc tempus neque nec ante porta tincidunt eu quis felis. Sed magna libero, sodales ut enim quis, varius faucibus lectus. Sed porttitor pharetra orci, quis fermentum risus rutrum id. Vivamus ornare purus a lorem accumsan cursus. Pellentesque ligula metus, dictum pretium dignissim non, fringilla ac lacus. Sed non dui nibh.'
+        texto: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc tempus neque nec ante porta tincidunt eu quis felis. Sed magna libero, sodales ut enim quis, varius faucibus lectus. Sed porttitor pharetra orci, quis fermentum risus rutrum id. Vivamus ornare purus a lorem accumsan cursus. Pellentesque ligula metus, dictum pretium dignissim non, fringilla ac lacus. Sed non dui nibh.',
+        sessao: null,
+        processos_mesma_decisao: []
     },
 ]

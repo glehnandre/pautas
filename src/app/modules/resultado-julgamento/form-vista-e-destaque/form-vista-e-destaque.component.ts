@@ -13,7 +13,7 @@ import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/materia
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { TipoRecursoDto } from 'app/modules/acervo/model/interfaces/tipoRecursoDto';
 import { RecursoService } from 'app/modules/services/recurso.service';
-import { Destaque, Vista } from 'app/modules/acervo/model/interfaces/vista-e-destaque.interface';
+
 
 interface FormVistaEDestaqueData {
   titulo: string;

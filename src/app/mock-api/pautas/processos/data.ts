@@ -1,10 +1,8 @@
-import { TipoCapitulo } from 'app/modules/acervo/model/enums/tipoCapitulo.enum';
 import { TipoDoProcesso } from 'app/modules/acervo/model/enums/tipoDoProcesso.enum';
 
 import { Destaque } from 'app/modules/acervo/model/interfaces/destaque.interface';
 import { Documento } from 'app/modules/acervo/model/interfaces/documento.interface';
 import { Envolvido } from 'app/modules/acervo/model/interfaces/envolvido.interface';
-import { Manifestacao } from 'app/modules/acervo/model/interfaces/manifestacao.interface';
 import { Processo } from 'app/modules/acervo/model/interfaces/processo.interface';
 import { Vista } from 'app/modules/acervo/model/interfaces/vista.interface';
 import { Voto } from 'app/modules/acervo/model/interfaces/voto.interface';
@@ -12,6 +10,7 @@ import { Voto } from 'app/modules/acervo/model/interfaces/voto.interface';
 import { capitulo } from '../capitulo/data';
 import { ministro } from 'app/mock-api/pautas/ministro/data';
 import { tags as tagData } from '../tags/data';
+import { sessao } from "../sessoes-julgamento/data";
 
 import { getStorage } from '../storage';
 
@@ -71,10 +70,12 @@ export const processo: Processo[] = getStorage('processos', [
       capitulo[2],
       capitulo[3],
     ],
+    vistas: [],
+    destaques: [],
     relator: ministro[1],
     ministros_impedidos: [],
     ministros_suspeitos: [],
-    envolvidos,
+    envolvidos
   },
 
   {
@@ -100,6 +101,8 @@ export const processo: Processo[] = getStorage('processos', [
     ministros_impedidos: [],
     ministros_suspeitos: [],
     envolvidos,
+    vistas: [],
+    destaques: []
   },
 
   {
@@ -125,6 +128,8 @@ export const processo: Processo[] = getStorage('processos', [
     ministros_impedidos: [],
     ministros_suspeitos: [],
     envolvidos,
+    vistas: [],
+    destaques: []
   },
 
   {
@@ -151,6 +156,8 @@ export const processo: Processo[] = getStorage('processos', [
     ministros_impedidos: [],
     ministros_suspeitos: [],
     envolvidos,
+    vistas: [],
+    destaques: []
   },
 
   {
@@ -173,6 +180,8 @@ export const processo: Processo[] = getStorage('processos', [
     ministros_impedidos: [],
     ministros_suspeitos: [],
     envolvidos,
+    vistas: [],
+    destaques: []
   },
 
   {
@@ -195,6 +204,8 @@ export const processo: Processo[] = getStorage('processos', [
     ministros_impedidos: [],
     ministros_suspeitos: [],
     envolvidos,
+    vistas: [],
+    destaques: []
   },
 
   {
@@ -217,6 +228,8 @@ export const processo: Processo[] = getStorage('processos', [
     ministros_impedidos: [],
     ministros_suspeitos: [],
     envolvidos,
+    vistas: [],
+    destaques: []
   },
 
   {
@@ -239,6 +252,8 @@ export const processo: Processo[] = getStorage('processos', [
     ministros_impedidos: [],
     ministros_suspeitos: [],
     envolvidos,
+    vistas: [],
+    destaques: []
   },
 
   {
@@ -255,10 +270,7 @@ export const processo: Processo[] = getStorage('processos', [
     situacao:   2,
     tipo:       TipoDoProcesso.Merito,
     capitulos:  [
-        capitulo[0],
-        capitulo[1],
-        capitulo[2],
-        capitulo[3],
+
     ],
     relator: ministro[2],
     ministros_impedidos: [
@@ -270,6 +282,8 @@ export const processo: Processo[] = getStorage('processos', [
       ministro[3],
     ],
     envolvidos,
+    vistas: [],
+    destaques: []
   },
 ]);
 

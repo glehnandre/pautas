@@ -45,8 +45,6 @@ export class FormRelatorComponent implements OnInit {
     if (this.formRelator.valid) {
       this._processoService.definirRelatorDoProcesso(this.data.idProcesso, this.formRelator.value.id).subscribe({
         next: (data) => {
-          console.log("RESULTADO DA CHAMADA API");
-          console.log(data);
           this._dialogRef.close({status:true, mensagem_tratada:"Resultados salvos", mensagem_servidor:data}); 
         },
         error: (data) => {

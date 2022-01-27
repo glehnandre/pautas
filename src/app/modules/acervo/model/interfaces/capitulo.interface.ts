@@ -1,7 +1,10 @@
 import { TipoCapitulo } from "../enums/tipoCapitulo.enum";
+import { Destaque } from "./destaque.interface";
 import { Dispositivo } from "./dispositivo.interface";
 import { Ministro } from "./ministro.interface";
-import { Destaque, Vista } from "./vista-e-destaque.interface";
+import { Processo } from "./processo.interface";
+import { SessaoJulgamento } from "./sessao-julgamento.interface";
+import { Vista } from "./vista.interface";
 
 export interface Envolvido {
     nome: string;
@@ -19,6 +22,8 @@ export interface Capitulo {
     ministros_divergem: Array<Ministro>;
     ministro_condutor: Ministro;
     texto: string;
+    sessao: SessaoJulgamento;
+    processos_mesma_decisao: Processo[];
 }
 
 export interface CapitulosParaPublicacao {

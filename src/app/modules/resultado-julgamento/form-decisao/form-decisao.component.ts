@@ -1,3 +1,4 @@
+import { T } from '@angular/cdk/keycodes';
 import { ChangeDetectorRef, Component, EventEmitter, Input, OnChanges, OnDestroy, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatSelectChange } from '@angular/material/select';
@@ -31,32 +32,27 @@ export class FormDecisaoComponent implements OnInit, OnChanges, OnDestroy {
   @Input() isDesabilitarForm: boolean = false;
   @Input() isExibirBtnAdicionarDecisao: boolean = false;
   @Input() isExibirBtnSalvarDecisao: boolean = false;
-  @Input() isExibirBtnExcluirDecisao: boolean = false;
+  @Input() isExibirBtnExcluirCapitulo: boolean = false;
   @Input() isExibirBtnModeloDecisao: boolean = false;
-  @Input() decisao: {
-    capitulo: Capitulo;
-    processos_mesma_decisao: Processo[];
-  } = {
-    capitulo: {
-      id: 0,
-      descricao: '',
-      dispositivo: null,
-      ministro_condutor: null,
-      ministros_acordam: [],
-      ministros_divergem: [],
-      texto: '',
-      tipo: null,
-    },
-
-    processos_mesma_decisao: [],
+  @Input() capitulo: Capitulo = {
+    id: 0,
+    descricao: "",
+    dispositivo: null,
+    ministro_condutor: null,
+    ministros_acordam: [],
+    ministros_divergem: [],
+    texto: '',
+    tipo: null,
+    sessao: null,
+    processos_mesma_decisao: []
   };
 
-  @Output() dadosDaDecisao = new EventEmitter<{
+  @Output() dadosDoCapitulo = new EventEmitter<{
     capitulo: Capitulo;
     processos_mesma_decisao: number[];
   }>();
 
-  @Output() excluirDadosDaDecisao = new EventEmitter<boolean>();
+  @Output() excluirDadosDoCapitulo = new EventEmitter<boolean>();
 
   constructor(
     private _fb: FormBuilder,
@@ -69,6 +65,16 @@ export class FormDecisaoComponent implements OnInit, OnChanges, OnDestroy {
 
   ngOnInit(): void {
     this._recarregarOsDados();
+    this.formDecisao = this._fb.group({
+      descricao: [this.capitulo.descricao, Validators.required],
+      tipo: [this.capitulo.tipo, Validators.required],
+      dispositivo: [this.capitulo.dispositivo, Validators.required],
+      ministros_acordam: [this.capitulo.ministros_acordam, Validators.required],
+      ministro_condutor: [this.capitulo.ministro_condutor, Validators.required],
+      texto: [this.capitulo.texto, Validators.required],
+      processos_mesma_decisao: [this.capitulo.processos_mesma_decisao]
+    });
+    console.log(this.formDecisao);
   }
 
   ngOnChanges(): void {
@@ -76,7 +82,7 @@ export class FormDecisaoComponent implements OnInit, OnChanges, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.decisao = null;
+    this.capitulo = null;
   }
 
   /**
@@ -142,7 +148,7 @@ export class FormDecisaoComponent implements OnInit, OnChanges, OnDestroy {
    * @author Douglas da Silva Monteles
    */
   public adicionarDecisao(): void {
-    this._emitirOsDadosDaDecisao();
+    this._emitirOsDadosDoCapitulo();
     this.formDecisao.reset();
     this.limparProcessosSelecionados = true;
   }
@@ -152,8 +158,8 @@ export class FormDecisaoComponent implements OnInit, OnChanges, OnDestroy {
    * @description Método para emitir um evento autorizando a exclusão de uma Decisão
    * @author Douglas da Silva Monteles
    */
-  public excluirDecisao(): void {
-    this.excluirDadosDaDecisao.emit(true);
+  public excluirCapitulo(): void {
+    this.excluirDadosDoCapitulo.emit(true);
   }
 
   /**
@@ -163,12 +169,12 @@ export class FormDecisaoComponent implements OnInit, OnChanges, OnDestroy {
    */
   public salvarDecisao(): void {
     if (this.formDecisao.valid) {
-      this._resultadoJulgamento.savarDecisao(this.idProcesso, {
-        decisao: this.formDecisao.value,
+      this._resultadoJulgamento.salvarCapitulo(this.idProcesso, {
+        capitulo: this.formDecisao.value,
         processos_mesma_decisao: this.idsDosProcessos,
       }).subscribe({
         next: (data) => {
-          this.excluirDecisao();
+          this.excluirCapitulo();
           this.formDecisao.reset();
         }
       });
@@ -181,14 +187,6 @@ export class FormDecisaoComponent implements OnInit, OnChanges, OnDestroy {
    * @author Douglas da Silva Monteles
    */
   private _recarregarOsDados(): void {
-    this.formDecisao = this._fb.group({
-      descricao: [{value: this.decisao.capitulo.descricao, disabled: this.isDesabilitarForm}, Validators.required],
-      tipo: [{value: this.decisao.capitulo.tipo, disabled: this.isDesabilitarForm}, Validators.required],
-      dispositivo: [{value: this.decisao.capitulo.dispositivo, disabled: this.isDesabilitarForm}, Validators.required],
-      ministros_acordam: [{value: this.decisao.capitulo.ministros_acordam, disabled: this.isDesabilitarForm}, Validators.required],
-      ministro_condutor: [{value: this.decisao.capitulo.ministro_condutor, disabled: this.isDesabilitarForm}, Validators.required],
-      texto: [{value: this.decisao.capitulo.texto, disabled: this.isDesabilitarForm}, Validators.required],
-    });
 
     this.ministros$ = this._ministroService.listarMinistros().pipe(
       map(ministros => this._filtrarMinistros(ministros)),
@@ -196,15 +194,16 @@ export class FormDecisaoComponent implements OnInit, OnChanges, OnDestroy {
 
     this.tipos$ = this._processoService.obterTiposDoProcesso();
 
-    if (this.decisao.capitulo.dispositivo) {
-      const e: EventEmitter<MatSelectChange> = {} as EventEmitter<MatSelectChange>;
-      e['value'] = this.decisao.capitulo.tipo;
-      this.buscarDispositivos(e);
+    if(this.capitulo){  
+      if (this.capitulo.dispositivo) {
+        const e: EventEmitter<MatSelectChange> = {} as EventEmitter<MatSelectChange>;
+        e['value'] = this.capitulo.tipo;
+        this.buscarDispositivos(e);
+      }
+      this.capitulo.processos_mesma_decisao.forEach(id => this.idsDosProcessos.push(+id));
     }
-
     this.idsDosProcessos = [];
-    this.decisao.processos_mesma_decisao
-      .forEach(id => this.idsDosProcessos.push(+id));
+    
   }
 
   private _filtrarMinistros(ministros: Ministro[]): Ministro[] {
@@ -217,11 +216,8 @@ export class FormDecisaoComponent implements OnInit, OnChanges, OnDestroy {
    * @description Método para emitir um evento contendo os dados de Decisao
    * @author Douglas da Silva Monteles
    */
-  private _emitirOsDadosDaDecisao(): void {
-    this.dadosDaDecisao.emit({
-      capitulo: this.formDecisao.value,
-      processos_mesma_decisao: this.idsDosProcessos,
-    });
+  private _emitirOsDadosDoCapitulo(): void {
+    this.dadosDoCapitulo.emit(this.formDecisao.value);
   }
 
 }

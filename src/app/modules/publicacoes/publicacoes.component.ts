@@ -213,8 +213,6 @@ export class PublicacoesComponent implements OnInit, OnDestroy {
       filtrados = [];
       filtrar = filtros.filter(filtro=>tipos.indexOf(filtro.tipo)==-1)
     }
-
-    //console.log(this.tiposParams);
     this.hasFiltros = true;
   }
 

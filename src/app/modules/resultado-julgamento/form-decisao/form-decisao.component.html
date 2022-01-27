@@ -96,9 +96,10 @@
     </mat-form-field>
 
     <app-aplicar-decisoes
+    *ngIf="capitulo"
     [desabilitar]="isDesabilitarForm"
     [limparProcessosSelecionados]="limparProcessosSelecionados"
-    [processosParaAplicarAMesmaDecisao]="decisao.processos_mesma_decisao"
+    [processosParaAplicarAMesmaDecisao]="capitulo.processos_mesma_decisao"
     (obterProcessosSelecionados)="setIdsDosProcessosSelecionados($event)"
 ></app-aplicar-decisoes>
 
@@ -108,7 +109,7 @@
             class="max-w-full" 
             color="primary"
             *ngIf="isExibirBtnAdicionarDecisao"
-            [disabled]="formDecisao.invalid || isDesabilitarForm"
+            [disabled]="isDesabilitarForm"
             (click)="adicionarDecisao()"
         >
             <mat-icon class="mr-1">add_circle</mat-icon>
@@ -119,9 +120,9 @@
             mat-raised-button 
             class="text-xs sm:text-base mr-2"
             color="warn" 
-            *ngIf="isExibirBtnExcluirDecisao"
+            *ngIf="isExibirBtnExcluirCapitulo"
             [disabled]="isDesabilitarForm"
-            (click)="excluirDecisao()"
+            (click)="excluirCapitulo()"
         >
             <mat-icon class="mr-1">delete</mat-icon>
             {{'Excluir decisão' | uppercase}}
@@ -132,7 +133,7 @@
             class="text-xs sm:text-base"
             color="primary" 
             *ngIf="isExibirBtnSalvarDecisao"
-            [disabled]="formDecisao.invalid || isDesabilitarForm"
+            [disabled]="isDesabilitarForm"
             (click)="salvarDecisao()"
         >
             <mat-icon class="mr-1">save</mat-icon>

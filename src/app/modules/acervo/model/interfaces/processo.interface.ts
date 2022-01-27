@@ -5,6 +5,8 @@ import { Ministro } from './ministro.interface';
 import { Documento } from './documento.interface';
 import { Tag } from './tag.interface';
 import { Envolvido } from './envolvido.interface';
+import { Vista } from './vista.interface';
+import { Destaque } from './destaque.interface';
 
 export interface Processo {
     id: number;
@@ -19,6 +21,8 @@ export interface Processo {
     capitulos: Capitulo[];
     ministros_suspeitos: Ministro[];
     ministros_impedidos: Ministro[];
+    vistas: Vista[];
+    destaques: Destaque[];
     relator?: Ministro;
     redator?: Ministro;
     checked?: boolean;

@@ -1,10 +1,12 @@
 import { Ata } from "app/modules/acervo/model/interfaces/ata.interface";
 
 import { CapitulosParaPublicacao, Envolvido } from "app/modules/acervo/model/interfaces/capitulo.interface";
-import { Destaque, Vista } from "app/modules/acervo/model/interfaces/vista-e-destaque.interface";
+import { Destaque } from "app/modules/acervo/model/interfaces/destaque.interface";
+import { Vista } from "app/modules/acervo/model/interfaces/vista.interface";
+
 
 import { capitulo } from "../capitulo/data";
-import { decisoes } from "../decisao/data";
+
 import { julgamentos } from "../julgamentos/data";
 import { ministro } from "../ministro/data";
 
@@ -12,10 +14,6 @@ import { getStorage } from "../storage";
 
 const capitulos_decissao = [];
 
-decisoes[0]?.decisoes.forEach((decisao) => {
-  capitulos_decissao.push(decisao?.capitulo);
-  console.log('Adicionado Capitulo');
-});
 
 export const envolvidos: Envolvido[] = [
   {

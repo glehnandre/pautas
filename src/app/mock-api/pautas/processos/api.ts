@@ -20,13 +20,13 @@ import { tags as tagData } from '../tags/data';
 import { julgamentos } from '../julgamentos/data';
 import { listaImpedimentos, ministro } from '../ministro/data'
 
-import { setStorage } from '../storage';
+import { setStorage, getStorage } from '../storage';
 
 @Injectable({
     providedIn: 'root'
 })
 export class ProcessoMockApi {
-    private _processo: Processo[] = processoData;
+    private _processos: Processo[] = processoData;
     private _julgamentos: SessaoJulgamento[] = julgamentos;
     private _documentos: Documento[] = documentos;
     private _tag: Tag[] = [];
@@ -34,6 +34,7 @@ export class ProcessoMockApi {
     private _votos: Voto[] = votos;
     private _vistas: Vista[] = vistas;
     private _destaques: Destaque[] = destaques;
+
 
     constructor(
         private _fuseMockApiService: FuseMockApiService,) {
@@ -49,13 +50,13 @@ export class ProcessoMockApi {
                 const { idsTags } = request.body;
                 const processosAtualizados = [];
 
-                this._processo.map((processo) => {
+                this._processos.map((processo) => {
                     if (processo.id === id) {
                         processo.lista = this._obterTagsPelosIds(idsTags);
                         processosAtualizados.push(processo);
                     }
                 });
-                setStorage('processos', this._processo);
+                setStorage('processos', this._processos);
                 return [201, processosAtualizados];
             });
 
@@ -65,7 +66,7 @@ export class ProcessoMockApi {
                 const id = Number(urlParams.id);
                 const processos: Processo[] = [];
 
-                this._processo.forEach((processo) => {
+                this._processos.forEach((processo) => {
                     processo.lista.forEach((lista) => {
                         if (lista.id === id) {
                             processos.push(processo);
@@ -87,7 +88,7 @@ export class ProcessoMockApi {
                         offset: +params.get('offset') || 0,
                     };
 
-                    const processosPaginados = this._processo
+                    const processosPaginados = this._processos
                         .slice(paginacao.offset, paginacao.offset+paginacao.itensPorPagina);
 
                     return [200, processosPaginados];
@@ -103,7 +104,7 @@ export class ProcessoMockApi {
                         tags: (params.getAll('tag')) ? params.getAll('tag').toString().split(',') : null,
                     };
                     if (params.keys().length > 0) {
-                        const processosFiltrados = this._processo
+                        const processosFiltrados = this._processos
                             .filter(processo => (filtros.processo) ? processo.id === +filtros.processo : true)
                             .filter(processo => (filtros.situacoes) ? filtros.situacoes.find((situacao) => Number(situacao) === processo.situacao) : true)
                             .filter(processo => (filtros.classes) ? filtros.classes.find(classe => classe === processo.classe) : true)
@@ -111,7 +112,7 @@ export class ProcessoMockApi {
                             .filter(processo => (filtros.termo) ? filtros.termo.includes(processo.classe) && filtros.termo.includes(processo.numero.toString()) : true);
                         return [200, processosFiltrados];
                     } else {
-                        return [200, this._processo];
+                        return [200, this._processos];
                     }
                 }
             });
@@ -122,7 +123,7 @@ export class ProcessoMockApi {
                 const idTag = Number(urlParams.idTag);
                 const idProcesso = Number(urlParams.idProcesso);
 
-                const processoRef = this._processo
+                const processoRef = this._processos
                     .find(processo => processo.id === idProcesso);
 
                 if (processoRef) {
@@ -132,7 +133,7 @@ export class ProcessoMockApi {
                     }
                 }
 
-                this._processo.map((processo) => {
+                this._processos.map((processo) => {
                     if (processo.id === idProcesso) {
                         processo = processoRef;
                     }
@@ -146,9 +147,9 @@ export class ProcessoMockApi {
             .reply(({request}) => {
                 const processo = request.body;
 
-                this._processo.push(processo);
+                this._processos.push(processo);
 
-                return [201, [this._processo]];
+                return [201, this._processos];
             });
 
         this._fuseMockApiService
@@ -160,7 +161,7 @@ export class ProcessoMockApi {
               this._julgamentos.map((sessao) => {
                 const sessaoNumeroAno = `${sessao.numero}-${sessao.ano}`;
                 if(sessaoNumeroAno === numeroAno){
-                    this._processo.map((processo) => {
+                    this._processos.map((processo) => {
                         if (processo.id === id) {
                             processo.situacao = 1;
                         }
@@ -168,17 +169,17 @@ export class ProcessoMockApi {
                 }
             });
 
-              return [201, [this._processo]];
+              return [201, [this._processos]];
             });
 
         this._fuseMockApiService
             .onPost('/processos/:id/reanalisar')
             .reply(({urlParams}) => {
               const id = +urlParams.id;
+              let retorno;
+              retorno = this._processos.filter(processo => processo.id === id);
 
-              this._processo = this._processo.filter(processo => processo.id !== id);
-
-              return [201, [this._processo]];
+              return [201, retorno];
             });
 
         this._fuseMockApiService
@@ -213,9 +214,6 @@ export class ProcessoMockApi {
             .onGet('processos/:processo/votos')
             .reply(({urlParams}) => {
               const processo = urlParams.processo;
-
-
-
               return [201, this._votos];
             });
 
@@ -230,12 +228,12 @@ export class ProcessoMockApi {
             .reply(({request, urlParams}) => {
                 const idProcesso = +urlParams.id;
                 const idRelator = request.body as number;
-                const index = this._processo.findIndex(p => p.id === idProcesso);
+                const index = this._processos.findIndex(p => p.id === idProcesso);
 
                 if (index !== -1) {
                     const relator = ministro.find(m => m.id === idRelator);
-                    this._processo[index].relator = relator;
-                    setStorage('processos', this._processo);
+                    this._processos[index].relator = relator;
+                    setStorage('processos', this._processos);
                     return [200, "Sucesso"];
                 }
 
@@ -247,14 +245,34 @@ export class ProcessoMockApi {
             .reply(({request, urlParams}) => {
                 const idProcesso: number = +urlParams.id;
                 const { body } = request;
-                body.id = this._vistas.length + 1;
-
+                let index;
                 const m = ministro.find(({id}) => id === body.ministro);
-                this._vistas.push({...body, ministro: m});
-
-                setStorage('vistas', this._vistas);
-
-                return [200, this._vistas];
+                index = this._processos.findIndex(processo => processo.id === idProcesso);
+                this._processos[index].vistas.push({...body, ministro: m});
+                setStorage('processos', this._processos);
+                return [200, this._processos[index].vistas];
+            });
+        
+        this._fuseMockApiService
+            .onPut('processos/:id/vista/:idVista')
+            .reply(({request, urlParams}) => {
+                const idProcesso: number = +urlParams.id;
+                const idVista: number = +urlParams.idVista;
+                const { body } = request;
+                let index_processo;
+                let index_vista;
+                const m = ministro.find(({id}) => id === body.ministro);
+                
+                index_processo = this._processos.findIndex(processo => processo.id === idProcesso);
+                index_vista = this._processos[index_processo].vistas.findIndex(vista => vista.id !== idVista)
+                this._processos[index_processo].vistas[index_vista].data = body.data;
+                this._processos[index_processo].vistas[index_vista].ministro = body.ministro;
+                this._processos[index_processo].vistas[index_vista].processo = body.processo;
+                this._processos[index_processo].vistas[index_vista].sessao = body.sessao;
+                this._processos[index_processo].vistas[index_vista].texto = body.texto;
+               
+                setStorage('processos', this._processos);
+                return [200, this._processos[index_processo].vistas[index_vista]];
             });
 
         this._fuseMockApiService
@@ -318,11 +336,11 @@ export class ProcessoMockApi {
                 const idProcesso: number = +urlParams.id;
                 const { body } = request;
 
-                const index = this._processo
+                const index = this._processos
                     .findIndex(p => p.id === idProcesso);
 
                 if (index !== -1) {
-                    const processo = this._processo[index];
+                    const processo = this._processos[index];
                     const ministrosImpedidos: Ministro[] = [];
                     const ministrosSuspeitos: Ministro[] = [];
 
@@ -337,8 +355,8 @@ export class ProcessoMockApi {
                     });
 
                     processo.ministros_suspeitos = ministrosSuspeitos;
-                    this._processo[index] = processo;
-                    setStorage('processos', this._processo);
+                    this._processos[index] = processo;
+                    setStorage('processos', this._processos);
 
                     return [200, processo];
                 }
@@ -346,6 +364,52 @@ export class ProcessoMockApi {
                 return [404, {
                     msg: 'Nenhum processo com id informado.'
                 }];
+            });
+        
+        this._fuseMockApiService
+            .onGet('processo/:id/capitulos')
+            .reply(({urlParams}) => {
+              const idProcesso = +urlParams.id;
+              let proc;
+            
+              getStorage('processo', this._processos);
+              proc = this._processos.filter(processo => processo.id === idProcesso);
+    
+              return [201, proc.capitulos];
+            });
+    
+        this._fuseMockApiService
+            .onPost('processo/:id/capitulos')
+            .reply(({request, urlParams}) => {
+              const idProcesso = +urlParams.id;
+              const { cap, processos_mesma_decisao } = request.body;
+    
+              if (idProcesso) {
+                const index_processo = this._processos.findIndex(p => p.id === idProcesso);
+                if (cap.id != 0) {
+                  const index_capitulo = this._processos[index_processo].capitulos.findIndex(it => it.id === cap.id);
+                  this._processos[index_processo].capitulos[index_capitulo].descricao = cap.descricao;
+                  this._processos[index_processo].capitulos[index_capitulo].dispositivo = cap.dispositivo;
+                  this._processos[index_processo].capitulos[index_capitulo].ministro_condutor = cap.ministro_condutor;
+                  this._processos[index_processo].capitulos[index_capitulo].ministros_acordam = cap.ministros_acordam;
+                  this._processos[index_processo].capitulos[index_capitulo].processos_mesma_decisao = processos_mesma_decisao;
+                  this._processos[index_processo].capitulos[index_capitulo].sessao = cap.sessao;
+                  this._processos[index_processo].capitulos[index_capitulo].texto = cap.texto;
+                  this._processos[index_processo].capitulos[index_capitulo].tipo = cap.tipo;
+                } else {
+                  this._processos[index_processo].capitulos.push({
+                      ...cap,
+                      id: this._processos[index_processo].capitulos.length + 1,
+                      processos_mesma_decisao: processos_mesma_decisao
+                  });
+                }
+                setStorage('processos', this._processos);
+                return [201, this._processos[index_processo].capitulos];
+              }
+    
+              return [404, {
+                description: "Nenhum processo encontrado.",
+              }];
             });
     }
 

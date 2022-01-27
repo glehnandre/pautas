@@ -3,7 +3,6 @@ import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 import { AfterContentChecked, AfterContentInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, HostListener, OnChanges, OnDestroy, OnInit, ViewEncapsulation } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { FuseDrawerService } from '@fuse/components/drawer';
-import { DecisoesResultadoJulgamento } from '../acervo/model/interfaces/decisao.interface';
 import { Manifestacao } from '../acervo/model/interfaces/manifestacao.interface';
 import { Voto } from '../acervo/model/interfaces/voto.interface';
 import { ProcessoService } from '../services/processo.service';
@@ -20,9 +19,11 @@ import { FormRelatorComponent } from './form-relator/form-relator.component';
 import { FormIndicacaoImpedimentosComponent } from './form-indicacao-impedimentos/form-indicacao-impedimentos.component';
 import { FuseAlertService } from '@fuse/components/alert';
 
+
 interface Parametros {
   processo: number;
   colegiado: string;
+  sessao: number;
 }
 
 interface Decisao {
@@ -39,14 +40,12 @@ interface Decisao {
 })
 export class ResultadoJulgamentoComponent implements OnInit, OnDestroy, AfterContentChecked {
 
-  dados: DecisoesResultadoJulgamento;
   parametros: Parametros;
   processo: Processo;
   votos: Voto[] = [];
   dispositivos: Manifestacao[] = [];
-  decisoesAdicionadas: Array<Decisao> = [];
-  todasAsDecisoes: Decisao[] = [];
-  decisaoSelecionada: Decisao = null;
+  todosCapitulos: Capitulo[] = [];
+  capituloSelecionado: Capitulo = null;
   modelo: ModeloDecisao;
   exibirListaDeDecisoes = false;
   exibirChips = true;
@@ -71,8 +70,7 @@ export class ResultadoJulgamentoComponent implements OnInit, OnDestroy, AfterCon
 
   ngOnInit(): void {
     this.parametros = this._route.snapshot.queryParams as Parametros;
-    this._carregarProcessos();
-    this._carregarDecisoes();
+    this._carregarDadosProcessos();
     this.alerta = {
       titulo: '',
       mensagem: ''
@@ -149,18 +147,6 @@ export class ResultadoJulgamentoComponent implements OnInit, OnDestroy, AfterCon
     return JSON.stringify(obj1) === JSON.stringify(obj2);
   }
 
-  /**
-   * @public Método público
-   * @description Método para obter a lista de Decisoes cadastradas
-   * @author Douglas da Silva Monteles
-   */
-  public getDecisoes(): void {
-    if (this.dados && this.dados.decisoes) {
-      this.todasAsDecisoes = [ ...this.decisoesAdicionadas, ...this.dados.decisoes ];
-    } else {
-      this.todasAsDecisoes = [ ...this.decisoesAdicionadas ];
-    }
-  }
 
   /**
    * @public Método público
@@ -168,8 +154,8 @@ export class ResultadoJulgamentoComponent implements OnInit, OnDestroy, AfterCon
    * @description Método para adicionar uma decisão a lista de decisões
    * @author Douglas da Silva Monteles
    */
-  public addDecisao(decisao: Decisao): void {
-    this.todasAsDecisoes.push(decisao);
+  public adicionarCapitulo(capitulo: Capitulo): void {
+    this.todosCapitulos.push(capitulo);
   }
 
   /**
@@ -178,8 +164,8 @@ export class ResultadoJulgamentoComponent implements OnInit, OnDestroy, AfterCon
    * @description Método para atualizar a decisão que foi selecionada
    * @author Douglas da Silva Monteles
    */
-  public setDecisaoSelecionada(decisao: Decisao): void {
-    this.decisaoSelecionada = decisao;
+  public setCapituloSelecionado(capitulo: Capitulo): void {
+    this.capituloSelecionado = capitulo;
   }
 
   /**
@@ -191,7 +177,7 @@ export class ResultadoJulgamentoComponent implements OnInit, OnDestroy, AfterCon
    * @author Douglas da Silva Monteles
    */
   public isMarcarDecisao(decisao: Decisao): boolean {
-    return JSON.stringify(decisao) === JSON.stringify(this.decisaoSelecionada);
+    return JSON.stringify(decisao) === JSON.stringify(this.capituloSelecionado);
   }
 
   /**
@@ -199,13 +185,14 @@ export class ResultadoJulgamentoComponent implements OnInit, OnDestroy, AfterCon
    * @param isRemoverDecisao Informa se uma decisão deve ser removida da lista
    * @description Método para remover uma decisão da lista de decisões
    * @author Douglas da Silva Monteles
+   * TODO andre.glehn falta remover do servidor
    */
-  public excluirDecisao(decisao: Decisao): void {
-     const index = this.todasAsDecisoes
-       .findIndex(d => JSON.stringify(d) === JSON.stringify(this.decisaoSelecionada));
+  public excluirCapitulo(decisao: Decisao): void {
+     const index = this.todosCapitulos
+       .findIndex(d => JSON.stringify(d) === JSON.stringify(this.capituloSelecionado));
      if (index !== -1) {
-       this.todasAsDecisoes.splice(index, 1);
-       this.setDecisaoSelecionada(null);
+       this.todosCapitulos.splice(index, 1);
+       this.setCapituloSelecionado(null);
      }
   }
 
@@ -216,8 +203,8 @@ export class ResultadoJulgamentoComponent implements OnInit, OnDestroy, AfterCon
    * @returns boolean
    * @author Douglas da Silva Monteles
    */
-  public isDecisaoSalva(): boolean {
-    if (this.decisaoSelecionada.capitulo.id !== undefined && this.decisaoSelecionada.capitulo.id > 0) {
+  public isCapituloSalvo(): boolean {
+    if (this.capituloSelecionado.id !== undefined && this.capituloSelecionado.id > 0) {
       return true;
     }
     return false;
@@ -277,14 +264,12 @@ export class ResultadoJulgamentoComponent implements OnInit, OnDestroy, AfterCon
         const vista: Vista = {
           ...data,
           processo: +this.parametros.processo,
-          sessao: this.dados.sessao.numero,
+          sessao: +this.parametros.sessao,
         };
 
         this._processoService.salvarVistaDoProcesso(this.parametros.processo, vista).subscribe({
           next: (data) => {
-            console.log("LISTA DE VISTAS");
-            console.log(data);
-            this._carregarDecisoes(); // atualiza a lista de Vistas
+            this._carregarDadosProcessos(); // atualiza a lista de Vistas
           }
         });
       }
@@ -310,12 +295,12 @@ export class ResultadoJulgamentoComponent implements OnInit, OnDestroy, AfterCon
         const destaque: Destaque = {
           ...data,
           processo: +this.parametros.processo,
-          sessao: this.dados.sessao.numero,
+          sessao: +this.parametros.sessao,
         };
 
         this._processoService.salvarDestaqueDoProcesso(this.parametros.processo, destaque).subscribe({
           next: (data) => {
-            this._carregarDecisoes(); // atualiza a lista de Destaque
+            this._carregarDadosProcessos(); // atualiza a lista de Destaque
           }
         });
       }
@@ -342,7 +327,7 @@ export class ResultadoJulgamentoComponent implements OnInit, OnDestroy, AfterCon
     dialogRef.afterClosed().subscribe(data => {
       if (data && data === 'ok') {
         this.processo = null;       // A mudança no valor do processo força uma nova renderização do componente
-        this._carregarProcessos();  // Atualiza os chips de ministros suspeitos e impedidos
+        this._carregarDadosProcessos();  // Atualiza os chips de ministros suspeitos e impedidos
       }
     });
   }
@@ -446,29 +431,18 @@ export class ResultadoJulgamentoComponent implements OnInit, OnDestroy, AfterCon
 
   /**
    * @private Método privado
-   * @description Método para carregar todas as decisões salvas via requisão GET
-   * @author Douglas da Silva Monteles
-   */
-  private _carregarDecisoes(): void {
-    this._resultadoJulgamento.listarDecisoes(this.parametros.processo).subscribe({
-      next: (data) => {
-        this.dados = data;
-        this.getDecisoes();
-        this._criarChips();
-      }
-    });
-  }
-
-  /**
-   * @private Método privado
    * @description Método para carregar todos os processos salvos via requisão GET
    * @author Douglas da Silva Monteles
    */
-  private _carregarProcessos(): void {
+  private _carregarDadosProcessos(): void {
     this._processoService.listarProcessos(new HttpParams().set('processo', this.parametros.processo)).subscribe({
       next: ([processo]) => {
         this.processo = processo;
+        this.todosCapitulos = processo.capitulos;
         this.cd.detectChanges();
+        console.log("%cProcessos", "color: blue; font-size: 25px");
+        console.log(this.processo);
+    
         this._criarChips();
 
         this._processoService.obterVotosDoProcesso(this.processo.id).subscribe({
@@ -487,59 +461,45 @@ export class ResultadoJulgamentoComponent implements OnInit, OnDestroy, AfterCon
    * @author Douglas da Silva Monteles
    */
   private _criarChips(): void {
+    
     this.chips = [];
 
-    if (this.dados) {
-      this.dados.decisoes.forEach(({vistas, destaques}) => {
-        vistas.forEach(({id, ministro}) => {
-          const str = `Vista - ${ministro['abreviacao']}`;
-          this.chips.push({ id, nome: str });
-        });
-
-        destaques.forEach(({id, ministro}) => {
-          const str = `Destaque - ${ministro['abreviacao']}`;
-          this.chips.push({ id, nome: str });
-        });
-      });
-    }
-
     if (this.processo) {
-      const {
-        ministros_impedidos,
-        ministros_suspeitos,
-      } = this.processo;
+      this.processo.vistas.forEach(({id, ministro}) => {
+        const str = `Vista - ${ministro['abreviacao']}`;
+        this.chips.push({ id, nome: str });
+      });
 
-      ministros_impedidos.forEach(({abreviacao}) => {
+      this.processo.destaques.forEach(({id, ministro}) => {
+        const str = `Destaque - ${ministro['abreviacao']}`;
+        this.chips.push({ id, nome: str });
+      });
+
+      this.processo.ministros_impedidos.forEach(({abreviacao}) => {
         const str = `Impedido(a) - ${abreviacao}`;
         this.chips.push({nome: str});
       });
 
-      ministros_suspeitos.forEach(({abreviacao}) => {
+      this.processo.ministros_suspeitos.forEach(({abreviacao}) => {
         const str = `Suspeito(a) - ${abreviacao}`;
         this.chips.push({nome: str});
       });
     }
+    console.log("%cChips", "color: green; font-size: 25px");
+    console.log(this.chips);
 
     this.cd.detectChanges();
   }
 
   private _obterDadosDaVistaNaListaDeDecisoes(id: number): Vista {
     let vista: Vista = null;
-
-    this.dados.decisoes.forEach(dec => {
-      vista = dec.vistas.find(v => v.id === id);
-    });
-
+    vista = this.processo.vistas.find(v => v.id === id);
     return vista;
   }
 
   private _obterDadosDoDestaqueNaListaDeDecisoes(id: number): Vista {
     let destaque: Destaque = null;
-
-    this.dados.decisoes.forEach(dec => {
-      destaque = dec.destaques.find(d => d.id === id);
-    });
-
+    destaque = this.processo.destaques.find(d => d.id === id);
     return destaque;
   }
 
