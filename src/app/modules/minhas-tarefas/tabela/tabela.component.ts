@@ -32,7 +32,7 @@ interface Filtro {
 export class TabelaComponent implements OnInit, AfterViewInit, OnDestroy, OnChanges {
 
     tarefas: ITask[] = [];
-    displayedColumns: string[] = ['checkbox', 'descricao', 'responsavel', 'data_criacao', 'opcoes', 'prioridade'];
+    displayedColumns: string[] = ['checkbox', 'descricao', 'responsavel', 'data_criacao', 'assumir', 'expandir', 'prioridade'];
     dataSource = new MatTableDataSource<ITask>([]);
     selection = new SelectionModel<ITask>(true, []);
     expandedElement: ITask | null;
@@ -73,6 +73,8 @@ export class TabelaComponent implements OnInit, AfterViewInit, OnDestroy, OnChan
     ngOnDestroy(): void {
         this.dataSource.disconnect();
     }
+
+    log(e) {console.log(e)}
 
     /**
      * @description Whether the number of selected elements matches the total number of rows.
