@@ -74,8 +74,6 @@ export class TabelaComponent implements OnInit, AfterViewInit, OnDestroy, OnChan
         this.dataSource.disconnect();
     }
 
-    log(e) {console.log(e)}
-
     /**
      * @description Whether the number of selected elements matches the total number of rows.
      * @author Douglas da Silva Monteles

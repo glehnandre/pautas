@@ -27,6 +27,7 @@ import { TabelaComponent } from './tabela/tabela.component';
 import { CarrosselChipsComponent } from './carrossel-chips/carrossel-chips.component';
 import { FiltrarTagPorTipoPipe } from './filtros/filtrar-tag-por-tipo.pipe';
 import { MatInputModule } from '@angular/material/input';
+import { MatTooltipModule } from '@angular/material/tooltip';
 
 const minhasTarefasRoutes: Route[] = [
     {
@@ -72,6 +73,7 @@ const minhasTarefasRoutes: Route[] = [
     MatSelectModule,
     MatPaginatorModule,
     MatDatepickerModule,
+    MatTooltipModule,
     SharedModule,
   ]
 })

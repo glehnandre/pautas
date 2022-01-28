@@ -15,6 +15,7 @@ export class FiltrosComponent implements OnInit, OnChanges {
     tags: ITaskTag[] = [];
     tiposDasTags: string[] = [];
     filtrosSelecionados: ITaskTag[] = [];
+    nomesDosFiltrosSelecionados: string[] = [];
 
     formFiltro: FormGroup;
 
@@ -29,7 +30,6 @@ export class FiltrosComponent implements OnInit, OnChanges {
             data_inicio: [new Date()],
             data_fim: [new Date()],
             numeroProcesso: [null],
-            classesSelecionadas: [[]],
             tags: [[]],
         });
     }
@@ -47,34 +47,9 @@ export class FiltrosComponent implements OnInit, OnChanges {
         console.log(changes.tarefas.currentValue);
     }
 
-    public marcarOuDesmarcarFiltro(tag: ITaskTag): void {
-        const index = this.filtrosSelecionados
-            .findIndex(filtro => filtro.id === tag.id);
-
-        if (index === -1) { // Essa tag ainda não foi selecionada
-            this.filtrosSelecionados.push(tag);
-        } else { // Essa tag já estar selecionada
-            this.filtrosSelecionados.splice(index, 1);
-        }
-        // this.emitirFiltrosSelecionados.emit(this.filtrosSelecionados);
-    }
-
     public limparDatasDoPeriodo(): void {
         this.formFiltro.controls.data_inicio.setValue(null);
         this.formFiltro.controls.data_fim.setValue(null);
-    }
-
-    public selecionarOuDeselecionarClasse(classe: {nome:string, total:number}): void {
-        const classes = this.formFiltro.controls.classesSelecionadas.value ?? [];
-        const index = classes.findIndex(c => c.nome === classe.nome);
-
-        if (index === -1) {
-            classes.push(classe);
-        } else {
-            classes.splice(index, 1);
-        }
-
-        this.formFiltro.controls.classesSelecionadas.setValue(classes);
     }
 
     public selecionarOuDeselecionarFiltro(tag: ITaskTag) {
@@ -104,6 +79,16 @@ export class FiltrosComponent implements OnInit, OnChanges {
         }
 
         return cont;
+    }
+
+    public obterNomeDasTagsSelecionadasPeloTipo(tipo: string): string[] {
+        let tags: string[] = [];
+
+        tags = (this.formFiltro.controls.tags.value as ITaskTag[])
+            .filter(tag => tag.type === tipo)
+            .map(tag => tag.name);
+
+        return tags;
     }
 
     public limparFiltros(): void {
