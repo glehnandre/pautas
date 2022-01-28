@@ -76,6 +76,20 @@
                             class="font-semibold text-primary-500 line-clamp-3"
                         >
                             {{tipo}}
+                            <div class="flex flex-row space-x-1 truncate">
+                                <span *ngFor="let selecionado of obterNomeDasTagsSelecionadasPeloTipo(tipo); let i = index"
+                                    style="text-decoration:#2a6894; font:caption; font-size: 0.8rem;"
+                                    class="flex-none"
+                                >
+                                    {{(i==obterNomeDasTagsSelecionadasPeloTipo(tipo).length-1) ? selecionado : selecionado+"," }}
+                                </span>
+                                <mat-icon
+                                    *ngIf="obterNomeDasTagsSelecionadasPeloTipo(tipo).join(', ').length > 29"
+                                    class="absolute right-10 pb-3 bg-white"
+                                    style="color: #2a6894;"
+                                    [matTooltip]="obterNomeDasTagsSelecionadasPeloTipo(tipo).join(', ')"
+                                >add_circle</mat-icon>
+                            </div>
                         </mat-panel-title>
                     </mat-expansion-panel-header>
 
