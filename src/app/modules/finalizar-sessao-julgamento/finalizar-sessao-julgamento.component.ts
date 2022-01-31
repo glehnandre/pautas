@@ -6,8 +6,8 @@ import localePT from '@angular/common/locales/pt';
 import { DatePipe } from '@angular/common';
 import { Ministro } from '../acervo/model/interfaces/ministro.interface';
 import { Secretario } from '../acervo/model/interfaces/secretario.interface';
-import { FuseAlertService } from '@fuse/components/alert';
 import { ActivatedRoute } from '@angular/router';
+import { AlertaService } from '../services/alerta.service';
 registerLocaleData(localePT);
 
 interface SessaoFinalizada {
@@ -29,8 +29,8 @@ export class FinalizarSessaoJulgamentoComponent implements OnInit {
 
   constructor(
     private _julgamentoService: JulgamentoService,
-    private _fuseAlertService: FuseAlertService,
     private _route: ActivatedRoute,
+    private _alertaService: AlertaService,
   ) { }
 
   queryParams: {
@@ -122,8 +122,12 @@ export class FinalizarSessaoJulgamentoComponent implements OnInit {
     else if(!this.sessaoFinalizada.secretario)
       this.alertaDeErro("Secretário da sessão inválido");
     else {
-      this._julgamentoService.finalizarSessaoDeJulgamento(this.queryParams.numero, this.queryParams.ano, this.sessaoFinalizada).subscribe(data=>{  
+      this._julgamentoService.finalizarSessaoDeJulgamento(this.queryParams.numero, this.queryParams.ano, this.sessaoFinalizada).subscribe(data=>{ 
+        console.log(this.sessaoFinalizada);
+         
       });
+      this.mensagem = `A sessão ${this.sessao.numero}/${this.sessao.ano} ${this.sessao.tipo} ${this.sessao.modalidade} foi encerrada e as atividades decorrentes da finalização foram criadas.`
+      this._alertaService.exibirAlerta('Sucesso')
     }
   }
 
@@ -135,10 +139,6 @@ export class FinalizarSessaoJulgamentoComponent implements OnInit {
 
     this.mensagem = mensagem;
 
-    this._fuseAlertService.show('alertBox');
-
-    setTimeout(() => {
-      this._fuseAlertService.dismiss('alertBox');
-    }, 5000);
+    this._alertaService.exibirAlerta('Sessao invalida')
   }
 }
