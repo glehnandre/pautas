@@ -18,6 +18,7 @@ import { Destaque } from '../acervo/model/interfaces/destaque.interface';
 import { FormRelatorComponent } from './form-relator/form-relator.component';
 import { FormIndicacaoImpedimentosComponent } from './form-indicacao-impedimentos/form-indicacao-impedimentos.component';
 import { FuseAlertService } from '@fuse/components/alert';
+import { I } from '@angular/cdk/keycodes';
 
 
 interface Parametros {
@@ -440,9 +441,7 @@ export class ResultadoJulgamentoComponent implements OnInit, OnDestroy, AfterCon
         this.processo = processo;
         this.todosCapitulos = processo.capitulos;
         this.cd.detectChanges();
-        console.log("%cProcessos", "color: blue; font-size: 25px");
-        console.log(this.processo);
-    
+   
         this._criarChips();
 
         this._processoService.obterVotosDoProcesso(this.processo.id).subscribe({
@@ -461,45 +460,59 @@ export class ResultadoJulgamentoComponent implements OnInit, OnDestroy, AfterCon
    * @author Douglas da Silva Monteles
    */
   private _criarChips(): void {
+
+    console.log("%cProcessos", "color: blue; font-size: 25px");
+    console.log(this.processo);
     
     this.chips = [];
 
     if (this.processo) {
-      this.processo.vistas.forEach(({id, ministro}) => {
-        const str = `Vista - ${ministro['abreviacao']}`;
-        this.chips.push({ id, nome: str });
-      });
+      if(this.processo.vistas){
+        this.processo.vistas.forEach(({id, ministro}) => {
+          const str = `Vista - ${ministro['abreviacao']}`;
+          this.chips.push({ id, nome: str });
+        });
+      }
 
-      this.processo.destaques.forEach(({id, ministro}) => {
-        const str = `Destaque - ${ministro['abreviacao']}`;
-        this.chips.push({ id, nome: str });
-      });
+      if(this.processo.destaques){
+        this.processo.destaques.forEach(({id, ministro}) => {
+          const str = `Destaque - ${ministro['abreviacao']}`;
+          this.chips.push({ id, nome: str });
+        });
+      }
 
-      this.processo.ministros_impedidos.forEach(({abreviacao}) => {
-        const str = `Impedido(a) - ${abreviacao}`;
-        this.chips.push({nome: str});
-      });
+      if(this.processo.ministros_impedidos){
+        this.processo.ministros_impedidos.forEach(({abreviacao}) => {
+          const str = `Impedido(a) - ${abreviacao}`;
+          this.chips.push({nome: str});
+        });
+      }
 
-      this.processo.ministros_suspeitos.forEach(({abreviacao}) => {
-        const str = `Suspeito(a) - ${abreviacao}`;
-        this.chips.push({nome: str});
-      });
+      if(this.processo.ministros_suspeitos){
+        this.processo.ministros_suspeitos.forEach(({abreviacao}) => {
+          const str = `Suspeito(a) - ${abreviacao}`;
+          this.chips.push({nome: str});
+        });
+      }
+    
     }
-    console.log("%cChips", "color: green; font-size: 25px");
-    console.log(this.chips);
 
     this.cd.detectChanges();
   }
 
   private _obterDadosDaVistaNaListaDeDecisoes(id: number): Vista {
     let vista: Vista = null;
-    vista = this.processo.vistas.find(v => v.id === id);
+    if(this.processo.vistas){
+      vista = this.processo.vistas.find(v => v.id === id);
+    }
     return vista;
   }
 
   private _obterDadosDoDestaqueNaListaDeDecisoes(id: number): Vista {
     let destaque: Destaque = null;
-    destaque = this.processo.destaques.find(d => d.id === id);
+    if(this.processo.destaques){
+      destaque = this.processo.destaques.find(d => d.id === id);
+    }
     return destaque;
   }
 

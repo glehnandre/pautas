@@ -1,11 +1,13 @@
 <div class="relative mat-elevation-z8">
     <div
-        class="example-loading-shade"
+        class="absolute top-0 left-0 right-0 bottom-14 bg-black 
+                opacity-12 z-10 flex items-center justify-center"
         *ngIf="isLoadingResults || isRateLimitReached"
     >
         <mat-spinner
             *ngIf="isLoadingResults"
-            class="mt-12"
+            class="mt-12 z-10"
+            color="primary"
         ></mat-spinner>
 
         <div
@@ -54,23 +56,20 @@
                     [attr.colspan]="displayedColumns.length"
                 >
                     <div 
-                        class="overflow-hidden flex mb-2"
+                        class="overflow-hidden flex flex-col"
                         [@detailExpand]="element == expandedElement ? 'expanded' : 'collapsed'"
                         *ngIf="element.extraInfo"
                     >
-                        <div class="border-l-2"></div>
-                        <div class="flex flex-col ml-2 gap-2">
-                            <div 
-                                class="flex w-full gap-4"
-                                *ngFor="let key of obterChavesDoObj(element.extraInfo)"
-                            >
-                                <div class="font-semibold">
-                                    {{key | titlecase}}:
-                                </div>
+                        <div 
+                            class="flex w-full mb-4 gap-4"
+                            *ngFor="let key of obterChavesDoObj(element.extraInfo)"
+                        >
+                            <div class="font-semibold">
+                                {{key | titlecase}}:
+                            </div>
 
-                                <div>
-                                    {{element.extraInfo[key]}}
-                                </div>
+                            <div>
+                                {{element.extraInfo[key]}}
                             </div>
                         </div>
                     </div>
@@ -89,6 +88,7 @@
                             class="w-8 h-8"
                             [src]="'/assets/icons/account_circle_gray_24dp.svg'"
                             [alt]="element.title"
+                            [matTooltip]="element.assignee | slice: 0 : 3 | uppercase"
                         >
 
                         <div class="flex flex-col gap-y-4">
@@ -155,7 +155,7 @@
                             leading-6 ng-tns-c233-219 mat-stroked-button 
                             mat-button-base"
                         [disabled]="!element?.extraInfo"
-                        (click)="expandedElement = expandedElement === element ? null : element;"
+                        (click)="expandedElement = expandedElement === element ? null : element; log(expandedElement);"
                     >
                         <mat-icon 
                             *ngIf="!(expandedElement?.id === element.id); else arrowUp"

@@ -248,6 +248,9 @@ export class ProcessoMockApi {
                 let index;
                 const m = ministro.find(({id}) => id === body.ministro);
                 index = this._processos.findIndex(processo => processo.id === idProcesso);
+                console.log("%cAPI Vista", "font-color: blue; font-size:20px");
+                console.log(this._processos[index]);
+                
                 this._processos[index].vistas.push({...body, ministro: m});
                 setStorage('processos', this._processos);
                 return [200, this._processos[index].vistas];
