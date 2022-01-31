@@ -165,20 +165,21 @@ export class TabelaComponent implements OnInit, AfterViewInit, OnDestroy, OnChan
     }
 
     private _filtrarListaDeTarefas(): void {
-        let tarefasFiltradas: ITask[] = [];
+        let tarefasFiltradas = [...this.tarefas];
+        console.log(this.filtros)
 
-        this.tarefas.forEach(t => {
-            // Filtrar por data de inicio e fim
-            if (this.filtros?.data_inicio && this.filtros?.data_fim) {
-                const { data_inicio, data_fim } = this.filtros;
-                const tarefasFiltradasPorPeriodo = [];
+        // Filtrar por data de inicio e fim
+        if (this.filtros?.data_inicio && this.filtros?.data_fim) {
+            const { data_inicio, data_fim } = this.filtros;
 
-                const dataInicioDoFiltro = new Date(data_inicio);
-                dataInicioDoFiltro.setHours(0,0,0,0);
+            const dataInicioDoFiltro = new Date(data_inicio);
+            dataInicioDoFiltro.setHours(0,0,0,0);
 
-                const dataFimDoFiltro = new Date(data_fim);
-                dataFimDoFiltro.setHours(0,0,0,0);
+            const dataFimDoFiltro = new Date(data_fim);
+            dataFimDoFiltro.setHours(0,0,0,0);
 
+            
+            tarefasFiltradas = tarefasFiltradas.filter(t => {
                 const dataInicioDaTarefa = new Date(t.startDate);
                 dataInicioDaTarefa.setHours(0,0,0,0);
 
@@ -188,52 +189,44 @@ export class TabelaComponent implements OnInit, AfterViewInit, OnDestroy, OnChan
                 if (dataInicioDaTarefa.getTime() >= dataInicioDoFiltro.getTime()) {
                     if (dataFimDaTarefa.getTime() > 0) {
                         if (dataFimDaTarefa.getTime() <= dataFimDoFiltro.getTime()) {
-                            tarefasFiltradasPorPeriodo.push(t);
+                            return true;
                         }
                     } else {
                         if (dataInicioDaTarefa.getTime() <= dataFimDoFiltro.getTime()) {
-                            tarefasFiltradasPorPeriodo.push(t);
+                            return true;
                         }
                     }
                 }
 
-                tarefasFiltradas = tarefasFiltradasPorPeriodo;
-            }
+                return false;
+            });
+        }
+        console.log(tarefasFiltradas)
 
-            // Filtrar por número do processo
-            if (this.filtros?.numeroProcesso) {
-                const tarefasFiltradasPorNumero = [];
-                const { numeroProcesso } = this.filtros;
+        // Filtrar por número do processo
+        if (this.filtros?.numeroProcesso) {
+            const { numeroProcesso } = this.filtros;
+            
+            tarefasFiltradas = tarefasFiltradas.filter(t => {
+                const numero = t.searchableId.split(' ')[1];
+                return (+numeroProcesso === +numero);
+            });
+        }
+        console.log(tarefasFiltradas)
 
-                for (const tarefa of this.tarefas) {
-                    const numero = tarefa.searchableId.split(' ')[1];
-                    
-                    if (+numeroProcesso === +numero) {
-                        tarefasFiltradasPorNumero.push(tarefa);
-                    }
+        // Filtrar por tag
+        if (this.filtros?.tags && this.filtros.tags.length > 0) {
+            const { tags } = this.filtros;
+
+            for (const tag of tags) {
+                for (const task of tag.tasks) {
+                    tarefasFiltradas = tarefasFiltradas.filter(t => {
+                        return (t?.etags && t.etags.includes(task));
+                    });
                 }
-
-                tarefasFiltradas = tarefasFiltradasPorNumero;
             }
-
-            // Filtrar por tag
-            if (this.filtros?.tags && this.filtros.tags.length > 0) {
-                const { tags } = this.filtros;
-                const tarefasFiltradasPorTags = [];
-
-                for (const t of this.tarefas) {
-                    for (const tag of tags) {
-                        for (const task of tag.tasks) {
-                            if (t?.etags && t.etags.includes(task)) {
-                                tarefasFiltradasPorTags.push(t);
-                            }
-                        }
-                    }
-                }
-
-                tarefasFiltradas = tarefasFiltradasPorTags;
-            }
-        });
+        }
+        console.log(tarefasFiltradas)
 
         this._carregarTarefas(tarefasFiltradas);
     }

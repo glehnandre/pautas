@@ -27,8 +27,8 @@ export class FiltrosComponent implements OnInit, OnChanges {
         private _fb: FormBuilder,
     ) {
         this.formFiltro = this._fb.group({
-            data_inicio: [new Date()],
-            data_fim: [new Date()],
+            data_inicio: [null],
+            data_fim: [null],
             numeroProcesso: [null],
             tags: [[]],
         });
@@ -84,9 +84,11 @@ export class FiltrosComponent implements OnInit, OnChanges {
     public obterNomeDasTagsSelecionadasPeloTipo(tipo: string): string[] {
         let tags: string[] = [];
 
-        tags = (this.formFiltro.controls.tags.value as ITaskTag[])
-            .filter(tag => tag.type === tipo)
-            .map(tag => tag.name);
+        if (this.formFiltro.controls.tags.value) {
+            tags = (this.formFiltro.controls.tags.value as ITaskTag[])
+                .filter(tag => tag.type === tipo)
+                .map(tag => tag.name);
+        }
 
         return tags;
     }
