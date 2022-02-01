@@ -1,6 +1,30 @@
 <div class="absolute inset-0 flex flex-col min-w-0">
     <mat-drawer-container class="flex-auto h-full" [hasBackdrop]="false">
-        <mat-drawer #drawer tabindex="-1" class="w-80 dark:bg-gray-900" [mode]="'side'" opened="true">
+        <mat-drawer 
+            #drawer 
+            tabindex="-1" 
+            class="w-80 dark:bg-gray-900" 
+            [mode]="isTelaPequena() ? 'over' : 'side'" 
+            [opened]="!isTelaPequena()"
+        >
+            <div class="w-full flex justify-end mt-4">
+                <button 
+                    mat-icon-button
+                    class="mr-4"
+                    (click)="drawer.toggle()"
+                >
+                    <mat-icon 
+                        *ngIf="isTelaPequena() else mudaIcone"
+                    >
+                        arrow_forward
+                    </mat-icon>
+
+                    <ng-template #mudaIcone>
+                        <mat-icon>arrow_back</mat-icon>
+                    </ng-template>
+                </button>
+            </div>
+
             <app-filtros
                 [tarefas]="tarefas"
                 (emitirFiltrosSelecionados)="obterFiltrosSelecionados($event);"
@@ -13,9 +37,11 @@
                 <div class="sm:items-center sm:justify-between bg-default dark:bg-transparent">
                     <div class="flex items-center justify-between h-16 border-b bg-gray-50 dark:bg-transparent">
                         <div class="flex items-center">
-                            <button mat-icon-button
+                            <button 
+                                mat-icon-button
                                 class="ml-6 mr-6 mat-focus-indicator mat-icon-button mat-button-base"
-                                (click)="drawer.toggle()">
+                                (click)="drawer.toggle()"
+                            >
                                 <span class="mat-button-wrapper">
                                     <mat-icon role="img" class="mat-icon notranslate mat-icon-no-color"
                                         aria-hidden="true" data-mat-icon-type="svg" data-mat-icon-name="menu"
