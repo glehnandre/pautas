@@ -1,24 +1,26 @@
 import { HttpParams } from '@angular/common/http';
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
-import { AfterContentChecked, AfterContentInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, HostListener, OnChanges, OnDestroy, OnInit, ViewEncapsulation } from '@angular/core';
+import { AfterContentChecked, ChangeDetectionStrategy, ChangeDetectorRef, Component, HostListener, OnDestroy, OnInit, ViewEncapsulation } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute } from '@angular/router';
 import { FuseDrawerService } from '@fuse/components/drawer';
+
+import { Capitulo } from '../acervo/model/interfaces/capitulo.interface';
+import { Destaque } from '../acervo/model/interfaces/destaque.interface';
 import { Manifestacao } from '../acervo/model/interfaces/manifestacao.interface';
+import { ModeloDecisao } from '../acervo/model/interfaces/modeloDecisao.interface';
+import { Processo } from '../acervo/model/interfaces/processo.interface';
+import { Vista } from '../acervo/model/interfaces/vista.interface';
 import { Voto } from '../acervo/model/interfaces/voto.interface';
+
+import { AlertaService } from '../services/alerta.service';
 import { ProcessoService } from '../services/processo.service';
 import { ResultadoJulgamentoService } from '../services/resultado-julgamento.service';
-import { Capitulo } from '../acervo/model/interfaces/capitulo.interface';
-import { Processo } from '../acervo/model/interfaces/processo.interface';
-import { MatDialog } from '@angular/material/dialog';
-import { FormModeloDecisaoComponent } from './form-modelo-decisao/form-modelo-decisao.component';
-import { ModeloDecisao } from '../acervo/model/interfaces/modeloDecisao.interface';
-import { FormVistaEDestaqueComponent } from './form-vista-e-destaque/form-vista-e-destaque.component';
-import { Vista } from '../acervo/model/interfaces/vista.interface';
-import { Destaque } from '../acervo/model/interfaces/destaque.interface';
-import { FormRelatorComponent } from './form-relator/form-relator.component';
+
 import { FormIndicacaoImpedimentosComponent } from './form-indicacao-impedimentos/form-indicacao-impedimentos.component';
-import { FuseAlertService } from '@fuse/components/alert';
-import { I } from '@angular/cdk/keycodes';
+import { FormModeloDecisaoComponent } from './form-modelo-decisao/form-modelo-decisao.component';
+import { FormRelatorComponent } from './form-relator/form-relator.component';
+import { FormVistaEDestaqueComponent } from './form-vista-e-destaque/form-vista-e-destaque.component';
 
 
 interface Parametros {
@@ -55,6 +57,7 @@ export class ResultadoJulgamentoComponent implements OnInit, OnDestroy, AfterCon
   public alerta: {
     titulo: string;
     mensagem: string;
+    tipo: 'primary'|'accent'|'warn'|'basic'|'info'|'success'|'warning'|'error';
   };
 
   readonly FORM_CADASTRO_DECISAO = 'formulario-de-cadastro-de-decisao';
@@ -63,7 +66,7 @@ export class ResultadoJulgamentoComponent implements OnInit, OnDestroy, AfterCon
     private _resultadoJulgamento: ResultadoJulgamentoService,
     private _processoService: ProcessoService,
     private _route: ActivatedRoute,
-    private _fuseAlertService: FuseAlertService,
+    private _alertaService: AlertaService,
     private _fuseDrawerService: FuseDrawerService,
     private _dialog: MatDialog,
     private cd: ChangeDetectorRef,
@@ -74,16 +77,17 @@ export class ResultadoJulgamentoComponent implements OnInit, OnDestroy, AfterCon
     this._carregarDadosProcessos();
     this.alerta = {
       titulo: '',
-      mensagem: ''
+      mensagem: '',
+      tipo: 'basic'
     };
   }
 
   ngAfterContentChecked(): void {
-    
+
   }
 
   ngOnDestroy(): void {
-    
+
   }
 
   /**
@@ -242,7 +246,18 @@ export class ResultadoJulgamentoComponent implements OnInit, OnDestroy, AfterCon
     });
 
     dialogRef.afterClosed().subscribe((modelo: ModeloDecisao) => {
-      this.modelo = modelo;
+      if(modelo) {
+        this.modelo = modelo;
+        console.log(modelo);
+        this.mostrarAlerta('success', 'Modelo Cadastrado com Sucesso',
+          `O modelo de texto para
+          ${modelo.classe},
+          ${modelo.tipoCapitulo},
+          ${this.dispositivos} e
+          ${modelo.recurso} foi incluída com sucesso.
+
+          ${modelo.texto}`);
+      }
     });
   }
 
@@ -383,14 +398,14 @@ export class ResultadoJulgamentoComponent implements OnInit, OnDestroy, AfterCon
         this._processoService.excluirVistaDoProcesso(this.parametros.processo, id)
           .subscribe({
             next: () => {
-              
+
             }
           });
       } else { // destaque
         this._processoService.excluirDestaqueDoProcesso(this.parametros.processo, id)
           .subscribe({
             next: () => {
-              
+
             }
           });
       }
@@ -414,7 +429,6 @@ export class ResultadoJulgamentoComponent implements OnInit, OnDestroy, AfterCon
    * @author Douglas da Silva Monteles
    */
   public finalizar(): void {
-    
     const dialogRef = this._dialog.open(FormRelatorComponent, {
       data: {
         idProcesso: + this.parametros.processo,
@@ -423,9 +437,9 @@ export class ResultadoJulgamentoComponent implements OnInit, OnDestroy, AfterCon
 
     dialogRef.afterClosed().subscribe(data => {
       if(data.status){
-        this.showMessage('Sucesso', data.mensagem_tratada);
+        this.mostrarAlerta('success', 'Sucesso', 'Operação efetuada com êxito');
       }else{
-        this.showError('Erro ao finalizar a publicação', data.mensagem_tratada);
+        this.mostrarAlerta('error','Erro ao finalizar a publicação', data.mensagem_tratada);
       }
     });
   }
@@ -441,7 +455,7 @@ export class ResultadoJulgamentoComponent implements OnInit, OnDestroy, AfterCon
         this.processo = processo;
         this.todosCapitulos = processo.capitulos;
         this.cd.detectChanges();
-   
+
         this._criarChips();
 
         this._processoService.obterVotosDoProcesso(this.processo.id).subscribe({
@@ -463,7 +477,7 @@ export class ResultadoJulgamentoComponent implements OnInit, OnDestroy, AfterCon
 
     console.log("%cProcessos", "color: blue; font-size: 25px");
     console.log(this.processo);
-    
+
     this.chips = [];
 
     if (this.processo) {
@@ -494,7 +508,7 @@ export class ResultadoJulgamentoComponent implements OnInit, OnDestroy, AfterCon
           this.chips.push({nome: str});
         });
       }
-    
+
     }
 
     this.cd.detectChanges();
@@ -516,31 +530,26 @@ export class ResultadoJulgamentoComponent implements OnInit, OnDestroy, AfterCon
     return destaque;
   }
 
-
-  showMessage(titulo: string, mensagem: string): void {
-    this.alerta = {
-      titulo,
-      mensagem
-    };
-
-    this._fuseAlertService.show('sucessoBox');
-
-    setTimeout(() => {
-      this._fuseAlertService.dismiss('sucessoBox');
-    }, 5000);
+  /**
+   * @private Método Privado
+   *
+   * @description Método criado para gerar os alertar da página Resultado Julgamento
+   *
+   * @param tipo Recebe os tipos aceitos no fuseAlert, que são
+   * `'primary'|'accent'|'warn'|'basic'|'info'|'success'|'warning'|'error`
+   *
+   * @param titulo Recebe um título para ser apresentado no Alerta
+   *
+   * @param mensagem Recebe a mensagem para ser apresentado no Alerta
+   *
+   * @author Rodrigo Carvalho dos Santos
+   */
+  private mostrarAlerta(
+    tipo: 'primary'|'accent'|'warn'|'basic'|'info'|'success'|'warning'|'error',
+    titulo: string,
+    mensagem: string,
+  ): void {
+    this.alerta = { tipo, titulo, mensagem };
+    this._alertaService.exibirAlerta('alerta-resultado-julgamento')
   }
-
-  showError(titulo: string, mensagem: string): void {
-    this.alerta = {
-      titulo,
-      mensagem
-    };
-
-    this._fuseAlertService.show('alertBox');
-
-    setTimeout(() => {
-      this._fuseAlertService.dismiss('alertBox');
-    }, 5000);
-  }
-
 }
