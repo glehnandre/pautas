@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, HostListener, OnInit } from '@angular/core';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { ITask } from '../acervo/model/interfaces/itask.interface';
 
@@ -36,6 +36,11 @@ export class MinhasTarefasComponent implements OnInit {
 
     public obterFiltrosSelecionados(filtros: any): void {
         this.filtrosSelecionados = filtros;
+    }
+
+    @HostListener("window:resize")
+    public isTelaPequena(): boolean {
+        return window.screen.width < 600;
     }
 
 }

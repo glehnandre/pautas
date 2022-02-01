@@ -1,6 +1,6 @@
 import { animate, state, style, transition, trigger } from '@angular/animations';
 import { SelectionModel } from '@angular/cdk/collections';
-import { AfterViewInit, Component, EventEmitter, Injectable, Input, OnChanges, OnDestroy, OnInit, Output, SimpleChanges, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, EventEmitter, HostListener, Injectable, Input, OnChanges, OnDestroy, OnInit, Output, SimpleChanges, ViewChild } from '@angular/core';
 import { MatPaginator, MatPaginatorIntl, PageEvent } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { ITask, ITaskTag } from 'app/modules/acervo/model/interfaces/itask.interface';
@@ -118,6 +118,11 @@ export class TabelaComponent implements OnInit, AfterViewInit, OnDestroy, OnChan
 
     public obterChavesDoObj(obj: any) {
         return Object.keys(obj);
+    }
+
+    @HostListener("window:resize")
+    public isTelaPequena(): boolean {
+        return window.screen.width < 600;
     }
 
     private _carregarTarefas(tarefas: ITask[] = []): void {

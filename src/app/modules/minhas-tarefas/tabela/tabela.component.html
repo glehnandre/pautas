@@ -26,7 +26,7 @@
             class="mat-elevation-z8 w-full overflow-y-auto"
         >
             <!-- Checkbox Column -->
-            <ng-container matColumnDef="checkbox">
+            <ng-container class="" matColumnDef="checkbox">
                 <th mat-header-cell *matHeaderCellDef>
                     <mat-checkbox
                         (change)="$event ? masterToggle() : null"
@@ -48,34 +48,6 @@
                 </td>
             </ng-container>
 
-            <!-- Expanded Content Column - The detail row is made up of this one column that spans across all columns -->
-            <ng-container matColumnDef="expandedDetail">
-                <td 
-                    mat-cell 
-                    *matCellDef="let element" 
-                    [attr.colspan]="displayedColumns.length"
-                >
-                    <div 
-                        class="overflow-hidden flex flex-col"
-                        [@detailExpand]="element == expandedElement ? 'expanded' : 'collapsed'"
-                        *ngIf="element.extraInfo"
-                    >
-                        <div 
-                            class="flex w-full mb-4 gap-4"
-                            *ngFor="let key of obterChavesDoObj(element.extraInfo)"
-                        >
-                            <div class="font-semibold">
-                                {{key | titlecase}}:
-                            </div>
-
-                            <div>
-                                {{element.extraInfo[key]}}
-                            </div>
-                        </div>
-                    </div>
-                </td>
-            </ng-container>
-
             <!-- Descrição Column -->
             <ng-container matColumnDef="descricao">
                 <th mat-header-cell *matHeaderCellDef>Descrição</th>
@@ -85,17 +57,19 @@
                             py-4"
                     >
                         <img
-                            class="w-8 h-8"
+                            class="w-8 h-8 hidden sm:block"
                             [src]="'/assets/icons/account_circle_gray_24dp.svg'"
                             [alt]="element.title"
                             [matTooltip]="element.assignee | slice: 0 : 3 | uppercase"
                         >
 
                         <div class="flex flex-col gap-y-4">
-                            <strong class="flex gap-x-4 text-primary-600">
+                            <strong class="flex items-center gap-x-4 
+                                    text-primary-600 text-sm sm:text-lg"
+                            >
                                 {{element.title}}
 
-                                <mat-icon>
+                                <mat-icon class="mx-2">
                                     add_comment
                                 </mat-icon>
                             </strong>
@@ -111,8 +85,8 @@
 
             <!-- Responsavel Column -->
             <ng-container matColumnDef="responsavel">
-                <th class="text-center" mat-header-cell *matHeaderCellDef>Responsável</th>
-                <td class="text-center text-primary-400" mat-cell *matCellDef="let element">
+                <th class="text-center" [ngClass]="{'hidden': isTelaPequena()}" mat-header-cell *matHeaderCellDef>Responsável</th>
+                <td class="text-center text-primary-400" [ngClass]="{'hidden': isTelaPequena()}" mat-cell *matCellDef="let element">
                     {{element.assignee || 'Sem Responsável'}} <br/>
                     {{element.assigneeGroup ? 'Grupo: ' + element.assigneeGroup : 'Sem Grupo'}}
                 </td>
@@ -120,8 +94,8 @@
 
             <!-- data_criacao Column -->
             <ng-container matColumnDef="data_criacao">
-                <th class="text-center" mat-header-cell *matHeaderCellDef>Data de Criação</th>
-                <td class="text-center" mat-cell *matCellDef="let element">
+                <th class="text-center" [ngClass]="{'hidden': isTelaPequena()}" mat-header-cell *matHeaderCellDef>Data de Criação</th>
+                <td class="text-center" [ngClass]="{'hidden': isTelaPequena()}" mat-cell *matCellDef="let element">
                     <strong>
                         {{element.startDate | date: 'dd/MM/yyyy'}} <br/>
                         {{element.startDate | date: 'HH:mm'}}
@@ -151,7 +125,7 @@
                 <td mat-cell *matCellDef="let element" class="text-center">
                     <button 
                         mat-stroked-button 
-                        class="ml-2 mat-focus-indicator min-w-10 min-h-7 h-7 px-2 
+                        class="mx-2 mat-focus-indicator min-w-10 min-h-7 h-7 px-2 
                             leading-6 ng-tns-c233-219 mat-stroked-button 
                             mat-button-base"
                         [disabled]="!element?.extraInfo"
@@ -205,6 +179,37 @@
                             class="w-2 h-22 rounded-md bg-yellow-400 ml-auto"
                         ></div>
                     </ng-template>
+                </td>
+            </ng-container>
+
+            <!-- Expanded Content Column - The detail row is made up of this one column that spans across all columns -->
+            <ng-container class="" matColumnDef="expandedDetail">
+                <td 
+                    mat-cell 
+                    *matCellDef="let element" 
+                    [attr.colspan]="displayedColumns.length"
+                >
+                    <div 
+                        class="overflow-hidden flex mb-2"
+                        [@detailExpand]="element == expandedElement ? 'expanded' : 'collapsed'"
+                        *ngIf="element.extraInfo"
+                    >
+                        <div class="border-l-2"></div>
+                        <div class="flex flex-col ml-2 gap-2">
+                            <div 
+                                class="flex w-full gap-4"
+                                *ngFor="let key of obterChavesDoObj(element.extraInfo)"
+                            >
+                                <div class="font-semibold">
+                                    {{key | titlecase}}:
+                                </div>
+
+                                <div>
+                                    {{element.extraInfo[key]}}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </td>
             </ng-container>
 

@@ -20,8 +20,8 @@
                         formControlName="classe"
                         (selectionChange)="carregarModeloDecisao()"
                     >
-                        <mat-option 
-                            *ngFor="let classe of (classes$ | async)" 
+                        <mat-option
+                            *ngFor="let classe of (classes$ | async)"
                             [value]="classe.sigla"
                         >
                             {{classe.sigla}}
@@ -29,7 +29,7 @@
                     </mat-select>
                     <mat-hint>Informe a classe</mat-hint>
                 </mat-form-field>
-            
+
                 <mat-form-field class="w-full mb-4 col-span-2" appearance="outline">
                     <mat-label>Tipo do Capítulo <span class="text-red-500">*</span></mat-label>
                     <mat-select
@@ -37,8 +37,8 @@
                         (valueChange)="buscarDispositivos()"
                         (selectionChange)="carregarModeloDecisao()"
                     >
-                        <mat-option 
-                            *ngFor="let capitulo of tiposCapitulo" 
+                        <mat-option
+                            *ngFor="let capitulo of tiposCapitulo"
                             [value]="capitulo"
                         >
                             {{capitulo}}
@@ -49,12 +49,12 @@
 
                 <mat-form-field class="w-full mb-4 col-span-2" appearance="outline">
                     <mat-label>Dispositivo <span class="text-red-500">*</span></mat-label>
-                    <mat-select 
+                    <mat-select
                         formControlName="dispositivo"
                         (selectionChange)="carregarModeloDecisao()"
                     >
-                        <mat-option 
-                            *ngFor="let dispositivo of dispositivos" 
+                        <mat-option
+                            *ngFor="let dispositivo of dispositivos"
                             [value]="dispositivo.id"
                         >
                             {{dispositivo.nome}}
@@ -69,8 +69,8 @@
                         formControlName="recurso"
                         (selectionChange)="carregarModeloDecisao()"
                     >
-                        <mat-option 
-                            *ngFor="let recurso of (recursos$ | async)" 
+                        <mat-option
+                            *ngFor="let recurso of (recursos$ | async)"
                             [value]="recurso.id"
                         >
                             {{recurso.descricao}}
@@ -82,22 +82,22 @@
 
             <mat-form-field class="w-full mb-4" appearance="outline">
                 <mat-label>Concordam os ministros <span class="text-red-500">*</span></mat-label>
-                
-                <textarea 
+
+                <textarea
                     id="texto-da-decisao"
-                    matInput 
+                    matInput
                     formControlName="texto"
                 ></textarea>
 
-                <mat-selection-list 
+                <mat-selection-list
                     #sugestoes
                     *ngIf="exibirSugestoes"
-                    class="bg-white w-full overflow-y-auto h-40 shadow-lg drop-shadow-lg top-8 z-20" 
+                    class="bg-white w-full overflow-y-auto h-40 shadow-lg drop-shadow-lg top-8 z-20"
                     [multiple]="false"
                     (selectionChange)="adicionarSugestaoAoTexto(sugestoes.selectedOptions.selected[0]?.value)"
                 >
-                    <mat-list-option 
-                        *ngFor="let atributo of atributos" 
+                    <mat-list-option
+                        *ngFor="let atributo of atributos"
                         [value]="atributo"
                     >
                         {{atributo}}
@@ -105,25 +105,25 @@
                 </mat-selection-list>
 
                 <mat-hint>
-                    Escreva o modelo do texto para ser aplicado a outras decisões. 
-                    Utilize @colegiado, @processo, @sessao, @data_inicio_sessao, 
-                    @data_fim_sessao, @modalidade e @tipo para referenciar atributos 
-                    do processo no modelo da decisão. 
+                    Escreva o modelo do texto para ser aplicado a outras decisões.
+                    Utilize @colegiado, @processo, @sessao, @data_inicio_sessao,
+                    @data_fim_sessao, @modalidade e @tipo para referenciar atributos
+                    do processo no modelo da decisão.
                 </mat-hint>
             </mat-form-field>
 
             <p class="mt-4 text-center flex flex-row gap-4 justify-end items-end">
                 <button
-                    mat-raised-button 
+                    mat-raised-button
                     mat-dialog-close
-                    class="mr-2" 
+                    class="mr-2"
                 >
                     {{'Cancelar' | uppercase}}
                 </button>
-                
-                <button 
-                    mat-raised-button 
-                    class="max-w-full" 
+
+                <button
+                    mat-raised-button
+                    class="max-w-full"
                     color="primary"
                     *ngIf="modelo.id <= 0; else exibirBtnAtualizarDecisao"
                     [disabled]="formModeloDecisao.invalid"
@@ -133,9 +133,9 @@
                 </button>
 
                 <ng-template #exibirBtnAtualizarDecisao>
-                    <button 
-                        mat-raised-button 
-                        class="max-w-full" 
+                    <button
+                        mat-raised-button
+                        class="max-w-full"
                         color="primary"
                         [disabled]="formModeloDecisao.invalid"
                         (click)="atualizarModeloDecisao()"
@@ -148,15 +148,11 @@
     </div>
 </div>
 
-<fuse-alert
-    *ngIf="exibirAlerta"
-    class="absolute top-2 right-2 max-w-120 mx-auto z-40"
-    [name]="'aviso-form-modelo-decisao'"
-    [dismissed]="true"
-    [dismissible]="true"
-    [type]="'warning'"
-    [appearance]="'soft'"
->
-    <span fuseAlertTitle>Aviso</span>
-    Não foi encontrando nenhum modelo de decisão com estes parâmetros.
-</fuse-alert>
+<app-alerta
+  class="absolute top-2 right-2 max-w-120 mx-auto z-40"
+  [nome]="'aviso-form-modelo-decisao'"
+  [tipo]="'warning'"
+  [aparencia]="'soft'"
+  [titulo]="'Aviso'"
+  [mensagem]="'Não foi encontrando nenhum modelo de decisão com estes parâmetros.'"
+></app-alerta>

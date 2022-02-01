@@ -1,18 +1,20 @@
-import { AfterContentChecked, AfterContentInit, AfterViewInit, Component, Inject, OnInit } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { MatSelectionListChange } from '@angular/material/list';
 import { FuseAlertService } from '@fuse/components/alert';
-import { Classe } from 'app/modules/acervo/model/interfaces/classe.interface';
-import { Dispositivo } from 'app/modules/acervo/model/interfaces/dispositivo.interface';
-import { ModeloDecisao } from 'app/modules/acervo/model/interfaces/modeloDecisao.interface';
-import { TipoRecursoDto } from 'app/modules/acervo/model/interfaces/tipoRecursoDto';
-import { ClasseService } from 'app/modules/services/classe.service';
-import { DispositivoService } from 'app/modules/services/dispositivo.service';
-import { RecursoService } from 'app/modules/services/recurso.service';
-import { ResultadoJulgamentoService } from 'app/modules/services/resultado-julgamento.service';
-import { EMPTY, Observable, pipe } from 'rxjs';
+import { EMPTY, Observable } from 'rxjs';
 import { catchError } from 'rxjs/operators';
+
+import { Classe } from '../../acervo/model/interfaces/classe.interface';
+import { Dispositivo } from '../../acervo/model/interfaces/dispositivo.interface';
+import { ModeloDecisao } from '../../acervo/model/interfaces/modeloDecisao.interface';
+import { TipoRecursoDto } from '../../acervo/model/interfaces/tipoRecursoDto';
+
+import { AlertaService } from '../../services/alerta.service';
+import { ClasseService } from '../../services/classe.service';
+import { DispositivoService } from '../../services/dispositivo.service';
+import { RecursoService } from '../../services/recurso.service';
+import { ResultadoJulgamentoService } from '../../services/resultado-julgamento.service';
 
 interface ModeloDecisaoData {
   processo: {
@@ -34,20 +36,13 @@ export class FormModeloDecisaoComponent implements OnInit {
   dispositivos: Dispositivo[];
   recursos$: Observable<TipoRecursoDto[]>;
   classes$: Observable<Classe[]>;
-  modelo: ModeloDecisao = {
-    id: 0,
-    classe: '',
-    dispositivo: null,
-    recurso: 0,
-    texto: '',
-    tipoCapitulo: null,
-  };
+  modelo: ModeloDecisao = {} as ModeloDecisao;
   linhaAtualDoTexto: number = 1;
   exibirSugestoes: boolean = false;
-  exibirAlerta: boolean = false;
 
   constructor(
     private _fb: FormBuilder,
+    private _alertaService: AlertaService,
     private _resultadoJulgamento: ResultadoJulgamentoService,
     private _dispositivoService: DispositivoService,
     private _recursoService: RecursoService,
@@ -55,7 +50,7 @@ export class FormModeloDecisaoComponent implements OnInit {
     private _fuseAlertService: FuseAlertService,
     public dialogRef: MatDialogRef<FormModeloDecisaoComponent>,
     @Inject(MAT_DIALOG_DATA) public data: ModeloDecisaoData,
-  ) { 
+  ) {
     this.formModeloDecisao = this._fb.group({
       id:               [this.modelo.id],
       classe:           [this.modelo.classe,        Validators.required],
@@ -87,41 +82,28 @@ export class FormModeloDecisaoComponent implements OnInit {
   }
 
   public carregarModeloDecisao(): void {
-    const { 
-      classe, 
-      dispositivo, 
-      recurso, 
-      tipoCapitulo, 
+    const {
+      classe,
+      dispositivo,
+      recurso,
+      tipoCapitulo,
     } = this.formModeloDecisao.value;
 
     if (classe !== '' && tipoCapitulo !== null && dispositivo && recurso > 0) {
       this._resultadoJulgamento.obterModeloDecisao(classe, tipoCapitulo, dispositivo, recurso)
         .pipe(
           catchError(() => {
-            this.modelo = {
-              id: 0,
-              classe: '',
-              dispositivo: null,
-              recurso: 0,
-              texto: '',
-              tipoCapitulo: null,
-            };
+            this.modelo = {} as ModeloDecisao;
             this.formModeloDecisao.controls.texto.setValue('');
-            this.exibirAlerta = true;
-            this._fuseAlertService.show('aviso-form-modelo-decisao');          
-
-            setTimeout(() => {
-              this._fuseAlertService.dismiss('aviso-form-modelo-decisao');
-            }, 5000);
-
+            this._alertaService.exibirAlerta('aviso-form-modelo-decisao');
             return EMPTY;
           })
         )
         .subscribe({
           next: (modelo) => {
             this.modelo = modelo;
-            this.formModeloDecisao.setValue({ 
-              ...modelo, 
+            this.formModeloDecisao.setValue({
+              ...modelo,
               dispositivo: modelo.dispositivo.id,
             });
           },
@@ -133,7 +115,7 @@ export class FormModeloDecisaoComponent implements OnInit {
     if (this.formModeloDecisao.valid) {
       this._resultadoJulgamento.salvarModeloDecisao(this.formModeloDecisao.value).subscribe({
         next: () => {
-          this.dialogRef.close();
+          this.dialogRef.close(this.formModeloDecisao.value);
         }
       });
     }
