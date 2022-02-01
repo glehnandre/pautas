@@ -180,7 +180,7 @@ export class PublicacoesComponent implements OnInit, OnDestroy{
    * Faz o tratamento e filtra as publicações a partir dos filtos dinâmicos selecionados.
    * @param filtros filtros selecionados.
    */
-  trataFiltros(filtros: any[], toParams: boolean = true){
+  trataFiltros(filtros: any[]){
     let filtrar = filtros.filter(filtro=>filtro.tipo==filtros[0].tipo);
     let filtrados = [];
     let tipos = [];
@@ -194,10 +194,8 @@ export class PublicacoesComponent implements OnInit, OnDestroy{
           if(filtrados.indexOf(filtrado)==-1) filtrados.push(filtrado);
         })
       })
-      if(!toParams){
-        this.filtrados = filtrados;
-        this.trataExibidos();
-      }
+      this.filtrados = filtrados;
+      this.trataExibidos();
 
       filtrados = [];
       filtrar = filtros.filter(filtro=>tipos.indexOf(filtro.tipo)==-1)

@@ -32,7 +32,6 @@ export class FiltrosComponent implements OnInit{
   @Output() emiteData = new EventEmitter<any>();
   @Output() emiteProcesso = new EventEmitter<any>();
   @Output() emiteAlerta = new EventEmitter<void>();
-  @Output() emiteParams = new EventEmitter<any>();
 
   filtros: Filtros[] = [];
   numeroProcesso = new FormControl('');
@@ -46,15 +45,7 @@ export class FiltrosComponent implements OnInit{
     ) { }
 
   ngOnInit(): void {
-    /*this.queryParams = { "Data": this.data_inicio.toISOString() + "_" + this.data_fim.toISOString() };
-
-    this._router.navigate(
-      [],
-      {
-        relativeTo: this._route,
-        queryParams: this.queryParams,
-        queryParamsHandling: 'merge',
-      });*/
+    this.montaParams("Periodo", [this.data_inicio.toISOString() + "_" + this.data_fim.toISOString()]);
   }
 
   /**
@@ -94,16 +85,16 @@ export class FiltrosComponent implements OnInit{
         filtro.selecionados.splice(filtro.selecionados.indexOf(name), 1);
       })
     }
-    this.emitirParams();
   }
 
-  montaParams(tipo: string){
+  montaParams(tipo: string, descricoes: any[] = []){
     let param = null;
-    let descricoes = [];
 
-    this.filtrados.filter(filtrado=>filtrado.tipo==tipo).forEach(descricao=>{
-      descricoes.push(descricao.filtro);
-    });
+    if(tipo!="Periodo" && tipo!="Número do porcesso" && tipo!="Palavra Chave"){
+      this.filtrados.filter(filtrado=>filtrado.tipo==tipo).forEach(descricao=>{
+        descricoes.push(descricao.filtro);
+      });
+    }
 
     if(descricoes)
     descricoes.forEach((descricao, i)=>{
@@ -123,7 +114,8 @@ export class FiltrosComponent implements OnInit{
   }
 
   subParams(tipo: string){
-    if(this.filtrados.some(filtrado=>filtrado.tipo==tipo)) this.montaParams(tipo);
+    const tipos = ['Periodo', 'Numero do porcesso', 'Palavra Chave'];
+    if(this.filtrados.some(filtrado=>filtrado.tipo==tipo) && !tipos.some(t=>t==tipo)) this.montaParams(tipo);
     else {
       this._router.navigate(
         [],
@@ -153,10 +145,6 @@ export class FiltrosComponent implements OnInit{
       });
     }
     this.alertaFiltroVazio();
-  }
-
-  emitirParams(){
-    this.emiteParams.emit(this.filtrados);
   }
 
   /**
@@ -229,8 +217,10 @@ export class FiltrosComponent implements OnInit{
    * @param event momentum que contem a data selecionada
    */
   trataDataInicio(event: any){
-    if(event.value)
+    if(event.value){
       this.data_inicio = event.value._d;
+      this.montaParams("Periodo", [this.data_inicio.toISOString()]);
+    }
   }
 
   /**
@@ -238,8 +228,10 @@ export class FiltrosComponent implements OnInit{
    * @param event momentum que contem a data selecionada
    */
   trataDataFim(event: any){
-    if(event.value)
+    if(event.value){
       this.data_fim = event.value._d;
+      this.montaParams("Periodo", [this.data_inicio.toISOString() + "_" + this.data_fim.toISOString()]);
+    }
   }
 
   /**
@@ -249,6 +241,7 @@ export class FiltrosComponent implements OnInit{
     this.data_inicio = null;
     this.data_fim = null;
     this.filtrar();
+    this.subParams("Periodo");
   }
 
 }
