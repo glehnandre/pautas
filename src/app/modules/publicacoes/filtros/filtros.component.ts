@@ -1,6 +1,7 @@
 import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { MatCheckboxChange } from '@angular/material/checkbox';
+import { ActivatedRoute, Params, Router } from '@angular/router';
 import { InformacoesDto } from 'app/modules/acervo/model/interfaces/informacoesDto.interface';
 import { AlertaService } from 'app/modules/services/alerta.service';
 
@@ -37,10 +38,23 @@ export class FiltrosComponent implements OnInit{
   numeroProcesso = new FormControl('');
 
   filtrados: Filtrados[] = [];
+  queryParams: Params;
 
-  constructor() { }
+  constructor(
+    private _route: ActivatedRoute,
+    private _router: Router,
+    ) { }
 
   ngOnInit(): void {
+    /*this.queryParams = { "Data": this.data_inicio.toISOString() + "_" + this.data_fim.toISOString() };
+
+    this._router.navigate(
+      [],
+      {
+        relativeTo: this._route,
+        queryParams: this.queryParams,
+        queryParamsHandling: 'merge',
+      });*/
   }
 
   /**
@@ -62,6 +76,8 @@ export class FiltrosComponent implements OnInit{
     const tipo = this.agregacoes.find(agregacao=>agregacao.itens.find(item=>item.descricao==name)).nome;
     if(status.checked){
       this.filtrados.push({filtro: name, tipo: tipo});
+      
+      this.montaParams(tipo);
 
       this.filtros.forEach(filtro=>{
         if(filtro.agregacao.itens.find(item=>item.descricao==name))
@@ -71,12 +87,52 @@ export class FiltrosComponent implements OnInit{
     else{
       this.filtrados.splice(this.filtrados.indexOf(this.filtrados.find(filtrado=>filtrado.filtro==name)), 1);
 
+      this.subParams(tipo);
+
       this.filtros.forEach(filtro=>{
         if(filtro.agregacao.itens.find(item=>item.descricao==name))
         filtro.selecionados.splice(filtro.selecionados.indexOf(name), 1);
       })
     }
     this.emitirParams();
+  }
+
+  montaParams(tipo: string){
+    let param = null;
+    let descricoes = [];
+
+    this.filtrados.filter(filtrado=>filtrado.tipo==tipo).forEach(descricao=>{
+      descricoes.push(descricao.filtro);
+    });
+
+    if(descricoes)
+    descricoes.forEach((descricao, i)=>{
+      if(i==0) param = `${descricao}`;
+      else param += `_${descricao}`
+    })
+
+    this.queryParams = { [tipo.replace(/ /g, '-')]: param.replace(/ /g, '-') };
+
+    this._router.navigate(
+      [],
+      {
+        relativeTo: this._route,
+        queryParams: this.queryParams,
+        queryParamsHandling: 'merge',
+      });
+  }
+
+  subParams(tipo: string){
+    if(this.filtrados.some(filtrado=>filtrado.tipo==tipo)) this.montaParams(tipo);
+    else {
+      this._router.navigate(
+        [],
+        {
+          relativeTo: this._route,
+          queryParams: {[tipo.replace(/ /g, '-')]: null},
+          queryParamsHandling: 'merge',
+        });
+    }
   }
 
   /**
