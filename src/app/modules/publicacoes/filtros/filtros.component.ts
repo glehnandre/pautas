@@ -45,6 +45,13 @@ export class FiltrosComponent implements OnInit{
     ) { }
 
   ngOnInit(): void {
+    this._router.navigate(
+      [],
+      {
+        relativeTo: this._route,
+        queryParams: null,
+        replaceUrl: true
+      });
     this.montaParams("Periodo", [this.data_inicio.toISOString() + "_" + this.data_fim.toISOString()]);
   }
 
@@ -90,7 +97,7 @@ export class FiltrosComponent implements OnInit{
   montaParams(tipo: string, descricoes: any[] = []){
     let param = null;
 
-    if(tipo!="Periodo" && tipo!="Número do porcesso" && tipo!="Palavra Chave"){
+    if(tipo!="Periodo" && tipo!="Numero do porcesso" && tipo!="Palavra Chave"){
       this.filtrados.filter(filtrado=>filtrado.tipo==tipo).forEach(descricao=>{
         descricoes.push(descricao.filtro);
       });
@@ -166,6 +173,14 @@ export class FiltrosComponent implements OnInit{
       this.removido.emit(pesquisa))
     this.pesquisas.splice(0, this.pesquisas.length);
     this.limparDatas();
+
+    this.numeroProcesso.setValue('');
+    this.subParams("Numero do processo");
+  }
+
+  teste(){
+    console.log("ENTER");
+    
   }
 
   selecionado(filtro: any, descricao: string): boolean {
@@ -174,8 +189,9 @@ export class FiltrosComponent implements OnInit{
 
   alertaFiltroVazio() {
     const isFiltros = this.filtros.filter(filtro => filtro.selecionados.length > 0).length > 0,
-          isData = this.data_inicio !== null && this.data_fim !== null;
-    if(!(isFiltros || isData)) {
+          isData = this.data_inicio !== null && this.data_fim !== null,
+          isNumeroProcesso = this.numeroProcesso.value !== '';
+    if(!(isFiltros || isData || isNumeroProcesso)) {
       this.emiteAlerta.emit();
     }
   }
@@ -209,6 +225,10 @@ export class FiltrosComponent implements OnInit{
    * Emite o número do processo inserido para a filtragem
    */
    filtrarProcesso(){
+    if(this.numeroProcesso.value)
+      this.montaParams("Numero do processo", [this.numeroProcesso.value]);
+    else
+      this.subParams("Numero do processo");
     this.emiteProcesso.emit(this.numeroProcesso.value);
   }
 

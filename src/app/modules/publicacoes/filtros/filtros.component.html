@@ -54,7 +54,8 @@
 
             <section class="">
                 <mat-form-field appearance="fill" class="w-full">
-                    <input matInput name="outros" [formControl]="numeroProcesso">
+                    <input matInput name="outros" [formControl]="numeroProcesso"
+                    (keyup.enter)="filtrar()">
                     <mat-hint>Informe o número do processo para a pesquisa</mat-hint>
                 </mat-form-field>
             </section>
