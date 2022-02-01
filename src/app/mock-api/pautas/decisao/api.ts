@@ -24,16 +24,16 @@ export class DecisaoMockApi {
         .onPost('modelo-decisao')
         .reply(({request}) => {
           const body = request.body;
-          const index = this._modeloDecisao.findIndex(m => m.id === body.id);
-
-          if (index === -1) {
+          const modelo = this._modeloDecisao.find(m => (m.classe === body.classe) && (m.tipoCapitulo === body.tipo_capitulo) && (m.dispositivo.id === +body.dispositivo) && (m.recurso === body.recurso));
+          if (modelo === undefined) {
             const dispositivo = dispositivos.find(d => d.id === body.dispositivo);
             body.id = this._modeloDecisao.length+1;
             this._modeloDecisao.push({...body, dispositivo});
+            console.log(this._modeloDecisao);
             return [200, { description: "Sucesso." }];
+          }else{
+            return [404, { description: "Nenhuma decisão encontrada." }]; 
           }
-
-          return [404, { description: "Nenhuma decisão encontrada." }];
         });
 
       this._fuseMockApiService
@@ -44,9 +44,7 @@ export class DecisaoMockApi {
           const dispositivo = request.params.get('dispositivo');
           const recurso: number = +request.params.get('recurso');
 
-          const modelo = this._modeloDecisao
-            // .find(m => (m.classe === classe) && (m.tipoCapitulo === tipo_capitulo) && (m.dispositivo.id === +dispositivo) && (m.recurso === recurso));
-
+          const modelo = this._modeloDecisao.find(m => (m.classe === classe) && (m.tipoCapitulo === tipo_capitulo) && (m.dispositivo.id === +dispositivo) && (m.recurso === recurso));
           if (modelo !== undefined) {
             return [200, modelo];
           } else {
