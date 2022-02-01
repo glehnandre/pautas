@@ -1,11 +1,13 @@
 <div class="relative mat-elevation-z8">
     <div
-        class="example-loading-shade"
+        class="absolute top-0 left-0 right-0 bottom-14 bg-black 
+                opacity-12 z-10 flex items-center justify-center"
         *ngIf="isLoadingResults || isRateLimitReached"
     >
         <mat-spinner
             *ngIf="isLoadingResults"
-            class="mt-12"
+            class="mt-12 z-10"
+            color="primary"
         ></mat-spinner>
 
         <div
@@ -127,7 +129,7 @@
                             leading-6 ng-tns-c233-219 mat-stroked-button 
                             mat-button-base"
                         [disabled]="!element?.extraInfo"
-                        (click)="expandedElement = expandedElement === element ? null : element;"
+                        (click)="expandedElement = expandedElement === element ? null : element; log(expandedElement);"
                     >
                         <mat-icon 
                             *ngIf="!(expandedElement?.id === element.id); else arrowUp"

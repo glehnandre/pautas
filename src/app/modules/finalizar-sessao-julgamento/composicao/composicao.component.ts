@@ -36,10 +36,12 @@ export class ComposicaoComponent implements OnInit, AfterViewChecked {
    */
   ngOnInit(): void {
     this._ministroService.listarMinistrosDoColegiado('primeira-turma').subscribe(ministros=>{
+      ministros.splice(ministros.indexOf(ministros.find(ministro=>ministro.nome==this.presidente.nome)), 1);
       this.primeiraTurma = ministros;
       ministros.forEach(ministro=>this.presidenteChecked.push({nome: ministro.nome, checked: false}));
     })
     this._ministroService.listarMinistrosDoColegiado('segunda-turma').subscribe(ministros=>{
+      ministros.splice(ministros.indexOf(ministros.find(ministro=>ministro.nome==this.presidente.nome)), 1);
       this.segundaTurma = ministros;
       ministros.forEach(ministro=>this.presidenteChecked.push({nome: ministro.nome, checked: false}));
     });

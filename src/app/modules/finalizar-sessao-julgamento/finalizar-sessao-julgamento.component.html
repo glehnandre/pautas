@@ -81,15 +81,22 @@
         </div>
     </div>
 
-    <div class="absolute top-0 right-0 z-9999">
-        <fuse-alert class="max-w-120 mx-auto"
-                    [type]="'error'"
-                    [appearance]="'soft'"
-                    [dismissible]=true
-                    [dismissed]=true
-                    [name]="'alertBox'">
-            <span fuseAlertTitle>Erro de validação</span>
-            {{mensagem}}
-        </fuse-alert>
+    <div class="absolute top-0 right-0 z-10">
+        <app-alerta
+            [nome]="'Sessao invalida'"
+            [titulo]="'Erro de validação'"
+            [mensagem]="mensagem"
+            [aparencia]="'soft'"
+            [tipo]="'error'"
+            class="w-full"
+        ></app-alerta>
+        <app-alerta
+            [nome]="'Sucesso'"
+            [titulo]="'Sucesso'"
+            [mensagem]="mensagem"
+            [aparencia]="'soft'"
+            [tipo]="'success'"
+            class="w-full"
+        ></app-alerta>
     </div>
 </div>

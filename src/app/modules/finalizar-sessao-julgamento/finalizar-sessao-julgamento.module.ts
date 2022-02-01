@@ -14,6 +14,7 @@ import { FormComponent } from './form/form.component';
 import { FuseAlertModule } from '@fuse/components/alert';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatDividerModule } from '@angular/material/divider';
+import { SharedModule } from 'app/shared/shared.module';
 
 const FinalizarSessaoJulgamentoRoutes: Routes = [
   { path: '', component: FinalizarSessaoJulgamentoComponent },
@@ -38,6 +39,7 @@ const FinalizarSessaoJulgamentoRoutes: Routes = [
     MatDividerModule,
     FuseAlertModule,
     MatExpansionModule,
+    SharedModule,
   ],
   exports: [
     FinalizarSessaoJulgamentoComponent,
