@@ -96,8 +96,9 @@ export class ConteudoPublicacaoComponent implements OnInit, AfterViewInit {
     const datepipe: DatePipe = new DatePipe('pt-BR')
     let newDate = new Date(isoDate);
     let data: string;
-    (firstDate) ? data = newDate.getDate()+'/'+meses[newDate.getMonth()]+'/'+newDate.getFullYear().toString().slice(2,4)
+    (firstDate) ? data = String(newDate.getDate()).padStart(2, '0')+'/'+meses[newDate.getMonth()]+'/'+newDate.getFullYear().toString().slice(2,4)
                 : data = datepipe.transform(isoDate, "dd/MM/YYYY hh:mm");
+    console.log(data);
     return data;
   }
 
@@ -105,10 +106,7 @@ export class ConteudoPublicacaoComponent implements OnInit, AfterViewInit {
    * Abre o link do pdf da publicação para ser baixado
    */
   abrirLink(publicacao: PublicacaoDto): void {
-    //   this._publicacaoService.abrirPeca(publicacao.id).subscribe(url=>{
-    //     this.link = this._sanitizer.bypassSecurityTrustResourceUrl(url);
-    //     window.open(this.link['changingThisBreaksApplicationSecurity'], "_blank");
-    //   });
+
   }
 
 }
