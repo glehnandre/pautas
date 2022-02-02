@@ -1,0 +1,63 @@
+<div class="flex flex-col max-w-240 md:min-w-160 -m-6">
+    <header class="flex items-center justify-between h-16 pr-3 sm:pr-5 pl-6 sm:pl-8 bg-primary text-on-primary">
+        <h1 class="mt-4 flex items-center justify-center text-lg font-medium text-white-500">
+            Comentário da tarefa
+        </h1>
+
+        <button mat-button mat-dialog-close class="mat-focus-indicator mat-icon-button mat-button-base" tabindex="-1">
+            <span class="mat-button-wrapper">
+                <mat-icon matSuffix class="text-white">close</mat-icon>
+            </span>
+        </button>
+    </header>
+
+    <div class="flex flex-col flex-auto p-6 sm:p-8 overflow-y-auto ng-pristine ng-invalid ng-touched">
+        <form class="w-full">
+            <div class="flex items-start">
+                <img 
+                    src="assets/images/avatars/brian-hughes.jpg" 
+                    alt="Card cover image" 
+                    class="w-12 h-12 rounded-full mr-5"
+                >
+                
+                <mat-form-field class="w-full" appearance="fill">
+                    <mat-label>Comentário</mat-label>
+                    <textarea 
+                        matInput 
+                        #comentario
+                        placeholder="Escreva um comentário"
+                        maxlength="500"
+                        rows="5"
+                    ></textarea>
+                    <mat-hint style="float: right">{{comentario.value.length}} / 500</mat-hint>
+                </mat-form-field>
+            </div>
+
+            <p class="mt-4 text-center flex flex-row gap-4 justify-end items-end">
+                <button
+                    mat-raised-button 
+                    mat-dialog-close
+                    class="mr-2" 
+                >
+                    {{'Cancelar' | uppercase}}
+                </button>
+
+                <button
+                    mat-raised-button 
+                    color="warn"
+                    class="mr-2" 
+                >
+                    {{'Excluir' | uppercase}}
+                </button>
+                
+                <button 
+                    mat-raised-button 
+                    class="max-w-full" 
+                    color="primary"
+                >
+                    {{'Salvar' | uppercase}}
+                </button>
+            </p>
+        </form>
+    </div>
+</div>

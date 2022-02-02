@@ -28,6 +28,8 @@ import { CarrosselChipsComponent } from './carrossel-chips/carrossel-chips.compo
 import { FiltrarTagPorTipoPipe } from './filtros/filtrar-tag-por-tipo.pipe';
 import { MatInputModule } from '@angular/material/input';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { MatDialogModule } from '@angular/material/dialog';
+import { FormComentarioComponent } from './form-comentario/form-comentario.component';
 
 const minhasTarefasRoutes: Route[] = [
     {
@@ -48,7 +50,8 @@ const minhasTarefasRoutes: Route[] = [
     FiltrosComponent,
     TabelaComponent,
     CarrosselChipsComponent,
-    FiltrarTagPorTipoPipe
+    FiltrarTagPorTipoPipe,
+    FormComentarioComponent
   ],
   imports: [
     CommonModule,
@@ -74,6 +77,7 @@ const minhasTarefasRoutes: Route[] = [
     MatPaginatorModule,
     MatDatepickerModule,
     MatTooltipModule,
+    MatDialogModule,
     SharedModule,
   ]
 })
