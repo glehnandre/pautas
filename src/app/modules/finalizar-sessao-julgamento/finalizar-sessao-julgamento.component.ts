@@ -123,7 +123,7 @@ export class FinalizarSessaoJulgamentoComponent implements OnInit {
       this.alertaDeErro("Secretário da sessão inválido");
     else {
       this._julgamentoService.finalizarSessaoDeJulgamento(this.queryParams.numero, this.queryParams.ano, this.sessaoFinalizada).subscribe(data=>{ 
-        console.log(this.sessaoFinalizada);
+        
          
       });
       this.mensagem = `A sessão ${this.sessao.numero}/${this.sessao.ano} ${this.sessao.tipo} ${this.sessao.modalidade} foi encerrada e as atividades decorrentes da finalização foram criadas.`

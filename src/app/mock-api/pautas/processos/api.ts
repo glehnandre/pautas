@@ -241,23 +241,20 @@ export class ProcessoMockApi {
             });
 
         this._fuseMockApiService
-            .onPost('processos/:id/vista')
+            .onPost('processos/:id/vistas')
             .reply(({request, urlParams}) => {
                 const idProcesso: number = +urlParams.id;
                 const { body } = request;
                 let index;
                 const m = ministro.find(({id}) => id === body.ministro);
-                index = this._processos.findIndex(processo => processo.id === idProcesso);
-                console.log("%cAPI Vista", "font-color: blue; font-size:20px");
-                console.log(this._processos[index]);
-                
+                index = this._processos.findIndex(processo => processo.id === idProcesso);         
                 this._processos[index].vistas.push({...body, ministro: m});
                 setStorage('processos', this._processos);
                 return [200, this._processos[index].vistas];
             });
         
         this._fuseMockApiService
-            .onPut('processos/:id/vista/:idVista')
+            .onPut('processos/:id/vistas/:idVista')
             .reply(({request, urlParams}) => {
                 const idProcesso: number = +urlParams.id;
                 const idVista: number = +urlParams.idVista;
@@ -267,7 +264,7 @@ export class ProcessoMockApi {
                 const m = ministro.find(({id}) => id === body.ministro);
                 
                 index_processo = this._processos.findIndex(processo => processo.id === idProcesso);
-                index_vista = this._processos[index_processo].vistas.findIndex(vista => vista.id !== idVista)
+                index_vista = this._processos[index_processo].vistas.findIndex(vista => vista.id === idVista)
                 this._processos[index_processo].vistas[index_vista].data = body.data;
                 this._processos[index_processo].vistas[index_vista].ministro = body.ministro;
                 this._processos[index_processo].vistas[index_vista].processo = body.processo;
@@ -279,57 +276,81 @@ export class ProcessoMockApi {
             });
 
         this._fuseMockApiService
-            .onDelete('processos/:id/vista')
+            .onDelete('processos/:id/vistas/:vista')
             .reply(({request, urlParams}) => {
-                const idProcesso: number = +urlParams.id;
-                const idVista: number = +urlParams.idVista;
-                const index = this._vistas.findIndex(v => v.id === idVista);
-
-                if (index !== -1) {
-                    this._vistas.splice(index, 1);
-
-                    setStorage('vistas', this._vistas);
-
-                    return [200, this._vistas];
+                const id_processo: number = +urlParams.id;
+                const id_vista: number = +urlParams.idVista;
+                const { body } = request;
+                let index_processo;
+                let index_vista;
+                const m = ministro.find(({id}) => id === body.ministro);
+                
+                index_processo = this._processos.findIndex(processo => processo.id === id_processo);
+                index_vista = this._processos[index_processo].vistas.findIndex(vista => vista.id === id_vista);
+                if(index_vista == -1){
+                    this._processos[index_processo].vistas.splice(index_vista, 1);
+                    setStorage('processos', this._processos);
+                    return [200, "Excluído com sucesso"];
                 }
-
                 return [404, {
                     msg: 'Nenhuma Vista com id informado.'
                 }];
             });
 
         this._fuseMockApiService
-            .onPost('processos/:id/destaque')
+            .onPost('processos/:id/destaques')
             .reply(({request, urlParams}) => {
                 const idProcesso: number = +urlParams.id;
-                const body = request.body;
-                body.id = this._destaques.length + 1;
-
+                const { body } = request;
+                let index;
                 const m = ministro.find(({id}) => id === body.ministro);
-                this._destaques.push({...body, ministro: m});
-
-                setStorage('destaques', this._destaques);
-
-                return [200, this._destaques];
+                index = this._processos.findIndex(processo => processo.id === idProcesso);
+                this._processos[index].destaques.push({...body, ministro: m});
+                setStorage('processos', this._processos);
+                return [200, this._processos[index].destaques];
             });
-
+        
         this._fuseMockApiService
-            .onDelete('processos/:id/destaque/:idDestaque')
+            .onPut('processos/:id/destaques/:idDestaque')
             .reply(({request, urlParams}) => {
                 const idProcesso: number = +urlParams.id;
                 const idDestaque: number = +urlParams.idDestaque;
-                const index = this._destaques.findIndex(v => v.id === idDestaque);
+                const { body } = request;
+                let index_processo;
+                let index_destaque;
+                const m = ministro.find(({id}) => id === body.ministro);
+                
+                index_processo = this._processos.findIndex(processo => processo.id === idProcesso);
+                index_destaque= this._processos[index_processo].destaques.findIndex(destaque => destaque.id === idDestaque)
+                this._processos[index_processo].destaques[index_destaque].data = body.data;
+                this._processos[index_processo].destaques[index_destaque].ministro = body.ministro;
+                this._processos[index_processo].destaques[index_destaque].processo = body.processo;
+                this._processos[index_processo].destaques[index_destaque].sessao = body.sessao;
+                this._processos[index_processo].destaques[index_destaque].texto = body.texto;
+               
+                setStorage('processos', this._processos);
+                return [200, this._processos[index_processo].destaques[index_destaque]];
+            });
 
-                if (index !== -1) {
-                    this._destaques.splice(index, 1);
-
-                    setStorage('destaques', this._destaques);
-
-                    return [200, this._destaques];
+        this._fuseMockApiService
+            .onDelete('processos/:id/destaques/:idDestaque')
+            .reply(({request, urlParams}) => {
+                const idProcesso: number = +urlParams.id;
+                const idDestaque: number = +urlParams.idDestaque;
+                const { body } = request;
+                let index_processo;
+                let index_destaque;
+                const m = ministro.find(({id}) => id === body.ministro);
+                
+                index_processo = this._processos.findIndex(processo => processo.id === idProcesso);
+                index_destaque = this._processos[index_processo].destaques.findIndex(destaque => destaque.id === idDestaque);
+                if(index_destaque == -1){
+                    this._processos[index_processo].destaques.splice(index_destaque, 1);
+                    setStorage('processos', this._processos);
+                    return [200, "Excluído com sucesso"];
                 }
-
                 return [404, {
-                    msg: 'Nenhuma Vista com id informado.'
+                    msg: 'Nenhum Destaque com id informado.'
                 }];
             });
 

@@ -52,7 +52,6 @@ export class FiltroComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(data => {
       this.filtros = data;
-      console.log("Filtros: ", this.filtros);
     });
   }
 

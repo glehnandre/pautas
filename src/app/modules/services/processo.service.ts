@@ -103,7 +103,7 @@ export class ProcessoService {
   }
 
   public salvarVistaDoProcesso(id: number, vista: Vista): Observable<void> {
-    return this._httpClient.post<void>(`processos/${id}/vista`, vista).pipe(
+    return this._httpClient.post<void>(`processos/${id}/vistas`, vista).pipe(
       catchError(error => {
         console.log(error);
         return EMPTY;
@@ -112,7 +112,7 @@ export class ProcessoService {
   }
 
   public salvarDestaqueDoProcesso(id: number, destaque: Destaque): Observable<void> {
-    return this._httpClient.post<void>(`processos/${id}/destaque`, destaque).pipe(
+    return this._httpClient.post<void>(`processos/${id}/destaques`, destaque).pipe(
       catchError(error => {
         console.log(error);
         return EMPTY;
@@ -130,7 +130,7 @@ export class ProcessoService {
   }
 
   public excluirVistaDoProcesso(id: number, idVista: number): Observable<void> {
-    return this._httpClient.delete<void>(`processos/${id}/vista/${idVista}`).pipe(
+    return this._httpClient.delete<void>(`processos/${id}/vistas/${idVista}`).pipe(
       catchError(error => {
         console.log(error);
         return EMPTY;
@@ -138,8 +138,39 @@ export class ProcessoService {
     );
   }
 
+  
+  public atualizarVistasDoProcesso(id: number, idVista: number, vista: Vista): Observable<void> {
+    return this._httpClient.put<void>(`processos/${id}/vistas/${idVista}`, vista).pipe(
+      catchError(error => {
+        console.log(error);
+        return EMPTY;
+      })
+    );
+  }
+
+  
+  public finalizarSessaoDeJulgamento(numero: number, ano: number, dadosDaSessaoJulgamento: any): Observable<void> {
+    const numeroAno = `${numero}-${ano}`;
+    return this._httpClient.put<void>(`sessoes-de-julgamento/${numeroAno}/finalizar`, dadosDaSessaoJulgamento).pipe(
+      catchError((error) => {
+        console.log(error);
+        return EMPTY;
+      }),
+    );
+  }
+
+  public atualizarDestaquesDoProcesso(id: number, idDestaque: number, destaque: Destaque): Observable<void> {
+    return this._httpClient.put<void>(`processos/${id}/destaques/${idDestaque}`, destaque).pipe(
+      catchError(error => {
+        console.log(error);
+        return EMPTY;
+      })
+    );
+  }
+
+
   public excluirDestaqueDoProcesso(id: number, idDestaque: number): Observable<void> {
-    return this._httpClient.delete<void>(`processos/${id}/destaque/${idDestaque}`).pipe(
+    return this._httpClient.delete<void>(`processos/${id}/destaques/${idDestaque}`).pipe(
       catchError(error => {
         console.log(error);
         return EMPTY;

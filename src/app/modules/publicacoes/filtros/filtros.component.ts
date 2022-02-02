@@ -178,11 +178,6 @@ export class FiltrosComponent implements OnInit{
     this.subParams("Numero do processo");
   }
 
-  teste(){
-    console.log("ENTER");
-    
-  }
-
   selecionado(filtro: any, descricao: string): boolean {
     return filtro.selecionados.find(selecionado => selecionado === descricao) ? true: false;
   }
