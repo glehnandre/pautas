@@ -39,3 +39,8 @@ export interface ITaskTag {
     type: string;
     tasks: Array<string>;
 }
+
+export interface SetNotesTaskCommand {
+    taskId: number;
+    notes: string;
+}

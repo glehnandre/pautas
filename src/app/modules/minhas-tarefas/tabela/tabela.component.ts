@@ -68,7 +68,12 @@ export class TabelaComponent implements OnInit, AfterViewInit, OnDestroy, OnChan
         }
     }
 
-    ngOnInit(): void {}
+    ngOnInit(): void {
+        this._tarefaService.setNotes({
+            taskId: 1512554, 
+            notes: 'Testando 1.. 2.. 3..'
+        }).subscribe(data => console.log(data));
+    }
 
     ngOnDestroy(): void {
         this.dataSource.disconnect();
