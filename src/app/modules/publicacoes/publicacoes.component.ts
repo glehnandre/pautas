@@ -5,7 +5,6 @@ import { FuseMediaWatcherService } from '@fuse/services/media-watcher';
 import { PublicacaoService } from '../services/publicacao.service';
 import { PublicacaoDto } from '../acervo/model/interfaces/publicacaoDto.interface';
 import { InformacoesDto } from '../acervo/model/interfaces/informacoesDto.interface';
-import { ActivatedRoute, Params, Router } from '@angular/router';
 import { AlertaService } from '../services/alerta.service';
 
 
@@ -39,21 +38,12 @@ export class PublicacoesComponent implements OnInit, OnDestroy{
     private _fuseMediaWatcherService: FuseMediaWatcherService,
     private _alertaService: AlertaService,
     private _publicacaoService: PublicacaoService,
-    private _route: ActivatedRoute,
-    private _router: Router,
   ) { }
 
   /**
      * On init
      */
   ngOnInit(): void {
-    this._router.navigate(
-      [],
-      {
-        relativeTo: this._route,
-        queryParams: null,
-        replaceUrl: true,
-      });
     // Subscribe to media changes
     this._fuseMediaWatcherService.onMediaChange$
       .pipe(takeUntil(this._unsubscribeAll))
