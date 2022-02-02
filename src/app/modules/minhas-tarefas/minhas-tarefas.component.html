@@ -71,7 +71,7 @@
                                     </button>
                                 </div>
                                 <div>
-                                    <button mat-raised-button>
+                                    <button mat-raised-button (click)="abrirModalDeIncluirComentario()">
                                         INCLUIR COMENTÁRIO
                                     </button>
                                 </div>
@@ -99,7 +99,7 @@
                                             ASSUMIR
                                         </mat-option>
 
-                                        <mat-option>
+                                        <mat-option (click)="abrirModalDeIncluirComentario()">
                                             INCLUIR COMENTÁRIO
                                         </mat-option>
 
@@ -123,6 +123,7 @@
                     <app-tabela
                         [filtros]="filtrosSelecionados"
                         (emitirTarefas)="tarefas = $event"
+                        (emitirTarefasSelecionadas)="obterTarefasSelecionadas($event)"
                     ></app-tabela>
                 </div>
             </div>

@@ -34,6 +34,7 @@
                         [indeterminate]="selection.hasValue() && !isAllSelected()"
                         [aria-label]="checkboxLabel()"
                         color="primary"
+                        class="mr-2"
                     ></mat-checkbox>
                 </th>
 
@@ -69,7 +70,11 @@
                             >
                                 {{element.title}}
 
-                                <mat-icon class="mx-2">
+                                <mat-icon 
+                                    class="mx-2"
+                                    [matTooltip]="element.notes" 
+                                    [ngClass]="{'text-green-600': element.notes}"   
+                                >
                                     add_comment
                                 </mat-icon>
                             </strong>
@@ -128,8 +133,8 @@
                         class="mx-2 mat-focus-indicator min-w-10 min-h-7 h-7 px-2 
                             leading-6 ng-tns-c233-219 mat-stroked-button 
                             mat-button-base"
-                        [disabled]="!element?.extraInfo"
-                        (click)="expandedElement = expandedElement === element ? null : element; log(expandedElement);"
+                        [disabled]="!element?.extraInfo && !element?.notes"
+                        (click)="expandedElement = expandedElement === element ? null : element;"
                     >
                         <mat-icon 
                             *ngIf="!(expandedElement?.id === element.id); else arrowUp"
@@ -208,6 +213,19 @@
                                     {{element.extraInfo[key]}}
                                 </div>
                             </div>
+                        </div>
+                    </div>
+
+                    <div 
+                        class="overflow-hidden flex mb-2"
+                        [@detailExpand]="element == expandedElement ? 'expanded' : 'collapsed'"
+                        *ngIf="element.notes"
+                    >
+                        <div class="border-l-2"></div>
+                        <div class="flex flex-col ml-2 gap-2">
+                            <p>
+                                <strong>Comentário:</strong> {{element.notes}}
+                            </p>
                         </div>
                     </div>
                 </td>

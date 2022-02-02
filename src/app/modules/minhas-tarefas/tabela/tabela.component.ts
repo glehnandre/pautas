@@ -1,5 +1,5 @@
 import { animate, state, style, transition, trigger } from '@angular/animations';
-import { SelectionModel } from '@angular/cdk/collections';
+import { SelectionChange, SelectionModel } from '@angular/cdk/collections';
 import { AfterViewInit, Component, EventEmitter, HostListener, Injectable, Input, OnChanges, OnDestroy, OnInit, Output, SimpleChanges, ViewChild } from '@angular/core';
 import { MatPaginator, MatPaginatorIntl, PageEvent } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
@@ -48,6 +48,7 @@ export class TabelaComponent implements OnInit, AfterViewInit, OnDestroy, OnChan
     @ViewChild(MatPaginator) paginator: MatPaginator;
     @Input() filtros: Filtro;
     @Output() emitirTarefas = new EventEmitter<ITask[]>();
+    @Output() emitirTarefasSelecionadas = new EventEmitter<ITask[]>();
 
     constructor(
         private _tarefaService: TarefaService,
@@ -68,7 +69,18 @@ export class TabelaComponent implements OnInit, AfterViewInit, OnDestroy, OnChan
         }
     }
 
-    ngOnInit(): void {}
+    ngOnInit(): void {
+        this._tarefaService.setNotes({
+            taskId: 1512554, 
+            notes: 'Testando 1.. 2.. 3..'
+        }).subscribe(data => console.log(data));
+
+        this.selection.changed.subscribe({
+            next: (tasksSelecinadas) => {
+                this.emitirTarefasSelecionadas.emit(tasksSelecinadas.source.selected)
+            },
+        });
+    }
 
     ngOnDestroy(): void {
         this.dataSource.disconnect();

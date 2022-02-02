@@ -32,6 +32,20 @@ export class TaskMockApi {
             .reply(() => {
                 return [200, this._taskTags];
             });
+        
+        this._fuseMockApiService
+            .onPost('/tasks/notes')
+            .reply(({request}) => {
+                const body = request.body as { taskId: number; notes: string; };
+                const index = this._tasks.findIndex(t => t.id === body.taskId);
+
+                if (index !== -1) {
+                    this._tasks[index].notes = body.notes;
+                    return [200, this._tasks[index]];
+                }
+
+                return [404, {msg: 'Task não encontrada.'}];
+            });
     }
 
     private sliceIntoChunks(arr: Array<any>, chunkSize: number): Array<any> {
