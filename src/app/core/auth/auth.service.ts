@@ -133,6 +133,7 @@ export class AuthService
 
         // Remove all localStorafe informations
         localStorage.clear()
+        sessionStorage.clear();
 
         // Set the authenticated flag to false
         this._authenticated = false;

@@ -53,12 +53,11 @@
                 [data_inicio]="data_inicio"
                 [data_fim]="data_fim"
                 (removido)="refazPesquisa()"
-                (emiteFiltros)="trataFiltros($event, false)"
+                (emiteFiltros)="trataFiltros($event)"
                 (removeFiltros)="removeFiltros($event)"
                 (emiteData)="filtraData($event)"
                 (emiteProcesso)="trataProcesso($event)"
                 (emiteAlerta)="alertaFiltroVazio()"
-                (emiteParams)="trataFiltros($event)"
             ></app-filtros>
         </mat-drawer>
 

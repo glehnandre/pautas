@@ -1,6 +1,7 @@
 import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { MatCheckboxChange } from '@angular/material/checkbox';
+import { ActivatedRoute, Params, Router } from '@angular/router';
 import { InformacoesDto } from 'app/modules/acervo/model/interfaces/informacoesDto.interface';
 import { AlertaService } from 'app/modules/services/alerta.service';
 
@@ -31,16 +32,27 @@ export class FiltrosComponent implements OnInit{
   @Output() emiteData = new EventEmitter<any>();
   @Output() emiteProcesso = new EventEmitter<any>();
   @Output() emiteAlerta = new EventEmitter<void>();
-  @Output() emiteParams = new EventEmitter<any>();
 
   filtros: Filtros[] = [];
   numeroProcesso = new FormControl('');
 
   filtrados: Filtrados[] = [];
+  queryParams: Params;
 
-  constructor() { }
+  constructor(
+    private _route: ActivatedRoute,
+    private _router: Router,
+    ) { }
 
   ngOnInit(): void {
+    this._router.navigate(
+      [],
+      {
+        relativeTo: this._route,
+        queryParams: null,
+        replaceUrl: true
+      });
+    this.montaParams("Periodo", [this.data_inicio.toISOString() + "_" + this.data_fim.toISOString()]);
   }
 
   /**
@@ -62,6 +74,8 @@ export class FiltrosComponent implements OnInit{
     const tipo = this.agregacoes.find(agregacao=>agregacao.itens.find(item=>item.descricao==name)).nome;
     if(status.checked){
       this.filtrados.push({filtro: name, tipo: tipo});
+      
+      this.montaParams(tipo);
 
       this.filtros.forEach(filtro=>{
         if(filtro.agregacao.itens.find(item=>item.descricao==name))
@@ -71,12 +85,53 @@ export class FiltrosComponent implements OnInit{
     else{
       this.filtrados.splice(this.filtrados.indexOf(this.filtrados.find(filtrado=>filtrado.filtro==name)), 1);
 
+      this.subParams(tipo);
+
       this.filtros.forEach(filtro=>{
         if(filtro.agregacao.itens.find(item=>item.descricao==name))
         filtro.selecionados.splice(filtro.selecionados.indexOf(name), 1);
       })
     }
-    this.emitirParams();
+  }
+
+  montaParams(tipo: string, descricoes: any[] = []){
+    let param = null;
+
+    if(tipo!="Periodo" && tipo!="Numero do porcesso" && tipo!="Palavra Chave"){
+      this.filtrados.filter(filtrado=>filtrado.tipo==tipo).forEach(descricao=>{
+        descricoes.push(descricao.filtro);
+      });
+    }
+
+    if(descricoes)
+    descricoes.forEach((descricao, i)=>{
+      if(i==0) param = `${descricao}`;
+      else param += `_${descricao}`
+    })
+
+    this.queryParams = { [tipo.replace(/ /g, '-')]: param.replace(/ /g, '-') };
+
+    this._router.navigate(
+      [],
+      {
+        relativeTo: this._route,
+        queryParams: this.queryParams,
+        queryParamsHandling: 'merge',
+      });
+  }
+
+  subParams(tipo: string){
+    const tipos = ['Periodo', 'Numero do porcesso', 'Palavra Chave'];
+    if(this.filtrados.some(filtrado=>filtrado.tipo==tipo) && !tipos.some(t=>t==tipo)) this.montaParams(tipo);
+    else {
+      this._router.navigate(
+        [],
+        {
+          relativeTo: this._route,
+          queryParams: {[tipo.replace(/ /g, '-')]: null},
+          queryParamsHandling: 'merge',
+        });
+    }
   }
 
   /**
@@ -99,10 +154,6 @@ export class FiltrosComponent implements OnInit{
     this.alertaFiltroVazio();
   }
 
-  emitirParams(){
-    this.emiteParams.emit(this.filtrados);
-  }
-
   /**
    * Apaga todos os dados no filtro
    */
@@ -122,6 +173,14 @@ export class FiltrosComponent implements OnInit{
       this.removido.emit(pesquisa))
     this.pesquisas.splice(0, this.pesquisas.length);
     this.limparDatas();
+
+    this.numeroProcesso.setValue('');
+    this.subParams("Numero do processo");
+  }
+
+  teste(){
+    console.log("ENTER");
+    
   }
 
   selecionado(filtro: any, descricao: string): boolean {
@@ -130,8 +189,9 @@ export class FiltrosComponent implements OnInit{
 
   alertaFiltroVazio() {
     const isFiltros = this.filtros.filter(filtro => filtro.selecionados.length > 0).length > 0,
-          isData = this.data_inicio !== null && this.data_fim !== null;
-    if(!(isFiltros || isData)) {
+          isData = this.data_inicio !== null && this.data_fim !== null,
+          isNumeroProcesso = this.numeroProcesso.value !== '';
+    if(!(isFiltros || isData || isNumeroProcesso)) {
       this.emiteAlerta.emit();
     }
   }
@@ -165,6 +225,10 @@ export class FiltrosComponent implements OnInit{
    * Emite o número do processo inserido para a filtragem
    */
    filtrarProcesso(){
+    if(this.numeroProcesso.value)
+      this.montaParams("Numero do processo", [this.numeroProcesso.value]);
+    else
+      this.subParams("Numero do processo");
     this.emiteProcesso.emit(this.numeroProcesso.value);
   }
 
@@ -173,8 +237,10 @@ export class FiltrosComponent implements OnInit{
    * @param event momentum que contem a data selecionada
    */
   trataDataInicio(event: any){
-    if(event.value)
+    if(event.value){
       this.data_inicio = event.value._d;
+      this.montaParams("Periodo", [this.data_inicio.toISOString()]);
+    }
   }
 
   /**
@@ -182,8 +248,10 @@ export class FiltrosComponent implements OnInit{
    * @param event momentum que contem a data selecionada
    */
   trataDataFim(event: any){
-    if(event.value)
+    if(event.value){
       this.data_fim = event.value._d;
+      this.montaParams("Periodo", [this.data_inicio.toISOString() + "_" + this.data_fim.toISOString()]);
+    }
   }
 
   /**
@@ -193,6 +261,7 @@ export class FiltrosComponent implements OnInit{
     this.data_inicio = null;
     this.data_fim = null;
     this.filtrar();
+    this.subParams("Periodo");
   }
 
 }

@@ -15,7 +15,7 @@ import { AlertaService } from '../services/alerta.service';
   styleUrls: ['./publicacoes.component.scss'],
   encapsulation: ViewEncapsulation.None
 })
-export class PublicacoesComponent implements OnInit, OnDestroy {
+export class PublicacoesComponent implements OnInit, OnDestroy{
 
   drawerMode: 'over' | 'side' = 'side';
   drawerOpened: boolean = true;
@@ -31,9 +31,6 @@ export class PublicacoesComponent implements OnInit, OnDestroy {
   left: number;
   data_inicio: Date = new Date();
   data_fim: Date = new Date();
-
-  queryParams: Params;
-  tiposParams: string[] = [];
 
   pesquisas: string[] = [];
   termo: string;
@@ -79,7 +76,6 @@ export class PublicacoesComponent implements OnInit, OnDestroy {
       if(this.data_fim.getDay()==6) this.data_fim.setDate(this.data_fim.getDate()-1);
       else if(this.data_fim.getDay()==0) this.data_fim.setDate(this.data_fim.getDate()-2);
       this.filtraData({data_inicio: this.data_inicio, data_fim: this.data_fim});
-
   }
 
   /**
@@ -184,13 +180,12 @@ export class PublicacoesComponent implements OnInit, OnDestroy {
    * Faz o tratamento e filtra as publicações a partir dos filtos dinâmicos selecionados.
    * @param filtros filtros selecionados.
    */
-  trataFiltros(filtros: any[], toParams: boolean = true){
+  trataFiltros(filtros: any[]){
     let filtrar = filtros.filter(filtro=>filtro.tipo==filtros[0].tipo);
     let filtrados = [];
     let tipos = [];
-    let params = [];
     
-    this.redefinirParams();
+    //this.redefinirParams();
     
     while(filtrar[0]){
       tipos.push(filtrar[0].tipo);
@@ -198,18 +193,10 @@ export class PublicacoesComponent implements OnInit, OnDestroy {
         this.filtrar(filtro.filtro).forEach(filtrado=>{
           if(filtrados.indexOf(filtrado)==-1) filtrados.push(filtrado);
         })
-        params.push(filtro.filtro.replace(/ /g, '-'));
       })
-      if(!toParams){
-        this.filtrados = filtrados;
-        this.trataExibidos();
-      }
+      this.filtrados = filtrados;
+      this.trataExibidos();
 
-      if(this.tiposParams.indexOf(filtrar[0].tipo)==-1)
-      this.tiposParams.push(filtrar[0].tipo);
-      this.montaParams(filtrar[0].tipo, params);
-
-      params = [];
       filtrados = [];
       filtrar = filtros.filter(filtro=>tipos.indexOf(filtro.tipo)==-1)
     }
@@ -238,9 +225,6 @@ export class PublicacoesComponent implements OnInit, OnDestroy {
   removeFiltros(event: any){
       if(this.pesquisas.length!=0) this.refazPesquisa();
       else if(!this.hasNumeroProcesso) this.filtraData(event);
-      this.tiposParams.forEach(tipo=>{
-        this.montaParams(tipo, null);
-      })
       this.hasFiltros = true;
   }
 
@@ -253,13 +237,11 @@ export class PublicacoesComponent implements OnInit, OnDestroy {
     if(!event.data_inicio) {
         this.filtrados = this.publicacoes;
         this.trataExibidos();
-        this.montaParams("Data", null)
     }
     else{
       let data_inicio: Date = new Date(event.data_inicio.toString().slice(0, 16));
       let data_fim: Date = new Date(new Date(event.data_fim.toString().slice(0, 16)).setHours(23,59,59));
       let filtros = [];
-      this.montaParams("Data", [data_inicio.toISOString() + "_" + data_fim.toISOString()])
       filtros = this.publicacoes.filter(publicacao=>{
         let day: number;
 
@@ -310,33 +292,6 @@ export class PublicacoesComponent implements OnInit, OnDestroy {
       this.left -= 30;
       this.exibidos = this.filtrados.slice(this.left,this.right);
     }
-  }
-
-  montaParams(tipo: string, descricoes: any[]){
-    let param: string = null;
-    if(descricoes)
-    descricoes.forEach((descricao, i)=>{
-      if(i==0) param = `${descricao}`;
-      else param += `_${descricao}`
-    })
-    this.queryParams = { [tipo]: param };
-
-    this._router.navigate(
-      [],
-      {
-        relativeTo: this._route,
-        queryParams: this.queryParams,
-        queryParamsHandling: 'merge',
-      });
-  }
-
-  redefinirParams(){
-    this._router.navigate(
-      [],
-      {
-        relativeTo: this._route,
-        replaceUrl: true
-      });
   }
 
   alertaFiltroVazio() {
