@@ -53,7 +53,11 @@ export class MinhasTarefasComponent implements OnInit {
 
     public abrirModalDeIncluirComentario(): void {
         if (!this._isTarefasSelecionadasVazia()) {
-            const dialogRef = this._dialog.open(FormComentarioComponent, {});
+            const dialogRef = this._dialog.open(FormComentarioComponent, {
+                data: {
+                    tarefas: [...this.tarefasSelecionadas],
+                }
+            });
         }
     }
 
