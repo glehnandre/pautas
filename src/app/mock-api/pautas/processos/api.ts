@@ -245,17 +245,19 @@ export class ProcessoMockApi {
             .reply(({request, urlParams}) => {
                 const idProcesso: number = +urlParams.id;
                 const { body } = request;
-                let index;
                 const m = ministro.find(({id}) => id === body.ministro);
-                index = this._processos.findIndex(processo => processo.id === idProcesso);
-                console.log("%cAPI Vista", "font-color: blue; font-size:20px");
-                console.log(this._processos[index]);
-                
-                this._processos[index].vistas.push({...body, ministro: m});
+                const index = this._processos.findIndex(processo => processo.id === idProcesso);
+
+                body.id = this._vistas.length + 1;
+                this._vistas.push({...body, ministro: m });
+                const indexVista = this._vistas.length - 1;
+                this._processos[index].vistas.push(this._vistas[indexVista]);
+
+                setStorage('vistas', this._vistas);
                 setStorage('processos', this._processos);
-                return [200, this._processos[index].vistas];
+                return [200, this._vistas[indexVista]];
             });
-        
+
         this._fuseMockApiService
             .onPut('processos/:id/vista/:idVista')
             .reply(({request, urlParams}) => {
@@ -265,7 +267,7 @@ export class ProcessoMockApi {
                 let index_processo;
                 let index_vista;
                 const m = ministro.find(({id}) => id === body.ministro);
-                
+
                 index_processo = this._processos.findIndex(processo => processo.id === idProcesso);
                 index_vista = this._processos[index_processo].vistas.findIndex(vista => vista.id !== idVista)
                 this._processos[index_processo].vistas[index_vista].data = body.data;
@@ -273,7 +275,7 @@ export class ProcessoMockApi {
                 this._processos[index_processo].vistas[index_vista].processo = body.processo;
                 this._processos[index_processo].vistas[index_vista].sessao = body.sessao;
                 this._processos[index_processo].vistas[index_vista].texto = body.texto;
-               
+
                 setStorage('processos', this._processos);
                 return [200, this._processos[index_processo].vistas[index_vista]];
             });
@@ -302,15 +304,18 @@ export class ProcessoMockApi {
             .onPost('processos/:id/destaque')
             .reply(({request, urlParams}) => {
                 const idProcesso: number = +urlParams.id;
-                const body = request.body;
-                body.id = this._destaques.length + 1;
-
+                const { body } = request;
                 const m = ministro.find(({id}) => id === body.ministro);
+                const index = this._processos.findIndex(({ id }) => id == idProcesso);
+
+                body.id = this._destaques.length + 1;
                 this._destaques.push({...body, ministro: m});
+                const indexDestaque = this._destaques.length - 1;
+                this._processos[index].destaques.push(this._destaques[indexDestaque]);
 
                 setStorage('destaques', this._destaques);
-
-                return [200, this._destaques];
+                setStorage('processos', this._processos);
+                return [200, this._destaques[indexDestaque]];
             });
 
         this._fuseMockApiService
@@ -368,25 +373,25 @@ export class ProcessoMockApi {
                     msg: 'Nenhum processo com id informado.'
                 }];
             });
-        
+
         this._fuseMockApiService
             .onGet('processo/:id/capitulos')
             .reply(({urlParams}) => {
               const idProcesso = +urlParams.id;
               let proc;
-            
+
               getStorage('processo', this._processos);
               proc = this._processos.filter(processo => processo.id === idProcesso);
-    
+
               return [201, proc.capitulos];
             });
-    
+
         this._fuseMockApiService
             .onPost('processo/:id/capitulos')
             .reply(({request, urlParams}) => {
               const idProcesso = +urlParams.id;
               const { cap, processos_mesma_decisao } = request.body;
-    
+
               if (idProcesso) {
                 const index_processo = this._processos.findIndex(p => p.id === idProcesso);
                 if (cap.id != 0) {
@@ -409,7 +414,7 @@ export class ProcessoMockApi {
                 setStorage('processos', this._processos);
                 return [201, this._processos[index_processo].capitulos];
               }
-    
+
               return [404, {
                 description: "Nenhum processo encontrado.",
               }];
