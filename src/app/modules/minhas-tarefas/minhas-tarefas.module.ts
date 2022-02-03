@@ -20,7 +20,8 @@ import { MatRippleModule } from '@angular/material/core';
 import { MatSelectModule } from '@angular/material/select';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatPaginatorModule } from '@angular/material/paginator';
-import { MatDatepickerModule, MatDateRangePicker, MatDateSelectionModel } from '@angular/material/datepicker';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatMenuModule } from '@angular/material/menu';
 
 import { FiltrosComponent } from './filtros/filtros.component';
 import { TabelaComponent } from './tabela/tabela.component';
@@ -78,6 +79,7 @@ const minhasTarefasRoutes: Route[] = [
     MatDatepickerModule,
     MatTooltipModule,
     MatDialogModule,
+    MatMenuModule,
     SharedModule,
   ]
 })

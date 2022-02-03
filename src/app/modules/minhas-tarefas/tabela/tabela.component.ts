@@ -70,11 +70,6 @@ export class TabelaComponent implements OnInit, AfterViewInit, OnDestroy, OnChan
     }
 
     ngOnInit(): void {
-        this._tarefaService.setNotes({
-            taskId: 1512554, 
-            notes: 'Testando 1.. 2.. 3..'
-        }).subscribe(data => console.log(data));
-
         this.selection.changed.subscribe({
             next: (tasksSelecinadas) => {
                 this.emitirTarefasSelecionadas.emit(tasksSelecinadas.source.selected)
