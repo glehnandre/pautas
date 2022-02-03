@@ -11,10 +11,10 @@
             </mat-expansion-panel-header>
 
             <section class="flex flex-row flex-wrap">
-                <mat-chip-list *ngFor="let pesquisa of pesquisas" #chipsfiltros aria-label="Filtros aplicados ao resultado" class="mx-4 mb-6">
+                <mat-chip-list *ngFor="let pesquisa of getPesquisa()" #chipsfiltros aria-label="Filtros aplicados ao resultado" class="mx-4 mb-6">
                     <mat-chip [removable]="true" (removed)="removePesquisa(pesquisa)">
                         {{pesquisa}}
-                        <button matChipRemove aria-label="Clique para remover o filtro André von" class="mb-1.5">
+                        <button matChipRemove aria-label="Clique para remover o filtro {{pesquisa}}" class="mb-1.5">
                             <mat-icon class="h-2 w-2">cancel</mat-icon>
                         </button>
                     </mat-chip>

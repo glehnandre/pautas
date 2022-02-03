@@ -37,7 +37,6 @@ export class ProcessosSolicitacaoExtraordinariaComponent implements OnInit, OnCh
                 this.processos = processos;
             }
         });
-        console.log(this.sessao);
     }
   }
 

@@ -475,9 +475,6 @@ export class ResultadoJulgamentoComponent implements OnInit, OnDestroy, AfterCon
    */
   private _criarChips(): void {
 
-    console.log("%cProcessos", "color: blue; font-size: 25px");
-    console.log(this.processo);
-
     this.chips = [];
 
     if (this.processo) {

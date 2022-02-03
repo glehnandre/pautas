@@ -75,7 +75,7 @@ export class CabecalhoRelatorComponent implements AfterContentChecked, OnInit {
   }
 
   public obterChipRemovido(chip: string): void {
-    console.log(chip);
+    
   }
 
   private carregarDocumentosProcesso(processo: Processo){

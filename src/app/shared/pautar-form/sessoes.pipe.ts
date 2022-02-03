@@ -7,8 +7,6 @@ import { SessaoJulgamento } from 'app/modules/acervo/model/interfaces/sessao-jul
 })
 export class SessoesPipe implements PipeTransform {
     transform(sessoes: SessaoJulgamento[], colegiado: string, modalidade: string, dataInicio: Date, dataFim: Date) {
-        console.log('%c Data Inicio', 'color:blue; font-weight: bold; font-size: 20px;');
-        console.log({colegiado, modalidade, dataInicio, dataFim });
         if (!colegiado && !modalidade && !dataInicio && !dataFim) {
             return sessoes;
         } else

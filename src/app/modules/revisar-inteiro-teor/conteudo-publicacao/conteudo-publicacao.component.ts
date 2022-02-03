@@ -93,22 +93,26 @@ export class ConteudoPublicacaoComponent implements OnInit, AfterViewInit {
    */
   getData(isoDate: string = new Date().toISOString(), firstDate: boolean = true): string{
     const meses = ["Jan", "Fev", "Mar", "Abr", "Mai", "Jun", "Jul", "Ago", "Set", "Out", "Nov", "Dez"];
-    const datepipe: DatePipe = new DatePipe('pt-BR')
-    let newDate = new Date(isoDate);
-    let data: string;
-    (firstDate) ? data = newDate.getDate()+'/'+meses[newDate.getMonth()]+'/'+newDate.getFullYear().toString().slice(2,4)
-                : data = datepipe.transform(isoDate, "dd/MM/YYYY hh:mm");
-    return data;
+
+    const datepipe: DatePipe = new DatePipe('pt-BR');
+
+    const novaData = new Date(isoDate);
+
+    const diaFormatado = String(novaData.getDate()).padStart(2, '0');
+    const mesFormatado = meses[novaData.getMonth()];
+    const anoFormatado = novaData.getFullYear().toString().slice(2,4);
+
+    const dataFormatada = firstDate ? `${diaFormatado}/${mesFormatado}/${anoFormatado}`
+                                    : datepipe.transform(isoDate, "dd/MM/YYYY hh:mm");
+
+    return dataFormatada;
   }
 
   /**
    * Abre o link do pdf da publicação para ser baixado
    */
   abrirLink(publicacao: PublicacaoDto): void {
-    //   this._publicacaoService.abrirPeca(publicacao.id).subscribe(url=>{
-    //     this.link = this._sanitizer.bypassSecurityTrustResourceUrl(url);
-    //     window.open(this.link['changingThisBreaksApplicationSecurity'], "_blank");
-    //   });
+
   }
 
 }

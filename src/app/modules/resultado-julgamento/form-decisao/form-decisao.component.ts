@@ -74,7 +74,6 @@ export class FormDecisaoComponent implements OnInit, OnChanges, OnDestroy {
       texto: [this.capitulo.texto, Validators.required],
       processos_mesma_decisao: [this.capitulo.processos_mesma_decisao]
     });
-    console.log(this.formDecisao);
   }
 
   ngOnChanges(): void {

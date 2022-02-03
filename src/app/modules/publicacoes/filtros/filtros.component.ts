@@ -36,6 +36,8 @@ export class FiltrosComponent implements OnInit{
   filtros: Filtros[] = [];
   numeroProcesso = new FormControl('');
 
+  pastValue = 0;
+  pastProcessoValue = '';
   filtrados: Filtrados[] = [];
   queryParams: Params;
 
@@ -53,6 +55,14 @@ export class FiltrosComponent implements OnInit{
         replaceUrl: true
       });
     this.montaParams("Periodo", [this.data_inicio.toISOString() + "_" + this.data_fim.toISOString()]);
+    
+  }
+
+  getPesquisa(): string[]{
+    if(this.pesquisas.length>this.pastValue)
+    this.subParams("Palavra Chave");
+    this.pastValue = this.pesquisas.length;
+    return this.pesquisas;
   }
 
   /**
@@ -61,6 +71,8 @@ export class FiltrosComponent implements OnInit{
    */
   removePesquisa(pesquisa: string){
     this.pesquisas.splice(this.pesquisas.indexOf(pesquisa), 1);
+    this.subParams("Palavra Chave")
+    this.pastValue--;
     this.removido.emit(pesquisa);
     this.filtrar();
   }
@@ -103,6 +115,12 @@ export class FiltrosComponent implements OnInit{
       });
     }
 
+    if(tipo=="Palavra Chave"){
+      this.pesquisas.forEach(pesquisa=>{
+        descricoes.push(pesquisa);
+      })
+    }
+
     if(descricoes)
     descricoes.forEach((descricao, i)=>{
       if(i==0) param = `${descricao}`;
@@ -121,8 +139,9 @@ export class FiltrosComponent implements OnInit{
   }
 
   subParams(tipo: string){
-    const tipos = ['Periodo', 'Numero do porcesso', 'Palavra Chave'];
+    const tipos = ['Periodo', 'Numero do processo'];
     if(this.filtrados.some(filtrado=>filtrado.tipo==tipo) && !tipos.some(t=>t==tipo)) this.montaParams(tipo);
+    else if(tipo=="Palavra Chave" && this.pesquisas.length>0) this.montaParams("Palavra Chave") 
     else {
       this._router.navigate(
         [],
@@ -151,6 +170,7 @@ export class FiltrosComponent implements OnInit{
         data_fim: this.data_fim
       });
     }
+    
     this.alertaFiltroVazio();
   }
 
@@ -176,11 +196,6 @@ export class FiltrosComponent implements OnInit{
 
     this.numeroProcesso.setValue('');
     this.subParams("Numero do processo");
-  }
-
-  teste(){
-    console.log("ENTER");
-    
   }
 
   selecionado(filtro: any, descricao: string): boolean {
@@ -227,8 +242,9 @@ export class FiltrosComponent implements OnInit{
    filtrarProcesso(){
     if(this.numeroProcesso.value)
       this.montaParams("Numero do processo", [this.numeroProcesso.value]);
-    else
+    else if(this.numeroProcesso.value!=this.pastProcessoValue)
       this.subParams("Numero do processo");
+    this.pastProcessoValue = this.numeroProcesso.value;
     this.emiteProcesso.emit(this.numeroProcesso.value);
   }
 
