@@ -21,6 +21,8 @@ import { FormIndicacaoImpedimentosComponent } from './form-indicacao-impedimento
 import { FormModeloDecisaoComponent } from './form-modelo-decisao/form-modelo-decisao.component';
 import { FormRelatorComponent } from './form-relator/form-relator.component';
 import { FormVistaEDestaqueComponent } from './form-vista-e-destaque/form-vista-e-destaque.component';
+import { MinistroService } from '../services/ministro.service';
+import { Ministro } from '../acervo/model/interfaces/ministro.interface';
 
 
 interface Parametros {
@@ -63,7 +65,7 @@ export class ResultadoJulgamentoComponent implements OnInit, OnDestroy, AfterCon
   readonly FORM_CADASTRO_DECISAO = 'formulario-de-cadastro-de-decisao';
 
   constructor(
-    private _resultadoJulgamento: ResultadoJulgamentoService,
+    private _ministroService: MinistroService,
     private _processoService: ProcessoService,
     private _route: ActivatedRoute,
     private _alertaService: AlertaService,
@@ -244,21 +246,30 @@ export class ResultadoJulgamentoComponent implements OnInit, OnDestroy, AfterCon
         },
       }
     });
-
-    dialogRef.afterClosed().subscribe((modelo: ModeloDecisao) => {
+    interface Retorno { modelo: ModeloDecisao, dispositivo: string, recurso: string }
+    dialogRef.afterClosed().subscribe(({ modelo, dispositivo, recurso } : Retorno ) => {
       if(modelo) {
         this.modelo = modelo;
         console.log(modelo);
         this.mostrarAlerta('success', 'Modelo Cadastrado com Sucesso',
           `O modelo de texto para
-          ${modelo.classe},
-          ${modelo.tipoCapitulo},
-          ${this.dispositivos} e
-          ${modelo.recurso} foi incluída com sucesso.
-
-          ${modelo.texto}`);
+          ${ modelo.classe },
+          ${ modelo.tipoCapitulo },
+          ${ dispositivo} e
+          ${ recurso } foi incluída com sucesso.\n
+          ${ modelo.texto }`);
       }
     });
+  }
+
+  private alertaVistaEDestaque(tipo: string, ministro: Ministro): void {
+    this.mostrarAlerta('success', 'Sucesso', `
+      ${ tipo }
+      ${ this._ministroService.generoEPlural([ministro],
+        { F: 'da Ministra', M: 'do Ministro' })}
+      ${ ministro.nome }
+      incluíd${ tipo == 'Vista'? 'a': 'o'} com sucesso!
+    `);
   }
 
   /**
@@ -284,8 +295,10 @@ export class ResultadoJulgamentoComponent implements OnInit, OnDestroy, AfterCon
         };
 
         this._processoService.salvarVistaDoProcesso(this.parametros.processo, vista).subscribe({
-          next: (data) => {
+          next: (vistaSalva) => {
             this._carregarDadosProcessos(); // atualiza a lista de Vistas
+            console.log('Vista', vistaSalva);
+            this.alertaVistaEDestaque('Vista', vistaSalva['ministro']);
           }
         });
       }
@@ -315,8 +328,10 @@ export class ResultadoJulgamentoComponent implements OnInit, OnDestroy, AfterCon
         };
 
         this._processoService.salvarDestaqueDoProcesso(this.parametros.processo, destaque).subscribe({
-          next: (data) => {
+          next: (destaqueSalvo) => {
             this._carregarDadosProcessos(); // atualiza a lista de Destaque
+            console.log('Destaque', destaqueSalvo);
+            this.alertaVistaEDestaque('Destaque', destaqueSalvo['ministro']);
           }
         });
       }
@@ -437,7 +452,11 @@ export class ResultadoJulgamentoComponent implements OnInit, OnDestroy, AfterCon
 
     dialogRef.afterClosed().subscribe(data => {
       if(data.status){
-        this.mostrarAlerta('success', 'Sucesso', 'Operação efetuada com êxito');
+        this.mostrarAlerta('success', 'Sucesso',
+          `O Resultado do Julgamento
+           ${ this.processo.nome } em
+           ${ this.processo.classe }
+           ${ this.processo.numero } foi finalizado com sucesso`);
       }else{
         this.mostrarAlerta('error','Erro ao finalizar a publicação', data.mensagem_tratada);
       }
