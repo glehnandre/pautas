@@ -46,6 +46,11 @@ export class VisualizadorInteiroTeorComponent implements OnInit, OnChanges {
 
     documentos.forEach(documento => {
         if (documento.documento.status !== "Removido") {
+            newWindow.document.write(
+                `<div id="${documento.id}" style="width: 100%;text-align: center;font-weight: 600;font-size: 1.25rem;line-height: 1.75rem;margin-bottom: 1rem;margin-top: 3rem;">
+                    ${documento.documento.nome}
+                 </div>`
+            );
             newWindow.document.write(documento.documento.textoSemFormatacao);
             newWindow.document.write("<hr></hr>");
         }
