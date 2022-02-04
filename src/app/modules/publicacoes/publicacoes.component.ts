@@ -6,6 +6,8 @@ import { PublicacaoService } from '../services/publicacao.service';
 import { PublicacaoDto } from '../acervo/model/interfaces/publicacaoDto.interface';
 import { InformacoesDto } from '../acervo/model/interfaces/informacoesDto.interface';
 import { AlertaService } from '../services/alerta.service';
+import { ActivatedRoute } from '@angular/router';
+import { isEmpty } from 'lodash';
 
 
 @Component({
@@ -34,10 +36,13 @@ export class PublicacoesComponent implements OnInit, OnDestroy{
   pesquisas: string[] = [];
   termo: string;
 
+  hasParam: boolean = true;
+
   constructor(
     private _fuseMediaWatcherService: FuseMediaWatcherService,
     private _alertaService: AlertaService,
     private _publicacaoService: PublicacaoService,
+    private _route: ActivatedRoute,
   ) { }
 
   /**
@@ -61,11 +66,42 @@ export class PublicacoesComponent implements OnInit, OnDestroy{
       });
 
       this.recuperaPublicacoes();
+      
       if(this.data_inicio.getDay()==6) this.data_inicio.setDate(this.data_inicio.getDate()-1);
       else if(this.data_inicio.getDay()==0) this.data_inicio.setDate(this.data_inicio.getDate()-2);
       if(this.data_fim.getDay()==6) this.data_fim.setDate(this.data_fim.getDate()-1);
       else if(this.data_fim.getDay()==0) this.data_fim.setDate(this.data_fim.getDate()-2);
+      
+      if(isEmpty(this._route.snapshot.queryParams)){
+        this.filtraData({data_inicio: this.data_inicio, data_fim: this.data_fim});
+        this.hasParam = false;
+      }
+  }
+
+  trataParams(){
+    this.filtrados = this.publicacoes;
+
+    const params = this._route.snapshot.queryParams;
+    const palavraChave = params['Palavra-Chave'];
+    const periodo = params['Periodo'];
+    const numeroProcesso = params['Numero-do-processo'];
+
+
+    if(palavraChave){
+      palavraChave.split("_").forEach(param=>{
+        this.termo = param;
+        this.atualizaPesquisa();
+      })
+    }
+    if(periodo){
+      this.data_inicio = periodo.split("_")[0];
+      this.data_fim = periodo.split("_")[1];
+      
       this.filtraData({data_inicio: this.data_inicio, data_fim: this.data_fim});
+    }
+    if(numeroProcesso){
+      this.trataProcesso(numeroProcesso);
+    }
   }
 
   /**
@@ -82,8 +118,11 @@ export class PublicacoesComponent implements OnInit, OnDestroy{
    */
   recuperaPublicacoes(){
     this._publicacaoService.recuperarDje().subscribe(dje=>{
+
       this.publicacoes = dje.publicacoes;
       this.agregacoes = dje.agregacoes;
+
+      if(this.hasParam) this.trataParams();
     })
   }
 
@@ -174,8 +213,6 @@ export class PublicacoesComponent implements OnInit, OnDestroy{
     let filtrar = filtros.filter(filtro=>filtro.tipo==filtros[0].tipo);
     let filtrados = [];
     let tipos = [];
-    
-    //this.redefinirParams();
     
     while(filtrar[0]){
       tipos.push(filtrar[0].tipo);
