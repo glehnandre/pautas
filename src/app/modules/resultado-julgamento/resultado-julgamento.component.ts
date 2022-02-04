@@ -15,7 +15,6 @@ import { Voto } from '../acervo/model/interfaces/voto.interface';
 
 import { AlertaService } from '../services/alerta.service';
 import { ProcessoService } from '../services/processo.service';
-import { ResultadoJulgamentoService } from '../services/resultado-julgamento.service';
 
 import { FormIndicacaoImpedimentosComponent } from './form-indicacao-impedimentos/form-indicacao-impedimentos.component';
 import { FormModeloDecisaoComponent } from './form-modelo-decisao/form-modelo-decisao.component';
@@ -250,7 +249,6 @@ export class ResultadoJulgamentoComponent implements OnInit, OnDestroy, AfterCon
     dialogRef.afterClosed().subscribe(({ modelo, dispositivo, recurso } : Retorno ) => {
       if(modelo) {
         this.modelo = modelo;
-        console.log(modelo);
         this.mostrarAlerta('success', 'Modelo Cadastrado com Sucesso',
           `O modelo de texto para
           ${ modelo.classe },
@@ -390,8 +388,8 @@ export class ResultadoJulgamentoComponent implements OnInit, OnDestroy, AfterCon
    */
   public getDadosDoProcesso(): string {
     if (this.processo) {
-      const { classe, numero, nome } = this.processo;
-      return `${classe} ${numero} ${nome}`;
+      const { classe, numero, cadeia } = this.processo;
+      return `${classe} ${numero} ${cadeia}`;
     }
 
     return '';
@@ -454,7 +452,7 @@ export class ResultadoJulgamentoComponent implements OnInit, OnDestroy, AfterCon
       if(data.status){
         this.mostrarAlerta('success', 'Sucesso',
           `O Resultado do Julgamento
-           ${ this.processo.nome } em
+           ${ this.processo.cadeia } em
            ${ this.processo.classe }
            ${ this.processo.numero } foi finalizado com sucesso`);
       }else{
@@ -493,9 +491,6 @@ export class ResultadoJulgamentoComponent implements OnInit, OnDestroy, AfterCon
    * @author Douglas da Silva Monteles
    */
   private _criarChips(): void {
-
-    console.log("%cProcessos", "color: blue; font-size: 25px");
-    console.log(this.processo);
 
     this.chips = [];
 

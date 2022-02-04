@@ -115,12 +115,25 @@
                     <button 
                         mat-stroked-button 
                         color="primary" 
-                        class="min-w-10 min-h-7 h-7 px-2 
+                        class="hidden sm:block min-w-10 min-h-7 h-7 px-2 
                             leading-6 bg-primary-500 text-white
                             mat-button-base"
                     >
                         ASSUMIR
                     </button>
+
+                    <div class="sm:hidden">
+                        <button 
+                            mat-button 
+                            [matMenuTriggerFor]="menu"
+                        >
+                            <mat-icon>more_vert</mat-icon>
+                        </button>
+
+                        <mat-menu #menu="matMenu">
+                            <button mat-menu-item>ASSUMIR</button>
+                        </mat-menu>
+                    </div>
                 </td>
             </ng-container>
 

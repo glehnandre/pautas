@@ -70,20 +70,24 @@
     [processo]="processo"
 ></app-visualizador-inteiro-teor>
 
-<app-alerta
-    [nome]="NOME_DO_ALERTA_DESTA_CLASSE"
-    [titulo]="'Erro de validação'"
-    [mensagem]="'Selecione alguma linha da tabela para poder usar essa opção'"
-    [aparencia]="'soft'"
-    [tipo]="'error'"
-    class="w-full"
-></app-alerta>
+<div class="w-full">
+    <app-alerta
+        [nome]="'sucesso'"
+        [titulo]="'Sucesso'"
+        [mensagem]="MENSAGEM_SUCESSO"
+        [aparencia]="'soft'"
+        [tipo]="'success'"
+        class="w-full"
+    ></app-alerta>
 
-<app-alerta
-    [nome]="'sucesso'"
-    [titulo]="'Sucesso'"
-    [mensagem]="MENSAGEM_SUCESSO"
-    [aparencia]="'soft'"
-    [tipo]="'success'"
-    class="w-full"
-></app-alerta>
+    <app-alerta
+        [nome]="NOME_DO_ALERTA_DESTA_CLASSE"
+        [titulo]="'Erro de validação'"
+        [mensagem]="'Selecione alguma linha da tabela para poder usar essa opção'"
+        [aparencia]="'soft'"
+        [tipo]="'error'"
+        class="w-full"
+    ></app-alerta>
+</div>
+
+

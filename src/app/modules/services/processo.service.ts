@@ -7,6 +7,7 @@ import { Destaque } from '../acervo/model/interfaces/destaque.interface';
 import { Documento } from '../acervo/model/interfaces/documento.interface';
 import { Impedimento } from '../acervo/model/interfaces/impedimento.interface';
 import { Manifestacao } from '../acervo/model/interfaces/manifestacao.interface';
+import { ModeloDecisao } from '../acervo/model/interfaces/modeloDecisao.interface';
 import { Processo } from '../acervo/model/interfaces/processo.interface';
 import { Tag } from '../acervo/model/interfaces/tag.interface';
 import { Vista } from '../acervo/model/interfaces/vista.interface';
@@ -103,7 +104,7 @@ export class ProcessoService {
   }
 
   public salvarVistaDoProcesso(id: number, vista: Vista): Observable<void> {
-    return this._httpClient.post<void>(`processos/${id}/vista`, vista).pipe(
+    return this._httpClient.post<void>(`processos/${id}/vistas`, vista).pipe(
       catchError(error => {
         console.log(error);
         return EMPTY;
@@ -112,7 +113,7 @@ export class ProcessoService {
   }
 
   public salvarDestaqueDoProcesso(id: number, destaque: Destaque): Observable<void> {
-    return this._httpClient.post<void>(`processos/${id}/destaque`, destaque).pipe(
+    return this._httpClient.post<void>(`processos/${id}/destaques`, destaque).pipe(
       catchError(error => {
         console.log(error);
         return EMPTY;
@@ -130,7 +131,7 @@ export class ProcessoService {
   }
 
   public excluirVistaDoProcesso(id: number, idVista: number): Observable<void> {
-    return this._httpClient.delete<void>(`processos/${id}/vista/${idVista}`).pipe(
+    return this._httpClient.delete<void>(`processos/${id}/vistas/${idVista}`).pipe(
       catchError(error => {
         console.log(error);
         return EMPTY;
@@ -138,8 +139,39 @@ export class ProcessoService {
     );
   }
 
+  
+  public atualizarVistasDoProcesso(id: number, idVista: number, vista: Vista): Observable<void> {
+    return this._httpClient.put<void>(`processos/${id}/vistas/${idVista}`, vista).pipe(
+      catchError(error => {
+        console.log(error);
+        return EMPTY;
+      })
+    );
+  }
+
+  
+  public finalizarSessaoDeJulgamento(numero: number, ano: number, dadosDaSessaoJulgamento: any): Observable<void> {
+    const numeroAno = `${numero}-${ano}`;
+    return this._httpClient.put<void>(`sessoes-de-julgamento/${numeroAno}/finalizar`, dadosDaSessaoJulgamento).pipe(
+      catchError((error) => {
+        console.log(error);
+        return EMPTY;
+      }),
+    );
+  }
+
+  public atualizarDestaquesDoProcesso(id: number, idDestaque: number, destaque: Destaque): Observable<void> {
+    return this._httpClient.put<void>(`processos/${id}/destaques/${idDestaque}`, destaque).pipe(
+      catchError(error => {
+        console.log(error);
+        return EMPTY;
+      })
+    );
+  }
+
+
   public excluirDestaqueDoProcesso(id: number, idDestaque: number): Observable<void> {
-    return this._httpClient.delete<void>(`processos/${id}/destaque/${idDestaque}`).pipe(
+    return this._httpClient.delete<void>(`processos/${id}/destaques/${idDestaque}`).pipe(
       catchError(error => {
         console.log(error);
         return EMPTY;
@@ -167,10 +199,70 @@ export class ProcessoService {
     let descricoes = '';
 
     processos.forEach((processo) => {
-      descricoes += `${processo.classe} ${processo.numero} ${processo.nome}\n`;
+      descricoes += `${processo.classe} ${processo.numero} ${processo.cadeia}\n`;
     });
 
     return descricoes;
+  }
+
+  public salvarCapitulo(id: number, {capitulo, processos_mesma_decisao}): Observable<void> {
+    return this._httpClient.post<void>(`processo/${id}/capitulos`, {
+      capitulo,
+      processos_mesma_decisao,
+    }).pipe(
+      catchError(error => {
+        console.log(error);
+        return EMPTY;
+      })
+    );
+  }
+
+  public deletarCapitulo(id: number, id_capitulo: number): Observable<void> {
+    return this._httpClient.delete<void>(`processo/${id}/capitulos/${id_capitulo}`).pipe(
+      catchError(error => {
+        console.log(error);
+        return EMPTY;
+      })
+    );
+  }
+
+  public salvarModeloDecisao(modelo: ModeloDecisao): Observable<void> {
+    return this._httpClient.post<void>(`modelo-decisao`, modelo).pipe(
+      catchError(error => {
+        console.log(error);
+        return EMPTY;
+      })
+    );
+  }
+
+  public obterModeloDecisao(classe: string, tipoCapitulo: string, dispositivo: number, recurso: number): Observable<ModeloDecisao> {
+    const params = new HttpParams()
+      .set('classe', classe)
+      .set('tipo_capitulo', tipoCapitulo)
+      .set('dispositivo', dispositivo)
+      .set('recurso', recurso);
+
+    return this._httpClient.get<ModeloDecisao>(`modelo-decisao`, {
+      params,
+    });
+  }
+
+  public atualizarModeloDecisao(id: number, modelo: ModeloDecisao): Observable<void> {
+    return this._httpClient.put<void>(`modelo-decisao/${id}`, modelo).pipe(
+      catchError(error => {
+        console.log(error);
+        return EMPTY;
+      })
+    );
+  }
+
+  public enviarCorrecaoCapitulo(id: number, correcao: any) {
+    return this._httpClient.post<any>(`ata/${id}`, correcao).pipe(
+      catchError( error => {
+        console.error(error);
+        return EMPTY;
+      })
+    );
   }
 
 }

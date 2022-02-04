@@ -1,7 +1,7 @@
 <div class="flex flex-col my-4 space-y-4">
     <div
       class="flex flex-col items-center text-xs sm:text-base"
-      *ngFor="let capituloPublicacao of capitulosPublicacao"
+      *ngFor="let processo of sessao.processos"
     >
         <div class="w-full md:w-9/12">
             <div class="flex flex-row text-white">
@@ -14,16 +14,16 @@
                 </div>
                 <div class="flex flex-col bg-primary p-2 w-full">
                     <span class="text-base sm:text-2xl">
-                        {{ capituloPublicacao?.classe }} {{ capituloPublicacao?.numero }} {{ capituloPublicacao?.cadeia}}
+                        {{ processo?.classe }} {{ processo?.numero }} {{ processo?.cadeia}}
                     </span>
                     <div>
                         <span>
-                            {{ capituloPublicacao?.classe_extenso }} {{ addPontoNumero(capituloPublicacao?.numero) }}
-                            {{ capituloPublicacao?.cadeia_extenso }}
+                            {{ processo.classe }} {{ processo.numero }}
+                            {{ processo.abreviacao }}
                         </span>
                         <span class="font-medium">
-                            Relatoria Ministr{{ capituloPublicacao?.relator?.genero == 'Masculino' ? 'o': 'a' }}
-                            {{ capituloPublicacao?.relator?.nome }}
+                            Relatoria Ministr{{ processo.relator?.genero == 'Masculino' ? 'o': 'a' }}
+                            {{ processo.relator?.nome }}
                         </span>
                     </div>
                 </div>
@@ -33,20 +33,20 @@
                     <hr><div class="flex flex-col sm:flex-row -my-4 sm:-my-2 justify-between space-x-0 sm:space-x-4">
                         <span>
                             REQUERENTE(S):
-                            <span class="font-medium" *ngFor="let requerente of filtraEnvolvidos(capituloPublicacao?.envolvidos, 'REQUERENTE')">
+                            <span class="font-medium" *ngFor="let requerente of filtraEnvolvidos(processo.envolvidos, 'REQUERENTE')">
                                 {{ requerente.nome }}
                             </span><br>
-                            <span *ngFor="let advogado of filtraEnvolvidos(capituloPublicacao?.envolvidos, 'ADVOGAD', 'ATIVO')">
+                            <span *ngFor="let advogado of filtraEnvolvidos(processo.envolvidos, 'ADVOGAD', 'ATIVO')">
                                 {{ advogado.categoria }}:
                                 <span class="font-medium">{{ advogado.nome }} | {{ advogado.identificacoes.join(' | ') }} |</span><br>
                             </span><br class="mb-2 sm:my-0">
                         </span>
                         <span>
                             RECORRIDO(A/S):
-                            <span class="font-medium" *ngFor="let envolvido of filtraEnvolvidos(capituloPublicacao?.envolvidos, 'RECORRID')">
+                            <span class="font-medium" *ngFor="let envolvido of filtraEnvolvidos(processo.envolvidos, 'RECORRID')">
                                 {{ envolvido.nome}}
                             </span><br>
-                            <span *ngFor="let advogado of filtraEnvolvidos(capituloPublicacao?.envolvidos, 'ADVOGAD', 'PASSIVO')">
+                            <span *ngFor="let advogado of filtraEnvolvidos(processo.envolvidos, 'ADVOGAD', 'PASSIVO')">
                                 {{ advogado.categoria }}:
                                 <span class="font-medium">{{ advogado.nome }} | {{ advogado.identificacoes.join(' | ') }} |</span><br>
                             </span>
@@ -64,34 +64,44 @@
                     </h3>
                 </div>
                 <div class="ml-4 sm:ml-8 md:ml-16 mr-4">
-                    {{ ata?.cabecalho }} <br class="mb-8">
-                    <div *ngFor="let capitulo of capituloPublicacao?.capitulos">
+                    <div class="mb-8">
+                        {{ ata?.cabecalho }} 
+                    </div>
+                    <hr class="mb-4" />
+                    <div *ngFor="let capitulo of processo.capitulos">
                         <div>
-                            <div [class]="'bg-sentido-'+capitulo.dispositivo?.sentido+' rounded-full px-2 text-white mb-4 mr-2 inline-block'">
-                                {{ capitulo.dispositivo?.nome }}
-                            </div>
-                            <div [innerHtml]="capitulo?.texto + '<br>' +
-                                              capitulo?.ministros_acordam+
-                                              fraseEMinistros(capitulo?.ministros_divergem, FraseDivergem)
-                            "></div>
+                                <div [class]="'bg-sentido-'+capitulo.dispositivo?.sentido+' rounded-full px-2 text-white mb-4 mr-2 inline-block'">
+                                    {{ capitulo.dispositivo?.nome }}
+                                </div>
+                                <div class="mb-6" [innerHtml]="capitulo?.texto"></div>
+                                <div class="mb-4" [innerHtml]="fraseEMinistros(capitulo?.ministros_acordam, FraseAcompanham)">
+                                </div>
+                                <div class="mb-4" [innerHtml]="fraseEMinistros(capitulo?.ministros_divergem, FraseDivergem)"></div>
+                                <hr>
                         </div>
                         <br class="mb-2">
                     </div>
-                    <div [innerHtml]="
-                      fraseEMinistros(sessao?.ministros_presentes, FrasePresentes) +
-                      (ata?.outros_presentes ? 'Também estavam presentes na Sessão ' + ata?.outros_presentes: '') +
-                      fraseEMinistros(sessao?.ministros_ausentes, FraseAusentes)
+                    <div class="mb-2" [innerHtml]="
+                      fraseEMinistros(ata?.ministros_presentes, FrasePresentes)                      
                     "></div>
-                    <div class="mt-2">
-                      <span *ngFor="let vista of capituloPublicacao?.vistas">{{ vista.texto }}<br></span>
-                      <span *ngFor="let destaque of capituloPublicacao?.destaques">{{ destaque.texto }}<br></span>
+                    <div class="mb-2" [innerHtml]="(ata?.outros_presentes ? 'Também estavam presentes na Sessão ' + ata?.outros_presentes: '') ">
+
+                    </div>
+                    <div class="mb-2" [innerHtml]="
+                    fraseEMinistros(ata?.ministros_ausentes, FraseAusentes)
+                    ">
+                    
+                    </div>
+                    <div class="mb-4">
+                      <span *ngFor="let vista of processo?.vistas">{{ vista.texto }}<br></span>
+                      <span *ngFor="let destaque of processo?.destaques">{{ destaque.texto }}<br></span>
                     </div>
                 </div>
-                <footer class="text-center mt-4">
+                <footer class="text-center mb-4">
                     <span *ngIf="form">
                         Brasília, {{ form?.dataPublicacao | date: 'longDate' }}
                     </span><br>
-                    {{ sessao?.secretario.nome }}<br>
+                    {{ ata?.secretario.nome }}<br>
                     Assessor(a) Chefe do Plenário
                 </footer>
             </div>

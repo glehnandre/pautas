@@ -14,7 +14,7 @@ import { AlertaService } from '../../services/alerta.service';
 import { ClasseService } from '../../services/classe.service';
 import { DispositivoService } from '../../services/dispositivo.service';
 import { RecursoService } from '../../services/recurso.service';
-import { ResultadoJulgamentoService } from '../../services/resultado-julgamento.service';
+import { ProcessoService } from '../../services/processo.service';
 
 interface ModeloDecisaoData {
   processo: {
@@ -43,11 +43,10 @@ export class FormModeloDecisaoComponent implements OnInit {
   constructor(
     private _fb: FormBuilder,
     private _alertaService: AlertaService,
-    private _resultadoJulgamento: ResultadoJulgamentoService,
+    private _processoService: ProcessoService,
     private _dispositivoService: DispositivoService,
     private _recursoService: RecursoService,
     private _classeService: ClasseService,
-    private _fuseAlertService: FuseAlertService,
     public dialogRef: MatDialogRef<FormModeloDecisaoComponent>,
     @Inject(MAT_DIALOG_DATA) public data: ModeloDecisaoData,
   ) {
@@ -71,6 +70,9 @@ export class FormModeloDecisaoComponent implements OnInit {
         this.exibirSugestoes = true;
       }
     });
+    console.log("Modelo");
+    console.log(this.modelo);
+    console.log(this.modelo.id);
   }
 
   public buscarDispositivos(): void {
@@ -90,7 +92,7 @@ export class FormModeloDecisaoComponent implements OnInit {
     } = this.formModeloDecisao.value;
 
     if (classe !== '' && tipoCapitulo !== null && dispositivo && recurso > 0) {
-      this._resultadoJulgamento.obterModeloDecisao(classe, tipoCapitulo, dispositivo, recurso)
+      this._processoService.obterModeloDecisao(classe, tipoCapitulo, dispositivo, recurso)
         .pipe(
           catchError(() => {
             this.modelo = { id: 0 } as ModeloDecisao;
@@ -130,15 +132,20 @@ export class FormModeloDecisaoComponent implements OnInit {
 
   public salvarModeloDecisao(): void {
     if (this.formModeloDecisao.valid) {
-      this._resultadoJulgamento.salvarModeloDecisao(this.formModeloDecisao.value)
-        .subscribe(() => this.sairModal());
-    }
-  }
+      if(this.modelo.id == undefined){
+        this._processoService.salvarModeloDecisao(this.formModeloDecisao.value).subscribe({
+          next: () => {
+            this.sairModal();
+          }
+        });
+      }else{
+        this._processoService.atualizarModeloDecisao(this.modelo.id, this.formModeloDecisao.value).subscribe({
+          next: () => {
+            this.sairModal();
+          }
+        });
+      }
 
-  public atualizarModeloDecisao(): void {
-    if (this.formModeloDecisao.valid) {
-      this._resultadoJulgamento.atualizarModeloDecisao(this.modelo.id, this.formModeloDecisao.value)
-        .subscribe(() => this.sairModal());
     }
   }
 

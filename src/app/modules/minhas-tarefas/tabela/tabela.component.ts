@@ -70,11 +70,6 @@ export class TabelaComponent implements OnInit, AfterViewInit, OnDestroy, OnChan
     }
 
     ngOnInit(): void {
-        this._tarefaService.setNotes({
-            taskId: 1512554, 
-            notes: 'Testando 1.. 2.. 3..'
-        }).subscribe(data => console.log(data));
-
         this.selection.changed.subscribe({
             next: (tasksSelecinadas) => {
                 this.emitirTarefasSelecionadas.emit(tasksSelecinadas.source.selected)
@@ -183,7 +178,6 @@ export class TabelaComponent implements OnInit, AfterViewInit, OnDestroy, OnChan
 
     private _filtrarListaDeTarefas(): void {
         let tarefasFiltradas = [...this.tarefas];
-        console.log(this.filtros)
 
         // Filtrar por data de inicio e fim
         if (this.filtros?.data_inicio && this.filtros?.data_fim) {
@@ -218,7 +212,7 @@ export class TabelaComponent implements OnInit, AfterViewInit, OnDestroy, OnChan
                 return false;
             });
         }
-        console.log(tarefasFiltradas)
+
 
         // Filtrar por número do processo
         if (this.filtros?.numeroProcesso) {
@@ -229,7 +223,7 @@ export class TabelaComponent implements OnInit, AfterViewInit, OnDestroy, OnChan
                 return (+numeroProcesso === +numero);
             });
         }
-        console.log(tarefasFiltradas)
+
 
         // Filtrar por tag
         if (this.filtros?.tags && this.filtros.tags.length > 0) {
@@ -243,8 +237,7 @@ export class TabelaComponent implements OnInit, AfterViewInit, OnDestroy, OnChan
                 }
             }
         }
-        console.log(tarefasFiltradas)
-
+        
         this._carregarTarefas(tarefasFiltradas);
     }
 

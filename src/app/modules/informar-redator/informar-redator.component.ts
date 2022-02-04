@@ -6,7 +6,6 @@ import { Ministro } from '../acervo/model/interfaces/ministro.interface';
 import { Voto } from '../acervo/model/interfaces/voto.interface';
 import { MinistroService } from '../services/ministro.service';
 import { ProcessoService } from '../services/processo.service';
-import { ResultadoJulgamentoService } from '../services/resultado-julgamento.service';
 
 interface Parametros {
     processo: number;
@@ -33,7 +32,6 @@ export class InformarRedatorComponent implements OnInit {
   constructor(
       private _formBuilder: FormBuilder,
       private _processoService: ProcessoService,
-      private _resultadoJulgamento: ResultadoJulgamentoService,
       private _ministroService: MinistroService,
       private _route: ActivatedRoute,
   ) {
@@ -49,7 +47,7 @@ export class InformarRedatorComponent implements OnInit {
       .listarProcessos(new HttpParams().set('processo', this.parametros.processo))
       .subscribe({
         next: ([ processo ]) => {
-          const { nome, classe, numero } = processo;
+          const { cadeia: nome, classe, numero } = processo;
           this.processo = `${classe} ${numero} ${nome}`;
           this.relator = processo.relator;
           this.nomeRedator = processo.redator?.nome;

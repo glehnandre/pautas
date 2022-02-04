@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { ResultadoJulgamentoService } from '../services/resultado-julgamento.service';
+import { JulgamentoService } from '../services/julgamento.service';
 import { Ata } from '../acervo/model/interfaces/ata.interface';
 import { MatDialog } from '@angular/material/dialog';
 import { PublicarFormComponent } from './publicar-form/publicar-form.component';
@@ -9,7 +9,8 @@ import { PublicacaoService } from '../services/publicacao.service';
 import { SessaoJulgamento } from '../acervo/model/interfaces/sessao-julgamento.interface';
 
 interface Parametros {
-    id: number;
+    numero: number;
+    ano: number;
 }
 
 @Component({
@@ -20,14 +21,14 @@ interface Parametros {
 export class RevisarExtratoAtaComponent implements OnInit {
 
   parametros: Parametros;
-
+  sessao: SessaoJulgamento;
   ata: Ata;
   form: any;
   tags: string[];
-  sessao: SessaoJulgamento;
+
 
   constructor(
-      private _resultadoJulgamento: ResultadoJulgamentoService,
+      private _julgamentoService: JulgamentoService,
       private _publicacaoService: PublicacaoService,
       private _matDialog: MatDialog,
       private _route: ActivatedRoute,
@@ -35,16 +36,29 @@ export class RevisarExtratoAtaComponent implements OnInit {
 
   ngOnInit(): void {
     this.parametros = this._route.snapshot.queryParams as Parametros;
-    
-    this._resultadoJulgamento
-      .getAta(this.parametros.id)
-      .subscribe({
-        next: (ata) => {
-          this.ata = ata;
-          this.tags = [ ata.sessao.tipo, ata.sessao.modalidade ];
-          this.sessao = ata.sessao;
-        }
-      });
+    this.getSessaoDeJulgamento();
+    this.getAta();
+  }
+
+  private getAta() {
+    this._julgamentoService.getAta(this.parametros.numero, this.parametros.ano).subscribe({
+      next: (ata) => {
+        console.log("Ata");
+        console.log(ata);
+        this.ata = ata;
+      }
+    });
+  }
+
+  private getSessaoDeJulgamento() {
+    console.log("%cInicio Revisão", "font-size: 15px; font-color:blue");
+    this._julgamentoService.listarSessoesDeJulgamento(this.parametros.numero, this.parametros.ano).subscribe({
+      next: (sessao) => {
+        console.log("Sessão");
+        console.log(sessao);
+        this.sessao = sessao;
+      }
+    });
   }
 
   /**
@@ -53,7 +67,7 @@ export class RevisarExtratoAtaComponent implements OnInit {
   publicar(): void {
     const dialogRef = this._matDialog
       .open(PublicarFormComponent, {
-        data: this.ata.sessao,
+        data: this.sessao,
         maxWidth: '100vw'
     });
 
@@ -76,8 +90,8 @@ export class RevisarExtratoAtaComponent implements OnInit {
     const dialogRef = this._matDialog
       .open(CorrecaoCapituloFormComponent, {
         data: {
-          id_sessao: this.ata.sessao.id,
-          capitulos: this.ata.capitulos_para_publicacao,
+          id_sessao: this.sessao.id,
+          processos: this.sessao.processos,
         },
         maxHeight: '100vh', maxWidth: '100vw'
       });

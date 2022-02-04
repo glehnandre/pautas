@@ -9,7 +9,6 @@ import { Processo } from 'app/modules/acervo/model/interfaces/processo.interface
 import { DispositivoService } from 'app/modules/services/dispositivo.service';
 import { MinistroService } from 'app/modules/services/ministro.service';
 import { ProcessoService } from 'app/modules/services/processo.service';
-import { ResultadoJulgamentoService } from 'app/modules/services/resultado-julgamento.service';
 import { Observable } from 'rxjs';
 import {  map } from 'rxjs/operators';
 
@@ -56,7 +55,6 @@ export class FormDecisaoComponent implements OnInit, OnChanges, OnDestroy {
 
   constructor(
     private _fb: FormBuilder,
-    private _resultadoJulgamento: ResultadoJulgamentoService,
     private _ministroService: MinistroService,
     private _dispositivoService: DispositivoService,
     private _processoService: ProcessoService,
@@ -74,7 +72,6 @@ export class FormDecisaoComponent implements OnInit, OnChanges, OnDestroy {
       texto: [this.capitulo.texto, Validators.required],
       processos_mesma_decisao: [this.capitulo.processos_mesma_decisao]
     });
-    console.log(this.formDecisao);
   }
 
   ngOnChanges(): void {
@@ -116,7 +113,7 @@ export class FormDecisaoComponent implements OnInit, OnChanges, OnDestroy {
     const idDispositivo = this.dispositivos.find(d => d.nome === dispositivo)?.id;
 
     if (tipo && dispositivo && this.processo && this.processo.id_tipo_recurso) {
-      this._resultadoJulgamento.obterModeloDecisao(this.processo.classe, tipo, idDispositivo, this.processo.id_tipo_recurso).subscribe({
+      this._processoService.obterModeloDecisao(this.processo.classe, tipo, idDispositivo, this.processo.id_tipo_recurso).subscribe({
         next: (modelo) => {
           this.formDecisao.controls.texto.setValue(modelo.texto);
         },
@@ -169,7 +166,7 @@ export class FormDecisaoComponent implements OnInit, OnChanges, OnDestroy {
    */
   public salvarDecisao(): void {
     if (this.formDecisao.valid) {
-      this._resultadoJulgamento.salvarCapitulo(this.idProcesso, {
+      this._processoService.salvarCapitulo(this.idProcesso, {
         capitulo: this.formDecisao.value,
         processos_mesma_decisao: this.idsDosProcessos,
       }).subscribe({

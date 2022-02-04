@@ -61,7 +61,7 @@ export class CabecalhoRelatorComponent implements AfterContentChecked, OnInit {
 
   public obterDadosDoProcesso(): string {
     if(this.processo != null)
-    return `${this.processo.classe} ${this.processo.numero} ${this.processo.nome}`;
+    return `${this.processo.classe} ${this.processo.numero} ${this.processo.cadeia}`;
   }
 
   public obterNomeDoPdf(nome): void {
@@ -75,7 +75,7 @@ export class CabecalhoRelatorComponent implements AfterContentChecked, OnInit {
   }
 
   public obterChipRemovido(chip: string): void {
-    console.log(chip);
+    
   }
 
   private carregarDocumentosProcesso(processo: Processo){

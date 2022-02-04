@@ -44,7 +44,7 @@ export class FiltrosComponent implements OnInit, OnChanges {
     }
 
     ngOnChanges(changes: SimpleChanges): void {
-        console.log(changes.tarefas.currentValue);
+
     }
 
     public limparDatasDoPeriodo(): void {

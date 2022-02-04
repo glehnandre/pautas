@@ -106,10 +106,7 @@ export class FinalizarSessaoJulgamentoComponent implements OnInit {
   recuperaForm(event: any){
     this.sessaoFinalizada.cabecalho = event.cabecalho;
     this.sessaoFinalizada.outros_presentes = event.outrosPresentes;
-
-    if(event.secretario == this.sessao.secretario.nome)
-      this.sessaoFinalizada.secretario = this.sessao.secretario;
-    else this.sessaoFinalizada.secretario = null;
+    this.sessaoFinalizada.secretario = event.secretario;
   }
 
   /**
@@ -123,8 +120,7 @@ export class FinalizarSessaoJulgamentoComponent implements OnInit {
       this.alertaDeErro("Secretário da sessão inválido");
     else {
       this._julgamentoService.finalizarSessaoDeJulgamento(this.queryParams.numero, this.queryParams.ano, this.sessaoFinalizada).subscribe(data=>{ 
-        console.log(this.sessaoFinalizada);
-         
+        //refatorar para incluir o retorno da mensagem 
       });
       this.mensagem = `A sessão ${this.sessao.numero}/${this.sessao.ano} ${this.sessao.tipo} ${this.sessao.modalidade} foi encerrada e as atividades decorrentes da finalização foram criadas.`
       this._alertaService.exibirAlerta('Sucesso')

@@ -1,9 +1,8 @@
-import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, Input, OnInit, Output, EventEmitter, AfterViewInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { MatCheckboxChange } from '@angular/material/checkbox';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { InformacoesDto } from 'app/modules/acervo/model/interfaces/informacoesDto.interface';
-import { AlertaService } from 'app/modules/services/alerta.service';
 
 interface Filtros {
   agregacao: InformacoesDto;
@@ -36,6 +35,8 @@ export class FiltrosComponent implements OnInit{
   filtros: Filtros[] = [];
   numeroProcesso = new FormControl('');
 
+  pastPesquisasLength = 0;
+  pastProcessoValue = '';
   filtrados: Filtrados[] = [];
   queryParams: Params;
 
@@ -45,14 +46,17 @@ export class FiltrosComponent implements OnInit{
     ) { }
 
   ngOnInit(): void {
-    this._router.navigate(
-      [],
-      {
-        relativeTo: this._route,
-        queryParams: null,
-        replaceUrl: true
-      });
     this.montaParams("Periodo", [this.data_inicio.toISOString() + "_" + this.data_fim.toISOString()]);
+  }
+
+  /**
+   * Retorna o vetor de pesquisas e atualiza o quaryParam do tipo "Palavra Chave"
+   */
+  getPesquisa(): string[]{
+    if(this.pesquisas.length>this.pastPesquisasLength)
+    this.subParams("Palavra Chave");
+    this.pastPesquisasLength = this.pesquisas.length;
+    return this.pesquisas;
   }
 
   /**
@@ -61,6 +65,8 @@ export class FiltrosComponent implements OnInit{
    */
   removePesquisa(pesquisa: string){
     this.pesquisas.splice(this.pesquisas.indexOf(pesquisa), 1);
+    this.subParams("Palavra Chave")
+    this.pastPesquisasLength--;
     this.removido.emit(pesquisa);
     this.filtrar();
   }
@@ -94,6 +100,12 @@ export class FiltrosComponent implements OnInit{
     }
   }
 
+  /**
+   * Atualiza os queryParams com o tipo recebido
+   * @param tipo tipo do queryParam.
+   * @param descricoes descrição que será vilculada ao tipo (usado para os tipos Periodo
+   * ou Numero do processo)
+   */
   montaParams(tipo: string, descricoes: any[] = []){
     let param = null;
 
@@ -101,6 +113,12 @@ export class FiltrosComponent implements OnInit{
       this.filtrados.filter(filtrado=>filtrado.tipo==tipo).forEach(descricao=>{
         descricoes.push(descricao.filtro);
       });
+    }
+
+    if(tipo=="Palavra Chave"){
+      this.pesquisas.forEach(pesquisa=>{
+        descricoes.push(pesquisa);
+      })
     }
 
     if(descricoes)
@@ -120,9 +138,14 @@ export class FiltrosComponent implements OnInit{
       });
   }
 
+  /**
+   * Remove uma descrição dos queryParams do tipo recebido
+   * @param tipo tipo do queryParam.
+   */
   subParams(tipo: string){
-    const tipos = ['Periodo', 'Numero do porcesso', 'Palavra Chave'];
+    const tipos = ['Periodo', 'Numero do processo'];
     if(this.filtrados.some(filtrado=>filtrado.tipo==tipo) && !tipos.some(t=>t==tipo)) this.montaParams(tipo);
+    else if(tipo=="Palavra Chave" && this.pesquisas.length>0) this.montaParams("Palavra Chave") 
     else {
       this._router.navigate(
         [],
@@ -132,6 +155,19 @@ export class FiltrosComponent implements OnInit{
           queryParamsHandling: 'merge',
         });
     }
+  }
+
+  /**
+   * Remove todos os queryParams
+   */
+  removeParams(){
+    this._router.navigate(
+      [],
+      {
+        relativeTo: this._route,
+        queryParams: null,
+        replaceUrl: true
+      });
   }
 
   /**
@@ -151,6 +187,7 @@ export class FiltrosComponent implements OnInit{
         data_fim: this.data_fim
       });
     }
+    
     this.alertaFiltroVazio();
   }
 
@@ -176,17 +213,16 @@ export class FiltrosComponent implements OnInit{
 
     this.numeroProcesso.setValue('');
     this.subParams("Numero do processo");
-  }
-
-  teste(){
-    console.log("ENTER");
-    
+    this.removeParams();
   }
 
   selecionado(filtro: any, descricao: string): boolean {
     return filtro.selecionados.find(selecionado => selecionado === descricao) ? true: false;
   }
 
+  /**
+   * Emite um alerta caso nenhum filtro esteja selecionado
+   */
   alertaFiltroVazio() {
     const isFiltros = this.filtros.filter(filtro => filtro.selecionados.length > 0).length > 0,
           isData = this.data_inicio !== null && this.data_fim !== null,
@@ -227,8 +263,9 @@ export class FiltrosComponent implements OnInit{
    filtrarProcesso(){
     if(this.numeroProcesso.value)
       this.montaParams("Numero do processo", [this.numeroProcesso.value]);
-    else
+    else if(this.numeroProcesso.value!=this.pastProcessoValue)
       this.subParams("Numero do processo");
+    this.pastProcessoValue = this.numeroProcesso.value;
     this.emiteProcesso.emit(this.numeroProcesso.value);
   }
 
