@@ -1,5 +1,7 @@
+import { HttpParams } from '@angular/common/http';
 import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
 import { FormGroup, FormControl, FormBuilder } from '@angular/forms';
+import { Router } from '@angular/router';
 import { ITask, ITaskTag } from 'app/modules/acervo/model/interfaces/itask.interface';
 import { TarefaService } from 'app/modules/services/tarefa.service';
 
@@ -8,29 +10,26 @@ import { TarefaService } from 'app/modules/services/tarefa.service';
     templateUrl: './filtros.component.html',
     styleUrls: ['./filtros.component.scss']
 })
-export class FiltrosComponent implements OnInit, OnChanges {
-
-    panelOpenState = false;
-
-    tags: ITaskTag[] = [];
-    tiposDasTags: string[] = [];
-    filtrosSelecionados: ITaskTag[] = [];
-    nomesDosFiltrosSelecionados: string[] = [];
+export class FiltrosComponent implements OnInit {
 
     formFiltro: FormGroup;
+    
+    tags: ITaskTag[] = [];
+    tiposDasTags: string[] = [];
+    panelOpenState = false;
 
     @Input() tarefas: ITask[] = [];
-    @Output() emitirFiltrosSelecionados = new EventEmitter<any>();
 
     constructor(
         private _tarefaService: TarefaService,
         private _fb: FormBuilder,
+        private _router: Router,
     ) {
         this.formFiltro = this._fb.group({
             data_inicio: [null],
             data_fim: [null],
             numeroProcesso: [null],
-            tags: [[]],
+            tags: [null],
         });
     }
 
@@ -41,10 +40,6 @@ export class FiltrosComponent implements OnInit, OnChanges {
                 this._obterTiposDasTags();
             }
         });
-    }
-
-    ngOnChanges(changes: SimpleChanges): void {
-
     }
 
     public limparDatasDoPeriodo(): void {
@@ -95,11 +90,37 @@ export class FiltrosComponent implements OnInit, OnChanges {
 
     public limparFiltros(): void {
         this.formFiltro.reset();
-        this.emitirFiltrosSelecionados.emit(null);
+        this._router.navigate([], {
+            queryParams: null,
+        });
     }
 
     public filtrar(): void {
-        this.emitirFiltrosSelecionados.emit(this.formFiltro.value);
+        const queryParams = {};
+
+        for (const key of Object.keys(this.formFiltro.value)) {
+            if (this.formFiltro.value[key]) {
+                if (key !== 'tags') {
+                    queryParams[key] = this.formFiltro.value[key];
+                } else {
+                    for (const tag of (this.formFiltro.value[key] as ITaskTag[])) {
+                        const tasks = [];
+                        
+                        for (const t of (this.formFiltro.value[key] as ITaskTag[])) {
+                            if (t.type === tag.type) {
+                                tasks.push(t.tasks.toString());
+                            }
+                        }
+    
+                        queryParams[tag.type.toLowerCase()] = tasks.toString();
+                    }
+                }
+            }
+        }
+
+        this._router.navigate([], {
+            queryParams,
+        });
     }
 
     private _obterTiposDasTags(): void {

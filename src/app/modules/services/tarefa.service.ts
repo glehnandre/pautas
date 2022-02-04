@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { EMPTY, Observable } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { ITask, ITaskTag, SetNotesTaskCommand } from '../acervo/model/interfaces/itask.interface';
+import { Filtro } from '../minhas-tarefas/tabela/tabela.component';
 
 @Injectable({
   providedIn: 'root'
@@ -13,10 +14,21 @@ export class TarefaService {
     private _httpClient: HttpClient,
   ) { }
 
-  public obterTaferas(itensPorPagina: number = 30, page: number = 0): Observable<ITask[]> {
+  public obterTaferas(filtros?: Filtro): Observable<ITask[]> {
     let params = new HttpParams();
-    params = params.set('itensPorPagina', itensPorPagina);
-    params = params.set('page', page);
+
+    if (filtros) {
+      for (const key of Object.keys(filtros)) {
+        if (filtros[key]) {
+          if (Array.isArray(filtros[key]) && filtros[key].length > 0) {
+            const tags = [...new Set(filtros[key].map(t => t.tasks).flat())];
+            params = params.set(key, tags.toString());
+          } else {
+            params = params.set(key, new String(filtros[key]).toString());
+          }
+        }
+      }
+    }
 
     return this._httpClient.get<ITask[]>('/tasks', {
       params,
