@@ -8,6 +8,7 @@ import { Documento } from '../../acervo/model/interfaces/documento.interface';
 import { publicacao } from '../../../mock-api/pautas/publicacoes/data';
 import { RevisarInteiroTeorService } from '../../services/revisar-inteiro-teor.service';
 import { IncluirDocumentoComponent } from './incluir-documento/incluir-documento.component';
+import { MatSelectChange } from '@angular/material/select';
 
 export interface RevisaoInteiroTeor {
     id_processo: number;
@@ -44,6 +45,25 @@ export class AcoesComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+  }
+
+  public selecionarAcaoCorrespondente(event: MatSelectChange): void {
+    const { value } = event;
+
+    switch (value) {
+        case 'visualizar':
+            this.visualizarInteiroTeor();
+            break;
+        case 'incluir':
+            this.incluirNovoDocumento();
+            break;
+        case 'remover':
+            this.removerInteiroTeor();
+            break;
+        case 'revisar':
+            this.revisar();
+            break;
+    }
   }
 
   public visualizarInteiroTeor(): void {
@@ -84,9 +104,9 @@ export class AcoesComponent implements OnInit {
    * @author
    */
    public incluirNovoDocumento(): void {
-      const idsDocumentosInteiroTeor = this.documentosInteiroTeor.map(documento => documento.id);
+      const idsDocumentosInteiroTeor = this.documentosInteiroTeor?.map(documento => documento.id);
 
-      const documentosNaoIncluidos = this.documentosDoProcesso.filter(documento => !idsDocumentosInteiroTeor.includes(documento.id));
+      const documentosNaoIncluidos = this.documentosDoProcesso?.filter(documento => !idsDocumentosInteiroTeor?.includes(documento.id));
 
       const dialogRef = this._matDialog.open(IncluirDocumentoComponent, {
           maxHeight: '560px',

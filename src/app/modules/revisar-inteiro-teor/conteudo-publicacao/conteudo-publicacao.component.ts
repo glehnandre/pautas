@@ -50,7 +50,7 @@ export class ConteudoPublicacaoComponent implements OnInit, AfterViewInit {
   atualizarRevisao(revisao: RevisaoInteiroTeor) {
       this.revisao = revisao;
 
-      this.documentos = this.revisao.documentos.filter((documento) => documento.documento.status !== "Removido");
+      this.documentos = this.revisao.documentos?.filter((documento) => documento.documento.status !== "Removido");
   }
 
   public navigateToSection(section: string) {

@@ -12,12 +12,14 @@ import { Tag } from 'app/modules/acervo/model/interfaces/tag.interface';
 import { Documento } from 'app/modules/acervo/model/interfaces/documento.interface';
 import { SessaoJulgamento } from 'app/modules/acervo/model/interfaces/sessao-julgamento.interface';
 
-import { processo as processoData, documentos, votos, tipos } from '../processos/data';
+import { processo as processoData, documentos, votos, tipos, vistas, destaques } from '../processos/data';
 import { tags as tagData } from '../tags/data';
 import { sessoesDeJulgamento } from '../sessoesDeJulgamento/data';
 import { listaImpedimentos, ministro } from '../ministro/data'
 
 import { setStorage, getStorage } from '../storage';
+import { Vista } from 'app/modules/acervo/model/interfaces/vista.interface';
+import { Destaque } from 'app/modules/acervo/model/interfaces/destaque.interface';
 
 @Injectable({
     providedIn: 'root'
@@ -29,8 +31,8 @@ export class ProcessoMockApi {
     private _tag: Tag[] = [];
     private _impedimentos: any[] = listaImpedimentos;
     private _votos: Voto[] = votos;
-
-
+    private _vistas: Vista[] = vistas;
+    private _destaques: Destaque[] = destaques;
 
     constructor(
         private _fuseMockApiService: FuseMockApiService,) {
@@ -241,14 +243,19 @@ export class ProcessoMockApi {
             .reply(({request, urlParams}) => {
                 const idProcesso: number = +urlParams.id;
                 const { body } = request;
-                let index;
                 const m = ministro.find(({id}) => id === body.ministro);
-                index = this._processos.findIndex(processo => processo.id === idProcesso);         
-                this._processos[index].vistas.push({...body, ministro: m});
+                const index = this._processos.findIndex(processo => processo.id === idProcesso);
+
+                body.id = this._vistas.length + 1;
+                this._vistas.push({...body, ministro: m });
+                const indexVista = this._vistas.length - 1;
+                this._processos[index].vistas.push(this._vistas[indexVista]);
+
+                setStorage('vistas', this._vistas);
                 setStorage('processos', this._processos);
-                return [200, this._processos[index].vistas];
+                return [200, this._vistas[indexVista]];
             });
-        
+
         this._fuseMockApiService
             .onPut('processos/:id/vistas/:idVista')
             .reply(({request, urlParams}) => {
@@ -258,7 +265,7 @@ export class ProcessoMockApi {
                 let index_processo;
                 let index_vista;
                 const m = ministro.find(({id}) => id === body.ministro);
-                
+
                 index_processo = this._processos.findIndex(processo => processo.id === idProcesso);
                 index_vista = this._processos[index_processo].vistas.findIndex(vista => vista.id === idVista)
                 this._processos[index_processo].vistas[index_vista].data = body.data;
@@ -266,7 +273,7 @@ export class ProcessoMockApi {
                 this._processos[index_processo].vistas[index_vista].processo = body.processo;
                 this._processos[index_processo].vistas[index_vista].sessao = body.sessao;
                 this._processos[index_processo].vistas[index_vista].texto = body.texto;
-               
+
                 setStorage('processos', this._processos);
                 return [200, this._processos[index_processo].vistas[index_vista]];
             });
@@ -280,7 +287,7 @@ export class ProcessoMockApi {
                 let index_processo;
                 let index_vista;
                 const m = ministro.find(({id}) => id === body.ministro);
-                
+
                 index_processo = this._processos.findIndex(processo => processo.id === id_processo);
                 index_vista = this._processos[index_processo].vistas.findIndex(vista => vista.id === id_vista);
                 if(index_vista == -1){
@@ -298,14 +305,19 @@ export class ProcessoMockApi {
             .reply(({request, urlParams}) => {
                 const idProcesso: number = +urlParams.id;
                 const { body } = request;
-                let index;
                 const m = ministro.find(({id}) => id === body.ministro);
-                index = this._processos.findIndex(processo => processo.id === idProcesso);
-                this._processos[index].destaques.push({...body, ministro: m});
+                const index = this._processos.findIndex(({ id }) => id == idProcesso);
+
+                body.id = this._destaques.length + 1;
+                this._destaques.push({...body, ministro: m});
+                const indexDestaque = this._destaques.length - 1;
+                this._processos[index].destaques.push(this._destaques[indexDestaque]);
+
+                setStorage('destaques', this._destaques);
                 setStorage('processos', this._processos);
-                return [200, this._processos[index].destaques];
+                return [200, this._destaques[indexDestaque]];
             });
-        
+
         this._fuseMockApiService
             .onPut('processos/:id/destaques/:idDestaque')
             .reply(({request, urlParams}) => {
@@ -315,7 +327,7 @@ export class ProcessoMockApi {
                 let index_processo;
                 let index_destaque;
                 const m = ministro.find(({id}) => id === body.ministro);
-                
+
                 index_processo = this._processos.findIndex(processo => processo.id === idProcesso);
                 index_destaque= this._processos[index_processo].destaques.findIndex(destaque => destaque.id === idDestaque)
                 this._processos[index_processo].destaques[index_destaque].data = body.data;
@@ -323,7 +335,7 @@ export class ProcessoMockApi {
                 this._processos[index_processo].destaques[index_destaque].processo = body.processo;
                 this._processos[index_processo].destaques[index_destaque].sessao = body.sessao;
                 this._processos[index_processo].destaques[index_destaque].texto = body.texto;
-               
+
                 setStorage('processos', this._processos);
                 return [200, this._processos[index_processo].destaques[index_destaque]];
             });
@@ -337,7 +349,7 @@ export class ProcessoMockApi {
                 let index_processo;
                 let index_destaque;
                 const m = ministro.find(({id}) => id === body.ministro);
-                
+
                 index_processo = this._processos.findIndex(processo => processo.id === idProcesso);
                 index_destaque = this._processos[index_processo].destaques.findIndex(destaque => destaque.id === idDestaque);
                 if(index_destaque == -1){
@@ -385,25 +397,25 @@ export class ProcessoMockApi {
                     msg: 'Nenhum processo com id informado.'
                 }];
             });
-        
+
         this._fuseMockApiService
             .onGet('processo/:id/capitulos')
             .reply(({urlParams}) => {
               const idProcesso = +urlParams.id;
               let proc;
-            
+
               getStorage('processo', this._processos);
               proc = this._processos.filter(processo => processo.id === idProcesso);
-    
+
               return [201, proc.capitulos];
             });
-    
+
         this._fuseMockApiService
             .onPost('processo/:id/capitulos')
             .reply(({request, urlParams}) => {
               const idProcesso = +urlParams.id;
               const { cap, processos_mesma_decisao } = request.body;
-    
+
               if (idProcesso) {
                 const index_processo = this._processos.findIndex(p => p.id === idProcesso);
                 if (cap.id != 0) {
@@ -426,7 +438,7 @@ export class ProcessoMockApi {
                 setStorage('processos', this._processos);
                 return [201, this._processos[index_processo].capitulos];
               }
-    
+
               return [404, {
                 description: "Nenhum processo encontrado.",
               }];
