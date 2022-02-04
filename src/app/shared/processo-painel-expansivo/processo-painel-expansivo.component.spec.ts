@@ -20,12 +20,18 @@ describe('ProcessoPainelExpansivoComponent', () => {
       id: 0,
       classe: '',
       ementa: '',
-      nome: '',
+      cadeia: '',
       numero: 0,
       situacao: 0,
       tipo: 0,
       lista: [],
       capitulos: [],
+      abreviacao: '',
+      ministros_suspeitos: [],
+      ministros_impedidos: [],
+      vistas: [],
+      destaques: [],
+      envolvidos: []
     };
     fixture.detectChanges();
   });

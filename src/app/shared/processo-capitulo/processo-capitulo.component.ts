@@ -15,7 +15,7 @@ export class ProcessoCapituloComponent implements OnInit {
     lista: [],
     classe: '',
     numero: 0,
-    nome: '',
+    cadeia: '',
     abreviacao: '',
     situacao: SituacaoDoProcesso['Apto a Pautar'],
     tipo: TipoDoProcesso.Merito,

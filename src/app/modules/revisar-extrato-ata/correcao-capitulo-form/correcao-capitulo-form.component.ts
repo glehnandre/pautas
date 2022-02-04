@@ -2,7 +2,8 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { CapitulosParaPublicacao } from 'app/modules/acervo/model/interfaces/capitulo.interface';
-import { ResultadoJulgamentoService } from 'app/modules/services/resultado-julgamento.service';
+import { Processo } from 'app/modules/acervo/model/interfaces/processo.interface';
+import { ProcessoService } from 'app/modules/services/processo.service';
 
 @Component({
   selector: 'app-correcao-capitulo-form',
@@ -10,36 +11,38 @@ import { ResultadoJulgamentoService } from 'app/modules/services/resultado-julga
   styleUrls: ['./correcao-capitulo-form.component.scss']
 })
 export class CorrecaoCapituloFormComponent implements OnInit {
+
+  processos: Processo[];
+
+
   constructor(
     private _formBuilder: FormBuilder,
     private _dialogRef: MatDialogRef<CorrecaoCapituloFormComponent>,
     @Inject(MAT_DIALOG_DATA) private data: {
-      capitulos:CapitulosParaPublicacao[],
+      processos:Processo[],
       id_sessao: number;
     },
-    private _resultadoService: ResultadoJulgamentoService,
+    private _processoService: ProcessoService,
   ) { }
 
   correcaoCapitulosForm: FormGroup = this._formBuilder.group({
     correcoes: this._formBuilder.array([]),
   });
-  capitulos: CapitulosParaPublicacao[];
-
 
   ngOnInit(): void {
-    this.capitulos = this.data.capitulos;
-    this.capitulos.forEach( capitulo => this.addcorrecao(capitulo));
+    this.processos = this.data.processos;
+    this.processos.forEach( processo => this.addcorrecao(processo));
   }
 
   get correcoes(): FormArray {
     return this.correcaoCapitulosForm.controls['correcoes'] as FormArray;
   }
 
-  addcorrecao(capitulo) {
+  addcorrecao(processo) {
     const correcaoForm = this._formBuilder.group({
       marcado: [false, Validators.nullValidator],
       correcao: ['', Validators.nullValidator],
-      processo: [capitulo.processo, Validators.nullValidator],
+      processo: [processo, Validators.nullValidator],
     });
     this.correcoes.push(correcaoForm);
   }
@@ -67,7 +70,7 @@ export class CorrecaoCapituloFormComponent implements OnInit {
     for(let correcao of this.marcadoCorrecao)
       correcoes.push({ processo: correcao.processo, correcao: correcao.correcao });
 
-    this._resultadoService.enviarCorrecaoCapitulo(this.data.id_sessao, correcoes);
+    this._processoService.enviarCorrecaoCapitulo(this.data.id_sessao, correcoes);
     this._dialogRef.close();
   }
 }

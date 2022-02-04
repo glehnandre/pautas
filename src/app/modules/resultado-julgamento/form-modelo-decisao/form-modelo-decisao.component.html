@@ -125,24 +125,11 @@
                     mat-raised-button
                     class="max-w-full"
                     color="primary"
-                    *ngIf="modelo.id <= 0; else exibirBtnAtualizarDecisao"
                     [disabled]="formModeloDecisao.invalid"
                     (click)="salvarModeloDecisao()"
                 >
                     {{'Salvar' | uppercase}}
                 </button>
-
-                <ng-template #exibirBtnAtualizarDecisao>
-                    <button
-                        mat-raised-button
-                        class="max-w-full"
-                        color="primary"
-                        [disabled]="formModeloDecisao.invalid"
-                        (click)="atualizarModeloDecisao()"
-                    >
-                        {{'Atualizar' | uppercase}}
-                    </button>
-                </ng-template>
             </p>
         </form>
     </div>

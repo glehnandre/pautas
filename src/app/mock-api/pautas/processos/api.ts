@@ -5,8 +5,6 @@ import { Filtros } from 'app/modules/acervo/filtros/filtros';
 import { Paginacao } from 'app/modules/acervo/tabela/paginacao/paginacao.component';
 
 import { Voto } from 'app/modules/acervo/model/interfaces/voto.interface';
-import { Vista } from 'app/modules/acervo/model/interfaces/vista.interface';
-import { Destaque } from 'app/modules/acervo/model/interfaces/destaque.interface';
 import { Ministro } from 'app/modules/acervo/model/interfaces/ministro.interface';
 import { Impedimento } from 'app/modules/acervo/model/interfaces/impedimento.interface';
 import { Processo } from 'app/modules/acervo/model/interfaces/processo.interface';
@@ -15,9 +13,8 @@ import { Documento } from 'app/modules/acervo/model/interfaces/documento.interfa
 import { SessaoJulgamento } from 'app/modules/acervo/model/interfaces/sessao-julgamento.interface';
 
 import { processo as processoData, documentos, votos, tipos } from '../processos/data';
-import { vistas, destaques } from '../ata/data';
 import { tags as tagData } from '../tags/data';
-import { julgamentos } from '../julgamentos/data';
+import { sessoesDeJulgamento } from '../sessoesDeJulgamento/data';
 import { listaImpedimentos, ministro } from '../ministro/data'
 
 import { setStorage, getStorage } from '../storage';
@@ -27,13 +24,12 @@ import { setStorage, getStorage } from '../storage';
 })
 export class ProcessoMockApi {
     private _processos: Processo[] = processoData;
-    private _julgamentos: SessaoJulgamento[] = julgamentos;
+    private _julgamentos: SessaoJulgamento[] = sessoesDeJulgamento;
     private _documentos: Documento[] = documentos;
     private _tag: Tag[] = [];
     private _impedimentos: any[] = listaImpedimentos;
     private _votos: Voto[] = votos;
-    private _vistas: Vista[] = vistas;
-    private _destaques: Destaque[] = destaques;
+
 
 
     constructor(

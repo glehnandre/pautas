@@ -1,14 +1,21 @@
-<div class="absolute inset-0 flex flex-col w-full overflow-hidden bg-white">
+<div class="absolute inset-0 flex flex-col min-w-0 overflow-hidden bg-white">
+
+    <!-- Header -->
+    <div class="flex flex-col sm:flex-row justify-center items-center sm:justify-between pl-8 bg-white dark:bg-transparent">
+                <h1 class="mt-4 text-primary font-medium text-xl sm:text-2xl">
+                    Finalizar Ata da Sessão de Julgamento
+                </h1>
+    </div>
+        
+    <hr class="m-0 p-0" />
+    
 
     <!-- Header -->
     <div class="flex flex-row py-4 px-4 sm:px-8 lg:px-40 lg:py-13">
         <div class="flex flex-col text-accent-500 space-y-2 mt-2 flex-1 sm:flex-0">
-            <span class="text-2xl text-primary-500 font-medium">ATA DA SESSÃO {{sessao.numero}}/{{sessao.ano}}</span>
+            <span class="text-2xl text-primary-500 font-medium">SESSÃO {{sessao.tipo}} {{sessao.modalidade}} {{sessao.numero}}/{{sessao.ano}}</span>
             <span class="hidden sm:block">{{getData()}}</span>
             <mat-chip-list class="hidden sm:block">
-                <mat-chip>
-                   100 processos
-                </mat-chip>
             </mat-chip-list>
             <mat-expansion-panel
                 #expansionPanel
@@ -31,20 +38,11 @@
                 <div class="flex flex-col space-y-2">
                     <span class="">{{getData()}}</span>
                     <mat-chip-list class="">
-                        <mat-chip>
-                           100 processos
-                        </mat-chip>
                     </mat-chip-list>
                 </div>
                 <mat-chip-list class="flex flex-row mt-2">
                     <mat-chip>
                        {{firstToUpperCase(sessao.colegiado)}}
-                    </mat-chip>
-                    <mat-chip>
-                        {{firstToUpperCase(sessao.tipo)}}
-                    </mat-chip>
-                    <mat-chip>
-                        {{firstToUpperCase(sessao.modalidade)}}
                     </mat-chip>
                 </mat-chip-list>
             </mat-expansion-panel>
@@ -54,24 +52,18 @@
             <mat-chip>
                {{firstToUpperCase(sessao.colegiado)}}
             </mat-chip>
-            <mat-chip>
-                {{firstToUpperCase(sessao.tipo)}}
-            </mat-chip>
-            <mat-chip>
-                {{firstToUpperCase(sessao.modalidade)}}
-            </mat-chip>
         </mat-chip-list>
     </div>
 
     <!-- Main -->
     <div class="flex flex-col overflow-y-auto py-4 px-4 sm:px-8 lg:py-8 lg:px-40" cdkScrollable>
         <app-composicao
-          [presidente]="sessao.presidencia"
+          [presidente]="sessao?.ata?.presidencia"
           (statusComposicao)="recuperaComposicao($event)"
         ></app-composicao>
 
         <app-form
-          [secretario]="sessao?.secretario"
+          [secretario]="sessao?.ata?.secretario"
           (statusForm)="recuperaForm($event)"
         ></app-form>
 

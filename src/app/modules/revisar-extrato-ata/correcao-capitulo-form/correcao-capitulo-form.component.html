@@ -15,7 +15,7 @@
             <ng-container *ngFor="let correcao of correcoes.controls; let i = index;">
                 <form [formGroup]="correcao" class="flex flex-col">
                     <mat-checkbox color="primary" formControlName="marcado" (change)="apagaCorrecao(i)">
-                        {{ capitulos[i].classe }} {{ capitulos[i].numero }} - {{ capitulos[i].cadeia }}
+                        {{ processos[i].classe }} {{ processos[i].numero }} - {{ processos[i].cadeia }}
                     </mat-checkbox>
                     <mat-form-field class="mt-2" appearance="outline" *ngIf="correcao.controls.marcado.value">
                         <mat-label>Informe o texto a ser corrigido</mat-label>

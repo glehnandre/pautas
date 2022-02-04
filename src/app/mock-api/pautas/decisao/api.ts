@@ -25,13 +25,12 @@ export class DecisaoMockApi {
         .reply(({request}) => {
           const body = request.body;
           const modelo = this._modeloDecisao.find(m => (m.classe === body.classe) && (m.tipoCapitulo === body.tipo_capitulo) && (m.dispositivo.id === +body.dispositivo) && (m.recurso === body.recurso));
+          console.log(modelo);
           if (modelo === undefined) {
             const dispositivo = dispositivos.find(d => d.id === body.dispositivo);
             body.id = this._modeloDecisao.length+1;
             this._modeloDecisao.push({...body, dispositivo});
-
             setStorage('modelosDecisao', this._modeloDecisao);
-
             return [200, "Sucesso."];
           }else{
             return [404, "Nenhuma decisão encontrada."];
@@ -61,17 +60,17 @@ export class DecisaoMockApi {
           const id: number = +urlParams.id;
           const index = this._modeloDecisao.findIndex(m => m.id === id);
           const body = request.body;
-
+          console.log("%cModelo Decisão", "font-size:20px;font-color:blue");
+          console.log(body);
+          console.log(index);
           if (index !== -1) {
             const dispositivo = dispositivos.find(d => d.id === body.dispositivo);
             this._modeloDecisao.splice(index, 1);
             this._modeloDecisao.push({...body, id, dispositivo});
-
+            console.log(index);
             setStorage('modelosDecisao', this._modeloDecisao);
-
             return [200, this._modeloDecisao[index]];
           }
-
           return [404, "Não foram encontrados dispositivos para o processo"];
         });
     }

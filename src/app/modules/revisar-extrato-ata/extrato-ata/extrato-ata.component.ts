@@ -22,7 +22,6 @@ registerLocaleData(localePt);
 export class ExtratoAtaComponent implements OnInit {
   @Input() ata: Ata;
   @Input() sessao: SessaoJulgamento;
-  @Input() capitulosPublicacao: CapitulosParaPublicacao[];
   @Input() form: any;
 
   FraseImpedidos: Frase = {
@@ -64,17 +63,17 @@ export class ExtratoAtaComponent implements OnInit {
   }
 
   FrasePresentes: Frase = {
-    F: 'Estava Presente a Senhora Ministra ',
-    M: 'Estava Presente o Senhor Ministro ',
-    PF: 'Estavam Presentes as Senhoras Ministras ',
-    PM: 'Estavam Presentes os Senhores Ministros ',
+    F: 'Estava presente a Senhora Ministra ',
+    M: 'Estava presente o Senhor Ministro ',
+    PF: 'Estavam presentes as Senhoras Ministras ',
+    PM: 'Estavam presentes os Senhores Ministros ',
   }
 
   FraseAusentes: Frase = {
-    F: 'Estava Ausente a Senhora Ministra ',
-    M: 'Estava Ausente o Senhor Ministro ',
-    PF: 'Estavam Ausentes as Senhoras Ministras ',
-    PM: 'Estavam Ausentes os Senhores Ministros ',
+    F: 'Estava ausente a Senhora Ministra ',
+    M: 'Estava ausente o Senhor Ministro ',
+    PF: 'Estavam ausentes as Senhoras Ministras ',
+    PM: 'Estavam ausentes os Senhores Ministros ',
   }
 
   constructor(
@@ -82,6 +81,9 @@ export class ExtratoAtaComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    console.log('%cCarregando Elementos Internos', "font-size:15px;color:red");
+    console.log(this.ata);
+    console.log(this.sessao);
   }
 
   /**
