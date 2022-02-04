@@ -1,4 +1,5 @@
-import { Ministro } from "./ministro.interface";
+import { Ata } from "./ata.interface";
+import { Processo } from "./processo.interface";
 
 export interface SessaoJulgamento {
     id: number;
@@ -11,8 +12,6 @@ export interface SessaoJulgamento {
     data_inicio: string;
     data_fim: string;
     situacao: 'PUBLICADA' | 'APROVADA' | 'FECHADA' | 'ABERTA' | 'FINALIZADA' | 'REJEITADA';
-    secretario?: { id: number; nome: string; };
-    ministros_presentes?: Array<Ministro>;
-    ministros_ausentes?: Array<Ministro>;
-    presidencia?: Ministro;
+    ata: Ata;
+    processos: Array<Processo>;
 }

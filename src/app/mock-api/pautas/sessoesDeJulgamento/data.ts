@@ -1,22 +1,43 @@
 import { SituacaoDoProcesso } from "app/modules/acervo/model/enums/situacaoDoProcesso.enum";
 import { TipoDoProcesso } from "app/modules/acervo/model/enums/tipoDoProcesso.enum";
+import { Ata } from "app/modules/acervo/model/interfaces/ata.interface";
 import { Envolvido } from "app/modules/acervo/model/interfaces/envolvido.interface";
 import { Processo } from "app/modules/acervo/model/interfaces/processo.interface";
 import { SessaoJulgamento } from "app/modules/acervo/model/interfaces/sessao-julgamento.interface";
 
 import { capitulo } from "../capitulo/data";
 import { ministro } from '../ministro/data';
+import { processo } from '../processos/data';
 
 import { getStorage } from "../storage";
 
-export const julgamentos: SessaoJulgamento[] = getStorage('julgamentos', [
+
+export const atas: Ata[] = getStorage('atas', [
   {
-    id: 0,
+    cabecalho: `Isto é uma demonstração de como será exibido
+        o cabeçalho de Revisar Extrato da Ata, para colocar o
+        seu próprio cabeçalho, por favor conclua o formulário
+        Finalizar Sessão de Julgamento`,
+    outros_presentes: 'André Von Glehn',
+    total_destaque: 0,
+    total_julgados: 3,
+    total_nao_julgados: 1,
+    total_vista: 4,
+    total_suspensos: 1,
+    ministros_presentes: [ministro[1]],
+    ministros_ausentes: [ministro[2]],
+    presidencia:  ministro[0]
+  }
+]);
+
+export const sessoesDeJulgamento: SessaoJulgamento[] = getStorage('sessoesDeJulgamento', [
+  {
+    id: 123,
     numero: 1000,
     ano: 2021,
     colegiado: 'Primeira turma',
     tipo: 'ORDINARIA',
-    categoria: 'REPERCUSSAO_GERAL',
+    categoria: 'Judicial',
     modalidade: 'VIRTUAL',
     data_inicio: '2016-08-29T09:12:33.001Z',
     data_fim: '2016-08-30T09:12:33.001Z',
@@ -25,7 +46,8 @@ export const julgamentos: SessaoJulgamento[] = getStorage('julgamentos', [
       id: 0,
       nome: 'Beatriz Cunha',
     },
-    presidencia: ministro[10],
+    ata: atas[0],
+    processos: [processo[8], processo[1]]
   },
   {
     ano: 2021,
@@ -43,6 +65,8 @@ export const julgamentos: SessaoJulgamento[] = getStorage('julgamentos', [
       nome: 'Beatriz Cunha',
     },
     presidencia: ministro[0],
+    ata: atas[0],
+    processos: []
   },
   {
     ano: 2021,
@@ -60,6 +84,8 @@ export const julgamentos: SessaoJulgamento[] = getStorage('julgamentos', [
       nome: 'Beatriz Cunha',
     },
     presidencia: ministro[0],
+    ata: atas[0],
+    processos: []
   },
   {
     ano: 2021,
@@ -77,6 +103,8 @@ export const julgamentos: SessaoJulgamento[] = getStorage('julgamentos', [
       nome: 'Beatriz Cunha',
     },
     presidencia: ministro[0],
+    ata: atas[0],
+    processos: []
   },
   {
     ano: 2021,
@@ -94,6 +122,8 @@ export const julgamentos: SessaoJulgamento[] = getStorage('julgamentos', [
       nome: 'Beatriz Cunha',
     },
     presidencia: ministro[0],
+    ata: atas[0],
+    processos: []
   },
   {
     ano: 2021,
@@ -111,6 +141,8 @@ export const julgamentos: SessaoJulgamento[] = getStorage('julgamentos', [
       nome: 'Beatriz Cunha',
     },
     presidencia: ministro[0],
+    ata: atas[0],
+    processos: []
   },
   {
     ano: 2021,
@@ -128,6 +160,8 @@ export const julgamentos: SessaoJulgamento[] = getStorage('julgamentos', [
       nome: 'Beatriz Cunha',
     },
     presidencia: ministro[0],
+    ata: atas[0],
+    processos: []
   },
   {
     ano: 2021,
@@ -145,6 +179,8 @@ export const julgamentos: SessaoJulgamento[] = getStorage('julgamentos', [
       nome: 'Beatriz Cunha',
     },
     presidencia: ministro[0],
+    ata: atas[0],
+    processos: []
   },
   {
     ano: 2021,
@@ -162,6 +198,8 @@ export const julgamentos: SessaoJulgamento[] = getStorage('julgamentos', [
       nome: 'Beatriz Cunha',
     },
     presidencia: ministro[0],
+    ata: atas[0],
+    processos: []
   },
   {
     ano: 2021,
@@ -179,6 +217,8 @@ export const julgamentos: SessaoJulgamento[] = getStorage('julgamentos', [
       nome: 'Beatriz Cunha',
     },
     presidencia: ministro[0],
+    ata: atas[0],
+    processos: []
   },
   {
     ano: 2021,
@@ -196,6 +236,7 @@ export const julgamentos: SessaoJulgamento[] = getStorage('julgamentos', [
       nome: 'Beatriz Cunha',
     },
     presidencia: ministro[0],
+    ata: atas[0]
   },
   {
     ano: 2021,
@@ -213,6 +254,7 @@ export const julgamentos: SessaoJulgamento[] = getStorage('julgamentos', [
       nome: 'Beatriz Cunha',
     },
     presidencia: ministro[0],
+    ata: atas[0]
   },
   {
     ano: 2021,
@@ -230,6 +272,7 @@ export const julgamentos: SessaoJulgamento[] = getStorage('julgamentos', [
       nome: 'Beatriz Cunha',
     },
     presidencia: ministro[0],
+    ata: atas[0]
   },
   {
     ano: 2021,
@@ -247,57 +290,7 @@ export const julgamentos: SessaoJulgamento[] = getStorage('julgamentos', [
       nome: 'Beatriz Cunha',
     },
     presidencia: ministro[0],
-  },
-  {
-    ano: 2021,
-    id: 14,
-    numero: 14,
-    colegiado: 'Segunda Turma',
-    modalidade: 'Presencial',
-    categoria: 'Judicial',
-    tipo: 'Ordinária',
-    data_inicio: '2021-04-29T09:12:33.001Z',
-    data_fim: '2021-11-29T09:12:33.001Z',
-    situacao: 'ABERTA',
-    secretario: {
-      id: 0,
-      nome: 'Beatriz Cunha',
-    },
-    presidencia: ministro[0],
-  },
-  {
-    ano: 2021,
-    id: 15,
-    numero: 15,
-    colegiado: 'Pleno',
-    modalidade: 'Presencial',
-    categoria: 'Judicial',
-    tipo: 'Ordinária',
-    data_inicio: '2021-03-29T09:12:33.001Z',
-    data_fim: '2021-10-29T09:12:33.001Z',
-    situacao: 'ABERTA',
-    secretario: {
-      id: 0,
-      nome: 'Beatriz Cunha',
-    },
-    presidencia: ministro[0],
-  },
-  {
-    ano: 2021,
-    id: 16,
-    numero: 16,
-    colegiado: 'Pleno',
-    modalidade: 'Presencial',
-    categoria: 'Judicial',
-    tipo: 'Ordinária',
-    data_inicio: '2021-03-29T09:12:33.001Z',
-    data_fim: '2021-10-29T09:12:33.001Z',
-    situacao: 'ABERTA',
-    secretario: {
-      id: 0,
-      nome: 'Beatriz Cunha',
-    },
-    presidencia: ministro[0],
+    ata: atas[0]
   },
 ]);
 
@@ -345,7 +338,7 @@ export const processos: Processo[] = [
     }],
     classe: "ADI",
     numero: 100,
-    nome: "Embargo de declaração",
+    cadeia: "Embargo de declaração",
     abreviacao: 'ED',
     situacao: SituacaoDoProcesso.Pautado,
     tipo: TipoDoProcesso.Merito,
@@ -373,7 +366,7 @@ export const processos: Processo[] = [
     }],
     classe: 'ADI',
     numero: 100,
-    nome: 'Embargo de declaração',
+    cadeia: 'Embargo de declaração',
     abreviacao: 'ED',
     situacao: SituacaoDoProcesso.Pautado,
     tipo: TipoDoProcesso.Merito,
@@ -403,7 +396,7 @@ export const processos: Processo[] = [
     }],
     classe: 'ADI',
     numero: 100,
-    nome: "Embargo de declaração",
+    cadeia: "Embargo de declaração",
     abreviacao: '',
     situacao: SituacaoDoProcesso.Pautado,
     tipo: TipoDoProcesso.Merito,

@@ -10,7 +10,6 @@ import { Voto } from 'app/modules/acervo/model/interfaces/voto.interface';
 import { capitulo } from '../capitulo/data';
 import { ministro } from 'app/mock-api/pautas/ministro/data';
 import { tags as tagData } from '../tags/data';
-import { sessao } from "../sessoes-julgamento/data";
 
 import { getStorage } from '../storage';
 
@@ -52,7 +51,7 @@ export const envolvidos: Envolvido[] = [
 export const processo: Processo[] = getStorage('processos', [
   {
     id:         1,
-    nome:       'Mérito',
+    cadeia:     'Mérito',
     abreviacao: '',
     ementa:     'Sessão de julgamento extraordinária para tratar da divisão de terras.',
     lista:      [
@@ -81,7 +80,7 @@ export const processo: Processo[] = getStorage('processos', [
   {
     id:         2,
     ementa:     'Sessão de julgamento extraordinária para tratar da divisão de terras.',
-    nome:       'Agravo Regimental',
+    cadeia:       'Agravo Regimental',
     abreviacao: 'Ag',
     lista:      [
                   tagData[2],
@@ -108,7 +107,7 @@ export const processo: Processo[] = getStorage('processos', [
   {
     id:         3,
     ementa:     'Sessão de julgamento extraordinária para tratar da divisão de terras.',
-    nome:       'Terceiro Agravo',
+    cadeia:       'Terceiro Agravo',
     abreviacao: 'Ag-Ag-Ag',
     lista:      [
                   tagData[3],
@@ -135,7 +134,7 @@ export const processo: Processo[] = getStorage('processos', [
   {
     id:         4,
     ementa:     'Sessão de julgamento extraordinária para tratar da divisão de terras.',
-    nome:       'Quarto agravo',
+    cadeia:       'Quarto agravo',
     abreviacao: 'Ag-Ag-Ag-Ag',
     lista:      [
                   tagData[3],
@@ -162,7 +161,7 @@ export const processo: Processo[] = getStorage('processos', [
 
   {
     id:         5,
-    nome:       'Tese',
+    cadeia:       'Tese',
     abreviacao: '',
     ementa:   'Sessão de julgamento extraordinária para tratar da divisão de terras.',
     lista:        [
@@ -186,7 +185,7 @@ export const processo: Processo[] = getStorage('processos', [
 
   {
     id:         6,
-    nome:       'Tese',
+    cadeia:       'Tese',
     abreviacao: '',
     ementa:   'Sessão de julgamento extraordinária para tratar da divisão de terras.',
     lista:        [
@@ -210,7 +209,7 @@ export const processo: Processo[] = getStorage('processos', [
 
   {
     id:         7,
-    nome:       'Tese',
+    cadeia:       'Tese',
     abreviacao: '',
     ementa:   'Sessão de julgamento extraordinária para tratar da divisão de terras.',
     lista:        [
@@ -234,7 +233,7 @@ export const processo: Processo[] = getStorage('processos', [
 
   {
     id:         8,
-    nome:       'Tese',
+    cadeia:       'Tese',
     abreviacao: '',
     ementa:   'Sessão de julgamento extraordinária para tratar da divisão de terras.',
     lista:        [
@@ -259,7 +258,7 @@ export const processo: Processo[] = getStorage('processos', [
   {
     id:         9,
     ementa:     'AÇÃO DIRETADE INCONSTITUCIONALIDADE 6.185 GOIÁS',
-    nome:       'Embargo de Declaração',
+    cadeia:       'Embargo de Declaração',
     abreviacao: '',
     lista:      [
                   tagData[2],
@@ -283,7 +282,8 @@ export const processo: Processo[] = getStorage('processos', [
     ],
     envolvidos,
     vistas: [],
-    destaques: []
+    destaques: [],
+    redator: ministro[1],
   },
 ]);
 
@@ -372,6 +372,7 @@ export const votos: Voto[] = [
     acompanharam:   [],
   },
 ];
+
 
 export const tipos: string[] = [
   'Preliminar',

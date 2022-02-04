@@ -1,21 +1,19 @@
 import { Injectable } from '@angular/core';
 import { FuseMockApiService } from '@fuse/lib/mock-api/mock-api.service';
-import { Ata } from 'app/modules/acervo/model/interfaces/ata.interface';
 import { Processo } from 'app/modules/acervo/model/interfaces/processo.interface';
 import { SessaoJulgamento } from 'app/modules/acervo/model/interfaces/sessao-julgamento.interface'
 
-import { capitulos_para_publicacao, atas } from '../ata/data';
-import { julgamentos, processos as processosData } from './data';
+import { sessoesDeJulgamento, processos as processosData } from './data';
 import { setStorage } from '../storage';
+
 
 @Injectable({
     providedIn: 'root'
 })
-export class JulgamentoMockApi {
-    private _julgamentos: SessaoJulgamento[] = julgamentos;
+export class SessaoDeJulgamentoMockApi {
+    private _julgamentos: SessaoJulgamento[] = sessoesDeJulgamento;
     private _processos: Processo[] = processosData;
-    private _atas: Ata[] = atas;
-
+    
     constructor(private _fuseMockApiService: FuseMockApiService) {
         this.registerHandlers();
     }
@@ -50,15 +48,14 @@ export class JulgamentoMockApi {
       this._fuseMockApiService
         .onGet('sessoes-de-julgamento/:numero-ano')
         .reply(({request, urlParams}) => {
+          console.log("%cAPI Sessoes", "font-size:10px; font-color:red");
           const numeroAno = urlParams['numero-ano'];
-
-          let sessaoDeJulgamento: any = this._julgamentos
-            .find(julg => {
+          let sessaoDeJulgamento: any = this._julgamentos.find(julg => {
               const sessaoNumeroAno = `${julg.numero}-${julg.ano}`;
               return sessaoNumeroAno === numeroAno;
-            });
-
+          });
           if (sessaoDeJulgamento) {
+            console.log(sessaoDeJulgamento);
             sessaoDeJulgamento = {...sessaoDeJulgamento, ministro: {
               id: 12314441,
               nome: "Luiz Fux",
@@ -136,7 +133,7 @@ export class JulgamentoMockApi {
         });
 
         this._fuseMockApiService
-        .onPut('sessoes-de-julgamento/:numero-ano/finalizar')
+        .onPost('sessoes-de-julgamento/:numero-ano/finalizar')
         .reply(({request, urlParams}) => {
           const numeroAno = urlParams['numero-ano'];
           const {
@@ -145,41 +142,39 @@ export class JulgamentoMockApi {
             ministros_presentes,
             cabecalho,
             outros_presentes,
+            secretario
           } = request.body;
-          let indexJulgamento = this._julgamentos
-          .findIndex(({ numero, ano}) => `${numero}-${ano}` == numeroAno);
-
+          let indexJulgamento = this._julgamentos.findIndex(julg => {
+            const sessaoNumeroAno = `${julg.numero}-${julg.ano}`;
+            return sessaoNumeroAno === numeroAno;
+          });
+          
           if (indexJulgamento != -1) {
-            let sessaoDeJulgamento = this._julgamentos[indexJulgamento];
 
-            sessaoDeJulgamento.presidencia = presidencia;
-            sessaoDeJulgamento.ministros_presentes = ministros_presentes;
-            sessaoDeJulgamento.ministros_ausentes = ministros_ausentes;
+            this._julgamentos[indexJulgamento].ata.presidencia = presidencia;
+            this._julgamentos[indexJulgamento].ata.ministros_presentes = ministros_presentes;
+            this._julgamentos[indexJulgamento].ata.ministros_ausentes = ministros_ausentes;
+            this._julgamentos[indexJulgamento].ata.cabecalho = cabecalho;
+            this._julgamentos[indexJulgamento].ata.outros_presentes = outros_presentes;
+            this._julgamentos[indexJulgamento].ata.secretario = secretario;
 
-            this._julgamentos.splice(indexJulgamento, 1);
-            this._julgamentos.push(sessaoDeJulgamento);
-
-            let indexAta = this._atas.findIndex(({ sessao }) => sessao.id == sessaoDeJulgamento.id);
-            if( indexAta != -1)
-              this._atas.splice(indexAta, 1);
-
-            this._atas.push({
-              cabecalho,
-              outros_presentes,
-              total_destaque: 0,
-              total_julgados: 3,
-              total_nao_julgados: 1,
-              total_vista: 4,
-              total_suspensos: 1,
-              sessao: sessaoDeJulgamento,
-              capitulos_para_publicacao
-            } as Ata);
-            setStorage('julgamentos', this._julgamentos);
-            setStorage('atas', this._atas);
-
+            setStorage('sessoesDeJulgamento', this._julgamentos);
+            
             return [200, { description: 'Sucesso'}];
           } else {
             return [404, { description: 'Sessao de julgamento não foi encontrada' }];
+          }
+        });
+
+        this._fuseMockApiService
+        .onGet('sessoes-de-julgamento/:numero-ano/ata')
+        .reply(({request, urlParams}) => {
+          const numeroAno = urlParams['numero-ano'];
+          let indexJulgamento = this._julgamentos.findIndex(sessao => sessao.numero + "-" + sessao.ano === numeroAno);
+          if (indexJulgamento != -1) {
+            return [200, this._julgamentos[indexJulgamento].ata];
+          }else{
+            return [404, { description: 'Nenhuma sessão de julgamento aberta para o periodo encontrada. Pode haver sessão de julgamento fechadas para o período.' }];
           }
         });
     }

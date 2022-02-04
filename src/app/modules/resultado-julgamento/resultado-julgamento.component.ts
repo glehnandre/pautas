@@ -15,7 +15,6 @@ import { Voto } from '../acervo/model/interfaces/voto.interface';
 
 import { AlertaService } from '../services/alerta.service';
 import { ProcessoService } from '../services/processo.service';
-import { ResultadoJulgamentoService } from '../services/resultado-julgamento.service';
 
 import { FormIndicacaoImpedimentosComponent } from './form-indicacao-impedimentos/form-indicacao-impedimentos.component';
 import { FormModeloDecisaoComponent } from './form-modelo-decisao/form-modelo-decisao.component';
@@ -63,7 +62,6 @@ export class ResultadoJulgamentoComponent implements OnInit, OnDestroy, AfterCon
   readonly FORM_CADASTRO_DECISAO = 'formulario-de-cadastro-de-decisao';
 
   constructor(
-    private _resultadoJulgamento: ResultadoJulgamentoService,
     private _processoService: ProcessoService,
     private _route: ActivatedRoute,
     private _alertaService: AlertaService,
@@ -375,8 +373,8 @@ export class ResultadoJulgamentoComponent implements OnInit, OnDestroy, AfterCon
    */
   public getDadosDoProcesso(): string {
     if (this.processo) {
-      const { classe, numero, nome } = this.processo;
-      return `${classe} ${numero} ${nome}`;
+      const { classe, numero, cadeia } = this.processo;
+      return `${classe} ${numero} ${cadeia}`;
     }
 
     return '';

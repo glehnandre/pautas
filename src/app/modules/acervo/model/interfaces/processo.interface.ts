@@ -14,7 +14,7 @@ export interface Processo {
     lista: Tag[];
     classe: string;
     numero: number;
-    nome: string;
+    cadeia: string;
     abreviacao: string;
     situacao: SituacaoDoProcesso;
     tipo: TipoDoProcesso;

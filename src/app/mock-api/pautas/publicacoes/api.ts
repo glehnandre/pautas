@@ -3,7 +3,6 @@ import { FuseMockApiService } from '@fuse/lib/mock-api/mock-api.service';
 import { DjeDto } from 'app/modules/acervo/model/interfaces/djeDto.interface';
 
 import { dje as djeData, pecas as pecasData } from './data';
-import { capitulos_para_publicacao as ataData } from '../ata/data';
 import { getStorage, setStorage } from '../storage';
 
 @Injectable({
@@ -12,8 +11,7 @@ import { getStorage, setStorage } from '../storage';
 export class PublicacaoMockApi {
     private _dje: DjeDto = djeData;
     private _pecas = pecasData;
-    private _ata = ataData;
-
+    
     constructor(private _fuseMockApiService: FuseMockApiService) {
         this.registerHandlers();
     }
@@ -39,7 +37,7 @@ export class PublicacaoMockApi {
           return [201, peca.url];
         });
 
-      this._fuseMockApiService
+     /* this._fuseMockApiService
         .onPost('publicar')
         .reply(({request}) => {
           const { body } = request;
@@ -72,5 +70,6 @@ export class PublicacaoMockApi {
 
           return [201, { description: 'Sucesso' }];
         });
+        */
     }
 }

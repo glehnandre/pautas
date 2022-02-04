@@ -106,7 +106,8 @@ export const defaultNavigation: FuseNavigationItem[] = [
         icon :  '',
         link :  '/revisar-extrato-ata',
         queryParams: {
-            id: 0
+            numero: 1000,
+            ano: 2021,
         },
     },
     {
