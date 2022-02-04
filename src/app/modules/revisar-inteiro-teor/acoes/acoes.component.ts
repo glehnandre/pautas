@@ -84,9 +84,9 @@ export class AcoesComponent implements OnInit {
    * @author
    */
    public incluirNovoDocumento(): void {
-      const idsDocumentosInteiroTeor = this.documentosInteiroTeor.map(documento => documento.id);
+      const idsDocumentosInteiroTeor = this.documentosInteiroTeor?.map(documento => documento.id);
 
-      const documentosNaoIncluidos = this.documentosDoProcesso.filter(documento => !idsDocumentosInteiroTeor.includes(documento.id));
+      const documentosNaoIncluidos = this.documentosDoProcesso?.filter(documento => !idsDocumentosInteiroTeor?.includes(documento.id));
 
       const dialogRef = this._matDialog.open(IncluirDocumentoComponent, {
           maxHeight: '560px',

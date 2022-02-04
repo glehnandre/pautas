@@ -130,7 +130,7 @@ export class RevisarInteiroTeorComponent implements OnInit {
   public obterNomesDasSessoes(): void {
     const nomes: string[] = [];
 
-    this.revisoes.sessoes.forEach(({tipo, numero, ano, data_fim}) => {
+    this.revisoes?.sessoes?.forEach(({tipo, numero, ano, data_fim}) => {
       let dadosDaSessao: string;
       let dataFim = new Date(data_fim);
 
