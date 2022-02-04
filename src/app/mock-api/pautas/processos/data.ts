@@ -382,6 +382,6 @@ export const tipos: string[] = [
   'Tese',
 ];
 
-export const vistas: Vista[] = [];
+export const vistas: Vista[] = getStorage('vistas', []);
 
-export const destaques: Destaque[] = [];
+export const destaques: Destaque[] = getStorage('destaques', []);
