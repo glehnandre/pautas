@@ -36,7 +36,7 @@ export class FormModeloDecisaoComponent implements OnInit {
   dispositivos: Dispositivo[];
   recursos$: Observable<TipoRecursoDto[]>;
   classes$: Observable<Classe[]>;
-  modelo: ModeloDecisao = {} as ModeloDecisao;
+  modelo: ModeloDecisao = { id: 0 } as ModeloDecisao;
   linhaAtualDoTexto: number = 1;
   exibirSugestoes: boolean = false;
 
@@ -95,7 +95,7 @@ export class FormModeloDecisaoComponent implements OnInit {
       this._processoService.obterModeloDecisao(classe, tipoCapitulo, dispositivo, recurso)
         .pipe(
           catchError(() => {
-            this.modelo = {} as ModeloDecisao;
+            this.modelo = { id: 0 } as ModeloDecisao;
             this.formModeloDecisao.controls.texto.setValue('');
             this._alertaService.exibirAlerta('aviso-form-modelo-decisao');
             return EMPTY;
@@ -113,22 +113,39 @@ export class FormModeloDecisaoComponent implements OnInit {
     }
   }
 
+  /**
+   * @description Este método faz o processo de tratamento dos atributos do Formulário
+   *              antes dele se retornado para a página `Resultado Julgamento`,
+   *              retornando para esta página o modelo, nome do dispositivo e nome do
+   *              recurso.
+   + @author Rodrigo Carvalho dos Santos
+   */
+  private sairModal(): void {
+    const modelo = this.formModeloDecisao.value;
+    const dispositivo = this.dispositivos.find(({ id }) => id == modelo.dispositivo).nome;
+    let recurso;
+    this.recursos$.subscribe(recursos => {
+        recurso = recursos.find(({ id }) => id == modelo.recurso).descricao;
+    });
+    this.dialogRef.close({ modelo, dispositivo, recurso });
+  }
+
   public salvarModeloDecisao(): void {
     if (this.formModeloDecisao.valid) {
       if(this.modelo.id == undefined){
         this._processoService.salvarModeloDecisao(this.formModeloDecisao.value).subscribe({
           next: () => {
-            this.dialogRef.close(this.formModeloDecisao.value);
+            this.sairModal();
           }
         });
       }else{
         this._processoService.atualizarModeloDecisao(this.modelo.id, this.formModeloDecisao.value).subscribe({
           next: () => {
-            this.dialogRef.close(this.formModeloDecisao.value);
+            this.sairModal();
           }
         });
       }
-      
+
     }
   }
 

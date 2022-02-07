@@ -257,7 +257,7 @@ export const processo: Processo[] = getStorage('processos', [
 
   {
     id:         9,
-    ementa:     'AÇÃO DIRETADE INCONSTITUCIONALIDADE 6.185 GOIÁS',
+    ementa:     'AÇÃO DIRETA DE INCONSTITUCIONALIDADE 6.185 GOIÁS',
     cadeia:       'Embargo de Declaração',
     abreviacao: '',
     lista:      [
@@ -382,6 +382,6 @@ export const tipos: string[] = [
   'Tese',
 ];
 
-export const vistas: Vista[] = [];
+export const vistas: Vista[] = getStorage('vistas', []);
 
-export const destaques: Destaque[] = [];
+export const destaques: Destaque[] = getStorage('destaques', []);

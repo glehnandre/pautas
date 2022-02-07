@@ -3,6 +3,7 @@ import { FormControl } from '@angular/forms';
 import { MatCheckboxChange } from '@angular/material/checkbox';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { InformacoesDto } from 'app/modules/acervo/model/interfaces/informacoesDto.interface';
+import { isEmpty } from 'lodash';
 
 interface Filtros {
   agregacao: InformacoesDto;
@@ -46,7 +47,22 @@ export class FiltrosComponent implements OnInit{
     ) { }
 
   ngOnInit(): void {
-    this.montaParams("Periodo", [this.data_inicio.toISOString() + "_" + this.data_fim.toISOString()]);
+    if(!isEmpty(this._route.snapshot.queryParams)) this.trataParams()
+    else
+      this.montaParams("Periodo", [this.data_inicio.toISOString() + "_" + this.data_fim.toISOString()]);
+  }
+
+  trataParams(){
+    let params = this._route.snapshot.queryParams;
+
+    if(!params['Periodo']){
+      this.limparDatas(false);
+    }
+    
+    if(params['Numero-do-processo']){
+      this.numeroProcesso.setValue(parseInt(params['Numero-do-processo']));
+      this.pastProcessoValue = params['Numero-do-processo'];
+    }
   }
 
   /**
@@ -294,9 +310,10 @@ export class FiltrosComponent implements OnInit{
   /**
    * Apaga as datas inicial e final.
    */
-  limparDatas(){
+  limparDatas(toFilter = true){
     this.data_inicio = null;
     this.data_fim = null;
+    if(toFilter)
     this.filtrar();
     this.subParams("Periodo");
   }
