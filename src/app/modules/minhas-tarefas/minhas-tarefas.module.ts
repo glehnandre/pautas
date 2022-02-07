@@ -31,6 +31,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatDialogModule } from '@angular/material/dialog';
 import { FormComentarioComponent } from './form-comentario/form-comentario.component';
+import { FuseAlertModule } from '@fuse/components/alert';
 
 const minhasTarefasRoutes: Route[] = [
     {
@@ -80,6 +81,7 @@ const minhasTarefasRoutes: Route[] = [
     MatTooltipModule,
     MatDialogModule,
     MatMenuModule,
+    FuseAlertModule,
     SharedModule,
   ]
 })

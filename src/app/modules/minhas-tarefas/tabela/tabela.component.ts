@@ -1,15 +1,16 @@
 import { animate, state, style, transition, trigger } from '@angular/animations';
-import { SelectionChange, SelectionModel } from '@angular/cdk/collections';
+import { SelectionModel } from '@angular/cdk/collections';
 import { AfterViewInit, Component, EventEmitter, HostListener, Injectable, Input, OnChanges, OnDestroy, OnInit, Output, SimpleChanges, ViewChild } from '@angular/core';
 import { MatPaginator, MatPaginatorIntl, PageEvent } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
+import { ActivatedRoute } from '@angular/router';
 import { ITask, ITaskTag } from 'app/modules/acervo/model/interfaces/itask.interface';
 import { PaginacaoCustomizadaComponent } from 'app/modules/acervo/tabela/paginacao/paginacao-customizada.component';
 import { TarefaService } from 'app/modules/services/tarefa.service';
 import { EMPTY, merge } from 'rxjs';
 import { catchError, map, startWith, switchMap } from 'rxjs/operators';
 
-interface Filtro {
+export interface Filtro {
     numeroProcesso?: number;
     data_inicio?: string;
     data_fim?: string;
@@ -29,7 +30,7 @@ interface Filtro {
         ]),
     ],
 })
-export class TabelaComponent implements OnInit, AfterViewInit, OnDestroy, OnChanges {
+export class TabelaComponent implements OnInit, AfterViewInit, OnDestroy {
 
     tarefas: ITask[] = [];
     displayedColumns: string[] = ['checkbox', 'descricao', 'responsavel', 'data_criacao', 'assumir', 'expandir', 'prioridade'];
@@ -45,28 +46,20 @@ export class TabelaComponent implements OnInit, AfterViewInit, OnDestroy, OnChan
     isLoadingResults = true;
     isRateLimitReached = false;
 
-    @ViewChild(MatPaginator) paginator: MatPaginator;
-    @Input() filtros: Filtro;
     @Output() emitirTarefas = new EventEmitter<ITask[]>();
     @Output() emitirTarefasSelecionadas = new EventEmitter<ITask[]>();
+    
+    @ViewChild(MatPaginator) paginator: MatPaginator;
 
     constructor(
         private _tarefaService: TarefaService,
+        private _route: ActivatedRoute,
     ) { }
 
     ngAfterViewInit(): void {
-        this._carregarTarefas();
-    }
-
-    ngOnChanges(changes: SimpleChanges): void {
-        if (changes.filtros.firstChange === false) {
-            this.paginator.firstPage();
-            this._filtrarListaDeTarefas();
-        }
-
-        if (changes.filtros.currentValue === null) {
-            this._carregarTarefas();
-        }
+        this._route.queryParams.subscribe(params => {
+            this._carregarTarefas(params);
+        });
     }
 
     ngOnInit(): void {
@@ -104,25 +97,6 @@ export class TabelaComponent implements OnInit, AfterViewInit, OnDestroy, OnChan
         this.selection.select(...this.dataSource.data);
     }
 
-    /**
-     * @description The label for the checkbox on the passed row
-     * @author Douglas da Silva Monteles
-    */
-    public checkboxLabel(row?: ITask): string {
-        if (!row) {
-            return `${this.isAllSelected() ? 'deselect' : 'select'} all`;
-        }
-        return `${this.selection.isSelected(row) ? 'deselect' : 'select'} row ${row.id}`;
-    }
-
-    public setPageSizeOptions(setPageSizeOptionsInput: string) {
-        if (setPageSizeOptionsInput) {
-            this.pageSizeOptions = setPageSizeOptionsInput
-                .split(',')
-                .map(str => +str);
-        }
-    }
-
     public obterChavesDoObj(obj: any) {
         return Object.keys(obj);
     }
@@ -132,23 +106,16 @@ export class TabelaComponent implements OnInit, AfterViewInit, OnDestroy, OnChan
         return window.screen.width < 600;
     }
 
-    private _carregarTarefas(tarefas: ITask[] = []): void {
+    private _carregarTarefas(params?: Filtro): void {
         merge(this.paginator.page)
           .pipe(
             startWith({}),
             switchMap(() => {
               this.isLoadingResults = true;
 
-              if (this.filtros) {
-                return Promise.resolve(tarefas);
-              } else {
-                return this._tarefaService
-                    .obterTaferas(
-                        this.pageEvent?.pageSize,
-                        this.pageEvent?.pageIndex
-                    )
+              return this._tarefaService
+                    .obterTaferas(params)
                     .pipe(catchError(() => EMPTY));
-              }
             }),
             map(data => {
               this.isLoadingResults = false;
@@ -163,82 +130,13 @@ export class TabelaComponent implements OnInit, AfterViewInit, OnDestroy, OnChan
             }),
           ).subscribe({
             next: (data: ITask[]) => {
-                if (!this.filtros) {
-                    this.tarefas = data;
-                    this.emitirTarefas.emit(this.tarefas);
-                }
+                this.tarefas = data;
+                this.emitirTarefas.emit(this.tarefas);
 
-                const grupoDeTarefas = this._sliceIntoChunks(data, this.pageEvent?.pageSize);
-
+                const grupoDeTarefas = this._sliceIntoChunks(this.tarefas, this.pageEvent?.pageSize);
                 this.dataSource = new MatTableDataSource<ITask>(grupoDeTarefas[this.pageEvent?.pageIndex || 0]);
-                
             }
         });
-    }
-
-    private _filtrarListaDeTarefas(): void {
-        let tarefasFiltradas = [...this.tarefas];
-
-        // Filtrar por data de inicio e fim
-        if (this.filtros?.data_inicio && this.filtros?.data_fim) {
-            const { data_inicio, data_fim } = this.filtros;
-
-            const dataInicioDoFiltro = new Date(data_inicio);
-            dataInicioDoFiltro.setHours(0,0,0,0);
-
-            const dataFimDoFiltro = new Date(data_fim);
-            dataFimDoFiltro.setHours(0,0,0,0);
-
-            
-            tarefasFiltradas = tarefasFiltradas.filter(t => {
-                const dataInicioDaTarefa = new Date(t.startDate);
-                dataInicioDaTarefa.setHours(0,0,0,0);
-
-                const dataFimDaTarefa = new Date(t.completedDate);
-                dataFimDaTarefa.setHours(0,0,0,0);
-
-                if (dataInicioDaTarefa.getTime() >= dataInicioDoFiltro.getTime()) {
-                    if (dataFimDaTarefa.getTime() > 0) {
-                        if (dataFimDaTarefa.getTime() <= dataFimDoFiltro.getTime()) {
-                            return true;
-                        }
-                    } else {
-                        if (dataInicioDaTarefa.getTime() <= dataFimDoFiltro.getTime()) {
-                            return true;
-                        }
-                    }
-                }
-
-                return false;
-            });
-        }
-
-
-        // Filtrar por número do processo
-        if (this.filtros?.numeroProcesso) {
-            const { numeroProcesso } = this.filtros;
-            
-            tarefasFiltradas = tarefasFiltradas.filter(t => {
-                const numero = t.searchableId.split(' ')[1];
-                return (+numeroProcesso === +numero);
-            });
-        }
-
-
-        // Filtrar por tag
-        if (this.filtros?.tags && this.filtros.tags.length > 0) {
-            const { tags } = this.filtros;
-
-            for (const tag of tags) {
-                for (const task of tag.tasks) {
-                    tarefasFiltradas = tarefasFiltradas.filter(t => {
-                        return (t?.etags && t.etags.includes(task));
-                    });
-                }
-            }
-        }
-        
-        this._carregarTarefas(tarefasFiltradas);
     }
 
     private _sliceIntoChunks(arr: Array<any>, chunkSize: number = 30): Array<any> {
