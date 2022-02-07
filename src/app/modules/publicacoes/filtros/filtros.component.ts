@@ -156,20 +156,12 @@ export class FiltrosComponent implements OnInit, OnChanges{
     this.filtros.forEach(filtro=>{
       filtro.selecionados.splice(0, filtro.selecionados.length);
     });
-
-    this.removeFiltros.emit({
-      data_inicio: this.data_inicio,
-      data_fim: this.data_fim
-    });
-
-    this.pesquisas.forEach(pesquisa =>
-      this.removido.emit(pesquisa))
+    
     this.pesquisas.splice(0, this.pesquisas.length);
-    this.limparDatas();
+    this.limparDatas(false);
 
     this.numeroProcesso.setValue('');
-    this.subParams("Numero do processo");
-    this.removeParams();
+    this.filtrar();
   }
 
   /**
@@ -190,6 +182,7 @@ export class FiltrosComponent implements OnInit, OnChanges{
           isNumeroProcesso = this.numeroProcesso.value !== '';
     if(!(isFiltros || isData || isNumeroProcesso)) {
       this.emiteAlerta.emit();
+      this.removeParams();
     }
   }
 
