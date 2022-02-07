@@ -24,13 +24,11 @@ export class TaskMockApi {
 
                 for (let key of params.keys()) {
                     if (params.get(key)) {
-                        if (key === 'tags') {
-                            obj[key] = params.get(key).split(',');
-                        } else {
-                            obj[key] = params.get(key);
-                        }
+                        obj[key] = params.get(key);
                     }
                 }
+
+                console.log(obj)
 
                 if (Object.keys(obj).length > 0) {
                     return [200, this._filtrarListaDeTarefas(this._tasks, obj)];
@@ -95,6 +93,9 @@ export class TaskMockApi {
 
                 return false;
             });
+
+            delete filtros.data_inicio;
+            delete filtros.data_fim;
         }
 
 
@@ -106,10 +107,18 @@ export class TaskMockApi {
                 const numero = t.searchableId.split(' ')[1];
                 return (+numeroProcesso === +numero);
             });
+
+            delete filtros.numeroProcesso;
         }
 
 
-        // Filtrar por tag
+        // Filtrar por demais atributos
+        for (const task of Object.values(filtros)) {
+            tarefasFiltradas = tarefasFiltradas.filter(t => {
+                return (t?.etags && t.etags.includes(task));
+            });
+        }
+
         if (filtros?.tags && filtros.tags.length > 0) {
             const { tags } = filtros;
 
