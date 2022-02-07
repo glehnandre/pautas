@@ -128,3 +128,16 @@
         </mat-drawer-content>
     </mat-drawer-container>
 </div>
+
+<fuse-alert 
+    *ngIf="alerta"
+    [name]="NOME_DO_ALERTA"
+    [type]="'warning'"
+    [appearance]="'soft'"
+    [dismissible]="true"
+    [dismissed]="true"
+    class="max-w-120 ml-auto z-10 mr-2 mt-2"
+>
+    <span fuseAlertTitle>{{alerta.titulo}}</span>
+    {{alerta.mensagem}}
+</fuse-alert>
