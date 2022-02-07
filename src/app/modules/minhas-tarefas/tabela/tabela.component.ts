@@ -59,7 +59,6 @@ export class TabelaComponent implements OnInit, AfterViewInit, OnDestroy {
     ngAfterViewInit(): void {
         this._route.queryParams.subscribe(params => {
             this._carregarTarefas(params);
-            console.log(params);
         });
     }
 
@@ -131,7 +130,6 @@ export class TabelaComponent implements OnInit, AfterViewInit, OnDestroy {
             }),
           ).subscribe({
             next: (data: ITask[]) => {
-                console.log(data)
                 this.tarefas = data;
                 this.emitirTarefas.emit(this.tarefas);
 

@@ -28,8 +28,6 @@ export class TaskMockApi {
                     }
                 }
 
-                console.log(obj)
-
                 if (Object.keys(obj).length > 0) {
                     return [200, this._filtrarListaDeTarefas(this._tasks, obj)];
                 } else {
