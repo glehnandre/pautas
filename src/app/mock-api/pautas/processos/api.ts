@@ -266,20 +266,21 @@ export class ProcessoMockApi {
             });
 
         this._fuseMockApiService
-            .onDelete('processos/:id/vistas/:vista')
-            .reply(({request, urlParams}) => {
+            .onDelete('processos/:id/vistas/:idVista')
+            .reply(({urlParams}) => {
                 const id_processo: number = +urlParams.id;
                 const id_vista: number = +urlParams.idVista;
-                const { body } = request;
+                
                 let index_processo;
                 let index_vista;
-                const m = ministro.find(({id}) => id === body.ministro);
 
                 index_processo = this._processos.findIndex(processo => processo.id === id_processo);
                 index_vista = this._processos[index_processo].vistas.findIndex(vista => vista.id === id_vista);
-                if(index_vista == -1){
+                
+                if (index_vista !== -1) {
                     this._processos[index_processo].vistas.splice(index_vista, 1);
                     setStorage('processos', this._processos);
+                    setStorage('vistas', this._processos[index_processo].vistas);
                     return [200, "Excluído com sucesso"];
                 }
                 return [404, {
@@ -329,19 +330,20 @@ export class ProcessoMockApi {
 
         this._fuseMockApiService
             .onDelete('processos/:id/destaques/:idDestaque')
-            .reply(({request, urlParams}) => {
+            .reply(({urlParams}) => {
                 const idProcesso: number = +urlParams.id;
                 const idDestaque: number = +urlParams.idDestaque;
-                const { body } = request;
+                
                 let index_processo;
                 let index_destaque;
-                const m = ministro.find(({id}) => id === body.ministro);
 
                 index_processo = this._processos.findIndex(processo => processo.id === idProcesso);
                 index_destaque = this._processos[index_processo].destaques.findIndex(destaque => destaque.id === idDestaque);
-                if(index_destaque == -1){
+                
+                if (index_destaque !== -1) {
                     this._processos[index_processo].destaques.splice(index_destaque, 1);
                     setStorage('processos', this._processos);
+                    setStorage('destaques', this._processos[index_processo].destaques);
                     return [200, "Excluído com sucesso"];
                 }
                 return [404, {
