@@ -21,6 +21,7 @@ import { setStorage, getStorage } from '../storage';
 import { Vista } from 'app/modules/acervo/model/interfaces/vista.interface';
 import { Destaque } from 'app/modules/acervo/model/interfaces/destaque.interface';
 
+
 @Injectable({
     providedIn: 'root'
 })
@@ -39,6 +40,8 @@ export class ProcessoMockApi {
         this._tag = tagData;
         this.registerHandlers();
     }
+
+
 
     registerHandlers(): void {
         this._fuseMockApiService
@@ -414,40 +417,62 @@ export class ProcessoMockApi {
             .onPost('processo/:id/capitulos')
             .reply(({request, urlParams}) => {
               const idProcesso = +urlParams.id;
-              const { cap, processos_mesma_decisao } = request.body;
-
+              const { capitulo, processos_mesma_decisao } = request.body;
+              getStorage('processo', this._processos);
               if (idProcesso) {
                 const index_processo = this._processos.findIndex(p => p.id === idProcesso);
-                if (cap.id != 0) {
-                  const index_capitulo = this._processos[index_processo].capitulos.findIndex(it => it.id === cap.id);
-                  this._processos[index_processo].capitulos[index_capitulo].descricao = cap.descricao;
-                  this._processos[index_processo].capitulos[index_capitulo].dispositivo = cap.dispositivo;
-                  this._processos[index_processo].capitulos[index_capitulo].ministro_condutor = cap.ministro_condutor;
-                  this._processos[index_processo].capitulos[index_capitulo].ministros_acordam = cap.ministros_acordam;
+                if (capitulo.id != null) {
+                  const index_capitulo = this._processos[index_processo].capitulos.findIndex(it => it.id === capitulo.id);
+                  this._processos[index_processo].capitulos[index_capitulo].descricao = capitulo.descricao;
+                  this._processos[index_processo].capitulos[index_capitulo].dispositivo = capitulo.dispositivo;
+                  this._processos[index_processo].capitulos[index_capitulo].ministro_condutor = capitulo.ministro_condutor;
+                  this._processos[index_processo].capitulos[index_capitulo].ministros_acordam = capitulo.ministros_acordam;
                   this._processos[index_processo].capitulos[index_capitulo].processos_mesma_decisao = processos_mesma_decisao;
-                  this._processos[index_processo].capitulos[index_capitulo].sessao = cap.sessao;
-                  this._processos[index_processo].capitulos[index_capitulo].texto = cap.texto;
-                  this._processos[index_processo].capitulos[index_capitulo].tipo = cap.tipo;
+                  this._processos[index_processo].capitulos[index_capitulo].sessao = capitulo.sessao;
+                  this._processos[index_processo].capitulos[index_capitulo].texto = capitulo.texto;
+                  this._processos[index_processo].capitulos[index_capitulo].tipo = capitulo.tipo;
                 } else {
-                  this._processos[index_processo].capitulos.push({
-                      ...cap,
-                      id: this._processos[index_processo].capitulos.length + 1,
-                      processos_mesma_decisao: processos_mesma_decisao
-                  });
+                      this._processos[index_processo].capitulos.push({
+                        ...capitulo,
+                        id: this._processos[index_processo].capitulos.length + 1,
+                        processos_mesma_decisao: processos_mesma_decisao
+                      });
+                      
                 }
                 setStorage('processos', this._processos);
                 return [201, this._processos[index_processo].capitulos];
               }
-
+              
               return [404, {
                 description: "Nenhum processo encontrado.",
               }];
             });
+
+            this._fuseMockApiService
+            .onDelete('processo/:id/capitulos/:idCapitulo')
+            .reply(({request, urlParams}) => {
+                const id_processo: number = +urlParams.id;
+                const id_capitulo: number = +urlParams.idCapitulo;
+                const { body } = request;
+                let index_processo;
+                let index_capitulo;
+                index_processo = this._processos.findIndex(processo => processo.id === id_processo);
+                index_capitulo = this._processos[index_processo].capitulos.findIndex(capitulo => capitulo.id === id_capitulo);
+                if(index_capitulo == -1){
+                    this._processos[index_processo].capitulos.splice(index_capitulo, 1);
+                    setStorage('processos', this._processos);
+                    return [200, this._processos[index_processo].capitulos];
+                }
+                return [404, {
+                    msg: 'Nenhuma capitulo com id informado.'
+                }];
+            });
     }
+
+    
 
     private _obterTagsPelosIds(tags: Tag[]): Tag[] {
         const tagsObtidas: Tag[] = [];
-
         tags.forEach(({id}) => {
             const tagEncontrada = this._tag.find(tag => tag.id === id);
             if (tagEncontrada) {

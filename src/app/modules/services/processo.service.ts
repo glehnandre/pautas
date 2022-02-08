@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable, EMPTY, Subject, BehaviorSubject, empty } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { TipoCapitulo } from '../acervo/model/enums/tipoCapitulo.enum';
+import { Capitulo } from '../acervo/model/interfaces/capitulo.interface';
 import { Destaque } from '../acervo/model/interfaces/destaque.interface';
 import { Documento } from '../acervo/model/interfaces/documento.interface';
 import { Impedimento } from '../acervo/model/interfaces/impedimento.interface';
@@ -205,8 +206,8 @@ export class ProcessoService {
     return descricoes;
   }
 
-  public salvarCapitulo(id: number, {capitulo, processos_mesma_decisao}): Observable<void> {
-    return this._httpClient.post<void>(`processo/${id}/capitulos`, {
+  public salvarCapitulo(id: number, {capitulo, processos_mesma_decisao}): Observable<Capitulo[]> {
+    return this._httpClient.post<Capitulo[]>(`processo/${id}/capitulos`, {
       capitulo,
       processos_mesma_decisao,
     }).pipe(
@@ -217,8 +218,8 @@ export class ProcessoService {
     );
   }
 
-  public deletarCapitulo(id: number, id_capitulo: number): Observable<void> {
-    return this._httpClient.delete<void>(`processo/${id}/capitulos/${id_capitulo}`).pipe(
+  public excluirCapitulo(id: number, id_capitulo: number): Observable<Capitulo[]> {
+    return this._httpClient.delete<Capitulo[]>(`processo/${id}/capitulos/${id_capitulo}`).pipe(
       catchError(error => {
         console.log(error);
         return EMPTY;
