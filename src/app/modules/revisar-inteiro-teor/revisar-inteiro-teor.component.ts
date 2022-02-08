@@ -79,7 +79,7 @@ export class RevisarInteiroTeorComponent implements OnInit {
     });
 
     this._processoService
-      .listarProcessos(new HttpParams().set('processo', this.idProcesso)).subscribe({
+      .listarProcessos(this.idProcesso).subscribe({
         next: ([processo]) => {
           this.processo = processo;
         }

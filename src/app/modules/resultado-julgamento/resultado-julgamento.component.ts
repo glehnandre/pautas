@@ -1,6 +1,6 @@
 import { HttpParams } from '@angular/common/http';
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
-import { AfterContentChecked, ChangeDetectionStrategy, ChangeDetectorRef, Component, HostListener, OnDestroy, OnInit, ViewEncapsulation } from '@angular/core';
+import { AfterContentChecked, ChangeDetectionStrategy, ChangeDetectorRef, Component, HostListener, OnChanges, OnDestroy, OnInit, SimpleChanges, ViewEncapsulation } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute } from '@angular/router';
 import { FuseDrawerService } from '@fuse/components/drawer';
@@ -42,7 +42,7 @@ interface Decisao {
   encapsulation  : ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class ResultadoJulgamentoComponent implements OnInit, OnDestroy, AfterContentChecked {
+export class ResultadoJulgamentoComponent implements OnInit {
 
   parametros: Parametros;
   processo: Processo;
@@ -74,21 +74,17 @@ export class ResultadoJulgamentoComponent implements OnInit, OnDestroy, AfterCon
   ) {}
 
   ngOnInit(): void {
-    this.parametros = this._route.snapshot.queryParams as Parametros;
+    this._route.queryParams.subscribe((params: Parametros) => {
+      this.parametros = params;
+    });
+
     this._carregarDadosProcessos();
+
     this.alerta = {
       titulo: '',
       mensagem: '',
       tipo: 'basic'
     };
-  }
-
-  ngAfterContentChecked(): void {
-
-  }
-
-  ngOnDestroy(): void {
-
   }
 
   /**
@@ -464,7 +460,7 @@ export class ResultadoJulgamentoComponent implements OnInit, OnDestroy, AfterCon
    * @author Douglas da Silva Monteles
    */
   private _carregarDadosProcessos(): void {
-    this._processoService.listarProcessos(new HttpParams().set('processo', this.parametros.processo)).subscribe({
+    this._processoService.listarProcessos(this.parametros.processo).subscribe({
       next: ([processo]) => {
         this.processo = processo;
         this.todosCapitulos = processo.capitulos;
@@ -475,6 +471,7 @@ export class ResultadoJulgamentoComponent implements OnInit, OnDestroy, AfterCon
         this._processoService.obterVotosDoProcesso(this.processo.id).subscribe({
           next: (votos) => {
             this.votos = votos;
+            console.log(this.votos)
           }
         });
       }

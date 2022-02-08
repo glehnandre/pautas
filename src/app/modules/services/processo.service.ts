@@ -28,7 +28,13 @@ export class ProcessoService {
     private _httpClient: HttpClient,
   ) { }
 
-  public listarProcessos(params?: HttpParams): Observable<Processo[]> {
+  public listarProcessos(processo?: number): Observable<Processo[]> {
+    let params = new HttpParams();
+    
+    if (processo) {
+      params = params.set("processo", processo);
+    }
+
     return this._httpClient.get<Processo[]>('processos', {
       params
     }).pipe(
