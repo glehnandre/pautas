@@ -76,6 +76,12 @@ export class ExtratoAtaComponent implements OnInit {
     PM: 'Estavam ausentes, justificadamente, os Senhores Ministros ',
   }
 
+  FraseRedator: Frase = {
+    F: 'Redatora do Acórdão Senhora Ministra ',
+    M: 'Redator do Acórdão Senhor Ministro ',
+  }
+
+
   constructor(
     private _ministroService: MinistroService,
   ) { }

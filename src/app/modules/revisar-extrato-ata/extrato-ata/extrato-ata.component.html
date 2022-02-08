@@ -82,7 +82,7 @@
                         <hr class="mb-2"/>
                         <div *ngFor="let capitulo of processo.capitulos; let capituloIndex = index">
                             <div>
-                                    <h4 class="font-black">Decisao do {{capituloIndex+1}}&#xba; {{capitulo.tipo}}</h4>
+                                    <h4 class="font-black">{{capituloIndex+1}}&#xba; Decisão {{capitulo.tipo}}</h4>
                                     <div [class]="'bg-sentido-'+capitulo.dispositivo?.sentido+' rounded-full px-2 text-white mb-4 mr-2 inline-block'">
                                         {{ capitulo.dispositivo?.nome }}
                                     </div>
@@ -91,9 +91,20 @@
                                     </div>
                                     <div class="mb-4" [innerHtml]="fraseEMinistros(capitulo?.ministros_divergem, FraseDivergem)"></div>
                             </div>
-                        </div>    
+                        </div>  
+                        <hr class="mb-2" /> 
+                        <div class="mb-4 font-medium" [innerHtml]="fraseEMinistros([processo?.redator], FraseRedator)">
+                        </div> 
                     </div>
-                    <hr class="mb-2" />                
+                    <div class="mb-2" [innerHtml]="
+                    fraseEMinistros(ata?.ministros_ausentes, FraseAusentes)
+                    ">
+                    
+                    </div>
+                    <div class="mb-4">
+                      <span *ngFor="let vista of processo?.vistas">{{ vista.texto }}<br></span>
+                      <span *ngFor="let destaque of processo?.destaques">{{ destaque.texto }}<br></span>
+                    </div>
                 </div>
                 <footer class="text-center mb-4">
                     <span *ngIf="form">
