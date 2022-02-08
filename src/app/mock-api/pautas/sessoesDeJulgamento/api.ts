@@ -48,15 +48,13 @@ export class SessaoDeJulgamentoMockApi {
       this._fuseMockApiService
         .onGet('sessoes-de-julgamento/:numero-ano')
         .reply(({request, urlParams}) => {
-          console.log("%cAPI Sessoes", "font-size:10px; font-color:red");
           const numeroAno = urlParams['numero-ano'];
           let sessaoDeJulgamento: any = this._julgamentos.find(julg => {
               const sessaoNumeroAno = `${julg.numero}-${julg.ano}`;
               return sessaoNumeroAno === numeroAno;
           });
           if (sessaoDeJulgamento) {
-            console.log(sessaoDeJulgamento);
-            sessaoDeJulgamento = {...sessaoDeJulgamento, ministro: {
+              sessaoDeJulgamento = {...sessaoDeJulgamento, ministro: {
               id: 12314441,
               nome: "Luiz Fux",
               abreviacao: "MLF",

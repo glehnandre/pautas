@@ -58,8 +58,8 @@ export class ExtratoAtaComponent implements OnInit {
   }
 
   FrasePresidente: Frase = {
-    F: 'Presidente Ministra ',
-    M: 'Presidente Ministro ',
+    F: 'Presidência da Senhora Ministra ',
+    M: 'Presidência do Senhor Ministro ',
   }
 
   FrasePresentes: Frase = {
@@ -70,11 +70,17 @@ export class ExtratoAtaComponent implements OnInit {
   }
 
   FraseAusentes: Frase = {
-    F: 'Estava ausente a Senhora Ministra ',
-    M: 'Estava ausente o Senhor Ministro ',
-    PF: 'Estavam ausentes as Senhoras Ministras ',
-    PM: 'Estavam ausentes os Senhores Ministros ',
+    F: 'Estava ausente, justificadamente, a Senhora Ministra ',
+    M: 'Estava ausente, justificadamente, o Senhor Ministro ',
+    PF: 'Estavam ausentes, justificadamente, as Senhoras Ministras ',
+    PM: 'Estavam ausentes, justificadamente, os Senhores Ministros ',
   }
+
+  FraseRedator: Frase = {
+    F: 'Redatora do Acórdão Senhora Ministra ',
+    M: 'Redator do Acórdão Senhor Ministro ',
+  }
+
 
   constructor(
     private _ministroService: MinistroService,
@@ -104,8 +110,8 @@ export class ExtratoAtaComponent implements OnInit {
    fraseEMinistros(ministros: Ministro[] = {} as Ministro[], frase: Frase): string {
     return ministros.length?
         `<span> ${ this._ministroService.generoEPlural(ministros, frase) }</span>
-        <span class="font-medium">${ this._ministroService.ministrosString(ministros) }</span>
-        <br>`:
+        <span class="font-medium">${ this._ministroService.ministrosString(ministros) }. </span>
+        `:
         '';
   }
 

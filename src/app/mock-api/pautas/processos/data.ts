@@ -273,12 +273,8 @@ export const processo: Processo[] = getStorage('processos', [
     ],
     relator: ministro[2],
     ministros_impedidos: [
-      ministro[0],
-      ministro[1],
     ],
     ministros_suspeitos: [
-      ministro[2],
-      ministro[3],
     ],
     envolvidos,
     vistas: [],
