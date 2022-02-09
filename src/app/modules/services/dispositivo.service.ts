@@ -1,7 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { EMPTY, Observable } from 'rxjs';
-import { catchError } from 'rxjs/operators';
+import { Observable } from 'rxjs';
 import { Dispositivo } from '../acervo/model/interfaces/dispositivo.interface';
 
 @Injectable({
@@ -14,13 +13,7 @@ export class DispositivoService {
   ) { }
 
   public obterDispositivos(id: number, tipo: string): Observable<Dispositivo[]> {
-    return this._httpClient.get<Dispositivo[]>(`dispositivos/processo/${id}/tipo-capitulo/${tipo}`)
-      .pipe(
-        catchError(error => {
-          console.log(error);
-          return EMPTY;
-        }),
-      );
+    return this._httpClient.get<Dispositivo[]>(`dispositivos/processo/${id}/tipo-capitulo/${tipo}`);
   }
 
 }

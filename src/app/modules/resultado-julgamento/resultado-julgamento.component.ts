@@ -22,12 +22,15 @@ import { FormRelatorComponent } from './form-relator/form-relator.component';
 import { FormVistaEDestaqueComponent } from './form-vista-e-destaque/form-vista-e-destaque.component';
 import { MinistroService } from '../services/ministro.service';
 import { Ministro } from '../acervo/model/interfaces/ministro.interface';
+import { SessaoDeJulgamento } from '../acervo/model/interfaces/sessao-julgamento.interface';
+import { SessaoDeJulgamentoService } from '../services/sessao-de-julgamento.service';
 
 
 interface Parametros {
   processo: number;
   colegiado: string;
-  sessao: number;
+  numero: number;
+  ano: number;
 }
 
 interface Decisao {
@@ -46,6 +49,7 @@ export class ResultadoJulgamentoComponent implements OnInit, OnDestroy, AfterCon
 
   parametros: Parametros;
   processo: Processo;
+  sessao: SessaoDeJulgamento;
   votos: Voto[] = [];
   dispositivos: Manifestacao[] = [];
   todosCapitulos: Capitulo[] = [];
@@ -66,6 +70,7 @@ export class ResultadoJulgamentoComponent implements OnInit, OnDestroy, AfterCon
   constructor(
     private _ministroService: MinistroService,
     private _processoService: ProcessoService,
+    private _sessaoDeJulgamentoService: SessaoDeJulgamentoService,
     private _route: ActivatedRoute,
     private _alertaService: AlertaService,
     private _fuseDrawerService: FuseDrawerService,
@@ -76,6 +81,7 @@ export class ResultadoJulgamentoComponent implements OnInit, OnDestroy, AfterCon
   ngOnInit(): void {
     this.parametros = this._route.snapshot.queryParams as Parametros;
     this._carregarDadosProcessos();
+    this._carregarSessaoDeJulgamento(this.parametros.numero, this.parametros.ano);
     this.alerta = {
       titulo: '',
       mensagem: '',
@@ -194,9 +200,7 @@ export class ResultadoJulgamentoComponent implements OnInit, OnDestroy, AfterCon
    * TODO andre.glehn falta remover do servidor
    */
   public atualizarCapitulos(capitulos: Capitulo[]): void {
-       console.log("Atualizando os capitulos");
        this.todosCapitulos = capitulos;
-       console.log(this.todosCapitulos);
        this.setCapituloSelecionado(null);
   }
 
@@ -294,7 +298,7 @@ export class ResultadoJulgamentoComponent implements OnInit, OnDestroy, AfterCon
         const vista: Vista = {
           ...data,
           processo: +this.parametros.processo,
-          sessao: +this.parametros.sessao,
+          sessao: this.sessao.id,
         };
 
         this._processoService.salvarVistaDoProcesso(this.parametros.processo, vista).subscribe({
@@ -326,7 +330,7 @@ export class ResultadoJulgamentoComponent implements OnInit, OnDestroy, AfterCon
         const destaque: Destaque = {
           ...data,
           processo: +this.parametros.processo,
-          sessao: +this.parametros.sessao,
+          sessao: this.sessao.id,
         };
 
         this._processoService.salvarDestaqueDoProcesso(this.parametros.processo, destaque).subscribe({
@@ -488,6 +492,19 @@ export class ResultadoJulgamentoComponent implements OnInit, OnDestroy, AfterCon
     });
   }
 
+    /**
+   * @private Método privado
+   * @description Método para carregar as informações da Sessao de julgamento
+   * @author Douglas da Silva Monteles
+   */
+     private _carregarSessaoDeJulgamento(numero: number, ano: number): void {
+      this._sessaoDeJulgamentoService.listarSessoesDeJulgamento(numero, ano).subscribe({
+        next: (SessaoDeJulgamento) => {
+          this.sessao = SessaoDeJulgamento;
+        }
+      });
+    }
+
   /**
    * @private Método privado
    * @description Método que cria uma lista de chips com os dados dos ministros
@@ -495,7 +512,6 @@ export class ResultadoJulgamentoComponent implements OnInit, OnDestroy, AfterCon
    * @author Douglas da Silva Monteles
    */
   private _criarChips(): void {
-
     this.chips = [];
 
     if (this.processo) {

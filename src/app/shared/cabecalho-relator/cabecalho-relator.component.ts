@@ -3,7 +3,7 @@ import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { TipoDoProcesso } from 'app/modules/acervo/model/enums/tipoDoProcesso.enum';
 import { Ministro } from 'app/modules/acervo/model/interfaces/ministro.interface';
 import { Processo } from 'app/modules/acervo/model/interfaces/processo.interface';
-import { SessaoJulgamento } from 'app/modules/acervo/model/interfaces/sessao-julgamento.interface';
+import { SessaoDeJulgamento } from 'app/modules/acervo/model/interfaces/sessao-julgamento.interface';
 import { Voto } from 'app/modules/acervo/model/interfaces/voto.interface';
 import { MinistroService } from 'app/modules/services/ministro.service';
 import { ProcessoService } from 'app/modules/services/processo.service';
@@ -18,7 +18,7 @@ export class CabecalhoRelatorComponent implements AfterContentChecked, OnInit {
   @Input() processo: Processo;
   @Input() colegiado: string;
   @Input() votos: Voto[];
-  @Input() sessao: SessaoJulgamento;
+  @Input() sessao: SessaoDeJulgamento;
   @Input() nomesDasSessoes: string[];
   @Input() chips: string[] = [];
 

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { SessaoJulgamento } from 'app/modules/acervo/model/interfaces/sessao-julgamento.interface';
-import { JulgamentoService } from 'app/modules/services/julgamento.service';
+import { SessaoDeJulgamento } from 'app/modules/acervo/model/interfaces/sessao-julgamento.interface';
+import { SessaoDeJulgamentoService } from 'app/modules/services/sessao-de-julgamento.service';
 import { registerLocaleData } from '@angular/common';
 import localePT from '@angular/common/locales/pt';
 import { DatePipe } from '@angular/common';
@@ -21,7 +21,7 @@ export class SessaoExtraordinariaComponent implements OnInit {
 
   tags: string[] = ['Virtual', 'Segunda Turma', 'Inicio e fim no dia 21/04/2021'];
   observacao: string;
-  sessao: SessaoJulgamento;
+  sessao: SessaoDeJulgamento;
   solicitante: Ministro;
   colegiado: string;
   data_inicio: string;
@@ -30,18 +30,18 @@ export class SessaoExtraordinariaComponent implements OnInit {
   nome_solicitante: string;
   resposta: string;
 
-  sessoes: SessaoJulgamento[] = [];
+  sessoes: SessaoDeJulgamento[] = [];
 
   constructor(
     private _matDialog: MatDialog,
-    private _julgamentoService: JulgamentoService,
+    private _sessaoDejulgamentoService: SessaoDeJulgamentoService,
     private _fuseAlertService: FuseAlertService,
     private _route: ActivatedRoute,
   ) {}
 
   ngOnInit(): void {
     const { numero, ano } = this._route.snapshot.queryParams;
-    this._julgamentoService.listarSessoesDeJulgamento(numero, ano).subscribe({
+    this._sessaoDejulgamentoService.listarSessoesDeJulgamento(numero, ano).subscribe({
       next: (sessao) => {
         this.sessao = sessao;
         this.observacao = sessao['observacao'];
@@ -55,7 +55,7 @@ export class SessaoExtraordinariaComponent implements OnInit {
       }
     });
 
-    this._julgamentoService.listarTodasAsSessoesDeJulgamento().subscribe(data=>{
+    this._sessaoDejulgamentoService.listarTodasAsSessoesDeJulgamento().subscribe(data=>{
       this.sessoes = data;
     })
 
@@ -103,7 +103,7 @@ export class SessaoExtraordinariaComponent implements OnInit {
     let ano: number = 2021;
     let numero: number = 1000;
 
-    this._julgamentoService.aprovarSessaoDeJulgamento(numero, ano, this.resposta).subscribe(data=>{
+    this._sessaoDejulgamentoService.aprovarSessaoDeJulgamento(numero, ano, this.resposta).subscribe(data=>{
       console.log(data,this.resposta);
     })
   }
@@ -112,7 +112,7 @@ export class SessaoExtraordinariaComponent implements OnInit {
     let ano: number = 2021;
     let numero: number = 1000;
 
-    this._julgamentoService.rejeitarSessaoDeJulgamento(numero, ano, this.resposta).subscribe(data=>{
+    this._sessaoDejulgamentoService.rejeitarSessaoDeJulgamento(numero, ano, this.resposta).subscribe(data=>{
       console.log({resposta:this.resposta, data});
     })
   }

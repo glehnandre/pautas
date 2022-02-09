@@ -1,7 +1,6 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { EMPTY, Observable } from 'rxjs';
-import { catchError } from 'rxjs/operators';
+import { Observable } from 'rxjs';
 import { Classe } from '../acervo/model/interfaces/classe.interface';
 
 @Injectable({
@@ -14,12 +13,7 @@ export class ClasseService {
   ) { }
 
   public getClasses(): Observable<Classe[]> {
-    return this._httpClient.get<Classe[]>('classes').pipe(
-        catchError(error => {
-          console.log(error);
-          return EMPTY;
-        })
-      );
+    return this._httpClient.get<Classe[]>('classes');
   }
 
 }

@@ -4,7 +4,7 @@ import { DateAdapter, MAT_DATE_LOCALE, MAT_DATE_FORMATS } from '@angular/materia
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MomentDateAdapter, MAT_MOMENT_DATE_ADAPTER_OPTIONS } from '@angular/material-moment-adapter';
 import { MatDatepicker } from '@angular/material/datepicker';
-import { SessaoJulgamento } from 'app/modules/acervo/model/interfaces/sessao-julgamento.interface';
+import { SessaoDeJulgamento } from 'app/modules/acervo/model/interfaces/sessao-julgamento.interface';
 import * as _moment from 'moment';
 import { default as _rollupMoment, Moment } from 'moment';
 
@@ -39,13 +39,13 @@ const DATE_FORMATS = {
 export class FormEscolherSessaoComponent implements OnInit {
 
   formJulgamento: FormGroup;
-  sessoes: SessaoJulgamento[];
+  sessoes: SessaoDeJulgamento[];
 
   constructor(
       private _fb: FormBuilder,
       private dialogRef: MatDialogRef<FormEscolherSessaoComponent>,
       @Inject(MAT_DIALOG_DATA) private data: {
-          sessoes: SessaoJulgamento[],
+          sessoes: SessaoDeJulgamento[],
       },
   ) {
         this.formJulgamento = this._fb.group({

@@ -93,10 +93,11 @@
                                         <div class="mb-4" [innerHtml]="fraseEMinistros(capitulo?.ministros_divergem, FraseDivergem)"></div>
                                 </div>
                             </div>
-                        </div>
-                        <hr class="mb-2" />
-                        <div class="mb-4 font-medium" [innerHtml]="fraseEMinistros([processo?.redator], FraseRedator)">
-                        </div>
+                            <hr class="mb-2" /> 
+                        </div>  
+                        
+                        <div *ngIf="processo.redator" class="mb-4 font-medium" [innerHtml]="fraseEMinistros([processo?.redator], FraseRedator)">
+                        </div> 
                     </div>
                     <div class="mb-2" [innerHtml]="
                       fraseEMinistros(ata?.ministros_ausentes, FraseAusentes)
@@ -112,7 +113,7 @@
                     <span *ngIf="form">
                         Brasília, {{ form?.dataPublicacao | date: 'longDate' }}
                     </span><br>
-                    {{ ata?.secretario?.nome }}<br>
+                    {{ ata?.secretario }}<br>
                     Assessor(a) Chefe do Plenário
                 </footer>
             </div>

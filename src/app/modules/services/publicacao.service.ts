@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { EMPTY, Observable } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { DjeDto } from '../acervo/model/interfaces/djeDto.interface';
-import { SessaoJulgamento } from '../acervo/model/interfaces/sessao-julgamento.interface';
+import { SessaoDeJulgamento } from '../acervo/model/interfaces/sessao-julgamento.interface';
 
 @Injectable({
   providedIn: 'root'
@@ -31,7 +31,7 @@ export class PublicacaoService {
     );
   }
 
-  public publicarAta(data: string, sessao: SessaoJulgamento): Observable<void> {
+  public publicarAta(data: string, sessao: SessaoDeJulgamento): Observable<void> {
     return this._httpClient.post<void>('publicar', {data, sessao}).pipe(
       catchError(error => {
         console.log(error);
