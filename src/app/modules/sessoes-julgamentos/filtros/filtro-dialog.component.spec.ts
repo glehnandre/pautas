@@ -2,7 +2,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormBuilder } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { ActivatedRoute } from '@angular/router';
-import { JulgamentoService } from 'app/modules/services/julgamento.service';
+import { SessaoDeJulgamentoService } from 'app/modules/services/sessao-de-julgamento.service';
 import { MinistroService } from 'app/modules/services/ministro.service';
 import { EMPTY, Observable } from 'rxjs';
 
@@ -28,7 +28,7 @@ const MockActivatedRoute = {
 describe('FiltroDialogComponent', () => {
   let component: FiltroDialogComponent;
   let fixture: ComponentFixture<FiltroDialogComponent>;
-  let julgamentoService: JulgamentoService;
+  let _sessaoDeJulgamentoService: SessaoDeJulgamentoService;
   let fb: FormBuilder;
   let route: ActivatedRoute;
   let ministroService: MinistroService;
@@ -38,7 +38,7 @@ describe('FiltroDialogComponent', () => {
     await TestBed.configureTestingModule({
       declarations: [ FiltroDialogComponent ],
       providers: [
-        { provide: JulgamentoService, useClass: MockJulgamentoService },
+        { provide: SessaoDeJulgamentoService, useClass: MockJulgamentoService },
         { provide: MinistroService, useClass: MockMinistroService },
         { provide: FormBuilder, useClass: FormBuilder },
         { provide: ActivatedRoute, useValue:  MockActivatedRoute},
@@ -52,7 +52,7 @@ describe('FiltroDialogComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(FiltroDialogComponent);
     component = fixture.componentInstance;
-    julgamentoService = TestBed.inject(JulgamentoService);
+    _sessaoDeJulgamentoService = TestBed.inject(SessaoDeJulgamentoService);
     fb = TestBed.inject(FormBuilder);
     ministroService = TestBed.inject(MinistroService);
     route = TestBed.inject(ActivatedRoute);

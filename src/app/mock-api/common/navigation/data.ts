@@ -85,8 +85,8 @@ export const defaultNavigation: FuseNavigationItem[] = [
         queryParams: {
             processo: '9',
             colegiado: 'pleno',
-            sessao: 123,
-            
+            numero: 1000,
+            ano: 2021, 
         },
     },
     {

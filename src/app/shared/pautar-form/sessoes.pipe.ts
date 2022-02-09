@@ -1,12 +1,12 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import { SessaoJulgamento } from 'app/modules/acervo/model/interfaces/sessao-julgamento.interface';
+import { SessaoDeJulgamento } from 'app/modules/acervo/model/interfaces/sessao-julgamento.interface';
 
 
 @Pipe({
     name: 'filtroSessoes'
 })
 export class SessoesPipe implements PipeTransform {
-    transform(sessoes: SessaoJulgamento[], colegiado: string, modalidade: string, dataInicio: Date, dataFim: Date) {
+    transform(sessoes: SessaoDeJulgamento[], colegiado: string, modalidade: string, dataInicio: Date, dataFim: Date) {
         if (!colegiado && !modalidade && !dataInicio && !dataFim) {
             return sessoes;
         } else

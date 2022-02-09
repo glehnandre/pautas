@@ -4,11 +4,11 @@ import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms'
 import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute } from '@angular/router';
 import { AlertaService } from 'app/modules/services/alerta.service';
-import { JulgamentoService } from 'app/modules/services/julgamento.service';
+import { SessaoDeJulgamentoService } from 'app/modules/services/sessao-de-julgamento.service';
 import { ProcessoService } from 'app/modules/services/processo.service';
 import { Observable } from 'rxjs';
 import { Processo } from '../../model/interfaces/processo.interface';
-import { SessaoJulgamento } from '../../model/interfaces/sessao-julgamento.interface';
+import { SessaoDeJulgamento } from '../../model/interfaces/sessao-julgamento.interface';
 import { SessaoExtraordinariaComponent } from './sessao-extraordinaria/sessao-extraordinaria.component';
 
 export interface Colegiado {
@@ -25,7 +25,7 @@ export class PautarComponent implements OnInit {
     pautarForm: FormGroup;
 
     //Deve recuperar o valor da Sessoes de Julgamento Integralmente para aquele ano por meio de serviço
-    sessoes: SessaoJulgamento[] = [];
+    sessoes: SessaoDeJulgamento[] = [];
 
     processos: Processo[];
 
@@ -36,7 +36,7 @@ export class PautarComponent implements OnInit {
     constructor(
         private _formBuilder: FormBuilder,
         private _dialog: MatDialog,
-        private _julgamentoService: JulgamentoService,
+        private _sessaoDeJulgamentoService: SessaoDeJulgamentoService,
         private _alertService: AlertaService,
         private _processoService: ProcessoService,
         private _route: ActivatedRoute,
@@ -53,7 +53,7 @@ export class PautarComponent implements OnInit {
             data_inicio: [''],
             data_fim: [''],
         });
-        this._julgamentoService.listarTodasAsSessoesDeJulgamento().subscribe(data=>{
+        this._sessaoDeJulgamentoService.listarTodasAsSessoesDeJulgamento().subscribe(data=>{
             this.sessoes = data;
         });
         this._processoService.obterProcessosSelecionados()
@@ -70,7 +70,7 @@ export class PautarComponent implements OnInit {
 
     pautar(): void {
         if (this.pautarForm.valid) {
-            this._julgamentoService.pautarProcesso(this.pautarForm.value).subscribe({
+            this._sessaoDeJulgamentoService.pautarProcesso(this.pautarForm.value).subscribe({
                 next: (data) => {
                     this._alertService.exibirAlertaDeSucesso();
                 }

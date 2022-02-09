@@ -8,7 +8,7 @@ import { Observable } from 'rxjs';
 
 import { Ministro } from 'app/modules/acervo/model/interfaces/ministro.interface';
 import { MinistroService } from 'app/modules/services/ministro.service';
-import { SessaoJulgamento } from 'app/modules/acervo/model/interfaces/sessao-julgamento.interface';
+import { SessaoDeJulgamento } from 'app/modules/acervo/model/interfaces/sessao-julgamento.interface';
 
 const moment = _rollupMoment || _moment;
 
@@ -57,7 +57,7 @@ export class PublicarFormComponent implements OnInit {
     private _ministroService: MinistroService,
     private _formBuilder: FormBuilder,
     private _dialogRef: MatDialogRef<PublicarFormComponent>,
-    @Inject(MAT_DIALOG_DATA) private sessao: SessaoJulgamento,
+    @Inject(MAT_DIALOG_DATA) private sessao: SessaoDeJulgamento,
   ) {}
 
   ngOnInit(): void {

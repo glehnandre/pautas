@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { getTestBed, TestBed } from '@angular/core/testing';
 import { Observable } from 'rxjs';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
-import { JulgamentoService } from './julgamento.service';
+import { SessaoDeJulgamentoService } from './sessao-de-julgamento.service';
 import { Pauta } from '../acervo/model/interfaces/pauta.interface';
 
 class MockJulgamentoService {
@@ -11,7 +11,7 @@ class MockJulgamentoService {
 }
 
 describe('JulgamentoService', () => {
-  let service: JulgamentoService;
+  let service: SessaoDeJulgamentoService;
   let httpClient: HttpClient;
   let httpMock: HttpTestingController;
 
@@ -23,12 +23,12 @@ describe('JulgamentoService', () => {
     }).compileComponents().then(() => {
       httpClient = TestBed.inject(HttpClient);
       httpMock = TestBed.inject(HttpTestingController);
-      service = TestBed.inject(JulgamentoService);
+      service = TestBed.inject(SessaoDeJulgamentoService);
     });
   });
 
   it('should be created', () => {
-    service = new JulgamentoService(httpClient);
+    service = new SessaoDeJulgamentoService(httpClient);
     expect(service).toBeTruthy();
   });
 });

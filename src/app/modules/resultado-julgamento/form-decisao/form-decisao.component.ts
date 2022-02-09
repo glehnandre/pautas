@@ -56,7 +56,7 @@ export class FormDecisaoComponent implements OnInit, OnChanges, OnDestroy {
     private _processoService: ProcessoService,
     private _alertaService: AlertaService,
   ) {}
-
+ 
   ngOnInit(): void {
     this._recarregarOsDados();
     console.log("CARREGANDO DADO DO CAPITULO....");

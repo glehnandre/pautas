@@ -2,7 +2,7 @@ import { Component, EventEmitter, Input, Output, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { AlertaService } from '../../services/alerta.service';
 import { DocumentoInteiroTeor } from '../../acervo/model/interfaces/documento-inteiro-teor.interface';
-import { SessaoJulgamento } from '../../acervo/model/interfaces/sessao-julgamento.interface';
+import { SessaoDeJulgamento } from '../../acervo/model/interfaces/sessao-julgamento.interface';
 import { Tag } from '../../acervo/model/interfaces/tag.interface';
 import { Documento } from '../../acervo/model/interfaces/documento.interface';
 import { publicacao } from '../../../mock-api/pautas/publicacoes/data';
@@ -17,7 +17,7 @@ export interface RevisaoInteiroTeor {
     numero: number;
     nome: string;
     tags: Array<Tag>;
-    sessoes: Array<SessaoJulgamento>;
+    sessoes: Array<SessaoDeJulgamento>;
     documentos: Array<DocumentoInteiroTeor>;
 }
 
