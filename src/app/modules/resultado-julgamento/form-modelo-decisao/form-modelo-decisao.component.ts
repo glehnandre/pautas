@@ -97,6 +97,16 @@ export class FormModeloDecisaoComponent implements OnInit {
     this._dispositivoService.obterDispositivos(this.data.processo.id, this.formModeloDecisao.controls.tipoCapitulo.value).subscribe({
       next: (dispositivos) => {
         this.dispositivos = dispositivos;
+      },
+      error: (error) => {
+        console.log(error);
+        this.alerta = {
+          nome: "Error", 
+          tipo: "error", 
+          titulo: "Erro",
+          mensagem: error.message
+        }
+        this._alertaService.exibirAlerta("Error");
       }
     });
   }

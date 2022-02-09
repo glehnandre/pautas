@@ -1,15 +1,17 @@
-import { ChangeDetectorRef, Component, EventEmitter, Input, OnChanges, OnDestroy, OnInit, Output } from '@angular/core';
+import { StringMap } from '@angular/compiler/src/compiler_facade_interface';
+import { Component, EventEmitter, Input, OnChanges, OnDestroy, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatSelectChange } from '@angular/material/select';
 import { Capitulo } from 'app/modules/acervo/model/interfaces/capitulo.interface';
 import { Dispositivo } from 'app/modules/acervo/model/interfaces/dispositivo.interface';
 import { Ministro } from 'app/modules/acervo/model/interfaces/ministro.interface';
 import { Processo } from 'app/modules/acervo/model/interfaces/processo.interface';
+import { AlertaService } from 'app/modules/services/alerta.service';
 import { DispositivoService } from 'app/modules/services/dispositivo.service';
 import { MinistroService } from 'app/modules/services/ministro.service';
 import { ProcessoService } from 'app/modules/services/processo.service';
-import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { EMPTY, Observable } from 'rxjs';
+import { catchError, map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-form-decisao',
@@ -25,6 +27,8 @@ export class FormDecisaoComponent implements OnInit, OnChanges, OnDestroy {
   limparProcessosSelecionados: boolean = false;
   dispositivos: Dispositivo[] = [];
   compareFn: ((f1: any, f2: any) => boolean) | null = this.compareById;
+
+  errorMensage: StringMap;
 
   @Input() processo: Processo;
   @Input() isExibirBtnSalvarDecisao: boolean = false;
@@ -50,7 +54,7 @@ export class FormDecisaoComponent implements OnInit, OnChanges, OnDestroy {
     private _ministroService: MinistroService,
     private _dispositivoService: DispositivoService,
     private _processoService: ProcessoService,
-    private _cd: ChangeDetectorRef,
+    private _alertaService: AlertaService,
   ) {}
 
   ngOnInit(): void {
@@ -91,6 +95,11 @@ export class FormDecisaoComponent implements OnInit, OnChanges, OnDestroy {
     this._dispositivoService.obterDispositivos(this.processo.id, tipo).subscribe({
       next: (dispositivos) => {
         this.dispositivos = dispositivos;
+      },
+      error: (error)=>{
+        console.log(error);
+        this.errorMensage = error.message;
+        this._alertaService.exibirAlerta("Error")
       }
     });
   }
