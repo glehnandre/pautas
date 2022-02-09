@@ -2,7 +2,7 @@ import { Component, Input, LOCALE_ID, OnInit } from '@angular/core';
 import localePt from '@angular/common/locales/pt';
 import { registerLocaleData } from '@angular/common';
 
-import { Envolvido, CapitulosParaPublicacao } from 'app/modules/acervo/model/interfaces/capitulo.interface';
+import { Capitulo, Envolvido } from 'app/modules/acervo/model/interfaces/capitulo.interface';
 import { Frase } from 'app/modules/acervo/model/interfaces/frase-genero-plural.interface';
 import { Ministro } from 'app/modules/acervo/model/interfaces/ministro.interface';
 import { SessaoJulgamento } from 'app/modules/acervo/model/interfaces/sessao-julgamento.interface';
@@ -23,6 +23,15 @@ export class ExtratoAtaComponent implements OnInit {
   @Input() ata: Ata;
   @Input() sessao: SessaoJulgamento;
   @Input() form: any;
+
+  tiposCapitulo: string[] = ['Preliminar', 'Mérito', 'Modulação', 'Questão de Ordem', 'Tese'];
+  descreveTipo: { [tipo: string]: string } = {
+    'Preliminar': 'ª Decisão Preliminar',
+    'Mérito': 'ª Decisão Mérito',
+    'Modulação': 'ª Modulação',
+    'Questão de Ordem': 'ª Questão de Ordem',
+    'Tese': 'ª Tese'
+  };
 
   FraseImpedidos: Frase = {
     F:'Se declara impedida a Ministra ',
@@ -133,5 +142,9 @@ export class ExtratoAtaComponent implements OnInit {
     return filtroPolo?
       envolvidos.filter(({ polo, categoria }) => polo.startsWith(filtroPolo) && categoria.startsWith(filtroCategoria)):
       envolvidos.filter(({ categoria }) => categoria.startsWith(filtroCategoria));
+  }
+
+  filtraTipos(tipoCapitulo, capitulos: Capitulo[]) {
+    return capitulos.filter(({ tipo }) => tipo == tipoCapitulo);
   }
 }
