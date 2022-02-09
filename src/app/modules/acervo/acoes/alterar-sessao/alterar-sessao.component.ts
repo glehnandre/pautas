@@ -1,10 +1,9 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { MatDatepickerInputEvent } from '@angular/material/datepicker';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { MatRadioChange } from '@angular/material/radio';
 import { FuseAlertService } from '@fuse/components/alert';
 import { AlertaService } from 'app/modules/services/alerta.service';
-import { JulgamentoService } from 'app/modules/services/julgamento.service';
+import { SessaoDeJulgamentoService } from 'app/modules/services/sessao-de-julgamento.service';
 import { Pauta } from '../../model/interfaces/pauta.interface';
 import { Processo } from '../../model/interfaces/processo.interface';
 import { Colegiado } from '../pautar/pautar.component';
@@ -52,7 +51,7 @@ export class AlterarSessaoComponent implements OnInit {
   errorMessage: string;
 
   constructor(
-    private _julgamentoService: JulgamentoService,
+    private _sessaoDeJulgamentoService: SessaoDeJulgamentoService,
     private _fuseAlertService: FuseAlertService,
     private _alertaService: AlertaService,
     @Inject(MAT_DIALOG_DATA) public processos: Processo[],
@@ -61,7 +60,7 @@ export class AlterarSessaoComponent implements OnInit {
   ngOnInit(): void {
     const { id } = this.processos[0];
 
-    this._julgamentoService.obterDadosDaPautaPeloProcesso(id).subscribe({
+    this._sessaoDeJulgamentoService.obterDadosDaPautaPeloProcesso(id).subscribe({
       next: (data) => {
         this.pauta = data;
         this.colegiadoEscolhido = this.pauta.colegiado;
@@ -111,7 +110,7 @@ export class AlterarSessaoComponent implements OnInit {
   }
 
   alterarDataDeJulgamento(): void {
-    this._julgamentoService.pautarProcesso(this.pauta).subscribe({
+    this._sessaoDeJulgamentoService.pautarProcesso(this.pauta).subscribe({
         next: () => {
             this._alertaService.exibirAlertaDeSucesso();
         },

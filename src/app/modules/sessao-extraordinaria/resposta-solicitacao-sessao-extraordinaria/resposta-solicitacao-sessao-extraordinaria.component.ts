@@ -4,8 +4,8 @@ import { DateAdapter, MAT_DATE_LOCALE, MAT_DATE_FORMATS } from '@angular/materia
 import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute } from '@angular/router';
 import { AlertaService } from 'app/modules/services/alerta.service';
-import { SessaoJulgamento } from '../../acervo/model/interfaces/sessao-julgamento.interface';
-import { JulgamentoService } from '../../services/julgamento.service';
+import { SessaoDeJulgamento } from '../../acervo/model/interfaces/sessao-julgamento.interface';
+import { SessaoDeJulgamentoService } from '../../services/sessao-de-julgamento.service';
 import { FormEscolherSessaoComponent } from './form-escolher-sessao/form-escolher-sessao.component';
 
 const DATE_FORMATS = {
@@ -38,14 +38,14 @@ export class RespostaSolicitacaoSessaoExtraordinariaoComponent implements OnInit
 
   panelOpenState: boolean = false;
   tags: string[] = ['Virtual', 'Segunda Turma'];
-  sessao: SessaoJulgamento;
-  sessoes: SessaoJulgamento[] = [];
+  sessao: SessaoDeJulgamento;
+  sessoes: SessaoDeJulgamento[] = [];
 
   errorMessage: string;
 
   constructor(
     private _matDialog: MatDialog,
-    private _julgamentoService: JulgamentoService,
+    private _julgamentoService: SessaoDeJulgamentoService,
     private _route: ActivatedRoute,
     private _alertaService: AlertaService
   ) {  }

@@ -3,7 +3,8 @@ import { TipoDoProcesso } from "app/modules/acervo/model/enums/tipoDoProcesso.en
 import { Ata } from "app/modules/acervo/model/interfaces/ata.interface";
 import { Envolvido } from "app/modules/acervo/model/interfaces/envolvido.interface";
 import { Processo } from "app/modules/acervo/model/interfaces/processo.interface";
-import { SessaoJulgamento } from "app/modules/acervo/model/interfaces/sessao-julgamento.interface";
+import { Secretario } from "app/modules/acervo/model/interfaces/secretario.interface";
+import { SessaoDeJulgamento } from "app/modules/acervo/model/interfaces/sessao-julgamento.interface";
 
 import { capitulo } from "../capitulo/data";
 import { ministro } from '../ministro/data';
@@ -30,7 +31,27 @@ export const atas: Ata[] = getStorage('atas', [
   }
 ]);
 
-export const sessoesDeJulgamento: SessaoJulgamento[] = getStorage('sessoesDeJulgamento', [
+
+export const secretarios: Secretario[] = getStorage('secretarios', [
+  {
+    id: 1,
+    nome: 'Carmen Lilian Oliveira de Souza',
+  },
+  {
+    id: 2,
+    nome: 'André von Glehn',
+  },
+  {
+    id: 3,
+    nome: 'Maria Silvia Marques dos Santos',
+  },
+  {
+    id: 4,
+    nome: 'Luiz Gustavo Silva Almeida',
+  },
+]);
+
+export const sessoesDeJulgamento: SessaoDeJulgamento[] = getStorage('sessoesDeJulgamento', [
   {
     id: 123,
     numero: 1000,

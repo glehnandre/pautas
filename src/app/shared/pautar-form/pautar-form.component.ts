@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { SessaoJulgamento } from 'app/modules/acervo/model/interfaces/sessao-julgamento.interface';
+import { SessaoDeJulgamento } from 'app/modules/acervo/model/interfaces/sessao-julgamento.interface';
 import { Colegiado } from 'app/modules/acervo/acoes/pautar/pautar.component';
 
 @Component({
@@ -10,7 +10,7 @@ import { Colegiado } from 'app/modules/acervo/acoes/pautar/pautar.component';
 
 export class PautarFormComponent implements OnInit {
 
-  @Input() sessoes: SessaoJulgamento[] = [];
+  @Input() sessoes: SessaoDeJulgamento[] = [];
   @Output() statusPautarForm = new EventEmitter<any>();
 
   sessao: string = '';

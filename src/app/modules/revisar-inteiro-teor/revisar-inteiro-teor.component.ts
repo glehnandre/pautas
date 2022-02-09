@@ -7,7 +7,7 @@ import { DocumentoInteiroTeor } from '../acervo/model/interfaces/documento-intei
 import { Documento } from '../acervo/model/interfaces/documento.interface';
 import { Processo } from '../acervo/model/interfaces/processo.interface';
 import { PublicacaoDto } from '../acervo/model/interfaces/publicacaoDto.interface';
-import { SessaoJulgamento } from '../acervo/model/interfaces/sessao-julgamento.interface';
+import { SessaoDeJulgamento } from '../acervo/model/interfaces/sessao-julgamento.interface';
 import { Tag } from '../acervo/model/interfaces/tag.interface';
 import { ProcessoService } from '../services/processo.service';
 import { AlertaService } from '../services/alerta.service';
@@ -22,7 +22,7 @@ export interface RevisaoInteiroTeor {
   numero: number;
   nome: string;
   tags: Array<Tag>;
-  sessoes: Array<SessaoJulgamento>;
+  sessoes: Array<SessaoDeJulgamento>;
   documentos: Array<DocumentoInteiroTeor>;
 }
 

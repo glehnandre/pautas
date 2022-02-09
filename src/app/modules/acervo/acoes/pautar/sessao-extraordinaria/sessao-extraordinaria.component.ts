@@ -7,7 +7,7 @@ import { MatChipInputEvent } from '@angular/material/chips';
 import { MatDialogRef } from '@angular/material/dialog';
 import { Processo } from 'app/modules/acervo/model/interfaces/processo.interface';
 import { AlertaService } from 'app/modules/services/alerta.service';
-import { JulgamentoService } from 'app/modules/services/julgamento.service';
+import { SessaoDeJulgamentoService } from 'app/modules/services/sessao-de-julgamento.service';
 import { EMPTY, Observable } from 'rxjs';
 import { startWith, map, catchError } from 'rxjs/operators';
 
@@ -36,7 +36,7 @@ export class SessaoExtraordinariaComponent implements OnInit {
   constructor(
     private _fb: FormBuilder,
     private _httpClient: HttpClient,
-    private _julgamentoSerivce: JulgamentoService,
+    private _sessaoDejulgamentoService: SessaoDeJulgamentoService,
     private _dialogRef: MatDialogRef<SessaoExtraordinariaComponent>,
     private _alertaService: AlertaService,
   ) {
@@ -54,7 +54,7 @@ export class SessaoExtraordinariaComponent implements OnInit {
 
   public solicitarSessaoExtraordinaria(): void {
     if (this.sessaoExtraordinariaForm.valid) {
-      this._julgamentoSerivce.socilitarSessaoExtraordinaria(this.sessaoExtraordinariaForm.value).subscribe({
+      this._sessaoDejulgamentoService.socilitarSessaoExtraordinaria(this.sessaoExtraordinariaForm.value).subscribe({
         next: (data) => {
           this._alertaService.exibirAlertaDeSucesso();
           this._dialogRef.close();

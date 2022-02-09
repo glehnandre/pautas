@@ -1,19 +1,20 @@
 import { Injectable } from '@angular/core';
 import { FuseMockApiService } from '@fuse/lib/mock-api/mock-api.service';
 import { Processo } from 'app/modules/acervo/model/interfaces/processo.interface';
-import { SessaoJulgamento } from 'app/modules/acervo/model/interfaces/sessao-julgamento.interface'
+import { SessaoDeJulgamento } from 'app/modules/acervo/model/interfaces/sessao-julgamento.interface'
 
-import { sessoesDeJulgamento, processos as processosData } from './data';
+import { sessoesDeJulgamento, processos as processosData, secretarios } from './data';
 import { setStorage } from '../storage';
+import { Secretario } from 'app/modules/acervo/model/interfaces/secretario.interface';
 
 
 @Injectable({
     providedIn: 'root'
 })
 export class SessaoDeJulgamentoMockApi {
-    private _julgamentos: SessaoJulgamento[] = sessoesDeJulgamento;
+    private _julgamentos: SessaoDeJulgamento[] = sessoesDeJulgamento;
     private _processos: Processo[] = processosData;
-    
+    private _secretarios: Secretario[] = secretarios;
     constructor(private _fuseMockApiService: FuseMockApiService) {
         this.registerHandlers();
     }
@@ -173,6 +174,32 @@ export class SessaoDeJulgamentoMockApi {
             return [200, this._julgamentos[indexJulgamento].ata];
           }else{
             return [404, { description: 'Nenhuma sessão de julgamento aberta para o periodo encontrada. Pode haver sessão de julgamento fechadas para o período.' }];
+          }
+        });
+
+        this._fuseMockApiService
+        .onGet('secretarios')
+        .reply(({request}) => {
+          console.log("ENTREI NA PESQUSA DE SECRETARIOS");
+          const idPessoa = Number(request.params.get('id'));
+          const nome = request.params.get('nome');
+          let index = 0;
+          console.log(idPessoa);
+          console.log(nome);
+          if(idPessoa !== 0){
+            index = this._secretarios.findIndex(secretario => secretario.id === idPessoa);
+          }else if(nome !== null){
+            index = this._secretarios.findIndex(secretario => secretario.nome.includes(nome));
+          }
+          
+          console.log(index);
+          if(index == 0){
+            console.log("retornar todos os secretarios...");
+            return [200, this._secretarios];
+          }else if (index != -1) {
+            return [200, this._secretarios[index]];
+          }else{
+            return [404, { description: 'Nenhum secretário com esse nome foi encontrado.' }];
           }
         });
     }

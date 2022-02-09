@@ -1,13 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { JulgamentoService } from '../services/julgamento.service';
+import { SessaoDeJulgamentoService } from '../services/sessao-de-julgamento.service';
 import { Ata } from '../acervo/model/interfaces/ata.interface';
 import { MatDialog } from '@angular/material/dialog';
 import { PublicarFormComponent } from './publicar-form/publicar-form.component';
 import { CorrecaoCapituloFormComponent } from './correcao-capitulo-form/correcao-capitulo-form.component';
 import { PublicacaoService } from '../services/publicacao.service';
-import { SessaoJulgamento } from '../acervo/model/interfaces/sessao-julgamento.interface';
 import { AlertaService } from '../services/alerta.service';
+import { SessaoDeJulgamento } from '../acervo/model/interfaces/sessao-julgamento.interface';
 
 interface Parametros {
     numero: number;
@@ -22,7 +22,7 @@ interface Parametros {
 export class RevisarExtratoAtaComponent implements OnInit {
 
   parametros: Parametros;
-  sessao: SessaoJulgamento;
+  sessao: SessaoDeJulgamento;
   ata: Ata;
   form: any;
   tags: string[];
@@ -30,7 +30,7 @@ export class RevisarExtratoAtaComponent implements OnInit {
   errorMessage: string;
 
   constructor(
-      private _julgamentoService: JulgamentoService,
+      private _sessaoDejulgamentoService: SessaoDeJulgamentoService,
       private _publicacaoService: PublicacaoService,
       private _matDialog: MatDialog,
       private _route: ActivatedRoute,
@@ -44,7 +44,7 @@ export class RevisarExtratoAtaComponent implements OnInit {
   }
 
   private getAta() {
-    this._julgamentoService.getAta(this.parametros.numero, this.parametros.ano).subscribe({
+    this._sessaoDejulgamentoService.getAta(this.parametros.numero, this.parametros.ano).subscribe({
       next: (ata) => {
         console.log("Ata");
         console.log(ata);
@@ -54,7 +54,7 @@ export class RevisarExtratoAtaComponent implements OnInit {
   }
 
   private getSessaoDeJulgamento() {
-    this._julgamentoService.listarSessoesDeJulgamento(this.parametros.numero, this.parametros.ano).subscribe({
+    this._sessaoDejulgamentoService.listarSessoesDeJulgamento(this.parametros.numero, this.parametros.ano).subscribe({
       next: (sessao) => {
         this.sessao = sessao;
       },

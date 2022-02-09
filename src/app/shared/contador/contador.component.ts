@@ -1,5 +1,5 @@
 import { Component, OnInit, OnDestroy, Input } from '@angular/core';
-import { SessaoJulgamento } from 'app/modules/acervo/model/interfaces/sessao-julgamento.interface';
+import { SessaoDeJulgamento } from 'app/modules/acervo/model/interfaces/sessao-julgamento.interface';
 
 @Component({
   selector: 'app-contador',
@@ -7,7 +7,7 @@ import { SessaoJulgamento } from 'app/modules/acervo/model/interfaces/sessao-jul
   styleUrls: ['./contador.component.scss']
 })
 export class ContadorComponent implements OnInit, OnDestroy {
-  @Input() sessao: SessaoJulgamento;
+  @Input() sessao: SessaoDeJulgamento;
 
   dias: string = '00';
   horas: string = '00';
