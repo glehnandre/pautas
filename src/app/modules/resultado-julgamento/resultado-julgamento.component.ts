@@ -257,17 +257,24 @@ export class ResultadoJulgamentoComponent implements OnInit, OnDestroy, AfterCon
           ${ recurso } foi incluída com sucesso.\n
           ${ modelo.texto }`);
       }
+      else {
+        this.mostrarAlerta('error', 'Erro ao cadastrar modelo', 'Tente Novamente Mais Tarde');
+      }
     });
   }
 
   private alertaVistaEDestaque(tipo: string, ministro: Ministro): void {
-    this.mostrarAlerta('success', 'Sucesso', `
-      ${ tipo }
-      ${ this._ministroService.generoEPlural([ministro],
-        { F: 'da Ministra', M: 'do Ministro' })}
-      ${ ministro.nome }
-      incluíd${ tipo == 'Vista'? 'a': 'o'} com sucesso!
-    `);
+    if(ministro) {
+        this.mostrarAlerta('success', 'Sucesso', `
+          ${ tipo }
+          ${ this._ministroService.generoEPlural([ministro],
+            { F: 'da Ministra', M: 'do Ministro' })}
+          ${ ministro.nome }
+          incluíd${ tipo == 'Vista'? 'a': 'o'} com sucesso!
+        `);
+    } else {
+        this.mostrarAlerta('error', `Erro ao Cadastrar ${ tipo }`, 'Tente Novamente Mais Tarde');
+    }
   }
 
   /**
@@ -296,7 +303,7 @@ export class ResultadoJulgamentoComponent implements OnInit, OnDestroy, AfterCon
           next: (vistaSalva) => {
             this._carregarDadosProcessos(); // atualiza a lista de Vistas
             console.log('Vista', vistaSalva);
-            this.alertaVistaEDestaque('Vista', vistaSalva['ministro']);
+            this.alertaVistaEDestaque('Vista', {} as Ministro);
           }
         });
       }
