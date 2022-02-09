@@ -5,7 +5,7 @@ import { registerLocaleData } from '@angular/common';
 import { Capitulo, Envolvido } from 'app/modules/acervo/model/interfaces/capitulo.interface';
 import { Frase } from 'app/modules/acervo/model/interfaces/frase-genero-plural.interface';
 import { Ministro } from 'app/modules/acervo/model/interfaces/ministro.interface';
-import { SessaoJulgamento } from 'app/modules/acervo/model/interfaces/sessao-julgamento.interface';
+import { SessaoDeJulgamento } from 'app/modules/acervo/model/interfaces/sessao-julgamento.interface';
 import { MinistroService } from 'app/modules/services/ministro.service';
 import { Ata } from 'app/modules/acervo/model/interfaces/ata.interface';
 
@@ -21,7 +21,7 @@ registerLocaleData(localePt);
 })
 export class ExtratoAtaComponent implements OnInit {
   @Input() ata: Ata;
-  @Input() sessao: SessaoJulgamento;
+  @Input() sessao: SessaoDeJulgamento;
   @Input() form: any;
 
   tiposCapitulo: string[] = ['Preliminar', 'Mérito', 'Modulação', 'Questão de Ordem', 'Tese'];

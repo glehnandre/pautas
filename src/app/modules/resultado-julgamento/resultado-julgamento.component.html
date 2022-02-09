@@ -16,15 +16,15 @@
             [processo]="processo"
             [colegiado]="parametros.colegiado"
             [votos]="votos"
-            [sessao]="dados?.sessao"
+            [sessao]="sessao"
             [chips]="obterNomeDosChips()"
             *ngIf="processo"
         ></app-cabecalho-relator>
 
         <div class="hidden md:grid md:grid-cols-6 lg:grid lg:grid-cols-10 my-2">
-            <div class="md:col-span-5 lg:col-span-7 my-auto">
+            <div class="md:col-span-5 lg:col-span-6 my-auto">
                 <button
-                    class="mr-2"
+                    class="mr-2 text-sm"
                     color="primary"
                     mat-raised-button
                     (click)="finalizar()"
@@ -34,7 +34,7 @@
 
                 <button
                     mat-raised-button
-                    class="max-w-full mr-2"
+                    class="max-w-full mr-2 text-sm"
                     (click)="exibirModalDeModeloDecisao()"
                 >
                     MODELOS DE TEXTO
@@ -42,7 +42,7 @@
 
                 <button
                     mat-raised-button
-                    class="max-w-full mr-2"
+                    class="max-w-full mr-2 text-sm"
                     (click)="exibirModalDeVista()"
                 >
                     PEDIDOS DE VISTA
@@ -50,28 +50,29 @@
 
                 <button
                     mat-raised-button
-                    class="max-w-full mr-2"
+                    class="max-w-full mr-2 text-sm"
                     (click)="exibirModalDeDestaque()"
+                    *ngIf="sessao?.modalidade == 'VIRTUAL'"
                 >
                     PEDIDOS DE DESTAQUE
                 </button>
 
                 <button
                     mat-raised-button
-                    class="max-w-full mr-2"
+                    class="max-w-full mr-2 text-sm"
                     (click)="exibirModalDeIndicacaoDeImpedimentos()"
                 >
                     IMPEDIMENTOS
                 </button>
 
 
-                <button mat-raised-button class="z-0 md:mt-2" mat-button>
+                <button mat-raised-button class="z-0 md:mt-2 text-sm" mat-button>
                     <span>CANCELAR</span>
                 </button>
             </div>
 
 
-            <div class="md:col-span-1 lg:col-span-3">
+            <div class="md:col-span-1 lg:col-span-4">
                 <app-chips
                     [idChip]="'idChipsResultadoJulgamento'"
                     [chips]="chips"
@@ -153,12 +154,12 @@
                                         </div>
                                         <!-- Actions -->
                                         <div class="mt-4 sm:mt-0 flex justify-between items-center">
-                                            <button mat-raised-button color="primary" (click)="setCapituloSelecionado(null)">
+                                            <button mat-raised-button color="" (click)="setCapituloSelecionado(null)">
                                                 <mat-icon class="mr-1" svgIcon="heroicons_outline:plus-circle"></mat-icon>
                                                 Nova decisão
                                             </button>
 
-                                            <button class="ml-4" *ngIf="!verificarLarguraDaTela()" mat-mini-fab color="primary" (click)="matDrawer.toggle()">
+                                            <button class="ml-4" *ngIf="!verificarLarguraDaTela()" mat-mini-fab color="" (click)="matDrawer.toggle()">
                                                 <mat-icon svgIcon="heroicons_outline:arrow-left"></mat-icon>
                                             </button>
                                         </div>

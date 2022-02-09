@@ -6,7 +6,7 @@ import { Sort } from '@angular/material/sort';
 import { fuseAnimations } from '@fuse/animations';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { DocumentoInteiroTeor } from '../../acervo/model/interfaces/documento-inteiro-teor.interface';
-import { SessaoJulgamento } from '../../acervo/model/interfaces/sessao-julgamento.interface';
+import { SessaoDeJulgamento } from '../../acervo/model/interfaces/sessao-julgamento.interface';
 import { Tag } from '../../acervo/model/interfaces/tag.interface';
 import { RevisarInteiroTeorService } from '../../services/revisar-inteiro-teor.service';
 import { MinistroService } from 'app/modules/services/ministro.service';
@@ -19,7 +19,7 @@ export interface RevisaoInteiroTeor {
     numero: number;
     nome: string;
     tags: Array<Tag>;
-    sessoes: Array<SessaoJulgamento>;
+    sessoes: Array<SessaoDeJulgamento>;
     documentos: Array<DocumentoInteiroTeor>;
 }
 

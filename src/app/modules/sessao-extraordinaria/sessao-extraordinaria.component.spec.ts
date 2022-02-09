@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { EMPTY, Observable } from 'rxjs';
-import { JulgamentoService } from 'app/modules/services/julgamento.service';
+import { SessaoDeJulgamentoService } from 'app/modules/services/sessao-de-julgamento.service';
 
 import { SessaoExtraordinariaComponent } from './sessao-extraordinaria.component';
 
@@ -12,13 +12,13 @@ class MockJulgamentoService {
 describe('SessaoExtraordinariaComponent', () => {
   let component: SessaoExtraordinariaComponent;
   let fixture: ComponentFixture<SessaoExtraordinariaComponent>;
-  let julgamentoService: JulgamentoService;
+  let julgamentoService: SessaoDeJulgamentoService;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       declarations: [ SessaoExtraordinariaComponent ],
       providers: [
-        { provide: JulgamentoService, useClass: MockJulgamentoService },
+        { provide: SessaoDeJulgamentoService, useClass: MockJulgamentoService },
       ]
     })
     .compileComponents();
@@ -27,7 +27,7 @@ describe('SessaoExtraordinariaComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(SessaoExtraordinariaComponent);
     component = fixture.componentInstance;
-    julgamentoService = TestBed.inject(JulgamentoService);
+    julgamentoService = TestBed.inject(SessaoDeJulgamentoService);
     fixture.detectChanges();
   });
 
@@ -47,6 +47,7 @@ describe('SessaoExtraordinariaComponent', () => {
 
   it('Deve encontrar a sessão de julgamento com numero e ano', () => {
     component.sessoes = [{
+      id: 12,
       numero: 1000,
       ano: 2021,
       categoria: '',
@@ -56,6 +57,8 @@ describe('SessaoExtraordinariaComponent', () => {
       modalidade: '',
       tipo: '',
       situacao: 'ABERTA',
+      ata: null,
+      processos: []
     }];
     fixture.detectChanges();
 

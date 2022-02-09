@@ -3,9 +3,11 @@
 >
     <div class="text-center">
         <h2 class="leading-tight text-primary my-0">
-            SESSÃO {{ sessao?.numero }}/{{ sessao?.ano }}
+            Sessão {{ sessao?.modalidade | lowercase }} {{ sessao?.numero }}/{{ sessao?.ano }}
         </h2>
-
+        <p class="text-hint my-0">
+            {{sessao.colegiado}}
+        </p>
         <p class="text-hint my-0">
             Finalizada dia {{sessao?.data_fim | date: 'dd/MM/yyyy'}}
         </p>

@@ -1,33 +1,20 @@
 <form [formGroup]="formFinalizarSessao">
-    <mat-form-field appearance="fill" class="w-full max-w-80 mt-8">
+    <mat-form-field appearance="fill" class="w-full mt-8">
         <mat-label class="font-medium">Secretário da Sessão</mat-label>
-        <input
-            matInput
-            name="secretario"
-            type="text"
-            formControlName="secretario"
-            required
-            [matAutocomplete]="auto"
-            (input)="emitirForm()"
-        >
-        <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete" (optionSelected)="emitirForm()">
-            <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
-              {{option}}
-            </mat-option>
-        </mat-autocomplete>
-        <mat-hint>Informe o secretário ou secretária da sessão</mat-hint>
-        <mat-error class="mb-1" *ngIf="formFinalizarSessao.invalid">
-            {{getErrorMessage()}}
-        </mat-error>
+        <input matInput name="outros" formControlName="secretario">
+        <mat-hint>Informe o secretario da sessão.</mat-hint>
     </mat-form-field>
+
 
     <mat-form-field appearance="fill" class="w-full mt-8">
         <mat-label class="font-medium">Outros presentes</mat-label>
         <input matInput name="outros" formControlName="outrosPresentes" (input)="emitirForm()">
         <mat-hint>Informe o nome de outros presentes caso existam. O texto será gravado e apresentado da forma que foi escrito.</mat-hint>
     </mat-form-field>
+
     <mat-divider class="mb-8 mt-4 -mx-4"></mat-divider>
     <span class="text-2xl font-medium text-primary mt-8">Cabeçalho</span>
+
     <mat-form-field appearance="outline" class="w-full mt-4">
         <mat-label class="font-medium">Digite o cabeçalho ou informações complementares</mat-label>
         <textarea matInput rows="10" name="cabecalho" formControlName="cabecalho" (input)="emitirForm()"></textarea>

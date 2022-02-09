@@ -3,7 +3,7 @@ import { Ministro } from "./ministro.interface";
 
 export interface Ata {
   cabecalho?: string,
-  secretario?: { id: number; nome: string; };
+  secretario?: string;
   outros_presentes?: string,
   total_julgados: number,
   total_vista: number,
