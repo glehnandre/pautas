@@ -33,11 +33,13 @@ export class PautarComponent implements OnInit {
     options: string[] = ['1000', '2000', '3000'];
     filteredOptions: Observable<string[]>;
 
+    errorMessage: string;
+
     constructor(
         private _formBuilder: FormBuilder,
         private _dialog: MatDialog,
         private _julgamentoService: JulgamentoService,
-        private _alertService: AlertaService,
+        private _alertaService: AlertaService,
         private _processoService: ProcessoService,
         private _route: ActivatedRoute,
     ) {
@@ -53,8 +55,15 @@ export class PautarComponent implements OnInit {
             data_inicio: [''],
             data_fim: [''],
         });
-        this._julgamentoService.listarTodasAsSessoesDeJulgamento().subscribe(data=>{
+        this._julgamentoService.listarTodasAsSessoesDeJulgamento().subscribe({
+            next: (data)=>{
             this.sessoes = data;
+            },
+            error: (error) => {
+              console.log(error);
+              this.errorMessage = error.message;
+              this._alertaService.exibirAlerta("Error");
+            }
         });
         this._processoService.obterProcessosSelecionados()
             .subscribe(processos => this.processos = processos);
@@ -72,7 +81,12 @@ export class PautarComponent implements OnInit {
         if (this.pautarForm.valid) {
             this._julgamentoService.pautarProcesso(this.pautarForm.value).subscribe({
                 next: (data) => {
-                    this._alertService.exibirAlertaDeSucesso();
+                    this._alertaService.exibirAlertaDeSucesso();
+                },
+                error: (error) => {
+                  console.log(error);
+                  this.errorMessage = error.message;
+                  this._alertaService.exibirAlerta("Error");
                 }
             });
         }

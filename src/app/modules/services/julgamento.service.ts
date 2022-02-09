@@ -21,12 +21,7 @@ export class JulgamentoService {
   }
 
   public obterDadosDaPautaPeloProcesso(id: number): Observable<Pauta> {
-    return this._httpClient.get<Pauta>(`pautas/${id}`).pipe(
-      catchError((error) => {
-        console.log(error);
-        return EMPTY;
-      })
-    );
+    return this._httpClient.get<Pauta>(`pautas/${id}`);
   }
 
   public socilitarSessaoExtraordinaria(sessaoExtraordinaria: any): Observable<SessaoJulgamento> {
@@ -44,12 +39,7 @@ export class JulgamentoService {
   }
 
   public listarTodasAsSessoesDeJulgamento(): Observable<SessaoJulgamento[]> {
-    return this._httpClient.get<SessaoJulgamento[]>('sessoes-de-julgamento').pipe(
-      catchError((error) => {
-        console.log(error);
-        return EMPTY;
-      }),
-    );
+    return this._httpClient.get<SessaoJulgamento[]>('sessoes-de-julgamento');
   }
 
   public listarProcessosPautadosNasSessoes(numero: number, ano: number,
@@ -62,12 +52,7 @@ export class JulgamentoService {
 
     return this._httpClient.get<Processo[]>(`sessoes-de-julgamento/${numeroAno}/pauta`, {
       params,
-    }).pipe(
-      catchError((error) => {
-        console.log(error);
-        return EMPTY;
-      }),
-    );
+    });
   }
 
   public aprovarSessaoDeJulgamento(numero: number, ano: number, resposta: string): Observable<SessaoJulgamento> {

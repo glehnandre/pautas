@@ -28,7 +28,7 @@ export class FormDecisaoComponent implements OnInit, OnChanges, OnDestroy {
   dispositivos: Dispositivo[] = [];
   compareFn: ((f1: any, f2: any) => boolean) | null = this.compareById;
 
-  errorMensage: StringMap;
+  errorMessage: StringMap;
 
   @Input() processo: Processo;
   @Input() isExibirBtnSalvarDecisao: boolean = false;
@@ -98,7 +98,7 @@ export class FormDecisaoComponent implements OnInit, OnChanges, OnDestroy {
       },
       error: (error)=>{
         console.log(error);
-        this.errorMensage = error.message;
+        this.errorMessage = error.message;
         this._alertaService.exibirAlerta("Error")
       }
     });

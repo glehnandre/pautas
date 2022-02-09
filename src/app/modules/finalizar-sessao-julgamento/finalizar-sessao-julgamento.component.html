@@ -75,19 +75,11 @@
 
     <div class="absolute top-0 right-0 z-10">
         <app-alerta
-            [nome]="'Sessao invalida'"
-            [titulo]="'Erro de validação'"
-            [mensagem]="mensagem"
+            [nome]="alerta.nome"
+            [titulo]="alerta.titulo"
+            [mensagem]="alerta.mensagem"
             [aparencia]="'soft'"
-            [tipo]="'error'"
-            class="w-full"
-        ></app-alerta>
-        <app-alerta
-            [nome]="'Sucesso'"
-            [titulo]="'Sucesso'"
-            [mensagem]="mensagem"
-            [aparencia]="'soft'"
-            [tipo]="'success'"
+            [tipo]="alerta.tipo"
             class="w-full"
         ></app-alerta>
     </div>

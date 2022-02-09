@@ -29,6 +29,8 @@ export class SessaoExtraordinariaComponent implements OnInit {
   processosRemovidos: Processo[] = [];
   processos: Processo[] = [];
 
+  errorMessage: string;
+
   @ViewChild('processoInput') processoInput: ElementRef<HTMLInputElement>;
 
   constructor(
@@ -36,7 +38,7 @@ export class SessaoExtraordinariaComponent implements OnInit {
     private _httpClient: HttpClient,
     private _julgamentoSerivce: JulgamentoService,
     private _dialogRef: MatDialogRef<SessaoExtraordinariaComponent>,
-    private _alertService: AlertaService,
+    private _alertaService: AlertaService,
   ) {
     this.sessaoExtraordinariaForm = this._fb.group({
       data_inicio: ['', [Validators.required]],
@@ -54,8 +56,13 @@ export class SessaoExtraordinariaComponent implements OnInit {
     if (this.sessaoExtraordinariaForm.valid) {
       this._julgamentoSerivce.socilitarSessaoExtraordinaria(this.sessaoExtraordinariaForm.value).subscribe({
         next: (data) => {
-          this._alertService.exibirAlertaDeSucesso();
+          this._alertaService.exibirAlertaDeSucesso();
           this._dialogRef.close();
+        },
+        error: (error) => {
+          console.log(error);
+          this.errorMessage = error.message;
+          this._alertaService.exibirAlerta("Error");
         }
       });
     }

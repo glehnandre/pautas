@@ -148,7 +148,7 @@
         </div>
     </fuse-drawer>
 </div>
-<div class="absolute top-0 right-0 z-10 p-2">
+<!-- <div class="absolute top-0 right-0 z-10 p-2">
     <fuse-alert class="max-w-120 mx-auto"
                 [type]="'error'"
                 [appearance]="'soft'"
@@ -158,6 +158,13 @@
         <span fuseAlertTitle>Nenhuma sessão de julgamento aberta para o periodo encontrada.</span>
         Pode haver sessão de julgamento fechadas para o período.
     </fuse-alert>
-</div>
+</div> -->
 
-
+<app-alerta
+    [nome]="'Error'"
+    [titulo]="'Error'"
+    [mensagem]="errorMessage"
+    [aparencia]="'outline'"
+    [tipo]="'error'"
+    class="absolute top-2 right-2 max-w-120 mx-auto z-40"
+></app-alerta>

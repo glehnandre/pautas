@@ -49,10 +49,12 @@ export class AlterarSessaoComponent implements OnInit {
   colegiadoEscolhido: string = this.colegiados[0].value;
   isFormValido: boolean = true;
 
+  errorMessage: string;
+
   constructor(
     private _julgamentoService: JulgamentoService,
     private _fuseAlertService: FuseAlertService,
-    private _alertService: AlertaService,
+    private _alertaService: AlertaService,
     @Inject(MAT_DIALOG_DATA) public processos: Processo[],
   ) {}
 
@@ -63,6 +65,11 @@ export class AlterarSessaoComponent implements OnInit {
       next: (data) => {
         this.pauta = data;
         this.colegiadoEscolhido = this.pauta.colegiado;
+      },
+      error: (error) => {
+        console.log(error);
+        this.errorMessage = error.message;
+        this._alertaService.exibirAlerta("Error");
       }
     });
   }
@@ -106,7 +113,12 @@ export class AlterarSessaoComponent implements OnInit {
   alterarDataDeJulgamento(): void {
     this._julgamentoService.pautarProcesso(this.pauta).subscribe({
         next: () => {
-            this._alertService.exibirAlertaDeSucesso();
+            this._alertaService.exibirAlertaDeSucesso();
+        },
+        error: (error) => {
+          console.log(error);
+          this.errorMessage = error.message;
+          this._alertaService.exibirAlerta("Error");
         }
     });
   }

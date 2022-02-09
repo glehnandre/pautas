@@ -7,6 +7,7 @@ import { PublicarFormComponent } from './publicar-form/publicar-form.component';
 import { CorrecaoCapituloFormComponent } from './correcao-capitulo-form/correcao-capitulo-form.component';
 import { PublicacaoService } from '../services/publicacao.service';
 import { SessaoJulgamento } from '../acervo/model/interfaces/sessao-julgamento.interface';
+import { AlertaService } from '../services/alerta.service';
 
 interface Parametros {
     numero: number;
@@ -26,12 +27,14 @@ export class RevisarExtratoAtaComponent implements OnInit {
   form: any;
   tags: string[];
 
+  errorMessage: string;
 
   constructor(
       private _julgamentoService: JulgamentoService,
       private _publicacaoService: PublicacaoService,
       private _matDialog: MatDialog,
       private _route: ActivatedRoute,
+      private _alertaService: AlertaService,
   ) { }
 
   ngOnInit(): void {
@@ -54,6 +57,11 @@ export class RevisarExtratoAtaComponent implements OnInit {
     this._julgamentoService.listarSessoesDeJulgamento(this.parametros.numero, this.parametros.ano).subscribe({
       next: (sessao) => {
         this.sessao = sessao;
+      },
+      error: (error) => {
+        console.log(error);
+        this.errorMessage = error.message
+        this._alertaService.exibirAlerta("Error");
       }
     });
   }

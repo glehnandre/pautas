@@ -2,6 +2,7 @@ import { Component, Input, OnChanges, OnInit } from '@angular/core';
 import { SituacaoDoProcesso } from 'app/modules/acervo/model/enums/situacaoDoProcesso.enum';
 import { Processo } from 'app/modules/acervo/model/interfaces/processo.interface';
 import { SessaoJulgamento } from 'app/modules/acervo/model/interfaces/sessao-julgamento.interface';
+import { AlertaService } from 'app/modules/services/alerta.service';
 import { JulgamentoService } from 'app/modules/services/julgamento.service';
 
 @Component({
@@ -16,8 +17,11 @@ export class ProcessosSolicitacaoExtraordinariaComponent implements OnInit, OnCh
 
   processos: Processo[] = [];
 
+  errorMessage: string;
+
   constructor(
     private _julgamentoService: JulgamentoService,
+    private _alertaService: AlertaService,
   ) { }
 
   ngOnInit(): void {
@@ -35,6 +39,11 @@ export class ProcessosSolicitacaoExtraordinariaComponent implements OnInit, OnCh
         ).subscribe({
             next: (processos) => {
                 this.processos = processos;
+            },
+            error: (error) => {
+              console.log(error);
+              this.errorMessage = error.message
+              this._alertaService.exibirAlerta("Error");
             }
         });
     }

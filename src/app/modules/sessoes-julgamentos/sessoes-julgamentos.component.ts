@@ -9,6 +9,7 @@ import { FuseAlertService } from '@fuse/components/alert';
 import { Impedimento } from '../acervo/model/interfaces/impedimento.interface';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { FuseDrawerService } from '@fuse/components/drawer';
+import { AlertaService } from '../services/alerta.service';
 
 @Component({
   selector: 'app-sessoes-julgamentos',
@@ -33,6 +34,8 @@ export class SessoesJulgamentosComponent implements OnInit {
 
   eventsSubject: Subject<any> = new Subject<any>();
 
+  errorMessage: String;
+
   constructor(
     private _processoService: ProcessoService,
     private _julgamentoService: JulgamentoService,
@@ -40,6 +43,7 @@ export class SessoesJulgamentosComponent implements OnInit {
     public sanitizer: DomSanitizer,
     private _fuseDrawerService: FuseDrawerService,
     private _route: ActivatedRoute,
+    private _alertaService: AlertaService,
   ) { }
 
   ngOnInit(): void {
@@ -62,10 +66,17 @@ export class SessoesJulgamentosComponent implements OnInit {
                       this.tags = processo.lista.map(tag => tag.descricao);
                     });
                 },
+                error: (error) => {
+                  console.log(error);
+                  this.errorMessage = error.message
+                  this._alertaService.exibirAlerta("Error");
+                }
             });
         },
-        error: () => {
-            this.isSessaoInvalida();
+        error: (error) => {
+          console.log(error);
+          this.errorMessage = error.message
+          this._alertaService.exibirAlerta("Error");
         }
       });
   }

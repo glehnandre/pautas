@@ -1,5 +1,12 @@
 import { Component, Input, OnInit } from '@angular/core';
 
+export interface Alerta{
+  nome: string;
+  tipo: string;
+  titulo: string;
+  mensagem: string;
+}
+
 @Component({
   selector: 'app-alerta',
   templateUrl: './alerta.component.html',

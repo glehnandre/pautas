@@ -8,6 +8,7 @@ import { JulgamentoService } from 'app/modules/services/julgamento.service';
 import { Filtros } from './filtros';
 import { MinistroService } from 'app/modules/services/ministro.service';
 import { ActivatedRoute } from '@angular/router';
+import { AlertaService } from 'app/modules/services/alerta.service';
 
 interface ministros {
   ministro: Ministro,
@@ -40,6 +41,8 @@ export class FiltroDialogComponent implements OnInit {
   categoriasLista: string[] = ['REPERCUSSAO_GERAL'];
   modalidadesLista: string[] = ['VIRTUAL'];
 
+  errorMessage: string;
+
   queryParams: {
     numero: number,
     ano: number,
@@ -57,6 +60,7 @@ export class FiltroDialogComponent implements OnInit {
     public dialogRef: MatDialogRef<FiltroDialogComponent>,
     private fb: FormBuilder,
     private _route: ActivatedRoute,
+    private _alertaService: AlertaService,
     @Inject(MAT_DIALOG_DATA) data
   ) {
     this.filtros.termo = data.filtros;
@@ -94,7 +98,8 @@ export class FiltroDialogComponent implements OnInit {
           });
         })
         const { numero, ano, data_inicio, data_fim } = sessao;
-        this._julgamentoService.listarProcessosPautadosNasSessoes(numero, ano, SituacaoDoProcesso.Pautado, data_inicio, data_fim).subscribe(processos=>{
+        this._julgamentoService.listarProcessosPautadosNasSessoes(numero, ano, SituacaoDoProcesso.Pautado, data_inicio, data_fim).subscribe({
+          next: (processos) => {
           processos.forEach(processo=>{
             this.processos.push(processo);
             if(this.classes.indexOf(processo.classe)==-1){
@@ -106,7 +111,18 @@ export class FiltroDialogComponent implements OnInit {
               }
             })
           });
+        },
+        error: (error) => {
+          console.log(error);
+          this.errorMessage = error.message
+          this._alertaService.exibirAlerta("Error");
+        }
         });
+      },
+      error: (error) => {
+        console.log(error);
+        this.errorMessage = error.message
+        this._alertaService.exibirAlerta("Error");
       }
     });
   }

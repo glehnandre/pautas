@@ -15,18 +15,12 @@ import { ClasseService } from '../../services/classe.service';
 import { DispositivoService } from '../../services/dispositivo.service';
 import { RecursoService } from '../../services/recurso.service';
 import { ProcessoService } from '../../services/processo.service';
+import { Alerta } from 'app/shared/alerta/alerta.component';
 
 interface ModeloDecisaoData {
   processo: {
     id: number;
   },
-}
-
-interface Alerta {
-  nome: string;
-  tipo: string;
-  titulo: string;
-  mensagem: string;
 }
 
 @Component({
