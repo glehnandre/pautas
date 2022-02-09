@@ -51,11 +51,8 @@ export class RevisarExtratoAtaComponent implements OnInit {
   }
 
   private getSessaoDeJulgamento() {
-    console.log("%cInicio Revisão", "font-size: 15px; font-color:blue");
     this._julgamentoService.listarSessoesDeJulgamento(this.parametros.numero, this.parametros.ano).subscribe({
       next: (sessao) => {
-        console.log("Sessão");
-        console.log(sessao);
         this.sessao = sessao;
       }
     });

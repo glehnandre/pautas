@@ -70,9 +70,6 @@ export class FormModeloDecisaoComponent implements OnInit {
         this.exibirSugestoes = true;
       }
     });
-    console.log("Modelo");
-    console.log(this.modelo);
-    console.log(this.modelo.id);
   }
 
   public buscarDispositivos(): void {

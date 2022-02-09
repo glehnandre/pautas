@@ -1,4 +1,3 @@
-import { T } from '@angular/cdk/keycodes';
 import { ChangeDetectorRef, Component, EventEmitter, Input, OnChanges, OnDestroy, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatSelectChange } from '@angular/material/select';
@@ -10,7 +9,7 @@ import { DispositivoService } from 'app/modules/services/dispositivo.service';
 import { MinistroService } from 'app/modules/services/ministro.service';
 import { ProcessoService } from 'app/modules/services/processo.service';
 import { Observable } from 'rxjs';
-import {  map } from 'rxjs/operators';
+import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-form-decisao',
@@ -25,16 +24,13 @@ export class FormDecisaoComponent implements OnInit, OnChanges, OnDestroy {
   idsDosProcessos: number[] = [];
   limparProcessosSelecionados: boolean = false;
   dispositivos: Dispositivo[] = [];
+  compareFn: ((f1: any, f2: any) => boolean) | null = this.compareById;
 
-  @Input() idProcesso: number = 0;
   @Input() processo: Processo;
-  @Input() isDesabilitarForm: boolean = false;
-  @Input() isExibirBtnAdicionarDecisao: boolean = false;
   @Input() isExibirBtnSalvarDecisao: boolean = false;
   @Input() isExibirBtnExcluirCapitulo: boolean = false;
-  @Input() isExibirBtnModeloDecisao: boolean = false;
   @Input() capitulo: Capitulo = {
-    id: 0,
+    id: null,
     descricao: "",
     dispositivo: null,
     ministro_condutor: null,
@@ -46,12 +42,8 @@ export class FormDecisaoComponent implements OnInit, OnChanges, OnDestroy {
     processos_mesma_decisao: []
   };
 
-  @Output() dadosDoCapitulo = new EventEmitter<{
-    capitulo: Capitulo;
-    processos_mesma_decisao: number[];
-  }>();
+  @Output() dadosDoCapitulo = new EventEmitter<Capitulo[]>();
 
-  @Output() excluirDadosDoCapitulo = new EventEmitter<boolean>();
 
   constructor(
     private _fb: FormBuilder,
@@ -63,7 +55,10 @@ export class FormDecisaoComponent implements OnInit, OnChanges, OnDestroy {
 
   ngOnInit(): void {
     this._recarregarOsDados();
+    console.log("CARREGANDO DADO DO CAPITULO....");
+    console.log(this.capitulo);
     this.formDecisao = this._fb.group({
+      id: [this.capitulo.id],
       descricao: [this.capitulo.descricao, Validators.required],
       tipo: [this.capitulo.tipo, Validators.required],
       dispositivo: [this.capitulo.dispositivo, Validators.required],
@@ -72,6 +67,7 @@ export class FormDecisaoComponent implements OnInit, OnChanges, OnDestroy {
       texto: [this.capitulo.texto, Validators.required],
       processos_mesma_decisao: [this.capitulo.processos_mesma_decisao]
     });
+    console.log(this.formDecisao);
   }
 
   ngOnChanges(): void {
@@ -92,11 +88,21 @@ export class FormDecisaoComponent implements OnInit, OnChanges, OnDestroy {
   public buscarDispositivos(event: EventEmitter<MatSelectChange>): void {
     const tipo: string = event['value'];
 
-    this._dispositivoService.obterDispositivos(this.idProcesso, tipo).subscribe({
+    this._dispositivoService.obterDispositivos(this.processo.id, tipo).subscribe({
       next: (dispositivos) => {
         this.dispositivos = dispositivos;
       }
     });
+  }
+
+  /**
+   * @public Método público
+   * @param dois objetos que tenham o atributo id para comparar
+   * @description deve ser usado para mat-select que carreguem objetos
+   * @author Andre von
+   */
+  compareById(f1: any, f2: any) { 
+    return f1 && f2 && f1.id === f2.id; 
   }
 
   /**
@@ -144,19 +150,10 @@ export class FormDecisaoComponent implements OnInit, OnChanges, OnDestroy {
    * @description Método para adicionar uma Decisão a lista de decisões
    * @author Douglas da Silva Monteles
    */
-  public adicionarDecisao(): void {
-    this._emitirOsDadosDoCapitulo();
+  public _atualizarCapitulos(capitulos: Capitulo[]): void {
+    this.dadosDoCapitulo.emit(capitulos);
     this.formDecisao.reset();
     this.limparProcessosSelecionados = true;
-  }
-
-  /**
-   * @public Método público
-   * @description Método para emitir um evento autorizando a exclusão de uma Decisão
-   * @author Douglas da Silva Monteles
-   */
-  public excluirCapitulo(): void {
-    this.excluirDadosDoCapitulo.emit(true);
   }
 
   /**
@@ -164,14 +161,29 @@ export class FormDecisaoComponent implements OnInit, OnChanges, OnDestroy {
    * @description Método para salvar uma Decisão via requisição POST
    * @author Douglas da Silva Monteles
    */
-  public salvarDecisao(): void {
+  public salvarCapitulo(): void {
     if (this.formDecisao.valid) {
-      this._processoService.salvarCapitulo(this.idProcesso, {
+      this._processoService.salvarCapitulo(this.processo.id, {
         capitulo: this.formDecisao.value,
         processos_mesma_decisao: this.idsDosProcessos,
       }).subscribe({
         next: (data) => {
-          this.excluirCapitulo();
+          this._atualizarCapitulos(data);
+          this.formDecisao.reset();
+        }
+      });
+    }
+  }
+
+  public excluirCapitulo(): void {
+    if (this.formDecisao.valid) {
+      console.log("Removendo capitulos....");
+      console.log(this.processo.id);
+      console.log(this.capitulo.id);
+      this._processoService.excluirCapitulo(this.processo.id, this.capitulo.id).subscribe({
+        next: (data) => {
+          console.log(data);
+          this._atualizarCapitulos(data);
           this.formDecisao.reset();
         }
       });
@@ -184,7 +196,6 @@ export class FormDecisaoComponent implements OnInit, OnChanges, OnDestroy {
    * @author Douglas da Silva Monteles
    */
   private _recarregarOsDados(): void {
-
     this.ministros$ = this._ministroService.listarMinistros().pipe(
       map(ministros => this._filtrarMinistros(ministros)),
     );
@@ -213,8 +224,8 @@ export class FormDecisaoComponent implements OnInit, OnChanges, OnDestroy {
    * @description Método para emitir um evento contendo os dados de Decisao
    * @author Douglas da Silva Monteles
    */
-  private _emitirOsDadosDoCapitulo(): void {
-    this.dadosDoCapitulo.emit(this.formDecisao.value);
+  private _emitirOsDadosDoCapitulo(capitulos: Capitulo[]): void {
+
   }
 
 }

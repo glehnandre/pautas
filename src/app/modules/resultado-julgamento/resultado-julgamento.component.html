@@ -270,22 +270,16 @@
                             <app-form-decisao
                                 *ngIf="!capituloSelecionado; else exibirDecisaoNoForm"
                                 [processo]="processo"
-                                [isExibirBtnAdicionarDecisao]="true"
-                                [isExibirBtnModeloDecisao]="true"
-                                (dadosDoCapitulo)="adicionarCapitulo($event)"
                             ></app-form-decisao>
 
                             <ng-template #exibirDecisaoNoForm>
                                 <app-form-decisao
                                     *ngIf="exibirListaDeDecisoes"
-                                    [isDesabilitarForm]="isCapituloSalvo()"
-                                    [idProcesso]="parametros.processo"
                                     [capitulo]="capituloSelecionado"
                                     [processo]="processo"
                                     [isExibirBtnSalvarDecisao]=true
                                     [isExibirBtnExcluirCapitulo]=true
-                                    (dadosDoCapitulo)="excluirCapitulo($event)"
-                                    (excluirDadosDoCapitulo)="excluirCapitulo($event)"
+                                    (dadosDoCapitulo)="atualizarCapitulos($event)"
                                 ></app-form-decisao>
                             </ng-template>
                         </div>

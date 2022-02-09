@@ -193,13 +193,11 @@ export class ResultadoJulgamentoComponent implements OnInit, OnDestroy, AfterCon
    * @author Douglas da Silva Monteles
    * TODO andre.glehn falta remover do servidor
    */
-  public excluirCapitulo(decisao: Decisao): void {
-     const index = this.todosCapitulos
-       .findIndex(d => JSON.stringify(d) === JSON.stringify(this.capituloSelecionado));
-     if (index !== -1) {
-       this.todosCapitulos.splice(index, 1);
+  public atualizarCapitulos(capitulos: Capitulo[]): void {
+       console.log("Atualizando os capitulos");
+       this.todosCapitulos = capitulos;
+       console.log(this.todosCapitulos);
        this.setCapituloSelecionado(null);
-     }
   }
 
   /**
@@ -209,11 +207,11 @@ export class ResultadoJulgamentoComponent implements OnInit, OnDestroy, AfterCon
    * @returns boolean
    * @author Douglas da Silva Monteles
    */
-  public isCapituloSalvo(): boolean {
+  public habilitarUpdate(): boolean {
     if (this.capituloSelecionado.id !== undefined && this.capituloSelecionado.id > 0) {
-      return true;
+      return false;
     }
-    return false;
+    return true;
   }
 
   /**
@@ -302,8 +300,7 @@ export class ResultadoJulgamentoComponent implements OnInit, OnDestroy, AfterCon
         this._processoService.salvarVistaDoProcesso(this.parametros.processo, vista).subscribe({
           next: (vistaSalva) => {
             this._carregarDadosProcessos(); // atualiza a lista de Vistas
-            console.log('Vista', vistaSalva);
-            this.alertaVistaEDestaque('Vista', {} as Ministro);
+            this.alertaVistaEDestaque('Vista', vistaSalva['ministro']);
           }
         });
       }
@@ -335,7 +332,7 @@ export class ResultadoJulgamentoComponent implements OnInit, OnDestroy, AfterCon
         this._processoService.salvarDestaqueDoProcesso(this.parametros.processo, destaque).subscribe({
           next: (destaqueSalvo) => {
             this._carregarDadosProcessos(); // atualiza a lista de Destaque
-            console.log('Destaque', destaqueSalvo);
+
             this.alertaVistaEDestaque('Destaque', destaqueSalvo['ministro']);
           }
         });

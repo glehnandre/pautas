@@ -60,14 +60,10 @@ export class DecisaoMockApi {
           const id: number = +urlParams.id;
           const index = this._modeloDecisao.findIndex(m => m.id === id);
           const body = request.body;
-          console.log("%cModelo Decisão", "font-size:20px;font-color:blue");
-          console.log(body);
-          console.log(index);
           if (index !== -1) {
             const dispositivo = dispositivos.find(d => d.id === body.dispositivo);
             this._modeloDecisao.splice(index, 1);
             this._modeloDecisao.push({...body, id, dispositivo});
-            console.log(index);
             setStorage('modelosDecisao', this._modeloDecisao);
             return [200, this._modeloDecisao[index]];
           }

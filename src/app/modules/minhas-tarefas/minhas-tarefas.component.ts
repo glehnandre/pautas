@@ -1,6 +1,6 @@
 import { Component, HostListener, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
+import { FuseAlertService } from '@fuse/components/alert';
 import { ITask } from '../acervo/model/interfaces/itask.interface';
 import { FormComentarioComponent } from './form-comentario/form-comentario.component';
 
@@ -11,35 +11,21 @@ import { FormComentarioComponent } from './form-comentario/form-comentario.compo
 })
 export class MinhasTarefasComponent implements OnInit {
 
-    url: SafeResourceUrl = '';
-    urlSelecionada: boolean = false;
-
     panelOpenState: boolean = false;
-    filtrosSelecionados: any;
     tarefas: ITask[] = [];
     tarefasSelecionadas: ITask[] = [];
+    alerta: { titulo: string; mensagem: string } = null;
+    timeout = null;
+
+    readonly NOME_DO_ALERTA = 'minhas-tarefas-alert';
 
     constructor(
-        private _sanitizer: DomSanitizer,
         private _dialog: MatDialog,
+        private _fuseAlertService: FuseAlertService,
     ) {}
 
     ngOnInit(): void {
-        this.url = this._sanitizer.bypassSecurityTrustResourceUrl('');
-    }
-
-    mostrarPagina(): void {
-        this.urlSelecionada = true;
-        this.url = this._sanitizer.bypassSecurityTrustResourceUrl('http://localhost:4200/criacao-colegiado?processo=ADI100-Ag-Ag-Ag&data=2016-08-29T09%253A12%253A33.001Z&colegiado=pleno&sessao=1000-2021');
-    }
-
-    mostrarOutraPagina(): void {
-        this.urlSelecionada = true;
-        this.url = this._sanitizer.bypassSecurityTrustResourceUrl('/acervo');
-    }
-
-    public obterFiltrosSelecionados(filtros: any): void {
-        this.filtrosSelecionados = filtros;
+        
     }
 
     @HostListener("window:resize")
@@ -52,7 +38,7 @@ export class MinhasTarefasComponent implements OnInit {
     }
 
     public abrirModalDeIncluirComentario(): void {
-        if (!this._isTarefasSelecionadasVazia()) {
+        if (!this._isTarefasSelecionadasVazia() && !this._isLimiteDeSelecaoAtingido(1)) {
             const dialogRef = this._dialog.open(FormComentarioComponent, {
                 data: {
                     tarefas: [...this.tarefasSelecionadas],
@@ -63,6 +49,34 @@ export class MinhasTarefasComponent implements OnInit {
 
     private _isTarefasSelecionadasVazia(): boolean {
         return this.tarefasSelecionadas.length === 0;
+    }
+
+    private _isLimiteDeSelecaoAtingido(limite?: number) {
+        if (limite) {
+            if (this.tarefasSelecionadas.length > limite) {   
+                this.alerta = {
+                    titulo: 'Limite atingido',
+                    mensagem: `Para executar essa funcionalidade, selecione no máximo ${limite} tarefa(as).`,
+                };
+                
+                this._exibirAlerta();
+                return true;
+            }
+
+            return false;
+        }
+        return false;
+    }
+
+    private _exibirAlerta(): void {
+        this._fuseAlertService.show(this.NOME_DO_ALERTA);
+
+        clearTimeout(this.timeout);
+    
+        this.timeout = setTimeout(() => {
+            this._fuseAlertService.dismiss(this.NOME_DO_ALERTA);
+            this.alerta = null;
+        }, 6000);
     }
 
 }

@@ -78,32 +78,6 @@ export class PublicacoesComponent implements OnInit, OnDestroy{
       }
   }
 
-  trataParams(){
-    this.filtrados = this.publicacoes;
-
-    const params = this._route.snapshot.queryParams;
-    const palavraChave = params['Palavra-Chave'];
-    const periodo = params['Periodo'];
-    const numeroProcesso = params['Numero-do-processo'];
-
-
-    if(palavraChave){
-      palavraChave.split("_").forEach(param=>{
-        this.termo = param;
-        this.atualizaPesquisa();
-      })
-    }
-    if(periodo){
-      this.data_inicio = periodo.split("_")[0];
-      this.data_fim = periodo.split("_")[1];
-      
-      this.filtraData({data_inicio: this.data_inicio, data_fim: this.data_fim});
-    }
-    if(numeroProcesso){
-      this.trataProcesso(numeroProcesso);
-    }
-  }
-
   /**
    * On destroy
    */
@@ -237,7 +211,7 @@ export class PublicacoesComponent implements OnInit, OnDestroy{
   trataProcesso(numeroProcesso: string){
     this.hasNumeroProcesso = true;
     let filtros = [];
-    this.filtrar(numeroProcesso).forEach(filtrado=>{
+    this.filtrar(numeroProcesso.toString()).forEach(filtrado=>{
       if(filtros.indexOf(filtrado)==-1) filtros.push(filtrado);
     })
     this.filtrados = filtros;
@@ -324,6 +298,35 @@ export class PublicacoesComponent implements OnInit, OnDestroy{
   alertaFiltroVazio() {
     if(this.pesquisas.length == 0) {
       this._alertaService.exibirAlerta('Filtro Vazio');
+    }
+  }
+
+  /**
+   * Atualiza as publicações que serão exibidas de acordo com os queryParams
+   */
+   trataParams(){
+    this.filtrados = this.publicacoes;
+
+    let params = this._route.snapshot.queryParams;
+    const palavraChave = params['Palavra-Chave'];
+    const periodo = params['Periodo'];
+    const numeroProcesso = params['Numero-do-processo'];
+
+
+    if(palavraChave){
+      palavraChave.split("_").forEach(param=>{
+        this.termo = param;
+        this.atualizaPesquisa();
+      })
+    }
+    if(periodo){
+      this.data_inicio = periodo.split("_")[0];
+      this.data_fim = periodo.split("_")[1];
+      
+      this.filtraData({data_inicio: this.data_inicio, data_fim: this.data_fim});
+    }
+    if(numeroProcesso){
+      this.trataProcesso(numeroProcesso);
     }
   }
 }
