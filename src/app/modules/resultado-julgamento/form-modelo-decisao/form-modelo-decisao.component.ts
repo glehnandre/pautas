@@ -22,6 +22,13 @@ interface ModeloDecisaoData {
   },
 }
 
+interface Alerta {
+  nome: string;
+  tipo: string;
+  titulo: string;
+  mensagem: string;
+}
+
 @Component({
   selector: 'app-form-modelo-decisao',
   templateUrl: './form-modelo-decisao.component.html',
@@ -39,6 +46,8 @@ export class FormModeloDecisaoComponent implements OnInit {
   modelo: ModeloDecisao = { id: 0 } as ModeloDecisao;
   linhaAtualDoTexto: number = 1;
   exibirSugestoes: boolean = false;
+  
+  alerta: Alerta = {} as Alerta;
 
   constructor(
     private _fb: FormBuilder,
@@ -59,9 +68,21 @@ export class FormModeloDecisaoComponent implements OnInit {
       dispositivo:      [this.modelo.dispositivo,   Validators.required],
     });
   }
-
+  
   ngOnInit(): void {
-    this.classes$ = this._classeService.getClasses();
+    this.classes$ = this._classeService.getClasses().pipe(
+      catchError((error) => {
+        console.log(error);
+        this.alerta = {
+          nome: "Error", 
+          tipo: "error", 
+          titulo: "Erro",
+          mensagem: error.message
+        }
+        this._alertaService.exibirAlerta("Error")
+        return EMPTY;
+      }),
+    );
     this.recursos$ = this._recursoService.obterListaDeRecursos();
 
     this.formModeloDecisao.controls.texto.valueChanges.subscribe((texto: string) => {
@@ -94,6 +115,12 @@ export class FormModeloDecisaoComponent implements OnInit {
           catchError(() => {
             this.modelo = { id: 0 } as ModeloDecisao;
             this.formModeloDecisao.controls.texto.setValue('');
+            this.alerta = {
+              nome: "aviso-form-modelo-decisao", 
+              tipo: "warning", 
+              titulo: "Aviso",
+              mensagem: "Não foi encontrando nenhum modelo de decisão com estes parâmetros."
+            }
             this._alertaService.exibirAlerta('aviso-form-modelo-decisao');
             return EMPTY;
           })

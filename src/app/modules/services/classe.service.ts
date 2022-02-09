@@ -14,12 +14,7 @@ export class ClasseService {
   ) { }
 
   public getClasses(): Observable<Classe[]> {
-    return this._httpClient.get<Classe[]>('classes').pipe(
-        catchError(error => {
-          console.log(error);
-          return EMPTY;
-        })
-      );
+    return this._httpClient.get<Classe[]>('classes');
   }
 
 }
