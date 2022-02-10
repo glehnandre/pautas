@@ -2,7 +2,7 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Ministro } from 'app/modules/acervo/model/interfaces/ministro.interface';
 import { MinistroService } from 'app/modules/services/ministro.service';
-import { Observable } from 'rxjs';
+import { EMPTY, Observable } from 'rxjs';
 
 import {
   MAT_MOMENT_DATE_FORMATS,
@@ -13,6 +13,8 @@ import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/materia
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { TipoRecursoDto } from 'app/modules/acervo/model/interfaces/tipoRecursoDto';
 import { RecursoService } from 'app/modules/services/recurso.service';
+import { catchError } from 'rxjs/operators';
+import { AlertaService } from 'app/modules/services/alerta.service';
 
 
 interface FormVistaEDestaqueData {
@@ -40,10 +42,13 @@ export class FormVistaEDestaqueComponent implements OnInit {
   ministros$: Observable<Ministro[]>;
   recursos$: Observable<TipoRecursoDto[]>;
 
+  errorMessage: string;
+
   constructor(
     private _fb: FormBuilder,
     private _ministroService: MinistroService,
     private _recursoService: RecursoService,
+    private _alertaService: AlertaService,
     public dialogRef: MatDialogRef<FormVistaEDestaqueComponent>,
     @Inject(MAT_DIALOG_DATA) public data: FormVistaEDestaqueData,
   ) { 
@@ -65,7 +70,14 @@ export class FormVistaEDestaqueComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.ministros$ = this._ministroService.listarMinistros();
+    this.ministros$ = this._ministroService.listarMinistros().pipe(
+      catchError(error => {
+        console.log(error);
+        this.errorMessage =  error.message;
+        this._alertaService.exibirAlerta("Error")
+        return EMPTY;
+      })
+    );
     this.recursos$ = this._recursoService.obterListaDeRecursos();
   }
 

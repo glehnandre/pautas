@@ -4,13 +4,15 @@ import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { Sort } from '@angular/material/sort';
 import { fuseAnimations } from '@fuse/animations';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { BehaviorSubject, EMPTY, Observable } from 'rxjs';
 import { DocumentoInteiroTeor } from '../../acervo/model/interfaces/documento-inteiro-teor.interface';
 import { SessaoDeJulgamento } from '../../acervo/model/interfaces/sessao-julgamento.interface';
 import { Tag } from '../../acervo/model/interfaces/tag.interface';
 import { RevisarInteiroTeorService } from '../../services/revisar-inteiro-teor.service';
 import { MinistroService } from 'app/modules/services/ministro.service';
 import { Ministro } from 'app/modules/acervo/model/interfaces/ministro.interface';
+import { catchError } from 'rxjs/operators';
+import { AlertaService } from 'app/modules/services/alerta.service';
 
 export interface RevisaoInteiroTeor {
     id_processo: number;
@@ -43,10 +45,13 @@ export class TabelaComponent implements OnInit {
 
   ministros$: Observable<Ministro[]>
 
+  errorMessage: string;
+
   constructor(
     private _inteiroTeorService: RevisarInteiroTeorService,
     private _ministroService: MinistroService,
     private _formBuilder: FormBuilder,
+    private _alertaService: AlertaService,
   ) { }
 
   ngOnInit(): void {
@@ -61,7 +66,14 @@ export class TabelaComponent implements OnInit {
         ordem                : [''],
     });
 
-    this.ministros$ = this._ministroService.listarMinistros();
+    this.ministros$ = this._ministroService.listarMinistros().pipe(
+      catchError(error => {
+        console.log(error);
+        this.errorMessage =  error.message;
+        this._alertaService.exibirAlerta("Error")
+        return EMPTY;
+      })
+    );
   }
 
   emiteStatusDoCheckbox(documento: DocumentoInteiroTeor): void {

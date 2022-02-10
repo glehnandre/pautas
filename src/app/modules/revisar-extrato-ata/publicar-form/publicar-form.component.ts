@@ -4,11 +4,13 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { default as _rollupMoment } from 'moment';
 import { MomentDateAdapter, MAT_MOMENT_DATE_ADAPTER_OPTIONS } from '@angular/material-moment-adapter';
 import { DateAdapter, MAT_DATE_LOCALE, MAT_DATE_FORMATS } from '@angular/material/core';import * as _moment from 'moment';
-import { Observable } from 'rxjs';
+import { EMPTY, Observable } from 'rxjs';
 
 import { Ministro } from 'app/modules/acervo/model/interfaces/ministro.interface';
 import { MinistroService } from 'app/modules/services/ministro.service';
 import { SessaoDeJulgamento } from 'app/modules/acervo/model/interfaces/sessao-julgamento.interface';
+import { catchError } from 'rxjs/operators';
+import { AlertaService } from 'app/modules/services/alerta.service';
 
 const moment = _rollupMoment || _moment;
 
@@ -24,6 +26,7 @@ const DATE_FORMATS = {
   },
 };
 
+
 @Component({
   selector: 'app-publicar-form',
   templateUrl: './publicar-form.component.html',
@@ -34,29 +37,32 @@ const DATE_FORMATS = {
       useClass: MomentDateAdapter,
       deps: [MAT_DATE_LOCALE, MAT_MOMENT_DATE_ADAPTER_OPTIONS]
     },
-
+    
     {provide: MAT_DATE_FORMATS, useValue: DATE_FORMATS},
   ],
 })
 
 export class PublicarFormComponent implements OnInit {
-
+  
   ministros: Observable<Ministro[]>;
   formPublicacao: FormGroup;
   date: FormControl = new FormControl(moment())
   ministrosPresentes: Set<Ministro> = new Set();
   ministrosAusentes: Set<Ministro> = new Set();
-
+  
   opcoesDataPublicacao = [
-      { value: 0, view: 'Publicar Automaticamente' },
-      { value: 1, view: 'Publicar na Próxima Sessão' },
-      { value: 2, view: 'Publicar em uma Data' }
-    ]
-
+    { value: 0, view: 'Publicar Automaticamente' },
+    { value: 1, view: 'Publicar na Próxima Sessão' },
+    { value: 2, view: 'Publicar em uma Data' }
+  ]
+  
+  errorMessage: string;
+  
   constructor(
     private _ministroService: MinistroService,
     private _formBuilder: FormBuilder,
     private _dialogRef: MatDialogRef<PublicarFormComponent>,
+    private _alertaService: AlertaService,
     @Inject(MAT_DIALOG_DATA) private sessao: SessaoDeJulgamento,
   ) {}
 
@@ -65,7 +71,14 @@ export class PublicarFormComponent implements OnInit {
       opcaoData: ['', Validators.required],
       dataPublicacao: ['', Validators.required],
     });
-    this.ministros = this._ministroService.listarMinistros();
+    this.ministros = this._ministroService.listarMinistros().pipe(
+      catchError(error => {
+        console.log(error);
+        this.errorMessage =  error.message;
+        this._alertaService.exibirAlerta("Error")
+        return EMPTY;
+      })
+    );
   }
 
   dataAutomatica(value: number): void {
