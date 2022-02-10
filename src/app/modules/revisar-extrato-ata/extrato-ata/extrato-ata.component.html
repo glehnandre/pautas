@@ -93,11 +93,10 @@
                                         <div class="mb-4" [innerHtml]="fraseEMinistros(capitulo?.ministros_divergem, FraseDivergem)"></div>
                                 </div>
                             </div>
-                            <hr class="mb-2" /> 
-                        </div>  
-                        
+                        </div>
+                        <hr class="mb-2" />
                         <div *ngIf="processo.redator" class="mb-4 font-medium" [innerHtml]="fraseEMinistros([processo?.redator], FraseRedator)">
-                        </div> 
+                        </div>
                     </div>
                     <div class="mb-2" [innerHtml]="
                       fraseEMinistros(ata?.ministros_ausentes, FraseAusentes)
