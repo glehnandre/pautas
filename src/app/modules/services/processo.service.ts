@@ -31,12 +31,7 @@ export class ProcessoService {
   public listarProcessos(params?: HttpParams): Observable<Processo[]> {
     return this._httpClient.get<Processo[]>('processos', {
       params
-    }).pipe(
-      catchError((error) => {
-        console.log(error);
-        return EMPTY;
-      })
-    );
+    });
   }
 
   public reanalizarProcesso(id: number, body: {descricao: string; data: string}): Observable<void> {
@@ -44,13 +39,7 @@ export class ProcessoService {
   }
 
   public obterStatusDoProcesso(id: number): Observable<StatusProcesso> {
-    return this._httpClient.get<StatusProcesso>(`processos/${id}/situacao`)
-      .pipe(
-        catchError((error) => {
-          console.log(error);
-          return EMPTY;
-        })
-      );
+    return this._httpClient.get<StatusProcesso>(`processos/${id}/situacao`);
   }
 
   public obterDocumentosDoProcesso(id: number): Observable<Documento[]> {

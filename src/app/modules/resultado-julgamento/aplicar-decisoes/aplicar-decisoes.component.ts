@@ -1,6 +1,7 @@
 import { Component, EventEmitter, Input, OnChanges, OnInit, Output } from '@angular/core';
 import { MatCheckboxChange } from '@angular/material/checkbox';
 import { Processo } from 'app/modules/acervo/model/interfaces/processo.interface';
+import { AlertaService } from 'app/modules/services/alerta.service';
 import { ProcessoService } from 'app/modules/services/processo.service';
 
 @Component({
@@ -20,12 +21,22 @@ export class AplicarDecisoesComponent implements OnInit, OnChanges {
   processosSelecionados: number[] = [];
   isCarregando: boolean = true;
 
+  errorMessage: string;
+
   constructor(
     private _processoService: ProcessoService,
+    private _alertaService: AlertaService,
   ) {
-    this._processoService.listarProcessos().subscribe(data => {
-      this.processos = data;
-      this.isCarregando = false;
+    this._processoService.listarProcessos().subscribe({
+      next: (data) => {
+        this.processos = data;
+        this.isCarregando = false;
+      },
+      error: (error) => {
+        console.log(error);
+        this.errorMessage = error.message
+        this._alertaService.exibirAlerta("Error");
+      }
     });
   }
 

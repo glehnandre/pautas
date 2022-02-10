@@ -24,6 +24,7 @@ import { MinistroService } from '../services/ministro.service';
 import { Ministro } from '../acervo/model/interfaces/ministro.interface';
 import { SessaoDeJulgamento } from '../acervo/model/interfaces/sessao-julgamento.interface';
 import { SessaoDeJulgamentoService } from '../services/sessao-de-julgamento.service';
+import { Alerta } from 'app/shared/alerta/alerta.component';
 
 
 interface Parametros {
@@ -59,11 +60,7 @@ export class ResultadoJulgamentoComponent implements OnInit, OnDestroy, AfterCon
   exibirChips = true;
   chips: Array<{id?: number; nome: string}> = [];
 
-  public alerta: {
-    titulo: string;
-    mensagem: string;
-    tipo: 'primary'|'accent'|'warn'|'basic'|'info'|'success'|'warning'|'error';
-  };
+  alerta: Alerta = {} as Alerta;
 
   readonly FORM_CADASTRO_DECISAO = 'formulario-de-cadastro-de-decisao';
 
@@ -82,11 +79,6 @@ export class ResultadoJulgamentoComponent implements OnInit, OnDestroy, AfterCon
     this.parametros = this._route.snapshot.queryParams as Parametros;
     this._carregarDadosProcessos();
     this._carregarSessaoDeJulgamento(this.parametros.numero, this.parametros.ano);
-    this.alerta = {
-      titulo: '',
-      mensagem: '',
-      tipo: 'basic'
-    };
   }
 
   ngAfterContentChecked(): void {
@@ -488,7 +480,12 @@ export class ResultadoJulgamentoComponent implements OnInit, OnDestroy, AfterCon
             this.votos = votos;
           }
         });
+      },
+      error: (error) => {
+        console.log(error);
+        this.mostrarAlerta("error", "Error", error.message);
       }
+      
     });
   }
 
@@ -583,7 +580,12 @@ export class ResultadoJulgamentoComponent implements OnInit, OnDestroy, AfterCon
     titulo: string,
     mensagem: string,
   ): void {
-    this.alerta = { tipo, titulo, mensagem };
-    this._alertaService.exibirAlerta('alerta-resultado-julgamento')
+    this.alerta = {
+      nome: "Error", 
+      tipo: tipo, 
+      titulo: titulo,
+      mensagem: mensagem
+    }
+    this._alertaService.exibirAlerta('Error')
   }
 }

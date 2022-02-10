@@ -67,8 +67,14 @@ export class CriacaoColegiadoComponent implements OnInit {
       processo,
       sessao,
     };
-    this._processoService.listarProcessos().subscribe(processos=>{
-      this.processo = processos.find(processo => processo.id == this.queryParams.processo);
+    this._processoService.listarProcessos().subscribe({
+      next: (processos) => {
+        this.processo = processos.find(processo => processo.id == this.queryParams.processo);
+      },
+      error: (error) => {
+        console.log(error);
+        this._exibeAlerta("Error", error.message);
+      }
     })
 
     this.formVotacao.setValue({

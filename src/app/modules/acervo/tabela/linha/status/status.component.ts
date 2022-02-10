@@ -1,5 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Status } from 'app/modules/acervo/model/interfaces/status.interface';
+import { AlertaService } from 'app/modules/services/alerta.service';
 import { ProcessoService } from 'app/modules/services/processo.service';
 import { StatusProcesso } from '../../status/situacaoProcesso';
 
@@ -26,8 +27,11 @@ export class StatusComponent implements OnInit {
 
   situacaoProcesso: StatusProcesso;
 
+  errorMessage: string;
+
   constructor(
     private _processoService: ProcessoService,
+    private _alertaService: AlertaService,
   ) {}
 
   ngOnInit(): void {
@@ -39,6 +43,11 @@ export class StatusComponent implements OnInit {
           descricao: status.descricao,
         }
       },
+      error: (error) => {
+        console.log(error);
+        this.errorMessage = error.message
+        this._alertaService.exibirAlerta("Error");
+      }
     });
   }
 
