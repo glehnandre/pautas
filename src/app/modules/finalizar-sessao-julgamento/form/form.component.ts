@@ -1,18 +1,20 @@
 import { AfterViewChecked, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Secretario } from 'app/modules/acervo/model/interfaces/secretario.interface';
+import { UsuariosService } from 'app/modules/services/usuario.service';
 import { Observable } from 'rxjs';
-import { map, startWith } from 'rxjs/operators';
+import { debounceTime, map, startWith, switchMap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-form',
   templateUrl: './form.component.html',
   styleUrls: ['./form.component.scss']
 })
-export class FormComponent implements OnInit, AfterViewChecked {
+export class FormComponent implements OnInit {
 
   constructor(
     private _fb: FormBuilder,
+    private _usuarioService: UsuariosService,
   ) { }
 
   @Input() secretario: Secretario;
@@ -20,8 +22,7 @@ export class FormComponent implements OnInit, AfterViewChecked {
 
   formFinalizarSessao: FormGroup;
 
-  options: string[] = [];
-  filteredOptions: Observable<string[]>;
+  secretarios$: Observable<Secretario[]>;
 
   /**
    * On init
@@ -33,25 +34,8 @@ export class FormComponent implements OnInit, AfterViewChecked {
       cabecalho: [''],
     });
 
-    this.filteredOptions = this.formFinalizarSessao.controls
-      .secretario.valueChanges.pipe(
-        startWith(''),
-        map(value => this._filter(value)),
-      );
-  }
-
-  /**
-   * After view checked
-   */
-  ngAfterViewChecked(): void {
-    if(this.options.length==0 && this.secretario)
-      this.options.push(this.secretario.nome);
-  }
-
-  private _filter(value: string): string[] {
-    const filterValue = value.toLowerCase();
-
-    return this.options.filter(option => option.toLowerCase().includes(filterValue));
+    this.secretarios$ = this._usuarioService.getTodosUsuarios();
+      
   }
 
   /**

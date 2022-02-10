@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { SessaoJulgamento } from 'app/modules/acervo/model/interfaces/sessao-julgamento.interface';
+import { SessaoDeJulgamento } from 'app/modules/acervo/model/interfaces/sessao-julgamento.interface';
 
 @Component({
   selector: 'app-dados-da-sessao',
@@ -8,7 +8,7 @@ import { SessaoJulgamento } from 'app/modules/acervo/model/interfaces/sessao-jul
 })
 export class DadosDaSessaoComponent implements OnInit {
 
-  @Input() sessao: SessaoJulgamento = {} as SessaoJulgamento;
+  @Input() sessao: SessaoDeJulgamento = {} as SessaoDeJulgamento;
   @Input() isExibirStatus: boolean = false;
 
   constructor() { }

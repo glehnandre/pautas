@@ -1,13 +1,14 @@
-import { Component, Output, EventEmitter, Inject, OnInit } from '@angular/core';
-import { FormArray, FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import { Component, Inject, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { SituacaoDoProcesso } from 'app/modules/acervo/model/enums/situacaoDoProcesso.enum';
 import { Ministro } from 'app/modules/acervo/model/interfaces/ministro.interface';
 import { Processo } from 'app/modules/acervo/model/interfaces/processo.interface';
-import { JulgamentoService } from 'app/modules/services/julgamento.service';
+import { SessaoDeJulgamentoService } from 'app/modules/services/sessao-de-julgamento.service';
 import { Filtros } from './filtros';
 import { MinistroService } from 'app/modules/services/ministro.service';
 import { ActivatedRoute } from '@angular/router';
+import { AlertaService } from 'app/modules/services/alerta.service';
 
 interface ministros {
   ministro: Ministro,
@@ -40,6 +41,8 @@ export class FiltroDialogComponent implements OnInit {
   categoriasLista: string[] = ['REPERCUSSAO_GERAL'];
   modalidadesLista: string[] = ['VIRTUAL'];
 
+  errorMessage: string;
+
   queryParams: {
     numero: number,
     ano: number,
@@ -52,11 +55,12 @@ export class FiltroDialogComponent implements OnInit {
    * @param data data injetada com a chave de pesquisa vinda do input text
    */
   constructor(
-    private _julgamentoService: JulgamentoService,
+    private _sessaoDeJulgamentoService: SessaoDeJulgamentoService,
     private _ministroService: MinistroService,
     public dialogRef: MatDialogRef<FiltroDialogComponent>,
     private fb: FormBuilder,
     private _route: ActivatedRoute,
+    private _alertaService: AlertaService,
     @Inject(MAT_DIALOG_DATA) data
   ) {
     this.filtros.termo = data.filtros;
@@ -82,7 +86,7 @@ export class FiltroDialogComponent implements OnInit {
       ano,
     };
 
-    this._julgamentoService.listarSessoesDeJulgamento(this.queryParams.numero, this.queryParams.ano).subscribe({
+    this._sessaoDeJulgamentoService.listarSessoesDeJulgamento(this.queryParams.numero, this.queryParams.ano).subscribe({
       next: (sessao) => {
         const colegiado = (sessao.colegiado=="Primeira turma") ? "primeira-turma" : 
                           (sessao.colegiado=="Segunda turma") ? "segunda-turma" :
@@ -94,7 +98,8 @@ export class FiltroDialogComponent implements OnInit {
           });
         })
         const { numero, ano, data_inicio, data_fim } = sessao;
-        this._julgamentoService.listarProcessosPautadosNasSessoes(numero, ano, SituacaoDoProcesso.Pautado, data_inicio, data_fim).subscribe(processos=>{
+        this._sessaoDeJulgamentoService.listarProcessosPautadosNasSessoes(numero, ano, SituacaoDoProcesso.Pautado, data_inicio, data_fim).subscribe({
+          next: (processos) => {
           processos.forEach(processo=>{
             this.processos.push(processo);
             if(this.classes.indexOf(processo.classe)==-1){
@@ -106,7 +111,18 @@ export class FiltroDialogComponent implements OnInit {
               }
             })
           });
+        },
+        error: (error) => {
+          console.log(error);
+          this.errorMessage = error.message
+          this._alertaService.exibirAlerta("Error");
+        }
         });
+      },
+      error: (error) => {
+        console.log(error);
+        this.errorMessage = error.message
+        this._alertaService.exibirAlerta("Error");
       }
     });
   }

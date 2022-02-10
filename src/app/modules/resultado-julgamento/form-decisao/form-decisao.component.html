@@ -17,7 +17,7 @@
             </mat-select>
             <mat-hint>Informe o tipo</mat-hint>
         </mat-form-field>
-    
+
         <mat-form-field class="w-full mb-4 col-span-2" appearance="outline">
             <mat-label>Dispositivo <span class="text-red-500">*</span></mat-label>
             <mat-select 
@@ -135,3 +135,13 @@
         </button>
     </p>
 </form>
+
+<app-alerta
+    [nome]="'Error'"
+    [titulo]="'Error'"
+    [mensagem]="errorMessage"
+    [aparencia]="'outline'"
+    [tipo]="'error'"
+    class="absolute top-2 right-2 max-w-120 mx-auto z-40"
+></app-alerta>
+

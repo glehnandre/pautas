@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { JulgamentoService } from '../services/julgamento.service';
-import { SessaoJulgamento } from '../acervo/model/interfaces/sessao-julgamento.interface';
+import { SessaoDeJulgamentoService } from '../services/sessao-de-julgamento.service';
+import { SessaoDeJulgamento } from '../acervo/model/interfaces/sessao-julgamento.interface';
 import { registerLocaleData } from '@angular/common';
 import localePT from '@angular/common/locales/pt';
 import { DatePipe } from '@angular/common';
@@ -8,6 +8,7 @@ import { Ministro } from '../acervo/model/interfaces/ministro.interface';
 import { Secretario } from '../acervo/model/interfaces/secretario.interface';
 import { ActivatedRoute } from '@angular/router';
 import { AlertaService } from '../services/alerta.service';
+import { Alerta } from 'app/shared/alerta/alerta.component';
 registerLocaleData(localePT);
 
 interface SessaoFinalizada {
@@ -28,7 +29,7 @@ interface SessaoFinalizada {
 export class FinalizarSessaoJulgamentoComponent implements OnInit {
 
   constructor(
-    private _julgamentoService: JulgamentoService,
+    private _sessaoDeJulgamentoService: SessaoDeJulgamentoService,
     private _route: ActivatedRoute,
     private _alertaService: AlertaService,
   ) { }
@@ -38,10 +39,10 @@ export class FinalizarSessaoJulgamentoComponent implements OnInit {
     ano: number;
   };
 
-  sessao: SessaoJulgamento = {} as SessaoJulgamento;
+  sessao: SessaoDeJulgamento = {} as SessaoDeJulgamento;
   sessaoFinalizada: SessaoFinalizada = {} as SessaoFinalizada;
 
-  mensagem: string;
+  alerta: Alerta = {} as Alerta;
 
   /**
    * On init
@@ -53,8 +54,20 @@ export class FinalizarSessaoJulgamentoComponent implements OnInit {
       ano
     };
 
-    this._julgamentoService.listarSessoesDeJulgamento(numero,ano).subscribe(sessao=>{
-      this.sessao = sessao;
+    this._sessaoDeJulgamentoService.listarSessoesDeJulgamento(numero,ano).subscribe({
+      next: (sessao) => {
+        this.sessao = sessao;
+      },
+      error: (error) => {
+        console.log(error);
+        this.alerta = {
+          nome: "Error", 
+          tipo: "error", 
+          titulo: "Erro",
+          mensagem: error.message
+        }
+        this._alertaService.exibirAlerta("Error");
+      }
     });
   }
 
@@ -104,6 +117,8 @@ export class FinalizarSessaoJulgamentoComponent implements OnInit {
    * @param event evento que é retornado do componente
    */
   recuperaForm(event: any){
+    console.log("EVENTO!");
+    console.log(event);
     this.sessaoFinalizada.cabecalho = event.cabecalho;
     this.sessaoFinalizada.outros_presentes = event.outrosPresentes;
     this.sessaoFinalizada.secretario = event.secretario;
@@ -119,10 +134,15 @@ export class FinalizarSessaoJulgamentoComponent implements OnInit {
     else if(!this.sessaoFinalizada.secretario)
       this.alertaDeErro("Secretário da sessão inválido");
     else {
-      this._julgamentoService.finalizarSessaoDeJulgamento(this.queryParams.numero, this.queryParams.ano, this.sessaoFinalizada).subscribe(data=>{ 
+      this._sessaoDeJulgamentoService.finalizarSessaoDeJulgamento(this.queryParams.numero, this.queryParams.ano, this.sessaoFinalizada).subscribe(data=>{ 
         //refatorar para incluir o retorno da mensagem 
       });
-      this.mensagem = `A sessão ${this.sessao.numero}/${this.sessao.ano} ${this.sessao.tipo} ${this.sessao.modalidade} foi encerrada e as atividades decorrentes da finalização foram criadas.`
+      this.alerta = {
+        nome: "Sucesso", 
+        tipo: "success", 
+        titulo: "Sucesso",
+        mensagem: `A sessão ${this.sessao.numero}/${this.sessao.ano} ${this.sessao.tipo} ${this.sessao.modalidade} foi encerrada e as atividades decorrentes da finalização foram criadas.`
+      }
       this._alertaService.exibirAlerta('Sucesso')
     }
   }
@@ -133,7 +153,12 @@ export class FinalizarSessaoJulgamentoComponent implements OnInit {
    */
   alertaDeErro(mensagem: string): void {
 
-    this.mensagem = mensagem;
+    this.alerta = {
+      nome: "Sessao invalida", 
+      tipo: "error", 
+      titulo: "Erro de validação",
+      mensagem: mensagem
+    }
 
     this._alertaService.exibirAlerta('Sessao invalida')
   }

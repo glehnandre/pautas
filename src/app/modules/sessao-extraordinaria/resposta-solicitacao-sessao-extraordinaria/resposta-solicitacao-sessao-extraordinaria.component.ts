@@ -3,8 +3,9 @@ import { MomentDateAdapter, MAT_MOMENT_DATE_ADAPTER_OPTIONS } from '@angular/mat
 import { DateAdapter, MAT_DATE_LOCALE, MAT_DATE_FORMATS } from '@angular/material/core';
 import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute } from '@angular/router';
-import { SessaoJulgamento } from '../../acervo/model/interfaces/sessao-julgamento.interface';
-import { JulgamentoService } from '../../services/julgamento.service';
+import { AlertaService } from 'app/modules/services/alerta.service';
+import { SessaoDeJulgamento } from '../../acervo/model/interfaces/sessao-julgamento.interface';
+import { SessaoDeJulgamentoService } from '../../services/sessao-de-julgamento.service';
 import { FormEscolherSessaoComponent } from './form-escolher-sessao/form-escolher-sessao.component';
 
 const DATE_FORMATS = {
@@ -37,13 +38,16 @@ export class RespostaSolicitacaoSessaoExtraordinariaoComponent implements OnInit
 
   panelOpenState: boolean = false;
   tags: string[] = ['Virtual', 'Segunda Turma'];
-  sessao: SessaoJulgamento;
-  sessoes: SessaoJulgamento[] = [];
+  sessao: SessaoDeJulgamento;
+  sessoes: SessaoDeJulgamento[] = [];
+
+  errorMessage: string;
 
   constructor(
     private _matDialog: MatDialog,
-    private _julgamentoService: JulgamentoService,
+    private _julgamentoService: SessaoDeJulgamentoService,
     private _route: ActivatedRoute,
+    private _alertaService: AlertaService
   ) {  }
 
   ngOnInit(): void {
@@ -52,10 +56,22 @@ export class RespostaSolicitacaoSessaoExtraordinariaoComponent implements OnInit
       next: (sessao) => {
         console.log(sessao)
         this.sessao = sessao;
+      },
+      error: (error) => {
+        console.log(error);
+        this.errorMessage = error.message
+        this._alertaService.exibirAlerta("Error");
       }
     });
-    this._julgamentoService.listarTodasAsSessoesDeJulgamento().subscribe(data=>{
+    this._julgamentoService.listarTodasAsSessoesDeJulgamento().subscribe({
+      next: (data) => {
       this.sessoes = data;
+    },
+    error: (error) => {
+      console.log(error);
+      this.errorMessage = error.message;
+      this._alertaService.exibirAlerta("Error");
+    }
     })
   }
 

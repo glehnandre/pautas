@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { SessaoJulgamento } from 'app/modules/acervo/model/interfaces/sessao-julgamento.interface';
-import { JulgamentoService } from 'app/modules/services/julgamento.service';
+import { SessaoDeJulgamento } from 'app/modules/acervo/model/interfaces/sessao-julgamento.interface';
+import { SessaoDeJulgamentoService } from 'app/modules/services/sessao-de-julgamento.service';
 import { registerLocaleData } from '@angular/common';
 import localePT from '@angular/common/locales/pt';
 import { DatePipe } from '@angular/common';
@@ -10,6 +10,8 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 import { AlertaComponent } from '../acervo/acoes/agrupar-emlista/gerenciar-listas/alerta/alerta.component';
 import { FormRespostaComponent } from './form-resposta/form-resposta.component';
+import { AlertaService } from '../services/alerta.service';
+import { Alerta } from 'app/shared/alerta/alerta.component';
 registerLocaleData(localePT);
 
 @Component({
@@ -21,7 +23,7 @@ export class SessaoExtraordinariaComponent implements OnInit {
 
   tags: string[] = ['Virtual', 'Segunda Turma', 'Inicio e fim no dia 21/04/2021'];
   observacao: string;
-  sessao: SessaoJulgamento;
+  sessao: SessaoDeJulgamento;
   solicitante: Ministro;
   colegiado: string;
   data_inicio: string;
@@ -30,18 +32,21 @@ export class SessaoExtraordinariaComponent implements OnInit {
   nome_solicitante: string;
   resposta: string;
 
-  sessoes: SessaoJulgamento[] = [];
+  sessoes: SessaoDeJulgamento[] = [];
+
+  alerta: Alerta = {} as Alerta;
 
   constructor(
     private _matDialog: MatDialog,
-    private _julgamentoService: JulgamentoService,
+    private _sessaoDejulgamentoService: SessaoDeJulgamentoService,
     private _fuseAlertService: FuseAlertService,
     private _route: ActivatedRoute,
+    private _alertaService: AlertaService,
   ) {}
 
   ngOnInit(): void {
     const { numero, ano } = this._route.snapshot.queryParams;
-    this._julgamentoService.listarSessoesDeJulgamento(numero, ano).subscribe({
+    this._sessaoDejulgamentoService.listarSessoesDeJulgamento(numero, ano).subscribe({
       next: (sessao) => {
         this.sessao = sessao;
         this.observacao = sessao['observacao'];
@@ -55,8 +60,20 @@ export class SessaoExtraordinariaComponent implements OnInit {
       }
     });
 
-    this._julgamentoService.listarTodasAsSessoesDeJulgamento().subscribe(data=>{
-      this.sessoes = data;
+    this._sessaoDejulgamentoService.listarTodasAsSessoesDeJulgamento().subscribe({
+      next: (data) => {
+        this.sessoes = data;
+      },
+      error: (error) => {
+        console.log(error);
+        this.alerta = {
+          nome: "Error", 
+          tipo: "error", 
+          titulo: "Erro",
+          mensagem: error.message
+        }
+        this._alertaService.exibirAlerta("Error");
+      }
     })
 
 
@@ -93,17 +110,20 @@ export class SessaoExtraordinariaComponent implements OnInit {
   }
 
   mostrarAlerta(){
-    this._fuseAlertService.show('alertBox');
-  }
-  fecharAlerta(){
-    this._fuseAlertService.dismiss('alertBox');
+    this.alerta = {
+      nome: "Pauta-vazia", 
+      tipo: "error", 
+      titulo: "Pauta vazia",
+      mensagem: "Nenhuma sessão de julgamento aberta para o periodo encontrada. Pode haver sessão de julgamento fechadas para o período."
+    }
+    this._alertaService.exibirAlerta('Pauta-vazia');
   }
 
   aprovarSessao(){
     let ano: number = 2021;
     let numero: number = 1000;
 
-    this._julgamentoService.aprovarSessaoDeJulgamento(numero, ano, this.resposta).subscribe(data=>{
+    this._sessaoDejulgamentoService.aprovarSessaoDeJulgamento(numero, ano, this.resposta).subscribe(data=>{
       console.log(data,this.resposta);
     })
   }
@@ -112,7 +132,7 @@ export class SessaoExtraordinariaComponent implements OnInit {
     let ano: number = 2021;
     let numero: number = 1000;
 
-    this._julgamentoService.rejeitarSessaoDeJulgamento(numero, ano, this.resposta).subscribe(data=>{
+    this._sessaoDejulgamentoService.rejeitarSessaoDeJulgamento(numero, ano, this.resposta).subscribe(data=>{
       console.log({resposta:this.resposta, data});
     })
   }

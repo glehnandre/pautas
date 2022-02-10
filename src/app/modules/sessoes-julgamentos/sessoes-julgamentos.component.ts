@@ -2,13 +2,14 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Observable, Subject } from 'rxjs';
 import { Processo } from '../acervo/model/interfaces/processo.interface';
-import { SessaoJulgamento } from '../acervo/model/interfaces/sessao-julgamento.interface';
+import { SessaoDeJulgamento } from '../acervo/model/interfaces/sessao-julgamento.interface';
 import { ProcessoService } from '../services/processo.service';
-import { JulgamentoService } from '../services/julgamento.service';
+import { SessaoDeJulgamentoService } from '../services/sessao-de-julgamento.service';
 import { FuseAlertService } from '@fuse/components/alert';
 import { Impedimento } from '../acervo/model/interfaces/impedimento.interface';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { FuseDrawerService } from '@fuse/components/drawer';
+import { AlertaService } from '../services/alerta.service';
 
 @Component({
   selector: 'app-sessoes-julgamentos',
@@ -19,7 +20,7 @@ export class SessoesJulgamentosComponent implements OnInit {
 
   impedimentos: Observable<Impedimento[]>[] = [];
   processos: Processo[] = [];
-  sessao: SessaoJulgamento = {} as SessaoJulgamento;
+  sessao: SessaoDeJulgamento = {} as SessaoDeJulgamento;
   tags: string[];
   documentos: string[];
   link: SafeResourceUrl;
@@ -33,23 +34,26 @@ export class SessoesJulgamentosComponent implements OnInit {
 
   eventsSubject: Subject<any> = new Subject<any>();
 
+  errorMessage: String;
+
   constructor(
     private _processoService: ProcessoService,
-    private _julgamentoService: JulgamentoService,
+    private _sessaoDeJulgamentoService: SessaoDeJulgamentoService,
     private _fuseAlertService: FuseAlertService,
     public sanitizer: DomSanitizer,
     private _fuseDrawerService: FuseDrawerService,
     private _route: ActivatedRoute,
+    private _alertaService: AlertaService,
   ) { }
 
   ngOnInit(): void {
       const { numero, ano } = this._route.snapshot.queryParams;
 
-      this._julgamentoService.listarSessoesDeJulgamento(numero, ano).subscribe({
+      this._sessaoDeJulgamentoService.listarSessoesDeJulgamento(numero, ano).subscribe({
         next: (data) => {
             this.sessao = data;
 
-            this._julgamentoService.listarProcessosPautadosNasSessoes(numero, ano).subscribe({
+            this._sessaoDeJulgamentoService.listarProcessosPautadosNasSessoes(numero, ano).subscribe({
                 next: (processosData) => {
                     this.processos = processosData;
                     processosData.forEach((processo) => {
@@ -62,10 +66,17 @@ export class SessoesJulgamentosComponent implements OnInit {
                       this.tags = processo.lista.map(tag => tag.descricao);
                     });
                 },
+                error: (error) => {
+                  console.log(error);
+                  this.errorMessage = error.message
+                  this._alertaService.exibirAlerta("Error");
+                }
             });
         },
-        error: () => {
-            this.isSessaoInvalida();
+        error: (error) => {
+          console.log(error);
+          this.errorMessage = error.message
+          this._alertaService.exibirAlerta("Error");
         }
       });
   }

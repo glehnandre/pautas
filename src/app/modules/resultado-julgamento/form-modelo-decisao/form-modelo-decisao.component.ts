@@ -15,6 +15,7 @@ import { ClasseService } from '../../services/classe.service';
 import { DispositivoService } from '../../services/dispositivo.service';
 import { RecursoService } from '../../services/recurso.service';
 import { ProcessoService } from '../../services/processo.service';
+import { Alerta } from 'app/shared/alerta/alerta.component';
 
 interface ModeloDecisaoData {
   processo: {
@@ -39,6 +40,8 @@ export class FormModeloDecisaoComponent implements OnInit {
   modelo: ModeloDecisao = { id: 0 } as ModeloDecisao;
   linhaAtualDoTexto: number = 1;
   exibirSugestoes: boolean = false;
+  
+  alerta: Alerta = {} as Alerta;
 
   constructor(
     private _fb: FormBuilder,
@@ -59,9 +62,21 @@ export class FormModeloDecisaoComponent implements OnInit {
       dispositivo:      [this.modelo.dispositivo,   Validators.required],
     });
   }
-
+  
   ngOnInit(): void {
-    this.classes$ = this._classeService.getClasses();
+    this.classes$ = this._classeService.getClasses().pipe(
+      catchError((error) => {
+        console.log(error);
+        this.alerta = {
+          nome: "Error", 
+          tipo: "error", 
+          titulo: "Erro",
+          mensagem: error.message
+        }
+        this._alertaService.exibirAlerta("Error")
+        return EMPTY;
+      }),
+    );
     this.recursos$ = this._recursoService.obterListaDeRecursos();
 
     this.formModeloDecisao.controls.texto.valueChanges.subscribe((texto: string) => {
@@ -76,6 +91,16 @@ export class FormModeloDecisaoComponent implements OnInit {
     this._dispositivoService.obterDispositivos(this.data.processo.id, this.formModeloDecisao.controls.tipoCapitulo.value).subscribe({
       next: (dispositivos) => {
         this.dispositivos = dispositivos;
+      },
+      error: (error) => {
+        console.log(error);
+        this.alerta = {
+          nome: "Error", 
+          tipo: "error", 
+          titulo: "Erro",
+          mensagem: error.message
+        }
+        this._alertaService.exibirAlerta("Error");
       }
     });
   }
@@ -94,6 +119,12 @@ export class FormModeloDecisaoComponent implements OnInit {
           catchError(() => {
             this.modelo = { id: 0 } as ModeloDecisao;
             this.formModeloDecisao.controls.texto.setValue('');
+            this.alerta = {
+              nome: "aviso-form-modelo-decisao", 
+              tipo: "warning", 
+              titulo: "Aviso",
+              mensagem: "Não foi encontrando nenhum modelo de decisão com estes parâmetros."
+            }
             this._alertaService.exibirAlerta('aviso-form-modelo-decisao');
             return EMPTY;
           })

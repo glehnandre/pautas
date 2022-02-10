@@ -41,15 +41,13 @@
         ></app-processos-solicitacao-extraordinaria>
 
     </div>
-    <div class="absolute top-0 right-0 z-10">
-        <fuse-alert class="max-w-120 mx-auto"
-                    [type]="'error'"
-                    [appearance]="'soft'"
-                    [dismissible]=true
-                    [dismissed]=true
-                    [name]="'alertBox'">
-            <span fuseAlertTitle>Pauta vazia</span>
-            Nenhuma sessão de julgamento aberta para o periodo encontrada. Pode haver sessão de julgamento fechadas para o período.
-        </fuse-alert>
-    </div>
 </div>
+
+<app-alerta
+    [nome]="alerta.nome"
+    [titulo]="alerta.titulo"
+    [mensagem]="alerta.mensagem"
+    [aparencia]="'outline'"
+    [tipo]="alerta.tipo"
+    class="absolute top-2 right-2 max-w-120 mx-auto z-40"
+></app-alerta>

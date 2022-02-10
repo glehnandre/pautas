@@ -10,7 +10,7 @@ import { Impedimento } from 'app/modules/acervo/model/interfaces/impedimento.int
 import { Processo } from 'app/modules/acervo/model/interfaces/processo.interface';
 import { Tag } from 'app/modules/acervo/model/interfaces/tag.interface';
 import { Documento } from 'app/modules/acervo/model/interfaces/documento.interface';
-import { SessaoJulgamento } from 'app/modules/acervo/model/interfaces/sessao-julgamento.interface';
+import { SessaoDeJulgamento } from 'app/modules/acervo/model/interfaces/sessao-julgamento.interface';
 
 import { processo as processoData, documentos, votos, tipos, vistas, destaques } from '../processos/data';
 import { tags as tagData } from '../tags/data';
@@ -27,7 +27,7 @@ import { Destaque } from 'app/modules/acervo/model/interfaces/destaque.interface
 })
 export class ProcessoMockApi {
     private _processos: Processo[] = processoData;
-    private _julgamentos: SessaoJulgamento[] = sessoesDeJulgamento;
+    private _julgamentos: SessaoDeJulgamento[] = sessoesDeJulgamento;
     private _documentos: Documento[] = documentos;
     private _tag: Tag[] = [];
     private _impedimentos: any[] = listaImpedimentos;

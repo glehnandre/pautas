@@ -5,12 +5,12 @@ import { catchError } from 'rxjs/operators';
 import { Ata } from '../acervo/model/interfaces/ata.interface';
 import { Pauta } from '../acervo/model/interfaces/pauta.interface';
 import { Processo } from '../acervo/model/interfaces/processo.interface';
-import { SessaoJulgamento } from '../acervo/model/interfaces/sessao-julgamento.interface';
+import { SessaoDeJulgamento } from '../acervo/model/interfaces/sessao-julgamento.interface';
 
 @Injectable({
   providedIn: 'root'
 })
-export class JulgamentoService {
+export class SessaoDeJulgamentoService {
 
   constructor(
     private _httpClient: HttpClient,
@@ -21,35 +21,25 @@ export class JulgamentoService {
   }
 
   public obterDadosDaPautaPeloProcesso(id: number): Observable<Pauta> {
-    return this._httpClient.get<Pauta>(`pautas/${id}`).pipe(
-      catchError((error) => {
-        console.log(error);
-        return EMPTY;
-      })
-    );
+    return this._httpClient.get<Pauta>(`pautas/${id}`);
   }
 
-  public socilitarSessaoExtraordinaria(sessaoExtraordinaria: any): Observable<SessaoJulgamento> {
+  public socilitarSessaoExtraordinaria(sessaoExtraordinaria: any): Observable<SessaoDeJulgamento> {
     let params = new HttpParams();
     params = params.set('extraordinaria', true);
 
-    return this._httpClient.post<SessaoJulgamento>('sessoes-de-julgamento', sessaoExtraordinaria, {
+    return this._httpClient.post<SessaoDeJulgamento>('sessoes-de-julgamento', sessaoExtraordinaria, {
       params,
     });
   }
 
-  public listarSessoesDeJulgamento(numero: number, ano: number): Observable<SessaoJulgamento> {
+  public listarSessoesDeJulgamento(numero: number, ano: number): Observable<SessaoDeJulgamento> {
     const numeroAno = `${numero}-${ano}`;
-    return this._httpClient.get<SessaoJulgamento>(`sessoes-de-julgamento/${numeroAno}`);
+    return this._httpClient.get<SessaoDeJulgamento>(`sessoes-de-julgamento/${numeroAno}`);
   }
 
-  public listarTodasAsSessoesDeJulgamento(): Observable<SessaoJulgamento[]> {
-    return this._httpClient.get<SessaoJulgamento[]>('sessoes-de-julgamento').pipe(
-      catchError((error) => {
-        console.log(error);
-        return EMPTY;
-      }),
-    );
+  public listarTodasAsSessoesDeJulgamento(): Observable<SessaoDeJulgamento[]> {
+    return this._httpClient.get<SessaoDeJulgamento[]>('sessoes-de-julgamento');
   }
 
   public listarProcessosPautadosNasSessoes(numero: number, ano: number,
@@ -62,7 +52,12 @@ export class JulgamentoService {
 
     return this._httpClient.get<Processo[]>(`sessoes-de-julgamento/${numeroAno}/pauta`, {
       params,
-    }).pipe(
+    });
+  }
+
+  public aprovarSessaoDeJulgamento(numero: number, ano: number, resposta: string): Observable<SessaoDeJulgamento> {
+    const numeroAno = `${numero}-${ano}`;
+    return this._httpClient.put<SessaoDeJulgamento>(`sessoes-de-julgamento/${numeroAno}/aprovar`, resposta).pipe(
       catchError((error) => {
         console.log(error);
         return EMPTY;
@@ -70,19 +65,9 @@ export class JulgamentoService {
     );
   }
 
-  public aprovarSessaoDeJulgamento(numero: number, ano: number, resposta: string): Observable<SessaoJulgamento> {
+  public rejeitarSessaoDeJulgamento(numero: number, ano: number, resposta: string): Observable<SessaoDeJulgamento> {
     const numeroAno = `${numero}-${ano}`;
-    return this._httpClient.put<SessaoJulgamento>(`sessoes-de-julgamento/${numeroAno}/aprovar`, resposta).pipe(
-      catchError((error) => {
-        console.log(error);
-        return EMPTY;
-      }),
-    );
-  }
-
-  public rejeitarSessaoDeJulgamento(numero: number, ano: number, resposta: string): Observable<SessaoJulgamento> {
-    const numeroAno = `${numero}-${ano}`;
-    return this._httpClient.put<SessaoJulgamento>(`sessoes-de-julgamento/${numeroAno}/rejeitar`, {numeroAno, resposta}).pipe(
+    return this._httpClient.put<SessaoDeJulgamento>(`sessoes-de-julgamento/${numeroAno}/rejeitar`, {numeroAno, resposta}).pipe(
       catchError((error) => {
         console.log(error);
         return EMPTY;

@@ -3,7 +3,7 @@ import { Destaque } from "./destaque.interface";
 import { Dispositivo } from "./dispositivo.interface";
 import { Ministro } from "./ministro.interface";
 import { Processo } from "./processo.interface";
-import { SessaoJulgamento } from "./sessao-julgamento.interface";
+import { SessaoDeJulgamento } from "./sessao-julgamento.interface";
 import { Vista } from "./vista.interface";
 
 export interface Envolvido {
@@ -22,7 +22,7 @@ export interface Capitulo {
     ministros_divergem: Array<Ministro>;
     ministro_condutor: Ministro;
     texto: string;
-    sessao: SessaoJulgamento;
+    sessao: SessaoDeJulgamento;
     processos_mesma_decisao: Processo[];
 }
 

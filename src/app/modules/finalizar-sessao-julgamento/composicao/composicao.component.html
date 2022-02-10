@@ -6,7 +6,7 @@
         <span class="ml-4 mr-3">Ausente</span>
         <span class="ml-4">Presidente</span>
     </div>
-    <div class="flex flex-row items-center py-2 overflow-hidden">
+    <div *ngIf="presidente" class="flex flex-row items-center py-2 overflow-hidden">
         <span class="w-15">Presidente</span>
         <object class="flex w-5 h-16 bg-blue-600 mx-4 -my-20"></object>
         <span class="flex flex-none flex-row items-center w-48 mr-2">
@@ -35,7 +35,7 @@
             (change)="check($event, 'presidente')"
         ></mat-checkbox>
     </div>
-    <div class="flex flex-row items-center py-2 overflow-hidden">
+    <div *ngIf="primeiraTurma" class="flex flex-row items-center py-2 overflow-hidden">
         <span class="flex-none w-15">1ª Turma</span>
         <div class="flex-col space-y-4">
             <div class="flex flex-1" *ngFor="let primeira of primeiraTurma; index as i">
@@ -69,7 +69,7 @@
             </div>
         </div>
     </div>
-    <div class="flex flex-row items-center pt-2 overflow-hidden">
+    <div *ngIf="segundaTurma" class="flex flex-row items-center pt-2 overflow-hidden">
         <span class="flex-none w-15">2ª Turma</span>
         <div class="flex flex-col space-y-4">
             <div class="flex flex-1" *ngFor="let segunda of segundaTurma; index as j">
