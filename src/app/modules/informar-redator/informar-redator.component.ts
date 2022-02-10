@@ -48,7 +48,7 @@ export class InformarRedatorComponent implements OnInit {
     this.parametros = this._route.snapshot.queryParams as Parametros;
 
     this._processoService
-      .listarProcessos(new HttpParams().set('processo', this.parametros.processo))
+      .listarProcessos(this.parametros.processo)
       .subscribe({
         next: ([ processo ]) => {
           const { cadeia: nome, classe, numero } = processo;

@@ -104,7 +104,7 @@ export class TabelaComponent implements OnInit, OnChanges {
   }
 
   private _buscarProcessos(params?: HttpParams): void {
-    this._processoService.listarProcessos(params).subscribe({
+    this._processoService.listarProcessos().subscribe({
       next: (data) => {
         this.processos = data.map((processo) => {
             processo.checked = false;

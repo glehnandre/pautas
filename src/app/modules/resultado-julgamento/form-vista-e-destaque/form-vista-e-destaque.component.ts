@@ -1,5 +1,5 @@
 import { Component, Inject, OnInit } from '@angular/core';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Ministro } from 'app/modules/acervo/model/interfaces/ministro.interface';
 import { MinistroService } from 'app/modules/services/ministro.service';
 import { EMPTY, Observable } from 'rxjs';
@@ -15,10 +15,12 @@ import { TipoRecursoDto } from 'app/modules/acervo/model/interfaces/tipoRecursoD
 import { RecursoService } from 'app/modules/services/recurso.service';
 import { catchError } from 'rxjs/operators';
 import { AlertaService } from 'app/modules/services/alerta.service';
+import { DialogoConfirmacaoComponent } from '../dialogo-confirmacao/dialogo-confirmacao.component';
 
 
 interface FormVistaEDestaqueData {
   titulo: string;
+  tipo: string;
   dados: any;
 }
 
@@ -49,6 +51,7 @@ export class FormVistaEDestaqueComponent implements OnInit {
     private _ministroService: MinistroService,
     private _recursoService: RecursoService,
     private _alertaService: AlertaService,
+    private _dialog: MatDialog,
     public dialogRef: MatDialogRef<FormVistaEDestaqueComponent>,
     @Inject(MAT_DIALOG_DATA) public data: FormVistaEDestaqueData,
   ) { 
@@ -79,6 +82,23 @@ export class FormVistaEDestaqueComponent implements OnInit {
       })
     );
     this.recursos$ = this._recursoService.obterListaDeRecursos();
+  }
+
+  public fecharModalEExcluirVistaOuDestaque(): void {
+    const vistaOuDestaque = (this.data.tipo === 'vista') ? 'Vista' : 'Destaque';
+
+    const dialogRef = this._dialog.open(DialogoConfirmacaoComponent, {
+      data: {
+        titulo: 'Excluir Vista ou Destaque',
+        mensagem: `Confirma a exclusão do(a) ${vistaOuDestaque} - ${this.data.dados.ministro.nome}?`,
+      },
+    });
+
+    dialogRef.afterClosed().subscribe(confirmacao => {
+      if (confirmacao) {
+        this.dialogRef.close('excluir');
+      }
+    });
   }
 
   public fecharModalEEmcaminharVistaOuDestaque(): void {

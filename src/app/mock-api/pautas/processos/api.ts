@@ -82,39 +82,23 @@ export class ProcessoMockApi {
             .onGet('processos')
             .reply(({ request }) => {
                 const { params } = request;
-                if (params.get('itensPorPagina') && params.get('itensPorPagina') !== 'undefined') {
-                    const paginacao: Paginacao = {
-                        itensPorPagina: +params.get('itensPorPagina') || 5,
-                        numeroDaPagina: +params.get('numeroDaPagina') || 0,
-                        offset: +params.get('offset') || 0,
-                    };
+                let processosFiltrados: Processo[] = [];
+                
+                if (params.keys().length > 0) {
+                    for (const key of params.keys()) {
+                        if (key === 'processo') {
+                            const id = +params.get(key);
 
-                    const processosPaginados = this._processos
-                        .slice(paginacao.offset, paginacao.offset+paginacao.itensPorPagina);
-
-                    return [200, processosPaginados];
-                } else {
-                    const filtros: Filtros = {
-                        processo: params.get('processo'),
-                        situacoes: params.getAll('situacao-processo'),
-                        termo: params.get('termo'),
-                        primeira_turma: (params.get('colegiado') === 'primeira-turma'),
-                        segunda_turma: (params.get('colegiado') === 'segunda-turma'),
-                        pleno: (params.get('colegiado') === 'pleno'),
-                        classes: params.getAll('classe'),
-                        tags: (params.getAll('tag')) ? params.getAll('tag').toString().split(',') : null,
-                    };
-                    if (params.keys().length > 0) {
-                        const processosFiltrados = this._processos
-                            .filter(processo => (filtros.processo) ? processo.id === +filtros.processo : true)
-                            .filter(processo => (filtros.situacoes) ? filtros.situacoes.find((situacao) => Number(situacao) === processo.situacao) : true)
-                            .filter(processo => (filtros.classes) ? filtros.classes.find(classe => classe === processo.classe) : true)
-                            .filter(processo => (filtros.tags) ? filtros.tags.find(tag => processo.lista.find(lista => lista.id === +tag)) : true)
-                            .filter(processo => (filtros.termo) ? filtros.termo.includes(processo.classe) && filtros.termo.includes(processo.numero.toString()) : true);
-                        return [200, processosFiltrados];
-                    } else {
-                        return [200, this._processos];
+                            processosFiltrados = this._processos.filter(p => {
+                                return p.id === +id;
+                            });
+                        }
                     }
+
+                    console.log(processosFiltrados)
+                    return [200, processosFiltrados];
+                } else {
+                    return [200, this._processos];
                 }
             });
 
@@ -282,20 +266,21 @@ export class ProcessoMockApi {
             });
 
         this._fuseMockApiService
-            .onDelete('processos/:id/vistas/:vista')
-            .reply(({request, urlParams}) => {
+            .onDelete('processos/:id/vistas/:idVista')
+            .reply(({urlParams}) => {
                 const id_processo: number = +urlParams.id;
                 const id_vista: number = +urlParams.idVista;
-                const { body } = request;
+                
                 let index_processo;
                 let index_vista;
-                const m = ministro.find(({id}) => id === body.ministro);
 
                 index_processo = this._processos.findIndex(processo => processo.id === id_processo);
                 index_vista = this._processos[index_processo].vistas.findIndex(vista => vista.id === id_vista);
-                if(index_vista == -1){
+                
+                if (index_vista !== -1) {
                     this._processos[index_processo].vistas.splice(index_vista, 1);
                     setStorage('processos', this._processos);
+                    setStorage('vistas', this._processos[index_processo].vistas);
                     return [200, "Excluído com sucesso"];
                 }
                 return [404, {
@@ -345,19 +330,20 @@ export class ProcessoMockApi {
 
         this._fuseMockApiService
             .onDelete('processos/:id/destaques/:idDestaque')
-            .reply(({request, urlParams}) => {
+            .reply(({urlParams}) => {
                 const idProcesso: number = +urlParams.id;
                 const idDestaque: number = +urlParams.idDestaque;
-                const { body } = request;
+                
                 let index_processo;
                 let index_destaque;
-                const m = ministro.find(({id}) => id === body.ministro);
 
                 index_processo = this._processos.findIndex(processo => processo.id === idProcesso);
                 index_destaque = this._processos[index_processo].destaques.findIndex(destaque => destaque.id === idDestaque);
-                if(index_destaque == -1){
+                
+                if (index_destaque !== -1) {
                     this._processos[index_processo].destaques.splice(index_destaque, 1);
                     setStorage('processos', this._processos);
+                    setStorage('destaques', this._processos[index_processo].destaques);
                     return [200, "Excluído com sucesso"];
                 }
                 return [404, {
