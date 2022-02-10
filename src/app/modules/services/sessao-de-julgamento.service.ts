@@ -57,41 +57,21 @@ export class SessaoDeJulgamentoService {
 
   public aprovarSessaoDeJulgamento(numero: number, ano: number, resposta: string): Observable<SessaoDeJulgamento> {
     const numeroAno = `${numero}-${ano}`;
-    return this._httpClient.put<SessaoDeJulgamento>(`sessoes-de-julgamento/${numeroAno}/aprovar`, resposta).pipe(
-      catchError((error) => {
-        console.log(error);
-        return EMPTY;
-      }),
-    );
+    return this._httpClient.put<SessaoDeJulgamento>(`sessoes-de-julgamento/${numeroAno}/aprovar`, resposta);
   }
 
   public rejeitarSessaoDeJulgamento(numero: number, ano: number, resposta: string): Observable<SessaoDeJulgamento> {
     const numeroAno = `${numero}-${ano}`;
-    return this._httpClient.put<SessaoDeJulgamento>(`sessoes-de-julgamento/${numeroAno}/rejeitar`, {numeroAno, resposta}).pipe(
-      catchError((error) => {
-        console.log(error);
-        return EMPTY;
-      }),
-    );
+    return this._httpClient.put<SessaoDeJulgamento>(`sessoes-de-julgamento/${numeroAno}/rejeitar`, {numeroAno, resposta});
   }
 
   public finalizarSessaoDeJulgamento(numero: number, ano: number, dadosDaSessaoJulgamento: any): Observable<void> {
     const numeroAno = `${numero}-${ano}`;
-    return this._httpClient.post<void>(`sessoes-de-julgamento/${numeroAno}/finalizar`, dadosDaSessaoJulgamento).pipe(
-      catchError((error) => {
-        console.log(error);
-        return EMPTY;
-      }),
-    );
+    return this._httpClient.post<void>(`sessoes-de-julgamento/${numeroAno}/finalizar`, dadosDaSessaoJulgamento);
   }
 
   public getAta(numero: number, ano:number): Observable<Ata> {
-    return this._httpClient.get<Ata>(`sessoes-de-julgamento/${numero}-${ano}/ata`).pipe(
-      catchError(error => {
-          console.error(error);
-          return EMPTY;
-      })
-    );
+    return this._httpClient.get<Ata>(`sessoes-de-julgamento/${numero}-${ano}/ata`);
   }
 
 }

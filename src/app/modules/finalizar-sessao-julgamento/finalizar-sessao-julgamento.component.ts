@@ -134,8 +134,17 @@ export class FinalizarSessaoJulgamentoComponent implements OnInit {
     else if(!this.sessaoFinalizada.secretario)
       this.alertaDeErro("Secretário da sessão inválido");
     else {
-      this._sessaoDeJulgamentoService.finalizarSessaoDeJulgamento(this.queryParams.numero, this.queryParams.ano, this.sessaoFinalizada).subscribe(data=>{ 
-        //refatorar para incluir o retorno da mensagem 
+      this._sessaoDeJulgamentoService.finalizarSessaoDeJulgamento(this.queryParams.numero, this.queryParams.ano, this.sessaoFinalizada).subscribe({
+        error: (error) => {
+          console.log(error);
+          this.alerta = {
+            nome: "Error", 
+            tipo: "error", 
+            titulo: "Erro",
+            mensagem: error.message
+          }
+        this._alertaService.exibirAlerta("Error");
+        }
       });
       this.alerta = {
         nome: "Sucesso", 
