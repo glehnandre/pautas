@@ -287,7 +287,11 @@ export class ResultadoJulgamentoComponent implements OnInit {
             next: () => {
               this.mostrarAlerta('success', 'Sucesso!', `A Vista - ${ministro['nome']} foi excluída com sucesso.`);
               this._carregarDadosProcessos(); // atualiza a lista de Destaque
-            }
+            },
+
+            error: () => {
+              this.mostrarAlerta('error', 'Erro!', 'Ocorreu um erro no processamento de sua solicitação.');
+            },
         });
       } else if (data) {
         const vista: Vista = {
@@ -331,7 +335,11 @@ export class ResultadoJulgamentoComponent implements OnInit {
             next: () => {
               this.mostrarAlerta('success', 'Sucesso!', `O Destaque - ${ministro['nome']} foi excluído com sucesso.`);
               this._carregarDadosProcessos(); // atualiza a lista de Destaque
-            }
+            },
+            
+            error: () => {
+              this.mostrarAlerta('error', 'Erro!', 'Ocorreu um erro no processamento de sua solicitação.');
+            },
           });
       } else if (data) {
         const destaque: Destaque = {
