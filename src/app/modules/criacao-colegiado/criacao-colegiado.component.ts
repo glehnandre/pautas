@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { FuseDrawerService } from '@fuse/components/drawer';
+import { Alerta } from 'app/shared/alerta/alerta.component';
 import { Colegiado, ComposicaoColegiado } from '../acervo/model/interfaces/colegiado.interface';
 import { Ministro } from '../acervo/model/interfaces/ministro.interface';
 import { Processo } from '../acervo/model/interfaces/processo.interface';
@@ -26,10 +27,7 @@ export class CriacaoColegiadoComponent implements OnInit {
     sessao: string,
   };
 
-  alerta: {
-    titulo: string;
-    mensagem: string;
-  };
+  alerta: Alerta = {} as Alerta;
 
   processo: Processo = {} as Processo;
   formVotacao: FormGroup;
@@ -69,8 +67,14 @@ export class CriacaoColegiadoComponent implements OnInit {
       processo,
       sessao,
     };
-    this._processoService.listarProcessos().subscribe(processos=>{
-      this.processo = processos.find(processo => processo.id == this.queryParams.processo);
+    this._processoService.listarProcessos().subscribe({
+      next: (processos) => {
+        this.processo = processos.find(processo => processo.id == this.queryParams.processo);
+      },
+      error: (error) => {
+        console.log(error);
+        this._exibeAlerta("Error", error.message);
+      }
     })
 
     this.formVotacao.setValue({
@@ -95,6 +99,10 @@ export class CriacaoColegiadoComponent implements OnInit {
         }));
 
         this.colegiados = colegiados;
+      },
+      error: (error) => {
+        console.log(error);
+        this._exibeAlerta("Error", error.message);
       }
     });
   }
@@ -162,6 +170,10 @@ export class CriacaoColegiadoComponent implements OnInit {
       this._ministroService.criarColegiado(this.formVotacao.value).subscribe({
         next: (data) => {
           
+        },
+        error: (error) => {
+          console.log(error);
+          this._exibeAlerta("Error", error.message);
         }
       });
     }
@@ -172,8 +184,13 @@ export class CriacaoColegiadoComponent implements OnInit {
   }
 
   private _exibeAlerta(titulo: string, mensagem: string): void {
-    this.alerta = { titulo, mensagem };
-    this._alertaService.exibirAlertaDeErro('alertaDeErroNoColegiado');
+    this.alerta = {
+      nome: "Error", 
+      tipo: "error", 
+      titulo: titulo,
+      mensagem: mensagem
+    };
+    this._alertaService.exibirAlerta('Error');
   }
 
 }

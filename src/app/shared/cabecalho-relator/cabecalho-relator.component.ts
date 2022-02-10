@@ -5,6 +5,7 @@ import { Ministro } from 'app/modules/acervo/model/interfaces/ministro.interface
 import { Processo } from 'app/modules/acervo/model/interfaces/processo.interface';
 import { SessaoDeJulgamento } from 'app/modules/acervo/model/interfaces/sessao-julgamento.interface';
 import { Voto } from 'app/modules/acervo/model/interfaces/voto.interface';
+import { AlertaService } from 'app/modules/services/alerta.service';
 import { MinistroService } from 'app/modules/services/ministro.service';
 import { ProcessoService } from 'app/modules/services/processo.service';
 
@@ -40,10 +41,13 @@ export class CabecalhoRelatorComponent implements AfterContentChecked, OnInit {
   }
   hasArrow: boolean;
 
+  errorMessage: string;
+
   constructor(
     private _processoService: ProcessoService,
     private _ministroService: MinistroService,
     private _sanitizer: DomSanitizer,
+    private _alertaService: AlertaService,
   ) { }
 
   ngOnInit(): void {
@@ -105,6 +109,11 @@ export class CabecalhoRelatorComponent implements AfterContentChecked, OnInit {
             }
           });
         });
+      },
+      error: (error) => {
+        console.log(error);
+        this.errorMessage = error.message
+        this._alertaService.exibirAlerta("Error");
       }
     });
   }

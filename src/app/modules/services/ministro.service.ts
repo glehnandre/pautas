@@ -17,21 +17,11 @@ export class MinistroService {
   ) { }
 
   listarMinistros(): Observable<Ministro[]> {
-    return this._httpClient.get<Ministro[]>('/ministro').pipe(
-      catchError(error => {
-        console.log(error);
-        return EMPTY;
-      })
-    );
+    return this._httpClient.get<Ministro[]>('/ministro');
   }
 
   listarMinistrosDoColegiado(colegiado: string): Observable<Ministro[]> {
-    return this._httpClient.get<Ministro[]>(`/colegiado/${colegiado}/composicao`).pipe(
-      catchError(error => {
-        console.log(error);
-        return EMPTY;
-      })
-    );
+    return this._httpClient.get<Ministro[]>(`/colegiado/${colegiado}/composicao`);
   }
 
   listarColegiados(
@@ -46,21 +36,11 @@ export class MinistroService {
 
     return this._httpClient.get<Colegiado[]>('/colegiado', {
       params,
-    }).pipe(
-      catchError(error => {
-        console.log(error);
-        return EMPTY;
-      }),
-    )
+    });
   }
 
   criarColegiado(value: any): Observable<any[]> {
-    return this._httpClient.post<any[]>('/colegiado', value).pipe(
-      catchError(error => {
-        console.log(error);
-        return EMPTY;
-      })
-    );
+    return this._httpClient.post<any[]>('/colegiado', value);
   }
 
   /**

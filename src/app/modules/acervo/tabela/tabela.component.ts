@@ -1,5 +1,6 @@
 import { HttpParams } from '@angular/common/http';
 import { Component, Input, OnInit, Output, SimpleChange, EventEmitter, OnChanges, SimpleChanges } from '@angular/core';
+import { AlertaService } from 'app/modules/services/alerta.service';
 import { ProcessoService } from 'app/modules/services/processo.service';
 import { Processo } from '../model/interfaces/processo.interface';
 import { Paginacao } from './paginacao/paginacao.component';
@@ -35,8 +36,11 @@ export class TabelaComponent implements OnInit, OnChanges {
     links: string[];
   }[] = [];
 
+  errorMessage: string;
+
   constructor(
     private _processoService: ProcessoService,
+    private _alertaService: AlertaService,
   ) {}
 
   ngOnInit(): void {
@@ -107,6 +111,11 @@ export class TabelaComponent implements OnInit, OnChanges {
 
             return processo;
         });
+      },
+      error: (error) => {
+        console.log(error);
+        this.errorMessage = error.message
+        this._alertaService.exibirAlerta("Error");
       }
     });
   }

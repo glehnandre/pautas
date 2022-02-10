@@ -28,7 +28,7 @@ export class FormDecisaoComponent implements OnInit, OnChanges, OnDestroy {
   dispositivos: Dispositivo[] = [];
   compareFn: ((f1: any, f2: any) => boolean) | null = this.compareById;
 
-  errorMessage: StringMap;
+  errorMessage: string;
 
   @Input() processo: Processo;
   @Input() isExibirBtnSalvarDecisao: boolean = false;
@@ -207,6 +207,13 @@ export class FormDecisaoComponent implements OnInit, OnChanges, OnDestroy {
   private _recarregarOsDados(): void {
     this.ministros$ = this._ministroService.listarMinistros().pipe(
       map(ministros => this._filtrarMinistros(ministros)),
+
+      catchError(error => {
+        console.log(error);
+        this.errorMessage =  error.message;
+        this._alertaService.exibirAlerta("Error")
+        return EMPTY;
+      })
     );
 
     this.tipos$ = this._processoService.obterTiposDoProcesso();

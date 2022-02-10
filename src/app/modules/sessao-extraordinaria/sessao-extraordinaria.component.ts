@@ -123,8 +123,20 @@ export class SessaoExtraordinariaComponent implements OnInit {
     let ano: number = 2021;
     let numero: number = 1000;
 
-    this._sessaoDejulgamentoService.aprovarSessaoDeJulgamento(numero, ano, this.resposta).subscribe(data=>{
-      console.log(data,this.resposta);
+    this._sessaoDejulgamentoService.aprovarSessaoDeJulgamento(numero, ano, this.resposta).subscribe({
+      next: (data) => {
+        console.log(data,this.resposta);
+      },
+      error: (error) => {
+        console.log(error);
+        this.alerta = {
+          nome: "Error", 
+          tipo: "error", 
+          titulo: "Erro",
+          mensagem: error.message
+        }
+        this._alertaService.exibirAlerta("Error");
+      }
     })
   }
 
@@ -132,8 +144,20 @@ export class SessaoExtraordinariaComponent implements OnInit {
     let ano: number = 2021;
     let numero: number = 1000;
 
-    this._sessaoDejulgamentoService.rejeitarSessaoDeJulgamento(numero, ano, this.resposta).subscribe(data=>{
-      console.log({resposta:this.resposta, data});
+    this._sessaoDejulgamentoService.rejeitarSessaoDeJulgamento(numero, ano, this.resposta).subscribe({
+      next: (data) => {
+        console.log({resposta:this.resposta, data});
+      },
+      error: (error) => {
+        console.log(error);
+        this.alerta = {
+          nome: "Error", 
+          tipo: "error", 
+          titulo: "Erro",
+          mensagem: error.message
+        }
+        this._alertaService.exibirAlerta("Error");
+      }
     })
   }
 }

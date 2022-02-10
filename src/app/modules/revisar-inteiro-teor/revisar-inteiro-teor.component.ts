@@ -50,6 +50,8 @@ export class RevisarInteiroTeorComponent implements OnInit {
   readonly NOME_DO_ALERTA_DESTA_CLASSE = 'alerta_revisar_inteiro_teor';
   MENSAGEM_SUCESSO = '';
 
+  errorMessage: string;
+
   constructor(
     private _route: ActivatedRoute,
     private _inteiroTeorService: RevisarInteiroTeorService,
@@ -82,6 +84,11 @@ export class RevisarInteiroTeorComponent implements OnInit {
       .listarProcessos(this.idProcesso).subscribe({
         next: ([processo]) => {
           this.processo = processo;
+        },
+        error: (error) => {
+          console.log(error);
+          this.errorMessage = error.message
+          this._alertaService.exibirAlerta("Error");
         }
     });
   }

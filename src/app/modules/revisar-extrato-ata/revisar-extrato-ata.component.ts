@@ -49,6 +49,11 @@ export class RevisarExtratoAtaComponent implements OnInit {
         console.log("Ata");
         console.log(ata);
         this.ata = ata;
+      },
+      error: (error) => {
+        console.log(error);
+        this.errorMessage = error.message
+        this._alertaService.exibirAlerta("Error");
       }
     });
   }

@@ -1,6 +1,7 @@
 import { AfterViewChecked, Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
 import { MatCheckboxChange } from '@angular/material/checkbox';
 import { Ministro } from 'app/modules/acervo/model/interfaces/ministro.interface';
+import { AlertaService } from 'app/modules/services/alerta.service';
 import { MinistroService } from 'app/modules/services/ministro.service';
 
 
@@ -19,6 +20,7 @@ export class ComposicaoComponent implements OnInit, AfterViewChecked {
 
   constructor(
     private _ministroService: MinistroService,
+    private _alertaService: AlertaService,
   ) { }
 
   @Input() presidente: Ministro = {} as Ministro;
@@ -31,21 +33,38 @@ export class ComposicaoComponent implements OnInit, AfterViewChecked {
   ausentes: Ministro[] = [];
   presidencia: Ministro;
 
+  errorMessage: string;
+
   /**
    * On init
    */
   ngOnInit(): void {
-    this._ministroService.listarMinistrosDoColegiado('primeira-turma').subscribe(ministros=>{
-      if(this.presidente)
-      ministros.splice(ministros.indexOf(ministros.find(ministro=>ministro.nome==this.presidente.nome)), 1);
-      this.primeiraTurma = ministros;
-      ministros.forEach(ministro=>this.presidenteChecked.push({nome: ministro.nome, checked: false}));
+    this._ministroService.listarMinistrosDoColegiado('primeira-turma').subscribe({
+      next: (ministros) => {
+        if(this.presidente)
+        ministros.splice(ministros.indexOf(ministros.find(ministro=>ministro.nome==this.presidente.nome)), 1);
+        this.primeiraTurma = ministros;
+        ministros.forEach(ministro=>this.presidenteChecked.push({nome: ministro.nome, checked: false}));
+      },
+      error: (error) => {
+        console.log(error);
+        this.errorMessage = error.message
+        this._alertaService.exibirAlerta("Error");
+      }
     })
-    this._ministroService.listarMinistrosDoColegiado('segunda-turma').subscribe(ministros=>{
-      if(this.presidente)
-      ministros.splice(ministros.indexOf(ministros.find(ministro=>ministro.nome==this.presidente.nome)), 1);
-      this.segundaTurma = ministros;
-      ministros.forEach(ministro=>this.presidenteChecked.push({nome: ministro.nome, checked: false}));
+    this._ministroService.listarMinistrosDoColegiado('segunda-turma').subscribe(
+      {
+        next: (ministros) => {
+          if(this.presidente)
+          ministros.splice(ministros.indexOf(ministros.find(ministro=>ministro.nome==this.presidente.nome)), 1);
+          this.segundaTurma = ministros;
+          ministros.forEach(ministro=>this.presidenteChecked.push({nome: ministro.nome, checked: false}));
+        },
+        error: (error) => {
+          console.log(error);
+          this.errorMessage = error.message
+          this._alertaService.exibirAlerta("Error");
+        }
     });
   }
 

@@ -288,12 +288,12 @@
         </mat-drawer-content>
     </mat-drawer-container>
 </div>
-<div class="absolute top-0 right-0 z-40">
-    <app-alerta
-      [nome]="'alerta-resultado-julgamento'"
-      [aparencia]="'soft'"
-      [tipo]="alerta.tipo"
-      [titulo]="alerta.titulo"
-      [mensagem]="alerta.mensagem"
-    ></app-alerta>
-</div>
+
+<app-alerta
+    [nome]="alerta.nome"
+    [titulo]="alerta.titulo"
+    [mensagem]="alerta.mensagem"
+    [aparencia]="'outline'"
+    [tipo]="alerta.tipo"
+    class="absolute top-2 right-2 max-w-120 mx-auto z-40"
+></app-alerta>

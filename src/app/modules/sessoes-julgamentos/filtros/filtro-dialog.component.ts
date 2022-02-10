@@ -91,11 +91,18 @@ export class FiltroDialogComponent implements OnInit {
         const colegiado = (sessao.colegiado=="Primeira turma") ? "primeira-turma" : 
                           (sessao.colegiado=="Segunda turma") ? "segunda-turma" :
                           "pleno";
-        this._ministroService.listarMinistrosDoColegiado(colegiado).subscribe(ministros=>{
-          ministros.forEach(ministro=>{
-            const filter = "filter grayscale";
-            this.ministros.push({ministro, filter});
-          });
+        this._ministroService.listarMinistrosDoColegiado(colegiado).subscribe({
+          next: (ministros) => {
+            ministros.forEach(ministro=>{
+              const filter = "filter grayscale";
+              this.ministros.push({ministro, filter});
+            });
+          },
+          error: (error) => {
+            console.log(error);
+            this.errorMessage = error.message
+            this._alertaService.exibirAlerta("Error");
+          }
         })
         const { numero, ano, data_inicio, data_fim } = sessao;
         this._sessaoDeJulgamentoService.listarProcessosPautadosNasSessoes(numero, ano, SituacaoDoProcesso.Pautado, data_inicio, data_fim).subscribe({

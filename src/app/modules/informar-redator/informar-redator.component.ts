@@ -4,6 +4,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { Ministro } from '../acervo/model/interfaces/ministro.interface';
 import { Voto } from '../acervo/model/interfaces/voto.interface';
+import { AlertaService } from '../services/alerta.service';
 import { MinistroService } from '../services/ministro.service';
 import { ProcessoService } from '../services/processo.service';
 
@@ -29,11 +30,14 @@ export class InformarRedatorComponent implements OnInit {
   relator: Ministro;
   acompanharamRelator: Ministro[];
 
+  errorMessage: string;
+
   constructor(
       private _formBuilder: FormBuilder,
       private _processoService: ProcessoService,
       private _ministroService: MinistroService,
       private _route: ActivatedRoute,
+      private _alertaService: AlertaService,
   ) {
     this.redatorForm = this._formBuilder.group({
         redator: ['', [Validators.required]],
@@ -62,6 +66,11 @@ export class InformarRedatorComponent implements OnInit {
                     .acompanharam;
             }
           });
+        },
+        error: (error) => {
+          console.log(error);
+          this.errorMessage = error.message
+          this._alertaService.exibirAlerta("Error");
         }
     });
   }
