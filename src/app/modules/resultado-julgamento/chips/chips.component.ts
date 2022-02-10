@@ -1,4 +1,6 @@
 import { AfterContentChecked, ChangeDetectorRef, Component, EventEmitter, Input, OnChanges, OnDestroy, OnInit, Output } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
+import { DialogoConfirmacaoComponent } from '../dialogo-confirmacao/dialogo-confirmacao.component';
 
 interface Chip {
   id?: number;
@@ -25,7 +27,10 @@ export class ChipsComponent implements OnInit, OnChanges, OnDestroy, AfterConten
   @Output() chipRemovido = new EventEmitter<Chip>();
   @Output() onClick = new EventEmitter<{click: boolean, chip: string}>();
 
-  constructor(private cd: ChangeDetectorRef) { }
+  constructor(
+    private cd: ChangeDetectorRef,
+    private _dialog: MatDialog,  
+  ) { }
 
   ngOnInit(): void {}
 
@@ -87,12 +92,23 @@ export class ChipsComponent implements OnInit, OnChanges, OnDestroy, AfterConten
    * @author Douglas da Silva Monteles
    */
   public removerChip(chip: Chip): void {
-    const index = this.chips.findIndex(c => JSON.stringify(c) === JSON.stringify(chip));
+    const dialogRef = this._dialog.open(DialogoConfirmacaoComponent, {
+      data: {
+        titulo: 'Exclusão de Vista ou Destaque',
+        mensagem: `Confirma a exclusão do(a) ${chip.nome}?`
+      },
+    });
 
-    if (index !== -1) {
-      this.chips.splice(index, 1);
-      this.chipRemovido.emit(chip);
-    }
+    dialogRef.afterClosed().subscribe(confirmacao => {
+      if (confirmacao) {
+        const index = this.chips.findIndex(c => JSON.stringify(c) === JSON.stringify(chip));
+
+        if (index !== -1) {
+          this.chips.splice(index, 1);
+          this.chipRemovido.emit(chip);
+        }
+      }
+    });
   }
 
   public isChipRemovivel(chipRemovivel: Chip): boolean {

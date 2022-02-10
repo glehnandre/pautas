@@ -23,7 +23,6 @@ import { FormVistaEDestaqueComponent } from './form-vista-e-destaque/form-vista-
 import { MinistroService } from '../services/ministro.service';
 import { Ministro } from '../acervo/model/interfaces/ministro.interface';
 
-
 interface Parametros {
   processo: number;
   colegiado: string;
@@ -270,16 +269,27 @@ export class ResultadoJulgamentoComponent implements OnInit {
    * @author Douglas da Silva Monteles
    */
   public exibirModalDeVista(id?: number): void {
+    const ministro = this._obterDadosDaVistaNaListaDeDecisoes(id)?.ministro || null;
+
     const dialogfRef = this._dialog.open(FormVistaEDestaqueComponent, {
       maxHeight: '90vh',
       data: {
         titulo: 'Informar Vista',
+        tipo: 'vista',
         dados: this._obterDadosDaVistaNaListaDeDecisoes(id),
       }
     });
 
-    dialogfRef.afterClosed().subscribe((data: Vista) => {
-      if (data) {
+    dialogfRef.afterClosed().subscribe(data => {
+      if (data === 'excluir') {
+        this._processoService.excluirVistaDoProcesso(this.parametros.processo, id)
+          .subscribe({
+            next: () => {
+              this.mostrarAlerta('success', 'Sucesso!', `A Vista - ${ministro['nome']} foi excluída com sucesso.`);
+              this._carregarDadosProcessos(); // atualiza a lista de Destaque
+            }
+        });
+      } else if (data) {
         const vista: Vista = {
           ...data,
           processo: +this.parametros.processo,
@@ -302,16 +312,28 @@ export class ResultadoJulgamentoComponent implements OnInit {
    * @author Douglas da Silva Monteles
    */
   public exibirModalDeDestaque(id?: number): void {
+    const ministro = this._obterDadosDoDestaqueNaListaDeDecisoes(id)?.ministro || null;
+
     const dialogfRef = this._dialog.open(FormVistaEDestaqueComponent, {
       maxHeight: '90vh',
       data: {
         titulo: 'Informar Destaque',
+        tipo: 'destaque',
         dados: this._obterDadosDoDestaqueNaListaDeDecisoes(id),
       }
     });
 
-    dialogfRef.afterClosed().subscribe((data: Destaque) => {
-      if (data) {
+    dialogfRef.afterClosed().subscribe(data => {
+      console.log(data)
+      if (data === 'excluir') {
+        this._processoService.excluirDestaqueDoProcesso(this.parametros.processo, id)
+          .subscribe({
+            next: () => {
+              this.mostrarAlerta('success', 'Sucesso!', `O Destaque - ${ministro['nome']} foi excluído com sucesso.`);
+              this._carregarDadosProcessos(); // atualiza a lista de Destaque
+            }
+          });
+      } else if (data) {
         const destaque: Destaque = {
           ...data,
           processo: +this.parametros.processo,
@@ -396,28 +418,28 @@ export class ResultadoJulgamentoComponent implements OnInit {
    * @author Douglas da Silva Monteles
    */
   public obterChipRemovido(chip: {id?:number; nome: string}): void {
-    try {
-      const tipo: string = chip.nome.split(' ')[0].toLocaleLowerCase();
-      const id: number = +chip.id;
-
-      if (tipo === 'vista') {
-        this._processoService.excluirVistaDoProcesso(this.parametros.processo, id)
-          .subscribe({
-            next: () => {
-
-            }
-          });
-      } else { // destaque
-        this._processoService.excluirDestaqueDoProcesso(this.parametros.processo, id)
-          .subscribe({
-            next: () => {
-
-            }
-          });
+      try {
+        const tipo: string = chip.nome.split(' ')[0].toLocaleLowerCase();
+        const id: number = +chip.id;
+  
+        if (tipo === 'vista') {
+          this._processoService.excluirVistaDoProcesso(this.parametros.processo, id)
+            .subscribe({
+              next: () => {
+                this.mostrarAlerta('success', 'Sucesso!', `A ${chip.nome} foi excluída com sucesso.`);
+              }
+            });
+        } else { // destaque
+          this._processoService.excluirDestaqueDoProcesso(this.parametros.processo, id)
+            .subscribe({
+              next: () => {
+                this.mostrarAlerta('success', 'Sucesso!', `O ${chip.nome} foi excluído com sucesso.`);
+              }
+            });
+        }
+      } catch (error) {
+        console.log(error);
       }
-    } catch (error) {
-      console.log(error);
-    }
   }
 
 	/**
@@ -485,56 +507,59 @@ export class ResultadoJulgamentoComponent implements OnInit {
    * @author Douglas da Silva Monteles
    */
   private _criarChips(): void {
-
-    this.chips = [];
+    const chips = [];
 
     if (this.processo) {
       if(this.processo.vistas){
         this.processo.vistas.forEach(({id, ministro}) => {
           const str = `Vista - ${ministro['abreviacao']}`;
-          this.chips.push({ id, nome: str });
+          chips.push({ id, nome: str });
         });
       }
 
       if(this.processo.destaques){
         this.processo.destaques.forEach(({id, ministro}) => {
           const str = `Destaque - ${ministro['abreviacao']}`;
-          this.chips.push({ id, nome: str });
+          chips.push({ id, nome: str });
         });
       }
 
       if(this.processo.ministros_impedidos){
         this.processo.ministros_impedidos.forEach(({abreviacao}) => {
           const str = `Impedido(a) - ${abreviacao}`;
-          this.chips.push({nome: str});
+          chips.push({nome: str});
         });
       }
 
       if(this.processo.ministros_suspeitos){
         this.processo.ministros_suspeitos.forEach(({abreviacao}) => {
           const str = `Suspeito(a) - ${abreviacao}`;
-          this.chips.push({nome: str});
+          chips.push({nome: str});
         });
       }
-
     }
 
+    this.chips = chips;
     this.cd.detectChanges();
   }
 
   private _obterDadosDaVistaNaListaDeDecisoes(id: number): Vista {
     let vista: Vista = null;
-    if(this.processo.vistas){
+
+    if (this.processo.vistas) {
       vista = this.processo.vistas.find(v => v.id === id);
     }
+
     return vista;
   }
 
-  private _obterDadosDoDestaqueNaListaDeDecisoes(id: number): Vista {
+  private _obterDadosDoDestaqueNaListaDeDecisoes(id: number): Destaque {
     let destaque: Destaque = null;
-    if(this.processo.destaques){
+    
+    if (this.processo.destaques) {
       destaque = this.processo.destaques.find(d => d.id === id);
     }
+
     return destaque;
   }
 

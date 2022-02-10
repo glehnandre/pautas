@@ -59,10 +59,20 @@
             <p class="mt-4 text-center flex flex-row gap-4 justify-end items-end">
                 <button
                     mat-raised-button 
-                    mat-dialog-close
+                    [mat-dialog-close]="false"
                     class="mr-2" 
                 >
                     {{'Cancelar' | uppercase}}
+                </button>
+
+                <button 
+                    *ngIf="data.dados"
+                    mat-raised-button 
+                    class="max-w-full" 
+                    color="warn"
+                    (click)="fecharModalEExcluirVistaOuDestaque()"
+                >
+                    {{'Excluir' | uppercase}}
                 </button>
                 
                 <button 
