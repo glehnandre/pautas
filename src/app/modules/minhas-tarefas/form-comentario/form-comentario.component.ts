@@ -2,6 +2,7 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { ITask, SetNotesTaskCommand } from 'app/modules/acervo/model/interfaces/itask.interface';
+import { AlertaService } from 'app/modules/services/alerta.service';
 import { TarefaService } from 'app/modules/services/tarefa.service';
 
 interface FormComentarioData {
@@ -17,10 +18,13 @@ export class FormComentarioComponent implements OnInit {
 
   formComentario: FormGroup;
 
+  errorMessage: string;
+
   constructor(
     private _tarefaService: TarefaService,
     private _fb: FormBuilder,
     private _dialogRef: MatDialogRef<FormComentarioComponent>,
+    private _alertaService: AlertaService,
     @Inject(MAT_DIALOG_DATA) public data: FormComentarioData,
   ) { 
     this.formComentario = this._fb.group({
@@ -43,6 +47,11 @@ export class FormComentarioComponent implements OnInit {
         console.log(data);
         this.formComentario.reset();
         this._dialogRef.close();
+      },
+      error: (error) => {
+        console.log(error);
+        this.errorMessage = error.message
+        this._alertaService.exibirAlerta("Error");
       }
     });
   }
@@ -58,6 +67,11 @@ export class FormComentarioComponent implements OnInit {
         console.log(data);
         this.formComentario.reset();
         this._dialogRef.close();
+      },
+      error: (error) => {
+        console.log(error);
+        this.errorMessage = error.message
+        this._alertaService.exibirAlerta("Error");
       }
     });
   }

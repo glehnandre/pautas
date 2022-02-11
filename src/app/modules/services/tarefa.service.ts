@@ -32,30 +32,15 @@ export class TarefaService {
 
     return this._httpClient.get<ITask[]>('/tasks', {
       params,
-    }).pipe(
-      catchError(error => {
-        console.log(error);
-        return EMPTY;
-      }),
-    );
+    });
   }
 
   public obterTags(): Observable<ITaskTag[]> {
-    return this._httpClient.get<ITaskTag[]>('/tasks/tags.json').pipe(
-      catchError(error => {
-        console.log(error);
-        return EMPTY;
-      }),
-    );
+    return this._httpClient.get<ITaskTag[]>('/tasks/tags.json');
   }
 
   public setNotes(cmd: SetNotesTaskCommand): Observable<ITask> {
-    return this._httpClient.post<ITask>(`/tasks/notes`, cmd).pipe(
-      catchError(error => {
-        console.log(error);
-        return EMPTY;
-      }),
-    );
+    return this._httpClient.post<ITask>(`/tasks/notes`, cmd);
   }
 
 }

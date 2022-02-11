@@ -3,6 +3,7 @@ import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChange
 import { FormGroup, FormControl, FormBuilder } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ITask, ITaskTag } from 'app/modules/acervo/model/interfaces/itask.interface';
+import { AlertaService } from 'app/modules/services/alerta.service';
 import { TarefaService } from 'app/modules/services/tarefa.service';
 
 @Component({
@@ -18,12 +19,15 @@ export class FiltrosComponent implements OnInit {
     tiposDasTags: string[] = [];
     panelOpenState = false;
 
+    errorMessage: string;
+
     @Input() tarefas: ITask[] = [];
 
     constructor(
         private _tarefaService: TarefaService,
         private _fb: FormBuilder,
         private _router: Router,
+        private _alertaService: AlertaService,
     ) {
         this.formFiltro = this._fb.group({
             data_inicio: [null],
@@ -38,6 +42,11 @@ export class FiltrosComponent implements OnInit {
             next: (tags) => {
                 this.tags = tags;
                 this._obterTiposDasTags();
+            },
+            error: (error) => {
+              console.log(error);
+              this.errorMessage = error.message
+              this._alertaService.exibirAlerta("Error");
             }
         });
     }

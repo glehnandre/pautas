@@ -6,6 +6,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { ActivatedRoute } from '@angular/router';
 import { ITask, ITaskTag } from 'app/modules/acervo/model/interfaces/itask.interface';
 import { PaginacaoCustomizadaComponent } from 'app/modules/acervo/tabela/paginacao/paginacao-customizada.component';
+import { AlertaService } from 'app/modules/services/alerta.service';
 import { TarefaService } from 'app/modules/services/tarefa.service';
 import { EMPTY, merge } from 'rxjs';
 import { catchError, map, startWith, switchMap } from 'rxjs/operators';
@@ -46,6 +47,8 @@ export class TabelaComponent implements OnInit, AfterViewInit, OnDestroy {
     isLoadingResults = true;
     isRateLimitReached = false;
 
+    errorMessage: string;
+
     @Output() emitirTarefas = new EventEmitter<ITask[]>();
     @Output() emitirTarefasSelecionadas = new EventEmitter<ITask[]>();
     
@@ -54,6 +57,7 @@ export class TabelaComponent implements OnInit, AfterViewInit, OnDestroy {
     constructor(
         private _tarefaService: TarefaService,
         private _route: ActivatedRoute,
+        private _alertaService: AlertaService,
     ) { }
 
     ngAfterViewInit(): void {
@@ -115,7 +119,14 @@ export class TabelaComponent implements OnInit, AfterViewInit, OnDestroy {
 
               return this._tarefaService
                     .obterTaferas(params)
-                    .pipe(catchError(() => EMPTY));
+                    .pipe(
+                        catchError(error => {
+                          console.log(error);
+                          this.errorMessage =  error.message;
+                          this._alertaService.exibirAlerta("Error")
+                          return EMPTY;
+                        })
+                      );
             }),
             map(data => {
               this.isLoadingResults = false;
