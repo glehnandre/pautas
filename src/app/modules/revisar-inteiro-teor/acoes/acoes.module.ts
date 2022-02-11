@@ -13,6 +13,7 @@ import { AcoesComponent } from './acoes.component';
 import { IncluirDocumentoComponent } from './incluir-documento/incluir-documento.component';
 import { FiltroModule } from './incluir-documento/filtros/filtro.module';
 import { TabelaComponent } from './incluir-documento/tabela/tabela.component';
+import { SharedModule } from 'app/shared/shared.module';
 
 @NgModule({
   declarations: [
@@ -30,7 +31,8 @@ import { TabelaComponent } from './incluir-documento/tabela/tabela.component';
     MatChipsModule,
     MatButtonModule,
     MatTableModule,
-    FiltroModule
+    FiltroModule,
+    SharedModule,
   ],
   providers: [{ provide: MAT_DATE_LOCALE, useValue: 'pt-BR' }],
   exports: [

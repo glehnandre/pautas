@@ -36,6 +36,8 @@ export class AcoesComponent implements OnInit {
   @Output() revisoesAlteradas = new EventEmitter();
   @Output() publicacao = new EventEmitter();
 
+  errorMessage: string;
+
   readonly NOME_DO_ALERTA_DESTA_CLASSE = 'alerta_revisar_inteiro_teor';
 
   constructor(
@@ -92,6 +94,11 @@ export class AcoesComponent implements OnInit {
       this._inteiroTeorService.removerDocumentosDoInteiroTeorDoProcesso(this.idProcesso, ids).subscribe({
           next: (data) => {
             this.revisoesAlteradas.emit(data);
+          },
+          error: (error) => {
+            console.log(error);
+            this.errorMessage = error.message
+            this._alertaService.exibirAlerta("Error");
           }
       })
     }
@@ -117,6 +124,11 @@ export class AcoesComponent implements OnInit {
         this._inteiroTeorService.incluirDocumentosDoInteiroTeorDoProcesso(this.idProcesso, data).subscribe({
             next: (data) => {
                 this.revisoesAlteradas.emit(data);
+            },
+            error: (error) => {
+              console.log(error);
+              this.errorMessage = error.message
+              this._alertaService.exibirAlerta("Error");
             }
         })
       });
@@ -143,6 +155,11 @@ export class AcoesComponent implements OnInit {
         this._inteiroTeorService.atualizarDocumentoDoInteiroTeor(this.idProcesso, documentosModificados).subscribe({
             next: (data) => {
                 this.revisoesAlteradas.emit(data);
+            },
+            error: (error) => {
+              console.log(error);
+              this.errorMessage = error.message
+              this._alertaService.exibirAlerta("Error");
             }
         });
     }

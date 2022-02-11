@@ -122,6 +122,11 @@ export class TabelaComponent implements OnInit {
           next: (data) => {
               this.revisoes = data;
               this.dataSource = new DataSourceInteiroTeor(this.revisoes.documentos);
+          },
+          error: (error) => {
+            console.log(error);
+            this.errorMessage = error.message
+            this._alertaService.exibirAlerta("Error");
           }
       });
 
@@ -175,7 +180,13 @@ export class TabelaComponent implements OnInit {
 
     this.dataSource = new DataSourceInteiroTeor(this.revisoes.documentos);
 
-    this._inteiroTeorService.atualizarDocumentoDoInteiroTeor(this.idProcesso, this.revisoes.documentos).subscribe();
+    this._inteiroTeorService.atualizarDocumentoDoInteiroTeor(this.idProcesso, this.revisoes.documentos).subscribe({
+      error: (error) => {
+        console.log(error);
+        this.errorMessage = error.message
+        this._alertaService.exibirAlerta("Error");
+      }
+    });
   }
 
 }
