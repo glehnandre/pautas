@@ -20,6 +20,8 @@ export class AgruparEmlistaComponent implements OnInit {
   public sucesso: boolean = false;
   public tags: Array<Tag> = [];
 
+  errorMessage: string;
+
   /**
    * Constructor
    *
@@ -31,7 +33,8 @@ export class AgruparEmlistaComponent implements OnInit {
     private _alertService: AlertaService,
     public dialogRef: MatDialogRef<AgruparEmlistaComponent>,
     public dialog: MatDialog,
-    private _processoService: ProcessoService
+    private _processoService: ProcessoService,
+    private _alertaService: AlertaService,
   ) {}
 
   ngOnInit() {
@@ -78,7 +81,13 @@ export class AgruparEmlistaComponent implements OnInit {
       next: (data) => {
         this.tags = data;
         this.tags.map(tag => tag.checked = false);
+      },
+      error: (error) => {
+        console.log(error);
+        this.errorMessage = error.message
+        this._alertaService.exibirAlerta("Error");
       }
+      
     });
   }
 }

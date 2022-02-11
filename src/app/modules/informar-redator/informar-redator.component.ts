@@ -64,7 +64,12 @@ export class InformarRedatorComponent implements OnInit {
                 this.acompanharamRelator = votos
                     .find(voto => voto.autor?.id == this.relator.id)
                     .acompanharam;
-            }
+              },
+              error: (error) => {
+                console.log(error);
+                this.errorMessage = error.message
+                this._alertaService.exibirAlerta("Error");
+              }
           });
         },
         error: (error) => {

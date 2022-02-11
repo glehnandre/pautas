@@ -164,12 +164,32 @@ export class FormModeloDecisaoComponent implements OnInit {
         this._processoService.salvarModeloDecisao(this.formModeloDecisao.value).subscribe({
           next: () => {
             this.sairModal();
+          },
+          error: (error) => {
+            console.log(error);
+            this.alerta = {
+              nome: "Error", 
+              tipo: "error", 
+              titulo: "Erro",
+              mensagem: error.message
+            }
+            this._alertaService.exibirAlerta("Error");
           }
         });
       }else{
         this._processoService.atualizarModeloDecisao(this.modelo.id, this.formModeloDecisao.value).subscribe({
           next: () => {
             this.sairModal();
+          },
+          error: (error) => {
+            console.log(error);
+            this.alerta = {
+              nome: "Error", 
+              tipo: "error", 
+              titulo: "Erro",
+              mensagem: error.message
+            }
+            this._alertaService.exibirAlerta("Error");
           }
         });
       }

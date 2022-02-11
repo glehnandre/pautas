@@ -5,7 +5,9 @@ import { MatCheckboxChange } from '@angular/material/checkbox';
 import { ProcessoService } from 'app/modules/services/processo.service';
 import { Processo } from '../../model/interfaces/processo.interface';
 import { Documento } from '../../model/interfaces/documento.interface';
-import { Observable } from 'rxjs';
+import { EMPTY, Observable } from 'rxjs';
+import { catchError } from 'rxjs/operators';
+import { AlertaService } from 'app/modules/services/alerta.service';
 
 @Component({
   selector: 'app-linha',
@@ -30,10 +32,13 @@ export class LinhaComponent implements OnInit {
   lastId: string = 'idTags';
   link: SafeResourceUrl;
 
+  errorMessage: string;
+
   constructor(
       private _processoService: ProcessoService,
       public _sanitizer: DomSanitizer,
       private _fuseDrawerService: FuseDrawerService,
+      private _alertaService: AlertaService,
   ) {
 
 
@@ -44,7 +49,14 @@ export class LinhaComponent implements OnInit {
 
   ngOnInit(): void {
     this.link = this._sanitizer.bypassSecurityTrustResourceUrl('');
-    this.docs$ = this._processoService.obterDocumentosDoProcesso(this.processo.id);
+    this.docs$ = this._processoService.obterDocumentosDoProcesso(this.processo.id).pipe(
+      catchError(error => {
+        console.log(error);
+        this.errorMessage =  error.message;
+        this._alertaService.exibirAlerta("Error")
+        return EMPTY;
+      })
+    );;
 
     this._processoService.obterProcessosSelecionados().subscribe((data) => {
         this.selected = false;

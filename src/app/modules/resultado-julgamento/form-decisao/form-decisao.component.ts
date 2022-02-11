@@ -179,6 +179,11 @@ export class FormDecisaoComponent implements OnInit, OnChanges, OnDestroy {
         next: (data) => {
           this._atualizarCapitulos(data);
           this.formDecisao.reset();
+        },
+        error: (error) => {
+          console.log(error);
+          this.errorMessage = error.message
+          this._alertaService.exibirAlerta("Error");
         }
       });
     }
@@ -194,6 +199,11 @@ export class FormDecisaoComponent implements OnInit, OnChanges, OnDestroy {
           console.log(data);
           this._atualizarCapitulos(data);
           this.formDecisao.reset();
+        },
+        error: (error) => {
+          console.log(error);
+          this.errorMessage = error.message
+          this._alertaService.exibirAlerta("Error");
         }
       });
     }
@@ -216,7 +226,14 @@ export class FormDecisaoComponent implements OnInit, OnChanges, OnDestroy {
       })
     );
 
-    this.tipos$ = this._processoService.obterTiposDoProcesso();
+    this.tipos$ = this._processoService.obterTiposDoProcesso().pipe(
+      catchError(error => {
+        console.log(error);
+        this.errorMessage =  error.message;
+        this._alertaService.exibirAlerta("Error")
+        return EMPTY;
+      })
+    );
 
     if(this.capitulo){  
       if (this.capitulo.dispositivo) {

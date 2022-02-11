@@ -1,7 +1,6 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, EMPTY, Subject, BehaviorSubject, empty } from 'rxjs';
-import { catchError } from 'rxjs/operators';
+import { Observable, Subject, BehaviorSubject } from 'rxjs';
 import { TipoCapitulo } from '../acervo/model/enums/tipoCapitulo.enum';
 import { Capitulo } from '../acervo/model/interfaces/capitulo.interface';
 import { Destaque } from '../acervo/model/interfaces/destaque.interface';
@@ -49,41 +48,19 @@ export class ProcessoService {
   }
 
   public obterDocumentosDoProcesso(id: number): Observable<Documento[]> {
-    return this._httpClient.get<Documento[]>(`julgamento/processos/${id}/documentos`)
-      .pipe(
-        catchError((error) => {
-          console.log(error);
-          return EMPTY;
-        })
-      );
+    return this._httpClient.get<Documento[]>(`julgamento/processos/${id}/documentos`);
   }
 
   public obterImpedimentosDoMinistro(processo: number, ministro: string): Observable<Impedimento[]> {
-    return this._httpClient.get<Impedimento[]>(`processos/${processo}/impedimentos/${ministro}`)
-      .pipe(
-        catchError(error => {
-          console.log(error);
-          return EMPTY;
-        })
-      );
+    return this._httpClient.get<Impedimento[]>(`processos/${processo}/impedimentos/${ministro}`);
   }
 
   public recuperarTagsDaApi(): Observable<Tag[]> {
-    return this._httpClient.get<Tag[]>('tags').pipe(
-      catchError((error) => {
-        console.log(error);
-        return EMPTY;
-      })
-    );
+    return this._httpClient.get<Tag[]>('tags');
   }
 
   public obterVotosDoProcesso(processo: number): Observable<Voto[]> {
-    return this._httpClient.get<Voto[]>(`processos/${processo}/votos`).pipe(
-      catchError(error => {
-        console.log(error);
-        return EMPTY;
-      })
-    );
+    return this._httpClient.get<Voto[]>(`processos/${processo}/votos`);
   }
 
   public definirRelatorDoProcesso(idProcesso: number, idRelator: number): Observable<string> {
@@ -91,88 +68,43 @@ export class ProcessoService {
   }
 
   public obterTiposDoProcesso(): Observable<string[]> {
-    return this._httpClient.get<string[]>(`processos/tipos`).pipe(
-      catchError(error => {
-        console.log(error);
-        return EMPTY;
-      })
-    );
+    return this._httpClient.get<string[]>(`processos/tipos`);
   }
 
   public salvarVistaDoProcesso(id: number, vista: Vista): Observable<void> {
-    return this._httpClient.post<void>(`processos/${id}/vistas`, vista).pipe(
-      catchError(error => {
-        console.log(error);
-        return EMPTY;
-      })
-    );
+    return this._httpClient.post<void>(`processos/${id}/vistas`, vista);
   }
 
   public salvarDestaqueDoProcesso(id: number, destaque: Destaque): Observable<void> {
-    return this._httpClient.post<void>(`processos/${id}/destaques`, destaque).pipe(
-      catchError(error => {
-        console.log(error);
-        return EMPTY;
-      })
-    );
+    return this._httpClient.post<void>(`processos/${id}/destaques`, destaque);
   }
 
   public salvarImpedimentos(id: number, obj: any): Observable<void> {
-    return this._httpClient.post<void>(`processos/${id}/impedimentos`, obj).pipe(
-      catchError(error => {
-        console.log(error);
-        return EMPTY;
-      }),
-    );
+    return this._httpClient.post<void>(`processos/${id}/impedimentos`, obj);
   }
 
   public excluirVistaDoProcesso(id: number, idVista: number): Observable<void> {
-    return this._httpClient.delete<void>(`processos/${id}/vistas/${idVista}`).pipe(
-      catchError(error => {
-        console.log(error);
-        return EMPTY;
-      })
-    );
+    return this._httpClient.delete<void>(`processos/${id}/vistas/${idVista}`);
   }
 
   
   public atualizarVistasDoProcesso(id: number, idVista: number, vista: Vista): Observable<void> {
-    return this._httpClient.put<void>(`processos/${id}/vistas/${idVista}`, vista).pipe(
-      catchError(error => {
-        console.log(error);
-        return EMPTY;
-      })
-    );
+    return this._httpClient.put<void>(`processos/${id}/vistas/${idVista}`, vista);
   }
 
   
   public finalizarSessaoDeJulgamento(numero: number, ano: number, dadosDaSessaoJulgamento: any): Observable<void> {
     const numeroAno = `${numero}-${ano}`;
-    return this._httpClient.put<void>(`sessoes-de-julgamento/${numeroAno}/finalizar`, dadosDaSessaoJulgamento).pipe(
-      catchError((error) => {
-        console.log(error);
-        return EMPTY;
-      }),
-    );
+    return this._httpClient.put<void>(`sessoes-de-julgamento/${numeroAno}/finalizar`, dadosDaSessaoJulgamento);
   }
 
   public atualizarDestaquesDoProcesso(id: number, idDestaque: number, destaque: Destaque): Observable<void> {
-    return this._httpClient.put<void>(`processos/${id}/destaques/${idDestaque}`, destaque).pipe(
-      catchError(error => {
-        console.log(error);
-        return EMPTY;
-      })
-    );
+    return this._httpClient.put<void>(`processos/${id}/destaques/${idDestaque}`, destaque);
   }
 
 
   public excluirDestaqueDoProcesso(id: number, idDestaque: number): Observable<void> {
-    return this._httpClient.delete<void>(`processos/${id}/destaques/${idDestaque}`).pipe(
-      catchError(error => {
-        console.log(error);
-        return EMPTY;
-      })
-    );
+    return this._httpClient.delete<void>(`processos/${id}/destaques/${idDestaque}`);
   }
 
   public setCarregarProcessos(carregarProcessos: boolean): void {
@@ -205,30 +137,15 @@ export class ProcessoService {
     return this._httpClient.post<Capitulo[]>(`processo/${id}/capitulos`, {
       capitulo,
       processos_mesma_decisao,
-    }).pipe(
-      catchError(error => {
-        console.log(error);
-        return EMPTY;
-      })
-    );
+    });
   }
 
   public excluirCapitulo(id: number, id_capitulo: number): Observable<Capitulo[]> {
-    return this._httpClient.delete<Capitulo[]>(`processo/${id}/capitulos/${id_capitulo}`).pipe(
-      catchError(error => {
-        console.log(error);
-        return EMPTY;
-      })
-    );
+    return this._httpClient.delete<Capitulo[]>(`processo/${id}/capitulos/${id_capitulo}`);
   }
 
   public salvarModeloDecisao(modelo: ModeloDecisao): Observable<void> {
-    return this._httpClient.post<void>(`modelo-decisao`, modelo).pipe(
-      catchError(error => {
-        console.log(error);
-        return EMPTY;
-      })
-    );
+    return this._httpClient.post<void>(`modelo-decisao`, modelo);
   }
 
   public obterModeloDecisao(classe: string, tipoCapitulo: string, dispositivo: number, recurso: number): Observable<ModeloDecisao> {
@@ -244,21 +161,11 @@ export class ProcessoService {
   }
 
   public atualizarModeloDecisao(id: number, modelo: ModeloDecisao): Observable<void> {
-    return this._httpClient.put<void>(`modelo-decisao/${id}`, modelo).pipe(
-      catchError(error => {
-        console.log(error);
-        return EMPTY;
-      })
-    );
+    return this._httpClient.put<void>(`modelo-decisao/${id}`, modelo);
   }
 
   public enviarCorrecaoCapitulo(id: number, correcao: any) {
-    return this._httpClient.post<any>(`ata/${id}`, correcao).pipe(
-      catchError( error => {
-        console.error(error);
-        return EMPTY;
-      })
-    );
+    return this._httpClient.post<any>(`ata/${id}`, correcao);
   }
 
 }

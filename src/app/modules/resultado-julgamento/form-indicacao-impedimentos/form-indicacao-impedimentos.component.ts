@@ -140,6 +140,11 @@ export class FormIndicacaoImpedimentosComponent implements OnInit {
       next: () => {
         this._dialogRef.close('ok');
       },
+      error: (error) => {
+        console.log(error);
+        this.errorMessage = error.message
+        this._alertaService.exibirAlerta("Error");
+      }
     });
   }
 

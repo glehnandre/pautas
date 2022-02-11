@@ -3,7 +3,10 @@ import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { CapitulosParaPublicacao } from 'app/modules/acervo/model/interfaces/capitulo.interface';
 import { Processo } from 'app/modules/acervo/model/interfaces/processo.interface';
+import { AlertaService } from 'app/modules/services/alerta.service';
 import { ProcessoService } from 'app/modules/services/processo.service';
+import { EMPTY } from 'rxjs';
+import { catchError } from 'rxjs/operators';
 
 @Component({
   selector: 'app-correcao-capitulo-form',
@@ -14,10 +17,12 @@ export class CorrecaoCapituloFormComponent implements OnInit {
 
   processos: Processo[];
 
+  errorMessage: string;
 
   constructor(
     private _formBuilder: FormBuilder,
     private _dialogRef: MatDialogRef<CorrecaoCapituloFormComponent>,
+    private _alertaService: AlertaService,
     @Inject(MAT_DIALOG_DATA) private data: {
       processos:Processo[],
       id_sessao: number;
@@ -70,7 +75,14 @@ export class CorrecaoCapituloFormComponent implements OnInit {
     for(let correcao of this.marcadoCorrecao)
       correcoes.push({ processo: correcao.processo, correcao: correcao.correcao });
 
-    this._processoService.enviarCorrecaoCapitulo(this.data.id_sessao, correcoes);
+    this._processoService.enviarCorrecaoCapitulo(this.data.id_sessao, correcoes).pipe(
+      catchError(error => {
+        console.log(error);
+        this.errorMessage =  error.message;
+        this._alertaService.exibirAlerta("Error")
+        return EMPTY;
+      })
+    );
     this._dialogRef.close();
   }
 }

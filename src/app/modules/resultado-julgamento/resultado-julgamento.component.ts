@@ -307,6 +307,10 @@ export class ResultadoJulgamentoComponent implements OnInit {
           next: (vistaSalva) => {
             this._carregarDadosProcessos(); // atualiza a lista de Vistas
             this.alertaVistaEDestaque('Vista', vistaSalva['ministro']);
+          },
+          error: (error) => {
+            console.log(error);
+            this.mostrarAlerta("error", "Error", error.message);
           }
         });
       }
@@ -356,6 +360,10 @@ export class ResultadoJulgamentoComponent implements OnInit {
             this._carregarDadosProcessos(); // atualiza a lista de Destaque
 
             this.alertaVistaEDestaque('Destaque', destaqueSalvo['ministro']);
+          },
+          error: (error) => {
+            console.log(error);
+            this.mostrarAlerta("error", "Error", error.message);
           }
         });
       }
@@ -438,6 +446,10 @@ export class ResultadoJulgamentoComponent implements OnInit {
             .subscribe({
               next: () => {
                 this.mostrarAlerta('success', 'Sucesso!', `A ${chip.nome} foi excluída com sucesso.`);
+              },
+              error: (error) => {
+                console.log(error);
+                this.mostrarAlerta("error", "Error", error.message);
               }
             });
         } else { // destaque
@@ -445,6 +457,10 @@ export class ResultadoJulgamentoComponent implements OnInit {
             .subscribe({
               next: () => {
                 this.mostrarAlerta('success', 'Sucesso!', `O ${chip.nome} foi excluído com sucesso.`);
+              },
+              error: (error) => {
+                console.log(error);
+                this.mostrarAlerta("error", "Error", error.message);
               }
             });
         }
@@ -505,6 +521,10 @@ export class ResultadoJulgamentoComponent implements OnInit {
           next: (votos) => {
             this.votos = votos;
             console.log(this.votos)
+          },
+          error: (error) => {
+            console.log(error);
+            this.mostrarAlerta("error", "Error", error.message);
           }
         });
       },

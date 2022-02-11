@@ -83,12 +83,19 @@ export class CabecalhoRelatorComponent implements AfterContentChecked, OnInit {
   }
 
   private carregarDocumentosProcesso(processo: Processo){
-    this._processoService.obterDocumentosDoProcesso(processo?.id).subscribe(data => {
-      this.documentos = { nomes: [], links: [] };
-      data.forEach(documento => {
-        this.documentos.nomes.push(documento.nome);
-        this.documentos.links.push(documento.url);
-      });
+    this._processoService.obterDocumentosDoProcesso(processo?.id).subscribe({
+      next: (data) => {
+        this.documentos = { nomes: [], links: [] };
+        data.forEach(documento => {
+          this.documentos.nomes.push(documento.nome);
+          this.documentos.links.push(documento.url);
+        });
+      },
+      error: (error) => {
+        console.log(error);
+        this.errorMessage = error.message
+        this._alertaService.exibirAlerta("Error");
+      }
     });
   }
 

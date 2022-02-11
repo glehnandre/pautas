@@ -77,6 +77,11 @@ export class RevisarInteiroTeorComponent implements OnInit {
     this._processoService.obterDocumentosDoProcesso(this.idProcesso).subscribe({
       next: (documentos) => {
         this.documentosDoProcesso = documentos;
+      },
+      error: (error) => {
+        console.log(error);
+        this.errorMessage = error.message
+        this._alertaService.exibirAlerta("Error");
       }
     });
 
