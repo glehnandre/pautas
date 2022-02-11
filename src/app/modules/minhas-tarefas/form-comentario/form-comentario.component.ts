@@ -1,8 +1,10 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { ITask, SetNotesTaskCommand } from 'app/modules/acervo/model/interfaces/itask.interface';
+import { AlertaService } from 'app/modules/services/alerta.service';
 import { TarefaService } from 'app/modules/services/tarefa.service';
+import { DialogoConfirmacaoComponent } from 'app/shared/dialogo-confirmacao/dialogo-confirmacao.component';
 
 interface FormComentarioData {
   tarefas: ITask[];
@@ -16,11 +18,13 @@ interface FormComentarioData {
 export class FormComentarioComponent implements OnInit {
 
   formComentario: FormGroup;
+  alerta: { titulo: string; mensagem: string; tipo: 'success' | 'warning' | 'error'; } = null;
 
   constructor(
     private _tarefaService: TarefaService,
     private _fb: FormBuilder,
     private _dialogRef: MatDialogRef<FormComentarioComponent>,
+    private _dialog: MatDialog,
     @Inject(MAT_DIALOG_DATA) public data: FormComentarioData,
   ) { 
     this.formComentario = this._fb.group({
@@ -39,27 +43,47 @@ export class FormComentarioComponent implements OnInit {
     };
 
     this._tarefaService.setNotes(cmd).subscribe({
-      next: (data) => {
-        console.log(data);
+      next: () => {
+        this._setAlerta('Salvo!', 'O comentário foi salvo com sucesso!', 'success');
+
         this.formComentario.reset();
-        this._dialogRef.close();
+        this._dialogRef.close(this.alerta);
       }
     });
   }
 
   public excluir(): void {
-    const cmd: SetNotesTaskCommand = {
-      taskId: this.data.tarefas[0].id, 
-      notes: null,
-    };
-
-    this._tarefaService.setNotes(cmd).subscribe({
-      next: (data) => {
-        console.log(data);
-        this.formComentario.reset();
-        this._dialogRef.close();
-      }
+    const dialogRef = this._dialog.open(DialogoConfirmacaoComponent, {
+      data: {
+        titulo: 'Excluir Comentário',
+        mensagem: 'Deseja realmente excluir este comentário?',
+      },
     });
+
+    dialogRef.afterClosed().subscribe(data => {
+      if (data) {
+        const cmd: SetNotesTaskCommand = {
+          taskId: this.data.tarefas[0].id, 
+          notes: null,
+        };
+    
+        this._tarefaService.setNotes(cmd).subscribe({
+          next: () => {
+            this._setAlerta('Excluído!', 'O comentário foi excluído com sucesso!', 'success');
+            this.formComentario.reset();
+            this._dialogRef.close(this.alerta);
+          }
+        });
+      }
+    }); 
+  }
+
+  private _setAlerta(titulo: string, mensagem: string, tipo: 'success' | 'warning' | 'error'): void {
+    this.alerta = {
+      titulo,
+      mensagem,
+      tipo,
+    };
   }
 
 }
