@@ -1,9 +1,10 @@
 import { AfterViewChecked, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Secretario } from 'app/modules/acervo/model/interfaces/secretario.interface';
+import { AlertaService } from 'app/modules/services/alerta.service';
 import { UsuariosService } from 'app/modules/services/usuario.service';
-import { Observable } from 'rxjs';
-import { debounceTime, map, startWith, switchMap } from 'rxjs/operators';
+import { EMPTY, Observable } from 'rxjs';
+import { catchError, debounceTime, map, startWith, switchMap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-form',
@@ -15,6 +16,7 @@ export class FormComponent implements OnInit {
   constructor(
     private _fb: FormBuilder,
     private _usuarioService: UsuariosService,
+    private _alertaService: AlertaService,
   ) { }
 
   @Input() secretario: Secretario;
@@ -23,6 +25,8 @@ export class FormComponent implements OnInit {
   formFinalizarSessao: FormGroup;
 
   secretarios$: Observable<Secretario[]>;
+
+  errorMessage: string;
 
   /**
    * On init
@@ -34,7 +38,14 @@ export class FormComponent implements OnInit {
       cabecalho: [''],
     });
 
-    this.secretarios$ = this._usuarioService.getTodosUsuarios();
+    this.secretarios$ = this._usuarioService.getTodosUsuarios().pipe(
+      catchError(error => {
+        console.log(error);
+        this.errorMessage =  error.message;
+        this._alertaService.exibirAlerta("Error")
+        return EMPTY;
+      })
+    );;
       
   }
 
