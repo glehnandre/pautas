@@ -31,7 +31,7 @@ export class DecisaoMockApi {
             body.id = this._modeloDecisao.length+1;
             this._modeloDecisao.push({...body, dispositivo});
             setStorage('modelosDecisao', this._modeloDecisao);
-            return [200, "Sucesso."];
+            return [200, this._modeloDecisao[this._modeloDecisao.length-1]];
           }else{
             return [404, "Nenhuma decisão encontrada."];
           }
@@ -44,7 +44,6 @@ export class DecisaoMockApi {
           const tipo_capitulo: string = request.params.get('tipo_capitulo');
           const dispositivo = request.params.get('dispositivo');
           const recurso: number = +request.params.get('recurso');
-
           const modelo = this._modeloDecisao.find(m => (m.classe === classe) && (m.tipoCapitulo === tipo_capitulo) && (m.dispositivo.id === +dispositivo) && (m.recurso === recurso));
           if (modelo !== undefined) {
             return [200, modelo];

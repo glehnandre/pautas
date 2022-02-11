@@ -1,5 +1,5 @@
-<div class="flex flex-col max-w-240 md:min-w-160 -m-6">
-    <header class="flex items-center justify-between h-16 pr-3 sm:pr-5 pl-6 sm:pl-8 bg-primary text-on-primary">
+<div class="flex flex-col max-w-320 md:min-w-256 min-h-192 min-m-6">
+    <header class="flex items-center justify-between h-16 pr-3 sm:pr-5 sm:pl-8 bg-primary text-on-primary">
         <h1 class="mt-4 flex items-center justify-center text-lg font-medium text-white-500">
             {{data.titulo}}
         </h1>
@@ -11,7 +11,7 @@
         </button>
     </header>
 
-    <div class="flex flex-col flex-auto p-6 sm:p-8 overflow-y-auto ng-pristine ng-invalid ng-touched">
+    <div class="flex flex-col flex-auto pt-6 sm:pt-8 overflow-y-auto ng-pristine ng-invalid ng-touched">
         <form [formGroup]="formVistaEDestaque">
             <div class="w-full grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <mat-form-field class="w-full mb-4 col-span-1" appearance="outline">
@@ -42,10 +42,10 @@
                 </mat-form-field>
             </div>
 
-            <mat-form-field class="w-full mb-4" appearance="outline">
+            <mat-form-field class="w-full h-full mb-4" appearance="outline">
                 <mat-label>Texto <span class="text-red-500">*</span></mat-label>
                 
-                <textarea 
+                <textarea class="h-100"
                     matInput 
                     rows="10"
                     formControlName="texto"

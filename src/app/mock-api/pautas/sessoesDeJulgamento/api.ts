@@ -55,15 +55,8 @@ export class SessaoDeJulgamentoMockApi {
               return sessaoNumeroAno === numeroAno;
           });
           if (sessaoDeJulgamento) {
-              sessaoDeJulgamento = {...sessaoDeJulgamento, ministro: {
-              id: 12314441,
-              nome: "Luiz Fux",
-              abreviacao: "MLF",
-              cadeira: {
-                criacao: '2021-08-02T03:00:00.000Z',
-                numero: 100,
-              }
-            }, observacao: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Porro minima quibusdam perspiciatis aliquid iste quo deleniti  ducimus nulla minus rerum expedita tenetur, dicta saepe error unde,  labore cum, aperiam nisi. Lorem ipsum dolor sit amet consectetur adipisicing elit.  Odit sequi magni, modi reprehenderit sit ipsa tempora natus  harum voluptatem iure molestias, veniam nemo quam odio qui laboriosam.  Pariatur, praesentium molestiae?",};
+            console.log('RETORNO DA API DE SESSAO DE JULGAMENTO...');
+            console.log(sessaoDeJulgamento);
             return [200, sessaoDeJulgamento];
           } else {
             return [404, { description: 'Sessao de julgamento não foi encontrada' }];

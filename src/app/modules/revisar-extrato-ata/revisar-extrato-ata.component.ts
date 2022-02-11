@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { SessaoDeJulgamentoService } from '../services/sessao-de-julgamento.service';
+
 import { Ata } from '../acervo/model/interfaces/ata.interface';
 import { MatDialog } from '@angular/material/dialog';
 import { PublicarFormComponent } from './publicar-form/publicar-form.component';
@@ -8,6 +8,7 @@ import { CorrecaoCapituloFormComponent } from './correcao-capitulo-form/correcao
 import { PublicacaoService } from '../services/publicacao.service';
 import { AlertaService } from '../services/alerta.service';
 import { SessaoDeJulgamento } from '../acervo/model/interfaces/sessao-julgamento.interface';
+import { SessaoDeJulgamentoService } from '../services/sessao-de-julgamento.service';
 
 interface Parametros {
     numero: number;
@@ -61,6 +62,8 @@ export class RevisarExtratoAtaComponent implements OnInit {
   private getSessaoDeJulgamento() {
     this._sessaoDejulgamentoService.listarSessoesDeJulgamento(this.parametros.numero, this.parametros.ano).subscribe({
       next: (sessao) => {
+        console.log("ESSA É A SESSAO DE JULGAMENTO CARREGADA");
+        console.log(sessao);
         this.sessao = sessao;
       },
       error: (error) => {

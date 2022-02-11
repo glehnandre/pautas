@@ -1,12 +1,10 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, Subject, BehaviorSubject } from 'rxjs';
-import { TipoCapitulo } from '../acervo/model/enums/tipoCapitulo.enum';
 import { Capitulo } from '../acervo/model/interfaces/capitulo.interface';
 import { Destaque } from '../acervo/model/interfaces/destaque.interface';
 import { Documento } from '../acervo/model/interfaces/documento.interface';
 import { Impedimento } from '../acervo/model/interfaces/impedimento.interface';
-import { Manifestacao } from '../acervo/model/interfaces/manifestacao.interface';
 import { ModeloDecisao } from '../acervo/model/interfaces/modeloDecisao.interface';
 import { Processo } from '../acervo/model/interfaces/processo.interface';
 import { Tag } from '../acervo/model/interfaces/tag.interface';
@@ -39,6 +37,8 @@ export class ProcessoService {
     });
   }
 
+
+
   public reanalizarProcesso(id: number, body: {descricao: string; data: string}): Observable<void> {
     return this._httpClient.post<void>(`/processos/${id}/reanalisar`, body);
   }
@@ -63,33 +63,44 @@ export class ProcessoService {
     return this._httpClient.get<Voto[]>(`processos/${processo}/votos`);
   }
 
-  public definirRelatorDoProcesso(idProcesso: number, idRelator: number): Observable<string> {
-    return this._httpClient.post<string>(`processos/${idProcesso}/relator`, idRelator);
-  }
-
   public obterTiposDoProcesso(): Observable<string[]> {
     return this._httpClient.get<string[]>(`processos/tipos`);
   }
 
-  public salvarVistaDoProcesso(id: number, vista: Vista): Observable<void> {
-    return this._httpClient.post<void>(`processos/${id}/vistas`, vista);
+  public definirRelatorDoProcesso(numero: number, ano: number, idProcesso: number, idRelator: number): Observable<string> {
+    const numeroAno = `${numero}-${ano}`;
+    return this._httpClient.post<string>(`sessao-de-julgamento/${numeroAno}/processos/${idProcesso}/relator`, idRelator);
   }
 
-  public salvarDestaqueDoProcesso(id: number, destaque: Destaque): Observable<void> {
-    return this._httpClient.post<void>(`processos/${id}/destaques`, destaque);
+  public salvarVistaDoProcesso(numero: number, ano: number, id: number, vista: Vista): Observable<void> {
+    const numeroAno = `${numero}-${ano}`;
+    return this._httpClient.post<void>(`sessao-de-julgamento/${numeroAno}/processos/${id}/vistas`, vista);
   }
 
-  public salvarImpedimentos(id: number, obj: any): Observable<void> {
-    return this._httpClient.post<void>(`processos/${id}/impedimentos`, obj);
+  public salvarDestaqueDoProcesso(numero: number, ano: number, id: number, destaque: Destaque): Observable<void> {
+    const numeroAno = `${numero}-${ano}`;
+    return this._httpClient.post<void>(`sessao-de-julgamento/${numeroAno}/processos/${id}/destaques`, destaque);
   }
 
-  public excluirVistaDoProcesso(id: number, idVista: number): Observable<void> {
-    return this._httpClient.delete<void>(`processos/${id}/vistas/${idVista}`);
+  public salvarImpedimentos(numero: number, ano: number, id: number, obj: any): Observable<void> {
+    const numeroAno = `${numero}-${ano}`;
+    return this._httpClient.post<void>(`sessao-de-julgamento/${numeroAno}/processos/${id}/impedimentos`, obj);
+  }
+
+  public excluirVistaDoProcesso(numero: number, ano: number, id: number, idVista: number): Observable<void> {
+    const numeroAno = `${numero}-${ano}`;
+    return this._httpClient.delete<void>(`sessao-de-julgamento/${numeroAno}/processos/${id}/vistas/${idVista}`);
   }
 
   
-  public atualizarVistasDoProcesso(id: number, idVista: number, vista: Vista): Observable<void> {
-    return this._httpClient.put<void>(`processos/${id}/vistas/${idVista}`, vista);
+  public atualizarVistasDoProcesso(numero: number, ano: number, id: number, idVista: number, vista: Vista): Observable<void> {
+    const numeroAno = `${numero}-${ano}`;
+    return this._httpClient.put<void>(`sessao-de-julgamento/${numeroAno}/processos/${id}/vistas/${idVista}`, vista);
+  }
+
+  public finalizarJulgamentoProcesso(numero: number, ano: number, processo: Processo): Observable<string> {
+    const numeroAno = `${numero}-${ano}`;
+    return this._httpClient.post<string>(`sessao-de-julgamento/${numeroAno}/processos/${processo.id}/finalizar-julgamento`, processo);
   }
 
   
@@ -98,13 +109,34 @@ export class ProcessoService {
     return this._httpClient.put<void>(`sessoes-de-julgamento/${numeroAno}/finalizar`, dadosDaSessaoJulgamento);
   }
 
-  public atualizarDestaquesDoProcesso(id: number, idDestaque: number, destaque: Destaque): Observable<void> {
-    return this._httpClient.put<void>(`processos/${id}/destaques/${idDestaque}`, destaque);
+  public listarProcessoJulgamento(processo: number, numero: number, ano: number): Observable<Processo> {
+    const numeroAno = `${numero}-${ano}`;
+    return this._httpClient.get<Processo>(`sessao-de-julgamento/${numeroAno}/processos/${processo}`);
+  }
+
+  public atualizarDestaquesDoProcesso(numero: number, ano: number, id: number, idDestaque: number, destaque: Destaque): Observable<void> {
+    const numeroAno = `${numero}-${ano}`;
+    return this._httpClient.put<void>(`sessao-de-julgamento/${numeroAno}/processos/${id}/destaques/${idDestaque}`, destaque);
   }
 
 
-  public excluirDestaqueDoProcesso(id: number, idDestaque: number): Observable<void> {
-    return this._httpClient.delete<void>(`processos/${id}/destaques/${idDestaque}`);
+  public excluirDestaqueDoProcesso(numero: number, ano: number, id: number, idDestaque: number): Observable<void> {
+    const numeroAno = `${numero}-${ano}`;
+    return this._httpClient.delete<void>(`sessao-de-julgamento/${numeroAno}/processos/${id}/destaques/${idDestaque}`);
+  }
+
+  
+  public salvarCapitulo(numero: number, ano: number, id: number, {capitulo, processos_mesma_decisao}): Observable<Capitulo[]> {
+    const numeroAno = `${numero}-${ano}`;
+    return this._httpClient.post<Capitulo[]>(`sessao-de-julgamento/${numeroAno}/processos/${id}/capitulos`, {
+      capitulo,
+      processos_mesma_decisao,
+    });
+  }
+
+  public excluirCapitulo(numero: number, ano: number, id: number, id_capitulo: number): Observable<Capitulo[]> {
+    const numeroAno = `${numero}-${ano}`;
+    return this._httpClient.delete<Capitulo[]>(`sessao-de-julgamento/${numeroAno}/processos/${id}/capitulos/${id_capitulo}`);
   }
 
   public setCarregarProcessos(carregarProcessos: boolean): void {
@@ -133,19 +165,8 @@ export class ProcessoService {
     return descricoes;
   }
 
-  public salvarCapitulo(id: number, {capitulo, processos_mesma_decisao}): Observable<Capitulo[]> {
-    return this._httpClient.post<Capitulo[]>(`processo/${id}/capitulos`, {
-      capitulo,
-      processos_mesma_decisao,
-    });
-  }
-
-  public excluirCapitulo(id: number, id_capitulo: number): Observable<Capitulo[]> {
-    return this._httpClient.delete<Capitulo[]>(`processo/${id}/capitulos/${id_capitulo}`);
-  }
-
-  public salvarModeloDecisao(modelo: ModeloDecisao): Observable<void> {
-    return this._httpClient.post<void>(`modelo-decisao`, modelo);
+  public salvarModeloDecisao(modelo: ModeloDecisao): Observable<ModeloDecisao> {
+    return this._httpClient.post<ModeloDecisao>(`modelo-decisao`, modelo);
   }
 
   public obterModeloDecisao(classe: string, tipoCapitulo: string, dispositivo: number, recurso: number): Observable<ModeloDecisao> {
@@ -154,14 +175,15 @@ export class ProcessoService {
       .set('tipo_capitulo', tipoCapitulo)
       .set('dispositivo', dispositivo)
       .set('recurso', recurso);
-
+    console.log("PARAMS PARA MODELO DE DECISAO");
+    console.log(params);
     return this._httpClient.get<ModeloDecisao>(`modelo-decisao`, {
       params,
     });
   }
 
-  public atualizarModeloDecisao(id: number, modelo: ModeloDecisao): Observable<void> {
-    return this._httpClient.put<void>(`modelo-decisao/${id}`, modelo);
+  public atualizarModeloDecisao(id: number, modelo: ModeloDecisao): Observable<ModeloDecisao> {
+    return this._httpClient.put<ModeloDecisao>(`modelo-decisao/${id}`, modelo);
   }
 
   public enviarCorrecaoCapitulo(id: number, correcao: any) {

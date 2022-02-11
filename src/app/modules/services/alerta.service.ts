@@ -37,6 +37,7 @@ export class AlertaService {
    * @author Douglas da Silva Monteles
    */
   public exibirAlerta(nomeDoAlerta: string, tempo: number = 5000): void {
+    console.log(nomeDoAlerta);
     this._fuseAlertService.show(nomeDoAlerta);
 
     if (this.timeoutId) {

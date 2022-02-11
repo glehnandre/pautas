@@ -172,9 +172,14 @@ export class FormModeloDecisaoComponent implements OnInit {
 
   public salvarModeloDecisao(): void {
     if (this.formModeloDecisao.valid) {
-      if(this.modelo.id == undefined){
+      console.log("MODELO DECISAO...");
+      console.log(this.formModeloDecisao);
+
+      if(this.modelo.id == 0){
         this._processoService.salvarModeloDecisao(this.formModeloDecisao.value).subscribe({
-          next: () => {
+          next: (modelo) => {
+            this.modelo = modelo;
+            this._alertaService.exibirAlerta('sucesso-form-modelo-decisao');
             this.sairModal();
           },
           error: (error) => {
@@ -190,7 +195,8 @@ export class FormModeloDecisaoComponent implements OnInit {
         });
       }else{
         this._processoService.atualizarModeloDecisao(this.modelo.id, this.formModeloDecisao.value).subscribe({
-          next: () => {
+          next: (modelo) => {
+            this.modelo = modelo;
             this.sairModal();
           },
           error: (error) => {

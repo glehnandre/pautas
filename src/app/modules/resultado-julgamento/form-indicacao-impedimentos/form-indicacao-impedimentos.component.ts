@@ -2,6 +2,7 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { MatCheckboxChange } from '@angular/material/checkbox';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Ministro } from 'app/modules/acervo/model/interfaces/ministro.interface';
+import { SessaoDeJulgamento } from 'app/modules/acervo/model/interfaces/sessao-julgamento.interface';
 import { AlertaService } from 'app/modules/services/alerta.service';
 import { MinistroService } from 'app/modules/services/ministro.service';
 import { ProcessoService } from 'app/modules/services/processo.service';
@@ -28,9 +29,9 @@ export class FormIndicacaoImpedimentosComponent implements OnInit {
   constructor(
     private _ministroService: MinistroService,
     private _processoService: ProcessoService,
-    private _dialogRef: MatDialogRef<FormIndicacaoImpedimentosComponent>,
     private _alertaService: AlertaService,
-    @Inject(MAT_DIALOG_DATA) private _data: { idProcesso: number, resultado: { ministrosImpedidos: Ministro[], ministrosSuspeitos: Ministro[] } }, 
+    private _dialogRef: MatDialogRef<FormIndicacaoImpedimentosComponent>,
+    @Inject(MAT_DIALOG_DATA) private _data: { sessao: SessaoDeJulgamento, idProcesso: number, resultado: { ministrosImpedidos: Ministro[], ministrosSuspeitos: Ministro[] } }, 
   ) { 
     this._ministroService.listarMinistros().subscribe({
       next: (ministros) => {
@@ -136,7 +137,7 @@ export class FormIndicacaoImpedimentosComponent implements OnInit {
       ministros_suspeitos: [...this.resultado.ministrosSuspeitos],
     };
 
-    this._processoService.salvarImpedimentos(this._data.idProcesso, obj).subscribe({
+    this._processoService.salvarImpedimentos(this._data.sessao.numero, this._data.sessao.ano,this._data.idProcesso, obj).subscribe({
       next: () => {
         this._dialogRef.close('ok');
       },

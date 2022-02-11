@@ -48,7 +48,7 @@ export const envolvidos: Envolvido[] = [
     },
   ];
 
-export const processo: Processo[] = getStorage('processos', [
+export const processo: Processo[] = [
   {
     id:         1,
     cadeia:     'Mérito',
@@ -264,7 +264,7 @@ export const processo: Processo[] = getStorage('processos', [
                   tagData[2],
                 ],
     classe:     'ADI',
-    id_tipo_recurso: 1,
+    id_tipo_recurso: 15,
     numero:     6185,
     situacao:   2,
     tipo:       TipoDoProcesso.Merito,
@@ -281,9 +281,9 @@ export const processo: Processo[] = getStorage('processos', [
     ],
     destaques: [
     ],
-    redator: ministro[1],
+    redator: null,
   },
-]);
+];
 
 export const documentos: Documento[] = [
   {

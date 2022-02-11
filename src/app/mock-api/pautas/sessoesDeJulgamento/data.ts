@@ -63,10 +63,7 @@ export const sessoesDeJulgamento: SessaoDeJulgamento[] = getStorage('sessoesDeJu
     data_inicio: '2016-08-29T09:12:33.001Z',
     data_fim: '2016-08-30T09:12:33.001Z',
     situacao: 'ABERTA',
-    secretario: {
-      id: 0,
-      nome: 'Beatriz Cunha',
-    },
+    secretario: null,
     ata: atas[0],
     processos: [processo[8], processo[1]]
   },

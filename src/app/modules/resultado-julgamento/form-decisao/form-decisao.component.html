@@ -62,22 +62,22 @@
         </mat-form-field>
         
         <mat-form-field class="w-full mb-4" appearance="outline">
-            <mat-label>Ministros que acompanham <span class="text-red-500">*</span></mat-label>
-            <mat-select formControlName="ministros_acordam" multiple [compareWith]="compareFn">
+            <mat-label>Ministros que divergem</mat-label>
+            <mat-select formControlName="ministros_divergem" multiple [compareWith]="compareFn">
                 <mat-select-trigger>
-                    <div *ngIf="formDecisao.controls['ministros_acordam'].value?.length === 1" class="text-base">
-                        {{formDecisao.controls['ministros_acordam'].value ? formDecisao.controls['ministros_acordam'].value[0]?.nome : ''}}
+                    <div *ngIf="formDecisao.controls['ministros_divergem'].value?.length === 1" class="text-base">
+                        {{formDecisao.controls['ministros_divergem'].value ? formDecisao.controls['ministros_divergem'].value[0]?.nome : ''}}
                     </div>
-                    <span *ngIf="formDecisao.controls['ministros_acordam'].value?.length === 2" class="text-base">
-                        {{formDecisao.controls['ministros_acordam'].value ? formDecisao.controls['ministros_acordam'].value[0]?.nome + ", " + formDecisao.controls['ministros_acordam'].value[1]?.nome :
+                    <span *ngIf="formDecisao.controls['ministros_divergem'].value?.length === 2" class="text-base">
+                        {{formDecisao.controls['ministros_divergem'].value ? formDecisao.controls['ministros_divergem'].value[0]?.nome + ", " + formDecisao.controls['ministros_acordam'].value[1]?.nome :
                         ''}}
                     </span>
-                    <span *ngIf="formDecisao.controls['ministros_acordam'].value?.length > 2" class="font-light text-base">
-                        {{formDecisao.controls['ministros_acordam'].value ? formDecisao.controls['ministros_acordam'].value[0]?.nome + ", " + formDecisao.controls['ministros_acordam'].value[1]?.nome :
+                    <span *ngIf="formDecisao.controls['ministros_divergem'].value?.length > 2" class="font-light text-base">
+                        {{formDecisao.controls['ministros_divergem'].value ? formDecisao.controls['ministros_divergem'].value[0]?.nome + ", " + formDecisao.controls['ministros_acordam'].value[1]?.nome :
                         ''}}
                         <span class="font-light text-xs">
-                            (+{{formDecisao.controls['ministros_acordam'].value.length - 2}}
-                            {{formDecisao.controls['ministros_acordam'].value.length === 3 ? 'outro' : 'outros'}})
+                            (+{{formDecisao.controls['ministros_divergem'].value.length - 2}}
+                            {{formDecisao.controls['ministros_divergem'].value.length === 3 ? 'outro' : 'outros'}})
                         </span>
                     </span>
                 </mat-select-trigger>
@@ -93,7 +93,7 @@
                     </div>
                 </mat-option>
             </mat-select>
-            <mat-hint>Liste os ministros</mat-hint>
+            <mat-hint>Caso não selecione nenhum ministro, indica que ninguém divergiu e foi <span class="font-medium">unânime</span>.</mat-hint>
         </mat-form-field>
     
         
@@ -121,7 +121,7 @@
             (click)="excluirCapitulo()"
         >
             <mat-icon class="mr-1">delete</mat-icon>
-            {{'Excluir decisão' | uppercase}}
+            {{'Excluir' | uppercase}}
         </button>
 
         <button 
@@ -131,7 +131,7 @@
             (click)="salvarCapitulo()"
         >
             <mat-icon class="mr-1">save</mat-icon>
-            {{'Salvar decisão' | uppercase}}
+            {{'Salvar' | uppercase}}
         </button>
     </p>
 </form>

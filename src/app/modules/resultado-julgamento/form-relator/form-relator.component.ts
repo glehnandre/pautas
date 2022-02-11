@@ -2,6 +2,8 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Ministro } from 'app/modules/acervo/model/interfaces/ministro.interface';
+import { Processo } from 'app/modules/acervo/model/interfaces/processo.interface';
+import { SessaoDeJulgamento } from 'app/modules/acervo/model/interfaces/sessao-julgamento.interface';
 import { AlertaService } from 'app/modules/services/alerta.service';
 import { MinistroService } from 'app/modules/services/ministro.service';
 import { ProcessoService } from 'app/modules/services/processo.service';
@@ -9,7 +11,8 @@ import { EMPTY, Observable } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 
 interface FormRelatorData {
-  idProcesso: number;
+  sessao: SessaoDeJulgamento;
+  processo: Processo;
 }
 
 @Component({
@@ -33,7 +36,7 @@ export class FormRelatorComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA) public data: FormRelatorData,
   ) { 
     this.formRelator = this._fb.group({
-      id: [null, Validators.required],
+      id: [data.processo.relator.id, Validators.required],
     });
   }
 
@@ -54,8 +57,11 @@ export class FormRelatorComponent implements OnInit {
    * @author Douglas da Silva Monteles
    */
   public publicar(): void {
-    if (this.formRelator.valid) {
-      this._processoService.definirRelatorDoProcesso(this.data.idProcesso, this.formRelator.value.id).subscribe({
+    this.salvarRelator();
+  }
+
+  public salvarRelator(){
+      this._processoService.definirRelatorDoProcesso(this.data.sessao.numero, this.data.sessao.ano, this.data.processo.id, this.formRelator.value.id).subscribe({
         next: (data) => {
           this._dialogRef.close({status:true, mensagem_tratada:"Resultados salvos", mensagem_servidor:data}); 
         },
@@ -67,7 +73,5 @@ export class FormRelatorComponent implements OnInit {
           }
         }
       });
-    }
   }
-
 }
