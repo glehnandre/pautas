@@ -81,3 +81,12 @@
     <hr class="w-full px-10 my-2">
     <span class="text-xl text-gray-400">Você deve pesquisar pelo número do processo ou pelo nome da parte</span>
 </fuse-card>
+
+<app-alerta
+    [nome]="'Error'"
+    [titulo]="'Error'"
+    [mensagem]="errorMessage"
+    [aparencia]="'outline'"
+    [tipo]="'error'"
+    class="absolute top-2 right-2 max-w-120 mx-auto z-40"
+></app-alerta>

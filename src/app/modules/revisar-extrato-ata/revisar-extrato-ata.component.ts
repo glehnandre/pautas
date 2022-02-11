@@ -89,8 +89,15 @@ export class RevisarExtratoAtaComponent implements OnInit {
         if(form.dataPublicacao._d) data = new Date(form.dataPublicacao._d);
         else data = new Date(form.dataPublicacao);
 
-        this._publicacaoService.publicarAta(data.toISOString(), this.sessao).subscribe(r=>{
-          console.log(r);
+        this._publicacaoService.publicarAta(data.toISOString(), this.sessao).subscribe({
+          next: (r) => {
+            console.log(r);
+          },
+          error: (error) => {
+            console.log(error);
+            this.errorMessage = error.message
+            this._alertaService.exibirAlerta("Error");
+          }
         })
       }
     });

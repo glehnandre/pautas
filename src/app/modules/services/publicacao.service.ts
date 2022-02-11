@@ -14,29 +14,14 @@ export class PublicacaoService {
   }
 
   recuperarDje(): Observable<any> {
-    return this._httpClient.get<any>('publicacoes').pipe(
-      catchError(error => {
-        console.log(error);
-        return EMPTY;
-      })
-    );
+    return this._httpClient.get<any>('publicacoes');
   }
 
   abrirPeca(id: number): Observable<string>{
-    return this._httpClient.get<string>(`publicacoes/peca/${id}`).pipe(
-      catchError(error => {
-        console.log(error);
-        return EMPTY;
-      })
-    );
+    return this._httpClient.get<string>(`publicacoes/peca/${id}`);
   }
 
   public publicarAta(data: string, sessao: SessaoDeJulgamento): Observable<void> {
-    return this._httpClient.post<void>('publicar', {data, sessao}).pipe(
-      catchError(error => {
-        console.log(error);
-        return EMPTY;
-      })
-    );
+    return this._httpClient.post<void>('publicar', {data, sessao});
   }
 }

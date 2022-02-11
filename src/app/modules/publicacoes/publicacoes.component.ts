@@ -8,6 +8,7 @@ import { InformacoesDto } from '../acervo/model/interfaces/informacoesDto.interf
 import { AlertaService } from '../services/alerta.service';
 import { ActivatedRoute } from '@angular/router';
 import { isEmpty } from 'lodash';
+import { Alerta } from 'app/shared/alerta/alerta.component';
 
 
 @Component({
@@ -37,6 +38,8 @@ export class PublicacoesComponent implements OnInit, OnDestroy{
   termo: string;
 
   hasParam: boolean = true;
+
+  alerta: Alerta = {} as Alerta;
 
   constructor(
     private _fuseMediaWatcherService: FuseMediaWatcherService,
@@ -91,12 +94,23 @@ export class PublicacoesComponent implements OnInit, OnDestroy{
    * Recupera todas as publicações da api
    */
   recuperaPublicacoes(){
-    this._publicacaoService.recuperarDje().subscribe(dje=>{
+    this._publicacaoService.recuperarDje().subscribe({
+      next: (dje) => {
+        this.publicacoes = dje.publicacoes;
+        this.agregacoes = dje.agregacoes;
 
-      this.publicacoes = dje.publicacoes;
-      this.agregacoes = dje.agregacoes;
-
-      if(this.hasParam) this.trataParams();
+        if(this.hasParam) this.trataParams();
+      },
+      error: (error) => {
+        console.log(error);
+        this.alerta = {
+          nome: "Error", 
+          tipo: "error", 
+          titulo: "Error",
+          mensagem: error.message,
+        };
+        this._alertaService.exibirAlerta("Error");
+      }
     })
   }
 
@@ -297,6 +311,12 @@ export class PublicacoesComponent implements OnInit, OnDestroy{
 
   alertaFiltroVazio() {
     if(this.pesquisas.length == 0) {
+      this.alerta = {
+        nome: "Filtro Vazio", 
+        tipo: "basic", 
+        titulo: "Filtro Vazio",
+        mensagem: "Não há filtros selecionados",
+      };
       this._alertaService.exibirAlerta('Filtro Vazio');
     }
   }
