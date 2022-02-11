@@ -37,7 +37,6 @@ import { FuseAlertModule } from '@fuse/components/alert';
 import { FormRelatorComponent } from './form-relator/form-relator.component';
 import { FormIndicacaoImpedimentosComponent } from './form-indicacao-impedimentos/form-indicacao-impedimentos.component';
 import { ChipsComponent } from './chips/chips.component';
-import { DialogoConfirmacaoComponent } from './dialogo-confirmacao/dialogo-confirmacao.component';
 
 const ResultadoJulgamentoRoutes: Route[] = [
   {
@@ -58,7 +57,6 @@ const ResultadoJulgamentoRoutes: Route[] = [
     FormRelatorComponent,
     FormIndicacaoImpedimentosComponent,
     ChipsComponent,
-    DialogoConfirmacaoComponent,
   ],
   imports: [
     CommonModule,

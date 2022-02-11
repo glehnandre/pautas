@@ -31,6 +31,8 @@ import { IconesVotosComponent } from './icones-votos/icones-votos.component';
 import { DadosDaSessaoComponent } from './cabecalho-relator/dados-da-sessao/dados-da-sessao.component';
 import { AlertaComponent } from './alerta/alerta.component';
 import { FuseAlertModule } from '@fuse/components/alert';
+import { DialogoConfirmacaoComponent } from './dialogo-confirmacao/dialogo-confirmacao.component';
+import { MatDialogModule } from '@angular/material/dialog';
 
 
 @NgModule({
@@ -49,6 +51,7 @@ import { FuseAlertModule } from '@fuse/components/alert';
         IconesVotosComponent,
         DadosDaSessaoComponent,
         AlertaComponent,
+        DialogoConfirmacaoComponent,
     ],
     imports: [
         CommonModule,
@@ -67,6 +70,7 @@ import { FuseAlertModule } from '@fuse/components/alert';
         MatSelectModule,
         MatRadioModule,
         MatAutocompleteModule,
+        MatDialogModule,
         FuseDrawerModule,
         FuseCardModule,
         FuseAlertModule,
