@@ -81,7 +81,14 @@ export class FormVistaEDestaqueComponent implements OnInit {
         return EMPTY;
       })
     );
-    this.recursos$ = this._recursoService.obterListaDeRecursos();
+    this.recursos$ = this._recursoService.obterListaDeRecursos().pipe(
+      catchError(error => {
+        console.log(error);
+        this.errorMessage =  error.message;
+        this._alertaService.exibirAlerta("Error")
+        return EMPTY;
+      })
+    );
   }
 
   public fecharModalEExcluirVistaOuDestaque(): void {

@@ -19,12 +19,7 @@ export class RecursoService {
 
     return this._httpClient.get<TipoRecursoDto[]>(`recursos`, {
       params,
-    }).pipe(
-      catchError(error => {
-        console.log(error);
-        return EMPTY;
-      })
-    );
+    });
   }
 
 }

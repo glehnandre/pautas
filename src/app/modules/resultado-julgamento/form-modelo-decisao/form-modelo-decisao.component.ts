@@ -77,7 +77,19 @@ export class FormModeloDecisaoComponent implements OnInit {
         return EMPTY;
       }),
     );
-    this.recursos$ = this._recursoService.obterListaDeRecursos();
+    this.recursos$ = this._recursoService.obterListaDeRecursos().pipe(
+      catchError(error => {
+        console.log(error);
+        this.alerta = {
+          nome: "Error", 
+          tipo: "error", 
+          titulo: "Erro",
+          mensagem: error.message
+        }
+        this._alertaService.exibirAlerta("Error")
+        return EMPTY;
+      })
+    );
 
     this.formModeloDecisao.controls.texto.valueChanges.subscribe((texto: string) => {
       this.exibirSugestoes = false;
