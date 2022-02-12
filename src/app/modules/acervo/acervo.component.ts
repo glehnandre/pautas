@@ -1,9 +1,11 @@
 import { HttpClient } from '@angular/common/http';
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Processo } from 'app/shared/model/interfaces/processo.interface';
 import { EMPTY, Observable, Subject } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { ProcessoService } from '../services/processo.service';
-import { Processo } from './model/interfaces/processo.interface';
+
+
 
 interface ProcessosTags {
   idsProcessos: Array<number>;

@@ -1,5 +1,6 @@
-import { TipoCapitulo } from "app/modules/acervo/model/enums/tipoCapitulo.enum";
-import { Capitulo } from "app/modules/acervo/model/interfaces/capitulo.interface";
+import { TipoCapitulo } from "app/shared/model/enums/tipoCapitulo.enum";
+import { Capitulo } from "app/shared/model/interfaces/capitulo.interface";
+
 import { dispositivos } from "../dispositivo/data";
 import { ministro } from "../ministro/data";
 

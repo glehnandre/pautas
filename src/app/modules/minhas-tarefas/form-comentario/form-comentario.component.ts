@@ -1,10 +1,11 @@
 import { Component, Inject, OnInit } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup } from '@angular/forms';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { ITask, SetNotesTaskCommand } from 'app/modules/acervo/model/interfaces/itask.interface';
 import { AlertaService } from 'app/modules/services/alerta.service';
 import { TarefaService } from 'app/modules/services/tarefa.service';
 import { DialogoConfirmacaoComponent } from 'app/shared/dialogo-confirmacao/dialogo-confirmacao.component';
+import { ITask, SetNotesTaskCommand } from 'app/shared/model/interfaces/itask.interface';
+
 
 interface FormComentarioData {
   tarefas: ITask[];

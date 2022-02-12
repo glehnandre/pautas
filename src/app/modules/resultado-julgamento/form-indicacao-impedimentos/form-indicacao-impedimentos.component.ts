@@ -1,11 +1,12 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { MatCheckboxChange } from '@angular/material/checkbox';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { Ministro } from 'app/modules/acervo/model/interfaces/ministro.interface';
-import { SessaoDeJulgamento } from 'app/modules/acervo/model/interfaces/sessao-julgamento.interface';
 import { AlertaService } from 'app/modules/services/alerta.service';
 import { MinistroService } from 'app/modules/services/ministro.service';
 import { ProcessoService } from 'app/modules/services/processo.service';
+import { Ministro } from 'app/shared/model/interfaces/ministro.interface';
+import { SessaoDeJulgamento } from 'app/shared/model/interfaces/sessao-julgamento.interface';
+
 
 @Component({
   selector: 'app-form-indicacao-impedimentos',

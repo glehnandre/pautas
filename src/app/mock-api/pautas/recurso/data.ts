@@ -1,4 +1,5 @@
-import { TipoRecursoDto } from "app/modules/acervo/model/interfaces/tipoRecursoDto";
+import { TipoRecursoDto } from "app/shared/model/interfaces/tipoRecursoDto";
+
 
 export const recursos: TipoRecursoDto[] = [
   {

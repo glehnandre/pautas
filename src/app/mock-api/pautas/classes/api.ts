@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { FuseMockApiService } from '@fuse/lib/mock-api/mock-api.service';
-import { Classe } from 'app/modules/acervo/model/interfaces/classe.interface';
+import { Classe } from 'app/shared/model/interfaces/classe.interface';
+
 import { classes as classeData } from './data';
 
 @Injectable({

@@ -1,14 +1,15 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { SituacaoDoProcesso } from 'app/modules/acervo/model/enums/situacaoDoProcesso.enum';
-import { Ministro } from 'app/modules/acervo/model/interfaces/ministro.interface';
-import { Processo } from 'app/modules/acervo/model/interfaces/processo.interface';
-import { SessaoDeJulgamentoService } from 'app/modules/services/sessao-de-julgamento.service';
-import { Filtros } from './filtros';
-import { MinistroService } from 'app/modules/services/ministro.service';
 import { ActivatedRoute } from '@angular/router';
 import { AlertaService } from 'app/modules/services/alerta.service';
+import { MinistroService } from 'app/modules/services/ministro.service';
+import { SessaoDeJulgamentoService } from 'app/modules/services/sessao-de-julgamento.service';
+import { SituacaoDoProcesso } from 'app/shared/model/enums/situacaoDoProcesso.enum';
+import { Ministro } from 'app/shared/model/interfaces/ministro.interface';
+import { Processo } from 'app/shared/model/interfaces/processo.interface';
+import { Filtros } from './filtros';
+
 
 interface ministros {
   ministro: Ministro,

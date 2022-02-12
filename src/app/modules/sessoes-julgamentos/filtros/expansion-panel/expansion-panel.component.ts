@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { Processo } from 'app/modules/acervo/model/interfaces/processo.interface';
+
 
 @Component({
   selector: 'app-expansion-panel',

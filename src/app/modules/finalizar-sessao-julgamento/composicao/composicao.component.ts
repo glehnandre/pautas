@@ -1,8 +1,9 @@
-import { AfterViewChecked, Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
+import { AfterViewChecked, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { MatCheckboxChange } from '@angular/material/checkbox';
-import { Ministro } from 'app/modules/acervo/model/interfaces/ministro.interface';
 import { AlertaService } from 'app/modules/services/alerta.service';
 import { MinistroService } from 'app/modules/services/ministro.service';
+import { Ministro } from 'app/shared/model/interfaces/ministro.interface';
+
 
 
 interface presidenteChecked {

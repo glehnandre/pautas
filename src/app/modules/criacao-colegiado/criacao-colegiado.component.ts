@@ -1,15 +1,14 @@
-import { HttpParams } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
-import { FuseDrawerService } from '@fuse/components/drawer';
 import { Alerta } from 'app/shared/alerta/alerta.component';
-import { Colegiado, ComposicaoColegiado } from '../acervo/model/interfaces/colegiado.interface';
-import { Ministro } from '../acervo/model/interfaces/ministro.interface';
-import { Processo } from '../acervo/model/interfaces/processo.interface';
+import { Colegiado, ComposicaoColegiado } from 'app/shared/model/interfaces/colegiado.interface';
+import { Ministro } from 'app/shared/model/interfaces/ministro.interface';
+import { Processo } from 'app/shared/model/interfaces/processo.interface';
 import { AlertaService } from '../services/alerta.service';
 import { MinistroService } from '../services/ministro.service';
 import { ProcessoService } from '../services/processo.service';
+
 
 @Component({
   selector: 'app-criacao-colegiado',

@@ -1,8 +1,9 @@
 import { Component, HostListener, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { ITask } from '../acervo/model/interfaces/itask.interface';
+import { ITask } from 'app/shared/model/interfaces/itask.interface';
 import { AlertaService } from '../services/alerta.service';
 import { FormComentarioComponent } from './form-comentario/form-comentario.component';
+
 
 @Component({
     selector: 'app-minhas-tarefas',

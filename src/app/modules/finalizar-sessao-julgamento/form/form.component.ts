@@ -1,10 +1,11 @@
-import { AfterViewChecked, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Secretario } from 'app/modules/acervo/model/interfaces/secretario.interface';
 import { AlertaService } from 'app/modules/services/alerta.service';
 import { UsuariosService } from 'app/modules/services/usuario.service';
+import { Secretario } from 'app/shared/model/interfaces/secretario.interface';
 import { EMPTY, Observable } from 'rxjs';
-import { catchError, debounceTime, map, startWith, switchMap } from 'rxjs/operators';
+import { catchError } from 'rxjs/operators';
+
 
 @Component({
   selector: 'app-form',

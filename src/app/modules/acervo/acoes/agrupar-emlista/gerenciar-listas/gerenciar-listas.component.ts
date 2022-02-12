@@ -1,15 +1,15 @@
-import { Component, Inject, OnInit, OnDestroy, ElementRef, ViewChild } from '@angular/core';
-import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { COMMA, ENTER } from '@angular/cdk/keycodes';
+import { HttpClient } from '@angular/common/http';
+import { Component, ElementRef, Inject, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { MatAutocompleteSelectedEvent, MatAutocomplete } from '@angular/material/autocomplete';
+import { MatAutocomplete, MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
 import { MatChipInputEvent } from '@angular/material/chips';
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { Processo } from 'app/shared/model/interfaces/processo.interface';
+import { Tag } from 'app/shared/model/interfaces/tag.interface';
 import { EMPTY, Observable } from 'rxjs';
 import { catchError, map, startWith } from 'rxjs/operators';
-import { HttpClient } from '@angular/common/http';
 import { AlertaComponent } from './alerta/alerta.component';
-import { Processo } from 'app/modules/acervo/model/interfaces/processo.interface';
-import { Tag } from 'app/modules/acervo/model/interfaces/tag.interface';
 
 @Component({
   selector: 'app-gerenciar-listas',

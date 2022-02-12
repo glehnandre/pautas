@@ -1,13 +1,14 @@
 import { AfterContentChecked, Component, Input, OnInit } from '@angular/core';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
-import { TipoDoProcesso } from 'app/modules/acervo/model/enums/tipoDoProcesso.enum';
-import { Ministro } from 'app/modules/acervo/model/interfaces/ministro.interface';
-import { Processo } from 'app/modules/acervo/model/interfaces/processo.interface';
-import { SessaoDeJulgamento } from 'app/modules/acervo/model/interfaces/sessao-julgamento.interface';
-import { Voto } from 'app/modules/acervo/model/interfaces/voto.interface';
 import { AlertaService } from 'app/modules/services/alerta.service';
 import { MinistroService } from 'app/modules/services/ministro.service';
 import { ProcessoService } from 'app/modules/services/processo.service';
+import { TipoDoProcesso } from 'app/shared/model/enums/tipoDoProcesso.enum';
+import { Ministro } from '../model/interfaces/ministro.interface';
+import { Processo } from '../model/interfaces/processo.interface';
+import { SessaoDeJulgamento } from '../model/interfaces/sessao-julgamento.interface';
+import { Voto } from '../model/interfaces/voto.interface';
+
 
 @Component({
   selector: 'app-cabecalho-relator',

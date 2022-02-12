@@ -1,6 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { TipoDoProcesso } from 'app/modules/acervo/model/enums/tipoDoProcesso.enum';
-import { Processo } from 'app/modules/acervo/model/interfaces/processo.interface';
+import { TipoDoProcesso } from 'app/shared/model/enums/tipoDoProcesso.enum';
+import { Processo } from '../model/interfaces/processo.interface';
+
 
 @Component({
   selector: 'app-processo-painel-expansivo',

@@ -1,7 +1,8 @@
-import { HttpClient, HttpParams } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Classe } from 'app/shared/model/interfaces/classe.interface';
 import { Observable } from 'rxjs';
-import { Classe } from '../acervo/model/interfaces/classe.interface';
+
 
 @Injectable({
   providedIn: 'root'

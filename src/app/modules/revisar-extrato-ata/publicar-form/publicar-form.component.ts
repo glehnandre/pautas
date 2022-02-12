@@ -1,16 +1,17 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { MAT_MOMENT_DATE_ADAPTER_OPTIONS, MomentDateAdapter } from '@angular/material-moment-adapter';
+import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/material/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { default as _rollupMoment } from 'moment';
-import { MomentDateAdapter, MAT_MOMENT_DATE_ADAPTER_OPTIONS } from '@angular/material-moment-adapter';
-import { DateAdapter, MAT_DATE_LOCALE, MAT_DATE_FORMATS } from '@angular/material/core';import * as _moment from 'moment';
-import { EMPTY, Observable } from 'rxjs';
-
-import { Ministro } from 'app/modules/acervo/model/interfaces/ministro.interface';
-import { MinistroService } from 'app/modules/services/ministro.service';
-import { SessaoDeJulgamento } from 'app/modules/acervo/model/interfaces/sessao-julgamento.interface';
-import { catchError } from 'rxjs/operators';
 import { AlertaService } from 'app/modules/services/alerta.service';
+import { MinistroService } from 'app/modules/services/ministro.service';
+import { Ministro } from 'app/shared/model/interfaces/ministro.interface';
+import { SessaoDeJulgamento } from 'app/shared/model/interfaces/sessao-julgamento.interface';
+import * as _moment from 'moment';
+import { default as _rollupMoment } from 'moment';
+import { EMPTY, Observable } from 'rxjs';
+import { catchError } from 'rxjs/operators';
+
 
 const moment = _rollupMoment || _moment;
 

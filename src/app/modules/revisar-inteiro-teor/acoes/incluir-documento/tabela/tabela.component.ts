@@ -1,7 +1,8 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { MatTableDataSource } from '@angular/material/table';
-import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
-import { Documento } from 'app/modules/acervo/model/interfaces/documento.interface';
+import { Component, EventEmitter, Input, OnInit, Output } from "@angular/core";
+import { MatTableDataSource } from "@angular/material/table";
+import { DomSanitizer, SafeResourceUrl } from "@angular/platform-browser";
+import { Documento } from "app/shared/model/interfaces/documento.interface";
+
 
 @Component({
   selector: 'app-tabela',

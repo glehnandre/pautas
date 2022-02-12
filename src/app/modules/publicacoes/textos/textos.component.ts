@@ -1,12 +1,11 @@
-import { DatePipe } from '@angular/common';
-import { AfterContentChecked, Component, Input, OnInit } from '@angular/core';
-import { Envolvido } from 'app/modules/acervo/model/interfaces/envolvido.interface';
-import { PublicacaoDto } from 'app/modules/acervo/model/interfaces/publicacaoDto.interface';
-import { registerLocaleData } from '@angular/common';
+import { DatePipe, registerLocaleData } from '@angular/common';
 import localePT from '@angular/common/locales/pt';
+import { AfterContentChecked, Component, Input, OnInit } from '@angular/core';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
-import { PublicacaoService } from 'app/modules/services/publicacao.service';
 import { AlertaService } from 'app/modules/services/alerta.service';
+import { PublicacaoService } from 'app/modules/services/publicacao.service';
+import { Envolvido } from 'app/shared/model/interfaces/capitulo.interface';
+import { PublicacaoDto } from 'app/shared/model/interfaces/publicacaoDto.interface';
 registerLocaleData(localePT);
 
 @Component({

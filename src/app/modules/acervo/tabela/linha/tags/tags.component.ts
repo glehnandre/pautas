@@ -1,5 +1,6 @@
-import { Component, Input, Output, OnInit, EventEmitter } from '@angular/core';
-import { Tag } from 'app/modules/acervo/model/interfaces/tag.interface';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Tag } from 'app/shared/model/interfaces/tag.interface';
+
 
 @Component({
   selector: 'app-tags',

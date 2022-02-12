@@ -1,9 +1,9 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { EMPTY, Observable } from 'rxjs';
-import { catchError } from 'rxjs/operators';
-import { ITask, ITaskTag, SetNotesTaskCommand } from '../acervo/model/interfaces/itask.interface';
+import { ITask, ITaskTag, SetNotesTaskCommand } from 'app/shared/model/interfaces/itask.interface';
+import { Observable } from 'rxjs';
 import { Filtro } from '../minhas-tarefas/tabela/tabela.component';
+
 
 @Injectable({
   providedIn: 'root'

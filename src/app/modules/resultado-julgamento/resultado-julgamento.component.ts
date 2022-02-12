@@ -3,27 +3,29 @@ import { ChangeDetectionStrategy, ChangeDetectorRef, Component, HostListener, On
 import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute } from '@angular/router';
 import { FuseDrawerService } from '@fuse/components/drawer';
-
-import { Capitulo } from '../acervo/model/interfaces/capitulo.interface';
-import { Destaque } from '../acervo/model/interfaces/destaque.interface';
-import { Manifestacao } from '../acervo/model/interfaces/manifestacao.interface';
-import { ModeloDecisao } from '../acervo/model/interfaces/modeloDecisao.interface';
-import { Processo } from '../acervo/model/interfaces/processo.interface';
-import { Vista } from '../acervo/model/interfaces/vista.interface';
-import { Voto } from '../acervo/model/interfaces/voto.interface';
-
+import { Alerta } from 'app/shared/alerta/alerta.component';
+import { Capitulo } from 'app/shared/model/interfaces/capitulo.interface';
+import { Destaque } from 'app/shared/model/interfaces/destaque.interface';
+import { Manifestacao } from 'app/shared/model/interfaces/manifestacao.interface';
+import { Ministro } from 'app/shared/model/interfaces/ministro.interface';
+import { ModeloDecisao } from 'app/shared/model/interfaces/modeloDecisao.interface';
+import { Processo } from 'app/shared/model/interfaces/processo.interface';
+import { SessaoDeJulgamento } from 'app/shared/model/interfaces/sessao-julgamento.interface';
+import { Vista } from 'app/shared/model/interfaces/vista.interface';
+import { Voto } from 'app/shared/model/interfaces/voto.interface';
 import { AlertaService } from '../services/alerta.service';
+import { MinistroService } from '../services/ministro.service';
 import { ProcessoService } from '../services/processo.service';
-
+import { SessaoDeJulgamentoService } from '../services/sessao-de-julgamento.service';
 import { FormIndicacaoImpedimentosComponent } from './form-indicacao-impedimentos/form-indicacao-impedimentos.component';
 import { FormModeloDecisaoComponent } from './form-modelo-decisao/form-modelo-decisao.component';
 import { FormRelatorComponent } from './form-relator/form-relator.component';
 import { FormVistaEDestaqueComponent } from './form-vista-e-destaque/form-vista-e-destaque.component';
-import { MinistroService } from '../services/ministro.service';
-import { Ministro } from '../acervo/model/interfaces/ministro.interface';
-import { SessaoDeJulgamento } from '../acervo/model/interfaces/sessao-julgamento.interface';
-import { SessaoDeJulgamentoService } from '../services/sessao-de-julgamento.service';
-import { Alerta } from 'app/shared/alerta/alerta.component';
+
+
+
+
+
 
 interface Parametros {
   processo: number;

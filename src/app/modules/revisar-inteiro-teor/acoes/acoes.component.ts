@@ -1,14 +1,14 @@
-import { Component, EventEmitter, Input, Output, OnInit } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
-import { AlertaService } from '../../services/alerta.service';
-import { DocumentoInteiroTeor } from '../../acervo/model/interfaces/documento-inteiro-teor.interface';
-import { SessaoDeJulgamento } from '../../acervo/model/interfaces/sessao-julgamento.interface';
-import { Tag } from '../../acervo/model/interfaces/tag.interface';
-import { Documento } from '../../acervo/model/interfaces/documento.interface';
-import { publicacao } from '../../../mock-api/pautas/publicacoes/data';
-import { RevisarInteiroTeorService } from '../../services/revisar-inteiro-teor.service';
-import { IncluirDocumentoComponent } from './incluir-documento/incluir-documento.component';
-import { MatSelectChange } from '@angular/material/select';
+import { Component, EventEmitter, Input, OnInit, Output } from "@angular/core";
+import { MatDialog } from "@angular/material/dialog";
+import { MatSelectChange } from "@angular/material/select";
+import { AlertaService } from "app/modules/services/alerta.service";
+import { RevisarInteiroTeorService } from "app/modules/services/revisar-inteiro-teor.service";
+import { DocumentoInteiroTeor } from "app/shared/model/interfaces/documento-inteiro-teor.interface";
+import { Documento } from "app/shared/model/interfaces/documento.interface";
+import { SessaoDeJulgamento } from "app/shared/model/interfaces/sessao-julgamento.interface";
+import { Tag } from "app/shared/model/interfaces/tag.interface";
+import { IncluirDocumentoComponent } from "./incluir-documento/incluir-documento.component";
+
 
 export interface RevisaoInteiroTeor {
     id_processo: number;

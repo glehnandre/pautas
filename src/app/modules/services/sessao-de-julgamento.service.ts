@@ -1,11 +1,11 @@
-import { HttpClient, HttpParams } from '@angular/common/http';
-import { Injectable } from '@angular/core';
-import { EMPTY, Observable } from 'rxjs';
-import { catchError } from 'rxjs/operators';
-import { Ata } from '../acervo/model/interfaces/ata.interface';
-import { Pauta } from '../acervo/model/interfaces/pauta.interface';
-import { Processo } from '../acervo/model/interfaces/processo.interface';
-import { SessaoDeJulgamento } from '../acervo/model/interfaces/sessao-julgamento.interface';
+import { HttpClient, HttpParams } from "@angular/common/http";
+import { Injectable } from "@angular/core";
+import { Ata } from "app/shared/model/interfaces/ata.interface";
+import { Pauta } from "app/shared/model/interfaces/pauta.interface";
+import { Processo } from "app/shared/model/interfaces/processo.interface";
+import { SessaoDeJulgamento } from "app/shared/model/interfaces/sessao-julgamento.interface";
+import { Observable } from "rxjs";
+
 
 @Injectable({
   providedIn: 'root'

@@ -1,5 +1,5 @@
-import { _closeDialogVia } from "@angular/material/dialog";
-import { Classe } from "app/modules/acervo/model/interfaces/classe.interface";
+import { Classe } from "app/shared/model/interfaces/classe.interface";
+
 
 export const classes: Classe[] = [
   {

@@ -1,17 +1,17 @@
-import { Component, OnInit } from '@angular/core';
-import { SessaoDeJulgamento } from 'app/modules/acervo/model/interfaces/sessao-julgamento.interface';
-import { SessaoDeJulgamentoService } from 'app/modules/services/sessao-de-julgamento.service';
-import { registerLocaleData } from '@angular/common';
+import { DatePipe, registerLocaleData } from '@angular/common';
 import localePT from '@angular/common/locales/pt';
-import { DatePipe } from '@angular/common';
-import { FuseAlertService } from '@fuse/components/alert';
-import { Ministro } from 'app/modules/acervo/model/interfaces/ministro.interface';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { AlertaComponent } from '../acervo/acoes/agrupar-emlista/gerenciar-listas/alerta/alerta.component';
-import { FormRespostaComponent } from './form-resposta/form-resposta.component';
-import { AlertaService } from '../services/alerta.service';
+import { ActivatedRoute } from '@angular/router';
+import { FuseAlertService } from '@fuse/components/alert';
+import { SessaoDeJulgamentoService } from 'app/modules/services/sessao-de-julgamento.service';
 import { Alerta } from 'app/shared/alerta/alerta.component';
+import { Ministro } from 'app/shared/model/interfaces/ministro.interface';
+import { SessaoDeJulgamento } from 'app/shared/model/interfaces/sessao-julgamento.interface';
+import { AlertaService } from '../services/alerta.service';
+import { FormRespostaComponent } from './form-resposta/form-resposta.component';
+
+
 registerLocaleData(localePT);
 
 @Component({

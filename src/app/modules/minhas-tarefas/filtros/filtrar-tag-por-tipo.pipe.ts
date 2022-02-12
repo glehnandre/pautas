@@ -1,5 +1,6 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import { ITaskTag } from 'app/modules/acervo/model/interfaces/itask.interface';
+import { ITaskTag } from 'app/shared/model/interfaces/itask.interface';
+
 
 @Pipe({
   name: 'filtrarTagPorTipo'

@@ -4,8 +4,8 @@ import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { FuseAlertService } from '@fuse/components/alert';
 import { AlertaService } from 'app/modules/services/alerta.service';
 import { SessaoDeJulgamentoService } from 'app/modules/services/sessao-de-julgamento.service';
-import { Pauta } from '../../model/interfaces/pauta.interface';
-import { Processo } from '../../model/interfaces/processo.interface';
+import { Pauta } from 'app/shared/model/interfaces/pauta.interface';
+import { Processo } from 'app/shared/model/interfaces/processo.interface';
 import { Colegiado } from '../pautar/pautar.component';
 import { SessaoJulgamento } from '../pautar/sessaoJulgamento';
 

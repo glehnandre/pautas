@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core';
 import { FuseMockApiService } from '@fuse/lib/mock-api/mock-api.service';
-import { Colegiado } from 'app/modules/acervo/model/interfaces/colegiado.interface';
-import { Ministro } from 'app/modules/acervo/model/interfaces/ministro.interface';
-import { ministro as ministroData, colegiado as colegiadoData } from './data';
+import { Colegiado } from 'app/shared/model/interfaces/colegiado.interface';
+import { Ministro } from 'app/shared/model/interfaces/ministro.interface';
+import { colegiado as colegiadoData, ministro as ministroData } from './data';
+
 
 @Injectable({
     providedIn: 'root'

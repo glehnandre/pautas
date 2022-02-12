@@ -1,12 +1,12 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { CapitulosParaPublicacao } from 'app/modules/acervo/model/interfaces/capitulo.interface';
-import { Processo } from 'app/modules/acervo/model/interfaces/processo.interface';
 import { AlertaService } from 'app/modules/services/alerta.service';
 import { ProcessoService } from 'app/modules/services/processo.service';
+import { Processo } from 'app/shared/model/interfaces/processo.interface';
 import { EMPTY } from 'rxjs';
 import { catchError } from 'rxjs/operators';
+
 
 @Component({
   selector: 'app-correcao-capitulo-form',

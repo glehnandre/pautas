@@ -1,7 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Dispositivo } from 'app/shared/model/interfaces/dispositivo.interface';
 import { Observable } from 'rxjs';
-import { Dispositivo } from '../acervo/model/interfaces/dispositivo.interface';
+
 
 @Injectable({
   providedIn: 'root'

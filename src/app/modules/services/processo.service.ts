@@ -1,16 +1,17 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, Subject, BehaviorSubject } from 'rxjs';
-import { Capitulo } from '../acervo/model/interfaces/capitulo.interface';
-import { Destaque } from '../acervo/model/interfaces/destaque.interface';
-import { Documento } from '../acervo/model/interfaces/documento.interface';
-import { Impedimento } from '../acervo/model/interfaces/impedimento.interface';
-import { ModeloDecisao } from '../acervo/model/interfaces/modeloDecisao.interface';
-import { Processo } from '../acervo/model/interfaces/processo.interface';
-import { Tag } from '../acervo/model/interfaces/tag.interface';
-import { Vista } from '../acervo/model/interfaces/vista.interface';
-import { Voto } from '../acervo/model/interfaces/voto.interface';
+import { Capitulo } from 'app/shared/model/interfaces/capitulo.interface';
+import { Destaque } from 'app/shared/model/interfaces/destaque.interface';
+import { Documento } from 'app/shared/model/interfaces/documento.interface';
+import { Impedimento } from 'app/shared/model/interfaces/impedimento.interface';
+import { ModeloDecisao } from 'app/shared/model/interfaces/modeloDecisao.interface';
+import { Processo } from 'app/shared/model/interfaces/processo.interface';
+import { Tag } from 'app/shared/model/interfaces/tag.interface';
+import { Vista } from 'app/shared/model/interfaces/vista.interface';
+import { Voto } from 'app/shared/model/interfaces/voto.interface';
+import { BehaviorSubject, Observable, Subject } from 'rxjs';
 import { StatusProcesso } from '../acervo/tabela/status/situacaoProcesso';
+
 
 @Injectable({
   providedIn: 'root'

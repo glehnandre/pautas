@@ -1,4 +1,5 @@
-import { Ministro } from "app/modules/acervo/model/interfaces/ministro.interface";
+import { Ministro } from "app/shared/model/interfaces/ministro.interface";
+
 
 export interface Filtros {
     termo: string;

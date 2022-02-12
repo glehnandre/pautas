@@ -1,9 +1,9 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { EMPTY, Observable } from 'rxjs';
-import { catchError } from 'rxjs/operators';
-import { DocumentoInteiroTeor } from '../acervo/model/interfaces/documento-inteiro-teor.interface';
+import { DocumentoInteiroTeor } from 'app/shared/model/interfaces/documento-inteiro-teor.interface';
+import { Observable } from 'rxjs';
 import { RevisaoInteiroTeor } from '../revisar-inteiro-teor/revisar-inteiro-teor.component';
+
 
 @Injectable({
   providedIn: 'root'

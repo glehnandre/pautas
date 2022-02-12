@@ -4,11 +4,10 @@ import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { FuseAlertService } from '@fuse/components/alert';
 import { AlertaService } from 'app/modules/services/alerta.service';
 import { ProcessoService } from 'app/modules/services/processo.service';
-import { EMPTY, Observable } from 'rxjs';
-import { catchError } from 'rxjs/operators';
-import { Tag } from '../../model/interfaces/tag.interface';
+import { Tag } from 'app/shared/model/interfaces/tag.interface';
 import { GerenciarListasComponent } from './gerenciar-listas/gerenciar-listas.component';
 import { NovaListaComponent } from './nova-lista/nova-lista.component';
+
 
 @Component({
   selector: 'app-agrupar-emlista',

@@ -1,13 +1,13 @@
 import { Injectable } from '@angular/core';
 import { FuseMockApiService } from '@fuse/lib/mock-api/mock-api.service';
-import { DocumentoInteiroTeor } from 'app/modules/acervo/model/interfaces/documento-inteiro-teor.interface';
-import { Documento } from 'app/modules/acervo/model/interfaces/documento.interface';
-import { Processo } from 'app/modules/acervo/model/interfaces/processo.interface';
 import { RevisaoInteiroTeor } from 'app/modules/revisar-inteiro-teor/revisar-inteiro-teor.component';
-
-import { revisoes } from './data';
-import { processo as processosData, documentos as documentosData } from '../processos/data';
+import { DocumentoInteiroTeor } from 'app/shared/model/interfaces/documento-inteiro-teor.interface';
+import { Documento } from 'app/shared/model/interfaces/documento.interface';
+import { Processo } from 'app/shared/model/interfaces/processo.interface';
+import { documentos as documentosData, processo as processosData } from '../processos/data';
 import { getStorage, setStorage } from '../storage';
+import { revisoes } from './data';
+
 
 @Injectable({
     providedIn: 'root'

@@ -1,14 +1,16 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
-
-import { Ata } from '../acervo/model/interfaces/ata.interface';
 import { MatDialog } from '@angular/material/dialog';
-import { PublicarFormComponent } from './publicar-form/publicar-form.component';
-import { CorrecaoCapituloFormComponent } from './correcao-capitulo-form/correcao-capitulo-form.component';
-import { PublicacaoService } from '../services/publicacao.service';
+import { ActivatedRoute } from '@angular/router';
+import { Ata } from 'app/shared/model/interfaces/ata.interface';
+import { SessaoDeJulgamento } from 'app/shared/model/interfaces/sessao-julgamento.interface';
 import { AlertaService } from '../services/alerta.service';
-import { SessaoDeJulgamento } from '../acervo/model/interfaces/sessao-julgamento.interface';
+import { PublicacaoService } from '../services/publicacao.service';
 import { SessaoDeJulgamentoService } from '../services/sessao-de-julgamento.service';
+import { CorrecaoCapituloFormComponent } from './correcao-capitulo-form/correcao-capitulo-form.component';
+import { PublicarFormComponent } from './publicar-form/publicar-form.component';
+
+
+
 
 interface Parametros {
     numero: number;

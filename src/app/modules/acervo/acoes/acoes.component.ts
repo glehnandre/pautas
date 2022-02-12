@@ -1,11 +1,11 @@
-import { HttpClient, HttpParams } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FuseAlertService } from '@fuse/components/alert';
 import { ProcessoService } from 'app/modules/services/processo.service';
-import { SituacaoDoProcesso } from '../model/enums/situacaoDoProcesso.enum';
-import { Processo } from '../model/interfaces/processo.interface';
+import { SituacaoDoProcesso } from 'app/shared/model/enums//situacaoDoProcesso.enum';
+import { Processo } from 'app/shared/model/interfaces/processo.interface';
 import { AgruparEmlistaComponent } from './agrupar-emlista/agrupar-emlista.component';
 import { AlertaComponent } from './agrupar-emlista/gerenciar-listas/alerta/alerta.component';
 import { AlterarSessaoComponent } from './alterar-sessao/alterar-sessao.component';

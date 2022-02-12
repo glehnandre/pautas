@@ -1,7 +1,8 @@
-import { TipoCapitulo } from "app/modules/acervo/model/enums/tipoCapitulo.enum";
-import { ModeloDecisao } from "app/modules/acervo/model/interfaces/modeloDecisao.interface";
+import { TipoCapitulo } from "app/shared/model/enums/tipoCapitulo.enum";
+import { ModeloDecisao } from "app/shared/model/interfaces/modeloDecisao.interface";
 import { dispositivos } from "../dispositivo/data";
 import { getStorage } from "../storage";
+
 
 export const modeloDecisao: ModeloDecisao[] = getStorage('modelosDecisao', [
   {

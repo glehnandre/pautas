@@ -3,12 +3,12 @@ import { takeUntil } from 'rxjs/operators';
 import { Subject } from 'rxjs';
 import { FuseMediaWatcherService } from '@fuse/services/media-watcher';
 import { PublicacaoService } from '../services/publicacao.service';
-import { PublicacaoDto } from '../acervo/model/interfaces/publicacaoDto.interface';
-import { InformacoesDto } from '../acervo/model/interfaces/informacoesDto.interface';
 import { AlertaService } from '../services/alerta.service';
 import { ActivatedRoute } from '@angular/router';
 import { isEmpty } from 'lodash';
 import { Alerta } from 'app/shared/alerta/alerta.component';
+import { PublicacaoDto } from 'app/shared/model/interfaces/publicacaoDto.interface';
+import { InformacoesDto } from 'app/shared/model/interfaces/informacoesDto.interface';
 
 
 @Component({

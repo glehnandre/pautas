@@ -1,7 +1,8 @@
-import { Component, OnInit, Inject } from '@angular/core';
-import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { Component, Inject, OnInit } from '@angular/core';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatTableDataSource } from '@angular/material/table';
-import { Documento } from '../../../acervo/model/interfaces/documento.interface';
+import { Documento } from 'app/shared/model/interfaces/documento.interface';
+
 
 @Component({
   selector: 'app-incluir-documento',

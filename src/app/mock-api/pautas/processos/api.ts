@@ -1,25 +1,19 @@
 import { Injectable } from '@angular/core';
 import { FuseMockApiService } from '@fuse/lib/mock-api/mock-api.service';
-import { Filtros } from 'app/modules/acervo/filtros/filtros';
-
-import { Paginacao } from 'app/modules/acervo/tabela/paginacao/paginacao.component';
-
-import { Voto } from 'app/modules/acervo/model/interfaces/voto.interface';
-import { Ministro } from 'app/modules/acervo/model/interfaces/ministro.interface';
-import { Impedimento } from 'app/modules/acervo/model/interfaces/impedimento.interface';
-import { Processo } from 'app/modules/acervo/model/interfaces/processo.interface';
-import { Tag } from 'app/modules/acervo/model/interfaces/tag.interface';
-import { Documento } from 'app/modules/acervo/model/interfaces/documento.interface';
-import { SessaoDeJulgamento } from 'app/modules/acervo/model/interfaces/sessao-julgamento.interface';
-
-import { processo as processoData, documentos, votos, tipos } from '../processos/data';
-import { tags as tagData } from '../tags/data';
+import { Documento } from 'app/shared/model/interfaces/documento.interface';
+import { Impedimento } from 'app/shared/model/interfaces/impedimento.interface';
+import { Ministro } from 'app/shared/model/interfaces/ministro.interface';
+import { Processo } from 'app/shared/model/interfaces/processo.interface';
+import { SessaoDeJulgamento } from 'app/shared/model/interfaces/sessao-julgamento.interface';
+import { Tag } from 'app/shared/model/interfaces/tag.interface';
+import { Voto } from 'app/shared/model/interfaces/voto.interface';
+import { listaImpedimentos, ministro } from '../ministro/data';
+import { documentos, processo as processoData, tipos, votos } from '../processos/data';
 import { sessoesDeJulgamento } from '../sessoesDeJulgamento/data';
-import { listaImpedimentos, ministro } from '../ministro/data'
+import { setStorage } from '../storage';
+import { tags as tagData } from '../tags/data';
 
-import { setStorage, getStorage } from '../storage';
-import { Vista } from 'app/modules/acervo/model/interfaces/vista.interface';
-import { Destaque } from 'app/modules/acervo/model/interfaces/destaque.interface';
+
 
 
 @Injectable({

@@ -1,14 +1,14 @@
-import { Component, OnInit } from '@angular/core';
-import { SessaoDeJulgamentoService } from '../services/sessao-de-julgamento.service';
-import { SessaoDeJulgamento } from '../acervo/model/interfaces/sessao-julgamento.interface';
-import { registerLocaleData } from '@angular/common';
+import { DatePipe, registerLocaleData } from '@angular/common';
 import localePT from '@angular/common/locales/pt';
-import { DatePipe } from '@angular/common';
-import { Ministro } from '../acervo/model/interfaces/ministro.interface';
-import { Secretario } from '../acervo/model/interfaces/secretario.interface';
+import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { AlertaService } from '../services/alerta.service';
 import { Alerta } from 'app/shared/alerta/alerta.component';
+import { Ministro } from 'app/shared/model/interfaces/ministro.interface';
+import { Secretario } from 'app/shared/model/interfaces/secretario.interface';
+import { SessaoDeJulgamento } from 'app/shared/model/interfaces/sessao-julgamento.interface';
+import { AlertaService } from '../services/alerta.service';
+import { SessaoDeJulgamentoService } from '../services/sessao-de-julgamento.service';
+
 registerLocaleData(localePT);
 
 interface SessaoFinalizada {

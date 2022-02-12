@@ -1,11 +1,13 @@
 import { Injectable } from '@angular/core';
 import { FuseMockApiService } from '@fuse/lib/mock-api/mock-api.service';
-import { Processo } from 'app/modules/acervo/model/interfaces/processo.interface';
-import { SessaoDeJulgamento } from 'app/modules/acervo/model/interfaces/sessao-julgamento.interface'
-
-import { sessoesDeJulgamento, processos as processosData, secretarios } from './data';
+import { Processo } from 'app/shared/model/interfaces/processo.interface';
+import { Secretario } from 'app/shared/model/interfaces/secretario.interface';
+import { SessaoDeJulgamento } from 'app/shared/model/interfaces/sessao-julgamento.interface';
 import { setStorage } from '../storage';
-import { Secretario } from 'app/modules/acervo/model/interfaces/secretario.interface';
+import { processos as processosData, secretarios, sessoesDeJulgamento } from './data';
+
+
+
 
 
 @Injectable({

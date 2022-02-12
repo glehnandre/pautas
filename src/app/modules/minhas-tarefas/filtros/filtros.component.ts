@@ -1,10 +1,10 @@
-import { HttpParams } from '@angular/common/http';
-import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
-import { FormGroup, FormControl, FormBuilder } from '@angular/forms';
+import { Component, Input, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
-import { ITask, ITaskTag } from 'app/modules/acervo/model/interfaces/itask.interface';
 import { AlertaService } from 'app/modules/services/alerta.service';
 import { TarefaService } from 'app/modules/services/tarefa.service';
+import { ITask, ITaskTag } from 'app/shared/model/interfaces/itask.interface';
+
 
 @Component({
     selector: 'app-filtros',

@@ -1,13 +1,13 @@
-import { Component, Input, LOCALE_ID, OnInit } from '@angular/core';
-import localePt from '@angular/common/locales/pt';
 import { registerLocaleData } from '@angular/common';
-
-import { Capitulo, Envolvido } from 'app/modules/acervo/model/interfaces/capitulo.interface';
-import { Frase } from 'app/modules/acervo/model/interfaces/frase-genero-plural.interface';
-import { Ministro } from 'app/modules/acervo/model/interfaces/ministro.interface';
-import { SessaoDeJulgamento } from 'app/modules/acervo/model/interfaces/sessao-julgamento.interface';
+import localePt from '@angular/common/locales/pt';
+import { Component, Input, LOCALE_ID, OnInit } from '@angular/core';
 import { MinistroService } from 'app/modules/services/ministro.service';
-import { Ata } from 'app/modules/acervo/model/interfaces/ata.interface';
+import { Ata } from 'app/shared/model/interfaces/ata.interface';
+import { Capitulo, Envolvido } from 'app/shared/model/interfaces/capitulo.interface';
+import { Frase } from 'app/shared/model/interfaces/frase-genero-plural.interface';
+import { Ministro } from 'app/shared/model/interfaces/ministro.interface';
+import { SessaoDeJulgamento } from 'app/shared/model/interfaces/sessao-julgamento.interface';
+
 
 registerLocaleData(localePt);
 

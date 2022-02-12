@@ -1,15 +1,16 @@
-import { ENTER, COMMA } from '@angular/cdk/keycodes';
+import { COMMA, ENTER } from '@angular/cdk/keycodes';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
 import { MatChipInputEvent } from '@angular/material/chips';
 import { MatDialogRef } from '@angular/material/dialog';
-import { Processo } from 'app/modules/acervo/model/interfaces/processo.interface';
 import { AlertaService } from 'app/modules/services/alerta.service';
 import { SessaoDeJulgamentoService } from 'app/modules/services/sessao-de-julgamento.service';
+import { Processo } from 'app/shared/model/interfaces/processo.interface';
 import { EMPTY, Observable } from 'rxjs';
-import { startWith, map, catchError } from 'rxjs/operators';
+import { catchError, map, startWith } from 'rxjs/operators';
+
 
 @Component({
   selector: 'app-sessao-extraordinaria',

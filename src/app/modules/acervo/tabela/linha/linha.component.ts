@@ -1,13 +1,16 @@
-import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { MatCheckboxChange } from '@angular/material/checkbox';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { FuseDrawerService } from '@fuse/components/drawer';
-import { MatCheckboxChange } from '@angular/material/checkbox';
+import { AlertaService } from 'app/modules/services/alerta.service';
 import { ProcessoService } from 'app/modules/services/processo.service';
-import { Processo } from '../../model/interfaces/processo.interface';
-import { Documento } from '../../model/interfaces/documento.interface';
+import { Documento } from 'app/shared/model/interfaces/documento.interface';
+import { Processo } from 'app/shared/model/interfaces/processo.interface';
 import { EMPTY, Observable } from 'rxjs';
 import { catchError } from 'rxjs/operators';
-import { AlertaService } from 'app/modules/services/alerta.service';
+
+
+
 
 @Component({
   selector: 'app-linha',

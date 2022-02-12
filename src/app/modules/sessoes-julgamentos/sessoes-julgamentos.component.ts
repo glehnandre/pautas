@@ -1,16 +1,16 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { EMPTY, Observable, Subject } from 'rxjs';
-import { Processo } from '../acervo/model/interfaces/processo.interface';
-import { SessaoDeJulgamento } from '../acervo/model/interfaces/sessao-julgamento.interface';
 import { ProcessoService } from '../services/processo.service';
 import { SessaoDeJulgamentoService } from '../services/sessao-de-julgamento.service';
 import { FuseAlertService } from '@fuse/components/alert';
-import { Impedimento } from '../acervo/model/interfaces/impedimento.interface';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { FuseDrawerService } from '@fuse/components/drawer';
 import { AlertaService } from '../services/alerta.service';
 import { catchError } from 'rxjs/operators';
+import { SessaoDeJulgamento } from 'app/shared/model/interfaces/sessao-julgamento.interface';
+import { Processo } from 'app/shared/model/interfaces/processo.interface';
+import { Impedimento } from 'app/shared/model/interfaces/impedimento.interface';
 
 @Component({
   selector: 'app-sessoes-julgamentos',

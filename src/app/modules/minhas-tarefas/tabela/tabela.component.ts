@@ -1,15 +1,16 @@
 import { animate, state, style, transition, trigger } from '@angular/animations';
 import { SelectionModel } from '@angular/cdk/collections';
-import { AfterViewInit, Component, EventEmitter, HostListener, Injectable, Input, OnChanges, OnDestroy, OnInit, Output, SimpleChanges, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, EventEmitter, HostListener, OnDestroy, OnInit, Output, ViewChild } from '@angular/core';
 import { MatPaginator, MatPaginatorIntl, PageEvent } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { ActivatedRoute } from '@angular/router';
-import { ITask, ITaskTag } from 'app/modules/acervo/model/interfaces/itask.interface';
 import { PaginacaoCustomizadaComponent } from 'app/modules/acervo/tabela/paginacao/paginacao-customizada.component';
 import { AlertaService } from 'app/modules/services/alerta.service';
 import { TarefaService } from 'app/modules/services/tarefa.service';
+import { ITask, ITaskTag } from 'app/shared/model/interfaces/itask.interface';
 import { EMPTY, merge } from 'rxjs';
 import { catchError, map, startWith, switchMap } from 'rxjs/operators';
+
 
 export interface Filtro {
     numeroProcesso?: number;

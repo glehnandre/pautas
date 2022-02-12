@@ -1,12 +1,13 @@
 import { Injectable } from '@angular/core';
 import { FuseMockApiService } from '@fuse/lib/mock-api/mock-api.service';
-
-import { ModeloDecisao } from 'app/modules/acervo/model/interfaces/modeloDecisao.interface';
-
+import { ModeloDecisao } from 'app/shared/model/interfaces/modeloDecisao.interface';
 import { dispositivos } from '../dispositivo/data';
+import { setStorage } from '../storage';
 import { modeloDecisao } from './data';
 
-import { setStorage } from '../storage';
+
+
+
 
 @Injectable({
     providedIn: 'root'

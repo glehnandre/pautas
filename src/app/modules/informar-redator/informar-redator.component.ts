@@ -1,9 +1,8 @@
-import { HttpParams } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
-import { Ministro } from '../acervo/model/interfaces/ministro.interface';
-import { Voto } from '../acervo/model/interfaces/voto.interface';
+import { Ministro } from 'app/shared/model/interfaces/ministro.interface';
+import { Voto } from 'app/shared/model/interfaces/voto.interface';
 import { AlertaService } from '../services/alerta.service';
 import { MinistroService } from '../services/ministro.service';
 import { ProcessoService } from '../services/processo.service';

@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { Ministro } from 'app/modules/acervo/model/interfaces/ministro.interface';
-import { Voto } from 'app/modules/acervo/model/interfaces/voto.interface';
+import { Voto } from 'app/shared/model/interfaces/voto.interface';
+
 
 @Component({
   selector: 'app-conteudo-voto-ministro',
