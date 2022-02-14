@@ -41,7 +41,7 @@ export class IconsMockApi
                 {
                     namespace: 'feather',
                     name     : 'Feather',
-                    grid     : 6,
+                    grid     : 'icon-size-6',
                     list     : cloneDeep(this._feather)
                 }
             ]);
@@ -56,7 +56,7 @@ export class IconsMockApi
                 {
                     namespace: 'heroicons_outline',
                     name     : 'Heroicons Outline',
-                    grid     : 6,
+                    grid     : 'icon-size-6',
                     list     : cloneDeep(this._heroicons)
                 }
             ]);
@@ -71,7 +71,7 @@ export class IconsMockApi
                 {
                     namespace: 'heroicons_solid',
                     name     : 'Heroicons Solid',
-                    grid     : 5,
+                    grid     : 'icon-size-5',
                     list     : cloneDeep(this._heroicons)
                 }
             ]);
@@ -86,7 +86,7 @@ export class IconsMockApi
                 {
                     namespace: 'iconsmind',
                     name     : 'Iconsmind',
-                    grid     : 10,
+                    grid     : 'icon-size-10',
                     list     : cloneDeep(this._iconsmind)
                 }
             ]);
@@ -101,7 +101,7 @@ export class IconsMockApi
                 {
                     namespace: 'mat_solid',
                     name     : 'Material Solid',
-                    grid     : 6,
+                    grid     : 'icon-size-6',
                     list     : cloneDeep(this._material)
                 }
             ]);
@@ -116,7 +116,7 @@ export class IconsMockApi
                 {
                     namespace: 'mat_outline',
                     name     : 'Material Outline',
-                    grid     : 6,
+                    grid     : 'icon-size-6',
                     list     : cloneDeep(this._material)
                 }
             ]);
@@ -131,7 +131,7 @@ export class IconsMockApi
                 {
                     namespace: '',
                     name     : 'Material Twotone',
-                    grid     : 6,
+                    grid     : 'icon-size-6',
                     list     : cloneDeep(this._material)
                 }
             ]);

@@ -5,7 +5,8 @@ import { LayoutComponent } from 'app/layout/layout.component';
 import { InitialDataResolver } from 'app/app.resolvers';
 
 // @formatter:off
-// tslint:disable:max-line-length
+/* eslint-disable max-len */
+/* eslint-disable @typescript-eslint/explicit-function-return-type */
 export const appRoutes: Route[] = [
 
     // Redirect empty path to '/example'

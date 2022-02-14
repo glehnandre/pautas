@@ -1,10 +1,10 @@
 import { Component, OnDestroy, OnInit, ViewEncapsulation } from '@angular/core';
-import { ActivatedRoute, Data, Router } from '@angular/router';
-import { Subject } from 'rxjs';
-import { takeUntil } from 'rxjs/operators';
+import { ActivatedRoute, Router } from '@angular/router';
+import { Subject, takeUntil } from 'rxjs';
 import { FuseMediaWatcherService } from '@fuse/services/media-watcher';
 import { FuseNavigationService, FuseVerticalNavigationComponent } from '@fuse/components/navigation';
-import { InitialData } from 'app/app.types';
+import { Navigation } from 'app/core/navigation/navigation.types';
+import { NavigationService } from 'app/core/navigation/navigation.service';
 
 @Component({
     selector     : 'compact-layout',
@@ -13,8 +13,8 @@ import { InitialData } from 'app/app.types';
 })
 export class CompactLayoutComponent implements OnInit, OnDestroy
 {
-    data: InitialData;
     isScreenSmall: boolean;
+    navigation: Navigation;
     private _unsubscribeAll: Subject<any> = new Subject<any>();
 
     /**
@@ -23,6 +23,7 @@ export class CompactLayoutComponent implements OnInit, OnDestroy
     constructor(
         private _activatedRoute: ActivatedRoute,
         private _router: Router,
+        private _navigationService: NavigationService,
         private _fuseMediaWatcherService: FuseMediaWatcherService,
         private _fuseNavigationService: FuseNavigationService
     )
@@ -50,10 +51,12 @@ export class CompactLayoutComponent implements OnInit, OnDestroy
      */
     ngOnInit(): void
     {
-        // Subscribe to the resolved route data
-        this._activatedRoute.data.subscribe((data: Data) => {
-            this.data = data.initialData;
-        });
+        // Subscribe to navigation data
+        this._navigationService.navigation$
+            .pipe(takeUntil(this._unsubscribeAll))
+            .subscribe((navigation: Navigation) => {
+                this.navigation = navigation;
+            });
 
         // Subscribe to media changes
         this._fuseMediaWatcherService.onMediaChange$
@@ -71,7 +74,7 @@ export class CompactLayoutComponent implements OnInit, OnDestroy
     ngOnDestroy(): void
     {
         // Unsubscribe from all subscriptions
-        this._unsubscribeAll.next();
+        this._unsubscribeAll.next(null);
         this._unsubscribeAll.complete();
     }
 

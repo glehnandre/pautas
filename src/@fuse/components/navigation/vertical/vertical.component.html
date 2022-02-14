@@ -24,46 +24,52 @@
             <ng-container *ngIf="(item.hidden && !item.hidden(item)) || !item.hidden">
 
                 <!-- Aside -->
-                <fuse-vertical-navigation-aside-item
-                    *ngIf="item.type === 'aside'"
-                    [item]="item"
-                    [name]="name"
-                    [activeItemId]="activeAsideItemId"
-                    [autoCollapse]="autoCollapse"
-                    [skipChildren]="true"
-                    (click)="toggleAside(item)"></fuse-vertical-navigation-aside-item>
+                <ng-container *ngIf="item.type === 'aside'">
+                    <fuse-vertical-navigation-aside-item
+                        [item]="item"
+                        [name]="name"
+                        [activeItemId]="activeAsideItemId"
+                        [autoCollapse]="autoCollapse"
+                        [skipChildren]="true"
+                        (click)="toggleAside(item)"></fuse-vertical-navigation-aside-item>
+                </ng-container>
 
                 <!-- Basic -->
-                <fuse-vertical-navigation-basic-item
-                    *ngIf="item.type === 'basic'"
-                    [item]="item"
-                    [name]="name"></fuse-vertical-navigation-basic-item>
+                <ng-container *ngIf="item.type === 'basic'">
+                    <fuse-vertical-navigation-basic-item
+                        [item]="item"
+                        [name]="name"></fuse-vertical-navigation-basic-item>
+                </ng-container>
 
                 <!-- Collapsable -->
-                <fuse-vertical-navigation-collapsable-item
-                    *ngIf="item.type === 'collapsable'"
-                    [item]="item"
-                    [name]="name"
-                    [autoCollapse]="autoCollapse"></fuse-vertical-navigation-collapsable-item>
+                <ng-container *ngIf="item.type === 'collapsable'">
+                    <fuse-vertical-navigation-collapsable-item
+                        [item]="item"
+                        [name]="name"
+                        [autoCollapse]="autoCollapse"></fuse-vertical-navigation-collapsable-item>
+                </ng-container>
 
                 <!-- Divider -->
-                <fuse-vertical-navigation-divider-item
-                    *ngIf="item.type === 'divider'"
-                    [item]="item"
-                    [name]="name"></fuse-vertical-navigation-divider-item>
+                <ng-container *ngIf="item.type === 'divider'">
+                    <fuse-vertical-navigation-divider-item
+                        [item]="item"
+                        [name]="name"></fuse-vertical-navigation-divider-item>
+                </ng-container>
 
                 <!-- Group -->
-                <fuse-vertical-navigation-group-item
-                    *ngIf="item.type === 'group'"
-                    [item]="item"
-                    [name]="name"
-                    [autoCollapse]="autoCollapse"></fuse-vertical-navigation-group-item>
+                <ng-container *ngIf="item.type === 'group'">
+                    <fuse-vertical-navigation-group-item
+                        [item]="item"
+                        [name]="name"
+                        [autoCollapse]="autoCollapse"></fuse-vertical-navigation-group-item>
+                </ng-container>
 
                 <!-- Spacer -->
-                <fuse-vertical-navigation-spacer-item
-                    *ngIf="item.type === 'spacer'"
-                    [item]="item"
-                    [name]="name"></fuse-vertical-navigation-spacer-item>
+                <ng-container *ngIf="item.type === 'spacer'">
+                    <fuse-vertical-navigation-spacer-item
+                        [item]="item"
+                        [name]="name"></fuse-vertical-navigation-spacer-item>
+                </ng-container>
 
             </ng-container>
 
@@ -84,31 +90,33 @@
 </div>
 
 <!-- Aside -->
-<div
-    class="fuse-vertical-navigation-aside-wrapper"
-    *ngIf="activeAsideItemId"
-    fuseScrollbar
-    [fuseScrollbarOptions]="{wheelPropagation: false, suppressScrollX: true}"
-    [@fadeInLeft]="position === 'left'"
-    [@fadeInRight]="position === 'right'"
-    [@fadeOutLeft]="position === 'left'"
-    [@fadeOutRight]="position === 'right'">
+<ng-container *ngIf="activeAsideItemId">
+    <div
+        class="fuse-vertical-navigation-aside-wrapper"
+        fuseScrollbar
+        [fuseScrollbarOptions]="{wheelPropagation: false, suppressScrollX: true}"
+        [@fadeInLeft]="position === 'left'"
+        [@fadeInRight]="position === 'right'"
+        [@fadeOutLeft]="position === 'left'"
+        [@fadeOutRight]="position === 'right'">
 
-    <!-- Items -->
-    <ng-container *ngFor="let item of navigation; trackBy: trackByFn">
+        <!-- Items -->
+        <ng-container *ngFor="let item of navigation; trackBy: trackByFn">
 
-        <!-- Skip the hidden items -->
-        <ng-container *ngIf="(item.hidden && !item.hidden(item)) || !item.hidden">
+            <!-- Skip the hidden items -->
+            <ng-container *ngIf="(item.hidden && !item.hidden(item)) || !item.hidden">
 
-            <!-- Aside -->
-            <fuse-vertical-navigation-aside-item
-                *ngIf="item.type === 'aside' && item.id === activeAsideItemId"
-                [item]="item"
-                [name]="name"
-                [autoCollapse]="autoCollapse"></fuse-vertical-navigation-aside-item>
+                <!-- Aside -->
+                <ng-container *ngIf="item.type === 'aside' && item.id === activeAsideItemId">
+                    <fuse-vertical-navigation-aside-item
+                        [item]="item"
+                        [name]="name"
+                        [autoCollapse]="autoCollapse"></fuse-vertical-navigation-aside-item>
+                </ng-container>
+
+            </ng-container>
 
         </ng-container>
 
-    </ng-container>
-
-</div>
+    </div>
+</ng-container>

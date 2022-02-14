@@ -1,6 +1,5 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Input, OnDestroy, OnInit } from '@angular/core';
-import { Subject } from 'rxjs';
-import { takeUntil } from 'rxjs/operators';
+import { Subject, takeUntil } from 'rxjs';
 import { FuseHorizontalNavigationComponent } from '@fuse/components/navigation/horizontal/horizontal.component';
 import { FuseNavigationService } from '@fuse/components/navigation/navigation.service';
 import { FuseNavigationItem } from '@fuse/components/navigation/navigation.types';
@@ -8,7 +7,6 @@ import { FuseNavigationItem } from '@fuse/components/navigation/navigation.types
 @Component({
     selector       : 'fuse-horizontal-navigation-divider-item',
     templateUrl    : './divider.component.html',
-    styles         : [],
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class FuseHorizontalNavigationDividerItemComponent implements OnInit, OnDestroy
@@ -57,7 +55,7 @@ export class FuseHorizontalNavigationDividerItemComponent implements OnInit, OnD
     ngOnDestroy(): void
     {
         // Unsubscribe from all subscriptions
-        this._unsubscribeAll.next();
+        this._unsubscribeAll.next(null);
         this._unsubscribeAll.complete();
     }
 }

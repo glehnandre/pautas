@@ -4,11 +4,12 @@
 .ql-toolbar {
     border-radius: 6px 6px 0 0;
     padding: 0 !important;
-    @apply bg-gray-100 border-gray-300;
+    @apply bg-gray-100;
+    @apply border-gray-300 border-opacity-100 #{'!important'};
 
     .dark & {
         background-color: rgba(0, 0, 0, 0.05);
-        @apply border-gray-500;
+        @apply border-gray-500 #{'!important'};
     }
 
     .ql-formats {
@@ -81,24 +82,20 @@
 .ql-container {
     overflow: hidden;
     border-radius: 0 0 6px 6px;
-    @apply border-gray-300 shadow-sm;
+    @apply border-gray-300 border-opacity-100 shadow-sm #{'!important'};
 
     .dark & {
-        @apply border-gray-500;
+        @apply border-gray-500 #{'!important'};
     }
 
     .ql-editor {
         min-height: 160px;
         max-height: 160px;
         height: 160px;
-        @apply bg-gray-50;
+        @apply bg-card;
 
         .dark & {
             background-color: rgba(0, 0, 0, 0.05);
-        }
-
-        &:focus {
-            @apply bg-card;
         }
 
         &.ql-blank::before {

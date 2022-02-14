@@ -1,9 +1,12 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
 import { ActivatedRouteSnapshot, Resolve, RouterStateSnapshot } from '@angular/router';
 import { forkJoin, Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
-import { InitialData } from 'app/app.types';
+import { MessagesService } from 'app/layout/common/messages/messages.service';
+import { NavigationService } from 'app/core/navigation/navigation.service';
+import { NotificationsService } from 'app/layout/common/notifications/notifications.service';
+import { QuickChatService } from 'app/layout/common/quick-chat/quick-chat.service';
+import { ShortcutsService } from 'app/layout/common/shortcuts/shortcuts.service';
+import { UserService } from 'app/core/user/user.service';
 
 @Injectable({
     providedIn: 'root'
@@ -13,7 +16,14 @@ export class InitialDataResolver implements Resolve<any>
     /**
      * Constructor
      */
-    constructor(private _httpClient: HttpClient)
+    constructor(
+        private _messagesService: MessagesService,
+        private _navigationService: NavigationService,
+        private _notificationsService: NotificationsService,
+        private _quickChatService: QuickChatService,
+        private _shortcutsService: ShortcutsService,
+        private _userService: UserService
+    )
     {
     }
 
@@ -27,29 +37,16 @@ export class InitialDataResolver implements Resolve<any>
      * @param route
      * @param state
      */
-    resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<InitialData>
+    resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<any>
     {
         // Fork join multiple API endpoint calls to wait all of them to finish
         return forkJoin([
-            this._httpClient.get<any>('api/common/messages'),
-            this._httpClient.get<any>('api/common/navigation'),
-            this._httpClient.get<any>('api/common/notifications'),
-            this._httpClient.get<any>('api/common/shortcuts'),
-            this._httpClient.get<any>('api/common/user')
-        ]).pipe(
-            map(([messages, navigation, notifications, shortcuts, user]) => ({
-                    messages,
-                    navigation: {
-                        compact   : navigation.compact,
-                        default   : navigation.default,
-                        futuristic: navigation.futuristic,
-                        horizontal: navigation.horizontal
-                    },
-                    notifications,
-                    shortcuts,
-                    user
-                })
-            )
-        );
+            this._navigationService.get(),
+            this._messagesService.getAll(),
+            this._notificationsService.getAll(),
+            this._quickChatService.getChats(),
+            this._shortcutsService.getAll(),
+            this._userService.get()
+        ]);
     }
 }

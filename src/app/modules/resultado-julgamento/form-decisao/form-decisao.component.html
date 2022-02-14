@@ -2,7 +2,7 @@
     <div class="w-full grid grid-cols-1 sm:grid-cols-4 gap-4">
 
         <mat-form-field class="w-full mb-4 col-span-2" appearance="outline">
-            <mat-label>Tipo <span class="text-red-500">*</span></mat-label>
+            <mat-label>Tipo</mat-label>
             <mat-select 
                 formControlName="tipo"
                 (value)="buscarDispositivos($event)" 
@@ -19,7 +19,7 @@
         </mat-form-field>
 
         <mat-form-field class="w-full mb-4 col-span-2" appearance="outline">
-            <mat-label>Dispositivo <span class="text-red-500">*</span></mat-label>
+            <mat-label>Dispositivo</mat-label>
             <mat-select 
                 formControlName="dispositivo" 
                 (selectionChange)="carregarModeloDeDecisao()"
@@ -37,14 +37,14 @@
     </div>
 
     <mat-form-field class="w-full mb-4" appearance="outline">
-        <mat-label>Descrição do capítulo <span class="text-red-500">*</span></mat-label>
+        <mat-label>Descrição do capítulo</mat-label>
         <textarea matInput type="text" formControlName="descricao"></textarea>
         <mat-hint>Descrição do que se trata o capítulo da decisão</mat-hint>
     </mat-form-field>
 
     <div class="w-full grid grid-cols-1 sm:grid-cols-2 gap-4">
         <mat-form-field class="w-full mb-4" appearance="outline">
-            <mat-label>Voto condutor <span class="text-red-500">*</span></mat-label>
+            <mat-label>Voto condutor</mat-label>
             <mat-select formControlName="ministro_condutor" [compareWith]="compareFn">
                 <mat-option 
                     *ngFor="let ministro of (ministros$ | async)" 
@@ -100,7 +100,7 @@
     </div>
 
     <mat-form-field class="w-full mb-4" appearance="outline">
-        <mat-label>Acordam os ministros <span class="text-red-500">*</span></mat-label>
+        <mat-label>Acordam os ministros</mat-label>
         <textarea matInput rows="10" formControlName="texto"></textarea>
         <mat-hint>Descreva a decisão tomada pelo colegiado</mat-hint>
     </mat-form-field>

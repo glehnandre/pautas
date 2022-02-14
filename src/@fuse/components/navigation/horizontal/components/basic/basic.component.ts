@@ -1,7 +1,6 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { IsActiveMatchOptions } from '@angular/router';
-import { Subject } from 'rxjs';
-import { takeUntil } from 'rxjs/operators';
+import { Subject, takeUntil } from 'rxjs';
 import { FuseHorizontalNavigationComponent } from '@fuse/components/navigation/horizontal/horizontal.component';
 import { FuseNavigationService } from '@fuse/components/navigation/navigation.service';
 import { FuseNavigationItem } from '@fuse/components/navigation/navigation.types';
@@ -10,7 +9,6 @@ import { FuseUtilsService } from '@fuse/services/utils/utils.service';
 @Component({
     selector       : 'fuse-horizontal-navigation-basic-item',
     templateUrl    : './basic.component.html',
-    styles         : [],
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class FuseHorizontalNavigationBasicItemComponent implements OnInit, OnDestroy
@@ -77,7 +75,7 @@ export class FuseHorizontalNavigationBasicItemComponent implements OnInit, OnDes
     ngOnDestroy(): void
     {
         // Unsubscribe from all subscriptions
-        this._unsubscribeAll.next();
+        this._unsubscribeAll.next(null);
         this._unsubscribeAll.complete();
     }
 }
