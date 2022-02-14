@@ -12,7 +12,7 @@
             <mat-form-field class="flex-1 h-2 md:hidden text-lg">
                 <mat-select class="flex-1" style="height: 10px;" (selectionChange)="selecionarAcaoCorrespondente($event)" placeholder="Escolha sua ação">
                     <mat-option value="visualizar" class="bg-primary text-white">Visualizar Inteiro Teor</mat-option>
-                    <mat-option value="incluir">Incluir novo documento</mat-option>
+                    <mat-option value="incluir">Incluir no Inteiro Teor</mat-option>
                     <mat-option value="remover">Remover do Inteiro Teor</mat-option>
                     <mat-option value="revisar">Revisado</mat-option>
                 </mat-select>
@@ -22,7 +22,7 @@
                     Visualizar Inteiro Teor
                 </button>
                 <button (click)="incluirNovoDocumento()" mat-flat-button class="bg-gray-200">
-                    Incluir novo documento
+                    Incluir no Inteiro Teor
                 </button>
                 <button (click)="removerInteiroTeor()" mat-flat-button class="bg-gray-200">
                     Remover do Inteiro Teor
