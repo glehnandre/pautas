@@ -1,9 +1,10 @@
 import { HttpParams } from '@angular/common/http';
-import { Component, Input, OnInit, Output, SimpleChange, EventEmitter, OnChanges, SimpleChanges } from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChange, SimpleChanges } from '@angular/core';
 import { AlertaService } from 'app/modules/services/alerta.service';
 import { ProcessoService } from 'app/modules/services/processo.service';
-import { Processo } from '../model/interfaces/processo.interface';
+import { Processo } from 'app/shared/model/interfaces/processo.interface';
 import { Paginacao } from './paginacao/paginacao.component';
+
 
 @Component({
   selector: 'app-tabela',

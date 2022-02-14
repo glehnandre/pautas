@@ -1,25 +1,19 @@
 import { Injectable } from '@angular/core';
 import { FuseMockApiService } from '@fuse/lib/mock-api/mock-api.service';
-import { Filtros } from 'app/modules/acervo/filtros/filtros';
-
-import { Paginacao } from 'app/modules/acervo/tabela/paginacao/paginacao.component';
-
-import { Voto } from 'app/modules/acervo/model/interfaces/voto.interface';
-import { Ministro } from 'app/modules/acervo/model/interfaces/ministro.interface';
-import { Impedimento } from 'app/modules/acervo/model/interfaces/impedimento.interface';
-import { Processo } from 'app/modules/acervo/model/interfaces/processo.interface';
-import { Tag } from 'app/modules/acervo/model/interfaces/tag.interface';
-import { Documento } from 'app/modules/acervo/model/interfaces/documento.interface';
-import { SessaoDeJulgamento } from 'app/modules/acervo/model/interfaces/sessao-julgamento.interface';
-
-import { processo as processoData, documentos, votos, tipos } from '../processos/data';
-import { tags as tagData } from '../tags/data';
+import { Documento } from 'app/shared/model/interfaces/documento.interface';
+import { Impedimento } from 'app/shared/model/interfaces/impedimento.interface';
+import { Ministro } from 'app/shared/model/interfaces/ministro.interface';
+import { Processo } from 'app/shared/model/interfaces/processo.interface';
+import { SessaoDeJulgamento } from 'app/shared/model/interfaces/sessao-julgamento.interface';
+import { Tag } from 'app/shared/model/interfaces/tag.interface';
+import { Voto } from 'app/shared/model/interfaces/voto.interface';
+import { listaImpedimentos, ministro } from '../ministro/data';
+import { documentos, processo as processoData, tipos, votos } from '../processos/data';
 import { sessoesDeJulgamento } from '../sessoesDeJulgamento/data';
-import { listaImpedimentos, ministro } from '../ministro/data'
+import { setStorage } from '../storage';
+import { tags as tagData } from '../tags/data';
 
-import { setStorage, getStorage } from '../storage';
-import { Vista } from 'app/modules/acervo/model/interfaces/vista.interface';
-import { Destaque } from 'app/modules/acervo/model/interfaces/destaque.interface';
+
 
 
 @Injectable({
@@ -27,7 +21,7 @@ import { Destaque } from 'app/modules/acervo/model/interfaces/destaque.interface
 })
 export class ProcessoMockApi {
     private _processos: Processo[] = processoData;
-    private _julgamentos: SessaoDeJulgamento[] = sessoesDeJulgamento;
+    private _sessaoDeJulgamentos: SessaoDeJulgamento[] = sessoesDeJulgamento;
     private _documentos: Documento[] = documentos;
     private _tag: Tag[] = [];
     private _impedimentos: any[] = listaImpedimentos;
@@ -141,7 +135,7 @@ export class ProcessoMockApi {
               const id = +urlParams.id;
               const numeroAno = urlParams['numero-ano'];
 
-              this._julgamentos.map((sessao) => {
+              this._sessaoDeJulgamentos.map((sessao) => {
                 const sessaoNumeroAno = `${sessao.numero}-${sessao.ano}`;
                 if(sessaoNumeroAno === numeroAno){
                     this._processos.map((processo) => {
@@ -207,257 +201,358 @@ export class ProcessoMockApi {
             });
 
         this._fuseMockApiService
-            .onPost('processos/:id/relator')
+            .onPost('sessao-de-julgamento/:numeroAno/processos/:id/relator')
             .reply(({request, urlParams}) => {
                 const idProcesso = +urlParams.id;
                 const idRelator = request.body as number;
-                const index = this._processos.findIndex(p => p.id === idProcesso);
+                const numeroAno = urlParams['numeroAno'];
 
-                if (index !== -1) {
-                    const relator = ministro.find(m => m.id === idRelator);
-                    this._processos[index].relator = relator;
-                    setStorage('processos', this._processos);
-                    return [200, "Sucesso"];
-                }
-
-                return [404, "Nenhum processo encontrado"];
+                let indexJulgamento = this._sessaoDeJulgamentos.findIndex(julg => {
+                    console.log(numeroAno);
+                    const sessaoNumeroAno = `${julg.numero}-${julg.ano}`;
+                    return sessaoNumeroAno === numeroAno;
+                });
+    
+                if(indexJulgamento != -1){
+                      let indexProcesso = this._sessaoDeJulgamentos[indexJulgamento].processos.findIndex(processo => processo.id === idProcesso);
+                      if(indexProcesso != -1){
+                        const relator = ministro.find(m => m.id === idRelator);
+                        this._sessaoDeJulgamentos[indexJulgamento].processos[indexProcesso].relator = relator;
+                        setStorage('sessoesDeJulgamento', this._sessaoDeJulgamentos);
+                        return [200, "Sucesso"];
+                      } else return [404, "Processo não encontrado na Sessão de julgamento"];
+                }else return [404, "Sessão de julgamento não encontrada."];
             });
 
         this._fuseMockApiService
-            .onPost('processos/:id/vistas')
-            .reply(({request, urlParams}) => {
-                const idProcesso: number = +urlParams.id;
-                const { body } = request;
-                const m = ministro.find(({id}) => id === body.ministro);
-                const index = this._processos.findIndex(processo => processo.id === idProcesso);
-
-                if(index == -1) return [400, "Processo não encontrado!"];
-
-                const qtd_vistas = this._processos[index].vistas.length;
-                const nova_vista = {
-                  ...body,
-                  id: qtd_vistas == 0? 1: this._processos[index].vistas[qtd_vistas-1].id+1,
-                  ministro: m,
-                }
-                this._processos[index].vistas.push(nova_vista);
-
-                setStorage('processos', this._processos);
-                return [200, nova_vista];
-            });
-
-        this._fuseMockApiService
-            .onPut('processos/:id/vistas/:idVista')
-            .reply(({request, urlParams}) => {
-                const idProcesso: number = +urlParams.id;
-                const idVista: number = +urlParams.idVista;
-                const { body } = request;
-                let index_processo;
-                let index_vista;
-                const m = ministro.find(({id}) => id === body.ministro);
-
-                index_processo = this._processos.findIndex(processo => processo.id === idProcesso);
-                index_vista = this._processos[index_processo].vistas.findIndex(vista => vista.id === idVista)
-                this._processos[index_processo].vistas[index_vista].data = body.data;
-                this._processos[index_processo].vistas[index_vista].ministro = body.ministro;
-                this._processos[index_processo].vistas[index_vista].processo = body.processo;
-                this._processos[index_processo].vistas[index_vista].sessao = body.sessao;
-                this._processos[index_processo].vistas[index_vista].texto = body.texto;
-
-                setStorage('processos', this._processos);
-                return [200, this._processos[index_processo].vistas[index_vista]];
-            });
-
-        this._fuseMockApiService
-            .onDelete('processos/:id/vistas/:idVista')
-            .reply(({urlParams}) => {
-                const id_processo: number = +urlParams.id;
-                const id_vista: number = +urlParams.idVista;
-
-                let index_processo;
-                let index_vista;
-
-                index_processo = this._processos.findIndex(processo => processo.id === id_processo);
-                index_vista = this._processos[index_processo].vistas.findIndex(vista => vista.id === id_vista);
-
-                if (index_vista !== -1) {
-                    this._processos[index_processo].vistas.splice(index_vista, 1);
-                    setStorage('processos', this._processos);
-                    setStorage('vistas', this._processos[index_processo].vistas);
-                    return [200, "Excluído com sucesso"];
-                }
-                return [404, {
-                    msg: 'Nenhuma Vista com id informado.'
-                }];
-            });
-
-        this._fuseMockApiService
-            .onPost('processos/:id/destaques')
-            .reply(({request, urlParams}) => {
-                const idProcesso: number = +urlParams.id;
-                const { body } = request;
-                const m = ministro.find(({id}) => id === body.ministro);
-                const index = this._processos.findIndex(({ id }) => id == idProcesso);
-
-                if(index == -1) return [400, "Processo não encontrado!"];
-
-                const qtd_destaques = this._processos[index].destaques.length;
-                const novo_destaque = {
-                  ...body,
-                  id: qtd_destaques == 0? 1: this._processos[index].destaques[qtd_destaques-1].id+1,
-                  ministro: m,
-                }
-                this._processos[index].destaques.push(novo_destaque);
-
-                setStorage('processos', this._processos);
-                return [200, novo_destaque];
-            });
-
-        this._fuseMockApiService
-            .onPut('processos/:id/destaques/:idDestaque')
-            .reply(({request, urlParams}) => {
-                const idProcesso: number = +urlParams.id;
-                const idDestaque: number = +urlParams.idDestaque;
-                const { body } = request;
-                let index_processo;
-                let index_destaque;
-                const m = ministro.find(({id}) => id === body.ministro);
-
-                index_processo = this._processos.findIndex(processo => processo.id === idProcesso);
-                index_destaque= this._processos[index_processo].destaques.findIndex(destaque => destaque.id === idDestaque)
-                this._processos[index_processo].destaques[index_destaque].data = body.data;
-                this._processos[index_processo].destaques[index_destaque].ministro = body.ministro;
-                this._processos[index_processo].destaques[index_destaque].processo = body.processo;
-                this._processos[index_processo].destaques[index_destaque].sessao = body.sessao;
-                this._processos[index_processo].destaques[index_destaque].texto = body.texto;
-
-                setStorage('processos', this._processos);
-                return [200, this._processos[index_processo].destaques[index_destaque]];
-            });
-
-        this._fuseMockApiService
-            .onDelete('processos/:id/destaques/:idDestaque')
-            .reply(({urlParams}) => {
-                const idProcesso: number = +urlParams.id;
-                const idDestaque: number = +urlParams.idDestaque;
-
-                let index_processo;
-                let index_destaque;
-
-                index_processo = this._processos.findIndex(processo => processo.id === idProcesso);
-                index_destaque = this._processos[index_processo].destaques.findIndex(destaque => destaque.id === idDestaque);
-
-                if (index_destaque !== -1) {
-                    this._processos[index_processo].destaques.splice(index_destaque, 1);
-                    setStorage('processos', this._processos);
-                    setStorage('destaques', this._processos[index_processo].destaques);
-                    return [200, "Excluído com sucesso"];
-                }
-                return [404, {
-                    msg: 'Nenhum Destaque com id informado.'
-                }];
-            });
-
-        this._fuseMockApiService
-            .onPost('processos/:id/impedimentos')
-            .reply(({request, urlParams}) => {
-                const idProcesso: number = +urlParams.id;
-                const { body } = request;
-
-                const index = this._processos
-                    .findIndex(p => p.id === idProcesso);
-
-                if (index !== -1) {
-                    const processo = this._processos[index];
-                    const ministrosImpedidos: Ministro[] = [];
-                    const ministrosSuspeitos: Ministro[] = [];
-
-                    body.ministros_impedidos.forEach((id: number) => {
-                        ministrosImpedidos.push(this._obterMinistroPeloId(id));
-                    });
-
-                    processo.ministros_impedidos = ministrosImpedidos;
-
-                    body.ministros_suspeitos.forEach((id: number) => {
-                        ministrosSuspeitos.push(this._obterMinistroPeloId(id));
-                    });
-
-                    processo.ministros_suspeitos = ministrosSuspeitos;
-                    this._processos[index] = processo;
-                    setStorage('processos', this._processos);
-
-                    return [200, processo];
-                }
-
-                return [404, {
-                    msg: 'Nenhum processo com id informado.'
-                }];
-            });
-
-        this._fuseMockApiService
-            .onGet('processo/:id/capitulos')
+            .onGet('sessao-de-julgamento/:numeroAno/processos/:id')
             .reply(({urlParams}) => {
               const idProcesso = +urlParams.id;
-              let proc;
+              const numeroAno = urlParams['numeroAno'];
 
-              getStorage('processo', this._processos);
-              proc = this._processos.filter(processo => processo.id === idProcesso);
+              let indexJulgamento = this._sessaoDeJulgamentos.findIndex(julg => {
+                console.log(numeroAno);
+                const sessaoNumeroAno = `${julg.numero}-${julg.ano}`;
+                return sessaoNumeroAno === numeroAno;
+              });
 
-              return [201, proc.capitulos];
+              if(indexJulgamento != -1){
+                  let indexProcesso = this._sessaoDeJulgamentos[indexJulgamento].processos.findIndex(processo => processo.id === idProcesso);
+                  if(indexProcesso != -1){
+                    let processo = this._sessaoDeJulgamentos[indexJulgamento].processos[indexProcesso];
+                    console.log(processo);
+                    return [201, processo];
+                  } else return [404, "Processo não encontrado na Sessão de julgamento"];
+              }else return [404, "Sessão de julgamento não encontrada."];
+              
+        });
+
+        this._fuseMockApiService
+            .onPost('sessao-de-julgamento/:numeroAno/processos/:id/vistas')
+            .reply(({request, urlParams}) => {
+                const idProcesso: number = +urlParams.id;
+                const numeroAno = urlParams['numeroAno'];
+                const { body } = request;
+                const m = ministro.find(({id}) => id === body.ministro);
+
+                let indexJulgamento = this._sessaoDeJulgamentos.findIndex(julg => {
+                    const sessaoNumeroAno = `${julg.numero}-${julg.ano}`;
+                    return sessaoNumeroAno === numeroAno;
+                  });
+    
+                if(indexJulgamento != -1){
+                      let indexProcesso = this._sessaoDeJulgamentos[indexJulgamento].processos.findIndex(processo => processo.id === idProcesso);
+                      if(indexProcesso != -1){
+                        body.id = this._sessaoDeJulgamentos[indexJulgamento].processos[indexProcesso].vistas.length + 1;
+                        this._sessaoDeJulgamentos[indexJulgamento].processos[indexProcesso].vistas.push({...body, ministro: m });
+                        setStorage('sessoesDeJulgamento', this._sessaoDeJulgamentos);
+                        return [201, this._sessaoDeJulgamentos[indexJulgamento].processos[indexProcesso].vistas[this._sessaoDeJulgamentos[indexJulgamento].processos[indexProcesso].vistas.length-1]];
+                      } else return [404, "Processo não encontrado na Sessão de julgamento"];
+                }else return [404, "Sessão de julgamento não encontrada."];
+            });
+        
+        this._fuseMockApiService
+            .onPost('sessao-de-julgamento/:numeroAno/processos/:id/finalizar-julgamento')
+            .reply(({request, urlParams}) => {
+                const idProcesso: number = +urlParams.id;
+                const numeroAno = urlParams['numeroAno'];
+                const { body } = request;
+                console.log("FINALIZAR PROCESSO");
+                console.log(body);
+
+                let indexJulgamento = this._sessaoDeJulgamentos.findIndex(julg => {
+                    const sessaoNumeroAno = `${julg.numero}-${julg.ano}`;
+                    return sessaoNumeroAno === numeroAno;
+                  });
+    
+                if(indexJulgamento != -1){
+                      let indexProcesso = this._sessaoDeJulgamentos[indexJulgamento].processos.findIndex(processo => processo.id === idProcesso);
+                      if(indexProcesso != -1){
+                        
+                        return [201, "Julgamento finalizado com sucesso"];
+                      } else return [404, "Processo não encontrado na Sessão de julgamento"];
+                }else return [404, "Sessão de julgamento não encontrada."];
+            });
+
+
+        this._fuseMockApiService
+            .onPut('sessao-de-julgamento/:numeroAno/processos/:id/vistas/:idVista')
+            .reply(({request, urlParams}) => {
+                const idProcesso: number = +urlParams.id;
+                const numeroAno = urlParams['numeroAno'];
+                const idVista: number = +urlParams.idVista;
+                const { body } = request;
+                const m = ministro.find(({id}) => id === body.ministro);
+
+                let indexJulgamento = this._sessaoDeJulgamentos.findIndex(julg => {
+                    const sessaoNumeroAno = `${julg.numero}-${julg.ano}`;
+                    return sessaoNumeroAno === numeroAno;
+                });
+
+                if(indexJulgamento != -1){
+                      let indexProcesso = this._sessaoDeJulgamentos[indexJulgamento].processos.findIndex(processo => processo.id === idProcesso);
+                      if(indexProcesso != -1){
+                        let index_vista = this._sessaoDeJulgamentos[indexJulgamento].processos[indexProcesso].vistas.findIndex(vista => vista.id === idVista);
+                        this._sessaoDeJulgamentos[indexJulgamento].processos[indexProcesso].vistas[index_vista].data = body.data;
+                        this._sessaoDeJulgamentos[indexJulgamento].processos[indexProcesso].vistas[index_vista].ministro = body.ministro;
+                        this._sessaoDeJulgamentos[indexJulgamento].processos[indexProcesso].vistas[index_vista].processo = body.processo;
+                        this._sessaoDeJulgamentos[indexJulgamento].processos[indexProcesso].vistas[index_vista].sessao = body.sessao;
+                        this._sessaoDeJulgamentos[indexJulgamento].processos[indexProcesso].vistas[index_vista].texto = body.texto;
+                        console.log("ATUALIZANDO VISTA...");
+                        console.log(this._sessaoDeJulgamentos);
+                        setStorage('sessoesDeJulgamento', this._sessaoDeJulgamentos);
+                        return [201, this._sessaoDeJulgamentos[indexJulgamento].processos[indexProcesso].vistas[index_vista]];
+                      } else return [404, "Processo não encontrado na Sessão de julgamento"];
+                }else return [404, "Sessão de julgamento não encontrada."];
             });
 
         this._fuseMockApiService
-            .onPost('processo/:id/capitulos')
+            .onDelete('sessao-de-julgamento/:numeroAno/processos/:id/vistas/:idVista')
+            .reply(({urlParams}) => {
+                const idProcesso: number = +urlParams.id;
+                const numeroAno = urlParams['numeroAno'];
+                const idVista: number = +urlParams.idVista;
+
+                let indexJulgamento = this._sessaoDeJulgamentos.findIndex(julg => {
+                    const sessaoNumeroAno = `${julg.numero}-${julg.ano}`;
+                    return sessaoNumeroAno === numeroAno;
+                });
+
+                if(indexJulgamento != -1){
+                      let indexProcesso = this._sessaoDeJulgamentos[indexJulgamento].processos.findIndex(processo => processo.id === idProcesso);
+                      if(indexProcesso != -1){
+                        let index_vista = this._sessaoDeJulgamentos[indexJulgamento].processos[indexProcesso].vistas.findIndex(vista => vista.id === idVista);
+                        if(index_vista!=-1){
+                            this._sessaoDeJulgamentos[indexJulgamento].processos[indexProcesso].vistas.splice(index_vista, 1);
+                            setStorage('sessoesDeJulgamento', this._sessaoDeJulgamentos);
+                            return [200, "Excluído com sucesso"];
+                        } return [404, "Vista não encontrada"];
+                      } else return [404, "Processo não encontrado na Sessão de julgamento"];
+                }else return [404, "Sessão de julgamento não encontrada."];
+            });
+
+        this._fuseMockApiService
+            .onPost('sessao-de-julgamento/:numeroAno/processos/:id/destaques')
+            .reply(({request, urlParams}) => {
+                const idProcesso: number = +urlParams.id;
+                const numeroAno = urlParams['numeroAno'];
+                const { body } = request;
+                const m = ministro.find(({id}) => id === body.ministro);
+
+
+                let indexJulgamento = this._sessaoDeJulgamentos.findIndex(julg => {
+                    const sessaoNumeroAno = `${julg.numero}-${julg.ano}`;
+                    return sessaoNumeroAno === numeroAno;
+                  });
+    
+                if(indexJulgamento != -1){
+                      let indexProcesso = this._sessaoDeJulgamentos[indexJulgamento].processos.findIndex(processo => processo.id === idProcesso);
+                      if(indexProcesso != -1){
+                        body.id = this._sessaoDeJulgamentos[indexJulgamento].processos[indexProcesso].destaques.length + 1;
+                        this._sessaoDeJulgamentos[indexJulgamento].processos[indexProcesso].destaques.push({...body, ministro: m });
+                        setStorage('sessoesDeJulgamento', this._sessaoDeJulgamentos);
+                        return [201, this._sessaoDeJulgamentos[indexJulgamento].processos[indexProcesso].destaques[this._sessaoDeJulgamentos[indexJulgamento].processos[indexProcesso].destaques.length-1]];
+                      } else return [404, "Processo não encontrado na Sessão de julgamento"];
+                }else return [404, "Sessão de julgamento não encontrada."];
+            });
+
+        this._fuseMockApiService
+            .onPut('sessao-de-julgamento/:numeroAno/processos/:id/destaques/:idDestaque')
+            .reply(({request, urlParams}) => {
+                const idProcesso: number = +urlParams.id;
+                const numeroAno = urlParams['numeroAno'];
+                const idDestaque: number = +urlParams.idDestaque;
+                const { body } = request;
+                const m = ministro.find(({id}) => id === body.ministro);
+
+                let indexJulgamento = this._sessaoDeJulgamentos.findIndex(julg => {
+                    const sessaoNumeroAno = `${julg.numero}-${julg.ano}`;
+                    return sessaoNumeroAno === numeroAno;
+                });
+
+                if(indexJulgamento != -1){
+                      let indexProcesso = this._sessaoDeJulgamentos[indexJulgamento].processos.findIndex(processo => processo.id === idProcesso);
+                      if(indexProcesso != -1){
+                        let index_destaque = this._sessaoDeJulgamentos[indexJulgamento].processos[indexProcesso].destaques.findIndex(destaque => destaque.id === idDestaque);
+                        this._sessaoDeJulgamentos[indexJulgamento].processos[indexProcesso].destaques[index_destaque].data = body.data;
+                        this._sessaoDeJulgamentos[indexJulgamento].processos[indexProcesso].destaques[index_destaque].ministro = body.ministro;
+                        this._sessaoDeJulgamentos[indexJulgamento].processos[indexProcesso].destaques[index_destaque].processo = body.processo;
+                        this._sessaoDeJulgamentos[indexJulgamento].processos[indexProcesso].destaques[index_destaque].sessao = body.sessao;
+                        this._sessaoDeJulgamentos[indexJulgamento].processos[indexProcesso].destaques[index_destaque].texto = body.texto;
+                        setStorage('sessoesDeJulgamento', this._sessaoDeJulgamentos);
+                        return [201, this._sessaoDeJulgamentos[indexJulgamento].processos[indexProcesso].destaques[index_destaque]];
+                      } else return [404, "Processo não encontrado na Sessão de julgamento"];
+                }else return [404, "Sessão de julgamento não encontrada."];
+            });
+
+        this._fuseMockApiService
+            .onDelete('sessao-de-julgamento/:numeroAno/processos/:id/destaques/:idDestaque')
+            .reply(({urlParams}) => {
+                const idProcesso: number = +urlParams.id;
+                const numeroAno = urlParams['numeroAno'];
+                const idDestaque: number = +urlParams.idDestaque;
+
+                let indexJulgamento = this._sessaoDeJulgamentos.findIndex(julg => {
+                    const sessaoNumeroAno = `${julg.numero}-${julg.ano}`;
+                    return sessaoNumeroAno === numeroAno;
+                });
+
+                if(indexJulgamento != -1){
+                      let indexProcesso = this._sessaoDeJulgamentos[indexJulgamento].processos.findIndex(processo => processo.id === idProcesso);
+                      if(indexProcesso != -1){
+                        let index_destaque = this._sessaoDeJulgamentos[indexJulgamento].processos[indexProcesso].destaques.findIndex(destaque => destaque.id === idDestaque);
+                        if(index_destaque!=-1){
+                            this._sessaoDeJulgamentos[indexJulgamento].processos[indexProcesso].destaques.splice(index_destaque, 1);
+                            setStorage('sessoesDeJulgamento', this._sessaoDeJulgamentos);
+                            return [200, "Excluído com sucesso"];
+                        } return [404, "Vista não encontrada"];
+                      } else return [404, "Processo não encontrado na Sessão de julgamento"];
+                }else return [404, "Sessão de julgamento não encontrada."];
+            });
+
+        this._fuseMockApiService
+            .onPost('sessao-de-julgamento/:numeroAno/processos/:id/impedimentos')
+            .reply(({request, urlParams}) => {
+                const idProcesso: number = +urlParams.id;
+                const numeroAno = urlParams['numeroAno'];
+                const { body } = request;
+
+                
+                let indexJulgamento = this._sessaoDeJulgamentos.findIndex(julg => {
+                    const sessaoNumeroAno = `${julg.numero}-${julg.ano}`;
+                    return sessaoNumeroAno === numeroAno;
+                });
+
+                if(indexJulgamento != -1){
+                    let indexProcesso = this._sessaoDeJulgamentos[indexJulgamento].processos.findIndex(processo => processo.id === idProcesso);
+                    if(indexProcesso!=-1){
+                        const processo = this._sessaoDeJulgamentos[indexJulgamento].processos[indexProcesso];
+                        const ministrosImpedidos: Ministro[] = [];
+                        const ministrosSuspeitos: Ministro[] = [];
+                        body.ministros_impedidos.forEach((id: number) => {
+                            ministrosImpedidos.push(this._obterMinistroPeloId(id));
+                        });
+    
+                        processo.ministros_impedidos = ministrosImpedidos;
+    
+                        body.ministros_suspeitos.forEach((id: number) => {
+                            ministrosSuspeitos.push(this._obterMinistroPeloId(id));
+                        });
+    
+                        processo.ministros_suspeitos = ministrosSuspeitos;
+                        this._sessaoDeJulgamentos[indexJulgamento].processos[indexProcesso] = processo;
+                        setStorage('sessoesDeJulgamento', this._sessaoDeJulgamentos);
+                        return [200, processo];
+
+                    } return [404, "Processo não encontrado na Sessão de julgamento"];
+                }else return [404, "Sessão de julgamento não encontrada."];
+            });
+
+        this._fuseMockApiService
+            .onGet('sessao-de-julgamento/:numeroAno/processos/:id/capitulos')
+            .reply(({urlParams}) => {
+              const idProcesso = +urlParams.id;
+              const numeroAno = urlParams['numeroAno'];
+
+              let indexJulgamento = this._sessaoDeJulgamentos.findIndex(julg => {
+                const sessaoNumeroAno = `${julg.numero}-${julg.ano}`;
+                return sessaoNumeroAno === numeroAno;
+              });
+
+              if(indexJulgamento != -1){
+                   let indexProcesso = this._sessaoDeJulgamentos[indexJulgamento].processos.findIndex(processo => processo.id === idProcesso);
+                   if(indexProcesso!= -1){
+                        return [200, this._sessaoDeJulgamentos[indexJulgamento].processos[indexProcesso]];
+                   }return [404, "Processo não encontrado na Sessão de julgamento"];
+              }else return [404, "Sessão de julgamento não encontrada."];
+            });
+
+        this._fuseMockApiService
+            .onPost('sessao-de-julgamento/:numeroAno/processos/:id/capitulos')
             .reply(({request, urlParams}) => {
               const idProcesso = +urlParams.id;
               const { capitulo, processos_mesma_decisao } = request.body;
-              getStorage('processo', this._processos);
-              if (idProcesso) {
-                const index_processo = this._processos.findIndex(p => p.id === idProcesso);
-                if (capitulo.id != null) {
-                  const index_capitulo = this._processos[index_processo].capitulos.findIndex(it => it.id === capitulo.id);
-                  this._processos[index_processo].capitulos[index_capitulo].descricao = capitulo.descricao;
-                  this._processos[index_processo].capitulos[index_capitulo].dispositivo = capitulo.dispositivo;
-                  this._processos[index_processo].capitulos[index_capitulo].ministro_condutor = capitulo.ministro_condutor;
-                  this._processos[index_processo].capitulos[index_capitulo].ministros_acordam = capitulo.ministros_acordam;
-                  this._processos[index_processo].capitulos[index_capitulo].processos_mesma_decisao = processos_mesma_decisao;
-                  this._processos[index_processo].capitulos[index_capitulo].sessao = capitulo.sessao;
-                  this._processos[index_processo].capitulos[index_capitulo].texto = capitulo.texto;
-                  this._processos[index_processo].capitulos[index_capitulo].tipo = capitulo.tipo;
-                } else {
-                      this._processos[index_processo].capitulos.push({
-                        ...capitulo,
-                        id: this._processos[index_processo].capitulos.length + 1,
-                        processos_mesma_decisao: processos_mesma_decisao
-                      });
+              const numeroAno = urlParams['numeroAno'];
 
-                }
-                setStorage('processos', this._processos);
-                return [201, this._processos[index_processo].capitulos];
-              }
+              let indexJulgamento = this._sessaoDeJulgamentos.findIndex(julg => {
+                const sessaoNumeroAno = `${julg.numero}-${julg.ano}`;
+                return sessaoNumeroAno === numeroAno;
+              });
 
-              return [404, {
-                description: "Nenhum processo encontrado.",
-              }];
+              if(indexJulgamento != -1){
+                   let indexProcesso = this._sessaoDeJulgamentos[indexJulgamento].processos.findIndex(processo => processo.id === idProcesso);
+                   if(indexProcesso!= -1){
+                    if (capitulo.id != null) {
+                        const index_capitulo = this._sessaoDeJulgamentos[indexJulgamento].processos[indexProcesso].capitulos.findIndex(it => it.id === capitulo.id);
+                        this._sessaoDeJulgamentos[indexJulgamento].processos[indexProcesso].capitulos[index_capitulo].descricao = capitulo.descricao;
+                        this._sessaoDeJulgamentos[indexJulgamento].processos[indexProcesso].capitulos[index_capitulo].dispositivo = capitulo.dispositivo;
+                        this._sessaoDeJulgamentos[indexJulgamento].processos[indexProcesso].capitulos[index_capitulo].ministro_condutor = capitulo.ministro_condutor;
+                        this._sessaoDeJulgamentos[indexJulgamento].processos[indexProcesso].capitulos[index_capitulo].ministros_acordam = capitulo.ministros_acordam;
+                        this._sessaoDeJulgamentos[indexJulgamento].processos[indexProcesso].capitulos[index_capitulo].ministros_divergem = capitulo.ministros_divergem;
+                        this._sessaoDeJulgamentos[indexJulgamento].processos[indexProcesso].capitulos[index_capitulo].processos_mesma_decisao = processos_mesma_decisao;
+                        this._sessaoDeJulgamentos[indexJulgamento].processos[indexProcesso].capitulos[index_capitulo].sessao = capitulo.sessao;
+                        this._sessaoDeJulgamentos[indexJulgamento].processos[indexProcesso].capitulos[index_capitulo].texto = capitulo.texto;
+                        this._sessaoDeJulgamentos[indexJulgamento].processos[indexProcesso].capitulos[index_capitulo].tipo = capitulo.tipo;
+                    } else {
+                        this._sessaoDeJulgamentos[indexJulgamento].processos[indexProcesso].capitulos.push({
+                              ...capitulo,
+                              id: this._sessaoDeJulgamentos[indexJulgamento].processos[indexProcesso].capitulos.length + 1,
+                              processos_mesma_decisao: processos_mesma_decisao
+                            });
+                            
+                     }
+                    setStorage('sessoesDeJulgamento', this._sessaoDeJulgamentos);
+                    return [201, this._sessaoDeJulgamentos[indexJulgamento].processos[indexProcesso].capitulos];
+                   }return [404, "Processo não encontrado na Sessão de julgamento"];
+              }else return [404, "Sessão de julgamento não encontrada."];
             });
 
-            this._fuseMockApiService
-            .onDelete('processo/:id/capitulos/:idCapitulo')
+        this._fuseMockApiService
+            .onDelete('sessao-de-julgamento/:numeroAno/processos/:id/capitulos/:idCapitulo')
             .reply(({request, urlParams}) => {
                 const id_processo: number = +urlParams.id;
                 const id_capitulo: number = +urlParams.idCapitulo;
-                const { body } = request;
+                const numeroAno = urlParams['numeroAno'];
                 let index_processo;
                 let index_capitulo;
-                index_processo = this._processos.findIndex(processo => processo.id === id_processo);
-                index_capitulo = this._processos[index_processo].capitulos.findIndex(capitulo => capitulo.id === id_capitulo);
-                if(index_capitulo == -1){
-                    this._processos[index_processo].capitulos.splice(index_capitulo, 1);
-                    setStorage('processos', this._processos);
-                    return [200, this._processos[index_processo].capitulos];
-                }
-                return [404, {
-                    msg: 'Nenhuma capitulo com id informado.'
-                }];
+
+                let indexJulgamento = this._sessaoDeJulgamentos.findIndex(julg => {
+                    const sessaoNumeroAno = `${julg.numero}-${julg.ano}`;
+                    return sessaoNumeroAno === numeroAno;
+                });
+    
+                if(indexJulgamento != -1){
+                    let indexProcesso = this._sessaoDeJulgamentos[indexJulgamento].processos.findIndex(processo => processo.id === id_processo);
+                    if(indexProcesso!= -1){
+                            index_capitulo = this._sessaoDeJulgamentos[indexJulgamento].processos[index_processo].capitulos.findIndex(capitulo => capitulo.id === id_capitulo);
+                            if(index_capitulo != -1){
+                                this._sessaoDeJulgamentos[indexJulgamento].processos[index_processo].capitulos.splice(index_capitulo, 1);
+                                setStorage('sessoesDeJulgamento', this._sessaoDeJulgamentos);
+                                return [200, this._processos[index_processo].capitulos];
+                            }
+                            return [200, this._sessaoDeJulgamentos[indexJulgamento].processos[indexProcesso]];
+                    }return [404, "Processo não encontrado na Sessão de julgamento"];
+                }else return [404, "Sessão de julgamento não encontrada."];
             });
     }
 

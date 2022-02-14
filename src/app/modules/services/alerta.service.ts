@@ -6,6 +6,8 @@ import { FuseAlertService } from '@fuse/components/alert';
 })
 export class AlertaService {
 
+  private timeoutId: any;
+
   constructor(
     private _fuseAlertService: FuseAlertService,
   ) { }
@@ -35,9 +37,14 @@ export class AlertaService {
    * @author Douglas da Silva Monteles
    */
   public exibirAlerta(nomeDoAlerta: string, tempo: number = 5000): void {
+    console.log(nomeDoAlerta);
     this._fuseAlertService.show(nomeDoAlerta);
 
-    setTimeout(() => {
+    if (this.timeoutId) {
+      clearTimeout(this.timeoutId);
+    }
+
+    this.timeoutId = setTimeout(() => {
         this._fuseAlertService.dismiss(nomeDoAlerta);
     }, tempo);
   }

@@ -1,14 +1,13 @@
-import { query } from '@angular/animations';
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute } from '@angular/router';
 import { AlertaService } from 'app/modules/services/alerta.service';
-import { SessaoDeJulgamentoService } from 'app/modules/services/sessao-de-julgamento.service';
 import { ProcessoService } from 'app/modules/services/processo.service';
+import { SessaoDeJulgamentoService } from 'app/modules/services/sessao-de-julgamento.service';
+import { Processo } from 'app/shared/model/interfaces/processo.interface';
+import { SessaoDeJulgamento } from 'app/shared/model/interfaces/sessao-julgamento.interface';
 import { Observable } from 'rxjs';
-import { Processo } from '../../model/interfaces/processo.interface';
-import { SessaoDeJulgamento } from '../../model/interfaces/sessao-julgamento.interface';
 import { SessaoExtraordinariaComponent } from './sessao-extraordinaria/sessao-extraordinaria.component';
 
 export interface Colegiado {

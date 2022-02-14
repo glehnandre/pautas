@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { SessaoDeJulgamento } from 'app/modules/acervo/model/interfaces/sessao-julgamento.interface';
+import { SessaoDeJulgamento } from 'app/shared/model/interfaces/sessao-julgamento.interface';
+
 
 @Component({
   selector: 'app-dados-da-sessao',

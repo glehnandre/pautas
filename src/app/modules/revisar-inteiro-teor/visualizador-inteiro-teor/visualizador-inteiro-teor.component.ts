@@ -1,10 +1,11 @@
-import { Component, OnInit, Input, OnChanges, ViewChild } from '@angular/core';
+import { Component, Input, OnChanges, OnInit, ViewChild } from '@angular/core';
 import { SafeResourceUrl } from '@angular/platform-browser';
 import { FuseDrawerService } from '@fuse/components/drawer';
-import { Processo } from 'app/modules/acervo/model/interfaces/processo.interface';
-import { PublicacaoDto } from 'app/modules/acervo/model/interfaces/publicacaoDto.interface';
+import { Processo } from 'app/shared/model/interfaces/processo.interface';
+import { PublicacaoDto } from 'app/shared/model/interfaces/publicacaoDto.interface';
 import { ConteudoPublicacaoComponent } from '../conteudo-publicacao/conteudo-publicacao.component';
 import { RevisaoInteiroTeor } from '../revisar-inteiro-teor.component';
+
 
 @Component({
   selector: 'app-visualizador-inteiro-teor',

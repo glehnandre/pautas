@@ -136,11 +136,8 @@
 .mat-flat-button,
 .mat-raised-button,
 .mat-stroked-button {
-
-    .fuse-mat-rounded & {
-        padding: 0 20px;
-        border-radius: 9999px;
-    }
+    padding: 0 20px !important;
+    border-radius: 9999px !important;
 }
 
 /* Target all buttons */
@@ -334,6 +331,8 @@
 /*  @ Button Toggle
 /* ----------------------------------------------------------------------------------------------------- */
 .mat-button-toggle-group {
+    border: none !important;
+    @apply space-x-1;
 
     &.mat-button-toggle-group-appearance-standard {
 
@@ -341,36 +340,27 @@
             background-clip: padding-box;
         }
     }
-}
 
-/* Rounded design */
-.fuse-mat-rounded {
-
-    .mat-button-toggle-group {
+    .mat-button-toggle {
+        border-radius: 9999px;
+        overflow: hidden;
         border: none !important;
-        @apply space-x-1;
+        font-weight: 500;
 
-        .mat-button-toggle {
-            border-radius: 9999px;
-            overflow: hidden;
-            border: none !important;
-            font-weight: 500;
-
-            &.mat-button-toggle-checked {
-
-                .mat-button-toggle-label-content {
-                    @apply text-default #{'!important'};
-                }
-            }
+        &.mat-button-toggle-checked {
 
             .mat-button-toggle-label-content {
-                padding: 0 20px;
-                @apply text-secondary;
+                @apply text-default #{'!important'};
             }
+        }
 
-            .mat-ripple {
-                border-radius: 9999px;
-            }
+        .mat-button-toggle-label-content {
+            padding: 0 20px;
+            @apply text-secondary;
+        }
+
+        .mat-ripple {
+            border-radius: 9999px;
         }
     }
 }
@@ -444,7 +434,7 @@
 
             /* Border color */
             .mat-form-field-flex {
-                @apply border-warn #{'!important'};
+                @apply border-warn dark:border-warn #{'!important'};
             }
         }
     }
@@ -456,7 +446,7 @@
 
             /* Background color */
             .mat-form-field-flex {
-                @apply bg-card #{'!important'};
+                @apply bg-card dark:bg-card #{'!important'};
             }
         }
     }
@@ -468,7 +458,7 @@
 
             /* Border color */
             .mat-form-field-flex {
-                @apply border-primary #{'!important'};
+                @apply border-primary dark:border-primary #{'!important'};
             }
         }
     }
@@ -1329,60 +1319,53 @@
             opacity: 0 !important;
         }
     }
+
+    .mat-tab-header {
+        border-bottom: none !important;
+
+        .mat-tab-label-container {
+            padding: 0 24px;
+
+            .mat-tab-list {
+
+                .mat-tab-labels {
+
+                    .mat-tab-label {
+                        min-width: 0 !important;
+                        height: 40px !important;
+                        padding: 0 20px !important;
+                        border-radius: 9999px !important;
+                        @apply text-secondary;
+
+                        &.mat-tab-label-active {
+                            @apply bg-gray-700 bg-opacity-10 dark:bg-gray-50 dark:bg-opacity-10 #{'!important'};
+                            @apply text-default #{'!important'};
+                        }
+
+                        + .mat-tab-label {
+                            margin-left: 4px;
+                        }
+
+                        .mat-tab-label-content {
+                            line-height: 20px;
+                        }
+                    }
+                }
+
+                .mat-ink-bar {
+                    display: none !important;
+                }
+            }
+        }
+    }
+
+    .mat-tab-body-content {
+        padding: 24px;
+    }
 }
 
 .mat-tab-label {
     opacity: 1 !important;
-}
-
-/* Rounded design */
-.fuse-mat-rounded {
-
-    .mat-tab-group {
-
-        .mat-tab-header {
-            border-bottom: none !important;
-
-            .mat-tab-label-container {
-                padding: 0 24px;
-
-                .mat-tab-list {
-
-                    .mat-tab-labels {
-
-                        .mat-tab-label {
-                            min-width: 0 !important;
-                            height: 40px !important;
-                            padding: 0 20px !important;
-                            border-radius: 9999px !important;
-                            @apply text-secondary;
-
-                            &.mat-tab-label-active {
-                                @apply bg-gray-700 bg-opacity-10 dark:bg-gray-50 dark:bg-opacity-10 #{'!important'};
-                                @apply text-default #{'!important'};
-                            }
-
-                            + .mat-tab-label {
-                                margin-left: 4px;
-                            }
-
-                            .mat-tab-label-content {
-                                line-height: 20px;
-                            }
-                        }
-                    }
-
-                    .mat-ink-bar {
-                        display: none !important;
-                    }
-                }
-            }
-        }
-
-        .mat-tab-body-content {
-            padding: 24px;
-        }
-    }
 }
 
 /* ----------------------------------------------------------------------------------------------------- */

@@ -1,17 +1,18 @@
-import { StringMap } from '@angular/compiler/src/compiler_facade_interface';
 import { Component, EventEmitter, Input, OnChanges, OnDestroy, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatSelectChange } from '@angular/material/select';
-import { Capitulo } from 'app/modules/acervo/model/interfaces/capitulo.interface';
-import { Dispositivo } from 'app/modules/acervo/model/interfaces/dispositivo.interface';
-import { Ministro } from 'app/modules/acervo/model/interfaces/ministro.interface';
-import { Processo } from 'app/modules/acervo/model/interfaces/processo.interface';
 import { AlertaService } from 'app/modules/services/alerta.service';
 import { DispositivoService } from 'app/modules/services/dispositivo.service';
 import { MinistroService } from 'app/modules/services/ministro.service';
 import { ProcessoService } from 'app/modules/services/processo.service';
+import { Capitulo } from 'app/shared/model/interfaces/capitulo.interface';
+import { Dispositivo } from 'app/shared/model/interfaces/dispositivo.interface';
+import { Ministro } from 'app/shared/model/interfaces/ministro.interface';
+import { Processo } from 'app/shared/model/interfaces/processo.interface';
+import { SessaoDeJulgamento } from 'app/shared/model/interfaces/sessao-julgamento.interface';
 import { EMPTY, Observable } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
+
 
 @Component({
   selector: 'app-form-decisao',
@@ -31,6 +32,7 @@ export class FormDecisaoComponent implements OnInit, OnChanges, OnDestroy {
   errorMessage: string;
 
   @Input() processo: Processo;
+  @Input() sessaoDeJulgamento: SessaoDeJulgamento;
   @Input() isExibirBtnSalvarDecisao: boolean = false;
   @Input() isExibirBtnExcluirCapitulo: boolean = false;
   @Input() capitulo: Capitulo = {
@@ -66,7 +68,7 @@ export class FormDecisaoComponent implements OnInit, OnChanges, OnDestroy {
       descricao: [this.capitulo.descricao, Validators.required],
       tipo: [this.capitulo.tipo, Validators.required],
       dispositivo: [this.capitulo.dispositivo, Validators.required],
-      ministros_acordam: [this.capitulo.ministros_acordam, Validators.required],
+      ministros_divergem: [this.capitulo.ministros_divergem],
       ministro_condutor: [this.capitulo.ministro_condutor, Validators.required],
       texto: [this.capitulo.texto, Validators.required],
       processos_mesma_decisao: [this.capitulo.processos_mesma_decisao]
@@ -126,9 +128,12 @@ export class FormDecisaoComponent implements OnInit, OnChanges, OnDestroy {
   public carregarModeloDeDecisao(): void {
     const { tipo, dispositivo } = this.formDecisao.value;
     const idDispositivo = this.dispositivos.find(d => d.nome === dispositivo)?.id;
-
+    console.log("CARREGNADO O MODELO");
+    console.log(this.processo);
+    console.log("DISPOSITIVO");
+    console.log(this.formDecisao.get('dispositivo').value);
     if (tipo && dispositivo && this.processo && this.processo.id_tipo_recurso) {
-      this._processoService.obterModeloDecisao(this.processo.classe, tipo, idDispositivo, this.processo.id_tipo_recurso).subscribe({
+      this._processoService.obterModeloDecisao(this.processo.classe, tipo, this.formDecisao.get('dispositivo').value.id, this.processo.id_tipo_recurso).subscribe({
         next: (modelo) => {
           this.formDecisao.controls.texto.setValue(modelo.texto);
         },
@@ -172,13 +177,15 @@ export class FormDecisaoComponent implements OnInit, OnChanges, OnDestroy {
    */
   public salvarCapitulo(): void {
     if (this.formDecisao.valid) {
-      this._processoService.salvarCapitulo(this.processo.id, {
-        capitulo: this.formDecisao.value,
-        processos_mesma_decisao: this.idsDosProcessos,
-      }).subscribe({
+      this._processoService.salvarCapitulo(this.sessaoDeJulgamento.numero, this.sessaoDeJulgamento.ano, this.processo.id, {capitulo: this.formDecisao.value, processos_mesma_decisao: this.idsDosProcessos,}).subscribe({
         next: (data) => {
           this._atualizarCapitulos(data);
           this.formDecisao.reset();
+        },
+        error: (error) => {
+          console.log(error);
+          this.errorMessage = error.message
+          this._alertaService.exibirAlerta("Error");
         }
       });
     }
@@ -189,11 +196,16 @@ export class FormDecisaoComponent implements OnInit, OnChanges, OnDestroy {
       console.log("Removendo capitulos....");
       console.log(this.processo.id);
       console.log(this.capitulo.id);
-      this._processoService.excluirCapitulo(this.processo.id, this.capitulo.id).subscribe({
+      this._processoService.excluirCapitulo(this.sessaoDeJulgamento.numero, this.sessaoDeJulgamento.ano, this.processo.id, this.capitulo.id).subscribe({
         next: (data) => {
           console.log(data);
           this._atualizarCapitulos(data);
           this.formDecisao.reset();
+        },
+        error: (error) => {
+          console.log(error);
+          this.errorMessage = error.message
+          this._alertaService.exibirAlerta("Error");
         }
       });
     }
@@ -216,7 +228,14 @@ export class FormDecisaoComponent implements OnInit, OnChanges, OnDestroy {
       })
     );
 
-    this.tipos$ = this._processoService.obterTiposDoProcesso();
+    this.tipos$ = this._processoService.obterTiposDoProcesso().pipe(
+      catchError(error => {
+        console.log(error);
+        this.errorMessage =  error.message;
+        this._alertaService.exibirAlerta("Error")
+        return EMPTY;
+      })
+    );
 
     if(this.capitulo){  
       if (this.capitulo.dispositivo) {

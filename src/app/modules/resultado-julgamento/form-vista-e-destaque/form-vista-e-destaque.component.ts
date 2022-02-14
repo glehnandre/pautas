@@ -1,21 +1,22 @@
 import { Component, Inject, OnInit } from '@angular/core';
-import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { Ministro } from 'app/modules/acervo/model/interfaces/ministro.interface';
-import { MinistroService } from 'app/modules/services/ministro.service';
-import { EMPTY, Observable } from 'rxjs';
-
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import {
-  MAT_MOMENT_DATE_FORMATS,
-  MomentDateAdapter,
-  MAT_MOMENT_DATE_ADAPTER_OPTIONS,
+  MAT_MOMENT_DATE_ADAPTER_OPTIONS, MAT_MOMENT_DATE_FORMATS,
+  MomentDateAdapter
 } from '@angular/material-moment-adapter';
 import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/material/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { TipoRecursoDto } from 'app/modules/acervo/model/interfaces/tipoRecursoDto';
-import { RecursoService } from 'app/modules/services/recurso.service';
-import { catchError } from 'rxjs/operators';
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { AlertaService } from 'app/modules/services/alerta.service';
-import { DialogoConfirmacaoComponent } from '../dialogo-confirmacao/dialogo-confirmacao.component';
+import { MinistroService } from 'app/modules/services/ministro.service';
+import { RecursoService } from 'app/modules/services/recurso.service';
+import { DialogoConfirmacaoComponent } from 'app/shared/dialogo-confirmacao/dialogo-confirmacao.component';
+import { Ministro } from 'app/shared/model/interfaces/ministro.interface';
+import { TipoRecursoDto } from 'app/shared/model/interfaces/tipoRecursoDto';
+import { EMPTY, Observable } from 'rxjs';
+import { catchError } from 'rxjs/operators';
+
+
+
 
 
 interface FormVistaEDestaqueData {
@@ -81,7 +82,14 @@ export class FormVistaEDestaqueComponent implements OnInit {
         return EMPTY;
       })
     );
-    this.recursos$ = this._recursoService.obterListaDeRecursos();
+    this.recursos$ = this._recursoService.obterListaDeRecursos().pipe(
+      catchError(error => {
+        console.log(error);
+        this.errorMessage =  error.message;
+        this._alertaService.exibirAlerta("Error")
+        return EMPTY;
+      })
+    );
   }
 
   public fecharModalEExcluirVistaOuDestaque(): void {

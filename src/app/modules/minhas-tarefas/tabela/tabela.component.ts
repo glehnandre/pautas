@@ -1,14 +1,16 @@
 import { animate, state, style, transition, trigger } from '@angular/animations';
 import { SelectionModel } from '@angular/cdk/collections';
-import { AfterViewInit, Component, EventEmitter, HostListener, Injectable, Input, OnChanges, OnDestroy, OnInit, Output, SimpleChanges, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, EventEmitter, HostListener, OnDestroy, OnInit, Output, ViewChild } from '@angular/core';
 import { MatPaginator, MatPaginatorIntl, PageEvent } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { ActivatedRoute } from '@angular/router';
-import { ITask, ITaskTag } from 'app/modules/acervo/model/interfaces/itask.interface';
 import { PaginacaoCustomizadaComponent } from 'app/modules/acervo/tabela/paginacao/paginacao-customizada.component';
+import { AlertaService } from 'app/modules/services/alerta.service';
 import { TarefaService } from 'app/modules/services/tarefa.service';
+import { ITask, ITaskTag } from 'app/shared/model/interfaces/itask.interface';
 import { EMPTY, merge } from 'rxjs';
 import { catchError, map, startWith, switchMap } from 'rxjs/operators';
+
 
 export interface Filtro {
     numeroProcesso?: number;
@@ -46,6 +48,8 @@ export class TabelaComponent implements OnInit, AfterViewInit, OnDestroy {
     isLoadingResults = true;
     isRateLimitReached = false;
 
+    errorMessage: string;
+
     @Output() emitirTarefas = new EventEmitter<ITask[]>();
     @Output() emitirTarefasSelecionadas = new EventEmitter<ITask[]>();
     
@@ -54,6 +58,7 @@ export class TabelaComponent implements OnInit, AfterViewInit, OnDestroy {
     constructor(
         private _tarefaService: TarefaService,
         private _route: ActivatedRoute,
+        private _alertaService: AlertaService,
     ) { }
 
     ngAfterViewInit(): void {
@@ -115,7 +120,14 @@ export class TabelaComponent implements OnInit, AfterViewInit, OnDestroy {
 
               return this._tarefaService
                     .obterTaferas(params)
-                    .pipe(catchError(() => EMPTY));
+                    .pipe(
+                        catchError(error => {
+                          console.log(error);
+                          this.errorMessage =  error.message;
+                          this._alertaService.exibirAlerta("Error")
+                          return EMPTY;
+                        })
+                      );
             }),
             map(data => {
               this.isLoadingResults = false;

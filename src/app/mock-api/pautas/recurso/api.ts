@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
-import { FuseMockApiService } from '@fuse/lib/mock-api/mock-api.service';
-import { TipoRecursoDto } from 'app/modules/acervo/model/interfaces/tipoRecursoDto';
+import { FuseMockApiService } from '@fuse/lib/mock-api';
+import { TipoRecursoDto } from 'app/shared/model/interfaces/tipoRecursoDto';
 import { recursos } from './data';
+
 
 @Injectable({
     providedIn: 'root'

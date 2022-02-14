@@ -2,7 +2,8 @@ import { Injectable } from '@angular/core';
 import { FuseMockApiUtils } from '@fuse/lib/mock-api';
 import { FuseMockApiService } from '@fuse/lib/mock-api/mock-api.service';
 import { tags as tagData } from 'app/mock-api/pautas/tags/data';
-import { Tag } from 'app/modules/acervo/model/interfaces/tag.interface';
+import { Tag } from 'app/shared/model/interfaces/tag.interface';
+
 
 @Injectable({
     providedIn: 'root'

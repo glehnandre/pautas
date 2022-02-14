@@ -1,8 +1,9 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { MatDialogRef } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Processo } from 'app/modules/acervo/model/interfaces/processo.interface';
+
 import { ProcessoService } from 'app/modules/services/processo.service';
+import { Processo } from '../model/interfaces/processo.interface';
 
 @Component({
   selector: 'app-processo-chip',

@@ -1,6 +1,5 @@
 import { HttpRequest } from '@angular/common/http';
-import { Observable, of, throwError } from 'rxjs';
-import { take } from 'rxjs/operators';
+import { Observable, of, take, throwError } from 'rxjs';
 import { FuseMockApiReplyCallback } from '@fuse/lib/mock-api/mock-api.types';
 
 export class FuseMockApiHandler

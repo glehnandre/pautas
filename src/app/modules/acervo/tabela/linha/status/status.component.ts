@@ -1,8 +1,9 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { Status } from 'app/modules/acervo/model/interfaces/status.interface';
 import { AlertaService } from 'app/modules/services/alerta.service';
 import { ProcessoService } from 'app/modules/services/processo.service';
+import { Status } from 'app/shared/model/interfaces/status.interface';
 import { StatusProcesso } from '../../status/situacaoProcesso';
+
 
 @Component({
   selector: 'app-status',

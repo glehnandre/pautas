@@ -1,13 +1,16 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
-import { SessaoDeJulgamentoService } from '../services/sessao-de-julgamento.service';
-import { Ata } from '../acervo/model/interfaces/ata.interface';
 import { MatDialog } from '@angular/material/dialog';
-import { PublicarFormComponent } from './publicar-form/publicar-form.component';
-import { CorrecaoCapituloFormComponent } from './correcao-capitulo-form/correcao-capitulo-form.component';
-import { PublicacaoService } from '../services/publicacao.service';
+import { ActivatedRoute } from '@angular/router';
+import { Ata } from 'app/shared/model/interfaces/ata.interface';
+import { SessaoDeJulgamento } from 'app/shared/model/interfaces/sessao-julgamento.interface';
 import { AlertaService } from '../services/alerta.service';
-import { SessaoDeJulgamento } from '../acervo/model/interfaces/sessao-julgamento.interface';
+import { PublicacaoService } from '../services/publicacao.service';
+import { SessaoDeJulgamentoService } from '../services/sessao-de-julgamento.service';
+import { CorrecaoCapituloFormComponent } from './correcao-capitulo-form/correcao-capitulo-form.component';
+import { PublicarFormComponent } from './publicar-form/publicar-form.component';
+
+
+
 
 interface Parametros {
     numero: number;
@@ -61,6 +64,8 @@ export class RevisarExtratoAtaComponent implements OnInit {
   private getSessaoDeJulgamento() {
     this._sessaoDejulgamentoService.listarSessoesDeJulgamento(this.parametros.numero, this.parametros.ano).subscribe({
       next: (sessao) => {
+        console.log("ESSA É A SESSAO DE JULGAMENTO CARREGADA");
+        console.log(sessao);
         this.sessao = sessao;
       },
       error: (error) => {
@@ -89,8 +94,15 @@ export class RevisarExtratoAtaComponent implements OnInit {
         if(form.dataPublicacao._d) data = new Date(form.dataPublicacao._d);
         else data = new Date(form.dataPublicacao);
 
-        this._publicacaoService.publicarAta(data.toISOString(), this.sessao).subscribe(r=>{
-          console.log(r);
+        this._publicacaoService.publicarAta(data.toISOString(), this.sessao).subscribe({
+          next: (r) => {
+            console.log(r);
+          },
+          error: (error) => {
+            console.log(error);
+            this.errorMessage = error.message
+            this._alertaService.exibirAlerta("Error");
+          }
         })
       }
     });

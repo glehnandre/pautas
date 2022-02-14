@@ -1,9 +1,8 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Input, OnChanges, OnDestroy, OnInit, SimpleChanges, TemplateRef, ViewChild, ViewContainerRef, ViewEncapsulation } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnDestroy, OnInit, TemplateRef, ViewChild, ViewContainerRef, ViewEncapsulation } from '@angular/core';
 import { Overlay, OverlayRef } from '@angular/cdk/overlay';
 import { TemplatePortal } from '@angular/cdk/portal';
 import { MatButton } from '@angular/material/button';
-import { Subject } from 'rxjs';
-import { takeUntil } from 'rxjs/operators';
+import { Subject, takeUntil } from 'rxjs';
 import { Notification } from 'app/layout/common/notifications/notifications.types';
 import { NotificationsService } from 'app/layout/common/notifications/notifications.service';
 
@@ -14,12 +13,12 @@ import { NotificationsService } from 'app/layout/common/notifications/notificati
     changeDetection: ChangeDetectionStrategy.OnPush,
     exportAs       : 'notifications'
 })
-export class NotificationsComponent implements OnChanges, OnInit, OnDestroy
+export class NotificationsComponent implements OnInit, OnDestroy
 {
-    @Input() notifications: Notification[];
     @ViewChild('notificationsOrigin') private _notificationsOrigin: MatButton;
     @ViewChild('notificationsPanel') private _notificationsPanel: TemplateRef<any>;
 
+    notifications: Notification[];
     unreadCount: number = 0;
     private _overlayRef: OverlayRef;
     private _unsubscribeAll: Subject<any> = new Subject<any>();
@@ -39,21 +38,6 @@ export class NotificationsComponent implements OnChanges, OnInit, OnDestroy
     // -----------------------------------------------------------------------------------------------------
     // @ Lifecycle hooks
     // -----------------------------------------------------------------------------------------------------
-
-    /**
-     * On changes
-     *
-     * @param changes
-     */
-    ngOnChanges(changes: SimpleChanges): void
-    {
-        // Notifications
-        if ( 'notifications' in changes )
-        {
-            // Store the notifications on the service
-            this._notificationsService.store(changes.notifications.currentValue);
-        }
-    }
 
     /**
      * On init
@@ -82,7 +66,7 @@ export class NotificationsComponent implements OnChanges, OnInit, OnDestroy
     ngOnDestroy(): void
     {
         // Unsubscribe from all subscriptions
-        this._unsubscribeAll.next();
+        this._unsubscribeAll.next(null);
         this._unsubscribeAll.complete();
 
         // Dispose the overlay
@@ -118,7 +102,7 @@ export class NotificationsComponent implements OnChanges, OnInit, OnDestroy
     }
 
     /**
-     * Close the messages panel
+     * Close the notifications panel
      */
     closePanel(): void
     {
@@ -182,7 +166,7 @@ export class NotificationsComponent implements OnChanges, OnInit, OnDestroy
             scrollStrategy  : this._overlay.scrollStrategies.block(),
             positionStrategy: this._overlay.position()
                                   .flexibleConnectedTo(this._notificationsOrigin._elementRef.nativeElement)
-                                  .withLockedPosition()
+                                  .withLockedPosition(true)
                                   .withPush(true)
                                   .withPositions([
                                       {

@@ -1,4 +1,5 @@
-import { Dispositivo } from "app/modules/acervo/model/interfaces/dispositivo.interface";
+import { Dispositivo } from "app/shared/model/interfaces/dispositivo.interface";
+
 
 export const dispositivos: Dispositivo[] = [
   {

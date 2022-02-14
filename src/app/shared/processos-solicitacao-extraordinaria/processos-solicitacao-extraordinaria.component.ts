@@ -1,9 +1,11 @@
 import { Component, Input, OnChanges, OnInit } from '@angular/core';
-import { SituacaoDoProcesso } from 'app/modules/acervo/model/enums/situacaoDoProcesso.enum';
-import { Processo } from 'app/modules/acervo/model/interfaces/processo.interface';
 import { AlertaService } from 'app/modules/services/alerta.service';
-import { SessaoDeJulgamento } from 'app/modules/acervo/model/interfaces/sessao-julgamento.interface';
 import { SessaoDeJulgamentoService } from 'app/modules/services/sessao-de-julgamento.service';
+import { SituacaoDoProcesso } from 'app/shared/model/enums/situacaoDoProcesso.enum';
+import { Processo } from '../model/interfaces/processo.interface';
+import { SessaoDeJulgamento } from '../model/interfaces/sessao-julgamento.interface';
+
+
 
 @Component({
   selector: 'app-processos-solicitacao-extraordinaria',

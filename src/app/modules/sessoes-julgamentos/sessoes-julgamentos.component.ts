@@ -1,15 +1,16 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Observable, Subject } from 'rxjs';
-import { Processo } from '../acervo/model/interfaces/processo.interface';
-import { SessaoDeJulgamento } from '../acervo/model/interfaces/sessao-julgamento.interface';
+import { EMPTY, Observable, Subject } from 'rxjs';
 import { ProcessoService } from '../services/processo.service';
 import { SessaoDeJulgamentoService } from '../services/sessao-de-julgamento.service';
 import { FuseAlertService } from '@fuse/components/alert';
-import { Impedimento } from '../acervo/model/interfaces/impedimento.interface';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { FuseDrawerService } from '@fuse/components/drawer';
 import { AlertaService } from '../services/alerta.service';
+import { catchError } from 'rxjs/operators';
+import { SessaoDeJulgamento } from 'app/shared/model/interfaces/sessao-julgamento.interface';
+import { Processo } from 'app/shared/model/interfaces/processo.interface';
+import { Impedimento } from 'app/shared/model/interfaces/impedimento.interface';
 
 @Component({
   selector: 'app-sessoes-julgamentos',
@@ -57,11 +58,25 @@ export class SessoesJulgamentosComponent implements OnInit {
                 next: (processosData) => {
                     this.processos = processosData;
                     processosData.forEach((processo) => {
-                      this._processoService.obterDocumentosDoProcesso(processo.id).subscribe((documentos) => {
-                        this.documentos = documentos.map(documento => documento.nome);
+                      this._processoService.obterDocumentosDoProcesso(processo.id).subscribe({
+                        next: (documentos) => {
+                          this.documentos = documentos.map(documento => documento.nome);
+                        },
+                        error: (error) => {
+                          console.log(error);
+                          this.errorMessage = error.message
+                          this._alertaService.exibirAlerta("Error");
+                        }
                       });
 
-                      this.impedimentos.push(this._processoService.obterImpedimentosDoMinistro(processo.id, "DT"));
+                      this.impedimentos.push(this._processoService.obterImpedimentosDoMinistro(processo.id, "DT").pipe(
+                        catchError(error => {
+                          console.log(error);
+                          this.errorMessage =  error.message;
+                          this._alertaService.exibirAlerta("Error")
+                          return EMPTY;
+                        })
+                      ));
 
                       this.tags = processo.lista.map(tag => tag.descricao);
                     });

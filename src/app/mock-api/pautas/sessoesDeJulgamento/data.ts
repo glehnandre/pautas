@@ -1,16 +1,16 @@
-import { SituacaoDoProcesso } from "app/modules/acervo/model/enums/situacaoDoProcesso.enum";
-import { TipoDoProcesso } from "app/modules/acervo/model/enums/tipoDoProcesso.enum";
-import { Ata } from "app/modules/acervo/model/interfaces/ata.interface";
-import { Envolvido } from "app/modules/acervo/model/interfaces/envolvido.interface";
-import { Processo } from "app/modules/acervo/model/interfaces/processo.interface";
-import { Secretario } from "app/modules/acervo/model/interfaces/secretario.interface";
-import { SessaoDeJulgamento } from "app/modules/acervo/model/interfaces/sessao-julgamento.interface";
-
+import { SituacaoDoProcesso } from "app/shared/model/enums/situacaoDoProcesso.enum";
+import { TipoDoProcesso } from "app/shared/model/enums/tipoDoProcesso.enum";
+import { Ata } from "app/shared/model/interfaces/ata.interface";
+import { Envolvido } from "app/shared/model/interfaces/capitulo.interface";
+import { Processo } from "app/shared/model/interfaces/processo.interface";
+import { Secretario } from "app/shared/model/interfaces/secretario.interface";
+import { SessaoDeJulgamento } from "app/shared/model/interfaces/sessao-julgamento.interface";
 import { capitulo } from "../capitulo/data";
 import { ministro } from '../ministro/data';
 import { processo } from '../processos/data';
-
 import { getStorage } from "../storage";
+
+
 
 
 export const atas: Ata[] = getStorage('atas', [
@@ -63,10 +63,7 @@ export const sessoesDeJulgamento: SessaoDeJulgamento[] = getStorage('sessoesDeJu
     data_inicio: '2016-08-29T09:12:33.001Z',
     data_fim: '2016-08-30T09:12:33.001Z',
     situacao: 'ABERTA',
-    secretario: {
-      id: 0,
-      nome: 'Beatriz Cunha',
-    },
+    secretario: null,
     ata: atas[0],
     processos: [processo[8], processo[1]]
   },

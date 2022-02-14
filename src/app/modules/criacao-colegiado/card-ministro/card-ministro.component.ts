@@ -1,7 +1,7 @@
-import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { ComposicaoColegiado } from 'app/modules/acervo/model/interfaces/colegiado.interface';
-import { Ministro } from 'app/modules/acervo/model/interfaces/ministro.interface';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { FormGroup } from '@angular/forms';
+import { ComposicaoColegiado } from 'app/shared/model/interfaces/colegiado.interface';
+import { Ministro } from 'app/shared/model/interfaces/ministro.interface';
 
 @Component({
   selector: 'app-card-ministro',

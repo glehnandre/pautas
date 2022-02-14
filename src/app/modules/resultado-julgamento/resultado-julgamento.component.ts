@@ -3,27 +3,29 @@ import { ChangeDetectionStrategy, ChangeDetectorRef, Component, HostListener, On
 import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute } from '@angular/router';
 import { FuseDrawerService } from '@fuse/components/drawer';
-
-import { Capitulo } from '../acervo/model/interfaces/capitulo.interface';
-import { Destaque } from '../acervo/model/interfaces/destaque.interface';
-import { Manifestacao } from '../acervo/model/interfaces/manifestacao.interface';
-import { ModeloDecisao } from '../acervo/model/interfaces/modeloDecisao.interface';
-import { Processo } from '../acervo/model/interfaces/processo.interface';
-import { Vista } from '../acervo/model/interfaces/vista.interface';
-import { Voto } from '../acervo/model/interfaces/voto.interface';
-
+import { Alerta } from 'app/shared/alerta/alerta.component';
+import { Capitulo } from 'app/shared/model/interfaces/capitulo.interface';
+import { Destaque } from 'app/shared/model/interfaces/destaque.interface';
+import { Manifestacao } from 'app/shared/model/interfaces/manifestacao.interface';
+import { Ministro } from 'app/shared/model/interfaces/ministro.interface';
+import { ModeloDecisao } from 'app/shared/model/interfaces/modeloDecisao.interface';
+import { Processo } from 'app/shared/model/interfaces/processo.interface';
+import { SessaoDeJulgamento } from 'app/shared/model/interfaces/sessao-julgamento.interface';
+import { Vista } from 'app/shared/model/interfaces/vista.interface';
+import { Voto } from 'app/shared/model/interfaces/voto.interface';
 import { AlertaService } from '../services/alerta.service';
+import { MinistroService } from '../services/ministro.service';
 import { ProcessoService } from '../services/processo.service';
-
+import { SessaoDeJulgamentoService } from '../services/sessao-de-julgamento.service';
 import { FormIndicacaoImpedimentosComponent } from './form-indicacao-impedimentos/form-indicacao-impedimentos.component';
 import { FormModeloDecisaoComponent } from './form-modelo-decisao/form-modelo-decisao.component';
 import { FormRelatorComponent } from './form-relator/form-relator.component';
 import { FormVistaEDestaqueComponent } from './form-vista-e-destaque/form-vista-e-destaque.component';
-import { MinistroService } from '../services/ministro.service';
-import { Ministro } from '../acervo/model/interfaces/ministro.interface';
-import { SessaoDeJulgamento } from '../acervo/model/interfaces/sessao-julgamento.interface';
-import { SessaoDeJulgamentoService } from '../services/sessao-de-julgamento.service';
-import { Alerta } from 'app/shared/alerta/alerta.component';
+
+
+
+
+
 
 interface Parametros {
   processo: number;
@@ -274,7 +276,7 @@ export class ResultadoJulgamentoComponent implements OnInit {
     const ministro = this._obterDadosDaVistaNaListaDeDecisoes(id)?.ministro || null;
 
     const dialogfRef = this._dialog.open(FormVistaEDestaqueComponent, {
-      maxHeight: '90vh',
+      maxHeight: '180vh',
       data: {
         titulo: 'Informar Vista',
         tipo: 'vista',
@@ -284,7 +286,7 @@ export class ResultadoJulgamentoComponent implements OnInit {
 
     dialogfRef.afterClosed().subscribe(data => {
       if (data === 'excluir') {
-        this._processoService.excluirVistaDoProcesso(this.parametros.processo, id)
+        this._processoService.excluirVistaDoProcesso(this.parametros.numero, this.parametros.ano, this.parametros.processo, id)
           .subscribe({
             next: () => {
               this.mostrarAlerta('success', 'Sucesso!', `A Vista - ${ministro['nome']} foi excluída com sucesso.`);
@@ -303,10 +305,16 @@ export class ResultadoJulgamentoComponent implements OnInit {
           sessao: this.sessao.id,
         };
 
-        this._processoService.salvarVistaDoProcesso(this.parametros.processo, vista).subscribe({
+        this._processoService.salvarVistaDoProcesso(this.parametros.numero, this.parametros.ano, this.parametros.processo, vista).subscribe({
           next: (vistaSalva) => {
             this._carregarDadosProcessos(); // atualiza a lista de Vistas
+            console.log("VISTA SALVA:");
+            console.log(vistaSalva);
             this.alertaVistaEDestaque('Vista', vistaSalva['ministro']);
+          },
+          error: (error) => {
+            console.log(error);
+            this.mostrarAlerta("error", "Error", error.message);
           }
         });
       }
@@ -333,7 +341,7 @@ export class ResultadoJulgamentoComponent implements OnInit {
     dialogfRef.afterClosed().subscribe(data => {
       console.log(data)
       if (data === 'excluir') {
-        this._processoService.excluirDestaqueDoProcesso(this.parametros.processo, id)
+        this._processoService.excluirDestaqueDoProcesso(this.parametros.numero, this.parametros.ano, this.parametros.processo, id)
           .subscribe({
             next: () => {
               this.mostrarAlerta('success', 'Sucesso!', `O Destaque - ${ministro['nome']} foi excluído com sucesso.`);
@@ -351,11 +359,15 @@ export class ResultadoJulgamentoComponent implements OnInit {
           sessao: this.sessao.id,
         };
 
-        this._processoService.salvarDestaqueDoProcesso(this.parametros.processo, destaque).subscribe({
+        this._processoService.salvarDestaqueDoProcesso(this.parametros.numero, this.parametros.ano, this.parametros.processo, destaque).subscribe({
           next: (destaqueSalvo) => {
             this._carregarDadosProcessos(); // atualiza a lista de Destaque
 
             this.alertaVistaEDestaque('Destaque', destaqueSalvo['ministro']);
+          },
+          error: (error) => {
+            console.log(error);
+            this.mostrarAlerta("error", "Error", error.message);
           }
         });
       }
@@ -371,6 +383,7 @@ export class ResultadoJulgamentoComponent implements OnInit {
     const dialogRef = this._dialog.open(FormIndicacaoImpedimentosComponent, {
       maxHeight: '90vh',
       data: {
+        sessao: this.sessao,
         idProcesso: +this.parametros.processo,
         resultado: {
           ministrosImpedidos: this.processo.ministros_impedidos,
@@ -434,17 +447,25 @@ export class ResultadoJulgamentoComponent implements OnInit {
         const id: number = +chip.id;
   
         if (tipo === 'vista') {
-          this._processoService.excluirVistaDoProcesso(this.parametros.processo, id)
+          this._processoService.excluirVistaDoProcesso(this.parametros.numero, this.parametros.ano, this.parametros.processo, id)
             .subscribe({
               next: () => {
                 this.mostrarAlerta('success', 'Sucesso!', `A ${chip.nome} foi excluída com sucesso.`);
+              },
+              error: (error) => {
+                console.log(error);
+                this.mostrarAlerta("error", "Error", error.message);
               }
             });
         } else { // destaque
-          this._processoService.excluirDestaqueDoProcesso(this.parametros.processo, id)
+          this._processoService.excluirDestaqueDoProcesso(this.parametros.numero, this.parametros.ano, this.parametros.processo, id)
             .subscribe({
               next: () => {
                 this.mostrarAlerta('success', 'Sucesso!', `O ${chip.nome} foi excluído com sucesso.`);
+              },
+              error: (error) => {
+                console.log(error);
+                this.mostrarAlerta("error", "Error", error.message);
               }
             });
         }
@@ -468,23 +489,37 @@ export class ResultadoJulgamentoComponent implements OnInit {
    * @author Douglas da Silva Monteles
    */
   public finalizar(): void {
-    const dialogRef = this._dialog.open(FormRelatorComponent, {
-      data: {
-        idProcesso: + this.parametros.processo,
-      }
-    });
 
-    dialogRef.afterClosed().subscribe(data => {
-      if(data.status){
-        this.mostrarAlerta('success', 'Sucesso',
-          `O Resultado do Julgamento
-           ${ this.processo.cadeia } em
-           ${ this.processo.classe }
-           ${ this.processo.numero } foi finalizado com sucesso`);
-      }else{
-        this.mostrarAlerta('error','Erro ao finalizar a publicação', data.mensagem_tratada);
-      }
-    });
+    if(this.processo.capitulos.length>0){
+      const dialogRef = this._dialog.open(FormRelatorComponent, {
+        data: { 
+          sessao: this.sessao,       
+          processo: this.processo
+        }
+      });
+  
+      dialogRef.afterClosed().subscribe(data => {
+        console.log("POS SALVAMENTO RELATOR");
+        console.log(data);
+        if(data.status){
+          console.log("MOSTRA ALERTA");
+          this.mostrarAlerta('success', 'Sucesso',
+            `O Resultado da Sessão de Julgamento foi lançada com sucesso`);
+        }else{
+          this.mostrarAlerta('error','Erro ao finalizar a publicação', data.mensagem_tratada);
+        }
+      });
+    }else{
+      this._processoService.finalizarJulgamentoProcesso(this.parametros.numero, this.parametros.ano, this.processo).subscribe({
+        next: (data) => {
+          this.mostrarAlerta('success','Sucesso', data);
+        },
+        error: (data) => {
+          console.log(data);
+        }
+      });
+    }
+    
   }
 
   /**
@@ -493,18 +528,23 @@ export class ResultadoJulgamentoComponent implements OnInit {
    * @author Douglas da Silva Monteles
    */
   private _carregarDadosProcessos(): void {
-    this._processoService.listarProcessos(this.parametros.processo).subscribe({
-      next: ([processo]) => {
+    this._processoService.listarProcessoJulgamento(this.parametros.processo, this.parametros.numero, this.parametros.ano).subscribe({
+      next: (processo) => {
         this.processo = processo;
         this.todosCapitulos = processo.capitulos;
         this.cd.detectChanges();
-
+        console.log("ESSES SAO OS DADOS DO PROCESSO CARREGADOS NO PROCESSO...");
+        console.log(processo);
         this._criarChips();
 
         this._processoService.obterVotosDoProcesso(this.processo.id).subscribe({
           next: (votos) => {
             this.votos = votos;
             console.log(this.votos)
+          },
+          error: (error) => {
+            console.log(error);
+            this.mostrarAlerta("error", "Error", error.message);
           }
         });
       },

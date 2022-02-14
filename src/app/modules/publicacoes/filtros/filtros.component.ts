@@ -1,9 +1,10 @@
-import { Component, Input, OnInit, Output, EventEmitter, OnChanges, SimpleChanges } from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { MatCheckbox, MatCheckboxChange } from '@angular/material/checkbox';
 import { ActivatedRoute, Params, Router } from '@angular/router';
-import { InformacoesDto } from 'app/modules/acervo/model/interfaces/informacoesDto.interface';
+import { InformacoesDto } from 'app/shared/model/interfaces/informacoesDto.interface';
 import { isEmpty } from 'lodash';
+
 
 interface Filtros {
   agregacao: InformacoesDto;

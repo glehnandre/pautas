@@ -33,10 +33,18 @@ export class FileManagerMockApi
         // -----------------------------------------------------------------------------------------------------
         this._fuseMockApiService
             .onGet('api/apps/file-manager')
-            .reply(() => {
+            .reply(({request}) => {
 
                 // Clone the items
-                const items = cloneDeep(this._items);
+                let items = cloneDeep(this._items);
+
+                // See if a folder id exist
+                const folderId = request.params.get('folderId') ?? null;
+
+                // Filter the items by folder id. If folder id is null,
+                // that means we want to root items which have folder id
+                // of null
+                items = items.filter(item => item.folderId === folderId);
 
                 // Separate the items by folders and files
                 const folders = items.filter(item => item.type === 'folder');
@@ -46,11 +54,38 @@ export class FileManagerMockApi
                 folders.sort((a, b) => a.name.localeCompare(b.name));
                 files.sort((a, b) => a.name.localeCompare(b.name));
 
+                // Figure out the path and attach it to the response
+                // Prepare the empty paths array
+                const pathItems = cloneDeep(this._items);
+                const path = [];
+
+                // Prepare the current folder
+                let currentFolder = null;
+
+                // Get the current folder and add it as the first entry
+                if ( folderId )
+                {
+                    currentFolder = pathItems.find(item => item.id === folderId);
+                    path.push(currentFolder);
+                }
+
+                // Start traversing and storing the folders as a path array
+                // until we hit null on the folder id
+                while ( currentFolder?.folderId )
+                {
+                    currentFolder = pathItems.find(item => item.id === currentFolder.folderId);
+                    if ( currentFolder )
+                    {
+                        path.unshift(currentFolder);
+                    }
+                }
+
                 return [
                     200,
                     {
                         folders,
-                        files
+                        files,
+                        path
                     }
                 ];
             });

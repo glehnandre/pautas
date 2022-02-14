@@ -1,11 +1,12 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { EMPTY, Observable } from 'rxjs';
-import { catchError } from 'rxjs/operators';
-import { Frase } from '../acervo/model/interfaces/frase-genero-plural.interface';
-import { Genero } from '../acervo/model/enums/genero.enum'
-import { Colegiado, NomeDoColegiado } from '../acervo/model/interfaces/colegiado.interface';
-import { Ministro } from '../acervo/model/interfaces/ministro.interface';
+import { Genero } from 'app/shared/model/enums/genero.enum';
+import { Colegiado } from 'app/shared/model/interfaces/colegiado.interface';
+import { Frase } from 'app/shared/model/interfaces/frase-genero-plural.interface';
+import { Ministro } from 'app/shared/model/interfaces/ministro.interface';
+import { Observable } from 'rxjs';
+
+
 
 @Injectable({
   providedIn: 'root'

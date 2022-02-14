@@ -2,8 +2,7 @@ import { AfterViewInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, E
 import { animate, AnimationBuilder, AnimationPlayer, style } from '@angular/animations';
 import { NavigationEnd, Router } from '@angular/router';
 import { ScrollStrategy, ScrollStrategyOptions } from '@angular/cdk/overlay';
-import { merge, ReplaySubject, Subject, Subscription } from 'rxjs';
-import { delay, filter, takeUntil } from 'rxjs/operators';
+import { delay, filter, merge, ReplaySubject, Subject, Subscription, takeUntil } from 'rxjs';
 import { fuseAnimations } from '@fuse/animations';
 import { FuseNavigationItem, FuseVerticalNavigationAppearance, FuseVerticalNavigationMode, FuseVerticalNavigationPosition } from '@fuse/components/navigation/navigation.types';
 import { FuseNavigationService } from '@fuse/components/navigation/navigation.service';
@@ -300,9 +299,6 @@ export class FuseVerticalNavigationComponent implements OnChanges, OnInit, After
         // Register the navigation component
         this._fuseNavigationService.registerComponent(this.name, this);
 
-        // Nav close by default
-        this.opened = false;
-
         // Subscribe to the 'NavigationEnd' event
         this._router.events
             .pipe(
@@ -377,11 +373,15 @@ export class FuseVerticalNavigationComponent implements OnChanges, OnInit, After
      */
     ngOnDestroy(): void
     {
+        // Forcefully close the navigation and aside in case they are opened
+        this.close();
+        this.closeAside();
+
         // Deregister the navigation component from the registry
         this._fuseNavigationService.deregisterComponent(this.name);
 
         // Unsubscribe from all subscriptions
-        this._unsubscribeAll.next();
+        this._unsubscribeAll.next(null);
         this._unsubscribeAll.complete();
     }
 

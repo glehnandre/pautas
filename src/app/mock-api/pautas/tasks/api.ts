@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core';
 import { FuseMockApiService } from '@fuse/lib/mock-api/mock-api.service';
-import { ITask, ITaskTag } from 'app/modules/acervo/model/interfaces/itask.interface';
 import { Filtro } from 'app/modules/minhas-tarefas/tabela/tabela.component';
+import { ITask, ITaskTag } from 'app/shared/model/interfaces/itask.interface';
 import { tasks, taskTags } from './data';
+
 
 @Injectable({
     providedIn: 'root'

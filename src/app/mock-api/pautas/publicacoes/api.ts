@@ -1,9 +1,10 @@
 import { Injectable } from '@angular/core';
 import { FuseMockApiService } from '@fuse/lib/mock-api/mock-api.service';
-import { DjeDto } from 'app/modules/acervo/model/interfaces/djeDto.interface';
-
+import { DjeDto } from 'app/shared/model/interfaces/djeDto.interface';
+import { getStorage } from '../storage';
 import { dje as djeData, pecas as pecasData } from './data';
-import { getStorage, setStorage } from '../storage';
+
+
 
 @Injectable({
     providedIn: 'root'

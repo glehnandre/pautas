@@ -1,8 +1,9 @@
 import { Component, HostListener, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { FuseAlertService } from '@fuse/components/alert';
-import { ITask } from '../acervo/model/interfaces/itask.interface';
+import { ITask } from 'app/shared/model/interfaces/itask.interface';
+import { AlertaService } from '../services/alerta.service';
 import { FormComentarioComponent } from './form-comentario/form-comentario.component';
+
 
 @Component({
     selector: 'app-minhas-tarefas',
@@ -14,14 +15,14 @@ export class MinhasTarefasComponent implements OnInit {
     panelOpenState: boolean = false;
     tarefas: ITask[] = [];
     tarefasSelecionadas: ITask[] = [];
-    alerta: { titulo: string; mensagem: string } = null;
-    timeout = null;
+    alerta: { titulo: string; mensagem: string, tipo: 'warning' | 'success' | 'error'; } = null;
+    timeoutId: any = null;
 
     readonly NOME_DO_ALERTA = 'minhas-tarefas-alert';
 
     constructor(
         private _dialog: MatDialog,
-        private _fuseAlertService: FuseAlertService,
+        private _alertaService: AlertaService,
     ) {}
 
     ngOnInit(): void {
@@ -44,6 +45,13 @@ export class MinhasTarefasComponent implements OnInit {
                     tarefas: [...this.tarefasSelecionadas],
                 }
             });
+
+            dialogRef.afterClosed().subscribe(data => {
+                if (data) {
+                    this.alerta = data;
+                    this._alertaService.exibirAlerta(this.NOME_DO_ALERTA);
+                }
+            });
         }
     }
 
@@ -57,26 +65,16 @@ export class MinhasTarefasComponent implements OnInit {
                 this.alerta = {
                     titulo: 'Limite atingido',
                     mensagem: `Para executar essa funcionalidade, selecione no máximo ${limite} tarefa(as).`,
+                    tipo: 'warning',
                 };
                 
-                this._exibirAlerta();
+                this._alertaService.exibirAlerta(this.NOME_DO_ALERTA);
                 return true;
             }
 
             return false;
         }
         return false;
-    }
-
-    private _exibirAlerta(): void {
-        this._fuseAlertService.show(this.NOME_DO_ALERTA);
-
-        clearTimeout(this.timeout);
-    
-        this.timeout = setTimeout(() => {
-            this._fuseAlertService.dismiss(this.NOME_DO_ALERTA);
-            this.alerta = null;
-        }, 6000);
     }
 
 }

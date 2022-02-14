@@ -16,13 +16,13 @@ import { SharedModule } from './shared/shared.module';
 import { MAT_DATE_LOCALE } from '@angular/material/core';
 
 const routerConfig: ExtraOptions = {
-    scrollPositionRestoration: 'enabled',
-    preloadingStrategy       : PreloadAllModules
+    preloadingStrategy       : PreloadAllModules,
+    scrollPositionRestoration: 'enabled'
 };
 
 @NgModule({
     declarations: [
-        AppComponent,
+        AppComponent
     ],
     imports     : [
         BrowserModule,

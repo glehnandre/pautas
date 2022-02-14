@@ -117,7 +117,7 @@
                     <div class="m-1">
                         <div class="mb-4 text-xl font-normal leading-4 flex justify-between items-center">
                             <span class="font-medium">
-                                Decisões
+                                Capítulos
                             </span>
                         </div>
                     </div>
@@ -147,14 +147,14 @@
                                         <!-- Title -->
                                         <div class="flex justify-center items-center">
                                             <span class="text-base sm:text-2xl font-medium leading-none">
-                                                Decisões
+                                                Capítulos
                                             </span>
                                         </div>
                                         <!-- Actions -->
                                         <div class="mt-4 sm:mt-0 flex justify-between items-center">
                                             <button mat-raised-button color="" (click)="setCapituloSelecionado(null)" class="text-sm">
                                                 <mat-icon class="mr-1" svgIcon="heroicons_outline:plus-circle"></mat-icon>
-                                                NOVA DECISÃO
+                                                NOVO CAPÍTULO
                                             </button>
 
                                             <button class="ml-4" *ngIf="!verificarLarguraDaTela()" mat-mini-fab color="" (click)="matDrawer.toggle()">
@@ -269,6 +269,7 @@
                             <app-form-decisao
                                 *ngIf="!capituloSelecionado; else exibirDecisaoNoForm"
                                 [processo]="processo"
+                                [sessaoDeJulgamento] = "sessao"
                             ></app-form-decisao>
 
                             <ng-template #exibirDecisaoNoForm>
@@ -276,6 +277,7 @@
                                     *ngIf="exibirListaDeDecisoes"
                                     [capitulo]="capituloSelecionado"
                                     [processo]="processo"
+                                    [sessaoDeJulgamento] = "sessao"
                                     [isExibirBtnSalvarDecisao]=true
                                     [isExibirBtnExcluirCapitulo]=true
                                     (dadosDoCapitulo)="atualizarCapitulos($event)"

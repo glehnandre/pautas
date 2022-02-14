@@ -4,6 +4,7 @@ import { FuseNavigationItem, FuseNavigationService } from '@fuse/components/navi
 import { FuseMockApiService } from '@fuse/lib/mock-api';
 import { defaultNavigation } from 'app/mock-api/common/navigation/data';
 import { contacts } from 'app/mock-api/apps/contacts/data';
+import { tasks } from 'app/mock-api/apps/tasks/data';
 
 @Injectable({
     providedIn: 'root'
@@ -12,6 +13,7 @@ export class SearchMockApi
 {
     private readonly _defaultNavigation: FuseNavigationItem[] = defaultNavigation;
     private readonly _contacts: any[] = contacts;
+    private readonly _tasks: any[] = tasks;
 
     /**
      * Constructor
@@ -54,58 +56,75 @@ export class SearchMockApi
                     return [200, {results: []}];
                 }
 
-                // Filter the navigation
-                const navigationResults = cloneDeep(flatNavigation).filter(item => (item.title?.toLowerCase().includes(query) || (item.subtitle && item.subtitle.includes(query))));
-
                 // Filter the contacts
-                const contactsResults = cloneDeep(this._contacts).filter(user => user.name.toLowerCase().includes(query));
+                const contactsResults = cloneDeep(this._contacts)
+                    .filter(contact => contact.name.toLowerCase().includes(query));
 
-                // Create the results array
+                // Filter the navigation
+                const pagesResults = cloneDeep(flatNavigation)
+                    .filter(page => (page.title?.toLowerCase().includes(query) || (page.subtitle && page.subtitle.includes(query))));
+
+                // Filter the tasks
+                const tasksResults = cloneDeep(this._tasks)
+                    .filter(task => task.title.toLowerCase().includes(query));
+
+                // Prepare the results array
                 const results = [];
-
-                // If there are navigation results...
-                if ( navigationResults.length > 0 )
-                {
-                    // Normalize the results while marking the found chars
-                    navigationResults.forEach((result: any) => {
-
-                        // Normalize
-                        result['hint'] = result.link;
-                        result['resultType'] = 'page';
-
-                        // Mark the found chars
-                        const re = new RegExp('(' + query.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&') + ')', 'ig');
-                        result.title = result.title.replace(re, '<mark>$1</mark>');
-                    });
-
-                    // Add the results
-                    results.push(...navigationResults);
-                }
 
                 // If there are contacts results...
                 if ( contactsResults.length > 0 )
                 {
-                    // Normalize the results while marking the found chars
+                    // Normalize the results
                     contactsResults.forEach((result) => {
-
-                        // Normalize
-                        result.title = result.name;
-                        result.resultType = 'contact';
-
-                        // Make the found chars bold
-                        const re = new RegExp('(' + query.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&') + ')', 'ig');
-                        result.title = result.title.replace(re, '<mark>$1</mark>');
 
                         // Add a link
                         result.link = '/apps/contacts/' + result.id;
                     });
 
-                    // Add the results to the results object
-                    results.push(...contactsResults);
+                    // Add to the results
+                    results.push({
+                        id     : 'contacts',
+                        label  : 'Contacts',
+                        results: contactsResults
+                    });
+                }
+
+                // If there are page results...
+                if ( pagesResults.length > 0 )
+                {
+                    // Normalize the results
+                    pagesResults.forEach((result: any) => {
+
+                    });
+
+                    // Add to the results
+                    results.push({
+                        id     : 'pages',
+                        label  : 'Pages',
+                        results: pagesResults
+                    });
+                }
+
+                // If there are tasks results...
+                if ( tasksResults.length > 0 )
+                {
+                    // Normalize the results
+                    tasksResults.forEach((result) => {
+
+                        // Add a link
+                        result.link = '/apps/tasks/' + result.id;
+                    });
+
+                    // Add to the results
+                    results.push({
+                        id     : 'tasks',
+                        label  : 'Tasks',
+                        results: tasksResults
+                    });
                 }
 
                 // Return the response
-                return [200, {results}];
+                return [200, results];
             });
     }
 }

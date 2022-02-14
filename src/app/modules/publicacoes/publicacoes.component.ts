@@ -1,13 +1,14 @@
-import { Component, OnInit, OnDestroy, ViewEncapsulation } from '@angular/core';
-import { takeUntil } from 'rxjs/operators';
-import { Subject } from 'rxjs';
-import { FuseMediaWatcherService } from '@fuse/services/media-watcher';
-import { PublicacaoService } from '../services/publicacao.service';
-import { PublicacaoDto } from '../acervo/model/interfaces/publicacaoDto.interface';
-import { InformacoesDto } from '../acervo/model/interfaces/informacoesDto.interface';
-import { AlertaService } from '../services/alerta.service';
+import { Component, OnDestroy, OnInit, ViewEncapsulation } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { FuseMediaWatcherService } from '@fuse/services/media-watcher';
+import { Alerta } from 'app/shared/alerta/alerta.component';
+import { InformacoesDto } from 'app/shared/model/interfaces/informacoesDto.interface';
+import { PublicacaoDto } from 'app/shared/model/interfaces/publicacaoDto.interface';
 import { isEmpty } from 'lodash';
+import { Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
+import { AlertaService } from '../services/alerta.service';
+import { PublicacaoService } from '../services/publicacao.service';
 
 
 @Component({
@@ -37,6 +38,8 @@ export class PublicacoesComponent implements OnInit, OnDestroy{
   termo: string;
 
   hasParam: boolean = true;
+
+  alerta: Alerta = {} as Alerta;
 
   constructor(
     private _fuseMediaWatcherService: FuseMediaWatcherService,
@@ -83,7 +86,7 @@ export class PublicacoesComponent implements OnInit, OnDestroy{
    */
   ngOnDestroy(): void {
     // Unsubscribe from all subscriptions
-    this._unsubscribeAll.next();
+    this._unsubscribeAll.next(null);
     this._unsubscribeAll.complete();
   }
 
@@ -91,12 +94,23 @@ export class PublicacoesComponent implements OnInit, OnDestroy{
    * Recupera todas as publicações da api
    */
   recuperaPublicacoes(){
-    this._publicacaoService.recuperarDje().subscribe(dje=>{
+    this._publicacaoService.recuperarDje().subscribe({
+      next: (dje) => {
+        this.publicacoes = dje.publicacoes;
+        this.agregacoes = dje.agregacoes;
 
-      this.publicacoes = dje.publicacoes;
-      this.agregacoes = dje.agregacoes;
-
-      if(this.hasParam) this.trataParams();
+        if(this.hasParam) this.trataParams();
+      },
+      error: (error) => {
+        console.log(error);
+        this.alerta = {
+          nome: "Error", 
+          tipo: "error", 
+          titulo: "Error",
+          mensagem: error.message,
+        };
+        this._alertaService.exibirAlerta("Error");
+      }
     })
   }
 
@@ -297,6 +311,12 @@ export class PublicacoesComponent implements OnInit, OnDestroy{
 
   alertaFiltroVazio() {
     if(this.pesquisas.length == 0) {
+      this.alerta = {
+        nome: "Filtro Vazio", 
+        tipo: "basic", 
+        titulo: "Filtro Vazio",
+        mensagem: "Não há filtros selecionados",
+      };
       this._alertaService.exibirAlerta('Filtro Vazio');
     }
   }

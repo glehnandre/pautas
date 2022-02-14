@@ -1,8 +1,9 @@
-import { DjeDto } from "app/modules/acervo/model/interfaces/djeDto.interface";
-import { Envolvido } from "app/modules/acervo/model/interfaces/envolvido.interface";
-import { InformacoesDto } from "app/modules/acervo/model/interfaces/informacoesDto.interface";
-import { ItemDto } from "app/modules/acervo/model/interfaces/itemDto.interface";
-import { PublicacaoDto } from "app/modules/acervo/model/interfaces/publicacaoDto.interface";
+import { DjeDto } from "app/shared/model/interfaces/djeDto.interface"
+import { Envolvido } from "app/shared/model/interfaces/envolvido.interface"
+import { InformacoesDto } from "app/shared/model/interfaces/informacoesDto.interface"
+import { ItemDto } from "app/shared/model/interfaces/itemDto.interface"
+import { PublicacaoDto } from "app/shared/model/interfaces/publicacaoDto.interface"
+
 
 export const envolvidos: Envolvido[] = [
     {

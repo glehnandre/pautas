@@ -2,18 +2,18 @@ import { DataSource } from '@angular/cdk/collections';
 import { Component, OnInit } from '@angular/core';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
+import { DocumentoInteiroTeor } from 'app/shared/model/interfaces/documento-inteiro-teor.interface';
+import { Documento } from 'app/shared/model/interfaces/documento.interface';
+import { Processo } from 'app/shared/model/interfaces/processo.interface';
+import { PublicacaoDto } from 'app/shared/model/interfaces/publicacaoDto.interface';
+import { SessaoDeJulgamento } from 'app/shared/model/interfaces/sessao-julgamento.interface';
+import { Tag } from 'app/shared/model/interfaces/tag.interface';
 import { BehaviorSubject, Observable } from 'rxjs';
-import { DocumentoInteiroTeor } from '../acervo/model/interfaces/documento-inteiro-teor.interface';
-import { Documento } from '../acervo/model/interfaces/documento.interface';
-import { Processo } from '../acervo/model/interfaces/processo.interface';
-import { PublicacaoDto } from '../acervo/model/interfaces/publicacaoDto.interface';
-import { SessaoDeJulgamento } from '../acervo/model/interfaces/sessao-julgamento.interface';
-import { Tag } from '../acervo/model/interfaces/tag.interface';
-import { ProcessoService } from '../services/processo.service';
-import { AlertaService } from '../services/alerta.service';
-import { RevisarInteiroTeorService } from '../services/revisar-inteiro-teor.service';
 import { publicacao } from '../../mock-api/pautas/publicacoes/data';
-import { HttpParams } from '@angular/common/http';
+import { AlertaService } from '../services/alerta.service';
+import { ProcessoService } from '../services/processo.service';
+import { RevisarInteiroTeorService } from '../services/revisar-inteiro-teor.service';
+
 
 export interface RevisaoInteiroTeor {
   id_processo: number;
@@ -71,12 +71,22 @@ export class RevisarInteiroTeorComponent implements OnInit {
         this.dataSource = new DataSourceInteiroTeor(this.revisoes.documentos);
         this.obterNomesDasSessoes();
         this.MENSAGEM_SUCESSO = `O Inteiro Teor do julgamento do ${this.revisoes?.nome} da ${this.revisoes?.classe} ${this.revisoes?.numero} foi liberado para publicação`;
+      },
+      error: (error) => {
+        console.log(error);
+        this.errorMessage = error.message
+        this._alertaService.exibirAlerta("Error");
       }
     });
 
     this._processoService.obterDocumentosDoProcesso(this.idProcesso).subscribe({
       next: (documentos) => {
         this.documentosDoProcesso = documentos;
+      },
+      error: (error) => {
+        console.log(error);
+        this.errorMessage = error.message
+        this._alertaService.exibirAlerta("Error");
       }
     });
 
@@ -104,6 +114,11 @@ export class RevisarInteiroTeorComponent implements OnInit {
         this._inteiroTeorService.publicarInteiroTeorDoAcordao(this.idProcesso, ids).subscribe({
             next: (data) => {
                 this._alertaService.exibirAlertaDeSucesso();
+            },
+            error: (error) => {
+              console.log(error);
+              this.errorMessage = error.message
+              this._alertaService.exibirAlerta("Error");
             }
         });
     }

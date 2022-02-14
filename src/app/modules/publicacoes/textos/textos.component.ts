@@ -1,11 +1,11 @@
-import { DatePipe } from '@angular/common';
-import { AfterContentChecked, Component, Input, OnInit } from '@angular/core';
-import { Envolvido } from 'app/modules/acervo/model/interfaces/envolvido.interface';
-import { PublicacaoDto } from 'app/modules/acervo/model/interfaces/publicacaoDto.interface';
-import { registerLocaleData } from '@angular/common';
+import { DatePipe, registerLocaleData } from '@angular/common';
 import localePT from '@angular/common/locales/pt';
+import { AfterContentChecked, Component, Input, OnInit } from '@angular/core';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
+import { AlertaService } from 'app/modules/services/alerta.service';
 import { PublicacaoService } from 'app/modules/services/publicacao.service';
+import { Envolvido } from 'app/shared/model/interfaces/capitulo.interface';
+import { PublicacaoDto } from 'app/shared/model/interfaces/publicacaoDto.interface';
 registerLocaleData(localePT);
 
 @Component({
@@ -19,11 +19,13 @@ export class TextosComponent implements OnInit, AfterContentChecked {
 
   publicacoes: PublicacaoDto[];
   link: SafeResourceUrl;
-  //link: string = '/assets/pdf/relatorio-adi6185-Ed.pdf'
+  
+  errorMessage: string;
 
   constructor(
     private _sanitizer: DomSanitizer,
     private _publicacaoService: PublicacaoService,
+    private _alertaService: AlertaService,
   ) { }
 
   ngOnInit(): void {
@@ -81,9 +83,16 @@ export class TextosComponent implements OnInit, AfterContentChecked {
    * Abre o link do pdf da publicação para ser baixado
    */
   abrirLink(publicacao: PublicacaoDto): void {
-      this._publicacaoService.abrirPeca(publicacao.id).subscribe(url=>{
-        this.link = this._sanitizer.bypassSecurityTrustResourceUrl(url);
-        window.open(this.link['changingThisBreaksApplicationSecurity'], "_blank");
+      this._publicacaoService.abrirPeca(publicacao.id).subscribe({
+        next: (url) => {
+          this.link = this._sanitizer.bypassSecurityTrustResourceUrl(url);
+          window.open(this.link['changingThisBreaksApplicationSecurity'], "_blank");
+        },
+        error: (error) => {
+          console.log(error);
+          this.errorMessage = error.message
+          this._alertaService.exibirAlerta("Error");
+        }
       });
   }
 }

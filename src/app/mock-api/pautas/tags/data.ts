@@ -1,4 +1,5 @@
-import { Tag } from "app/modules/acervo/model/interfaces/tag.interface";
+import { Tag } from "app/shared/model/interfaces/tag.interface";
+
 
 
 export const tags: Tag[] = [

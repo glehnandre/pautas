@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable, of, throwError } from 'rxjs';
-import { catchError, switchMap } from 'rxjs/operators';
+import { catchError, Observable, of, switchMap, throwError } from 'rxjs';
 import { AuthUtils } from 'app/core/auth/auth.utils';
 import { UserService } from 'app/core/user/user.service';
 
@@ -129,11 +128,7 @@ export class AuthService
     signOut(): Observable<any>
     {
         // Remove the access token from the local storage
-        // localStorage.removeItem('accessToken');
-
-        // Remove all localStorafe informations
-        localStorage.clear()
-        sessionStorage.clear();
+        localStorage.removeItem('accessToken');
 
         // Set the authenticated flag to false
         this._authenticated = false;

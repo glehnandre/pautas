@@ -1,9 +1,8 @@
-import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
-import { EMPTY, Observable } from 'rxjs';
-import { catchError } from 'rxjs/operators';
-import { DjeDto } from '../acervo/model/interfaces/djeDto.interface';
-import { SessaoDeJulgamento } from '../acervo/model/interfaces/sessao-julgamento.interface';
+import { HttpClient } from "@angular/common/http";
+import { Injectable } from "@angular/core";
+import { SessaoDeJulgamento } from "app/shared/model/interfaces/sessao-julgamento.interface";
+import { Observable } from "rxjs";
+
 
 @Injectable({
   providedIn: 'root'
@@ -14,29 +13,14 @@ export class PublicacaoService {
   }
 
   recuperarDje(): Observable<any> {
-    return this._httpClient.get<any>('publicacoes').pipe(
-      catchError(error => {
-        console.log(error);
-        return EMPTY;
-      })
-    );
+    return this._httpClient.get<any>('publicacoes');
   }
 
   abrirPeca(id: number): Observable<string>{
-    return this._httpClient.get<string>(`publicacoes/peca/${id}`).pipe(
-      catchError(error => {
-        console.log(error);
-        return EMPTY;
-      })
-    );
+    return this._httpClient.get<string>(`publicacoes/peca/${id}`);
   }
 
   public publicarAta(data: string, sessao: SessaoDeJulgamento): Observable<void> {
-    return this._httpClient.post<void>('publicar', {data, sessao}).pipe(
-      catchError(error => {
-        console.log(error);
-        return EMPTY;
-      })
-    );
+    return this._httpClient.post<void>('publicar', {data, sessao});
   }
 }

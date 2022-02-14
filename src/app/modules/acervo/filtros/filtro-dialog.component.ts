@@ -1,9 +1,10 @@
-import { Component, Output, EventEmitter, Inject, OnInit } from '@angular/core';
-import { FormArray, FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import { Component, Inject, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { Filtros } from './filtros';
 import { tags as tagData } from 'app/mock-api/pautas/tags/data';
-import { Tag } from 'app/modules/acervo/model/interfaces/tag.interface';
+import { Tag } from 'app/shared/model/interfaces/tag.interface';
+import { Filtros } from './filtros';
+
 
 
 @Component({

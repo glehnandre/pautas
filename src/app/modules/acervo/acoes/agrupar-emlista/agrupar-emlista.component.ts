@@ -4,11 +4,10 @@ import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { FuseAlertService } from '@fuse/components/alert';
 import { AlertaService } from 'app/modules/services/alerta.service';
 import { ProcessoService } from 'app/modules/services/processo.service';
-import { EMPTY, Observable } from 'rxjs';
-import { catchError } from 'rxjs/operators';
-import { Tag } from '../../model/interfaces/tag.interface';
+import { Tag } from 'app/shared/model/interfaces/tag.interface';
 import { GerenciarListasComponent } from './gerenciar-listas/gerenciar-listas.component';
 import { NovaListaComponent } from './nova-lista/nova-lista.component';
+
 
 @Component({
   selector: 'app-agrupar-emlista',
@@ -19,6 +18,8 @@ export class AgruparEmlistaComponent implements OnInit {
   public confirmMessage: string;
   public sucesso: boolean = false;
   public tags: Array<Tag> = [];
+
+  errorMessage: string;
 
   /**
    * Constructor
@@ -31,7 +32,8 @@ export class AgruparEmlistaComponent implements OnInit {
     private _alertService: AlertaService,
     public dialogRef: MatDialogRef<AgruparEmlistaComponent>,
     public dialog: MatDialog,
-    private _processoService: ProcessoService
+    private _processoService: ProcessoService,
+    private _alertaService: AlertaService,
   ) {}
 
   ngOnInit() {
@@ -78,7 +80,13 @@ export class AgruparEmlistaComponent implements OnInit {
       next: (data) => {
         this.tags = data;
         this.tags.map(tag => tag.checked = false);
+      },
+      error: (error) => {
+        console.log(error);
+        this.errorMessage = error.message
+        this._alertaService.exibirAlerta("Error");
       }
+      
     });
   }
 }

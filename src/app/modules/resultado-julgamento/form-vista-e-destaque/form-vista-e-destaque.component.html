@@ -1,5 +1,5 @@
-<div class="flex flex-col max-w-240 md:min-w-160 -m-6">
-    <header class="flex items-center justify-between h-16 pr-3 sm:pr-5 pl-6 sm:pl-8 bg-primary text-on-primary">
+<div class="flex flex-col max-w-200 md:min-w-180 min-h-140 min-m-6">
+    <header class="flex items-center justify-between h-16 pr-3 sm:pr-5 sm:pl-8 bg-primary text-on-primary">
         <h1 class="mt-4 flex items-center justify-center text-lg font-medium text-white-500">
             {{data.titulo}}
         </h1>
@@ -11,11 +11,11 @@
         </button>
     </header>
 
-    <div class="flex flex-col flex-auto p-6 sm:p-8 overflow-y-auto ng-pristine ng-invalid ng-touched">
+    <div class="flex flex-col flex-auto pt-6 sm:pt-8 overflow-y-auto ng-pristine ng-invalid ng-touched">
         <form [formGroup]="formVistaEDestaque">
             <div class="w-full grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <mat-form-field class="w-full mb-4 col-span-1" appearance="outline">
-                    <mat-label>Ministro requerente <span class="text-red-500">*</span></mat-label>
+                    <mat-label>Ministro requerente</mat-label>
                     <mat-select
                         formControlName="ministro"
                     >
@@ -35,17 +35,17 @@
                 </mat-form-field>
 
                 <mat-form-field class="w-full mb-4 col-span-1" appearance="outline">
-                    <mat-label>Informe a data <span class="text-red-500">*</span></mat-label>
+                    <mat-label>Informe a data</mat-label>
                     <input formControlName="data" autocomplete="off" (click)="picker.open()" matInput [matDatepicker]="picker">
                     <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                     <mat-datepicker #picker></mat-datepicker>
                 </mat-form-field>
             </div>
 
-            <mat-form-field class="w-full mb-4" appearance="outline">
+            <mat-form-field class="w-full h-full mb-4" appearance="outline">
                 <mat-label>Texto <span class="text-red-500">*</span></mat-label>
                 
-                <textarea 
+                <textarea class="h-100"
                     matInput 
                     rows="10"
                     formControlName="texto"

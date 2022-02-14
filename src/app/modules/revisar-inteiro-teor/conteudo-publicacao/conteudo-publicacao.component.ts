@@ -1,13 +1,14 @@
-import { DatePipe } from '@angular/common';
-import { Component, Input, OnInit, AfterViewInit } from '@angular/core';
-import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
-import { ActivatedRoute } from '@angular/router';
-import { Envolvido } from 'app/modules/acervo/model/interfaces/capitulo.interface';
-import { PublicacaoDto } from 'app/modules/acervo/model/interfaces/publicacaoDto.interface';
-import { publicacao } from 'app/mock-api/pautas/publicacoes/data';
-import { RevisaoInteiroTeor } from '../revisar-inteiro-teor.component';
-import { DocumentoInteiroTeor } from 'app/modules/acervo/model/interfaces/documento-inteiro-teor.interface';
-import { Processo } from 'app/modules/acervo/model/interfaces/processo.interface';
+import { DatePipe } from "@angular/common";
+import { Component, OnInit, AfterViewInit, Input } from "@angular/core";
+import { SafeResourceUrl, DomSanitizer } from "@angular/platform-browser";
+import { ActivatedRoute } from "@angular/router";
+import { publicacao } from "app/mock-api/pautas/publicacoes/data";
+import { Envolvido } from "app/shared/model/interfaces/capitulo.interface";
+import { DocumentoInteiroTeor } from "app/shared/model/interfaces/documento-inteiro-teor.interface";
+import { Processo } from "app/shared/model/interfaces/processo.interface";
+import { PublicacaoDto } from "app/shared/model/interfaces/publicacaoDto.interface";
+import { RevisaoInteiroTeor } from "../revisar-inteiro-teor.component";
+
 
 @Component({
   selector: 'app-conteudo-publicacao',

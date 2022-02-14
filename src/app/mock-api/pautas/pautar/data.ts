@@ -1,4 +1,5 @@
-import { Pauta } from "app/modules/acervo/model/interfaces/pauta.interface";
+
+import { Pauta } from "app/shared/model/interfaces/pauta.interface";
 import { processo } from "../processos/data";
 
 export const pautas: Pauta[] = [

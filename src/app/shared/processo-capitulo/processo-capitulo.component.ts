@@ -1,7 +1,9 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { SituacaoDoProcesso } from 'app/modules/acervo/model/enums/situacaoDoProcesso.enum';
-import { TipoDoProcesso } from 'app/modules/acervo/model/enums/tipoDoProcesso.enum';
-import { Processo } from '../../modules/acervo/model/interfaces/processo.interface';
+import { SituacaoDoProcesso } from '../model/enums/situacaoDoProcesso.enum';
+import { TipoDoProcesso } from '../model/enums/tipoDoProcesso.enum';
+import { Processo } from '../model/interfaces/processo.interface';
+
+
 
 @Component({
   selector: 'app-processo-capitulo',

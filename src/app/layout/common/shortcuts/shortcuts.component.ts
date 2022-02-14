@@ -1,10 +1,9 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Input, OnChanges, OnDestroy, OnInit, SimpleChanges, TemplateRef, ViewChild, ViewContainerRef, ViewEncapsulation } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnDestroy, OnInit, TemplateRef, ViewChild, ViewContainerRef, ViewEncapsulation } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Overlay, OverlayRef } from '@angular/cdk/overlay';
 import { TemplatePortal } from '@angular/cdk/portal';
 import { MatButton } from '@angular/material/button';
-import { takeUntil } from 'rxjs/operators';
-import { Subject } from 'rxjs';
+import { Subject, takeUntil } from 'rxjs';
 import { Shortcut } from 'app/layout/common/shortcuts/shortcuts.types';
 import { ShortcutsService } from 'app/layout/common/shortcuts/shortcuts.service';
 
@@ -15,14 +14,14 @@ import { ShortcutsService } from 'app/layout/common/shortcuts/shortcuts.service'
     changeDetection: ChangeDetectionStrategy.OnPush,
     exportAs       : 'shortcuts'
 })
-export class ShortcutsComponent implements OnChanges, OnInit, OnDestroy
+export class ShortcutsComponent implements OnInit, OnDestroy
 {
-    @Input() shortcuts: Shortcut[];
     @ViewChild('shortcutsOrigin') private _shortcutsOrigin: MatButton;
     @ViewChild('shortcutsPanel') private _shortcutsPanel: TemplateRef<any>;
 
     mode: 'view' | 'modify' | 'add' | 'edit' = 'view';
     shortcutForm: FormGroup;
+    shortcuts: Shortcut[];
     private _overlayRef: OverlayRef;
     private _unsubscribeAll: Subject<any> = new Subject<any>();
 
@@ -42,21 +41,6 @@ export class ShortcutsComponent implements OnChanges, OnInit, OnDestroy
     // -----------------------------------------------------------------------------------------------------
     // @ Lifecycle hooks
     // -----------------------------------------------------------------------------------------------------
-
-    /**
-     * On changes
-     *
-     * @param changes
-     */
-    ngOnChanges(changes: SimpleChanges): void
-    {
-        // Shortcuts
-        if ( 'shortcuts' in changes )
-        {
-            // Store the shortcuts on the service
-            this._shortcutsService.store(changes.shortcuts.currentValue);
-        }
-    }
 
     /**
      * On init
@@ -92,7 +76,7 @@ export class ShortcutsComponent implements OnChanges, OnInit, OnDestroy
     ngOnDestroy(): void
     {
         // Unsubscribe from all subscriptions
-        this._unsubscribeAll.next();
+        this._unsubscribeAll.next(null);
         this._unsubscribeAll.complete();
 
         // Dispose the overlay
@@ -131,7 +115,7 @@ export class ShortcutsComponent implements OnChanges, OnInit, OnDestroy
     }
 
     /**
-     * Close the messages panel
+     * Close the shortcuts panel
      */
     closePanel(): void
     {
@@ -236,7 +220,7 @@ export class ShortcutsComponent implements OnChanges, OnInit, OnDestroy
             scrollStrategy  : this._overlay.scrollStrategies.block(),
             positionStrategy: this._overlay.position()
                                   .flexibleConnectedTo(this._shortcutsOrigin._elementRef.nativeElement)
-                                  .withLockedPosition()
+                                  .withLockedPosition(true)
                                   .withPush(true)
                                   .withPositions([
                                       {

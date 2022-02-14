@@ -1,7 +1,8 @@
-import { Genero } from "app/modules/acervo/model/enums/genero.enum";
-import { Colegiado, NomeDoColegiado } from "app/modules/acervo/model/interfaces/colegiado.interface";
-import { Impedimento } from "app/modules/acervo/model/interfaces/impedimento.interface";
-import { Ministro } from "app/modules/acervo/model/interfaces/ministro.interface";
+import { Genero } from "app/shared/model/enums/genero.enum";
+import { Colegiado, NomeDoColegiado } from "app/shared/model/interfaces/colegiado.interface";
+import { Impedimento } from "app/shared/model/interfaces/impedimento.interface";
+import { Ministro } from "app/shared/model/interfaces/ministro.interface";
+
 
 export const ministro: Ministro[] = [
   {

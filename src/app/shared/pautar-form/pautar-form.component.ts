@@ -1,6 +1,7 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { SessaoDeJulgamento } from 'app/modules/acervo/model/interfaces/sessao-julgamento.interface';
+//TODO refatorar a localização do colegiado
 import { Colegiado } from 'app/modules/acervo/acoes/pautar/pautar.component';
+import { SessaoDeJulgamento } from '../model/interfaces/sessao-julgamento.interface';
 
 @Component({
   selector: 'app-pautar-form',

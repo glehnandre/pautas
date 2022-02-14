@@ -1,21 +1,21 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { FuseAlertService } from '@fuse/components/alert';
+import { Alerta } from 'app/shared/alerta/alerta.component';
+import { Classe } from 'app/shared/model/interfaces/classe.interface';
+import { Dispositivo } from 'app/shared/model/interfaces/dispositivo.interface';
+import { ModeloDecisao } from 'app/shared/model/interfaces/modeloDecisao.interface';
+import { TipoRecursoDto } from 'app/shared/model/interfaces/tipoRecursoDto';
 import { EMPTY, Observable } from 'rxjs';
 import { catchError } from 'rxjs/operators';
-
-import { Classe } from '../../acervo/model/interfaces/classe.interface';
-import { Dispositivo } from '../../acervo/model/interfaces/dispositivo.interface';
-import { ModeloDecisao } from '../../acervo/model/interfaces/modeloDecisao.interface';
-import { TipoRecursoDto } from '../../acervo/model/interfaces/tipoRecursoDto';
-
 import { AlertaService } from '../../services/alerta.service';
 import { ClasseService } from '../../services/classe.service';
 import { DispositivoService } from '../../services/dispositivo.service';
-import { RecursoService } from '../../services/recurso.service';
 import { ProcessoService } from '../../services/processo.service';
-import { Alerta } from 'app/shared/alerta/alerta.component';
+import { RecursoService } from '../../services/recurso.service';
+
+
+
 
 interface ModeloDecisaoData {
   processo: {
@@ -77,7 +77,19 @@ export class FormModeloDecisaoComponent implements OnInit {
         return EMPTY;
       }),
     );
-    this.recursos$ = this._recursoService.obterListaDeRecursos();
+    this.recursos$ = this._recursoService.obterListaDeRecursos().pipe(
+      catchError(error => {
+        console.log(error);
+        this.alerta = {
+          nome: "Error", 
+          tipo: "error", 
+          titulo: "Erro",
+          mensagem: error.message
+        }
+        this._alertaService.exibirAlerta("Error")
+        return EMPTY;
+      })
+    );
 
     this.formModeloDecisao.controls.texto.valueChanges.subscribe((texto: string) => {
       this.exibirSugestoes = false;
@@ -160,16 +172,42 @@ export class FormModeloDecisaoComponent implements OnInit {
 
   public salvarModeloDecisao(): void {
     if (this.formModeloDecisao.valid) {
-      if(this.modelo.id == undefined){
+      console.log("MODELO DECISAO...");
+      console.log(this.formModeloDecisao);
+
+      if(this.modelo.id == 0){
         this._processoService.salvarModeloDecisao(this.formModeloDecisao.value).subscribe({
-          next: () => {
+          next: (modelo) => {
+            this.modelo = modelo;
+            this._alertaService.exibirAlerta('sucesso-form-modelo-decisao');
             this.sairModal();
+          },
+          error: (error) => {
+            console.log(error);
+            this.alerta = {
+              nome: "Error", 
+              tipo: "error", 
+              titulo: "Erro",
+              mensagem: error.message
+            }
+            this._alertaService.exibirAlerta("Error");
           }
         });
       }else{
         this._processoService.atualizarModeloDecisao(this.modelo.id, this.formModeloDecisao.value).subscribe({
-          next: () => {
+          next: (modelo) => {
+            this.modelo = modelo;
             this.sairModal();
+          },
+          error: (error) => {
+            console.log(error);
+            this.alerta = {
+              nome: "Error", 
+              tipo: "error", 
+              titulo: "Erro",
+              mensagem: error.message
+            }
+            this._alertaService.exibirAlerta("Error");
           }
         });
       }

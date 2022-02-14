@@ -4,15 +4,16 @@ import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { Sort } from '@angular/material/sort';
 import { fuseAnimations } from '@fuse/animations';
-import { BehaviorSubject, EMPTY, Observable } from 'rxjs';
-import { DocumentoInteiroTeor } from '../../acervo/model/interfaces/documento-inteiro-teor.interface';
-import { SessaoDeJulgamento } from '../../acervo/model/interfaces/sessao-julgamento.interface';
-import { Tag } from '../../acervo/model/interfaces/tag.interface';
-import { RevisarInteiroTeorService } from '../../services/revisar-inteiro-teor.service';
-import { MinistroService } from 'app/modules/services/ministro.service';
-import { Ministro } from 'app/modules/acervo/model/interfaces/ministro.interface';
+
 import { catchError } from 'rxjs/operators';
 import { AlertaService } from 'app/modules/services/alerta.service';
+import { MinistroService } from 'app/modules/services/ministro.service';
+import { RevisarInteiroTeorService } from 'app/modules/services/revisar-inteiro-teor.service';
+import { DocumentoInteiroTeor } from 'app/shared/model/interfaces/documento-inteiro-teor.interface';
+import { Ministro } from 'app/shared/model/interfaces/ministro.interface';
+import { SessaoDeJulgamento } from 'app/shared/model/interfaces/sessao-julgamento.interface';
+import { Tag } from 'app/shared/model/interfaces/tag.interface';
+import { Observable, EMPTY, BehaviorSubject } from 'rxjs';
 
 export interface RevisaoInteiroTeor {
     id_processo: number;
@@ -122,6 +123,11 @@ export class TabelaComponent implements OnInit {
           next: (data) => {
               this.revisoes = data;
               this.dataSource = new DataSourceInteiroTeor(this.revisoes.documentos);
+          },
+          error: (error) => {
+            console.log(error);
+            this.errorMessage = error.message
+            this._alertaService.exibirAlerta("Error");
           }
       });
 
@@ -175,7 +181,13 @@ export class TabelaComponent implements OnInit {
 
     this.dataSource = new DataSourceInteiroTeor(this.revisoes.documentos);
 
-    this._inteiroTeorService.atualizarDocumentoDoInteiroTeor(this.idProcesso, this.revisoes.documentos).subscribe();
+    this._inteiroTeorService.atualizarDocumentoDoInteiroTeor(this.idProcesso, this.revisoes.documentos).subscribe({
+      error: (error) => {
+        console.log(error);
+        this.errorMessage = error.message
+        this._alertaService.exibirAlerta("Error");
+      }
+    });
   }
 
 }

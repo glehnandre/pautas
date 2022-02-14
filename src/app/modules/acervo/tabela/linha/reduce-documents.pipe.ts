@@ -1,5 +1,5 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import { Documento } from '../../model/interfaces/documento.interface';
+import { Documento } from 'app/shared/model/interfaces/documento.interface';
 
 @Pipe({name: 'reduceDocuments'})
 export class ReduceDocumentsPipe implements PipeTransform {

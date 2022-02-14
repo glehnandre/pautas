@@ -1,13 +1,13 @@
-import { Component, Input, LOCALE_ID, OnInit } from '@angular/core';
-import localePt from '@angular/common/locales/pt';
 import { registerLocaleData } from '@angular/common';
-
-import { Capitulo, Envolvido } from 'app/modules/acervo/model/interfaces/capitulo.interface';
-import { Frase } from 'app/modules/acervo/model/interfaces/frase-genero-plural.interface';
-import { Ministro } from 'app/modules/acervo/model/interfaces/ministro.interface';
-import { SessaoDeJulgamento } from 'app/modules/acervo/model/interfaces/sessao-julgamento.interface';
+import localePt from '@angular/common/locales/pt';
+import { Component, Input, LOCALE_ID, OnInit } from '@angular/core';
 import { MinistroService } from 'app/modules/services/ministro.service';
-import { Ata } from 'app/modules/acervo/model/interfaces/ata.interface';
+import { Ata } from 'app/shared/model/interfaces/ata.interface';
+import { Capitulo, Envolvido } from 'app/shared/model/interfaces/capitulo.interface';
+import { Frase } from 'app/shared/model/interfaces/frase-genero-plural.interface';
+import { Ministro } from 'app/shared/model/interfaces/ministro.interface';
+import { SessaoDeJulgamento } from 'app/shared/model/interfaces/sessao-julgamento.interface';
+
 
 registerLocaleData(localePt);
 
@@ -34,17 +34,22 @@ export class ExtratoAtaComponent implements OnInit {
   };
 
   FraseImpedidos: Frase = {
-    F:'Se declara impedida a Ministra ',
-    M: 'Se declara impedido o Ministro ',
-    PF:'Se declararam impedidas as Ministras, ',
-    PM:'Se declararam impedidos os Ministros, ',
+    F:'se declara impedida a Ministra. ',
+    M: 'se declara impedido o Ministro. ',
+    PF:'se declararam impedidas as Ministras. ',
+    PM:'se declararam impedidos os Ministros. ',
   };
 
   FraseSuspeitos: Frase = {
-    F:'Se declara suspeita a Ministra ',
-    M: 'Se declara suspeito o Ministro ',
-    PF:'Se declararam suspeitas as Ministras, ',
-    PM:'Se declararam suspeitos os Ministros, ',
+    F:'Se declara suspeita a Ministra. ',
+    M: 'Se declara suspeito o Ministro. ',
+    PF:'Se declararam suspeitas as Ministras. ',
+    PM:'Se declararam suspeitos os Ministros. ',
+  };
+
+  FraseMinistro: Frase = {
+    F:'pela Senhora Ministra ',
+    M:'pelo Senhor Ministro ',
   };
 
   FraseAcompanham: Frase = {

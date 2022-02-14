@@ -1,7 +1,9 @@
 import { Component, Input, OnChanges, OnInit } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
 import { FuseDrawerService } from '@fuse/components/drawer';
-import { Voto } from 'app/modules/acervo/model/interfaces/voto.interface';
+import { Voto } from '../model/interfaces/voto.interface';
+
+
 
 @Component({
   selector: 'app-visualizador-pdf',
