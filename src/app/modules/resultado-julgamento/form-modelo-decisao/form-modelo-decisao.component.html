@@ -1,4 +1,4 @@
-<div class="flex flex-col max-w-240 md:min-w-160 -m-6">
+<div class="flex flex-col max-w-400 h-180 -m-6">
     <header class="flex items-center justify-between h-16 pr-3 sm:pr-5 pl-6 sm:pl-8 bg-primary text-on-primary">
         <h1 class="mt-4 flex items-center justify-center text-lg font-medium text-white-500">
             Modelo do texto da decisão
@@ -15,15 +15,9 @@
         <form [formGroup]="formModeloDecisao">
             <div class="w-full grid grid-cols-1 sm:grid-cols-8 gap-4">
                 <mat-form-field class="w-full mb-4 col-span-2" appearance="outline">
-                    <mat-label>Classe processural <span class="text-red-500">*</span></mat-label>
-                    <mat-select
-                        formControlName="classe"
-                        (selectionChange)="carregarModeloDecisao()"
-                    >
-                        <mat-option
-                            *ngFor="let classe of (classes$ | async)"
-                            [value]="classe.sigla"
-                        >
+                    <mat-label>Classe processural </mat-label>
+                    <mat-select formControlName="classe" (selectionChange)="carregarModeloDecisao()">
+                        <mat-option *ngFor="let classe of (classes$ | async)" [value]="classe.sigla">
                             {{classe.sigla}}
                         </mat-option>
                     </mat-select>
@@ -31,16 +25,10 @@
                 </mat-form-field>
 
                 <mat-form-field class="w-full mb-4 col-span-2" appearance="outline">
-                    <mat-label>Tipo do Capítulo <span class="text-red-500">*</span></mat-label>
-                    <mat-select
-                        formControlName="tipoCapitulo"
-                        (valueChange)="buscarDispositivos()"
-                        (selectionChange)="carregarModeloDecisao()"
-                    >
-                        <mat-option
-                            *ngFor="let capitulo of tiposCapitulo"
-                            [value]="capitulo"
-                        >
+                    <mat-label>Tipo do Capítulo</mat-label>
+                    <mat-select formControlName="tipoCapitulo" (valueChange)="buscarDispositivos()"
+                        (selectionChange)="carregarModeloDecisao()">
+                        <mat-option *ngFor="let capitulo of tiposCapitulo" [value]="capitulo">
                             {{capitulo}}
                         </mat-option>
                     </mat-select>
@@ -48,15 +36,9 @@
                 </mat-form-field>
 
                 <mat-form-field class="w-full mb-4 col-span-2" appearance="outline">
-                    <mat-label>Dispositivo <span class="text-red-500">*</span></mat-label>
-                    <mat-select
-                        formControlName="dispositivo"
-                        (selectionChange)="carregarModeloDecisao()"
-                    >
-                        <mat-option
-                            *ngFor="let dispositivo of dispositivos"
-                            [value]="dispositivo.id"
-                        >
+                    <mat-label>Dispositivo</mat-label>
+                    <mat-select formControlName="dispositivo" (selectionChange)="carregarModeloDecisao()">
+                        <mat-option *ngFor="let dispositivo of dispositivos" [value]="dispositivo.id">
                             {{dispositivo.nome}}
                         </mat-option>
                     </mat-select>
@@ -64,15 +46,9 @@
                 </mat-form-field>
 
                 <mat-form-field class="w-full mb-4 col-span-2" appearance="outline">
-                    <mat-label>Recurso <span class="text-red-500">*</span></mat-label>
-                    <mat-select
-                        formControlName="recurso"
-                        (selectionChange)="carregarModeloDecisao()"
-                    >
-                        <mat-option
-                            *ngFor="let recurso of (recursos$ | async)"
-                            [value]="recurso.id"
-                        >
+                    <mat-label>Recurso</mat-label>
+                    <mat-select formControlName="recurso" (selectionChange)="carregarModeloDecisao()">
+                        <mat-option *ngFor="let recurso of (recursos$ | async)" [value]="recurso.id">
                             {{recurso.descricao}}
                         </mat-option>
                     </mat-select>
@@ -80,14 +56,25 @@
                 </mat-form-field>
             </div>
 
-            <mat-form-field class="w-full mb-4" appearance="outline">
+            <editor id="texto-da-decisao" formControlName="texto" [init]="{height: 438, menubar: false, plugins: [
+                'advlist autolink lists link charmap preview anchor',
+                'searchreplace code fullscreen',
+                'insertdatetime table help wordcount'
+              ],
+              toolbar:
+                'undo redo | formatselect | bold italic backcolor | \
+                alignleft aligncenter alignright alignjustify | \
+                bullist numlist outdent indent | removeformat | help'}"></editor>
+
+            <!--<mat-form-field class="w-full mb-4" appearance="outline">
                 <mat-label>Concordam os ministros <span class="text-red-500">*</span></mat-label>
 
-                <textarea
+               <textarea
                     id="texto-da-decisao"
                     matInput
                     formControlName="texto"
                 ></textarea>
+               
 
                 <mat-selection-list
                     #sugestoes
@@ -110,24 +97,15 @@
                     @data_fim_sessao, @modalidade e @tipo para referenciar atributos
                     do processo no modelo da decisão.
                 </mat-hint>
-            </mat-form-field>
+            </mat-form-field>-->
 
             <p class="mt-4 text-center flex flex-row gap-4 justify-end items-end">
-                <button
-                    mat-raised-button
-                    mat-dialog-close
-                    class="mr-2"
-                >
+                <button mat-raised-button mat-dialog-close class="mr-2">
                     {{'Cancelar' | uppercase}}
                 </button>
 
-                <button
-                    mat-raised-button
-                    class="max-w-full"
-                    color="primary"
-                    [disabled]="formModeloDecisao.invalid"
-                    (click)="salvarModeloDecisao()"
-                >
+                <button mat-raised-button class="max-w-full" color="primary" [disabled]="formModeloDecisao.invalid"
+                    (click)="salvarModeloDecisao()">
                     {{'Salvar' | uppercase}}
                 </button>
             </p>
@@ -135,11 +113,5 @@
     </div>
 </div>
 
-<app-alerta
-    [nome]="alerta.nome"
-    [titulo]="alerta.titulo"
-    [mensagem]="alerta.mensagem"
-    [aparencia]="'outline'"
-    [tipo]="alerta.tipo"
-    class="absolute top-2 right-2 max-w-120 mx-auto z-40"
-></app-alerta>
+<app-alerta [nome]="alerta.nome" [titulo]="alerta.titulo" [mensagem]="alerta.mensagem" [aparencia]="'outline'"
+    [tipo]="alerta.tipo" class="absolute top-2 right-2 max-w-120 mx-auto z-40"></app-alerta>

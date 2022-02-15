@@ -162,6 +162,8 @@ export class FormModeloDecisaoComponent implements OnInit {
    */
   private sairModal(): void {
     const modelo = this.formModeloDecisao.value;
+    console.log("MODELO");
+    console.log(this.formModeloDecisao)
     const dispositivo = this.dispositivos.find(({ id }) => id == modelo.dispositivo).nome;
     let recurso;
     this.recursos$.subscribe(recursos => {
