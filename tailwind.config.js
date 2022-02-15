@@ -21,15 +21,19 @@ const themes = {
     'default': {
         primary  : {
             ...colors.indigo,
-            DEFAULT: colors.blue[600]
+            DEFAULT: '#08599b'
+        },
+        secondary: {
+            ...colors.slate,
+            DEFAULT: '#64748b'
         },
         accent   : {
-            ...colors.slate,
-            DEFAULT: colors.slate[800]
+            ...colors.teal,
+            DEFAULT: '#cce3ef'
         },
         warn     : {
             ...colors.red,
-            DEFAULT: colors.red[600]
+            DEFAULT: '#da292e',
         },
         'on-warn': {
             500: colors.red['50']
@@ -81,7 +85,7 @@ const config = {
             black      : colors.black,
             white      : colors.white,
             pink       : colors.pink,
-            gray       : colors.blueGray,
+            gray       : colors.slate,
             red        : colors.red,
             orange     : colors.orange,
             amber      : colors.amber,
@@ -91,10 +95,29 @@ const config = {
             blue       : colors.blue,
             indigo     : colors.indigo,
             purple     : colors.purple,
-            sentido    : {
-                'Negativo': colors.red[600],
-                'Positivo': colors.green[600],
-                'Neutro'  : colors.yellow[600],
+
+            /** Layout da Página **/
+            card       : '#ffffff',
+            menu       : '#2d323e',
+            page       : '#f5f5f5',
+            'STF-Dark' : '#1170A6',
+            topo       : '#f5f5f5',
+
+            /** Sentido do Dispositivo **/
+            sentido    :
+            {
+              'Negativo': colors.red[600],
+              'Positivo': colors.green[600],
+              'Neutro'  : colors.yellow[600],
+            },
+
+            /** Status **/
+            status     :
+            {
+              'roxo'   : '#7f20f3',
+              'verde'  : '#94f320',
+              'laranja': '#f37f20',
+              'azul'   : '#3920f3',
             },
         },
         fontSize: {
