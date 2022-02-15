@@ -121,16 +121,18 @@ export class AcoesComponent implements OnInit {
       });
 
       dialogRef.afterClosed().subscribe((data: number[]) => {
-        this._inteiroTeorService.incluirDocumentosDoInteiroTeorDoProcesso(this.idProcesso, data).subscribe({
-            next: (data) => {
-                this.revisoesAlteradas.emit(data);
-            },
-            error: (error) => {
-              console.log(error);
-              this.errorMessage = error.message
-              this._alertaService.exibirAlerta("Error");
-            }
-        })
+          if (data) {
+            this._inteiroTeorService.incluirDocumentosDoInteiroTeorDoProcesso(this.idProcesso, data).subscribe({
+                next: (data) => {
+                    this.revisoesAlteradas.emit(data);
+                },
+                error: (error) => {
+                  console.log(error);
+                  this.errorMessage = error.message
+                  this._alertaService.exibirAlerta("Error");
+                }
+            })
+          }
       });
   }
 
