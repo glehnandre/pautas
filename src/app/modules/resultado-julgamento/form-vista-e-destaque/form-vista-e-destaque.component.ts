@@ -1,4 +1,4 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, EventEmitter, Inject, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import {
   MAT_MOMENT_DATE_ADAPTER_OPTIONS, MAT_MOMENT_DATE_FORMATS,
@@ -41,6 +41,10 @@ interface FormVistaEDestaqueData {
 })
 export class FormVistaEDestaqueComponent implements OnInit {
 
+  @Input() data: FormVistaEDestaqueData;
+  @Output() closeDrawerEmit = new EventEmitter();
+  @Output() formVistaEDestaqueEmit = new EventEmitter();
+
   formVistaEDestaque: FormGroup;
   ministros$: Observable<Ministro[]>;
   recursos$: Observable<TipoRecursoDto[]>;
@@ -53,10 +57,10 @@ export class FormVistaEDestaqueComponent implements OnInit {
     private _recursoService: RecursoService,
     private _alertaService: AlertaService,
     private _dialog: MatDialog,
-    public dialogRef: MatDialogRef<FormVistaEDestaqueComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: FormVistaEDestaqueData,
+    //public dialogRef: MatDialogRef<FormVistaEDestaqueComponent>,
+    //@Inject(MAT_DIALOG_DATA) public data: FormVistaEDestaqueData,
   ) { 
-    if (this.data.dados) {
+    /*if (this.data.dados) {
       const { data, ministro, texto } = this.data.dados;
 
       this.formVistaEDestaque = this._fb.group({
@@ -70,7 +74,7 @@ export class FormVistaEDestaqueComponent implements OnInit {
         ministro:   [null,      Validators.required],
         texto:      ['',        Validators.required],
       });
-    }
+    }*/
   }
 
   ngOnInit(): void {
@@ -90,9 +94,25 @@ export class FormVistaEDestaqueComponent implements OnInit {
         return EMPTY;
       })
     );
+
+    if (this.data.dados) {
+      const { data, ministro, texto } = this.data.dados;
+
+      this.formVistaEDestaque = this._fb.group({
+        data:       [data,            Validators.required],
+        ministro:   [ministro.id,      Validators.required],
+        texto:      [texto,           Validators.required],
+      });
+    } else {
+      this.formVistaEDestaque = this._fb.group({
+        data:       [null,      Validators.required],
+        ministro:   [null,      Validators.required],
+        texto:      ['',        Validators.required],
+      });
+    }
   }
 
-  public fecharModalEExcluirVistaOuDestaque(): void {
+  /*public fecharModalEExcluirVistaOuDestaque(): void {
     const vistaOuDestaque = (this.data.tipo === 'vista') ? 'Vista' : 'Destaque';
 
     const dialogRef = this._dialog.open(DialogoConfirmacaoComponent, {
@@ -107,12 +127,16 @@ export class FormVistaEDestaqueComponent implements OnInit {
         this.dialogRef.close('excluir');
       }
     });
-  }
+  }*/
 
   public fecharModalEEmcaminharVistaOuDestaque(): void {
     if (this.formVistaEDestaque.valid) {
-      this.dialogRef.close(this.formVistaEDestaque.value);
+      this.formVistaEDestaqueEmit.emit(this.formVistaEDestaque.value);
     }
+  }
+
+  closeDrawer() {
+    this.closeDrawerEmit.emit();
   }
 
 }

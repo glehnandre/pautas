@@ -25,7 +25,7 @@
                 </button>
 
                 <button mat-raised-button class="max-w-full mr-2 text-sm"
-                    (click)="exibirModalDeVista()">
+                    (click)="toggleDrawerOpen('vistaEDestaqueDrawer')">
                     PEDIDOS DE VISTA
                 </button>
 
@@ -59,7 +59,7 @@
                 <mat-select>
                     <mat-option (click)="finalizar()">Finalizar</mat-option>
                     <mat-option (click)="exibirModalDeDestaque()">Destaque</mat-option>
-                    <mat-option (click)="exibirModalDeVista()">Vista</mat-option>
+                    <mat-option (click)="toggleDrawerOpen('vistaEDestaqueDrawer')">Vista</mat-option>
                     <mat-option (click)="exibirModalDeModeloDecisao()">Modelos de texto</mat-option>
                     <mat-option (click)="exibirModalDeIndicacaoDeImpedimentos()">Indicar impedimentos</mat-option>
                     <mat-option>Cancelar</mat-option>
@@ -261,8 +261,12 @@
     </div>
     <div>
         <fuse-drawer [name]="'vistaEDestaqueDrawer'" [opened]="false" [position]="'right'" [mode]="'over'" id="vista-destaque-drawer">
-            <div class="p-4">
-                <!-- colocar aqui o componente modificado -->
+            <div class="p-4 w-full">
+                <app-form-vista-e-destaque
+                [data]="data"
+                (closeDrawerEmit)="toggleDrawerOpen('vistaEDestaqueDrawer')"
+                (formVistaEDestaqueEmit)="trataVista($event)"
+                ></app-form-vista-e-destaque>
             </div>
         </fuse-drawer>
     </div>

@@ -49,7 +49,7 @@ interface Decisao {
 export class ResultadoJulgamentoComponent implements OnInit {
 
   parametros: Parametros;
-  processo: Processo;
+  processo: Processo = {} as Processo;
   sessao: SessaoDeJulgamento;
   votos: Voto[] = [];
   dispositivos: Manifestacao[] = [];
@@ -59,6 +59,11 @@ export class ResultadoJulgamentoComponent implements OnInit {
   exibirListaDeDecisoes = false;
   exibirChips = true;
   chips: Array<{ id?: number; nome: string }> = [];
+  data = {
+    titulo: 'Informar Vista',
+    tipo: 'vista',
+    dados: this._obterDadosDaVistaNaListaDeDecisoes(null),
+  };
 
   alerta: Alerta = {} as Alerta;
 
@@ -319,6 +324,44 @@ export class ResultadoJulgamentoComponent implements OnInit {
         });
       }
     });
+  }
+
+  trataVista(data){
+    const id = null;
+    const ministro = this._obterDadosDaVistaNaListaDeDecisoes(id)?.ministro || null;
+    if (data === 'excluir') {
+      this._processoService.excluirVistaDoProcesso(this.parametros.numero, this.parametros.ano, this.parametros.processo, id)
+        .subscribe({
+          next: () => {
+            this.mostrarAlerta('success', 'Sucesso!', `A Vista - ${ministro['nome']} foi excluída com sucesso.`);
+            this._carregarDadosProcessos(); // atualiza a lista de Destaque
+          },
+
+          error: () => {
+            this.mostrarAlerta('error', 'Erro!', 'Ocorreu um erro no processamento de sua solicitação.');
+          },
+        });
+    } else if (data) {
+      console.log(this.sessao)
+      const vista: Vista = {
+        ...data,
+        processo: +this.parametros.processo,
+        sessao: this.sessao.id,
+      };
+
+      this._processoService.salvarVistaDoProcesso(this.parametros.numero, this.parametros.ano, this.parametros.processo, vista).subscribe({
+        next: (vistaSalva) => {
+          this._carregarDadosProcessos(); // atualiza a lista de Vistas
+          console.log("VISTA SALVA:");
+          console.log(vistaSalva);
+          this.alertaVistaEDestaque('Vista', vistaSalva['ministro']);
+        },
+        error: (error) => {
+          console.log(error);
+          this.mostrarAlerta("error", "Error", error.message);
+        }
+      });
+    }
   }
 
   /**

@@ -1,11 +1,15 @@
 
-<div class="flex flex-col max-w-200 md:min-w-180 min-h-140 min-m-4">
+<div class="flex flex-0 flex-col min-h-140 min-m-4">
+    
     <header class="flex items-center justify-between h-16 pr-3 sm:pr-5 sm:pl-8 bg-primary text-on-primary">
-        <h1 class="mt-4 flex items-center justify-center text-lg font-medium text-white-500">
+        <h1 class="mt-4 flex w-full items-center justify-center text-lg font-medium text-white-500">
             {{data.titulo}}
-        </h1>
-
-        <button mat-button mat-dialog-close class="mat-focus-indicator mat-icon-button mat-button-base" tabindex="-1">
+        </h1> 
+        <button mat-button 
+                class="mat-focus-indicator mat-icon-button mat-button-base" 
+                tabindex="-1"
+                (click)="closeDrawer();"
+                >
             <span class="mat-button-wrapper">
                 <mat-icon matSuffix class="text-white">close</mat-icon>
             </span>
@@ -56,11 +60,11 @@
                 </mat-hint>
             </mat-form-field>
 
-            <p class="mt-2 text-center flex flex-row gap-2 justify-end items-end">
+            <p class="mt-2 mb-2 text-center flex flex-row gap-2 justify-end items-end">
                 <button
                     mat-raised-button 
-                    [mat-dialog-close]="false"
                     class="mr-2" 
+                    (click)="closeDrawer();"
                 >
                     {{'Cancelar' | uppercase}}
                 </button>
@@ -70,7 +74,6 @@
                     mat-raised-button 
                     class="max-w-full" 
                     color="warn"
-                    (click)="fecharModalEExcluirVistaOuDestaque()"
                 >
                     {{'Excluir' | uppercase}}
                 </button>
@@ -79,7 +82,6 @@
                     mat-raised-button 
                     class="max-w-full" 
                     color="primary"
-                    [disabled]="formVistaEDestaque.invalid"
                     (click)="fecharModalEEmcaminharVistaOuDestaque()"
                 >
                     {{'Salvar' | uppercase}}
