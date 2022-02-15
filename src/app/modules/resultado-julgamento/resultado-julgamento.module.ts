@@ -25,7 +25,7 @@ import { Route, RouterModule } from '@angular/router';
 import { FuseAlertModule } from '@fuse/components/alert';
 import { FuseCardModule } from '@fuse/components/card';
 import { FuseDrawerModule } from '@fuse/components/drawer/drawer.module';
-//import { EditorModule } from '@tinymce/tinymce-angular';
+import { EditorModule } from '@tinymce/tinymce-angular';
 import { SharedModule } from 'app/shared/shared.module';
 import { AplicarDecisoesComponent } from './aplicar-decisoes/aplicar-decisoes.component';
 import { ChipsComponent } from './chips/chips.component';
@@ -66,7 +66,7 @@ const ResultadoJulgamentoRoutes: Route[] = [
     FormsModule,
     ReactiveFormsModule,
     MatInputModule,
-    //EditorModule,
+    EditorModule,
     MatButtonModule,
     SharedModule,
     FuseCardModule,
