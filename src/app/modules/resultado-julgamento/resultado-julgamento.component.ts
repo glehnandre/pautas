@@ -43,7 +43,7 @@ interface Decisao {
   selector: 'app-resultado-julgamento',
   templateUrl: './resultado-julgamento.component.html',
   styleUrls: ['./resultado-julgamento.component.scss'],
-  encapsulation  : ViewEncapsulation.None,
+  encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ResultadoJulgamentoComponent implements OnInit {
@@ -58,7 +58,7 @@ export class ResultadoJulgamentoComponent implements OnInit {
   modelo: ModeloDecisao;
   exibirListaDeDecisoes = false;
   exibirChips = true;
-  chips: Array<{id?: number; nome: string}> = [];
+  chips: Array<{ id?: number; nome: string }> = [];
 
   alerta: Alerta = {} as Alerta;
 
@@ -73,7 +73,7 @@ export class ResultadoJulgamentoComponent implements OnInit {
     private _fuseDrawerService: FuseDrawerService,
     private _dialog: MatDialog,
     private cd: ChangeDetectorRef,
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this._route.queryParams.subscribe((params: Parametros) => {
@@ -188,8 +188,8 @@ export class ResultadoJulgamentoComponent implements OnInit {
    * TODO andre.glehn falta remover do servidor
    */
   public atualizarCapitulos(capitulos: Capitulo[]): void {
-       this.todosCapitulos = capitulos;
-       this.setCapituloSelecionado(null);
+    this.todosCapitulos = capitulos;
+    this.setCapituloSelecionado(null);
   }
 
   /**
@@ -236,16 +236,16 @@ export class ResultadoJulgamentoComponent implements OnInit {
       }
     });
     interface Retorno { modelo: ModeloDecisao, dispositivo: string, recurso: string }
-    dialogRef.afterClosed().subscribe(({ modelo, dispositivo, recurso } : Retorno ) => {
-      if(modelo) {
+    dialogRef.afterClosed().subscribe(({ modelo, dispositivo, recurso }: Retorno) => {
+      if (modelo) {
         this.modelo = modelo;
         this.mostrarAlerta('success', 'Modelo Cadastrado com Sucesso',
           `O modelo de texto para
-          ${ modelo.classe },
-          ${ modelo.tipoCapitulo },
-          ${ dispositivo} e
-          ${ recurso } foi incluída com sucesso.\n
-          ${ modelo.texto }`);
+          ${modelo.classe},
+          ${modelo.tipoCapitulo},
+          ${dispositivo} e
+          ${recurso} foi incluída com sucesso.\n
+          ${modelo.texto}`);
       }
       else {
         this.mostrarAlerta('error', 'Erro ao cadastrar modelo', 'Tente Novamente Mais Tarde');
@@ -254,16 +254,16 @@ export class ResultadoJulgamentoComponent implements OnInit {
   }
 
   private alertaVistaEDestaque(tipo: string, ministro: Ministro): void {
-    if(ministro) {
-        this.mostrarAlerta('success', 'Sucesso', `
-          ${ tipo }
-          ${ this._ministroService.generoEPlural([ministro],
-            { F: 'da Ministra', M: 'do Ministro' })}
-          ${ ministro.nome }
-          incluíd${ tipo == 'Vista'? 'a': 'o'} com sucesso!
+    if (ministro) {
+      this.mostrarAlerta('success', 'Sucesso', `
+          ${tipo}
+          ${this._ministroService.generoEPlural([ministro],
+        { F: 'da Ministra', M: 'do Ministro' })}
+          ${ministro.nome}
+          incluíd${tipo == 'Vista' ? 'a' : 'o'} com sucesso!
         `);
     } else {
-        this.mostrarAlerta('error', `Erro ao Cadastrar ${ tipo }`, 'Tente Novamente Mais Tarde');
+      this.mostrarAlerta('error', `Erro ao Cadastrar ${tipo}`, 'Tente Novamente Mais Tarde');
     }
   }
 
@@ -296,7 +296,7 @@ export class ResultadoJulgamentoComponent implements OnInit {
             error: () => {
               this.mostrarAlerta('error', 'Erro!', 'Ocorreu um erro no processamento de sua solicitação.');
             },
-        });
+          });
       } else if (data) {
         console.log(this.sessao)
         const vista: Vista = {
@@ -319,6 +319,16 @@ export class ResultadoJulgamentoComponent implements OnInit {
         });
       }
     });
+  }
+
+  /**
+   * @public Método público
+   * @description Abre um drawer específico.
+   * @author André von Glehn
+   */
+  toggleDrawerOpen(drawerName): void {
+    const drawer = this._fuseDrawerService.getComponent(drawerName);
+    drawer.toggle();
   }
 
   /**
@@ -347,7 +357,7 @@ export class ResultadoJulgamentoComponent implements OnInit {
               this.mostrarAlerta('success', 'Sucesso!', `O Destaque - ${ministro['nome']} foi excluído com sucesso.`);
               this._carregarDadosProcessos(); // atualiza a lista de Destaque
             },
-            
+
             error: () => {
               this.mostrarAlerta('error', 'Erro!', 'Ocorreu um erro no processamento de sua solicitação.');
             },
@@ -404,7 +414,7 @@ export class ResultadoJulgamentoComponent implements OnInit {
    *
    * @param event
    */
-  public abrirModal(event: {click: boolean, chip: {id?:number; nome: string}}): void {
+  public abrirModal(event: { click: boolean, chip: { id?: number; nome: string } }): void {
     const str = event.chip.nome.toLocaleLowerCase();
 
     if (event.click) {
@@ -441,46 +451,46 @@ export class ResultadoJulgamentoComponent implements OnInit {
    *              Destaque) e o seu respectivo id.
    * @author Douglas da Silva Monteles
    */
-  public obterChipRemovido(chip: {id?:number; nome: string}): void {
-      try {
-        const tipo: string = chip.nome.split(' ')[0].toLocaleLowerCase();
-        const id: number = +chip.id;
-  
-        if (tipo === 'vista') {
-          this._processoService.excluirVistaDoProcesso(this.parametros.numero, this.parametros.ano, this.parametros.processo, id)
-            .subscribe({
-              next: () => {
-                this.mostrarAlerta('success', 'Sucesso!', `A ${chip.nome} foi excluída com sucesso.`);
-              },
-              error: (error) => {
-                console.log(error);
-                this.mostrarAlerta("error", "Error", error.message);
-              }
-            });
-        } else { // destaque
-          this._processoService.excluirDestaqueDoProcesso(this.parametros.numero, this.parametros.ano, this.parametros.processo, id)
-            .subscribe({
-              next: () => {
-                this.mostrarAlerta('success', 'Sucesso!', `O ${chip.nome} foi excluído com sucesso.`);
-              },
-              error: (error) => {
-                console.log(error);
-                this.mostrarAlerta("error", "Error", error.message);
-              }
-            });
-        }
-      } catch (error) {
-        console.log(error);
+  public obterChipRemovido(chip: { id?: number; nome: string }): void {
+    try {
+      const tipo: string = chip.nome.split(' ')[0].toLocaleLowerCase();
+      const id: number = +chip.id;
+
+      if (tipo === 'vista') {
+        this._processoService.excluirVistaDoProcesso(this.parametros.numero, this.parametros.ano, this.parametros.processo, id)
+          .subscribe({
+            next: () => {
+              this.mostrarAlerta('success', 'Sucesso!', `A ${chip.nome} foi excluída com sucesso.`);
+            },
+            error: (error) => {
+              console.log(error);
+              this.mostrarAlerta("error", "Error", error.message);
+            }
+          });
+      } else { // destaque
+        this._processoService.excluirDestaqueDoProcesso(this.parametros.numero, this.parametros.ano, this.parametros.processo, id)
+          .subscribe({
+            next: () => {
+              this.mostrarAlerta('success', 'Sucesso!', `O ${chip.nome} foi excluído com sucesso.`);
+            },
+            error: (error) => {
+              console.log(error);
+              this.mostrarAlerta("error", "Error", error.message);
+            }
+          });
       }
+    } catch (error) {
+      console.log(error);
+    }
   }
 
-	/**
+  /**
    * @public Método público
    * @description Método obter os nomes dos chips
    * @author Douglas da Silva Monteles
    */
   public obterNomeDosChips(): string[] {
-		return this.chips.map(chip => chip.nome);
+    return this.chips.map(chip => chip.nome);
   }
 
   /**
@@ -490,36 +500,36 @@ export class ResultadoJulgamentoComponent implements OnInit {
    */
   public finalizar(): void {
 
-    if(this.processo.capitulos.length>0){
+    if (this.processo.capitulos.length > 0) {
       const dialogRef = this._dialog.open(FormRelatorComponent, {
-        data: { 
-          sessao: this.sessao,       
+        data: {
+          sessao: this.sessao,
           processo: this.processo
         }
       });
-  
+
       dialogRef.afterClosed().subscribe(data => {
         console.log("POS SALVAMENTO RELATOR");
         console.log(data);
-        if(data.status){
+        if (data.status) {
           console.log("MOSTRA ALERTA");
           this.mostrarAlerta('success', 'Sucesso',
             `O Resultado da Sessão de Julgamento foi lançada com sucesso`);
-        }else{
-          this.mostrarAlerta('error','Erro ao finalizar a publicação', data.mensagem_tratada);
+        } else {
+          this.mostrarAlerta('error', 'Erro ao finalizar a publicação', data.mensagem_tratada);
         }
       });
-    }else{
+    } else {
       this._processoService.finalizarJulgamentoProcesso(this.parametros.numero, this.parametros.ano, this.processo).subscribe({
         next: (data) => {
-          this.mostrarAlerta('success','Sucesso', data);
+          this.mostrarAlerta('success', 'Sucesso', data);
         },
         error: (data) => {
           console.log(data);
         }
       });
     }
-    
+
   }
 
   /**
@@ -552,22 +562,22 @@ export class ResultadoJulgamentoComponent implements OnInit {
         console.log(error);
         this.mostrarAlerta("error", "Error", error.message);
       }
-      
+
     });
   }
 
-    /**
-   * @private Método privado
-   * @description Método para carregar as informações da Sessao de julgamento
-   * @author Douglas da Silva Monteles
-   */
-     private _carregarSessaoDeJulgamento(numero: number, ano: number): void {
-      this._sessaoDeJulgamentoService.listarSessoesDeJulgamento(numero, ano).subscribe({
-        next: (SessaoDeJulgamento) => {
-          this.sessao = SessaoDeJulgamento;
-        }
-      });
-    }
+  /**
+ * @private Método privado
+ * @description Método para carregar as informações da Sessao de julgamento
+ * @author Douglas da Silva Monteles
+ */
+  private _carregarSessaoDeJulgamento(numero: number, ano: number): void {
+    this._sessaoDeJulgamentoService.listarSessoesDeJulgamento(numero, ano).subscribe({
+      next: (SessaoDeJulgamento) => {
+        this.sessao = SessaoDeJulgamento;
+      }
+    });
+  }
 
   /**
    * @private Método privado
@@ -579,31 +589,31 @@ export class ResultadoJulgamentoComponent implements OnInit {
     const chips = [];
 
     if (this.processo) {
-      if(this.processo.vistas){
-        this.processo.vistas.forEach(({id, ministro}) => {
+      if (this.processo.vistas) {
+        this.processo.vistas.forEach(({ id, ministro }) => {
           const str = `Vista - ${ministro['abreviacao']}`;
           chips.push({ id, nome: str });
         });
       }
 
-      if(this.processo.destaques){
-        this.processo.destaques.forEach(({id, ministro}) => {
+      if (this.processo.destaques) {
+        this.processo.destaques.forEach(({ id, ministro }) => {
           const str = `Destaque - ${ministro['abreviacao']}`;
           chips.push({ id, nome: str });
         });
       }
 
-      if(this.processo.ministros_impedidos){
-        this.processo.ministros_impedidos.forEach(({abreviacao}) => {
+      if (this.processo.ministros_impedidos) {
+        this.processo.ministros_impedidos.forEach(({ abreviacao }) => {
           const str = `Impedido(a) - ${abreviacao}`;
-          chips.push({nome: str});
+          chips.push({ nome: str });
         });
       }
 
-      if(this.processo.ministros_suspeitos){
-        this.processo.ministros_suspeitos.forEach(({abreviacao}) => {
+      if (this.processo.ministros_suspeitos) {
+        this.processo.ministros_suspeitos.forEach(({ abreviacao }) => {
           const str = `Suspeito(a) - ${abreviacao}`;
-          chips.push({nome: str});
+          chips.push({ nome: str });
         });
       }
     }
@@ -624,7 +634,7 @@ export class ResultadoJulgamentoComponent implements OnInit {
 
   private _obterDadosDoDestaqueNaListaDeDecisoes(id: number): Destaque {
     let destaque: Destaque = null;
-    
+
     if (this.processo.destaques) {
       destaque = this.processo.destaques.find(d => d.id === id);
     }
@@ -647,13 +657,13 @@ export class ResultadoJulgamentoComponent implements OnInit {
    * @author Rodrigo Carvalho dos Santos
    */
   private mostrarAlerta(
-    tipo: 'primary'|'accent'|'warn'|'basic'|'info'|'success'|'warning'|'error',
+    tipo: 'primary' | 'accent' | 'warn' | 'basic' | 'info' | 'success' | 'warning' | 'error',
     titulo: string,
     mensagem: string,
   ): void {
     this.alerta = {
-      nome: "Error", 
-      tipo: tipo, 
+      nome: "Error",
+      tipo: tipo,
       titulo: titulo,
       mensagem: mensagem
     }

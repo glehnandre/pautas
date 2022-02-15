@@ -1,4 +1,5 @@
-<div class="flex flex-col max-w-200 md:min-w-180 min-h-140 min-m-6">
+
+<div class="flex flex-col max-w-200 md:min-w-180 min-h-140 min-m-4">
     <header class="flex items-center justify-between h-16 pr-3 sm:pr-5 sm:pl-8 bg-primary text-on-primary">
         <h1 class="mt-4 flex items-center justify-center text-lg font-medium text-white-500">
             {{data.titulo}}
@@ -13,7 +14,7 @@
 
     <div class="flex flex-col flex-auto pt-6 sm:pt-8 overflow-y-auto ng-pristine ng-invalid ng-touched">
         <form [formGroup]="formVistaEDestaque">
-            <div class="w-full grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div class="w-full grid grid-cols-1 sm:grid-cols-2 gap-2">
                 <mat-form-field class="w-full mb-4 col-span-1" appearance="outline">
                     <mat-label>Ministro requerente</mat-label>
                     <mat-select
@@ -41,9 +42,8 @@
                     <mat-datepicker #picker></mat-datepicker>
                 </mat-form-field>
             </div>
-
-            <mat-form-field class="w-full h-full mb-4" appearance="outline">
-                <mat-label>Texto <span class="text-red-500">*</span></mat-label>
+           <mat-form-field class="w-full h-full mb-2" appearance="outline">
+                <mat-label>Texto</mat-label>
                 
                 <textarea class="h-100"
                     matInput 
@@ -56,7 +56,7 @@
                 </mat-hint>
             </mat-form-field>
 
-            <p class="mt-4 text-center flex flex-row gap-4 justify-end items-end">
+            <p class="mt-2 text-center flex flex-row gap-2 justify-end items-end">
                 <button
                     mat-raised-button 
                     [mat-dialog-close]="false"
