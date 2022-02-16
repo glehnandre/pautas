@@ -52,7 +52,6 @@ export class FormVistaEDestaqueComponent implements OnInit {
   @Output() closeDrawerEmit = new EventEmitter();
   @Output() savedDrawer = new EventEmitter<{vistas: Vista[], destaques: Destaque[]}>();
 
-
   formVistaEDestaque: FormGroup;
   ministros$: Observable<Ministro[]>;
   recursos$: Observable<TipoRecursoDto[]>;

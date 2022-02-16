@@ -172,9 +172,6 @@ export class FormModeloDecisaoComponent implements OnInit {
 
   public salvarModeloDecisao(): void {
     if (this.formModeloDecisao.valid) {
-      console.log("MODELO DECISAO...");
-      console.log(this.formModeloDecisao);
-
       if(this.modelo.id == 0){
         this._processoService.salvarModeloDecisao(this.formModeloDecisao.value).subscribe({
           next: (modelo) => {

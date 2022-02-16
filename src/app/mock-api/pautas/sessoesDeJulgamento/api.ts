@@ -181,7 +181,6 @@ export class SessaoDeJulgamentoMockApi {
           }else if(nome !== null){
             index = this._secretarios.findIndex(secretario => secretario.nome.includes(nome));
           }
-
           if(index == 0){
             return [200, this._secretarios];
           }else if (index != -1) {

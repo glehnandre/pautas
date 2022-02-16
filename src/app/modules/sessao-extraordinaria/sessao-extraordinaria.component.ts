@@ -124,7 +124,6 @@ export class SessaoExtraordinariaComponent implements OnInit {
 
     this._sessaoDejulgamentoService.aprovarSessaoDeJulgamento(numero, ano, this.resposta).subscribe({
       next: (data) => {
-
       },
       error: (error) => {
         console.log(error);
@@ -145,7 +144,6 @@ export class SessaoExtraordinariaComponent implements OnInit {
 
     this._sessaoDejulgamentoService.rejeitarSessaoDeJulgamento(numero, ano, this.resposta).subscribe({
       next: (data) => {
-
       },
       error: (error) => {
         console.log(error);
