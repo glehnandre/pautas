@@ -94,6 +94,15 @@ export class ResultadoJulgamentoComponent implements OnInit {
   }
 
   /**
+   * transforma um string com tags html em uma string padrão
+   * @param html string com tags html
+   */
+  removerTagsHTML(html: string): string{
+    const data = new DOMParser().parseFromString(html, 'text/html');
+    return data.body.textContent || "";
+  }
+
+  /**
    * @public Método público
    * @param drawerName Nome do drawer a ser exibido
    * @description Método para exibir ou esconder a gaveta com conteúdo

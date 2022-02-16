@@ -215,7 +215,7 @@
                                                         <!-- Title & Placeholder -->
                                                         <div class="flex-auto mr-2 truncate">
                                                             <ng-container class="flex items-center justify-center">
-                                                                <p class="my-auto" [matTooltip]="vista.texto" >
+                                                                <p class="my-auto" [matTooltip]="removerTagsHTML(vista.texto)" >
                                                                     Vista <strong
                                                                         class="text-primary-500">{{vista.ministro.nome}}</strong>
                                                                     pedida em {{vista.data |
@@ -274,7 +274,7 @@
                                                         <!-- Title & Placeholder -->
                                                         <div class="flex-auto mr-2 truncate">
                                                             <ng-container class="flex items-center justify-center">
-                                                                <p class="my-auto" [matTooltip]="destaque.texto">
+                                                                <p class="my-auto" [matTooltip]="removerTagsHTML(destaque.texto)">
                                                                     Destaque <strong
                                                                         class="text-primary-500">{{destaque.ministro.nome}}</strong>
                                                                     pedido em
