@@ -18,14 +18,13 @@ export class MinistrosQueAcompanharamComponent implements OnInit {
 
   ngOnInit(): void {
     if (this.pdf) {
-      console.log(this.pdf)
     }
   }
 
   public getVotosQueAcompanharam(start: number, end: number): Ministro[] {
     if (this.votos.length > 0) {
       const index = this.votos.findIndex(({autor}) => this.pdf.includes(autor.abreviacao));
-      
+
       if (index !== -1) {
         this.ministrosQueAcompanharam = this.votos[index].acompanharam;
         const votos = [...this.ministrosQueAcompanharam].slice(start, end);

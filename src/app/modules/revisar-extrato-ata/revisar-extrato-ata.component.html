@@ -1,7 +1,7 @@
-<div class="absolute inset-0 flex flex-col min-w-0 overflow-hidden">
+<div class="absolute inset-0 flex flex-col min-w-0 overflow-hidden bg-page">
     <!-- Header -->
-    <div class="justify-center px-2 sm:px-4 pb-2 bg-white dark:bg-gray-800">
-        <div class="flex flex-row">
+    <div class="justify-center px-2 sm:px-4 pb-2">
+        <div class="flex flex-row mb-4">
             <h1 class="mt-4 text-primary font-medium text-base sm:text-xl md:text-2xl w-full">
                 Revisar Extrato da Ata Sessão {{ sessao?.numero }}/{{ sessao?.ano }} - {{ sessao?.colegiado }} - {{ sessao?.modalidade }}
             </h1>
@@ -61,7 +61,7 @@
         </div>
     </div>
 
-    
+
     <!-- Body -->
     <div class="overflow-y-auto w-full" cdkScrollable>
         <app-extrato-ata

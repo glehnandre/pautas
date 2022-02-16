@@ -28,7 +28,7 @@ export class ProcessoService {
 
   public listarProcessos(processo?: number): Observable<Processo[]> {
     let params = new HttpParams();
-    
+
     if (processo) {
       params = params.set("processo", processo);
     }
@@ -73,14 +73,14 @@ export class ProcessoService {
     return this._httpClient.post<string>(`sessao-de-julgamento/${numeroAno}/processos/${idProcesso}/relator`, idRelator);
   }
 
-  public salvarVistaDoProcesso(numero: number, ano: number, id: number, vista: Vista): Observable<void> {
+  public salvarVistaDoProcesso(numero: number, ano: number, idProcesso: number, vista: Vista): Observable<Vista[]> {
     const numeroAno = `${numero}-${ano}`;
-    return this._httpClient.post<void>(`sessao-de-julgamento/${numeroAno}/processos/${id}/vistas`, vista);
+    return this._httpClient.post<Vista[]>(`sessao-de-julgamento/${numeroAno}/processos/${idProcesso}/vistas`, vista);
   }
 
-  public salvarDestaqueDoProcesso(numero: number, ano: number, id: number, destaque: Destaque): Observable<void> {
+  public salvarDestaqueDoProcesso(numero: number, ano: number, idProcesso: number, destaque: Destaque): Observable<Destaque[]> {
     const numeroAno = `${numero}-${ano}`;
-    return this._httpClient.post<void>(`sessao-de-julgamento/${numeroAno}/processos/${id}/destaques`, destaque);
+    return this._httpClient.post<Destaque[]>(`sessao-de-julgamento/${numeroAno}/processos/${idProcesso}/destaques`, destaque);
   }
 
   public salvarImpedimentos(numero: number, ano: number, id: number, obj: any): Observable<void> {
@@ -93,7 +93,7 @@ export class ProcessoService {
     return this._httpClient.delete<void>(`sessao-de-julgamento/${numeroAno}/processos/${id}/vistas/${idVista}`);
   }
 
-  
+
   public atualizarVistasDoProcesso(numero: number, ano: number, id: number, idVista: number, vista: Vista): Observable<void> {
     const numeroAno = `${numero}-${ano}`;
     return this._httpClient.put<void>(`sessao-de-julgamento/${numeroAno}/processos/${id}/vistas/${idVista}`, vista);
@@ -104,7 +104,7 @@ export class ProcessoService {
     return this._httpClient.post<string>(`sessao-de-julgamento/${numeroAno}/processos/${processo.id}/finalizar-julgamento`, processo);
   }
 
-  
+
   public finalizarSessaoDeJulgamento(numero: number, ano: number, dadosDaSessaoJulgamento: any): Observable<void> {
     const numeroAno = `${numero}-${ano}`;
     return this._httpClient.put<void>(`sessoes-de-julgamento/${numeroAno}/finalizar`, dadosDaSessaoJulgamento);
@@ -126,7 +126,7 @@ export class ProcessoService {
     return this._httpClient.delete<void>(`sessao-de-julgamento/${numeroAno}/processos/${id}/destaques/${idDestaque}`);
   }
 
-  
+
   public salvarCapitulo(numero: number, ano: number, id: number, {capitulo, processos_mesma_decisao}): Observable<Capitulo[]> {
     const numeroAno = `${numero}-${ano}`;
     return this._httpClient.post<Capitulo[]>(`sessao-de-julgamento/${numeroAno}/processos/${id}/capitulos`, {
@@ -176,8 +176,6 @@ export class ProcessoService {
       .set('tipo_capitulo', tipoCapitulo)
       .set('dispositivo', dispositivo)
       .set('recurso', recurso);
-    console.log("PARAMS PARA MODELO DE DECISAO");
-    console.log(params);
     return this._httpClient.get<ModeloDecisao>(`modelo-decisao`, {
       params,
     });
