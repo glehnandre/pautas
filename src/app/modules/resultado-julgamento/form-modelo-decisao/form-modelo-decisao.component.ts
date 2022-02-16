@@ -162,8 +162,6 @@ export class FormModeloDecisaoComponent implements OnInit {
    */
   private sairModal(): void {
     const modelo = this.formModeloDecisao.value;
-    console.log("MODELO");
-    console.log(this.formModeloDecisao)
     const dispositivo = this.dispositivos.find(({ id }) => id == modelo.dispositivo).nome;
     let recurso;
     this.recursos$.subscribe(recursos => {
@@ -174,9 +172,6 @@ export class FormModeloDecisaoComponent implements OnInit {
 
   public salvarModeloDecisao(): void {
     if (this.formModeloDecisao.valid) {
-      console.log("MODELO DECISAO...");
-      console.log(this.formModeloDecisao);
-
       if(this.modelo.id == 0){
         this._processoService.salvarModeloDecisao(this.formModeloDecisao.value).subscribe({
           next: (modelo) => {

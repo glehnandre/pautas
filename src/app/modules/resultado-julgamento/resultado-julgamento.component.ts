@@ -4,6 +4,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute } from '@angular/router';
 import { FuseDrawerService } from '@fuse/components/drawer';
 import { Alerta } from 'app/shared/alerta/alerta.component';
+import { DialogoConfirmacaoComponent } from 'app/shared/dialogo-confirmacao/dialogo-confirmacao.component';
 import { Capitulo } from 'app/shared/model/interfaces/capitulo.interface';
 import { Destaque } from 'app/shared/model/interfaces/destaque.interface';
 import { Manifestacao } from 'app/shared/model/interfaces/manifestacao.interface';
@@ -304,7 +305,6 @@ export class ResultadoJulgamentoComponent implements OnInit {
             },
           });
       } else if (data) {
-        console.log(this.sessao)
         const vista: Vista = {
           ...data,
           processo: +this.parametros.processo,
@@ -314,8 +314,6 @@ export class ResultadoJulgamentoComponent implements OnInit {
         this._processoService.salvarVistaDoProcesso(this.parametros.numero, this.parametros.ano, this.parametros.processo, vista).subscribe({
           next: (vistaSalva) => {
             this._carregarDadosProcessos(); // atualiza a lista de Vistas
-            console.log("VISTA SALVA:");
-            console.log(vistaSalva);
             this.alertaVistaEDestaque('Vista', vistaSalva['ministro']);
           },
           error: (error) => {
@@ -327,43 +325,15 @@ export class ResultadoJulgamentoComponent implements OnInit {
     });
   }
 
-  trataVista(data){
-    const id = null;
-    const ministro = this._obterDadosDaVistaNaListaDeDecisoes(id)?.ministro || null;
-    if (data === 'excluir') {
-      this._processoService.excluirVistaDoProcesso(this.parametros.numero, this.parametros.ano, this.parametros.processo, id)
-        .subscribe({
-          next: () => {
-            this.mostrarAlerta('success', 'Sucesso!', `A Vista - ${ministro['nome']} foi excluída com sucesso.`);
-            this._carregarDadosProcessos(); // atualiza a lista de Destaque
-          },
-
-          error: () => {
-            this.mostrarAlerta('error', 'Erro!', 'Ocorreu um erro no processamento de sua solicitação.');
-          },
-        });
-    } else if (data) {
-      console.log(this.sessao)
-      const vista: Vista = {
-        ...data,
-        processo: +this.parametros.processo,
-        sessao: this.sessao.id,
-      };
-
-      this._processoService.salvarVistaDoProcesso(this.parametros.numero, this.parametros.ano, this.parametros.processo, vista).subscribe({
-        next: (vistaSalva) => {
-          this._carregarDadosProcessos(); // atualiza a lista de Vistas
-          console.log("VISTA SALVA:");
-          console.log(vistaSalva);
-          this.alertaVistaEDestaque('Vista', vistaSalva['ministro']);
-        },
-        error: (error) => {
-          console.log(error);
-          this.mostrarAlerta("error", "Error", error.message);
-        }
-      });
-    }
+  retornoVistaDrawer(data){
+    this.mostrarAlerta('success', 'Sucesso!', `Vista incluída com sucesso.`);
   }
+
+  
+  retornoDestaqueDrawer(data){
+    this.mostrarAlerta('success', 'Sucesso!', `Destaque incluído com sucesso.`);
+  }
+
 
   /**
    * @public Método público
@@ -488,45 +458,60 @@ export class ResultadoJulgamentoComponent implements OnInit {
     return '';
   }
 
-  /**
-   * @public Método público
-   * @param chip Conteúdo exibido no chip
-   * @description Método que recebe a string do chip e separa o tipo (Vista ou
-   *              Destaque) e o seu respectivo id.
-   * @author Douglas da Silva Monteles
-   */
-  public obterChipRemovido(chip: { id?: number; nome: string }): void {
-    try {
-      const tipo: string = chip.nome.split(' ')[0].toLocaleLowerCase();
-      const id: number = +chip.id;
 
-      if (tipo === 'vista') {
-        this._processoService.excluirVistaDoProcesso(this.parametros.numero, this.parametros.ano, this.parametros.processo, id)
-          .subscribe({
-            next: () => {
-              this.mostrarAlerta('success', 'Sucesso!', `A ${chip.nome} foi excluída com sucesso.`);
-            },
-            error: (error) => {
-              console.log(error);
-              this.mostrarAlerta("error", "Error", error.message);
-            }
+  public excluirVista(vista: Vista): void {
+      const dialogRef = this._dialog.open(DialogoConfirmacaoComponent, {
+        data: {
+          titulo: 'EXCLUSÃO DE VISTA',
+          mensagem: `Confirma a exclusão da Vista do(a) Ministro(a) ${vista.ministro.nome}?`
+        },
+      });
+  
+      dialogRef.afterClosed().subscribe(confirmacao => {
+        if (confirmacao) {
+          this._processoService.excluirVistaDoProcesso(this.parametros.numero, this.parametros.ano, this.parametros.processo, vista.id)
+              .subscribe({
+                next: () => {
+                  this.mostrarAlerta('success', 'Sucesso!', `A vista do Ministro(a) ${vista.ministro.nome} foi excluída com sucesso.`);
+                  this.cd.detectChanges();
+                },
+                error: (error) => {
+                  console.log(error);
+                  this.mostrarAlerta("error", "Error", error.message);
+                  this.cd.detectChanges();
+                }
           });
-      } else { // destaque
-        this._processoService.excluirDestaqueDoProcesso(this.parametros.numero, this.parametros.ano, this.parametros.processo, id)
-          .subscribe({
-            next: () => {
-              this.mostrarAlerta('success', 'Sucesso!', `O ${chip.nome} foi excluído com sucesso.`);
-            },
-            error: (error) => {
-              console.log(error);
-              this.mostrarAlerta("error", "Error", error.message);
-            }
-          });
-      }
-    } catch (error) {
-      console.log(error);
-    }
+        }
+      });
   }
+
+  public excluirDestaque(destaque: Destaque): void {
+    const dialogRef = this._dialog.open(DialogoConfirmacaoComponent, {
+      data: {
+        titulo: 'EXCLUSÃO DE DESTAQUE',
+        mensagem: `Confirma a exclusão do Destaque do(a) Ministro(a) ${destaque.ministro.nome}?`
+      },
+    });
+
+    dialogRef.afterClosed().subscribe(confirmacao => {
+      if (confirmacao) {
+        this._processoService.excluirDestaqueDoProcesso(this.parametros.numero, this.parametros.ano, this.parametros.processo, destaque.id)
+            .subscribe({
+              next: () => {
+                this.mostrarAlerta('success', 'Sucesso!', `O Destaque do Ministro(a) ${destaque.ministro.nome} foi excluída com sucesso.`);
+                this.cd.detectChanges();
+              },
+              error: (error) => {
+                console.log(error);
+                this.mostrarAlerta("error", "Error", error.message);
+                this.cd.detectChanges();
+              }
+        });
+      }
+    });
+}
+
+
 
   /**
    * @public Método público
@@ -553,10 +538,7 @@ export class ResultadoJulgamentoComponent implements OnInit {
       });
 
       dialogRef.afterClosed().subscribe(data => {
-        console.log("POS SALVAMENTO RELATOR");
-        console.log(data);
         if (data.status) {
-          console.log("MOSTRA ALERTA");
           this.mostrarAlerta('success', 'Sucesso',
             `O Resultado da Sessão de Julgamento foi lançada com sucesso`);
         } else {
@@ -587,14 +569,11 @@ export class ResultadoJulgamentoComponent implements OnInit {
         this.processo = processo;
         this.todosCapitulos = processo.capitulos;
         this.cd.detectChanges();
-        console.log("ESSES SAO OS DADOS DO PROCESSO CARREGADOS NO PROCESSO...");
-        console.log(processo);
         this._criarChips();
 
         this._processoService.obterVotosDoProcesso(this.processo.id).subscribe({
           next: (votos) => {
             this.votos = votos;
-            console.log(this.votos)
           },
           error: (error) => {
             console.log(error);
@@ -633,20 +612,6 @@ export class ResultadoJulgamentoComponent implements OnInit {
     const chips = [];
 
     if (this.processo) {
-      if (this.processo.vistas) {
-        this.processo.vistas.forEach(({ id, ministro }) => {
-          const str = `Vista - ${ministro['abreviacao']}`;
-          chips.push({ id, nome: str });
-        });
-      }
-
-      if (this.processo.destaques) {
-        this.processo.destaques.forEach(({ id, ministro }) => {
-          const str = `Destaque - ${ministro['abreviacao']}`;
-          chips.push({ id, nome: str });
-        });
-      }
-
       if (this.processo.ministros_impedidos) {
         this.processo.ministros_impedidos.forEach(({ abreviacao }) => {
           const str = `Impedido(a) - ${abreviacao}`;

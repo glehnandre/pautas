@@ -57,8 +57,6 @@ export class SessaoDeJulgamentoMockApi {
               return sessaoNumeroAno === numeroAno;
           });
           if (sessaoDeJulgamento) {
-            console.log('RETORNO DA API DE SESSAO DE JULGAMENTO...');
-            console.log(sessaoDeJulgamento);
             return [200, sessaoDeJulgamento];
           } else {
             return [404, { description: 'Sessao de julgamento não foi encontrada' }];
@@ -175,21 +173,16 @@ export class SessaoDeJulgamentoMockApi {
         this._fuseMockApiService
         .onGet('secretarios')
         .reply(({request}) => {
-          console.log("ENTREI NA PESQUSA DE SECRETARIOS");
           const idPessoa = Number(request.params.get('id'));
           const nome = request.params.get('nome');
           let index = 0;
-          console.log(idPessoa);
-          console.log(nome);
           if(idPessoa !== 0){
             index = this._secretarios.findIndex(secretario => secretario.id === idPessoa);
           }else if(nome !== null){
             index = this._secretarios.findIndex(secretario => secretario.nome.includes(nome));
           }
           
-          console.log(index);
           if(index == 0){
-            console.log("retornar todos os secretarios...");
             return [200, this._secretarios];
           }else if (index != -1) {
             return [200, this._secretarios[index]];

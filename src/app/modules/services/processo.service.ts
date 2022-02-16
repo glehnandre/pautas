@@ -73,14 +73,14 @@ export class ProcessoService {
     return this._httpClient.post<string>(`sessao-de-julgamento/${numeroAno}/processos/${idProcesso}/relator`, idRelator);
   }
 
-  public salvarVistaDoProcesso(numero: number, ano: number, id: number, vista: Vista): Observable<void> {
+  public salvarVistaDoProcesso(numero: number, ano: number, idProcesso: number, vista: Vista): Observable<Vista[]> {
     const numeroAno = `${numero}-${ano}`;
-    return this._httpClient.post<void>(`sessao-de-julgamento/${numeroAno}/processos/${id}/vistas`, vista);
+    return this._httpClient.post<Vista[]>(`sessao-de-julgamento/${numeroAno}/processos/${idProcesso}/vistas`, vista);
   }
 
-  public salvarDestaqueDoProcesso(numero: number, ano: number, id: number, destaque: Destaque): Observable<void> {
+  public salvarDestaqueDoProcesso(numero: number, ano: number, idProcesso: number, destaque: Destaque): Observable<Destaque[]> {
     const numeroAno = `${numero}-${ano}`;
-    return this._httpClient.post<void>(`sessao-de-julgamento/${numeroAno}/processos/${id}/destaques`, destaque);
+    return this._httpClient.post<Destaque[]>(`sessao-de-julgamento/${numeroAno}/processos/${idProcesso}/destaques`, destaque);
   }
 
   public salvarImpedimentos(numero: number, ano: number, id: number, obj: any): Observable<void> {
@@ -176,8 +176,6 @@ export class ProcessoService {
       .set('tipo_capitulo', tipoCapitulo)
       .set('dispositivo', dispositivo)
       .set('recurso', recurso);
-    console.log("PARAMS PARA MODELO DE DECISAO");
-    console.log(params);
     return this._httpClient.get<ModeloDecisao>(`modelo-decisao`, {
       params,
     });

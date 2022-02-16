@@ -88,7 +88,6 @@ export class SessaoExtraordinariaComponent implements OnInit {
       });
       dialogRef.afterClosed().subscribe(result => {
           this.resposta = result.resposta;
-          console.log(result);
           if(result)
             if(result.aceitar)
                 this.aprovarSessao();
@@ -125,7 +124,7 @@ export class SessaoExtraordinariaComponent implements OnInit {
 
     this._sessaoDejulgamentoService.aprovarSessaoDeJulgamento(numero, ano, this.resposta).subscribe({
       next: (data) => {
-        console.log(data,this.resposta);
+        
       },
       error: (error) => {
         console.log(error);
@@ -146,7 +145,7 @@ export class SessaoExtraordinariaComponent implements OnInit {
 
     this._sessaoDejulgamentoService.rejeitarSessaoDeJulgamento(numero, ano, this.resposta).subscribe({
       next: (data) => {
-        console.log({resposta:this.resposta, data});
+        
       },
       error: (error) => {
         console.log(error);

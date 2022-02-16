@@ -18,7 +18,7 @@ export class MinistrosQueAcompanharamComponent implements OnInit {
 
   ngOnInit(): void {
     if (this.pdf) {
-      console.log(this.pdf)
+      
     }
   }
 

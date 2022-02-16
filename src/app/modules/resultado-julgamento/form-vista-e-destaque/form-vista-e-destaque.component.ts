@@ -1,17 +1,20 @@
-import { Component, EventEmitter, Inject, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import {
   MAT_MOMENT_DATE_ADAPTER_OPTIONS, MAT_MOMENT_DATE_FORMATS,
   MomentDateAdapter
 } from '@angular/material-moment-adapter';
 import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/material/core';
-import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { AlertaService } from 'app/modules/services/alerta.service';
 import { MinistroService } from 'app/modules/services/ministro.service';
+import { ProcessoService } from 'app/modules/services/processo.service';
 import { RecursoService } from 'app/modules/services/recurso.service';
-import { DialogoConfirmacaoComponent } from 'app/shared/dialogo-confirmacao/dialogo-confirmacao.component';
+import { Destaque } from 'app/shared/model/interfaces/destaque.interface';
 import { Ministro } from 'app/shared/model/interfaces/ministro.interface';
+import { Processo } from 'app/shared/model/interfaces/processo.interface';
+import { SessaoDeJulgamento } from 'app/shared/model/interfaces/sessao-julgamento.interface';
 import { TipoRecursoDto } from 'app/shared/model/interfaces/tipoRecursoDto';
+import { Vista } from 'app/shared/model/interfaces/vista.interface';
 import { EMPTY, Observable } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 
@@ -30,20 +33,25 @@ interface FormVistaEDestaqueData {
   templateUrl: './form-vista-e-destaque.component.html',
   styleUrls: ['./form-vista-e-destaque.component.scss'],
   providers: [
-    {provide: MAT_DATE_LOCALE, useValue: 'pt-BR'},
+    { provide: MAT_DATE_LOCALE, useValue: 'pt-BR' },
     {
       provide: DateAdapter,
       useClass: MomentDateAdapter,
       deps: [MAT_DATE_LOCALE, MAT_MOMENT_DATE_ADAPTER_OPTIONS],
     },
-    {provide: MAT_DATE_FORMATS, useValue: MAT_MOMENT_DATE_FORMATS},
+    { provide: MAT_DATE_FORMATS, useValue: MAT_MOMENT_DATE_FORMATS },
   ],
 })
 export class FormVistaEDestaqueComponent implements OnInit {
 
-  @Input() data: FormVistaEDestaqueData;
+  @Input() processo: Processo;
+  @Input() vista: Vista;
+  @Input() destaque: Destaque;
+  @Input() sessao: SessaoDeJulgamento;
+  @Input() tipo: string; //indica se é vista ou destaque
   @Output() closeDrawerEmit = new EventEmitter();
-  @Output() formVistaEDestaqueEmit = new EventEmitter();
+  @Output() savedDrawer = new EventEmitter<{vistas: Vista[], destaques: Destaque[]}>();
+  
 
   formVistaEDestaque: FormGroup;
   ministros$: Observable<Ministro[]>;
@@ -55,33 +63,17 @@ export class FormVistaEDestaqueComponent implements OnInit {
     private _fb: FormBuilder,
     private _ministroService: MinistroService,
     private _recursoService: RecursoService,
+    private _processoService: ProcessoService,
     private _alertaService: AlertaService,
-    private _dialog: MatDialog,
-    //public dialogRef: MatDialogRef<FormVistaEDestaqueComponent>,
-    //@Inject(MAT_DIALOG_DATA) public data: FormVistaEDestaqueData,
-  ) { 
-    /*if (this.data.dados) {
-      const { data, ministro, texto } = this.data.dados;
+  ) {
 
-      this.formVistaEDestaque = this._fb.group({
-        data:       [data,            Validators.required],
-        ministro:   [ministro.id,      Validators.required],
-        texto:      [texto,           Validators.required],
-      });
-    } else {
-      this.formVistaEDestaque = this._fb.group({
-        data:       [null,      Validators.required],
-        ministro:   [null,      Validators.required],
-        texto:      ['',        Validators.required],
-      });
-    }*/
   }
 
   ngOnInit(): void {
     this.ministros$ = this._ministroService.listarMinistros().pipe(
       catchError(error => {
         console.log(error);
-        this.errorMessage =  error.message;
+        this.errorMessage = error.message;
         this._alertaService.exibirAlerta("Error")
         return EMPTY;
       })
@@ -89,54 +81,75 @@ export class FormVistaEDestaqueComponent implements OnInit {
     this.recursos$ = this._recursoService.obterListaDeRecursos().pipe(
       catchError(error => {
         console.log(error);
-        this.errorMessage =  error.message;
+        this.errorMessage = error.message;
         this._alertaService.exibirAlerta("Error")
         return EMPTY;
       })
     );
 
-    if (this.data.dados) {
-      const { data, ministro, texto } = this.data.dados;
-
-      this.formVistaEDestaque = this._fb.group({
-        data:       [data,            Validators.required],
-        ministro:   [ministro.id,      Validators.required],
-        texto:      [texto,           Validators.required],
-      });
-    } else {
-      this.formVistaEDestaque = this._fb.group({
-        data:       [null,      Validators.required],
-        ministro:   [null,      Validators.required],
-        texto:      ['',        Validators.required],
-      });
-    }
-  }
-
-  /*public fecharModalEExcluirVistaOuDestaque(): void {
-    const vistaOuDestaque = (this.data.tipo === 'vista') ? 'Vista' : 'Destaque';
-
-    const dialogRef = this._dialog.open(DialogoConfirmacaoComponent, {
-      data: {
-        titulo: 'Excluir Vista ou Destaque',
-        mensagem: `Confirma a exclusão do(a) ${vistaOuDestaque} - ${this.data.dados.ministro.nome}?`,
-      },
+    this.formVistaEDestaque = this._fb.group({
+      data: [null, Validators.required],
+      ministro: [null, Validators.required],
+      texto: ['', Validators.required],
+      tipo: [this.tipo]
     });
-
-    dialogRef.afterClosed().subscribe(confirmacao => {
-      if (confirmacao) {
-        this.dialogRef.close('excluir');
-      }
-    });
-  }*/
-
-  public fecharModalEEmcaminharVistaOuDestaque(): void {
-    if (this.formVistaEDestaque.valid) {
-      this.formVistaEDestaqueEmit.emit(this.formVistaEDestaque.value);
-    }
+    
+    if (this.vista != null) {
+      this.formVistaEDestaque.setValue({data: this.vista.data, ministro: this.vista.ministro.id, texto: this.vista.texto});
+    }else if (this.destaque != null) this.formVistaEDestaque.setValue({data: this.destaque.data, ministro: this.destaque.ministro.id, texto: this.destaque.texto});
+    
   }
 
   closeDrawer() {
+    this.formVistaEDestaque.reset();
     this.closeDrawerEmit.emit();
+  }
+
+  salvar(){
+    if(this.tipo.toLowerCase() == 'vista'){
+      this.salvarVista();
+    }else if(this.tipo.toLowerCase() == 'destaque'){
+      this.salvarDestaque();
+    }else this.closeDrawer();
+  }
+
+  private salvarVista(){
+        const vista: Vista = {
+            ...this.formVistaEDestaque.value,
+            processo: this.processo.id,
+            sessao: this.sessao.id,
+        };
+        this._processoService.salvarVistaDoProcesso(this.sessao.numero, this.sessao.ano, this.processo.id, vista).subscribe({
+          next: (vistaSalva) => {
+            this.savedDrawer.emit({vistas: vistaSalva, destaques: null});
+            this.closeDrawer();
+          },
+          error: (error) => {
+            console.log(error);
+            this.errorMessage = error.message;
+            this._alertaService.exibirAlerta("Error")
+          }
+        });
+  }
+
+  private salvarDestaque(){
+        const destaque: Destaque = {
+            ...this.formVistaEDestaque.value,
+            processo: this.processo.id,
+            sessao: this.sessao.id,
+        };
+    
+        this._processoService.salvarDestaqueDoProcesso(this.sessao.numero, this.sessao.ano, this.processo.id, destaque).subscribe({
+          next: (destaqueSalvo) => {
+            this.savedDrawer.emit({vistas: null, destaques: destaqueSalvo});
+            this.closeDrawer();
+          },
+          error: (error) => {
+            console.log(error);
+            this.errorMessage = error.message;
+            this._alertaService.exibirAlerta("Error")
+          }
+        });
   }
 
 }

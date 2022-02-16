@@ -49,8 +49,6 @@ export class RevisarExtratoAtaComponent implements OnInit {
   private getAta() {
     this._sessaoDejulgamentoService.getAta(this.parametros.numero, this.parametros.ano).subscribe({
       next: (ata) => {
-        console.log("Ata");
-        console.log(ata);
         this.ata = ata;
       },
       error: (error) => {
@@ -64,8 +62,6 @@ export class RevisarExtratoAtaComponent implements OnInit {
   private getSessaoDeJulgamento() {
     this._sessaoDejulgamentoService.listarSessoesDeJulgamento(this.parametros.numero, this.parametros.ano).subscribe({
       next: (sessao) => {
-        console.log("ESSA É A SESSAO DE JULGAMENTO CARREGADA");
-        console.log(sessao);
         this.sessao = sessao;
       },
       error: (error) => {

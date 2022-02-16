@@ -61,8 +61,6 @@ export class FormDecisaoComponent implements OnInit, OnChanges, OnDestroy {
  
   ngOnInit(): void {
     this._recarregarOsDados();
-    console.log("CARREGANDO DADO DO CAPITULO....");
-    console.log(this.capitulo);
     this.formDecisao = this._fb.group({
       id: [this.capitulo.id],
       descricao: [this.capitulo.descricao, Validators.required],
@@ -73,7 +71,6 @@ export class FormDecisaoComponent implements OnInit, OnChanges, OnDestroy {
       texto: [this.capitulo.texto, Validators.required],
       processos_mesma_decisao: [this.capitulo.processos_mesma_decisao]
     });
-    console.log(this.formDecisao);
   }
 
   ngOnChanges(): void {
@@ -128,10 +125,6 @@ export class FormDecisaoComponent implements OnInit, OnChanges, OnDestroy {
   public carregarModeloDeDecisao(): void {
     const { tipo, dispositivo } = this.formDecisao.value;
     const idDispositivo = this.dispositivos.find(d => d.nome === dispositivo)?.id;
-    console.log("CARREGNADO O MODELO");
-    console.log(this.processo);
-    console.log("DISPOSITIVO");
-    console.log(this.formDecisao.get('dispositivo').value);
     if (tipo && dispositivo && this.processo && this.processo.id_tipo_recurso) {
       this._processoService.obterModeloDecisao(this.processo.classe, tipo, this.formDecisao.get('dispositivo').value.id, this.processo.id_tipo_recurso).subscribe({
         next: (modelo) => {
@@ -193,9 +186,6 @@ export class FormDecisaoComponent implements OnInit, OnChanges, OnDestroy {
 
   public excluirCapitulo(): void {
     if (this.formDecisao.valid) {
-      console.log("Removendo capitulos....");
-      console.log(this.processo.id);
-      console.log(this.capitulo.id);
       this._processoService.excluirCapitulo(this.sessaoDeJulgamento.numero, this.sessaoDeJulgamento.ano, this.processo.id, this.capitulo.id).subscribe({
         next: (data) => {
           console.log(data);
