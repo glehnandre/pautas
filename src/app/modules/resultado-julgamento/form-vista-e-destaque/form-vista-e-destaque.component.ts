@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import {
   MAT_MOMENT_DATE_ADAPTER_OPTIONS, MAT_MOMENT_DATE_FORMATS,
@@ -42,13 +42,12 @@ interface FormVistaEDestaqueData {
     { provide: MAT_DATE_FORMATS, useValue: MAT_MOMENT_DATE_FORMATS },
   ],
 })
-export class FormVistaEDestaqueComponent implements OnInit {
+export class FormVistaEDestaqueComponent implements OnInit, OnChanges {
 
   @Input() processo: Processo;
   @Input() vista: Vista;
   @Input() destaque: Destaque;
   @Input() sessao: SessaoDeJulgamento;
-  @Input() tipo: string; //indica se é vista ou destaque
   @Output() closeDrawerEmit = new EventEmitter();
   @Output() savedDrawer = new EventEmitter<{vistas: Vista[], destaques: Destaque[]}>();
   
@@ -91,13 +90,17 @@ export class FormVistaEDestaqueComponent implements OnInit {
       data: [null, Validators.required],
       ministro: [null, Validators.required],
       texto: ['', Validators.required],
-      tipo: [this.tipo]
     });
-    
+  }
+
+  ngOnChanges() {
     if (this.vista != null) {
       this.formVistaEDestaque.setValue({data: this.vista.data, ministro: this.vista.ministro.id, texto: this.vista.texto});
-    }else if (this.destaque != null) this.formVistaEDestaque.setValue({data: this.destaque.data, ministro: this.destaque.ministro.id, texto: this.destaque.texto});
-    
+    }else if (this.destaque != null) {
+      console.log("Destaque diferente de null")
+      console.log(this.destaque)
+      this.formVistaEDestaque.setValue({data: this.destaque.data, ministro: this.destaque.ministro.id, texto: this.destaque.texto});
+    }
   }
 
   closeDrawer() {
@@ -106,9 +109,9 @@ export class FormVistaEDestaqueComponent implements OnInit {
   }
 
   salvar(){
-    if(this.tipo.toLowerCase() == 'vista'){
+    if(this.vista != undefined){
       this.salvarVista();
-    }else if(this.tipo.toLowerCase() == 'destaque'){
+    }else if(this.destaque != undefined){
       this.salvarDestaque();
     }else this.closeDrawer();
   }

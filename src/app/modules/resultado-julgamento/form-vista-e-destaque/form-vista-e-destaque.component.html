@@ -2,7 +2,7 @@
 <div class="flex flex-0 flex-col min-h-140 min-m-4">
     
     <header class="flex items-center justify-between h-16 pr-3 bg-primary text-on-primary">
-        <div *ngIf="(this.tipo | lowercase) == 'vista' ; then tituloVista else tituloDestaque">
+        <div *ngIf="(this.vista != null) ; then tituloVista else tituloDestaque">
             
         </div> 
         <ng-template #tituloVista><h1 class="flex w-full items-center justify-center text-lg font-medium text-white-500">PEDIDO DE VISTA</h1></ng-template>
@@ -49,20 +49,14 @@
                     <mat-datepicker #picker></mat-datepicker>
                 </mat-form-field>
             </div>
-           <mat-form-field class="w-full h-full mb-2" appearance="outline">
-                <mat-label>Texto</mat-label>
-                
-                <textarea class="h-100"
-                    matInput 
-                    rows="10"
-                    formControlName="texto"
-                ></textarea>
-
-                <mat-hint>
-                    Texto associado a suspensão 
-                </mat-hint>
-            </mat-form-field>
-
+            <editor id="texto-da-vista-destaque" formControlName="texto" [init]="{height: 450, menubar: false, plugins: [
+                'autolink lists link charmap preview anchor',
+                'insertdatetime table help wordcount'
+              ],
+              toolbar:
+                'undo redo | formatselect | bold italic backcolor | \
+                alignleft aligncenter alignright alignjustify | \
+                bullist numlist outdent indent | removeformat | help'}"></editor>
             <p class="mt-2 mb-2 text-center flex flex-row gap-2 justify-end items-end">
                 <button
                     mat-raised-button 
@@ -73,12 +67,12 @@
                 </button>
 
                 <button 
-                    *ngIf="vista!=null || destaque!=null"
+                    *ngIf="vista?.id != null || destaque?.id != null"
                     mat-raised-button 
-                    class="max-w-full" 
+                    class="max-w-full mr-2" 
                     color="warn"
                 >
-                    {{'Excluir' | uppercase}}
+                   {{'Excluir' | uppercase}}
                 </button>
                 
                 <button 

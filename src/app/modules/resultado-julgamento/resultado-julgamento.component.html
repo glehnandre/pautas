@@ -25,20 +25,9 @@
                 </button>
 
                 <button mat-raised-button class="max-w-full mr-2 text-sm"
-                    (click)="toggleDrawerOpen('vistaDrawer')">
-                    PEDIDOS DE VISTA
-                </button>
-
-                <button mat-raised-button class="max-w-full mr-2 text-sm" (click)="toggleDrawerOpen('destaqueDrawer')"
-                    *ngIf="sessao?.modalidade == 'VIRTUAL'">
-                    PEDIDOS DE DESTAQUE
-                </button>
-
-                <button mat-raised-button class="max-w-full mr-2 text-sm"
                     (click)="exibirModalDeIndicacaoDeImpedimentos()">
                     IMPEDIMENTOS
                 </button>
-
 
                 <button mat-raised-button class="z-0 md:mt-2 text-sm" mat-button>
                     <span>CANCELAR</span>
@@ -59,7 +48,7 @@
                 <mat-select>
                     <mat-option (click)="finalizar()">Finalizar</mat-option>
                     <mat-option (click)="exibirModalDeDestaque()">Destaque</mat-option>
-                    <mat-option (click)="toggleDrawerOpen('vistaDrawer')">Vista</mat-option>
+                    <mat-option (click)="abrirGaveta('vistaDrawer')">Vista</mat-option>
                     <mat-option (click)="exibirModalDeModeloDecisao()">Modelos de texto</mat-option>
                     <mat-option (click)="exibirModalDeIndicacaoDeImpedimentos()">Indicar impedimentos</mat-option>
                     <mat-option>Cancelar</mat-option>
@@ -166,7 +155,7 @@
 
                                         <!-- Task link -->
                                         <a class="flex flex-auto py-2 items-center min-w-0 h-full pr-7"
-                                            (click)="setCapituloSelecionado(null);">
+                                            (click)="editarVista(vista);">
                                             <!-- Title & Placeholder -->
                                             <div class="flex-auto mr-2 truncate">
                                                 <ng-container class="flex items-center justify-center">
@@ -198,7 +187,7 @@
                         <ng-container>
                             <td class="py-6 px-0 border-0" mat-footer-cell colspan="6">
                                 <button mat-raised-button class="max-w-full mr-2 text-sm"
-                                (click)="toggleDrawerOpen('vistaDrawer')">PEDIDO DE VISTA</button>
+                                (click)="novaVista()">PEDIDO DE VISTA</button>
                             </td>
                         </ng-container>
                     </div>
@@ -223,7 +212,7 @@
 
                                         <!-- Task link -->
                                         <a class="flex flex-auto py-2 items-center min-w-0 h-full pr-7"
-                                            (click)="setCapituloSelecionado(null);">
+                                            (click)="editarDestaque(destaque);">
                                             <!-- Title & Placeholder -->
                                             <div class="flex-auto mr-2 truncate">
                                                 <ng-container class="flex items-center justify-center">
@@ -255,7 +244,7 @@
                         <ng-container matColumnDef="recentOrdersTableFooter">
                             <td class="py-6 px-0 border-0" mat-footer-cell colspan="2">
                                 <button mat-raised-button class="max-w-full mr-2 text-sm"
-                                    (click)="toggleDrawerOpen('destaqueDrawer')">PEDIDO DE DESTAQUE</button>
+                                    (click)="novoDestaque()">PEDIDO DE DESTAQUE</button>
                             </td>
                         </ng-container>
                     </div>
@@ -264,25 +253,15 @@
         </div>
     </div>
     <div>
-        <fuse-drawer [name]="'vistaDrawer'" [opened]="false" [position]="'right'" [mode]="'over'" id="vista-destaque-drawer">
+        <fuse-drawer [name]="'vistaDestaqueDrawer'" [opened]="false" [position]="'right'" [mode]="'over'" id="vista-destaque-drawer">
             <div class="w-full">
                 <app-form-vista-e-destaque
                 [sessao]= "sessao"
-                [tipo] = "'vista'"
+                [vista]="vistaSelecionada"
+                [destaque]="destaqueSelecionado"
                 [processo] = "processo"
-                (closeDrawerEmit)="toggleDrawerOpen('vistaDrawer')"
-                (savedDrawer)="retornoVistaDrawer($event)"
-                ></app-form-vista-e-destaque>
-            </div>
-        </fuse-drawer>
-        <fuse-drawer [name]="'destaqueDrawer'" [opened]="false" [position]="'right'" [mode]="'over'" id="vista-destaque-drawer">
-            <div class="w-full">
-                <app-form-vista-e-destaque
-                [sessao]= "sessao"
-                [tipo] = "'destaque'"
-                [processo] = "processo"
-                (closeDrawerEmit)="toggleDrawerOpen('destaqueDrawer')"
-                (savedDrawer)="retornoDestaqueDrawer($event)"
+                (closeDrawerEmit)="abrirGaveta('vistaDestaqueDrawer')"
+                (savedDrawer)="retornoVistaDestaqueDrawer($event)"
                 ></app-form-vista-e-destaque>
             </div>
         </fuse-drawer>

@@ -57,6 +57,8 @@ export class ResultadoJulgamentoComponent implements OnInit {
   dispositivos: Manifestacao[] = [];
   todosCapitulos: Capitulo[] = [];
   capituloSelecionado: Capitulo = null;
+  vistaSelecionada: Vista = null;
+  destaqueSelecionado: Destaque = null;
   modelo: ModeloDecisao;
   exibirListaDeDecisoes = false;
   exibirChips = true;
@@ -325,25 +327,42 @@ export class ResultadoJulgamentoComponent implements OnInit {
     });
   }
 
-  retornoVistaDrawer(data){
-    this.mostrarAlerta('success', 'Sucesso!', `Vista incluída com sucesso.`);
+  retornoVistaDestaqueDrawer(data){
+    if(data.vistas !=null){
+      this.mostrarAlerta('success', 'Sucesso!', `Vista incluída com sucesso.`);
+    }else if (data.destaques !=null){
+      this.mostrarAlerta('success', 'Sucesso!', `Destaque incluído com sucesso.`);
+    }else this.mostrarAlerta('error', 'Erro!', `Ocorreu um erro ao salvar a vista ou destaque.`);
   }
 
+
+  editarVista(vista:Vista){
+    this.vistaSelecionada = vista;
+    this.destaqueSelecionado = null;
+    this.abrirGaveta('vistaDestaqueDrawer')
+    this.cd.detectChanges();
+  }
+
+  editarDestaque(destaque:Destaque){
+    this.destaqueSelecionado = destaque;
+    this.vistaSelecionada = null;
+    this.abrirGaveta('vistaDestaqueDrawer')
+    this.cd.detectChanges();
+  }
   
-  retornoDestaqueDrawer(data){
-    this.mostrarAlerta('success', 'Sucesso!', `Destaque incluído com sucesso.`);
+  novaVista(){
+    this.vistaSelecionada = {} as Vista;
+    this.destaqueSelecionado = null;
+    this.abrirGaveta('vistaDestaqueDrawer')
   }
 
-
-  /**
-   * @public Método público
-   * @description Abre um drawer específico.
-   * @author André von Glehn
-   */
-  toggleDrawerOpen(drawerName): void {
-    const drawer = this._fuseDrawerService.getComponent(drawerName);
-    drawer.toggle();
+    
+  novoDestaque(){
+    this.destaqueSelecionado = {} as Destaque;
+    this.vistaSelecionada = null;
+    this.abrirGaveta('vistaDestaqueDrawer')
   }
+
 
   /**
    * @public Método público
