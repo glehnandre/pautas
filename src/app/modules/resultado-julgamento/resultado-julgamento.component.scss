@@ -10,7 +10,7 @@ $fuse-drawer-width: 1200;
     margin-left: 90%;
 }
 
-@media (max-width: 800px) {
+@media (max-width: 1200px) {
     #vista-destaque-drawer {
         width: 100% !important;
         min-width: 100% !important;
@@ -24,4 +24,5 @@ $fuse-drawer-width: 1200;
 
 .fuse-drawer-content {
     width: 80vw !important;
+    min-width: 100% !important;
 }
