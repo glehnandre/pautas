@@ -80,7 +80,7 @@ export class CabecalhoRelatorComponent implements AfterContentChecked, OnInit {
   }
 
   public obterChipRemovido(chip: string): void {
-    
+
   }
 
   private carregarDocumentosProcesso(processo: Processo){
@@ -102,7 +102,7 @@ export class CabecalhoRelatorComponent implements AfterContentChecked, OnInit {
 
   private carregarTags(processo: Processo){
     this.tags = [];
-    this.processo?.lista.forEach(tag => {
+    this.processo?.lista?.forEach(tag => {
       this.tags.push(tag.descricao);
     });
   }

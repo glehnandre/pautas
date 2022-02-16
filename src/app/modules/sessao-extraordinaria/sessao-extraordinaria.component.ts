@@ -67,8 +67,8 @@ export class SessaoExtraordinariaComponent implements OnInit {
       error: (error) => {
         console.log(error);
         this.alerta = {
-          nome: "Error", 
-          tipo: "error", 
+          nome: "Error",
+          tipo: "error",
           titulo: "Erro",
           mensagem: error.message
         }
@@ -88,7 +88,6 @@ export class SessaoExtraordinariaComponent implements OnInit {
       });
       dialogRef.afterClosed().subscribe(result => {
           this.resposta = result.resposta;
-          console.log(result);
           if(result)
             if(result.aceitar)
                 this.aprovarSessao();
@@ -111,8 +110,8 @@ export class SessaoExtraordinariaComponent implements OnInit {
 
   mostrarAlerta(){
     this.alerta = {
-      nome: "Pauta-vazia", 
-      tipo: "error", 
+      nome: "Pauta-vazia",
+      tipo: "error",
       titulo: "Pauta vazia",
       mensagem: "Nenhuma sessão de julgamento aberta para o periodo encontrada. Pode haver sessão de julgamento fechadas para o período."
     }
@@ -125,13 +124,13 @@ export class SessaoExtraordinariaComponent implements OnInit {
 
     this._sessaoDejulgamentoService.aprovarSessaoDeJulgamento(numero, ano, this.resposta).subscribe({
       next: (data) => {
-        console.log(data,this.resposta);
+
       },
       error: (error) => {
         console.log(error);
         this.alerta = {
-          nome: "Error", 
-          tipo: "error", 
+          nome: "Error",
+          tipo: "error",
           titulo: "Erro",
           mensagem: error.message
         }
@@ -146,13 +145,13 @@ export class SessaoExtraordinariaComponent implements OnInit {
 
     this._sessaoDejulgamentoService.rejeitarSessaoDeJulgamento(numero, ano, this.resposta).subscribe({
       next: (data) => {
-        console.log({resposta:this.resposta, data});
+
       },
       error: (error) => {
         console.log(error);
         this.alerta = {
-          nome: "Error", 
-          tipo: "error", 
+          nome: "Error",
+          tipo: "error",
           titulo: "Erro",
           mensagem: error.message
         }

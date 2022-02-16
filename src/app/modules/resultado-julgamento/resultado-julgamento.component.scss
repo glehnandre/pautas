@@ -1,0 +1,27 @@
+$fuse-drawer-width: 1200;
+
+#vista-destaque-drawer {
+    width: #{$fuse-drawer-width}px;
+    min-width: #{$fuse-drawer-width}px;
+    max-width: #{$fuse-drawer-width}px;
+}
+
+.position-left-90 {
+    margin-left: 90%;
+}
+
+@media (max-width: 800px) {
+    #vista-destaque-drawer {
+        width: 100% !important;
+        min-width: 100% !important;
+        max-width: 100% !important;
+    }
+
+    .position-left-90 {
+        margin-left: 88%;
+    }
+}
+
+.fuse-drawer-content {
+    width: 80vw !important;
+}
