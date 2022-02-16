@@ -26,7 +26,6 @@ export class DecisaoMockApi {
         .reply(({request}) => {
           const body = request.body;
           const modelo = this._modeloDecisao.find(m => (m.classe === body.classe) && (m.tipoCapitulo === body.tipo_capitulo) && (m.dispositivo.id === +body.dispositivo) && (m.recurso === body.recurso));
-          console.log(modelo);
           if (modelo === undefined) {
             const dispositivo = dispositivos.find(d => d.id === body.dispositivo);
             body.id = this._modeloDecisao.length+1;

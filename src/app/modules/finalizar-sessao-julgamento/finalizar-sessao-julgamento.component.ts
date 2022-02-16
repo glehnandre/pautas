@@ -117,8 +117,6 @@ export class FinalizarSessaoJulgamentoComponent implements OnInit {
    * @param event evento que é retornado do componente
    */
   recuperaForm(event: any){
-    console.log("EVENTO!");
-    console.log(event);
     this.sessaoFinalizada.cabecalho = event.cabecalho;
     this.sessaoFinalizada.outros_presentes = event.outrosPresentes;
     this.sessaoFinalizada.secretario = event.secretario;
