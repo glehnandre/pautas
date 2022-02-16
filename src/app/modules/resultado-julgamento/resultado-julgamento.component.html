@@ -1,15 +1,15 @@
-<div class="absolute inset-0 flex flex-col min-w-0 overflow-hidden">
+<div class="absolute inset-0 flex flex-col min-w-0 overflow-hidden bg-page">
 
 <!-- Header -->
-    <div class="flex flex-col sm:flex-row justify-center items-center sm:justify-between pl-8 bg-white dark:bg-transparent">
+    <div class="flex flex-col sm:flex-row justify-center items-center sm:justify-between pl-8 dark:bg-transparent">
         <h1 class="mt-4 text-primary font-medium text-xl sm:text-2xl">
             Lançamento do Resultado do Julgamento da {{getDadosDoProcesso()}}
         </h1>
     </div>
 
-    <hr class="m-0 p-0" />
+    <hr class="m-0 mt-2 p-0" />
 
-    <header class="bg-white pt-2 flex flex-col px-2">
+    <header class="pt-2 flex flex-col px-2 bg-card">
         <app-cabecalho-relator
             [processo]="processo"
             [colegiado]="parametros.colegiado"
@@ -69,7 +69,6 @@
                 </button>
             </div>
 
-
             <div class="md:col-span-1 lg:col-span-4">
                 <app-chips
                     [idChip]="'idChipsResultadoJulgamento'"
@@ -79,6 +78,7 @@
                     [conteudosNoChipParaSerRemovivel]="['vista', 'destaque']"
                     (onClick)="abrirModal($event)"
                     (chipRemovido)="obterChipRemovido($event)"
+                    class="bg-card"
                 ></app-chips>
             </div>
         </div>
@@ -230,7 +230,7 @@
                                     </ng-container>
 
                                     <ng-template #semDecisoes>
-                                        <div class="flex flex-auto flex-col items-center justify-center bg-gray-100 dark:bg-transparent">
+                                        <div class="flex flex-auto flex-col items-center justify-center">
                                             <div class="mt-4 text-2xl font-semibold tracking-tight text-secondary">
                                                 Sem decisões
                                             </div>
@@ -254,7 +254,7 @@
                 cdkScrollable
             >
                 <!-- CONTENT GOES HERE -->
-                <div class="h-400 min-h-400 max-h-400  border-gray-300 rounded-2xl">
+                <div class="h-300 min-h-300">
                     <button
                         mat-mini-fab
                         color="primary"
