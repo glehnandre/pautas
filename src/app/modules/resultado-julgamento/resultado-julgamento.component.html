@@ -2,11 +2,11 @@
     <fuse-drawer
         #formDrawer
         [name]="FORM_CADASTRO_DECISAO"
-        [opened]="exibirFormDrawer"
+        [opened]="false"
         [mode]="'over'"
         [position]="'right'"
     >
-        <div class="overflow-auto p-4">
+        <div class="flex-auto overflow-auto p-4">
             <!-- CONTENT GOES HERE -->
             <div class="border-gray-300 rounded-2xl">
                 <button
@@ -28,12 +28,11 @@
 
                         <ng-template #exibirDecisaoNoForm>
                             <app-form-decisao
-                                *ngIf="exibirListaDeDecisoes"
                                 [capitulo]="capituloSelecionado"
                                 [processo]="processo"
-                                [sessaoDeJulgamento] = "sessao"
-                                [isExibirBtnSalvarDecisao]=true
-                                [isExibirBtnExcluirCapitulo]=true
+                                [sessaoDeJulgamento]="sessao"
+                                [isExibirBtnSalvarDecisao]="true"
+                                [isExibirBtnExcluirCapitulo]="true"
                                 (dadosDoCapitulo)="atualizarCapitulos($event); abrirGaveta(FORM_CADASTRO_DECISAO)"
                             ></app-form-decisao>
                         </ng-template>
@@ -69,7 +68,7 @@
                         <button
                             mat-raised-button
                             class="max-w-full mr-2 text-sm"
-                            (click)="abrirGaveta(FORM_CADASTRO_DECISAO)"
+                            (click)="abrirGaveta(FORM_CADASTRO_DECISAO); setCapituloSelecionado(null);"
                         >
                             INCLUIR CAPÍTULO
                         </button>
@@ -112,7 +111,7 @@
                         <mat-label>Ações</mat-label>
                         <mat-select>
                             <mat-option (click)="finalizar()">Finalizar</mat-option>
-                            <mat-option (click)="abrirGaveta(FORM_CADASTRO_DECISAO)">Incluir Capítulo</mat-option>
+                            <mat-option (click)="abrirGaveta(FORM_CADASTRO_DECISAO); setCapituloSelecionado(null);">Incluir Capítulo</mat-option>
                             <mat-option (click)="exibirModalDeDestaque()">Destaque</mat-option>
                             <mat-option (click)="toggleDrawerOpen('vistaEDestaqueDrawer')">Vista</mat-option>
                             <mat-option (click)="exibirModalDeModeloDecisao()">Modelos de texto</mat-option>

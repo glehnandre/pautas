@@ -49,7 +49,6 @@ interface Decisao {
 export class ResultadoJulgamentoComponent implements OnInit {
 
   parametros: Parametros;
-  exibirFormDrawer = false;
   processo: Processo = {} as Processo;
   sessao: SessaoDeJulgamento;
   votos: Voto[] = [];

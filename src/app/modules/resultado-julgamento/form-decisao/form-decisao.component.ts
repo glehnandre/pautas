@@ -246,7 +246,6 @@ export class FormDecisaoComponent implements OnInit, OnChanges, OnDestroy {
       this.capitulo.processos_mesma_decisao.forEach(id => this.idsDosProcessos.push(+id));
     }
     this.idsDosProcessos = [];
-    
   }
 
   private _filtrarMinistros(ministros: Ministro[]): Ministro[] {
