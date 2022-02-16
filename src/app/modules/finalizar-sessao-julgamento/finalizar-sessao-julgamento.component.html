@@ -1,19 +1,19 @@
-<div class="absolute inset-0 flex flex-col min-w-0 overflow-hidden bg-white">
+<div class="absolute inset-0 flex flex-col min-w-0 overflow-hidden bg-page">
 
     <!-- Header -->
-    <div class="flex flex-col sm:flex-row justify-center items-center sm:justify-between pl-8 bg-white dark:bg-transparent">
+    <div class="flex flex-col sm:flex-row justify-center items-center sm:justify-between pl-8 bg-page dark:bg-transparent">
                 <h1 class="mt-4 text-primary font-medium text-xl sm:text-2xl">
                     Finalizar Ata da Sessão de Julgamento
                 </h1>
     </div>
-        
+
     <hr class="m-0 p-0" />
-    
+
 
     <!-- Header -->
     <div class="flex flex-row py-4 px-4 sm:px-8 lg:px-40 lg:py-13">
         <div class="flex flex-col text-accent-500 space-y-2 mt-2 flex-1 sm:flex-0">
-            <span class="text-2xl text-primary-500 font-medium">SESSÃO {{sessao.tipo}} {{sessao.modalidade}} {{sessao.numero}}/{{sessao.ano}}</span>
+            <span class="text-2xl text-primary font-medium">SESSÃO {{sessao.tipo}} {{sessao.modalidade}} {{sessao.numero}}/{{sessao.ano}}</span>
             <span class="hidden sm:block">{{getData()}}</span>
             <mat-chip-list class="hidden sm:block">
             </mat-chip-list>
@@ -33,7 +33,7 @@
                         </h2>
                     </div>
                 </mat-expansion-panel-header>
-            
+
                 <!--Conteúdo de dentro da área expansível-->
                 <div class="flex flex-col space-y-2">
                     <span class="">{{getData()}}</span>
@@ -63,6 +63,7 @@
         ></app-composicao>
 
         <app-form
+          class="m-4 bg-card rounded-2xl p-4"
           [secretario]="sessao?.ata?.secretario"
           (statusForm)="recuperaForm($event)"
         ></app-form>
