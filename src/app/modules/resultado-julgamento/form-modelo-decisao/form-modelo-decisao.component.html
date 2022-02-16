@@ -80,7 +80,16 @@
                 </mat-form-field>
             </div>
 
-            <mat-form-field class="w-full mb-4" appearance="outline">
+            <editor id="texto-da-decisao" formControlName="texto" [init]="{height: 430, menubar: false, plugins: [
+                'autolink lists link charmap preview anchor',
+                'insertdatetime table help wordcount'
+              ],
+              toolbar:
+                'undo redo | formatselect | bold italic backcolor | \
+                alignleft aligncenter alignright alignjustify | \
+                bullist numlist outdent indent | removeformat | help'}"></editor>
+
+           <!-- <mat-form-field class="w-full mb-4" appearance="outline">
                 <mat-label>Concordam os ministros <span class="text-red-500">*</span></mat-label>
 
                 <textarea
@@ -110,7 +119,7 @@
                     @data_fim_sessao, @modalidade e @tipo para referenciar atributos
                     do processo no modelo da decisão.
                 </mat-hint>
-            </mat-form-field>
+            </mat-form-field> -->
 
             <p class="mt-4 text-center flex flex-row gap-4 justify-end items-end">
                 <button
