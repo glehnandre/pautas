@@ -80,7 +80,7 @@ export class CabecalhoRelatorComponent implements AfterContentChecked, OnInit {
   }
 
   public obterChipRemovido(chip: string): void {
-    
+
   }
 
   private carregarDocumentosProcesso(processo: Processo){

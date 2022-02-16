@@ -1,19 +1,19 @@
 <div class="absolute inset-0 flex flex-col min-w-0">
     <mat-drawer-container class="flex-auto h-full" [hasBackdrop]="false">
-        <mat-drawer 
-            #drawer 
-            tabindex="-1" 
-            class="w-80 dark:bg-gray-900" 
-            [mode]="isTelaPequena() ? 'over' : 'side'" 
+        <mat-drawer
+            #drawer
+            tabindex="-1"
+            class="w-80 bg-page dark:bg-gray-900"
+            [mode]="isTelaPequena() ? 'over' : 'side'"
             [opened]="!isTelaPequena()"
         >
             <div class="w-full flex justify-end mt-4">
-                <button 
+                <button
                     mat-icon-button
                     class="mr-4"
                     (click)="drawer.toggle()"
                 >
-                    <mat-icon 
+                    <mat-icon
                         *ngIf="isTelaPequena() else mudaIcone"
                     >
                         arrow_forward
@@ -31,12 +31,12 @@
         </mat-drawer>
 
         <mat-drawer-content class="">
-            <div class="absolute inset-0 flex flex-col min-w-0 overflow-hidden">
+            <div class="absolute inset-0 flex flex-col min-w-0 overflow-hidden bg-page">
                 <!-- Header -->
-                <div class="sm:items-center sm:justify-between bg-default dark:bg-transparent">
-                    <div class="flex items-center justify-between h-16 border-b bg-gray-50 dark:bg-transparent">
+                <div class="sm:items-center sm:justify-between dark:bg-transparent">
+                    <div class="flex items-center justify-between h-16 border-b">
                         <div class="flex items-center">
-                            <button 
+                            <button
                                 mat-icon-button
                                 class="ml-6 mr-6 mat-focus-indicator mat-icon-button mat-button-base"
                                 (click)="drawer.toggle()"

@@ -104,6 +104,36 @@ export class AcoesComponent implements OnInit {
     }
   }
 
+     /**
+   * @public
+   * @description Remove o(s) inteiro(s) teor(es) que foram selecionados
+   * @author
+   */
+      public reincluirInteiroTeor(): void {
+        if (this._isAlgumaLinhaSelecionada()) {
+            const idsDocumentosSelecionados = this.linhasSelecionadas.map((linha) => linha.id)
+
+            const documentosModificados = this.documentosInteiroTeor.map(documento => {
+                if (idsDocumentosSelecionados.includes(documento.id)) {
+                    documento.documento.status = "Assinado";
+                }
+
+                return documento;
+            })
+
+            this._inteiroTeorService.atualizarDocumentoDoInteiroTeor(this.idProcesso, documentosModificados).subscribe({
+                next: (data) => {
+                    this.revisoesAlteradas.emit(data);
+                },
+                error: (error) => {
+                  console.log(error);
+                  this.errorMessage = error.message
+                  this._alertaService.exibirAlerta("Error");
+                }
+            });
+        }
+      }
+
   /**
    * @public
    * @description Inclue no(s) inteiro(s) teor(es) que foram selecionados novos

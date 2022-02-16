@@ -1,16 +1,15 @@
-<div class="absolute inset-0 flex flex-col min-w-0 overflow-hidden">
+<div class="absolute inset-0 flex flex-col min-w-0 overflow-hidden bg-page">
 
     <!-- Header -->
-    <div
-        class="flex flex-col sm:flex-row justify-center items-center sm:justify-between pl-8 bg-white dark:bg-transparent">
+    <div class="flex flex-col sm:flex-row justify-center items-center sm:justify-between pl-8 dark:bg-transparent">
         <h1 class="mt-4 text-primary font-medium text-xl sm:text-2xl">
             Lançamento do Resultado do Julgamento da {{getDadosDoProcesso()}}
         </h1>
     </div>
 
-    <hr class="m-0 p-0" />
+    <hr class="m-0 mt-2 p-0" />
 
-    <header class="bg-white pt-2 flex flex-col px-2">
+    <header class="pt-2 flex flex-col px-2 bg-card">
         <app-cabecalho-relator [processo]="processo" [colegiado]="parametros.colegiado" [votos]="votos"
             [sessao]="sessao" [chips]="obterNomeDosChips()" *ngIf="processo"></app-cabecalho-relator>
 

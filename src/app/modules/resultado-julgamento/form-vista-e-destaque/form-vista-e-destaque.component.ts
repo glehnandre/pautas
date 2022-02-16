@@ -50,7 +50,6 @@ export class FormVistaEDestaqueComponent implements OnInit, OnChanges {
   @Input() sessao: SessaoDeJulgamento;
   @Output() closeDrawerEmit = new EventEmitter();
   @Output() savedDrawer = new EventEmitter<{vistas: Vista[], destaques: Destaque[]}>();
-  
 
   formVistaEDestaque: FormGroup;
   ministros$: Observable<Ministro[]>;
@@ -141,7 +140,7 @@ export class FormVistaEDestaqueComponent implements OnInit, OnChanges {
             processo: this.processo.id,
             sessao: this.sessao.id,
         };
-    
+
         this._processoService.salvarDestaqueDoProcesso(this.sessao.numero, this.sessao.ano, this.processo.id, destaque).subscribe({
           next: (destaqueSalvo) => {
             this.savedDrawer.emit({vistas: null, destaques: destaqueSalvo});

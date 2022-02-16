@@ -67,8 +67,8 @@ export class SessaoExtraordinariaComponent implements OnInit {
       error: (error) => {
         console.log(error);
         this.alerta = {
-          nome: "Error", 
-          tipo: "error", 
+          nome: "Error",
+          tipo: "error",
           titulo: "Erro",
           mensagem: error.message
         }
@@ -110,8 +110,8 @@ export class SessaoExtraordinariaComponent implements OnInit {
 
   mostrarAlerta(){
     this.alerta = {
-      nome: "Pauta-vazia", 
-      tipo: "error", 
+      nome: "Pauta-vazia",
+      tipo: "error",
       titulo: "Pauta vazia",
       mensagem: "Nenhuma sessão de julgamento aberta para o periodo encontrada. Pode haver sessão de julgamento fechadas para o período."
     }
@@ -124,13 +124,12 @@ export class SessaoExtraordinariaComponent implements OnInit {
 
     this._sessaoDejulgamentoService.aprovarSessaoDeJulgamento(numero, ano, this.resposta).subscribe({
       next: (data) => {
-        
       },
       error: (error) => {
         console.log(error);
         this.alerta = {
-          nome: "Error", 
-          tipo: "error", 
+          nome: "Error",
+          tipo: "error",
           titulo: "Erro",
           mensagem: error.message
         }
@@ -145,13 +144,12 @@ export class SessaoExtraordinariaComponent implements OnInit {
 
     this._sessaoDejulgamentoService.rejeitarSessaoDeJulgamento(numero, ano, this.resposta).subscribe({
       next: (data) => {
-        
       },
       error: (error) => {
         console.log(error);
         this.alerta = {
-          nome: "Error", 
-          tipo: "error", 
+          nome: "Error",
+          tipo: "error",
           titulo: "Erro",
           mensagem: error.message
         }

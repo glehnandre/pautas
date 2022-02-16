@@ -485,7 +485,6 @@ export class ResultadoJulgamentoComponent implements OnInit {
           mensagem: `Confirma a exclusão da Vista do(a) Ministro(a) ${vista.ministro.nome}?`
         },
       });
-  
       dialogRef.afterClosed().subscribe(confirmacao => {
         if (confirmacao) {
           this._processoService.excluirVistaDoProcesso(this.parametros.numero, this.parametros.ano, this.parametros.processo, vista.id)
