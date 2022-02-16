@@ -140,7 +140,7 @@ export class SessaoDeJulgamentoMockApi {
             const sessaoNumeroAno = `${julg.numero}-${julg.ano}`;
             return sessaoNumeroAno === numeroAno;
           });
-          
+
           if (indexJulgamento != -1) {
 
             this._julgamentos[indexJulgamento].ata.presidencia = presidencia;
@@ -151,7 +151,7 @@ export class SessaoDeJulgamentoMockApi {
             this._julgamentos[indexJulgamento].ata.secretario = secretario;
 
             setStorage('sessoesDeJulgamento', this._julgamentos);
-            
+
             return [200, { description: 'Sucesso'}];
           } else {
             return [404, { description: 'Sessao de julgamento não foi encontrada' }];
@@ -181,7 +181,6 @@ export class SessaoDeJulgamentoMockApi {
           }else if(nome !== null){
             index = this._secretarios.findIndex(secretario => secretario.nome.includes(nome));
           }
-          
           if(index == 0){
             return [200, this._secretarios];
           }else if (index != -1) {

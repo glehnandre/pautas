@@ -1,4 +1,4 @@
-<div class="mx-0 flex flex-col gap-2">
+<div class="mx-0 flex flex-col gap-2 bg-page">
     <div class="flex flex-col flex-auto w-full mt-4">
         <!-- Filtros -->
         <mat-accordion class="mx-4" multi aria-label="Lista de Filtros possíveis de serem aplicados às publicações">
@@ -13,22 +13,22 @@
 
                     <section class="">
                         <mat-form-field class="w-full" appearance="fill">
-                            <mat-date-range-input 
+                            <mat-date-range-input
                                 [rangePicker]="picker"
                                 class="flex w-full"
                             >
-                                <input 
-                                    matStartDate 
-                                    placeholder="Início" 
-                                    name="data_inicio" 
+                                <input
+                                    matStartDate
+                                    placeholder="Início"
+                                    name="data_inicio"
                                     formControlName="data_inicio"
                                     class="px-0"
                                 >
 
-                                <input 
-                                    matEndDate 
-                                    placeholder="Fim" 
-                                    name="data_fim" 
+                                <input
+                                    matEndDate
+                                    placeholder="Fim"
+                                    name="data_fim"
                                     formControlName="data_fim"
                                 >
                             </mat-date-range-input>
@@ -37,10 +37,10 @@
                             <mat-date-range-picker #picker></mat-date-range-picker>
                         </mat-form-field>
 
-                        <button 
-                            class="flex ml-auto" 
-                            mat-flat-button 
-                            [color]="'primary'" 
+                        <button
+                            class="flex ml-auto"
+                            mat-flat-button
+                            [color]="'primary'"
                             (click)="limparDatasDoPeriodo()"
                         >
                             <span>Limpar datas</span>
@@ -57,9 +57,9 @@
 
                     <section class="">
                         <mat-form-field appearance="fill" class="w-full">
-                            <input 
-                                matInput 
-                                name="outros" 
+                            <input
+                                matInput
+                                name="outros"
                                 formControlName="numeroProcesso"
                             >
                             <mat-hint>Informe o número do processo para a pesquisa</mat-hint>
@@ -67,12 +67,12 @@
                     </section>
                 </mat-expansion-panel>
 
-                <mat-expansion-panel 
+                <mat-expansion-panel
                     class="mb-2 border-solid border-2"
                     *ngFor="let tipo of tiposDasTags"
                 >
                     <mat-expansion-panel-header>
-                        <mat-panel-title 
+                        <mat-panel-title
                             class="font-semibold text-primary-500 line-clamp-3"
                         >
                             {{tipo}}
@@ -85,7 +85,7 @@
                                 </span>
                                 <mat-icon
                                     *ngIf="obterNomeDasTagsSelecionadasPeloTipo(tipo).join(', ').length > 29"
-                                    class="absolute right-10 pb-3 bg-white"
+                                    class="absolute right-10 pb-3 bg-card"
                                     style="color: #2a6894;"
                                     [matTooltip]="obterNomeDasTagsSelecionadasPeloTipo(tipo).join(', ')"
                                 >add_circle</mat-icon>
@@ -98,7 +98,7 @@
                         <p
                             *ngFor="let tag of (tags | filtrarTagPorTipo : tipo)"
                         >
-                            <mat-checkbox 
+                            <mat-checkbox
                                 color="primary"
                                 (change)="selecionarOuDeselecionarFiltro(tag)"
                             >
@@ -111,9 +111,9 @@
         </mat-accordion>
 
         <!-- Compose button -->
-        <button 
-            class="mx-8 mt-8 mb-2" 
-            mat-flat-button 
+        <button
+            class="mx-8 mt-8 mb-2"
+            mat-flat-button
             [color]="'primary'"
             (click)="filtrar()"
         >
@@ -121,8 +121,8 @@
             <span class="ml-2">Filtrar</span>
         </button>
 
-        <button 
-            class="mx-8 mt-2 mb-4" 
+        <button
+            class="mx-8 mt-2 mb-4"
             mat-flat-button
             (click)="limparFiltros()"
         >
@@ -130,7 +130,7 @@
         </button>
 
         <mat-hint class="m-4 text-center">
-            Limpar os filtros fará com que todos os dados da tabela 
+            Limpar os filtros fará com que todos os dados da tabela
             sejam recarregados
         </mat-hint>
     </div>

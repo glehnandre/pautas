@@ -1,5 +1,5 @@
 <div class="absolute inset-0 flex flex-col ">
-    <div class="flex justify-between bg-white ">
+    <div class="flex justify-between bg-topo ">
         <div class="flex justify-start items-center">
             <img src="assets/digital/stf-logo.png" class="ml-8 w-1/5 h-auto">
             <div
@@ -18,7 +18,7 @@
     <div class="bg-stf-background bg-cover bg-no-repeat bg-bottom min-h-20 h-30 relative">
         <div class="absolute inset-0 flex items-center justify-center">
             <div class="mx-4 w-full">
-                <form class="flex mx-auto md:w-180 h-12 border-t pl-4 border-b border-l text-gray-800 border-gray-200 bg-white rounded-full">
+                <form class="flex mx-auto md:w-180 h-12 border-t pl-4 border-b border-l text-gray-800 border-gray-200 bg-card rounded-full">
                     <div class="flex flex-1 flex-col justify-center mr-4">
                         <span class="text-primary font-medium">O que você procura no DJe?</span>
                         <input
@@ -42,10 +42,10 @@
     </div>
 
 
-    <mat-drawer-container class="flex flex-col flex-auto shadow bg-card">
+    <mat-drawer-container class="flex flex-col flex-auto shadow">
 
         <!-- Drawer -->
-        <mat-drawer class="w-80 bg-white pt-12" [autoFocus]="false" [mode]="drawerMode" [opened]="drawerOpened" #matDrawer>
+        <mat-drawer class="w-80 bg-page pt-12" [autoFocus]="false" [mode]="drawerMode" [opened]="drawerOpened" #matDrawer>
             <!-- Sidebar -->
             <app-filtros
                 [agregacoes]="agregacoes"
@@ -62,12 +62,12 @@
         </mat-drawer>
 
         <!-- Drawer content -->
-        <mat-drawer-content class="flex flex-col overflow-y-auto bg-white">
+        <mat-drawer-content class="flex flex-col overflow-y-auto bg-page">
 
             <!-- Main -->
-            <div class="bg-gray-200 lg:mx-10 lg:my-12">
+            <div class="lg:mx-10 lg:my-12">
 
-                <div *ngIf="filtrados.length>0" class="bg-white pb-2 -mt-7 font-medium flex flex-row">
+                <div *ngIf="filtrados.length>0" class="pb-2 -mt-7 font-medium flex flex-row">
                     <span>Consulta retornou {{filtrados.length}} {{(filtrados.length===1) ? "resultado" : "resultados"}}</span>
                     <div class="ml-auto space-x-4">
                         <button class="font-medium" style="color: #1170A6;" (click)="anteriorExibidos()">Anterior</button>

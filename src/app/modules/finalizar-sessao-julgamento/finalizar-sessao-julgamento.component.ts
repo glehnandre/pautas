@@ -61,8 +61,8 @@ export class FinalizarSessaoJulgamentoComponent implements OnInit {
       error: (error) => {
         console.log(error);
         this.alerta = {
-          nome: "Error", 
-          tipo: "error", 
+          nome: "Error",
+          tipo: "error",
           titulo: "Erro",
           mensagem: error.message
         }
@@ -136,8 +136,8 @@ export class FinalizarSessaoJulgamentoComponent implements OnInit {
         error: (error) => {
           console.log(error);
           this.alerta = {
-            nome: "Error", 
-            tipo: "error", 
+            nome: "Error",
+            tipo: "error",
             titulo: "Erro",
             mensagem: error.message
           }
@@ -145,8 +145,8 @@ export class FinalizarSessaoJulgamentoComponent implements OnInit {
         }
       });
       this.alerta = {
-        nome: "Sucesso", 
-        tipo: "success", 
+        nome: "Sucesso",
+        tipo: "success",
         titulo: "Sucesso",
         mensagem: `A sessão ${this.sessao.numero}/${this.sessao.ano} ${this.sessao.tipo} ${this.sessao.modalidade} foi encerrada e as atividades decorrentes da finalização foram criadas.`
       }
@@ -161,8 +161,8 @@ export class FinalizarSessaoJulgamentoComponent implements OnInit {
   alertaDeErro(mensagem: string): void {
 
     this.alerta = {
-      nome: "Sessao invalida", 
-      tipo: "error", 
+      nome: "Sessao invalida",
+      tipo: "error",
       titulo: "Erro de validação",
       mensagem: mensagem
     }

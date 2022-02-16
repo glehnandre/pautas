@@ -5,7 +5,7 @@
     >
         <div class="w-full md:w-9/12">
             <div class="flex flex-row text-white">
-                <div *ngIf="form?.dataPublicacao" class="flex flex-col bg-blue-900 p-2 items-center space-x-2">
+                <div *ngIf="form?.dataPublicacao" class="flex flex-col bg-primary p-2 items-center space-x-2">
                     <div class="flex flex-row">
                         <mat-icon class="hidden sm:block text-current" [svgIcon]="'heroicons_outline:calendar'"></mat-icon>
                         <span class="text-base sm:text-4xl font-medium">{{ form?.dataPublicacao | date: 'dd'}}</span>
@@ -28,7 +28,7 @@
                     </div>
                 </div>
             </div>
-            <div class="flex flex-col bg-white dar:bg-gray-800 pb-4">
+            <div class="flex flex-col bg-card dar:bg-gray-800 pb-4">
                 <div class="mx-2 sm:mx-4 -my-4 sm:-my-2">
                     <hr><div class="flex flex-col sm:flex-row -my-4 sm:-my-2 justify-between space-x-0 sm:space-x-4">
                         <span>
@@ -98,7 +98,7 @@
                         </div>
                     </div>
                     <div *ngIf="processo.capitulos">
-                        <hr class="mb-2" /> 
+                        <hr class="mb-2" />
                         <div *ngFor="let tipo of tiposCapitulo">
                             <div *ngFor="let capitulo of filtraTipos(tipo, processo.capitulos); let capituloIndex = index">
                                 <div>
@@ -112,8 +112,8 @@
                                 </div>
                             </div>
 
-                        </div>  
-                        
+                        </div>
+
                         <div *ngIf="processo.redator" class="mb-4 font-medium" [innerHtml]="fraseEMinistros([processo?.redator], FraseRedator)">
                         </div>
                     </div>

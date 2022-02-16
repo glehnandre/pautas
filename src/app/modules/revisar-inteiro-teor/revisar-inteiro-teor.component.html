@@ -1,7 +1,7 @@
-<div class="absolute inset-0 flex flex-col min-w-0 overflow-hidden bg-white">
+<div class="absolute inset-0 flex flex-col min-w-0 overflow-hidden bg-page">
 
     <!-- Header -->
-    <div class="flex flex-col sm:flex-row justify-center items-center sm:justify-between pl-8 bg-white dark:bg-transparent">
+    <div class="flex flex-col sm:flex-row justify-center items-center sm:justify-between pl-8">
         <h1 class="mt-4 text-primary font-medium text-xl sm:text-2xl">
             Revisar Inteiro Teor {{ revisoes?.classe }} {{ revisoes?.numero }} {{ revisoes?.nome }}
         </h1>
@@ -23,7 +23,7 @@
 
     <hr class="m-0 p-0" />
 
-    <header class="px-8 pt-4 bg-white">
+    <header class="px-8 pt-4 bg-card">
         <app-cabecalho-relator
             [processo]="processo"
             [colegiado]="'pleno'"
@@ -42,7 +42,7 @@
     </header>
 
     <!-- Main -->
-    <div class="flex-auto overflow-y-auto px-8 py-4" cdkScrollable>
+    <div class="flex-auto overflow-y-auto px-8 py-4 bg-card" cdkScrollable>
         <app-tabela
             [dataSource]="dataSource"
             [revisoes]="revisoes"

@@ -85,7 +85,7 @@ export class RevisarExtratoAtaComponent implements OnInit {
     dialogRef.afterClosed().subscribe({
       next: (form) => {
         this.form = form;
-        
+
         let data;
         if(form.dataPublicacao._d) data = new Date(form.dataPublicacao._d);
         else data = new Date(form.dataPublicacao);
