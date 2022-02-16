@@ -49,6 +49,7 @@ interface Decisao {
 export class ResultadoJulgamentoComponent implements OnInit {
 
   parametros: Parametros;
+  exibirFormDrawer = false;
   processo: Processo = {} as Processo;
   sessao: SessaoDeJulgamento;
   votos: Voto[] = [];
@@ -96,7 +97,7 @@ export class ResultadoJulgamentoComponent implements OnInit {
    * @description Método para exibir ou esconder a gaveta com conteúdo
    * @author Douglas da Silva Monteles
    */
-  public abrirGavetaDeFormularioDeDecisao(drawerName: string): void {
+  public abrirGaveta(drawerName: string): void {
     const drawer = this._fuseDrawerService.getComponent(drawerName);
     drawer.toggle();
   }

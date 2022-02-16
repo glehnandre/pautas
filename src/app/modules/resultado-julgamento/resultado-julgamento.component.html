@@ -1,274 +1,331 @@
-<div class="absolute inset-0 flex flex-col min-w-0 overflow-hidden">
-
-    <!-- Header -->
-    <div
-        class="flex flex-col sm:flex-row justify-center items-center sm:justify-between pl-8 bg-white dark:bg-transparent">
-        <h1 class="mt-4 text-primary font-medium text-xl sm:text-2xl">
-            Lançamento do Resultado do Julgamento da {{getDadosDoProcesso()}}
-        </h1>
-    </div>
-
-    <hr class="m-0 p-0" />
-
-    <header class="bg-white pt-2 flex flex-col px-2">
-        <app-cabecalho-relator [processo]="processo" [colegiado]="parametros.colegiado" [votos]="votos"
-            [sessao]="sessao" [chips]="obterNomeDosChips()" *ngIf="processo"></app-cabecalho-relator>
-
-        <div class="hidden md:grid md:grid-cols-6 lg:grid lg:grid-cols-10 my-2">
-            <div class="md:col-span-5 lg:col-span-6 my-auto">
-                <button class="mr-2 text-sm" color="primary" mat-raised-button (click)="finalizar()">
-                    FINALIZAR
+<div class="w-full relative flex overflow-hidden border -mt min-h-80">
+    <fuse-drawer
+        #formDrawer
+        [name]="FORM_CADASTRO_DECISAO"
+        [opened]="exibirFormDrawer"
+        [mode]="'over'"
+        [position]="'right'"
+    >
+        <div class="overflow-auto p-4">
+            <!-- CONTENT GOES HERE -->
+            <div class="border-gray-300 rounded-2xl">
+                <button
+                    mat-mini-fab
+                    color="primary"
+                    (click)="abrirGaveta(FORM_CADASTRO_DECISAO)"
+                >
+                    <mat-icon>arrow_back</mat-icon>
                 </button>
 
-                <button mat-raised-button class="max-w-full mr-2 text-sm" (click)="exibirModalDeModeloDecisao()">
-                    MODELOS DE TEXTO
-                </button>
+                <div class="w-full">
+                    <div id="menu-decisao" class="w-full p-4 overflow-y-auto">
+                        <app-form-decisao
+                            *ngIf="!capituloSelecionado; else exibirDecisaoNoForm"
+                            [processo]="processo"
+                            [sessaoDeJulgamento] = "sessao"
+                            (dadosDoCapitulo)="abrirGaveta(FORM_CADASTRO_DECISAO)"
+                        ></app-form-decisao>
 
-                <button mat-raised-button class="max-w-full mr-2 text-sm"
-                    (click)="toggleDrawerOpen('vistaEDestaqueDrawer')">
-                    PEDIDOS DE VISTA
-                </button>
-
-                <button mat-raised-button class="max-w-full mr-2 text-sm" (click)="exibirModalDeDestaque()"
-                    *ngIf="sessao?.modalidade == 'VIRTUAL'">
-                    PEDIDOS DE DESTAQUE
-                </button>
-
-                <button mat-raised-button class="max-w-full mr-2 text-sm"
-                    (click)="exibirModalDeIndicacaoDeImpedimentos()">
-                    IMPEDIMENTOS
-                </button>
-
-
-                <button mat-raised-button class="z-0 md:mt-2 text-sm" mat-button>
-                    <span>CANCELAR</span>
-                </button>
-            </div>
-
-
-            <div class="md:col-span-1 lg:col-span-4">
-                <app-chips [idChip]="'idChipsResultadoJulgamento'" [chips]="chips" [hasArrow]="true"
-                    [hasBtnRemove]="true" [conteudosNoChipParaSerRemovivel]="['vista', 'destaque']"
-                    (onClick)="abrirModal($event)" (chipRemovido)="obterChipRemovido($event)"></app-chips>
-            </div>
-        </div>
-
-        <div class="md:hidden">
-            <mat-form-field appearance="outline" class="w-full">
-                <mat-label>Ações</mat-label>
-                <mat-select>
-                    <mat-option (click)="finalizar()">Finalizar</mat-option>
-                    <mat-option (click)="exibirModalDeDestaque()">Destaque</mat-option>
-                    <mat-option (click)="toggleDrawerOpen('vistaEDestaqueDrawer')">Vista</mat-option>
-                    <mat-option (click)="exibirModalDeModeloDecisao()">Modelos de texto</mat-option>
-                    <mat-option (click)="exibirModalDeIndicacaoDeImpedimentos()">Indicar impedimentos</mat-option>
-                    <mat-option>Cancelar</mat-option>
-                </mat-select>
-            </mat-form-field>
-        </div>
-    </header>
-
-    <hr class="m-0 p-0" />
-
-    <!-- Body -->
-    <div class="flex-auto p-2 sm:p-2 overflow-y-auto" cdkScrollable>
-        <!-- CONTENT GOES HERE -->
-        <div class=" min-h-100 border-gray-300 rounded-2xl">
-            <div class="grid grid-cols-1 xl:grid-cols-3 gap-8 w-full mt-8">
-                <!-- Card de capítulos-->
-                <div class="xl:col-span-1 flex flex-col flex-auto bg-card shadow rounded-2xl overflow-hidden">
-                    <div class="p-6">
-                        <div class="mr-4 text-lg font-medium tracking-tight leading-6 truncate">Decisões</div>
-                        <div class="text-secondary font-medium">Lista de decisões por capítulo</div>
+                        <ng-template #exibirDecisaoNoForm>
+                            <app-form-decisao
+                                *ngIf="exibirListaDeDecisoes"
+                                [capitulo]="capituloSelecionado"
+                                [processo]="processo"
+                                [sessaoDeJulgamento] = "sessao"
+                                [isExibirBtnSalvarDecisao]=true
+                                [isExibirBtnExcluirCapitulo]=true
+                                (dadosDoCapitulo)="atualizarCapitulos($event); abrirGaveta(FORM_CADASTRO_DECISAO)"
+                            ></app-form-decisao>
+                        </ng-template>
                     </div>
-                    <div class="overflow-x-auto mx-2">
-                        <ng-container *ngIf="todosCapitulos.length > 0; else semDecisoes">
-                            <div class="divide-y focus-within:shadow-lg" cdkDropList [cdkDropListData]="todosCapitulos"
-                                (cdkDropListDropped)="dropped($event)">
-                                <!-- Capítulo -->
-                                <ng-container
-                                    *ngFor="let item of todosCapitulos; index as i; let first = first; trackBy: trackByFn">
-                                    <div class="group w-full select-none hover:bg-gray-100 dark:hover:bg-hover"
-                                        [class.border-t]="first" cdkDrag [cdkDragLockAxis]="'y'">
+                </div>
+            </div>
+        </div>
+    </fuse-drawer>
 
-                                        <!-- Drag preview -->
-                                        <div class="flex flex-0 w-0 h-0" *cdkDragPreview></div>
+    <div class="flex-auto bg-gray-100 p-4">
+        <div class="absolute inset-0 flex flex-col min-w-0 overflow-hidden">
 
-                                        <!-- Capítulo content -->
-                                        <div class="relative flex items-center h-full pl-10">
+            <!-- Header -->
+            <div
+                class="flex flex-col sm:flex-row justify-center items-center sm:justify-between pl-8 bg-white dark:bg-transparent">
+                <h1 class="mt-4 text-primary font-medium text-xl sm:text-2xl">
+                    Lançamento do Resultado do Julgamento da {{getDadosDoProcesso()}}
+                </h1>
+            </div>
+        
+            <hr class="m-0 p-0" />
+        
+            <header class="bg-white pt-2 flex flex-col px-2">
+                <app-cabecalho-relator [processo]="processo" [colegiado]="parametros.colegiado" [votos]="votos"
+                    [sessao]="sessao" [chips]="obterNomeDosChips()" *ngIf="processo"></app-cabecalho-relator>
+        
+                <div class="hidden md:grid md:grid-cols-6 lg:grid lg:grid-cols-10 my-2">
+                    <div class="md:col-span-5 lg:col-span-6 my-auto">
+                        <button class="mr-2 text-sm" color="primary" mat-raised-button (click)="finalizar()">
+                            FINALIZAR
+                        </button>
 
-                                            <!-- Selected indicator -->
-                                            <ng-container *ngIf="isMarcarDecisao(item)">
-                                                <div
-                                                    class="z-10 absolute -top-px right-0 -bottom-px flex flex-0 w-1 bg-primary">
-                                                </div>
-                                            </ng-container>
-
-                                            <!-- Drag handle -->
-                                            <div class="md:hidden absolute flex items-center justify-center inset-y-0 left-0 w-8 cursor-move md:group-hover:flex"
-                                                cdkDragHandle>
-                                                <mat-icon class="icon-size-5 text-hint"
-                                                    [svgIcon]="'heroicons_solid:menu'"></mat-icon>
-                                            </div>
-
-                                            <!-- Capítulo link -->
-                                            <a class="flex flex-auto py-2 items-center min-w-0 h-full pr-7"
-                                                (click)="setCapituloSelecionado(null); recarregarListaDeDecisoes(); setCapituloSelecionado(item)">
-                                                <!-- Title & Placeholder -->
-                                                <div class="flex-auto mr-2 truncate">
-                                                    <ng-container class="flex items-center justify-center">
-                                                        <p class="my-auto" [matTooltip]="item.descricao" *ngIf="item">
-                                                            {{(i+1)}}º: {{item.tipo}} - <strong
-                                                                class="text-primary-500">{{item.dispositivo?.nome ||
-                                                                item.dispositivo}}</strong> {{ (item.texto.length > 30)?
-                                                            (item.texto | slice:0:6)+'..':(item.texto) }}
-                                                        </p>
+                        <button
+                            mat-raised-button
+                            class="max-w-full mr-2 text-sm"
+                            (click)="abrirGaveta(FORM_CADASTRO_DECISAO)"
+                        >
+                            INCLUIR CAPÍTULO
+                        </button>
+        
+                        <button mat-raised-button class="max-w-full mr-2 text-sm" (click)="exibirModalDeModeloDecisao()">
+                            MODELOS DE TEXTO
+                        </button>
+        
+                        <button mat-raised-button class="max-w-full mr-2 text-sm"
+                            (click)="toggleDrawerOpen('vistaEDestaqueDrawer')">
+                            PEDIDOS DE VISTA
+                        </button>
+        
+                        <button mat-raised-button class="max-w-full mr-2 text-sm" (click)="exibirModalDeDestaque()"
+                            *ngIf="sessao?.modalidade == 'VIRTUAL'">
+                            PEDIDOS DE DESTAQUE
+                        </button>
+        
+                        <button mat-raised-button class="max-w-full mr-2 text-sm"
+                            (click)="exibirModalDeIndicacaoDeImpedimentos()">
+                            IMPEDIMENTOS
+                        </button>
+        
+        
+                        <button mat-raised-button class="z-0 md:mt-2 text-sm" mat-button>
+                            <span>CANCELAR</span>
+                        </button>
+                    </div>
+        
+        
+                    <div class="md:col-span-1 lg:col-span-4">
+                        <app-chips [idChip]="'idChipsResultadoJulgamento'" [chips]="chips" [hasArrow]="true"
+                            [hasBtnRemove]="true" [conteudosNoChipParaSerRemovivel]="['vista', 'destaque']"
+                            (onClick)="abrirModal($event)" (chipRemovido)="obterChipRemovido($event)"></app-chips>
+                    </div>
+                </div>
+        
+                <div class="md:hidden">
+                    <mat-form-field appearance="outline" class="w-full">
+                        <mat-label>Ações</mat-label>
+                        <mat-select>
+                            <mat-option (click)="finalizar()">Finalizar</mat-option>
+                            <mat-option (click)="abrirGaveta(FORM_CADASTRO_DECISAO)">Incluir Capítulo</mat-option>
+                            <mat-option (click)="exibirModalDeDestaque()">Destaque</mat-option>
+                            <mat-option (click)="toggleDrawerOpen('vistaEDestaqueDrawer')">Vista</mat-option>
+                            <mat-option (click)="exibirModalDeModeloDecisao()">Modelos de texto</mat-option>
+                            <mat-option (click)="exibirModalDeIndicacaoDeImpedimentos()">Indicar impedimentos</mat-option>
+                            <mat-option>Cancelar</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+            </header>
+        
+            <hr class="m-0 p-0" />
+        
+            <!-- Body -->
+            <div class="flex-auto p-2 sm:p-2 overflow-y-auto" cdkScrollable>
+                <!-- CONTENT GOES HERE -->
+                <div class=" min-h-100 border-gray-300 rounded-2xl">
+                    <div class="grid grid-cols-1 xl:grid-cols-3 gap-8 w-full mt-8">
+                        <!-- Card de capítulos-->
+                        <div class="xl:col-span-1 flex flex-col flex-auto bg-card shadow rounded-2xl overflow-hidden">
+                            <div class="p-6">
+                                <div class="mr-4 text-lg font-medium tracking-tight leading-6 truncate">Decisões</div>
+                                <div class="text-secondary font-medium">Lista de decisões por capítulo</div>
+                            </div>
+                            <div class="overflow-x-auto mx-2">
+                                <ng-container *ngIf="todosCapitulos.length > 0; else semDecisoes">
+                                    <div class="divide-y focus-within:shadow-lg" cdkDropList [cdkDropListData]="todosCapitulos"
+                                        (cdkDropListDropped)="dropped($event)">
+                                        <!-- Capítulo -->
+                                        <ng-container
+                                            *ngFor="let item of todosCapitulos; index as i; let first = first; trackBy: trackByFn">
+                                            <div class="group w-full select-none hover:bg-gray-100 dark:hover:bg-hover"
+                                                [class.border-t]="first" cdkDrag [cdkDragLockAxis]="'y'">
+        
+                                                <!-- Drag preview -->
+                                                <div class="flex flex-0 w-0 h-0" *cdkDragPreview></div>
+        
+                                                <!-- Capítulo content -->
+                                                <div class="relative flex items-center h-full pl-10">
+        
+                                                    <!-- Selected indicator -->
+                                                    <ng-container *ngIf="isMarcarDecisao(item)">
+                                                        <div
+                                                            class="z-10 absolute -top-px right-0 -bottom-px flex flex-0 w-1 bg-primary">
+                                                        </div>
                                                     </ng-container>
+        
+                                                    <!-- Drag handle -->
+                                                    <div class="md:hidden absolute flex items-center justify-center inset-y-0 left-0 w-8 cursor-move md:group-hover:flex"
+                                                        cdkDragHandle>
+                                                        <mat-icon class="icon-size-5 text-hint"
+                                                            [svgIcon]="'heroicons_solid:menu'"></mat-icon>
+                                                    </div>
+        
+                                                    <!-- Capítulo link -->
+                                                    <a class="flex flex-auto py-2 items-center min-w-0 h-full pr-7"
+                                                        (click)="setCapituloSelecionado(null); recarregarListaDeDecisoes(); setCapituloSelecionado(item); abrirGaveta(FORM_CADASTRO_DECISAO)">
+                                                        <!-- Title & Placeholder -->
+                                                        <div class="flex-auto mr-2 truncate">
+                                                            <ng-container class="flex items-center justify-center">
+                                                                <p class="my-auto" [matTooltip]="item.descricao" *ngIf="item">
+                                                                    {{(i+1)}}º: {{item.tipo}} - <strong
+                                                                        class="text-primary-500">{{item.dispositivo?.nome ||
+                                                                        item.dispositivo}}</strong> {{ (item.texto.length > 30)?
+                                                                    (item.texto | slice:0:6)+'..':(item.texto) }}
+                                                                </p>
+                                                            </ng-container>
+                                                        </div>
+                                                    </a>
                                                 </div>
-                                            </a>
-                                        </div>
+                                            </div>
+                                        </ng-container>
                                     </div>
                                 </ng-container>
-                            </div>
-                        </ng-container>
-                        <ng-template #semDecisoes>
-                            <div class="mt-4 text-2xl font-semibold tracking-tight text-secondary">
-                                Sem decisões
-                            </div>
-                        </ng-template>
-                    </div>
-                    <div class="overflow-x-auto mx-6">
-                        <!-- Footer -->
-                        <ng-container matColumnDef="recentOrdersTableFooter">
-                            <td class="py-6 px-0 border-0" mat-footer-cell colspan="6">
-                                <button class="mt-4 text-sm" color="primary" mat-raised-button>NOVO CAPÍTULO</button>
-                            </td>
-                        </ng-container>
-                    </div>
-                </div>
-                <!-- Card de Vistas -->
-                <div class="xl:col-span-1 flex flex-col flex-auto bg-card shadow rounded-2xl overflow-hidden">
-                    <div class="p-6">
-                        <div class="mr-4 text-lg font-medium tracking-tight leading-6 truncate">Vistas</div>
-                        <div class="text-secondary font-medium">Lista das vistas pedidas no julgamento</div>
-                    </div>
-                    <div class="overflow-x-auto mx-2">
-                        <ng-container *ngIf="processo.vistas.length > 0; else semVistas">
-                            <!-- Task -->
-                            <ng-container
-                                *ngFor="let vista of processo?.vistas; index as i; let first = first; trackBy: trackByFn">
-                                <div class="group w-full select-none hover:bg-gray-100 dark:hover:bg-hover">
-                                    <!-- Task content -->
-                                    <div class="relative flex items-center h-full pl-10">
-
-                                        <img [src]="vista.ministro.imagem" alt="{{vista.ministro.nome}}"
-                                            class="w-9 h-9 mr-2 -ml-6 rounded-full ng-tns-c129-57 ng-star-inserted">
-
-                                        <!-- Task link -->
-                                        <a class="flex flex-auto py-2 items-center min-w-0 h-full pr-7"
-                                            (click)="setCapituloSelecionado(null);">
-                                            <!-- Title & Placeholder -->
-                                            <div class="flex-auto mr-2 truncate">
-                                                <ng-container class="flex items-center justify-center">
-                                                    <p class="my-auto" [matTooltip]="vista.texto">
-                                                        Vista <strong
-                                                            class="text-primary-500">{{vista.ministro.nome}}</strong>
-                                                        pedida na Sessão {{vista.sessao.modalidade}}
-                                                        {{vista.sessao.numero}}/{{vista.sessao.ano}} em {{vista.data |
-                                                        date:"dd/MM/YY"}}
-                                                    </p>
-                                                </ng-container>
-                                            </div>
-                                        </a>
+                                <ng-template #semDecisoes>
+                                    <div class="mt-4 text-2xl font-semibold tracking-tight text-secondary">
+                                        Sem decisões
                                     </div>
-                                </div>
-                            </ng-container>
-                        </ng-container>
-                        <ng-template #semVistas>
-                            <div class="p-4">
-                                <div class="mr-4 text-lg font-medium tracking-tight leading-6 truncate">Não há pedido de
-                                    vista</div>
+                                </ng-template>
                             </div>
-                        </ng-template>
-                    </div>
-                    <div class="overflow-x-auto mx-6">
-                        <!-- Footer -->
-                        <ng-container matColumnDef="recentOrdersTableFooter">
-                            <td class="py-6 px-0 border-0" mat-footer-cell colspan="6">
-                                <button mat-raised-button class="max-w-full mr-2 text-sm"
-                                (click)="toggleDrawerOpen('vistaEDestaqueDrawer')">PEDIDO DE VISTA</button>
-                            </td>
-                        </ng-container>
-                    </div>
-                </div>
-                <!-- Card de Destaques -->
-                <div class="xl:col-span-1 flex flex-col flex-auto bg-card shadow rounded-2xl overflow-hidden">
-                    <div class="p-6">
-                        <div class="mr-4 text-lg font-medium tracking-tight leading-6 truncate">Destaques</div>
-                        <div class="text-secondary font-medium">Lista das destaques pedidos no julgamento virtual</div>
-                    </div>
-                    <div class="overflow-x-auto mx-2">
-                        <ng-container *ngIf="processo.destaques.length > 0; else semVistas">
-                            <!-- Task -->
-                            <ng-container
-                                *ngFor="let destaque of processo?.destaques; index as i; let first = first; trackBy: trackByFn">
-                                <div class="group w-full select-none hover:bg-gray-100 dark:hover:bg-hover">
-                                    <!-- Task content -->
-                                    <div class="relative flex items-center h-full pl-10">
-
-                                        <img [src]="destaque.ministro.imagem" alt="{{destaque.ministro.nome}}"
-                                            class="w-9 h-9 mr-2 -ml-6 rounded-full ng-tns-c129-57 ng-star-inserted">
-
-                                        <!-- Task link -->
-                                        <a class="flex flex-auto py-2 items-center min-w-0 h-full pr-7"
-                                            (click)="setCapituloSelecionado(null);">
-                                            <!-- Title & Placeholder -->
-                                            <div class="flex-auto mr-2 truncate">
-                                                <ng-container class="flex items-center justify-center">
-                                                    <p class="my-auto" [matTooltip]="destaque.texto">
-                                                        Destaque <strong
-                                                            class="text-primary-500">{{destaque.ministro.nome}}</strong>
-                                                        pedido na Sessão {{destaque.sessao.modalidade}}
-                                                        {{destaque.sessao.numero}}/{{destaque.sessao.ano}} em
-                                                        {{destaque.data | date:"dd/MM/YY"}}
-                                                    </p>
-                                                </ng-container>
+                            <div class="overflow-x-auto mx-6">
+                                <!-- Footer -->
+                                <ng-container matColumnDef="recentOrdersTableFooter">
+                                    <td class="py-6 px-0 border-0" mat-footer-cell colspan="6">
+                                        <button class="mt-4 text-sm" color="primary" mat-raised-button>NOVO CAPÍTULO</button>
+                                    </td>
+                                </ng-container>
+                            </div>
+                        </div>
+                        <!-- Card de Vistas -->
+                        <div class="xl:col-span-1 flex flex-col flex-auto bg-card shadow rounded-2xl overflow-hidden">
+                            <div class="p-6">
+                                <div class="mr-4 text-lg font-medium tracking-tight leading-6 truncate">Vistas</div>
+                                <div class="text-secondary font-medium">Lista das vistas pedidas no julgamento</div>
+                            </div>
+                            <div class="overflow-x-auto mx-2">
+                                <ng-container *ngIf="processo?.vistas?.length > 0; else semVistas">
+                                    <!-- Task -->
+                                    <ng-container
+                                        *ngFor="let vista of processo?.vistas; index as i; let first = first; trackBy: trackByFn">
+                                        <div class="group w-full select-none hover:bg-gray-100 dark:hover:bg-hover">
+                                            <!-- Task content -->
+                                            <div class="relative flex items-center h-full pl-10">
+        
+                                                <img [src]="vista.ministro.imagem" alt="{{vista.ministro.nome}}"
+                                                    class="w-9 h-9 mr-2 -ml-6 rounded-full ng-tns-c129-57 ng-star-inserted">
+        
+                                                <!-- Task link -->
+                                                <a class="flex flex-auto py-2 items-center min-w-0 h-full pr-7"
+                                                    (click)="setCapituloSelecionado(null);">
+                                                    <!-- Title & Placeholder -->
+                                                    <div class="flex-auto mr-2 truncate">
+                                                        <ng-container class="flex items-center justify-center">
+                                                            <p class="my-auto" [matTooltip]="vista.texto">
+                                                                Vista <strong
+                                                                    class="text-primary-500">{{vista.ministro.nome}}</strong>
+                                                                pedida na Sessão {{vista.sessao.modalidade}}
+                                                                {{vista.sessao.numero}}/{{vista.sessao.ano}} em {{vista.data |
+                                                                date:"dd/MM/YY"}}
+                                                            </p>
+                                                        </ng-container>
+                                                    </div>
+                                                </a>
                                             </div>
-                                        </a>
+                                        </div>
+                                    </ng-container>
+                                </ng-container>
+                                <ng-template #semVistas>
+                                    <div class="p-4">
+                                        <div class="mr-4 text-lg font-medium tracking-tight leading-6 truncate">Não há pedido de
+                                            vista</div>
                                     </div>
-                                </div>
-                            </ng-container>
-                        </ng-container>
-                        <ng-template #semVistas>
-                            <div class="p-4">
-                                <div class="mr-4 text-lg font-medium tracking-tight leading-6 truncate">Não há pedido de
-                                    destaque</div>
+                                </ng-template>
                             </div>
-                        </ng-template>
-                    </div>
-                    <div class="overflow-x-auto mx-6">
-                        <!-- Footer -->
-                        <ng-container matColumnDef="recentOrdersTableFooter">
-                            <td class="py-6 px-0 border-0" mat-footer-cell colspan="2">
-                                <button mat-raised-button class="max-w-full mr-2 text-sm"
-                                    (click)="exibirModalDeDestaque()">PEDIDO DE DESTAQUE</button>
-                            </td>
-                        </ng-container>
+                            <div class="overflow-x-auto mx-6">
+                                <!-- Footer -->
+                                <ng-container matColumnDef="recentOrdersTableFooter">
+                                    <td class="py-6 px-0 border-0" mat-footer-cell colspan="6">
+                                        <button mat-raised-button class="max-w-full mr-2 text-sm"
+                                        (click)="toggleDrawerOpen('vistaEDestaqueDrawer')">PEDIDO DE VISTA</button>
+                                    </td>
+                                </ng-container>
+                            </div>
+                        </div>
+                        <!-- Card de Destaques -->
+                        <div class="xl:col-span-1 flex flex-col flex-auto bg-card shadow rounded-2xl overflow-hidden">
+                            <div class="p-6">
+                                <div class="mr-4 text-lg font-medium tracking-tight leading-6 truncate">Destaques</div>
+                                <div class="text-secondary font-medium">Lista das destaques pedidos no julgamento virtual</div>
+                            </div>
+                            <div class="overflow-x-auto mx-2">
+                                <ng-container *ngIf="processo?.destaques?.length > 0; else semVistas">
+                                    <!-- Task -->
+                                    <ng-container
+                                        *ngFor="let destaque of processo?.destaques; index as i; let first = first; trackBy: trackByFn">
+                                        <div class="group w-full select-none hover:bg-gray-100 dark:hover:bg-hover">
+                                            <!-- Task content -->
+                                            <div class="relative flex items-center h-full pl-10">
+        
+                                                <img [src]="destaque.ministro.imagem" alt="{{destaque.ministro.nome}}"
+                                                    class="w-9 h-9 mr-2 -ml-6 rounded-full ng-tns-c129-57 ng-star-inserted">
+        
+                                                <!-- Task link -->
+                                                <a class="flex flex-auto py-2 items-center min-w-0 h-full pr-7"
+                                                    (click)="setCapituloSelecionado(null);">
+                                                    <!-- Title & Placeholder -->
+                                                    <div class="flex-auto mr-2 truncate">
+                                                        <ng-container class="flex items-center justify-center">
+                                                            <p class="my-auto" [matTooltip]="destaque.texto">
+                                                                Destaque <strong
+                                                                    class="text-primary-500">{{destaque.ministro.nome}}</strong>
+                                                                pedido na Sessão {{destaque.sessao.modalidade}}
+                                                                {{destaque.sessao.numero}}/{{destaque.sessao.ano}} em
+                                                                {{destaque.data | date:"dd/MM/YY"}}
+                                                            </p>
+                                                        </ng-container>
+                                                    </div>
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </ng-container>
+                                </ng-container>
+                                <ng-template #semVistas>
+                                    <div class="p-4">
+                                        <div class="mr-4 text-lg font-medium tracking-tight leading-6 truncate">Não há pedido de
+                                            destaque</div>
+                                    </div>
+                                </ng-template>
+                            </div>
+                            <div class="overflow-x-auto mx-6">
+                                <!-- Footer -->
+                                <ng-container matColumnDef="recentOrdersTableFooter">
+                                    <td class="py-6 px-0 border-0" mat-footer-cell colspan="2">
+                                        <button mat-raised-button class="max-w-full mr-2 text-sm"
+                                            (click)="exibirModalDeDestaque()">PEDIDO DE DESTAQUE</button>
+                                    </td>
+                                </ng-container>
+                            </div>
+                        </div>
                     </div>
                 </div>
+            </div>
+            <div>
+                <fuse-drawer [name]="'vistaEDestaqueDrawer'" [opened]="false" [position]="'right'" [mode]="'over'" id="vista-destaque-drawer">
+                    <div class="p-4 w-full">
+                        <app-form-vista-e-destaque
+                        [data]="data"
+                        (closeDrawerEmit)="toggleDrawerOpen('vistaEDestaqueDrawer')"
+                        (formVistaEDestaqueEmit)="trataVista($event)"
+                        ></app-form-vista-e-destaque>
+                    </div>
+                </fuse-drawer>
             </div>
         </div>
-    </div>
-    <div>
-        <fuse-drawer [name]="'vistaEDestaqueDrawer'" [opened]="false" [position]="'right'" [mode]="'over'" id="vista-destaque-drawer">
-            <div class="p-4 w-full">
-                <app-form-vista-e-destaque
-                [data]="data"
-                (closeDrawerEmit)="toggleDrawerOpen('vistaEDestaqueDrawer')"
-                (formVistaEDestaqueEmit)="trataVista($event)"
-                ></app-form-vista-e-destaque>
-            </div>
-        </fuse-drawer>
     </div>
 </div>
 
