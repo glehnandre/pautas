@@ -89,16 +89,18 @@ export class FormVistaEDestaqueComponent implements OnInit, OnChanges {
       data: [null, Validators.required],
       ministro: [null, Validators.required],
       texto: ['', Validators.required],
+      id: ['']
     });
   }
 
   ngOnChanges() {
+    console.log("LOAD VISTA E DESTAQUE");
+    console.log(this.vista);
+    console.log(this.destaque);
     if (this.vista != null) {
-      this.formVistaEDestaque.setValue({data: this.vista.data, ministro: this.vista.ministro.id, texto: this.vista.texto});
-    }else if (this.destaque != null) {
-      console.log("Destaque diferente de null")
-      console.log(this.destaque)
-      this.formVistaEDestaque.setValue({data: this.destaque.data, ministro: this.destaque.ministro.id, texto: this.destaque.texto});
+      this.formVistaEDestaque.setValue({data: this.vista.data, ministro: this.vista.ministro?.id, texto: this.vista.texto, id: this.vista.id});
+    }else if (this.destaque != null && this.destaque?.id != undefined) {
+      this.formVistaEDestaque.setValue({data: this.destaque.data, ministro: this.destaque.ministro?.id, texto: this.destaque.texto, id: this.destaque.id});
     }
   }
 
@@ -108,9 +110,9 @@ export class FormVistaEDestaqueComponent implements OnInit, OnChanges {
   }
 
   salvar(){
-    if(this.vista != undefined){
+    if(this.vista != null){
       this.salvarVista();
-    }else if(this.destaque != undefined){
+    }else if(this.destaque != null){
       this.salvarDestaque();
     }else this.closeDrawer();
   }
@@ -121,7 +123,7 @@ export class FormVistaEDestaqueComponent implements OnInit, OnChanges {
             processo: this.processo.id,
             sessao: this.sessao.id,
         };
-        this._processoService.salvarVistaDoProcesso(this.sessao.numero, this.sessao.ano, this.processo.id, vista).subscribe({
+        this._processoService.persistirVistaDoProcesso(this.sessao.numero, this.sessao.ano, this.processo.id, vista).subscribe({
           next: (vistaSalva) => {
             this.savedDrawer.emit({vistas: vistaSalva, destaques: null});
             this.closeDrawer();
@@ -141,7 +143,7 @@ export class FormVistaEDestaqueComponent implements OnInit, OnChanges {
             sessao: this.sessao.id,
         };
 
-        this._processoService.salvarDestaqueDoProcesso(this.sessao.numero, this.sessao.ano, this.processo.id, destaque).subscribe({
+        this._processoService.persistirDestaqueDoProcesso(this.sessao.numero, this.sessao.ano, this.processo.id, destaque).subscribe({
           next: (destaqueSalvo) => {
             this.savedDrawer.emit({vistas: null, destaques: destaqueSalvo});
             this.closeDrawer();

@@ -98,7 +98,8 @@
     
         
     </div>
-    <editor id="texto-da-decisao" formControlName="texto" [init]="{height: 450, menubar: false, plugins: [
+    <editor id="texto-da-decisao" apiKey="aduua1w16bzaswikm1p5qbkcx7jj757x4g58xdm9okd8wpw7" formControlName="texto"
+     [init]="{selector: 'textarea', height: 450, menubar: false, plugins: [
         'autolink lists link charmap preview anchor',
         'insertdatetime table help wordcount'
       ],
@@ -106,12 +107,6 @@
         'undo redo | formatselect | bold italic backcolor | \
         alignleft aligncenter alignright alignjustify | \
         bullist numlist outdent indent | removeformat | help'}"></editor>
-    <!--<mat-form-field class="w-full mb-4" appearance="outline">
-        <mat-label>Acordam os ministros</mat-label>
-        <textarea matInput rows="10" formControlName="texto"></textarea>
-        <mat-hint>Descreva a decisão tomada pelo colegiado</mat-hint>
-    </mat-form-field>-->
-
     <app-aplicar-decisoes
     *ngIf="capitulo"
     [limparProcessosSelecionados]="limparProcessosSelecionados"

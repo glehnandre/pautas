@@ -80,7 +80,7 @@
                 </mat-form-field>
             </div>
 
-            <editor id="texto-da-decisao" formControlName="texto" [init]="{height: 430, menubar: false, plugins: [
+            <editor id="123" formControlName="texto" [init]="{height: 430, menubar: false, plugins: [
                 'autolink lists link charmap preview anchor',
                 'insertdatetime table help wordcount'
               ],
@@ -88,38 +88,6 @@
                 'undo redo | formatselect | bold italic backcolor | \
                 alignleft aligncenter alignright alignjustify | \
                 bullist numlist outdent indent | removeformat | help'}"></editor>
-
-           <!-- <mat-form-field class="w-full mb-4" appearance="outline">
-                <mat-label>Concordam os ministros <span class="text-red-500">*</span></mat-label>
-
-                <textarea
-                    id="texto-da-decisao"
-                    matInput
-                    formControlName="texto"
-                ></textarea>
-
-                <mat-selection-list
-                    #sugestoes
-                    *ngIf="exibirSugestoes"
-                    class="bg-white w-full overflow-y-auto h-40 shadow-lg drop-shadow-lg top-8 z-20"
-                    [multiple]="false"
-                    (selectionChange)="adicionarSugestaoAoTexto(sugestoes.selectedOptions.selected[0]?.value)"
-                >
-                    <mat-list-option
-                        *ngFor="let atributo of atributos"
-                        [value]="atributo"
-                    >
-                        {{atributo}}
-                    </mat-list-option>
-                </mat-selection-list>
-
-                <mat-hint>
-                    Escreva o modelo do texto para ser aplicado a outras decisões.
-                    Utilize @colegiado, @processo, @sessao, @data_inicio_sessao,
-                    @data_fim_sessao, @modalidade e @tipo para referenciar atributos
-                    do processo no modelo da decisão.
-                </mat-hint>
-            </mat-form-field> -->
 
             <p class="mt-4 text-center flex flex-row gap-4 justify-end items-end">
                 <button

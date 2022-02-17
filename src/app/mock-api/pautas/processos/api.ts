@@ -306,7 +306,7 @@ export class ProcessoMockApi {
                       if(indexProcesso != -1){
                         let index_vista = this._sessaoDeJulgamentos[indexJulgamento].processos[indexProcesso].vistas.findIndex(vista => vista.id === idVista);
                         this._sessaoDeJulgamentos[indexJulgamento].processos[indexProcesso].vistas[index_vista].data = body.data;
-                        this._sessaoDeJulgamentos[indexJulgamento].processos[indexProcesso].vistas[index_vista].ministro = body.ministro;
+                        this._sessaoDeJulgamentos[indexJulgamento].processos[indexProcesso].vistas[index_vista].ministro = m;
                         this._sessaoDeJulgamentos[indexJulgamento].processos[indexProcesso].vistas[index_vista].processo = body.processo;
                         this._sessaoDeJulgamentos[indexJulgamento].processos[indexProcesso].vistas[index_vista].sessao = body.sessao;
                         this._sessaoDeJulgamentos[indexJulgamento].processos[indexProcesso].vistas[index_vista].texto = body.texto;

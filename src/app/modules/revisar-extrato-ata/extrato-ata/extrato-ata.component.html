@@ -81,7 +81,8 @@
                         <div class="">
                             <span *ngFor="let vista of processo?.vistas">
                                 <p class="leading-tight ">No dia {{vista.data | date:'dd/MM/yyyy'}} às {{vista.data | date:'hh:mm'}}, houve um pedido de vista feito <span [innerHtml]=" fraseEMinistros([vista.ministro], FraseMinistro) "></span>
-                                {{ vista.texto }}</p>
+                                </p>
+                                <div [innerHtml] = "vista.texto"></div>
                                 <br>
                             </span>
                         </div>

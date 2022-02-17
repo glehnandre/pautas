@@ -73,14 +73,25 @@ export class ProcessoService {
     return this._httpClient.post<string>(`sessao-de-julgamento/${numeroAno}/processos/${idProcesso}/relator`, idRelator);
   }
 
-  public salvarVistaDoProcesso(numero: number, ano: number, idProcesso: number, vista: Vista): Observable<Vista[]> {
+  public persistirVistaDoProcesso(numero: number, ano: number, idProcesso: number, vista: Vista): Observable<Vista[]> {
     const numeroAno = `${numero}-${ano}`;
-    return this._httpClient.post<Vista[]>(`sessao-de-julgamento/${numeroAno}/processos/${idProcesso}/vistas`, vista);
+    if(vista.id!=null && vista.id != 0){
+      console.log('ATUALIZA');
+      return this._httpClient.put<Vista[]>(`sessao-de-julgamento/${numeroAno}/processos/${idProcesso}/vistas/${vista.id}`, vista);
+    }else{
+      console.log("NOVA VISTA")
+      return this._httpClient.post<Vista[]>(`sessao-de-julgamento/${numeroAno}/processos/${idProcesso}/vistas`, vista);
+    }
+    
   }
 
-  public salvarDestaqueDoProcesso(numero: number, ano: number, idProcesso: number, destaque: Destaque): Observable<Destaque[]> {
+  public persistirDestaqueDoProcesso(numero: number, ano: number, idProcesso: number, destaque: Destaque): Observable<Destaque[]> {
     const numeroAno = `${numero}-${ano}`;
-    return this._httpClient.post<Destaque[]>(`sessao-de-julgamento/${numeroAno}/processos/${idProcesso}/destaques`, destaque);
+    if(destaque.id!=null && destaque.id!=0){
+      return this._httpClient.put<Destaque[]>(`sessao-de-julgamento/${numeroAno}/processos/${idProcesso}/destaques/${destaque.id}`, destaque);
+    }else{
+      return this._httpClient.post<Destaque[]>(`sessao-de-julgamento/${numeroAno}/processos/${idProcesso}/destaques`, destaque);
+    }
   }
 
   public salvarImpedimentos(numero: number, ano: number, id: number, obj: any): Observable<void> {

@@ -21,7 +21,6 @@ import { SessaoDeJulgamentoService } from '../services/sessao-de-julgamento.serv
 import { FormIndicacaoImpedimentosComponent } from './form-indicacao-impedimentos/form-indicacao-impedimentos.component';
 import { FormModeloDecisaoComponent } from './form-modelo-decisao/form-modelo-decisao.component';
 import { FormRelatorComponent } from './form-relator/form-relator.component';
-import { FormVistaEDestaqueComponent } from './form-vista-e-destaque/form-vista-e-destaque.component';
 
 
 
@@ -71,6 +70,7 @@ export class ResultadoJulgamentoComponent implements OnInit {
   alerta: Alerta = {} as Alerta;
 
   readonly FORM_CADASTRO_DECISAO = 'formulario-de-cadastro-de-decisao';
+  readonly FORM_VISTA_DESTAQUE = 'vistaDestaqueDrawer';
 
   constructor(
     private _ministroService: MinistroService,
@@ -112,6 +112,21 @@ export class ResultadoJulgamentoComponent implements OnInit {
     const drawer = this._fuseDrawerService.getComponent(drawerName);
     drawer.toggle();
   }
+
+  /**
+   * @public Método público
+   * @param drawerName Nome do drawer a ser exibido
+   * @description Método para exibir ou esconder a gaveta com conteúdo
+   * @author Douglas da Silva Monteles
+   */
+     public fecharGaveta(drawerName: string): void {
+      //Limpa as informações da gaveta.
+      this.vistaSelecionada=null;
+      this.destaqueSelecionado=null;
+      
+      const drawer = this._fuseDrawerService.getComponent(drawerName);
+      drawer.toggle();
+    }
 
   /**
    * @public Método público
@@ -284,56 +299,6 @@ export class ResultadoJulgamentoComponent implements OnInit {
     }
   }
 
-  /**
-   * @public Método público
-   * @description Método para exibir modal de cadastro de Vista
-   * @author Douglas da Silva Monteles
-   */
-  public exibirModalDeVista(id?: number): void {
-    const ministro = this._obterDadosDaVistaNaListaDeDecisoes(id)?.ministro || null;
-
-    const dialogfRef = this._dialog.open(FormVistaEDestaqueComponent, {
-      maxHeight: '180vh',
-      data: {
-        titulo: 'Informar Vista',
-        tipo: 'vista',
-        dados: this._obterDadosDaVistaNaListaDeDecisoes(id),
-      }
-    });
-
-    dialogfRef.afterClosed().subscribe(data => {
-      if (data === 'excluir') {
-        this._processoService.excluirVistaDoProcesso(this.parametros.numero, this.parametros.ano, this.parametros.processo, id)
-          .subscribe({
-            next: () => {
-              this.mostrarAlerta('success', 'Sucesso!', `A Vista - ${ministro['nome']} foi excluída com sucesso.`);
-              this._carregarDadosProcessos(); // atualiza a lista de Destaque
-            },
-
-            error: () => {
-              this.mostrarAlerta('error', 'Erro!', 'Ocorreu um erro no processamento de sua solicitação.');
-            },
-          });
-      } else if (data) {
-        const vista: Vista = {
-          ...data,
-          processo: +this.parametros.processo,
-          sessao: this.sessao.id,
-        };
-
-        this._processoService.salvarVistaDoProcesso(this.parametros.numero, this.parametros.ano, this.parametros.processo, vista).subscribe({
-          next: (vistaSalva) => {
-            this._carregarDadosProcessos(); // atualiza a lista de Vistas
-            this.alertaVistaEDestaque('Vista', vistaSalva['ministro']);
-          },
-          error: (error) => {
-            console.log(error);
-            this.mostrarAlerta("error", "Error", error.message);
-          }
-        });
-      }
-    });
-  }
 
   retornoVistaDestaqueDrawer(data){
     if(data.vistas !=null){
@@ -347,83 +312,30 @@ export class ResultadoJulgamentoComponent implements OnInit {
   editarVista(vista:Vista){
     this.vistaSelecionada = vista;
     this.destaqueSelecionado = null;
-    this.abrirGaveta('vistaDestaqueDrawer')
+    this.abrirGaveta(this.FORM_VISTA_DESTAQUE)
     this.cd.detectChanges();
   }
 
   editarDestaque(destaque:Destaque){
     this.destaqueSelecionado = destaque;
     this.vistaSelecionada = null;
-    this.abrirGaveta('vistaDestaqueDrawer')
+    this.abrirGaveta(this.FORM_VISTA_DESTAQUE)
     this.cd.detectChanges();
   }
   
   novaVista(){
     this.vistaSelecionada = {} as Vista;
     this.destaqueSelecionado = null;
-    this.abrirGaveta('vistaDestaqueDrawer')
+    this.abrirGaveta(this.FORM_VISTA_DESTAQUE)
   }
 
     
   novoDestaque(){
     this.destaqueSelecionado = {} as Destaque;
     this.vistaSelecionada = null;
-    this.abrirGaveta('vistaDestaqueDrawer')
+    this.abrirGaveta(this.FORM_VISTA_DESTAQUE)
   }
 
-
-  /**
-   * @public Método público
-   * @description Método para exibir modal de cadastro de Destaque
-   * @author Douglas da Silva Monteles
-   */
-  public exibirModalDeDestaque(id?: number): void {
-    const ministro = this._obterDadosDoDestaqueNaListaDeDecisoes(id)?.ministro || null;
-
-    const dialogfRef = this._dialog.open(FormVistaEDestaqueComponent, {
-      maxHeight: '90vh',
-      data: {
-        titulo: 'Informar Destaque',
-        tipo: 'destaque',
-        dados: this._obterDadosDoDestaqueNaListaDeDecisoes(id),
-      }
-    });
-
-    dialogfRef.afterClosed().subscribe(data => {
-      console.log(data)
-      if (data === 'excluir') {
-        this._processoService.excluirDestaqueDoProcesso(this.parametros.numero, this.parametros.ano, this.parametros.processo, id)
-          .subscribe({
-            next: () => {
-              this.mostrarAlerta('success', 'Sucesso!', `O Destaque - ${ministro['nome']} foi excluído com sucesso.`);
-              this._carregarDadosProcessos(); // atualiza a lista de Destaque
-            },
-
-            error: () => {
-              this.mostrarAlerta('error', 'Erro!', 'Ocorreu um erro no processamento de sua solicitação.');
-            },
-          });
-      } else if (data) {
-        const destaque: Destaque = {
-          ...data,
-          processo: +this.parametros.processo,
-          sessao: this.sessao.id,
-        };
-
-        this._processoService.salvarDestaqueDoProcesso(this.parametros.numero, this.parametros.ano, this.parametros.processo, destaque).subscribe({
-          next: (destaqueSalvo) => {
-            this._carregarDadosProcessos(); // atualiza a lista de Destaque
-
-            this.alertaVistaEDestaque('Destaque', destaqueSalvo['ministro']);
-          },
-          error: (error) => {
-            console.log(error);
-            this.mostrarAlerta("error", "Error", error.message);
-          }
-        });
-      }
-    });
-  }
 
   /**
    * @public Método público
@@ -449,26 +361,6 @@ export class ResultadoJulgamentoComponent implements OnInit {
         this._carregarDadosProcessos();  // Atualiza os chips de ministros suspeitos e impedidos
       }
     });
-  }
-
-  /**
-   *
-   * @param event
-   */
-  public abrirModal(event: { click: boolean, chip: { id?: number; nome: string } }): void {
-    const str = event.chip.nome.toLocaleLowerCase();
-
-    if (event.click) {
-      const id: number = +event.chip.id;
-
-      if (str.includes('vista')) {
-        this.exibirModalDeVista(id);
-      } else if (str.includes('destaque')) {
-        this.exibirModalDeDestaque(id);
-      } else {
-        this.exibirModalDeIndicacaoDeImpedimentos();
-      }
-    }
   }
 
   /**
