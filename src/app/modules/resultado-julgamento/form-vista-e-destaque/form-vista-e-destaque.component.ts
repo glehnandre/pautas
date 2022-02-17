@@ -50,6 +50,8 @@ export class FormVistaEDestaqueComponent implements OnInit, OnChanges {
   @Input() sessao: SessaoDeJulgamento;
   @Output() closeDrawerEmit = new EventEmitter();
   @Output() savedDrawer = new EventEmitter<{vistas: Vista[], destaques: Destaque[]}>();
+  @Output() excluirVista = new EventEmitter();
+  @Output() excluirDestaque = new EventEmitter();
 
   formVistaEDestaque: FormGroup;
   ministros$: Observable<Ministro[]>;
@@ -154,6 +156,11 @@ export class FormVistaEDestaqueComponent implements OnInit, OnChanges {
             this._alertaService.exibirAlerta("Error")
           }
         });
+  }
+
+  excluir(tipo: string, vistaOuDestaque: any){
+    if(tipo=='vista') this.excluirVista.emit(vistaOuDestaque);
+    else this.excluirDestaque.emit(vistaOuDestaque);
   }
 
 }

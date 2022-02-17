@@ -379,6 +379,8 @@ export class ResultadoJulgamentoComponent implements OnInit {
 
 
   public excluirVista(vista: Vista): void {
+    console.log(vista);
+    
       const dialogRef = this._dialog.open(DialogoConfirmacaoComponent, {
         data: {
           titulo: 'EXCLUSÃO DE VISTA',
