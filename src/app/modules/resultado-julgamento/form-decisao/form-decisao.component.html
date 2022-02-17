@@ -1,101 +1,107 @@
 <form [formGroup]="formDecisao">
-    <div class="w-full grid grid-cols-1 sm:grid-cols-4 gap-4">
-
-        <mat-form-field class="w-full mb-4 col-span-2" appearance="outline">
-            <mat-label>Tipo</mat-label>
-            <mat-select 
-                formControlName="tipo"
-                (value)="buscarDispositivos($event)" 
-                (selectionChange)="buscarDispositivos($event); carregarModeloDeDecisao()"
-            >
-                <mat-option 
-                    *ngFor="let tipo of (tipos$ | async)" 
-                    [value]="tipo"
+    <div class="grid grid-cols-3 gap-4">
+        <div class="col-span-1">
+            <mat-form-field class="w-full mb-4" appearance="outline">
+                <mat-label>Tipo</mat-label>
+                <mat-select 
+                    formControlName="tipo"
+                    (value)="buscarDispositivos($event)" 
+                    (selectionChange)="buscarDispositivos($event); carregarModeloDeDecisao()"
                 >
-                    {{tipo}}
-                </mat-option>
-            </mat-select>
-            <mat-hint>Informe o tipo</mat-hint>
-        </mat-form-field>
+                    <mat-option 
+                        *ngFor="let tipo of (tipos$ | async)" 
+                        [value]="tipo"
+                    >
+                        {{tipo}}
+                    </mat-option>
+                </mat-select>
+                <mat-hint>Informe o tipo</mat-hint>
+            </mat-form-field>
 
-        <mat-form-field class="w-full mb-4 col-span-2" appearance="outline">
-            <mat-label>Dispositivo</mat-label>
-            <mat-select 
-                formControlName="dispositivo" 
-                (selectionChange)="carregarModeloDeDecisao()"
-                [compareWith]="compareFn"
-            >
-                <mat-option 
-                    *ngFor="let dispositivo of dispositivos" 
-                    [value]="dispositivo"
-                >   
-                    {{dispositivo.nome}}
-                </mat-option>
-            </mat-select>
-            <mat-hint>Informe o dispositivo</mat-hint>
-        </mat-form-field>
-    </div>
-
-    <mat-form-field class="w-full mb-4" appearance="outline">
-        <mat-label>Descrição do capítulo</mat-label>
-        <textarea matInput type="text" formControlName="descricao"></textarea>
-        <mat-hint>Descrição do que se trata o capítulo da decisão</mat-hint>
-    </mat-form-field>
-
-    <div class="w-full grid grid-cols-1 sm:grid-cols-2 gap-4">
-        <mat-form-field class="w-full mb-4" appearance="outline">
-            <mat-label>Voto condutor</mat-label>
-            <mat-select formControlName="ministro_condutor" [compareWith]="compareFn">
-                <mat-option 
-                    *ngFor="let ministro of (ministros$ | async)" 
-                    [value]="ministro"
+            <mat-form-field class="w-full mb-4" appearance="outline">
+                <mat-label>Dispositivo</mat-label>
+                <mat-select 
+                    formControlName="dispositivo" 
+                    (selectionChange)="carregarModeloDeDecisao()"
+                    [compareWith]="compareFn"
                 >
-                    <div class="flex items-center">
-                        <div>
-                            <img class="w-8 h-8 mr-4" [src]="ministro.imagem">
+                    <mat-option 
+                        *ngFor="let dispositivo of dispositivos" 
+                        [value]="dispositivo"
+                    >   
+                        {{dispositivo.nome}}
+                    </mat-option>
+                </mat-select>
+                <mat-hint>Informe o dispositivo</mat-hint>
+            </mat-form-field>
+
+            <mat-form-field class="w-full mb-4" appearance="outline">
+                <mat-label>Descrição do capítulo</mat-label>
+                <textarea matInput type="text" formControlName="descricao"></textarea>
+                <mat-hint>Descrição do que se trata o capítulo da decisão</mat-hint>
+            </mat-form-field>
+
+            <mat-form-field class="w-full mb-4" appearance="outline">
+                <mat-label>Voto condutor</mat-label>
+                <mat-select formControlName="ministro_condutor" [compareWith]="compareFn">
+                    <mat-option 
+                        *ngFor="let ministro of (ministros$ | async)" 
+                        [value]="ministro"
+                    >
+                        <div class="flex items-center">
+                            <div>
+                                <img class="w-8 h-8 mr-4" [src]="ministro.imagem">
+                            </div>
+                            <div>{{ ministro.nome }}</div>
                         </div>
-                        <div>{{ ministro.nome }}</div>
-                    </div>
-                </mat-option>
-            </mat-select>
-            <mat-hint>Informe qual foi o voto condutor</mat-hint>
-        </mat-form-field>
-        
-        <mat-form-field class="w-full mb-4" appearance="outline">
-            <mat-label>Ministros que divergem</mat-label>
-            <mat-select formControlName="ministros_divergem" multiple [compareWith]="compareFn">
-                <mat-select-trigger>
-                    <div *ngIf="formDecisao.controls['ministros_divergem'].value?.length === 1" class="text-base">
-                        {{formDecisao.controls['ministros_divergem'].value ? formDecisao.controls['ministros_divergem'].value[0]?.nome : ''}}
-                    </div>
-                    <span *ngIf="formDecisao.controls['ministros_divergem'].value?.length === 2" class="text-base">
-                        {{formDecisao.controls['ministros_divergem'].value ? formDecisao.controls['ministros_divergem'].value[0]?.nome + ", " + formDecisao.controls['ministros_acordam'].value[1]?.nome :
-                        ''}}
-                    </span>
-                    <span *ngIf="formDecisao.controls['ministros_divergem'].value?.length > 2" class="font-light text-base">
-                        {{formDecisao.controls['ministros_divergem'].value ? formDecisao.controls['ministros_divergem'].value[0]?.nome + ", " + formDecisao.controls['ministros_acordam'].value[1]?.nome :
-                        ''}}
-                        <span class="font-light text-xs">
-                            (+{{formDecisao.controls['ministros_divergem'].value.length - 2}}
-                            {{formDecisao.controls['ministros_divergem'].value.length === 3 ? 'outro' : 'outros'}})
+                    </mat-option>
+                </mat-select>
+                <mat-hint>Informe qual foi o voto condutor</mat-hint>
+            </mat-form-field>
+            
+            <mat-form-field class="w-full mb-4" appearance="outline">
+                <mat-label>Ministros que divergem</mat-label>
+                <mat-select formControlName="ministros_divergem" multiple [compareWith]="compareFn">
+                    <mat-select-trigger>
+                        <div *ngIf="formDecisao.controls['ministros_divergem'].value?.length === 1" class="text-base">
+                            {{formDecisao.controls['ministros_divergem'].value ? formDecisao.controls['ministros_divergem'].value[0]?.nome : ''}}
+                        </div>
+                        <span *ngIf="formDecisao.controls['ministros_divergem'].value?.length === 2" class="text-base">
+                            {{formDecisao.controls['ministros_divergem'].value ? formDecisao.controls['ministros_divergem'].value[0]?.nome + ", " + formDecisao.controls['ministros_acordam'].value[1]?.nome :
+                            ''}}
                         </span>
-                    </span>
-                </mat-select-trigger>
-                <mat-option 
-                    *ngFor="let ministro of (ministros$ | async)" 
-                    [value]="ministro"
-                >
-                    <div class="flex items-center">
-                        <div>
-                            <img class="w-8 h-8 mr-4" [src]="ministro.imagem">
+                        <span *ngIf="formDecisao.controls['ministros_divergem'].value?.length > 2" class="font-light text-base">
+                            {{formDecisao.controls['ministros_divergem'].value ? formDecisao.controls['ministros_divergem'].value[0]?.nome + ", " + formDecisao.controls['ministros_acordam'].value[1]?.nome :
+                            ''}}
+                            <span class="font-light text-xs">
+                                (+{{formDecisao.controls['ministros_divergem'].value.length - 2}}
+                                {{formDecisao.controls['ministros_divergem'].value.length === 3 ? 'outro' : 'outros'}})
+                            </span>
+                        </span>
+                    </mat-select-trigger>
+                    <mat-option 
+                        *ngFor="let ministro of (ministros$ | async)" 
+                        [value]="ministro"
+                    >
+                        <div class="flex items-center">
+                            <div>
+                                <img class="w-8 h-8 mr-4" [src]="ministro.imagem">
+                            </div>
+                            <div>{{ ministro.nome }}</div>
                         </div>
-                        <div>{{ ministro.nome }}</div>
-                    </div>
-                </mat-option>
-            </mat-select>
-            <mat-hint>Caso não selecione nenhum ministro, indica que ninguém divergiu e foi <span class="font-medium">unânime</span>.</mat-hint>
-        </mat-form-field>
-    
+                    </mat-option>
+                </mat-select>
+                <mat-hint>Caso não selecione nenhum ministro, indica que ninguém divergiu e foi <span class="font-medium">unânime</span>.</mat-hint>
+            </mat-form-field>
+
+            <app-aplicar-decisoes
+                *ngIf="capitulo"
+                [limparProcessosSelecionados]="limparProcessosSelecionados"
+                [processosParaAplicarAMesmaDecisao]="capitulo.processos_mesma_decisao"
+                (obterProcessosSelecionados)="setIdsDosProcessosSelecionados($event)"
+            ></app-aplicar-decisoes>
+        </div>
+
         
     </div>
     <editor id="texto-da-decisao" apiKey="aduua1w16bzaswikm1p5qbkcx7jj757x4g58xdm9okd8wpw7" formControlName="texto"
