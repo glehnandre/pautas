@@ -89,9 +89,38 @@ export class AcoesComponent implements OnInit {
    */
   public removerInteiroTeor(): void {
     if (this._isAlgumaLinhaSelecionada()) {
-      const ids = this.linhasSelecionadas.map((linha) => linha.id)
+      const idsDocumentosRemovidos = this.linhasSelecionadas.map((linha) => {
+          if (linha.documento.status === "Removido") {
+            return linha.id;
+          }
+      });
 
-      this._inteiroTeorService.removerDocumentosDoInteiroTeorDoProcesso(this.idProcesso, ids).subscribe({
+      const idsDocumentosAssinados = this.linhasSelecionadas.map((linha) => {
+          if (linha.documento.status !== "Removido") {
+              return linha.id;
+          }
+      })
+
+      const documentosModificados = this.documentosInteiroTeor.map(documento => {
+            if (idsDocumentosRemovidos.includes(documento.id)) {
+                documento.documento.status = "Assinado";
+            }
+
+            return documento;
+      })
+
+      this._inteiroTeorService.atualizarDocumentoDoInteiroTeor(this.idProcesso, documentosModificados).subscribe({
+            next: (data) => {
+                this.revisoesAlteradas.emit(data);
+            },
+            error: (error) => {
+            console.log(error);
+            this.errorMessage = error.message
+            this._alertaService.exibirAlerta("Error");
+            }
+        });
+
+      this._inteiroTeorService.removerDocumentosDoInteiroTeorDoProcesso(this.idProcesso, idsDocumentosAssinados).subscribe({
           next: (data) => {
             this.revisoesAlteradas.emit(data);
           },
@@ -103,36 +132,6 @@ export class AcoesComponent implements OnInit {
       })
     }
   }
-
-     /**
-   * @public
-   * @description Remove o(s) inteiro(s) teor(es) que foram selecionados
-   * @author
-   */
-      public reincluirInteiroTeor(): void {
-        if (this._isAlgumaLinhaSelecionada()) {
-            const idsDocumentosSelecionados = this.linhasSelecionadas.map((linha) => linha.id)
-
-            const documentosModificados = this.documentosInteiroTeor.map(documento => {
-                if (idsDocumentosSelecionados.includes(documento.id)) {
-                    documento.documento.status = "Assinado";
-                }
-
-                return documento;
-            })
-
-            this._inteiroTeorService.atualizarDocumentoDoInteiroTeor(this.idProcesso, documentosModificados).subscribe({
-                next: (data) => {
-                    this.revisoesAlteradas.emit(data);
-                },
-                error: (error) => {
-                  console.log(error);
-                  this.errorMessage = error.message
-                  this._alertaService.exibirAlerta("Error");
-                }
-            });
-        }
-      }
 
   /**
    * @public

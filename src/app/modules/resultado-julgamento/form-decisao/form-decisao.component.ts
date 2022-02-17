@@ -30,26 +30,14 @@ export class FormDecisaoComponent implements OnInit, OnChanges, OnDestroy {
   compareFn: ((f1: any, f2: any) => boolean) | null = this.compareById;
 
   errorMessage: string;
+  isExibirBtnSalvarDecisao: boolean = false;
+  isExibirBtnExcluirCapitulo: boolean = false;
 
   @Input() processo: Processo;
   @Input() sessaoDeJulgamento: SessaoDeJulgamento;
-  @Input() isExibirBtnSalvarDecisao: boolean = false;
-  @Input() isExibirBtnExcluirCapitulo: boolean = false;
-  @Input() capitulo: Capitulo = {
-    id: null,
-    descricao: "",
-    dispositivo: null,
-    ministro_condutor: null,
-    ministros_acordam: [],
-    ministros_divergem: [],
-    texto: '',
-    tipo: null,
-    sessao: null,
-    processos_mesma_decisao: []
-  };
+  @Input() capitulo: Capitulo;
 
   @Output() dadosDoCapitulo = new EventEmitter<Capitulo[]>();
-
 
   constructor(
     private _fb: FormBuilder,
@@ -57,24 +45,34 @@ export class FormDecisaoComponent implements OnInit, OnChanges, OnDestroy {
     private _dispositivoService: DispositivoService,
     private _processoService: ProcessoService,
     private _alertaService: AlertaService,
-  ) {}
+  ) {
+    this._inicializarFormulario();
+  }
  
   ngOnInit(): void {
     this._recarregarOsDados();
-    this.formDecisao = this._fb.group({
-      id: [this.capitulo.id],
-      descricao: [this.capitulo.descricao, Validators.required],
-      tipo: [this.capitulo.tipo, Validators.required],
-      dispositivo: [this.capitulo.dispositivo, Validators.required],
-      ministros_divergem: [this.capitulo.ministros_divergem],
-      ministro_condutor: [this.capitulo.ministro_condutor, Validators.required],
-      texto: [this.capitulo.texto, Validators.required],
-      processos_mesma_decisao: [this.capitulo.processos_mesma_decisao]
-    });
   }
 
   ngOnChanges(): void {
     this._recarregarOsDados();
+
+    if (this.capitulo && this.capitulo.id) {
+      this.formDecisao = this._fb.group({
+        id: [this.capitulo.id],
+        descricao: [this.capitulo.descricao, Validators.required],
+        tipo: [this.capitulo.tipo, Validators.required],
+        dispositivo: [this.capitulo.dispositivo, Validators.required],
+        ministros_divergem: [this.capitulo.ministros_divergem],
+        ministro_condutor: [this.capitulo.ministro_condutor, Validators.required],
+        texto: [this.capitulo.texto, Validators.required],
+        processos_mesma_decisao: [this.capitulo.processos_mesma_decisao]
+      });
+
+      this.isExibirBtnExcluirCapitulo = true;
+      this.isExibirBtnSalvarDecisao = true;
+    } else {
+      this._inicializarFormulario();
+    }
   }
 
   ngOnDestroy(): void {
@@ -250,6 +248,19 @@ export class FormDecisaoComponent implements OnInit, OnChanges, OnDestroy {
    */
   private _emitirOsDadosDoCapitulo(capitulos: Capitulo[]): void {
 
+  }
+
+  private _inicializarFormulario(): void {
+    this.formDecisao = this._fb.group({
+      id: [null],
+      descricao: ['', Validators.required],
+      tipo: [null, Validators.required],
+      dispositivo: [null, Validators.required],
+      ministros_divergem: [[]],
+      ministro_condutor: [[], Validators.required],
+      texto: ['', Validators.required],
+      processos_mesma_decisao: [[]],
+    });
   }
 
 }
