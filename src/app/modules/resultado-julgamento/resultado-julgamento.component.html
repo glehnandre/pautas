@@ -94,9 +94,9 @@
             <div class="flex-auto p-2 sm:p-2 overflow-y-auto" cdkScrollable>
                 <!-- CONTENT GOES HERE -->
                 <div class=" min-h-100 border-gray-300 rounded-2xl">
-                    <div class="grid grid-cols-1 xl:grid-cols-3 gap-8 w-full mt-8">
+                    <div class="flex flex-wrap gap-8 w-full mt-8">
                         <!-- Card de capítulos-->
-                        <div class="xl:col-span-1 flex flex-col flex-auto bg-card shadow rounded-2xl overflow-hidden justify-between">
+                        <div class="min-w-50 xl:col-span-1 flex flex-col flex-auto bg-card shadow rounded-2xl overflow-hidden justify-between">
                             <div>
                                 <div class="p-6">
                                     <div class="mr-4 text-lg font-medium tracking-tight leading-6 truncate">Decisões</div>
@@ -152,6 +152,7 @@
                                             </ng-container>
                                         </div>
                                     </ng-container>
+
                                     <ng-template #semDecisoes>
                                         <div class="p-4">
                                             <div class="mr-4 text-lg font-medium tracking-tight leading-6 truncate">Sem capítulos com decisões</div>
@@ -169,7 +170,7 @@
                             </div>
                         </div>
                         <!-- Card de Vistas -->
-                        <div class="xl:col-span-1 flex flex-col flex-auto bg-card shadow rounded-2xl overflow-hidden justify-between">
+                        <div class="min-w-50 xl:col-span-1 flex flex-col flex-auto bg-card shadow rounded-2xl overflow-hidden justify-between">
                             <div>
                                 <div class="p-6">
                                     <div class="mr-4 text-lg font-medium tracking-tight leading-6 truncate">Vistas</div>
@@ -228,7 +229,7 @@
                             </div>
                         </div>
                         <!-- Card de Destaques -->
-                        <div class="xl:col-span-1 flex flex-col flex-auto bg-card shadow rounded-2xl overflow-hidden justify-between">
+                        <div class="min-w-50 xl:col-span-1 flex flex-col flex-auto bg-card shadow rounded-2xl overflow-hidden justify-between mb-4">
                             <div>
                                 <div class="p-6">
                                     <div class="mr-4 text-lg font-medium tracking-tight leading-6 truncate">Destaques</div>

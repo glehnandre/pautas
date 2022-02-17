@@ -102,28 +102,34 @@
             ></app-aplicar-decisoes>
         </div>
 
-        <editor 
-            id="texto-da-decisao"
-            class="col-span-2" 
-            apiKey="aduua1w16bzaswikm1p5qbkcx7jj757x4g58xdm9okd8wpw7" 
-            formControlName="texto"
-            [init]="{
-                selector: 'textarea', 
-                height: '100%', 
-                menubar: false, 
-                plugins: [
-                    'autolink lists link charmap preview anchor',
-                    'insertdatetime table help wordcount'
-                ],
-                toolbar:
-                    'undo redo | formatselect | bold italic backcolor | \
-                    alignleft aligncenter alignright alignjustify | \
-                    bullist numlist outdent indent | removeformat | help'
-            }"
-        ></editor>
+        <div class="col-span-2 h-full">
+            <label class="text-lg font-medium" for="texto-da-decisao">
+                Texto da decisão sobre o capítulo:
+            </label>
+
+            <editor 
+                id="texto-da-decisao" 
+                apiKey="aduua1w16bzaswikm1p5qbkcx7jj757x4g58xdm9okd8wpw7" 
+                formControlName="texto"
+                class="h-full"
+                [init]="{
+                    selector: 'textarea', 
+                    height: '100%', 
+                    menubar: false, 
+                    plugins: [
+                        'autolink lists link charmap preview anchor',
+                        'insertdatetime table help wordcount'
+                    ],
+                    toolbar:
+                        'undo redo | formatselect | bold italic backcolor | \
+                        alignleft aligncenter alignright alignjustify | \
+                        bullist numlist outdent indent | removeformat | help'
+                }"
+            ></editor>
+        </div>
     </div>
 
-    <p class="mt-4 text-center flex flex-row gap-4 justify-end items-end">
+    <p class="mt-12 text-center flex flex-row gap-4 justify-end items-end">
         <button
             mat-raised-button 
             class="text-xs sm:text-base mr-2"
