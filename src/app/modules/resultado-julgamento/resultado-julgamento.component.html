@@ -156,7 +156,7 @@
                                                     
                                                         <!-- Capítulo link -->
                                                         <a class="flex flex-auto py-2 items-center min-w-0 h-full pr-7"
-                                                            (click)="setCapituloSelecionado(null); recarregarListaDeDecisoes(); setCapituloSelecionado(item)">
+                                                            (click)="setCapituloSelecionado(null); recarregarListaDeDecisoes(); setCapituloSelecionado(item); abrirGaveta(FORM_CADASTRO_DECISAO);">
                                                             <!-- Title & Placeholder -->
                                                             <div class="flex-auto mr-2 truncate">
                                                                 <ng-container class="flex items-center justify-center">
@@ -185,7 +185,7 @@
                                 <!-- Footer -->
                                 <ng-container matColumnDef="recentOrdersTableFooter">
                                     <td class="py-6 px-0 border-0 flex items-end" mat-footer-cell colspan="6">
-                                        <button (click)="abrirGaveta(FORM_CADASTRO_DECISAO)" class="mt-4 text-sm justify-self-end" color="primary" mat-raised-button>NOVO CAPÍTULO</button>
+                                        <button (click)="setCapituloSelecionado(null); abrirGaveta(FORM_CADASTRO_DECISAO)" class="mt-4 text-sm justify-self-end" color="primary" mat-raised-button>NOVO CAPÍTULO</button>
                                     </td>
                                 </ng-container>
                             </div>
