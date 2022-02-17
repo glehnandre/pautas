@@ -1,11 +1,11 @@
 <fuse-card
     class="max-h-full p-4 flex flex-col mb-4"
 >
-    <section class="">
-        <h3 class="font-medium text-md">
-            Aplicar as mesmas decisões
-        </h3>
+    <h3 class="font-medium text-md mb-2">
+        Aplicar as mesmas decisões
+    </h3>
 
+    <section class="flex flex-wrap gap-4">
         <mat-spinner
             class="m-auto"
             [diameter]="40"
@@ -14,22 +14,21 @@
 
         <ng-template #exibirProcessos class="max-h-36 overflow-auto grid grid-cols-1 sm:grid-cols-3 gap-4">
             <mat-checkbox
-                class="ml-2 mb-2"
                 *ngFor="let processo of processos"
                 [checked]="isProcessoSelecionado(processo) || selecionarTodos"
                 [disabled]="desabilitar"
                 (change)="selecionarProcesso(processo)"
                 color="primary"
             >
-                <span class="font-bold text-primary-600">
-                    {{processo.classe}} {{processo.numero}}
-                </span>
-
-                <br/>
-
-                <span class="text-hint">
-                    {{processo.abreviacao}}
-                </span>
+                <div class="flex flex-col">
+                    <span class="font-bold text-primary-600">
+                        {{processo.classe}} {{processo.numero}}
+                    </span>
+    
+                    <span class="text-hint text-sm">
+                        {{processo.abreviacao}}
+                    </span>
+                </div>
             </mat-checkbox>
         </ng-template>
     </section>
