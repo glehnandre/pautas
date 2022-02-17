@@ -100,9 +100,9 @@ export class FormVistaEDestaqueComponent implements OnInit, OnChanges {
     console.log(this.vista);
     console.log(this.destaque);
     if (this.vista != null) {
-      this.formVistaEDestaque.setValue({data: this.vista.data, ministro: this.vista.ministro?.id, texto: this.vista.texto, id: this.vista.id});
+      this.formVistaEDestaque.patchValue({data: this.vista.data, ministro: this.vista.ministro?.id, texto: this.vista.texto, id: this.vista.id});
     }else if (this.destaque != null && this.destaque?.id != undefined) {
-      this.formVistaEDestaque.setValue({data: this.destaque.data, ministro: this.destaque.ministro?.id, texto: this.destaque.texto, id: this.destaque.id});
+      this.formVistaEDestaque.patchValue({data: this.destaque.data, ministro: this.destaque.ministro?.id, texto: this.destaque.texto, id: this.destaque.id});
     }
   }
 
