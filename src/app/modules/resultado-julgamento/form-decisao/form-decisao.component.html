@@ -102,23 +102,26 @@
             ></app-aplicar-decisoes>
         </div>
 
-        
+        <editor 
+            id="texto-da-decisao"
+            class="col-span-2" 
+            apiKey="aduua1w16bzaswikm1p5qbkcx7jj757x4g58xdm9okd8wpw7" 
+            formControlName="texto"
+            [init]="{
+                selector: 'textarea', 
+                height: '100%', 
+                menubar: false, 
+                plugins: [
+                    'autolink lists link charmap preview anchor',
+                    'insertdatetime table help wordcount'
+                ],
+                toolbar:
+                    'undo redo | formatselect | bold italic backcolor | \
+                    alignleft aligncenter alignright alignjustify | \
+                    bullist numlist outdent indent | removeformat | help'
+            }"
+        ></editor>
     </div>
-    <editor id="texto-da-decisao" apiKey="aduua1w16bzaswikm1p5qbkcx7jj757x4g58xdm9okd8wpw7" formControlName="texto"
-     [init]="{selector: 'textarea', height: 450, menubar: false, plugins: [
-        'autolink lists link charmap preview anchor',
-        'insertdatetime table help wordcount'
-      ],
-      toolbar:
-        'undo redo | formatselect | bold italic backcolor | \
-        alignleft aligncenter alignright alignjustify | \
-        bullist numlist outdent indent | removeformat | help'}"></editor>
-    <app-aplicar-decisoes
-    *ngIf="capitulo"
-    [limparProcessosSelecionados]="limparProcessosSelecionados"
-    [processosParaAplicarAMesmaDecisao]="capitulo.processos_mesma_decisao"
-    (obterProcessosSelecionados)="setIdsDosProcessosSelecionados($event)"
-></app-aplicar-decisoes>
 
     <p class="mt-4 text-center flex flex-row gap-4 justify-end items-end">
         <button
