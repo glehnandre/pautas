@@ -259,12 +259,6 @@ const config = {
                         strong             : {
                             color: 'var(--fuse-text-default)'
                         },
-                        'ol > li::before'  : {
-                            color: 'var(--fuse-text-secondary)'
-                        },
-                        'ul > li::before'  : {
-                            backgroundColor: 'var(--fuse-text-hint)'
-                        },
                         hr                 : {
                             borderColor: 'var(--fuse-border)'
                         },
