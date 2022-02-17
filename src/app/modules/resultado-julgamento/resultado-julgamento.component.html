@@ -20,22 +20,11 @@
                 <div class="w-full">
                     <div id="menu-decisao" class="w-full p-4 overflow-y-auto">
                         <app-form-decisao
-                            *ngIf="!capituloSelecionado; else exibirDecisaoNoForm"
+                            [capitulo]="capituloSelecionado"
                             [processo]="processo"
-                            [sessaoDeJulgamento] = "sessao"
-                            (dadosDoCapitulo)="abrirGaveta(FORM_CADASTRO_DECISAO)"
+                            [sessaoDeJulgamento]="sessao"
+                            (dadosDoCapitulo)="atualizarCapitulos($event); abrirGaveta(FORM_CADASTRO_DECISAO)"
                         ></app-form-decisao>
-
-                        <ng-template #exibirDecisaoNoForm>
-                            <app-form-decisao
-                                [capitulo]="capituloSelecionado"
-                                [processo]="processo"
-                                [sessaoDeJulgamento]="sessao"
-                                [isExibirBtnSalvarDecisao]="true"
-                                [isExibirBtnExcluirCapitulo]="true"
-                                (dadosDoCapitulo)="atualizarCapitulos($event); abrirGaveta(FORM_CADASTRO_DECISAO)"
-                            ></app-form-decisao>
-                        </ng-template>
                     </div>
                 </div>
             </div>
