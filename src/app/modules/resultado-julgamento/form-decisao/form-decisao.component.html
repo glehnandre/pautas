@@ -1,137 +1,11 @@
-<form [formGroup]="formDecisao">
-    <div class="grid grid-cols-3 gap-4">
-        <div class="col-span-1">
-            <mat-form-field class="w-full mb-4" appearance="outline">
-                <mat-label>Tipo</mat-label>
-                <mat-select 
-                    formControlName="tipo"
-                    (value)="buscarDispositivos($event)" 
-                    (selectionChange)="buscarDispositivos($event); carregarModeloDeDecisao()"
-                >
-                    <mat-option 
-                        *ngFor="let tipo of (tipos$ | async)" 
-                        [value]="tipo"
-                    >
-                        {{tipo}}
-                    </mat-option>
-                </mat-select>
-                <mat-hint>Informe o tipo</mat-hint>
-            </mat-form-field>
-
-            <mat-form-field class="w-full mb-4" appearance="outline">
-                <mat-label>Dispositivo</mat-label>
-                <mat-select 
-                    formControlName="dispositivo" 
-                    (selectionChange)="carregarModeloDeDecisao()"
-                    [compareWith]="compareFn"
-                >
-                    <mat-option 
-                        *ngFor="let dispositivo of dispositivos" 
-                        [value]="dispositivo"
-                    >   
-                        {{dispositivo.nome}}
-                    </mat-option>
-                </mat-select>
-                <mat-hint>Informe o dispositivo</mat-hint>
-            </mat-form-field>
-
-            <mat-form-field class="w-full mb-4" appearance="outline">
-                <mat-label>Descrição do capítulo</mat-label>
-                <textarea matInput type="text" formControlName="descricao"></textarea>
-                <mat-hint>Descrição do que se trata o capítulo da decisão</mat-hint>
-            </mat-form-field>
-
-            <mat-form-field class="w-full mb-4" appearance="outline">
-                <mat-label>Voto condutor</mat-label>
-                <mat-select formControlName="ministro_condutor" [compareWith]="compareFn">
-                    <mat-option 
-                        *ngFor="let ministro of (ministros$ | async)" 
-                        [value]="ministro"
-                    >
-                        <div class="flex items-center">
-                            <div>
-                                <img class="w-8 h-8 mr-4" [src]="ministro.imagem">
-                            </div>
-                            <div>{{ ministro.nome }}</div>
-                        </div>
-                    </mat-option>
-                </mat-select>
-                <mat-hint>Informe qual foi o voto condutor</mat-hint>
-            </mat-form-field>
-            
-            <mat-form-field class="w-full mb-4" appearance="outline">
-                <mat-label>Ministros que divergem</mat-label>
-                <mat-select formControlName="ministros_divergem" multiple [compareWith]="compareFn">
-                    <mat-select-trigger>
-                        <div *ngIf="formDecisao.controls['ministros_divergem'].value?.length === 1" class="text-base">
-                            {{formDecisao.controls['ministros_divergem'].value ? formDecisao.controls['ministros_divergem'].value[0]?.nome : ''}}
-                        </div>
-                        <span *ngIf="formDecisao.controls['ministros_divergem'].value?.length === 2" class="text-base">
-                            {{formDecisao.controls['ministros_divergem'].value ? formDecisao.controls['ministros_divergem'].value[0]?.nome + ", " + formDecisao.controls['ministros_acordam'].value[1]?.nome :
-                            ''}}
-                        </span>
-                        <span *ngIf="formDecisao.controls['ministros_divergem'].value?.length > 2" class="font-light text-base">
-                            {{formDecisao.controls['ministros_divergem'].value ? formDecisao.controls['ministros_divergem'].value[0]?.nome + ", " + formDecisao.controls['ministros_acordam'].value[1]?.nome :
-                            ''}}
-                            <span class="font-light text-xs">
-                                (+{{formDecisao.controls['ministros_divergem'].value.length - 2}}
-                                {{formDecisao.controls['ministros_divergem'].value.length === 3 ? 'outro' : 'outros'}})
-                            </span>
-                        </span>
-                    </mat-select-trigger>
-                    <mat-option 
-                        *ngFor="let ministro of (ministros$ | async)" 
-                        [value]="ministro"
-                    >
-                        <div class="flex items-center">
-                            <div>
-                                <img class="w-8 h-8 mr-4" [src]="ministro.imagem">
-                            </div>
-                            <div>{{ ministro.nome }}</div>
-                        </div>
-                    </mat-option>
-                </mat-select>
-                <mat-hint>Caso não selecione nenhum ministro, indica que ninguém divergiu e foi <span class="font-medium">unânime</span>.</mat-hint>
-            </mat-form-field>
-
-            <app-aplicar-decisoes
-                [limparProcessosSelecionados]="limparProcessosSelecionados"
-                [processosParaAplicarAMesmaDecisao]="capitulo?.processos_mesma_decisao || []"
-                (obterProcessosSelecionados)="setIdsDosProcessosSelecionados($event)"
-            ></app-aplicar-decisoes>
-        </div>
-
-        <div class="col-span-2 h-full">
-            <label class="text-lg font-medium" for="texto-da-decisao">
-                Texto da decisão sobre o capítulo:
-            </label>
-
-            <editor 
-                id="texto-da-decisao" 
-                apiKey="aduua1w16bzaswikm1p5qbkcx7jj757x4g58xdm9okd8wpw7" 
-                formControlName="texto"
-                class="h-full"
-                [init]="{
-                    selector: 'textarea', 
-                    height: '100%', 
-                    menubar: false, 
-                    plugins: [
-                        'autolink lists link charmap preview anchor',
-                        'insertdatetime table help wordcount'
-                    ],
-                    toolbar:
-                        'undo redo | formatselect | bold italic backcolor | \
-                        alignleft aligncenter alignright alignjustify | \
-                        bullist numlist outdent indent | removeformat | help'
-                }"
-            ></editor>
-        </div>
-    </div>
-
-    <p class="mt-12 text-center flex flex-row gap-4 justify-end items-end">
+<div class="w-full relative">
+    <p 
+        class="w-3/5 absolute text-center flex flex-row gap-4 justify-end items-end"
+        style="margin-top: -70px !important; margin-left: 40% !important;"
+    >
         <button
             mat-raised-button 
-            class="text-xs sm:text-base mr-2"
+            class="text-3xl sm:text-base mr-2"
             color="warn" 
             *ngIf="isExibirBtnExcluirCapitulo"
             (click)="excluirCapitulo()"
@@ -142,7 +16,7 @@
 
         <button 
             mat-raised-button 
-            class="text-xs sm:text-base"
+            class="text-3xl sm:text-base"
             color="primary" 
             (click)="salvarCapitulo()"
         >
@@ -150,14 +24,144 @@
             {{'Salvar' | uppercase}}
         </button>
     </p>
-</form>
 
-<app-alerta
-    [nome]="'Error'"
-    [titulo]="'Error'"
-    [mensagem]="errorMessage"
-    [aparencia]="'outline'"
-    [tipo]="'error'"
-    class="absolute top-2 right-2 max-w-120 mx-auto z-40"
-></app-alerta>
+    <form [formGroup]="formDecisao" class="overflow-auto mt-8 mb-4">
+        <div class="grid grid-cols-3 gap-4">
+            <div class="col-span-1">
+                <mat-form-field class="w-full mb-4" appearance="outline">
+                    <mat-label>Tipo</mat-label>
+                    <mat-select 
+                        formControlName="tipo"
+                        (value)="buscarDispositivos($event)" 
+                        (selectionChange)="buscarDispositivos($event); carregarModeloDeDecisao()"
+                    >
+                        <mat-option 
+                            *ngFor="let tipo of (tipos$ | async)" 
+                            [value]="tipo"
+                        >
+                            {{tipo}}
+                        </mat-option>
+                    </mat-select>
+                    <mat-hint>Informe o tipo</mat-hint>
+                </mat-form-field>
 
+                <mat-form-field class="w-full mb-4" appearance="outline">
+                    <mat-label>Dispositivo</mat-label>
+                    <mat-select 
+                        formControlName="dispositivo" 
+                        (selectionChange)="carregarModeloDeDecisao()"
+                        [compareWith]="compareFn"
+                    >
+                        <mat-option 
+                            *ngFor="let dispositivo of dispositivos" 
+                            [value]="dispositivo"
+                        >   
+                            {{dispositivo.nome}}
+                        </mat-option>
+                    </mat-select>
+                    <mat-hint>Informe o dispositivo</mat-hint>
+                </mat-form-field>
+
+                <mat-form-field class="w-full mb-4" appearance="outline">
+                    <mat-label>Descrição do capítulo</mat-label>
+                    <textarea matInput type="text" formControlName="descricao"></textarea>
+                    <mat-hint>Descrição do que se trata o capítulo da decisão</mat-hint>
+                </mat-form-field>
+
+                <mat-form-field class="w-full mb-4" appearance="outline">
+                    <mat-label>Voto condutor</mat-label>
+                    <mat-select formControlName="ministro_condutor" [compareWith]="compareFn">
+                        <mat-option 
+                            *ngFor="let ministro of (ministros$ | async)" 
+                            [value]="ministro"
+                        >
+                            <div class="flex items-center">
+                                <div>
+                                    <img class="w-8 h-8 mr-4" [src]="ministro.imagem">
+                                </div>
+                                <div>{{ ministro.nome }}</div>
+                            </div>
+                        </mat-option>
+                    </mat-select>
+                    <mat-hint>Informe qual foi o voto condutor</mat-hint>
+                </mat-form-field>
+                
+                <mat-form-field class="w-full mb-4" appearance="outline">
+                    <mat-label>Ministros que divergem</mat-label>
+                    <mat-select formControlName="ministros_divergem" multiple [compareWith]="compareFn">
+                        <mat-select-trigger>
+                            <div *ngIf="formDecisao.controls['ministros_divergem'].value?.length === 1" class="text-base">
+                                {{formDecisao.controls['ministros_divergem'].value ? formDecisao.controls['ministros_divergem'].value[0]?.nome : ''}}
+                            </div>
+                            <span *ngIf="formDecisao.controls['ministros_divergem'].value?.length === 2" class="text-base">
+                                {{formDecisao.controls['ministros_divergem'].value ? formDecisao.controls['ministros_divergem'].value[0]?.nome + ", " + formDecisao.controls['ministros_acordam'].value[1]?.nome :
+                                ''}}
+                            </span>
+                            <span *ngIf="formDecisao.controls['ministros_divergem'].value?.length > 2" class="font-light text-base">
+                                {{formDecisao.controls['ministros_divergem'].value ? formDecisao.controls['ministros_divergem'].value[0]?.nome + ", " + formDecisao.controls['ministros_acordam'].value[1]?.nome :
+                                ''}}
+                                <span class="font-light text-xs">
+                                    (+{{formDecisao.controls['ministros_divergem'].value.length - 2}}
+                                    {{formDecisao.controls['ministros_divergem'].value.length === 3 ? 'outro' : 'outros'}})
+                                </span>
+                            </span>
+                        </mat-select-trigger>
+                        <mat-option 
+                            *ngFor="let ministro of (ministros$ | async)" 
+                            [value]="ministro"
+                        >
+                            <div class="flex items-center">
+                                <div>
+                                    <img class="w-8 h-8 mr-4" [src]="ministro.imagem">
+                                </div>
+                                <div>{{ ministro.nome }}</div>
+                            </div>
+                        </mat-option>
+                    </mat-select>
+                    <mat-hint>Caso não selecione nenhum ministro, indica que ninguém divergiu e foi <span class="font-medium">unânime</span>.</mat-hint>
+                </mat-form-field>
+
+                <app-aplicar-decisoes
+                    [limparProcessosSelecionados]="limparProcessosSelecionados"
+                    [processosParaAplicarAMesmaDecisao]="capitulo?.processos_mesma_decisao || []"
+                    (obterProcessosSelecionados)="setIdsDosProcessosSelecionados($event)"
+                ></app-aplicar-decisoes>
+            </div>
+
+            <div class="col-span-2 h-full overflow-hidden">
+                <label class="text-lg font-medium" for="texto-da-decisao">
+                    Texto da decisão sobre o capítulo:
+                </label>
+
+                <editor 
+                    id="texto-da-decisao" 
+                    apiKey="aduua1w16bzaswikm1p5qbkcx7jj757x4g58xdm9okd8wpw7" 
+                    formControlName="texto"
+                    class="h-full"
+                    [init]="{
+                        selector: 'textarea', 
+                        height: '96%', 
+                        menubar: false, 
+                        plugins: [
+                            'autolink lists link charmap preview anchor',
+                            'insertdatetime table help wordcount'
+                        ],
+                        toolbar:
+                            'undo redo | formatselect | bold italic backcolor | \
+                            alignleft aligncenter alignright alignjustify | \
+                            bullist numlist outdent indent | removeformat | help'
+                    }"
+                ></editor>
+            </div>
+        </div>
+    </form>
+
+    <app-alerta
+        [nome]="'Error'"
+        [titulo]="'Error'"
+        [mensagem]="errorMessage"
+        [aparencia]="'outline'"
+        [tipo]="'error'"
+        class="absolute top-2 right-2 max-w-120 mx-auto z-40"
+    ></app-alerta>
+</div>

@@ -1,36 +1,4 @@
 <div class="w-full relative flex overflow-hidden border -mt min-h-80">
-    <fuse-drawer
-        #formDrawer
-        [name]="FORM_CADASTRO_DECISAO"
-        [opened]="false"
-        [mode]="'over'"
-        [position]="'right'"
-    >
-        <div class="flex-auto overflow-auto p-4">
-            <!-- CONTENT GOES HERE -->
-            <div class="border-gray-300 rounded-2xl">
-                <button
-                    mat-mini-fab
-                    color="primary"
-                    (click)="abrirGaveta(FORM_CADASTRO_DECISAO)"
-                >
-                    <mat-icon>arrow_back</mat-icon>
-                </button>
-
-                <div class="w-full">
-                    <div id="menu-decisao" class="w-full p-4 overflow-y-auto">
-                        <app-form-decisao
-                            [capitulo]="capituloSelecionado"
-                            [processo]="processo"
-                            [sessaoDeJulgamento]="sessao"
-                            (dadosDoCapitulo)="atualizarCapitulos($event); abrirGaveta(FORM_CADASTRO_DECISAO)"
-                        ></app-form-decisao>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </fuse-drawer>
-
     <div class="flex-auto bg-gray-100 p-4">
         <div class="absolute inset-0 flex flex-col min-w-0 overflow-hidden bg-page">
 
@@ -164,7 +132,15 @@
                                 <!-- Footer -->
                                 <ng-container matColumnDef="recentOrdersTableFooter">
                                     <td class="py-6 px-0 border-0 flex items-end" mat-footer-cell colspan="6">
-                                        <button (click)="setCapituloSelecionado(null); abrirGaveta(FORM_CADASTRO_DECISAO)" class="mt-4 text-sm justify-self-end" color="primary" mat-raised-button>NOVO CAPÍTULO</button>
+                                        <button 
+                                            (click)="setCapituloSelecionado(null); 
+                                                abrirGaveta(FORM_CADASTRO_DECISAO)" 
+                                            class="mt-4 text-sm justify-self-end" 
+                                            color="primary" 
+                                            mat-raised-button
+                                        >
+                                            NOVO CAPÍTULO
+                                        </button>
                                     </td>
                                 </ng-container>
                             </div>
@@ -292,59 +268,77 @@
             </div>
             <!--INICIO DRAWERS-->
             <div>
-                    <fuse-drawer
-                        #formDrawer
-                        [name]="FORM_CADASTRO_DECISAO"
-                        [opened]="false"
-                        [mode]="'over'"
-                        [position]="'right'"
-                    >
-                        <div class="flex-auto overflow-auto p-4">
-                            <!-- CONTENT GOES HERE -->
-                            <div class="border-gray-300 rounded-2xl">
-                                <button
-                                    mat-mini-fab
-                                    color="primary"
-                                    (click)="abrirGaveta(FORM_CADASTRO_DECISAO)"
-                                >
-                                    <mat-icon>arrow_forward</mat-icon>
-                                </button>
+                <!--<fuse-drawer
+                    [name]="FORM_CADASTRO_DECISAO"
+                    [opened]="false"
+                    [position]="'right'"
+                    [mode]="'over'"
+                    id="capitulo-drawer"
+                >
+                    <div class="flex-auto p-4">
+                        <div class="border-gray-300 rounded-2xl">
+                            <button
+                                mat-mini-fab
+                                color="primary"
+                                (click)="abrirGaveta(FORM_CADASTRO_DECISAO)"
+                            >
+                                <mat-icon>arrow_forward</mat-icon>
+                            </button>
 
-                                <div class="w-full">
-                                    <div id="menu-decisao" class="w-full p-4 overflow-y-auto">
-                                        <app-form-decisao
-                                            *ngIf="!capituloSelecionado; else exibirDecisaoNoForm"
-                                            [processo]="processo"
-                                            [sessaoDeJulgamento] = "sessao"
-                                            (dadosDoCapitulo)="abrirGaveta(FORM_CADASTRO_DECISAO)"
-                                        ></app-form-decisao>
-
-                                        <ng-template #exibirDecisaoNoForm>
-                                            <app-form-decisao
-                                                [capitulo]="capituloSelecionado"
-                                                [processo]="processo"
-                                                [sessaoDeJulgamento]="sessao"
-                                                [isExibirBtnSalvarDecisao]="true"
-                                                [isExibirBtnExcluirCapitulo]="true"
-                                                (dadosDoCapitulo)="atualizarCapitulos($event); abrirGaveta(FORM_CADASTRO_DECISAO)"
-                                            ></app-form-decisao>
-                                        </ng-template>
-                                    </div>
+                            <div class="w-full">
+                                <div id="menu-decisao" class="w-full p-4">
+                                    
                                 </div>
                             </div>
                         </div>
-                    </fuse-drawer>
-                    <fuse-drawer [name]="'vistaDestaqueDrawer'" [opened]="false" [position]="'right'" [mode]="'over'" id="vista-destaque-drawer">
-                        <div class="flex-auto overflow-auto p-4">
-                            <div class="border-gray-300 rounded-2xl">
-                                <button
-                                    mat-mini-fab
-                                    color="primary"
-                                    (click)="abrirGaveta(FORM_VISTA_DESTAQUE)"
-                                >
-                                    <mat-icon>arrow_forward</mat-icon>
-                                </button>
-                                <app-form-vista-e-destaque
+                    </div>
+                </fuse-drawer>-->
+
+                <fuse-drawer 
+                    [name]="FORM_CADASTRO_DECISAO" 
+                    [opened]="false" 
+                    [position]="'right'" 
+                    [mode]="'over'" 
+                    id="vista-destaque-drawer"
+                >
+                    <div class="flex-auto overflow-auto p-4">
+                        <div class="border-gray-300 rounded-2xl">
+                            <button
+                                mat-mini-fab
+                                color="primary"
+                                (click)="abrirGaveta(FORM_CADASTRO_DECISAO)"
+                            >
+                                <mat-icon>arrow_forward</mat-icon>
+                            </button>
+                        </div>
+
+                        <app-form-decisao
+                            [capitulo]="capituloSelecionado"
+                            [processo]="processo"
+                            [sessaoDeJulgamento]="sessao"
+                            (dadosDoCapitulo)="atualizarCapitulos($event); abrirGaveta(FORM_CADASTRO_DECISAO)"
+                        ></app-form-decisao>
+                    </div>
+                </fuse-drawer>
+
+                <fuse-drawer 
+                    [name]="FORM_VISTA_DESTAQUE" 
+                    [opened]="false" 
+                    [position]="'right'" 
+                    [mode]="'over'" 
+                    id="vista-destaque-drawer"
+                >
+                    <div class="flex-auto overflow-auto p-4">
+                        <div class="border-gray-300 rounded-2xl">
+                            <button
+                                mat-mini-fab
+                                color="primary"
+                                (click)="abrirGaveta(FORM_VISTA_DESTAQUE)"
+                            >
+                                <mat-icon>arrow_forward</mat-icon>
+                            </button>
+
+                            <app-form-vista-e-destaque
                                 [sessao]= "sessao"
                                 [vista]="vistaSelecionada"
                                 [destaque]="destaqueSelecionado"
@@ -353,14 +347,20 @@
                                 (savedDrawer)="retornoVistaDestaqueDrawer($event)"
                                 (excluirVista)="excluirVista($event)"
                                 (excluirDestaque)="excluirDestaque($event)"
-                                ></app-form-vista-e-destaque>
-                            </div>
+                            ></app-form-vista-e-destaque>
                         </div>
-                    </fuse-drawer>
+                    </div>
+                </fuse-drawer>
             </div>
         </div>
     </div>
 </div>
 
-<app-alerta [nome]="alerta.nome" [titulo]="alerta.titulo" [mensagem]="alerta.mensagem" [aparencia]="'outline'"
-    [tipo]="alerta.tipo" class="absolute top-2 right-2 max-w-120 mx-auto z-40"></app-alerta>
+<app-alerta 
+    [nome]="alerta.nome" 
+    [titulo]="alerta.titulo" 
+    [mensagem]="alerta.mensagem" 
+    [aparencia]="'outline'"
+    [tipo]="alerta.tipo" 
+    class="absolute top-2 right-2 max-w-120 mx-auto z-40"
+></app-alerta>

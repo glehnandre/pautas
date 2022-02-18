@@ -1,8 +1,39 @@
 
-<div class="flex flex-0 flex-col min-h-140 min-m-4">
+<div class="w-full relative">
+    <p 
+        class="w-3/5 absolute text-center flex flex-row gap-4 justify-end items-end"
+        style="margin-top: -50px !important; margin-left: 40% !important;"
+    >
+        <button
+            mat-raised-button
+            class="mr-2"
+            (click)="closeDrawer();"
+        >
+            {{'Cancelar' | uppercase}}
+        </button>
+
+        <button 
+            *ngIf="vista?.id != null || destaque?.id != null"
+            mat-raised-button 
+            class="max-w-full mr-2" 
+            color="warn"
+            (click)="(vista?.id!=null) ? excluir('vista', vista) : excluir('destaque', destaque); closeDrawer();"
+        >
+           {{'Excluir' | uppercase}}
+        </button>
+
+        <button
+            mat-raised-button
+            class="max-w-full"
+            color="primary"
+            (click)="salvar()"
+        >
+            {{'Salvar' | uppercase}}
+        </button>
+    </p>
 
     <div class="flex flex-col flex-auto pt-4 sm:pt-2 m-2 overflow-y-auto ng-pristine ng-invalid ng-touched">
-        <form [formGroup]="formVistaEDestaque">
+        <form [formGroup]="formVistaEDestaque" class="mx-4">
             <div class="w-full grid grid-cols-1 sm:grid-cols-2 gap-2">
                 <mat-form-field class="w-full mb-4 col-span-1" appearance="outline">
                     <mat-label>Ministro requerente</mat-label>
@@ -40,34 +71,6 @@
                 'undo redo | formatselect | bold italic backcolor | \
                 alignleft aligncenter alignright alignjustify | \
                 bullist numlist outdent indent | removeformat | help'}"></editor>
-            <p class="mt-2 mb-2 text-center flex flex-row gap-2 justify-end items-end">
-                <button
-                    mat-raised-button
-                    class="mr-2"
-                    (click)="closeDrawer();"
-                >
-                    {{'Cancelar' | uppercase}}
-                </button>
-
-                <button 
-                    *ngIf="vista?.id != null || destaque?.id != null"
-                    mat-raised-button 
-                    class="max-w-full mr-2" 
-                    color="warn"
-                    (click)="(vista?.id!=null) ? excluir('vista', vista) : excluir('destaque', destaque); closeDrawer();"
-                >
-                   {{'Excluir' | uppercase}}
-                </button>
-
-                <button
-                    mat-raised-button
-                    class="max-w-full"
-                    color="primary"
-                    (click)="salvar()"
-                >
-                    {{'Salvar' | uppercase}}
-                </button>
-            </p>
         </form>
     </div>
 </div>
