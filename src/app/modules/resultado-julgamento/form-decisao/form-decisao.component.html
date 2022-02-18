@@ -95,9 +95,8 @@
             </mat-form-field>
 
             <app-aplicar-decisoes
-                *ngIf="capitulo"
                 [limparProcessosSelecionados]="limparProcessosSelecionados"
-                [processosParaAplicarAMesmaDecisao]="capitulo.processos_mesma_decisao"
+                [processosParaAplicarAMesmaDecisao]="capitulo?.processos_mesma_decisao || []"
                 (obterProcessosSelecionados)="setIdsDosProcessosSelecionados($event)"
             ></app-aplicar-decisoes>
         </div>
