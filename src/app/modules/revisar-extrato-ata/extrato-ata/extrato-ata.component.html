@@ -53,8 +53,8 @@
                         </span>
                     </div><hr>
                 </div>
-                <div class="text-center mx-4">
-                    <h1>Extrato da Ata</h1>
+                <div class="text-center m-4">
+                    <h1 class="text-xl font-medium text-primary">Extrato da Ata</h1>
                     <h3 class="font-medium">
                         Sessão {{ sessao?.modalidade}} {{ sessao?.tipo }} {{ sessao?.numero }}/{{ sessao?.ano }} realizada {{
                           (sessao?.data_inicio | date: "dd/mm/yyyy") == (sessao?.data_fim | date: "dd/mm/yyyy")?
@@ -67,7 +67,7 @@
                     <div class="mb-4 font-medium" [innerHtml]="fraseEMinistros([ata?.presidencia], FrasePresidente)">
                     </div>
                     <div class="mb-8" [innerHtml]="fraseEMinistros(ata?.ministros_presentes, FrasePresentes) + (ata?.outros_presentes ? 'Também presentes à sessão ' + ata?.outros_presentes: '') +  '. '+fraseEMinistros(ata?.ministros_ausentes, FraseAusentes)"></div>
-                    <div class="mb-8">
+                    <div class="mb-8 prose">
                         {{ ata?.cabecalho }}
                     </div>
                     <div *ngIf="processo?.ministros_impedidos?.length > 0">

@@ -1,7 +1,7 @@
-<div class="absolute inset-0 flex flex-col min-w-0 overflow-hidden bg-page">
+<div class="absolute inset-0 flex flex-col min-w-0 overflow-hidden bg-card">
 
     <!-- Header -->
-    <div class="flex flex-col sm:flex-row justify-center items-center sm:justify-between pl-8 bg-page dark:bg-transparent">
+    <div class="flex flex-col sm:flex-row justify-center items-center sm:justify-between pl-8 bg-card dark:bg-transparent">
                 <h1 class="mt-4 text-primary font-medium text-xl sm:text-2xl">
                     Finalizar Ata da Sessão de Julgamento
                 </h1>
@@ -11,7 +11,7 @@
 
 
     <!-- Header -->
-    <div class="flex flex-row py-4 px-4 sm:px-8 lg:px-40 lg:py-13">
+    <div class="flex flex-row py-4 px-4 sm:px-8 lg:px-40 lg:py-13 bg-card">
         <div class="flex flex-col text-accent-500 space-y-2 mt-2 flex-1 sm:flex-0">
             <span class="text-2xl text-primary font-medium">SESSÃO {{sessao.tipo}} {{sessao.modalidade}} {{sessao.numero}}/{{sessao.ano}}</span>
             <span class="hidden sm:block">{{getData()}}</span>
@@ -56,7 +56,7 @@
     </div>
 
     <!-- Main -->
-    <div class="flex flex-col overflow-y-auto py-4 px-4 sm:px-8 lg:py-8 lg:px-40" cdkScrollable>
+    <div class="flex flex-col overflow-y-auto py-4 px-4 sm:px-8 lg:py-8 lg:px-40 bg-card"cdkScrollable>
         <app-composicao
           [presidente]="sessao?.ata?.presidencia"
           (statusComposicao)="recuperaComposicao($event)"
