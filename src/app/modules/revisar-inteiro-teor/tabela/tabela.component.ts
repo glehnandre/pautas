@@ -44,7 +44,7 @@ export class TabelaComponent implements OnInit {
   documentoSelecionado: DocumentoInteiroTeor | null = null;
   editarDocumentoForm: FormGroup;
 
-  ministros$: Observable<Ministro[]>
+  ministros$: Observable<Ministro[]>;
 
   errorMessage: string;
 
@@ -68,10 +68,10 @@ export class TabelaComponent implements OnInit {
     });
 
     this.ministros$ = this._ministroService.listarMinistros().pipe(
-      catchError(error => {
+      catchError((error) => {
         console.log(error);
         this.errorMessage =  error.message;
-        this._alertaService.exibirAlerta("Error")
+        this._alertaService.exibirAlerta('Error');
         return EMPTY;
       })
     );
@@ -86,10 +86,10 @@ export class TabelaComponent implements OnInit {
   }
 
   /**
-    * Alternar edição do documento
-    *
-    * @param documentoInteiroTeor
-    */
+   * Alternar edição do documento
+   *
+   * @param documentoInteiroTeor
+   */
   alternarEdicaoDocumento(documentoInteiroTeor: DocumentoInteiroTeor): void {
     if (this.documentoSelecionado && this.documentoSelecionado.id === documentoInteiroTeor.id) {
         this.fecharEdicaoDocumento();
@@ -117,7 +117,7 @@ export class TabelaComponent implements OnInit {
               documento = documentoInteiroTeorAtualizado;
           }
           return documento;
-      })
+      });
 
       this._inteiroTeorService.atualizarDocumentoDoInteiroTeor(this.idProcesso, this.revisoes.documentos).subscribe({
           next: (data) => {
@@ -126,19 +126,19 @@ export class TabelaComponent implements OnInit {
           },
           error: (error) => {
             console.log(error);
-            this.errorMessage = error.message
-            this._alertaService.exibirAlerta("Error");
+            this.errorMessage = error.message;
+            this._alertaService.exibirAlerta('Error');
           }
       });
 
       this.fecharEdicaoDocumento();
   }
 
-  compare(a: number | string, b: number | string, isAsc: boolean) {
+  compare(a: number | string, b: number | string, isAsc: boolean): number {
     return (a < b ? -1 : 1) * (isAsc ? 1 : -1);
   }
 
-  ordenar(sort: Sort) {
+  ordenar(sort: Sort): void {
     const data = this.revisoes.documentos;
 
     if (!sort.active || sort.direction === '') {
@@ -169,7 +169,7 @@ export class TabelaComponent implements OnInit {
   }
 
   atualizaOrdem(): void {
-    for (var i = 0; i < this.revisoes?.documentos?.length; i++) {
+    for (let i = 0; i < this.revisoes?.documentos?.length; i++) {
         this.revisoes.documentos[i].ordem = i + 1;
     }
   }
@@ -184,8 +184,8 @@ export class TabelaComponent implements OnInit {
     this._inteiroTeorService.atualizarDocumentoDoInteiroTeor(this.idProcesso, this.revisoes.documentos).subscribe({
       error: (error) => {
         console.log(error);
-        this.errorMessage = error.message
-        this._alertaService.exibirAlerta("Error");
+        this.errorMessage = error.message;
+        this._alertaService.exibirAlerta('Error');
       }
     });
   }
@@ -217,7 +217,7 @@ export class DataSourceInteiroTeor extends DataSource<DocumentoInteiroTeor> {
      * @description Para de monitorar as mudanças na lista
      * @author Douglas da Silva Monteles
      */
-    public disconnect() {
+    public disconnect(): void {
       this.data.unsubscribe();
     }
   }
