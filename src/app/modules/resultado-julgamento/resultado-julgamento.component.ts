@@ -128,6 +128,8 @@ export class ResultadoJulgamentoComponent implements OnInit {
    * @author Douglas da Silva Monteles
    */
      public fecharGaveta(drawerName: string): void {
+       console.log(drawerName);
+       
       //Limpa as informações da gaveta.
       this.vistaSelecionada=null;
       this.destaqueSelecionado=null;

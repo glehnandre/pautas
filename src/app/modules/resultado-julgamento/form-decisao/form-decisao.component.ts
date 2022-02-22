@@ -40,6 +40,7 @@ export class FormDecisaoComponent implements OnInit, OnChanges, OnDestroy {
 
   @Output() dadosDoCapitulo = new EventEmitter<Capitulo[]>();
   @Output() resultadoDaAcao = new EventEmitter<{titulo: string; mensagem: string; tipo: 'success' | 'error'}>();
+  @Output() closeDrawerEmit = new EventEmitter();
 
   constructor(
     private _fb: FormBuilder,
@@ -79,6 +80,10 @@ export class FormDecisaoComponent implements OnInit, OnChanges, OnDestroy {
 
   ngOnDestroy(): void {
     this.capitulo = null;
+  }
+
+  closeDrawer(){
+    this.closeDrawerEmit.emit();
   }
 
   /**

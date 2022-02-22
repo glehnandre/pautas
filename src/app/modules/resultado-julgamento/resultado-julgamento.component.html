@@ -110,7 +110,7 @@
                                                                         {{(i+1)}}º: {{item.tipo}} - <strong
                                                                             class="text-primary-500">{{item.dispositivo?.nome ||
                                                                             item.dispositivo}}</strong> {{ (item.texto.length > 30)?
-                                                                        (item.texto | slice:0:6)+'..':(item.texto) }}
+                                                                        (removerTagsHTML(item.texto) | slice:0:6)+'..':removerTagsHTML(item.texto) }}
                                                                     </p>
                                                                 </ng-container>
                                                             </div>
@@ -318,6 +318,7 @@
                             [sessaoDeJulgamento]="sessao"
                             (dadosDoCapitulo)="atualizarCapitulos($event); abrirGaveta(FORM_CADASTRO_DECISAO)"
                             (resultadoDaAcao)="obterResultadoDaAcao($event)"
+                            (closeDrawerEmit)="fecharGaveta(FORM_CADASTRO_DECISAO)"
                         ></app-form-decisao>
                     </div>
                 </fuse-drawer>
