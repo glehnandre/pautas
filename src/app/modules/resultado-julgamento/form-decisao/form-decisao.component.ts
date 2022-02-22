@@ -184,7 +184,12 @@ export class FormDecisaoComponent implements OnInit, OnChanges, OnDestroy {
 
   public excluirCapitulo(): void {
     if (this.formDecisao.valid) {
-      this._processoService.excluirCapitulo(this.sessaoDeJulgamento.numero, this.sessaoDeJulgamento.ano, this.processo.id, this.capitulo.id).subscribe({
+      this._processoService.excluirCapitulo(
+          this.sessaoDeJulgamento.numero, 
+          this.sessaoDeJulgamento.ano, 
+          this.processo.id, 
+          this.capitulo.id
+      ).subscribe({
         next: (data) => {
           console.log(data);
           this._atualizarCapitulos(data);

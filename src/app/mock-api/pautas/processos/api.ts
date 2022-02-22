@@ -522,27 +522,32 @@ export class ProcessoMockApi {
             .reply(({request, urlParams}) => {
                 const id_processo: number = +urlParams.id;
                 const id_capitulo: number = +urlParams.idCapitulo;
-                const numeroAno = urlParams['numeroAno'];
-                let index_processo;
-                let index_capitulo;
+                const numeroAno = urlParams.numeroAno;
 
                 let indexJulgamento = this._sessaoDeJulgamentos.findIndex(julg => {
                     const sessaoNumeroAno = `${julg.numero}-${julg.ano}`;
                     return sessaoNumeroAno === numeroAno;
                 });
 
-                if(indexJulgamento != -1){
-                    let indexProcesso = this._sessaoDeJulgamentos[indexJulgamento].processos.findIndex(processo => processo.id === id_processo);
-                    if(indexProcesso!= -1){
-                            index_capitulo = this._sessaoDeJulgamentos[indexJulgamento].processos[index_processo].capitulos.findIndex(capitulo => capitulo.id === id_capitulo);
-                            if(index_capitulo != -1){
-                                this._sessaoDeJulgamentos[indexJulgamento].processos[index_processo].capitulos.splice(index_capitulo, 1);
-                                setStorage('sessoesDeJulgamento', this._sessaoDeJulgamentos);
-                                return [200, this._processos[index_processo].capitulos];
-                            }
-                            return [200, this._sessaoDeJulgamentos[indexJulgamento].processos[indexProcesso]];
-                    }return [404, "Processo não encontrado na Sessão de julgamento"];
-                }else return [404, "Sessão de julgamento não encontrada."];
+                if (indexJulgamento !== -1) {
+                    const indexProcesso = this._sessaoDeJulgamentos[indexJulgamento].processos.findIndex(processo => processo.id === id_processo);
+                    
+                    if (indexProcesso !== -1) {
+                        const indexCapitulo = this._sessaoDeJulgamentos[indexJulgamento].processos[indexProcesso].capitulos.findIndex(capitulo => capitulo.id === id_capitulo);
+                        
+                        if (indexCapitulo !== -1) {
+                            this._sessaoDeJulgamentos[indexJulgamento].processos[indexProcesso].capitulos.splice(indexCapitulo, 1);
+                            setStorage('sessoesDeJulgamento', this._sessaoDeJulgamentos);
+                            return [200, this._processos[indexProcesso].capitulos];
+                        }
+                        
+                        return [200, this._sessaoDeJulgamentos[indexJulgamento].processos[indexProcesso]];
+                    } 
+                    
+                    return [404, "Processo não encontrado na Sessão de julgamento"];
+                } else {
+                    return [404, "Sessão de julgamento não encontrada."];
+                }
             });
     }
 

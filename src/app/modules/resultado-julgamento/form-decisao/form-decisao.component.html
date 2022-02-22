@@ -94,11 +94,11 @@
                                 {{formDecisao.controls['ministros_divergem'].value ? formDecisao.controls['ministros_divergem'].value[0]?.nome : ''}}
                             </div>
                             <span *ngIf="formDecisao.controls['ministros_divergem'].value?.length === 2" class="text-base">
-                                {{formDecisao.controls['ministros_divergem'].value ? formDecisao.controls['ministros_divergem'].value[0]?.nome + ", " + formDecisao.controls['ministros_acordam'].value[1]?.nome :
+                                {{formDecisao.controls['ministros_divergem'].value ? formDecisao.controls['ministros_divergem'].value[0]?.nome + ", " + formDecisao.controls['ministros_divergem'].value[1]?.nome :
                                 ''}}
                             </span>
                             <span *ngIf="formDecisao.controls['ministros_divergem'].value?.length > 2" class="font-light text-base">
-                                {{formDecisao.controls['ministros_divergem'].value ? formDecisao.controls['ministros_divergem'].value[0]?.nome + ", " + formDecisao.controls['ministros_acordam'].value[1]?.nome :
+                                {{formDecisao.controls['ministros_divergem'].value ? formDecisao.controls['ministros_divergem'].value[0]?.nome + ", " + formDecisao.controls['ministros_divergem'].value[1]?.nome :
                                 ''}}
                                 <span class="font-light text-xs">
                                     (+{{formDecisao.controls['ministros_divergem'].value.length - 2}}
