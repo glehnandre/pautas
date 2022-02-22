@@ -1,10 +1,12 @@
 import { Component, EventEmitter, Input, OnChanges, OnDestroy, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { MatDialog } from '@angular/material/dialog';
 import { MatSelectChange } from '@angular/material/select';
 import { AlertaService } from 'app/modules/services/alerta.service';
 import { DispositivoService } from 'app/modules/services/dispositivo.service';
 import { MinistroService } from 'app/modules/services/ministro.service';
 import { ProcessoService } from 'app/modules/services/processo.service';
+import { DialogoConfirmacaoComponent } from 'app/shared/dialogo-confirmacao/dialogo-confirmacao.component';
 import { Capitulo } from 'app/shared/model/interfaces/capitulo.interface';
 import { Dispositivo } from 'app/shared/model/interfaces/dispositivo.interface';
 import { Ministro } from 'app/shared/model/interfaces/ministro.interface';
@@ -30,7 +32,6 @@ export class FormDecisaoComponent implements OnInit, OnChanges, OnDestroy {
   compareFn: ((f1: any, f2: any) => boolean) | null = this.compareById;
 
   errorMessage: string;
-  isExibirBtnSalvarDecisao: boolean = false;
   isExibirBtnExcluirCapitulo: boolean = false;
 
   @Input() processo: Processo;
@@ -38,6 +39,7 @@ export class FormDecisaoComponent implements OnInit, OnChanges, OnDestroy {
   @Input() capitulo: Capitulo;
 
   @Output() dadosDoCapitulo = new EventEmitter<Capitulo[]>();
+  @Output() resultadoDaAcao = new EventEmitter<{titulo: string; mensagem: string; tipo: 'success' | 'error'}>();
 
   constructor(
     private _fb: FormBuilder,
@@ -45,6 +47,7 @@ export class FormDecisaoComponent implements OnInit, OnChanges, OnDestroy {
     private _dispositivoService: DispositivoService,
     private _processoService: ProcessoService,
     private _alertaService: AlertaService,
+    private _dialog: MatDialog,
   ) {
     this._inicializarFormulario();
   }
@@ -69,7 +72,6 @@ export class FormDecisaoComponent implements OnInit, OnChanges, OnDestroy {
       });
 
       this.isExibirBtnExcluirCapitulo = true;
-      this.isExibirBtnSalvarDecisao = true;
     } else {
       this._inicializarFormulario();
     }
@@ -151,11 +153,11 @@ export class FormDecisaoComponent implements OnInit, OnChanges, OnDestroy {
   }
 
   /**
-   * @public Método público
+   * @public Método privado
    * @description Método para adicionar uma Decisão a lista de decisões
    * @author Douglas da Silva Monteles
    */
-  public _atualizarCapitulos(capitulos: Capitulo[]): void {
+  private _atualizarCapitulos(capitulos: Capitulo[]): void {
     this.dadosDoCapitulo.emit(capitulos);
     this.formDecisao.reset();
     this.limparProcessosSelecionados = true;
@@ -168,9 +170,25 @@ export class FormDecisaoComponent implements OnInit, OnChanges, OnDestroy {
    */
   public salvarCapitulo(): void {
     if (this.formDecisao.valid) {
-      this._processoService.salvarCapitulo(this.sessaoDeJulgamento.numero, this.sessaoDeJulgamento.ano, this.processo.id, {capitulo: this.formDecisao.value, processos_mesma_decisao: this.idsDosProcessos,}).subscribe({
+      this._processoService.salvarCapitulo(
+        this.sessaoDeJulgamento.numero, 
+        this.sessaoDeJulgamento.ano, 
+        this.processo.id, 
+        {
+          capitulo: this.formDecisao.value, 
+          processos_mesma_decisao: this.idsDosProcessos,
+        }
+      ).subscribe({
         next: (data) => {
+          const descricao = this.formDecisao.controls.descricao.value;
           this._atualizarCapitulos(data);
+
+          this.resultadoDaAcao.emit({
+            titulo: 'Capítulo Salvo!',
+            mensagem: `O capítulo ${descricao} foi salvo com sucesso.`,
+            tipo: 'success',
+          });
+
           this.formDecisao.reset();
         },
         error: (error) => {
@@ -191,9 +209,28 @@ export class FormDecisaoComponent implements OnInit, OnChanges, OnDestroy {
           this.capitulo.id
       ).subscribe({
         next: (data) => {
-          console.log(data);
-          this._atualizarCapitulos(data);
-          this.formDecisao.reset();
+          const descricao = this.capitulo.descricao;
+
+          const dialogRef = this._dialog.open(DialogoConfirmacaoComponent, {
+            data: {
+              titulo: 'Exclusão de Capítulo',
+              mensagem: `Tem certeza que deseja excluir essa capítulo: ${descricao}`,
+            }
+          });
+
+          dialogRef.afterClosed().subscribe(resultado => {
+            if (resultado) {
+              this._atualizarCapitulos(data);
+
+              this.resultadoDaAcao.emit({
+                titulo: 'Capítulo Excluído!',
+                mensagem: `O capítulo ${descricao} foi excluído.`,
+                tipo: 'success',
+              });
+
+              this.formDecisao.reset();
+            }
+          })
         },
         error: (error) => {
           console.log(error);

@@ -7,7 +7,7 @@
             mat-raised-button 
             class="text-3xl sm:text-base mr-2"
             color="warn" 
-            *ngIf="isExibirBtnExcluirCapitulo"
+            *ngIf="capitulo?.id > 0"
             (click)="excluirCapitulo()"
         >
             <mat-icon class="mr-1">delete</mat-icon>

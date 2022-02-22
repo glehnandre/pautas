@@ -317,6 +317,7 @@
                             [processo]="processo"
                             [sessaoDeJulgamento]="sessao"
                             (dadosDoCapitulo)="atualizarCapitulos($event); abrirGaveta(FORM_CADASTRO_DECISAO)"
+                            (resultadoDaAcao)="obterResultadoDaAcao($event)"
                         ></app-form-decisao>
                     </div>
                 </fuse-drawer>

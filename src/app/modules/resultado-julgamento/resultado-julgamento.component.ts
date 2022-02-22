@@ -113,6 +113,14 @@ export class ResultadoJulgamentoComponent implements OnInit {
     drawer.toggle();
   }
 
+  public obterResultadoDaAcao(resultado: {titulo:string;mensagem:string;tipo:'success' | 'error'}) {
+    this.alerta = {
+      ...resultado,
+      nome: 'ResultadoDaAcaoFormDecisao',
+    }
+    this._alertaService.exibirAlerta(this.alerta.nome);
+  }
+
   /**
    * @public Método público
    * @param drawerName Nome do drawer a ser exibido
