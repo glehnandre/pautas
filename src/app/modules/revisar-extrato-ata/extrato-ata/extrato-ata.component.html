@@ -63,11 +63,11 @@
                         }}
                     </h3>
                 </div>
-                <div class="ml-4 sm:ml-8 md:ml-16 mr-4">
+                <div class="ml-4 sm:ml-8 md:ml-16 mr-4 text-md">
                     <div class="mb-4 font-medium" [innerHtml]="fraseEMinistros([ata?.presidencia], FrasePresidente)">
                     </div>
                     <div class="mb-8" [innerHtml]="fraseEMinistros(ata?.ministros_presentes, FrasePresentes) + (ata?.outros_presentes ? 'Também presentes à sessão ' + ata?.outros_presentes: '') +  '. '+fraseEMinistros(ata?.ministros_ausentes, FraseAusentes)"></div>
-                    <div class="mb-8 prose">
+                    <div class="mb-8 prose text-md">
                         {{ ata?.cabecalho }}
                     </div>
                     <div *ngIf="processo?.ministros_impedidos?.length > 0">
@@ -82,7 +82,7 @@
                             <span *ngFor="let vista of processo?.vistas">
                                 <p class="leading-tight ">No dia {{vista.data | date:'dd/MM/yyyy'}} às {{vista.data | date:'hh:mm'}}, houve um pedido de vista feito <span [innerHtml]=" fraseEMinistros([vista.ministro], FraseMinistro) "></span>
                                 </p>
-                                <div class="prose">
+                                <div class="prose text-md">
                                     <div [innerHtml] = "vista.texto"></div>
                                 </div>
                                 <br>
@@ -96,7 +96,7 @@
                             <span *ngFor="let destaque of processo?.destaques">
                                 <p class="leading-tight ">No dia {{destaque.data | date:'dd/MM/yyyy'}} às {{destaque.data | date:'hh:mm'}}, houve um pedido de destaque do plenário virtual feito <span [innerHtml]=" fraseEMinistros([destaque.ministro], FraseMinistro) "></span>
                                 </p>
-                                <div class="prose">
+                                <div class="prose text-md">
                                     <div class="prose prose-h1" [innerHtml] = "destaque.texto"></div>
                                 </div>                                
                                 <br>
@@ -112,7 +112,7 @@
                                         <div [class]="'bg-sentido-'+capitulo.dispositivo?.sentido+' rounded-full px-2 text-white mb-4 mr-2 inline-block'">
                                             {{ capitulo.dispositivo?.nome }}
                                         </div>
-                                        <div class="mb-6" [innerHtml]="capitulo?.texto"></div>
+                                        <div class="mb-6 text-md prose" [innerHtml]="capitulo?.texto"></div>
                                         <div class="mb-4" *ngIf="capitulo.ministros_divergem.length > 0 ;else unanime" [innerHtml]="fraseEMinistros(capitulo?.ministros_divergem, FraseDivergem)"></div>
                                         <ng-template #unanime>Decisão unânime.</ng-template>
                                 </div>

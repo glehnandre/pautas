@@ -43,9 +43,10 @@ export class ComposicaoComponent implements OnInit, AfterViewChecked {
     this._ministroService.listarMinistrosDoColegiado('primeira-turma').subscribe({
       next: (ministros) => {
         if(this.presidente)
-        ministros.splice(ministros.indexOf(ministros.find(ministro=>ministro.nome==this.presidente.nome)), 1);
+        console.log('PRIMEIRA TURMA');
+        console.log(ministros);
         this.primeiraTurma = ministros;
-        ministros.forEach(ministro=>this.presidenteChecked.push({nome: ministro.nome, checked: false}));
+        console.log(this.primeiraTurma);
       },
       error: (error) => {
         console.log(error);
@@ -57,9 +58,24 @@ export class ComposicaoComponent implements OnInit, AfterViewChecked {
       {
         next: (ministros) => {
           if(this.presidente)
-          ministros.splice(ministros.indexOf(ministros.find(ministro=>ministro.nome==this.presidente.nome)), 1);
+          console.log('SEGUNDA TURMA');
+          console.log(ministros);
+          //ministros.splice(ministros.indexOf(ministros.find(ministro=>ministro.nome==this.presidente.nome)), 1);
           this.segundaTurma = ministros;
-          ministros.forEach(ministro=>this.presidenteChecked.push({nome: ministro.nome, checked: false}));
+          //ministros.forEach(ministro=>this.presidenteChecked.push({nome: ministro.nome, checked: false}));
+          console.log(this.segundaTurma);
+        },
+        error: (error) => {
+          console.log(error);
+          this.errorMessage = error.message
+          this._alertaService.exibirAlerta("Error");
+        }
+    });
+    this._ministroService.listarColegiados('pleno', null, null).subscribe({
+        next: (colegiado) => {
+          console.log('PRESIDENTE');
+          console.log(colegiado);
+          this.presidente = colegiado[0].presidente;
         },
         error: (error) => {
           console.log(error);
