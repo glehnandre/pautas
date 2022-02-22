@@ -272,7 +272,7 @@ export const processo: Processo[] = [
     capitulos:  [
 
     ],
-    relator: ministro[2],
+    relator: ministro[10],
     ministros_impedidos: [
     ],
     ministros_suspeitos: [
