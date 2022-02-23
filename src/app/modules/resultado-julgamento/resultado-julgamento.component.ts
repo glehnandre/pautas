@@ -387,6 +387,39 @@ export class ResultadoJulgamentoComponent implements OnInit {
     return '';
   }
 
+  public excluirCapitulo(capitulo: Capitulo): void {
+    const descricao = `${capitulo.tipo} - ${capitulo.dispositivo?.nome || capitulo.dispositivo}`;
+    
+    const dialogRef = this._dialog.open(DialogoConfirmacaoComponent, {
+      data: {
+        titulo: 'EXCLUSÃO DE CAPÍTULO',
+        mensagem: `Confirma a exclusão do capítulo ${descricao}?`,
+      }
+    });
+
+    dialogRef.afterClosed().subscribe(resposta => {
+      const { numero, ano, processo } = this.parametros;
+
+      if (resposta) {
+        this._processoService.excluirCapitulo(
+          numero,
+          ano,
+          processo,
+          capitulo.id,
+        ).subscribe({
+          next: () => {
+            this.mostrarAlerta(
+              'success', 
+              'Sucesso!', 
+              `O Capítulo foi excluído com sucesso.`,
+              'ExcluirCapitulo',
+            );
+            this.cd.detectChanges();
+          }
+        });
+      } 
+    });
+  }
 
   public excluirVista(vista: Vista): void {
     console.log(vista);
@@ -439,9 +472,7 @@ export class ResultadoJulgamentoComponent implements OnInit {
         });
       }
     });
-}
-
-
+  }
 
   /**
    * @public Método público
@@ -599,13 +630,14 @@ export class ResultadoJulgamentoComponent implements OnInit {
     tipo: 'primary' | 'accent' | 'warn' | 'basic' | 'info' | 'success' | 'warning' | 'error',
     titulo: string,
     mensagem: string,
+    nome: string = 'ResultadoJulgamentoAlerta',
   ): void {
     this.alerta = {
-      nome: "Error",
-      tipo: tipo,
-      titulo: titulo,
-      mensagem: mensagem
+      nome,
+      tipo,
+      titulo,
+      mensagem,
     }
-    this._alertaService.exibirAlerta('Error')
+    this._alertaService.exibirAlerta(this.alerta.nome);
   }
 }
