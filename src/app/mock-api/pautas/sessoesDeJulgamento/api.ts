@@ -208,9 +208,11 @@ export class SessaoDeJulgamentoMockApi {
 
         if (indexSuspensao !== -1) { // Já existe uma suspensão
           this._suspensoes[indexSuspensao] = suspensao;
+          console.log(this._suspensoes);
           return [200, 'Suspensão atualizada com sucesso!'];
         } else {
           this._suspensoes.push(suspensao);
+          console.log(this._suspensoes);
           return [200, 'Suspensão cadastrada com sucesso!'];
         }
       });
