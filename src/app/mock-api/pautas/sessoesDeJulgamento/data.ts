@@ -5,13 +5,11 @@ import { Envolvido } from "app/shared/model/interfaces/capitulo.interface";
 import { Processo } from "app/shared/model/interfaces/processo.interface";
 import { Secretario } from "app/shared/model/interfaces/secretario.interface";
 import { SessaoDeJulgamento } from "app/shared/model/interfaces/sessao-julgamento.interface";
+import { Suspensao } from "app/shared/model/interfaces/suspensao.interface";
 import { capitulo } from "../capitulo/data";
 import { ministro } from '../ministro/data';
 import { processo } from '../processos/data';
 import { getStorage } from "../storage";
-
-
-
 
 export const atas: Ata[] = getStorage('atas', [
   {
@@ -30,7 +28,6 @@ export const atas: Ata[] = getStorage('atas', [
     presidencia:  ministro[0]
   }
 ]);
-
 
 export const secretarios: Secretario[] = getStorage('secretarios', [
   {
@@ -343,7 +340,7 @@ export const envolvidos: Envolvido[] = [
         "RG 12345-6",
       ],
     },
-  ];
+];
 
 export const processos: Processo[] = [
   {
@@ -427,4 +424,6 @@ export const processos: Processo[] = [
     vistas: [],
     destaques: []
   },
-]
+];
+
+export const suspensoes: Suspensao[] = [];
