@@ -8,10 +8,10 @@ import { DialogoConfirmacaoComponent } from 'app/shared/dialogo-confirmacao/dial
 import { Capitulo } from 'app/shared/model/interfaces/capitulo.interface';
 import { Destaque } from 'app/shared/model/interfaces/destaque.interface';
 import { Manifestacao } from 'app/shared/model/interfaces/manifestacao.interface';
-import { Ministro } from 'app/shared/model/interfaces/ministro.interface';
 import { ModeloDecisao } from 'app/shared/model/interfaces/modeloDecisao.interface';
 import { Processo } from 'app/shared/model/interfaces/processo.interface';
 import { SessaoDeJulgamento } from 'app/shared/model/interfaces/sessao-julgamento.interface';
+import { Suspensao } from 'app/shared/model/interfaces/suspencao.interface';
 import { Vista } from 'app/shared/model/interfaces/vista.interface';
 import { Voto } from 'app/shared/model/interfaces/voto.interface';
 import { AlertaService } from '../services/alerta.service';
@@ -21,10 +21,6 @@ import { SessaoDeJulgamentoService } from '../services/sessao-de-julgamento.serv
 import { FormIndicacaoImpedimentosComponent } from './form-indicacao-impedimentos/form-indicacao-impedimentos.component';
 import { FormModeloDecisaoComponent } from './form-modelo-decisao/form-modelo-decisao.component';
 import { FormRelatorComponent } from './form-relator/form-relator.component';
-
-
-
-
 
 
 interface Parametros {
@@ -55,17 +51,11 @@ export class ResultadoJulgamentoComponent implements OnInit {
   dispositivos: Manifestacao[] = [];
   todosCapitulos: Capitulo[] = [];
   capituloSelecionado: Capitulo = null;
-  vistaSelecionada: Vista = null;
-  destaqueSelecionado: Destaque = null;
+  vistaOuDestaqueSelecionado: any = null;
   modelo: ModeloDecisao;
-  exibirListaDeDecisoes = false;
   exibirChips = true;
   chips: Array<{ id?: number; nome: string }> = [];
-  data = {
-    titulo: 'Informar Vista',
-    tipo: 'vista',
-    dados: this._obterDadosDaVistaNaListaDeDecisoes(null),
-  };
+  vistasEDestaques: Suspensao[];
 
   alerta: Alerta = {} as Alerta;
 
@@ -87,9 +77,7 @@ export class ResultadoJulgamentoComponent implements OnInit {
     this._route.queryParams.subscribe((params: Parametros) => {
       this.parametros = params;
     });
-
     this._carregarDadosProcessos();
-
     this._carregarSessaoDeJulgamento(this.parametros.numero, this.parametros.ano);
   }
 
@@ -97,46 +85,10 @@ export class ResultadoJulgamentoComponent implements OnInit {
    * transforma um string com tags html em uma string padrão
    * @param html string com tags html
    */
-  removerTagsHTML(html: string): string{
+  removerTagsHTML(html: string): string {
     const data = new DOMParser().parseFromString(html, 'text/html');
     return data.body.textContent || "";
   }
-
-  /**
-   * @public Método público
-   * @param drawerName Nome do drawer a ser exibido
-   * @description Método para exibir ou esconder a gaveta com conteúdo
-   * @author Douglas da Silva Monteles
-   */
-  public abrirGaveta(drawerName: string): void {
-    const drawer = this._fuseDrawerService.getComponent(drawerName);
-    drawer.toggle();
-  }
-
-  public obterResultadoDaAcao(resultado: {titulo:string;mensagem:string;tipo:'success' | 'error'}) {
-    this.alerta = {
-      ...resultado,
-      nome: 'ResultadoDaAcaoFormDecisao',
-    }
-    this._alertaService.exibirAlerta(this.alerta.nome);
-  }
-
-  /**
-   * @public Método público
-   * @param drawerName Nome do drawer a ser exibido
-   * @description Método para exibir ou esconder a gaveta com conteúdo
-   * @author Douglas da Silva Monteles
-   */
-     public fecharGaveta(drawerName: string): void {
-       console.log(drawerName);
-       
-      //Limpa as informações da gaveta.
-      this.vistaSelecionada=null;
-      this.destaqueSelecionado=null;
-      
-      const drawer = this._fuseDrawerService.getComponent(drawerName);
-      drawer.toggle();
-    }
 
   /**
    * @public Método público
@@ -179,29 +131,6 @@ export class ResultadoJulgamentoComponent implements OnInit {
 
   /**
    * @public Método público
-   * @param obj1 Objeto javascript contendo os dados de Capitulo
-   * @param obj2 Objeto javascript contendo os dados de Capitulo
-   * @description Método para comparar objetos do tipo Capitulo
-   * @returns boolean
-   * @author Douglas da Silva Monteles
-   */
-  public marcaDecisaoSelecionada(obj1: Capitulo, obj2: Capitulo): boolean {
-    return JSON.stringify(obj1) === JSON.stringify(obj2);
-  }
-
-
-  /**
-   * @public Método público
-   * @param decisao Objeto javascript com os dados de uma decisão
-   * @description Método para adicionar uma decisão a lista de decisões
-   * @author Douglas da Silva Monteles
-   */
-  public adicionarCapitulo(capitulo: Capitulo): void {
-    this.todosCapitulos.push(capitulo);
-  }
-
-  /**
-   * @public Método público
    * @param decisao Objeto javascript com os dados de uma decisão
    * @description Método para atualizar a decisão que foi selecionada
    * @author Douglas da Silva Monteles
@@ -236,35 +165,6 @@ export class ResultadoJulgamentoComponent implements OnInit {
 
   /**
    * @public Método público
-   * @description Método para verificar se uma decisão já foi salva via POST, como
-   *              critério, é verificado se a decisão possui um capitulo com id
-   * @returns boolean
-   * @author Douglas da Silva Monteles
-   */
-  public habilitarUpdate(): boolean {
-    if (this.capituloSelecionado.id !== undefined && this.capituloSelecionado.id > 0) {
-      return false;
-    }
-    return true;
-  }
-
-  /**
-   * @public Método público
-   * @param show Atributo que controla a exibição do componente
-   * @description Método para recarregar um componente filho sempre que for chamado
-   * @returns boolean
-   * @author Douglas da Silva Monteles
-   */
-  public recarregarListaDeDecisoes(): void {
-    this.exibirListaDeDecisoes = false;
-
-    setTimeout(() => {
-      this.exibirListaDeDecisoes = true;
-    }, 500);
-  }
-
-  /**
-   * @public Método público
    * @description Método para exibir modal de alteração de modelo de decisão
    * @author Douglas da Silva Monteles
    */
@@ -294,58 +194,6 @@ export class ResultadoJulgamentoComponent implements OnInit {
       }
     });
   }
-
-  private alertaVistaEDestaque(tipo: string, ministro: Ministro): void {
-    if (ministro) {
-      this.mostrarAlerta('success', 'Sucesso', `
-          ${tipo}
-          ${this._ministroService.generoEPlural([ministro],
-        { F: 'da Ministra', M: 'do Ministro' })}
-          ${ministro.nome}
-          incluíd${tipo == 'Vista' ? 'a' : 'o'} com sucesso!
-        `);
-    } else {
-      this.mostrarAlerta('error', `Erro ao Cadastrar ${tipo}`, 'Tente Novamente Mais Tarde');
-    }
-  }
-
-
-  retornoVistaDestaqueDrawer(data){
-    if(data.vistas !=null){
-      this.mostrarAlerta('success', 'Sucesso!', `Vista incluída com sucesso.`);
-    }else if (data.destaques !=null){
-      this.mostrarAlerta('success', 'Sucesso!', `Destaque incluído com sucesso.`);
-    }else this.mostrarAlerta('error', 'Erro!', `Ocorreu um erro ao salvar a vista ou destaque.`);
-  }
-
-
-  editarVista(vista:Vista){
-    this.vistaSelecionada = vista;
-    this.destaqueSelecionado = null;
-    this.abrirGaveta(this.FORM_VISTA_DESTAQUE)
-    this.cd.detectChanges();
-  }
-
-  editarDestaque(destaque:Destaque){
-    this.destaqueSelecionado = destaque;
-    this.vistaSelecionada = null;
-    this.abrirGaveta(this.FORM_VISTA_DESTAQUE)
-    this.cd.detectChanges();
-  }
-  
-  novaVista(){
-    this.vistaSelecionada = {} as Vista;
-    this.destaqueSelecionado = null;
-    this.abrirGaveta(this.FORM_VISTA_DESTAQUE)
-  }
-
-    
-  novoDestaque(){
-    this.destaqueSelecionado = {} as Destaque;
-    this.vistaSelecionada = null;
-    this.abrirGaveta(this.FORM_VISTA_DESTAQUE)
-  }
-
 
   /**
    * @public Método público
@@ -378,7 +226,7 @@ export class ResultadoJulgamentoComponent implements OnInit {
    * @description Método para concatenar algumas informações sobre o processo
    * @author Douglas da Silva Monteles
    */
-  public getDadosDoProcesso(): string {
+  public getNomeCompletoProcesso(): string {
     if (this.processo) {
       const { classe, numero, cadeia } = this.processo;
       return `${classe} ${numero} ${cadeia}`;
@@ -389,7 +237,7 @@ export class ResultadoJulgamentoComponent implements OnInit {
 
   public excluirCapitulo(capitulo: Capitulo): void {
     const descricao = `${capitulo.tipo} - ${capitulo.dispositivo?.nome || capitulo.dispositivo}`;
-    
+
     const dialogRef = this._dialog.open(DialogoConfirmacaoComponent, {
       data: {
         titulo: 'EXCLUSÃO DE CAPÍTULO',
@@ -409,46 +257,114 @@ export class ResultadoJulgamentoComponent implements OnInit {
         ).subscribe({
           next: () => {
             this.mostrarAlerta(
-              'success', 
-              'Sucesso!', 
+              'success',
+              'Sucesso!',
               `O Capítulo foi excluído com sucesso.`,
               'ExcluirCapitulo',
             );
             this.cd.detectChanges();
           }
         });
-      } 
+      }
     });
   }
 
-  public excluirVista(vista: Vista): void {
-    console.log(vista);
-    
-      const dialogRef = this._dialog.open(DialogoConfirmacaoComponent, {
-        data: {
-          titulo: 'EXCLUSÃO DE VISTA',
-          mensagem: `Confirma a exclusão da Vista do(a) Ministro(a) ${vista.ministro.nome}?`
-        },
-      });
-      dialogRef.afterClosed().subscribe(confirmacao => {
-        if (confirmacao) {
-          this._processoService.excluirVistaDoProcesso(this.parametros.numero, this.parametros.ano, this.parametros.processo, vista.id)
-              .subscribe({
-                next: () => {
-                  this.mostrarAlerta('success', 'Sucesso!', `A vista do Ministro(a) ${vista.ministro.nome} foi excluída com sucesso.`);
-                  this.cd.detectChanges();
-                },
-                error: (error) => {
-                  console.log(error);
-                  this.mostrarAlerta("error", "Error", error.message);
-                  this.cd.detectChanges();
-                }
-          });
-        }
-      });
+  /**
+   * @public Método público
+   * @param drawerName Nome do drawer a ser exibido
+   * @description Método para exibir ou esconder a gaveta com conteúdo
+   * @author Douglas da Silva Monteles
+   */
+  public fecharGaveta(drawerName: string): void {
+    //Limpa as informações da gaveta.
+    this.vistaOuDestaqueSelecionado = null;
+    const drawer = this._fuseDrawerService.getComponent(drawerName);
+    drawer.toggle();
   }
 
-  public excluirDestaque(destaque: Destaque): void {
+  /**
+   * @public Método público
+   * @param drawerName Nome do drawer a ser exibido
+   * @description Método para exibir ou esconder a gaveta com conteúdo
+   * @author Douglas da Silva Monteles
+   */
+  public abrirGaveta(drawerName: string): void {
+    const drawer = this._fuseDrawerService.getComponent(drawerName);
+    drawer.toggle();
+  }
+
+  public obterResultadoDaAcao(resultado: { titulo: string; mensagem: string; tipo: 'success' | 'error' }) {
+    this.alerta = {
+      ...resultado,
+      nome: 'ResultadoDaAcaoFormDecisao',
+    }
+    this._alertaService.exibirAlerta(this.alerta.nome);
+  }
+
+
+
+  retornoVistaDestaqueDrawer(data) {
+    this._carregarDadosProcessos();
+    if (data.type == 'vista') {
+      this.mostrarAlerta('success', 'Sucesso!', `Vista incluída com sucesso.`);
+    } else if (data.type == 'destaque') {
+      this.mostrarAlerta('success', 'Sucesso!', `Destaque incluído com sucesso.`);
+    } else this.mostrarAlerta('error', 'Erro!', `Ocorreu um erro ao salvar a vista ou destaque.`);
+  }
+
+  editarVistaOuDestaque(item: any) {
+    this.abrirGaveta(this.FORM_VISTA_DESTAQUE)
+    this.vistaOuDestaqueSelecionado = item;
+    this.cd.detectChanges();
+  }
+
+
+  novaVista() {
+    this.vistaOuDestaqueSelecionado = new Vista();
+    this.abrirGaveta(this.FORM_VISTA_DESTAQUE)
+  }
+
+
+  novoDestaque() {
+    this.vistaOuDestaqueSelecionado = new Destaque();
+    this.abrirGaveta(this.FORM_VISTA_DESTAQUE)
+  }
+
+  public excluirVistaOuDestaque(item: any): void {
+    if (item.type == 'vista') {
+      this.excluirVista(item);
+    } else if (item.type == 'destaque') {
+      this.excluirDestaque(item);
+    }
+  }
+
+  private excluirVista(vista: Vista): void {
+    console.log(vista);
+
+    const dialogRef = this._dialog.open(DialogoConfirmacaoComponent, {
+      data: {
+        titulo: 'EXCLUSÃO DE VISTA',
+        mensagem: `Confirma a exclusão da Vista do(a) Ministro(a) ${vista.ministro.nome}?`
+      },
+    });
+    dialogRef.afterClosed().subscribe(confirmacao => {
+      if (confirmacao) {
+        this._processoService.excluirVistaDoProcesso(this.parametros.numero, this.parametros.ano, this.parametros.processo, vista.id)
+          .subscribe({
+            next: () => {
+              this.mostrarAlerta('success', 'Sucesso!', `A vista do Ministro(a) ${vista.ministro.nome} foi excluída com sucesso.`);
+              this._carregarDadosProcessos();
+            },
+            error: (error) => {
+              console.log(error);
+              this.mostrarAlerta("error", "Error", error.message);
+            }
+          });
+      }
+    });
+  }
+
+  private excluirDestaque(destaque: Destaque): void {
     const dialogRef = this._dialog.open(DialogoConfirmacaoComponent, {
       data: {
         titulo: 'EXCLUSÃO DE DESTAQUE',
@@ -459,17 +375,16 @@ export class ResultadoJulgamentoComponent implements OnInit {
     dialogRef.afterClosed().subscribe(confirmacao => {
       if (confirmacao) {
         this._processoService.excluirDestaqueDoProcesso(this.parametros.numero, this.parametros.ano, this.parametros.processo, destaque.id)
-            .subscribe({
-              next: () => {
-                this.mostrarAlerta('success', 'Sucesso!', `O Destaque do Ministro(a) ${destaque.ministro.nome} foi excluída com sucesso.`);
-                this.cd.detectChanges();
-              },
-              error: (error) => {
-                console.log(error);
-                this.mostrarAlerta("error", "Error", error.message);
-                this.cd.detectChanges();
-              }
-        });
+          .subscribe({
+            next: () => {
+              this.mostrarAlerta('success', 'Sucesso!', `O Destaque do Ministro(a) ${destaque.ministro.nome} foi excluída com sucesso.`);
+              this._carregarDadosProcessos();
+            },
+            error: (error) => {
+              console.log(error);
+              this.mostrarAlerta("error", "Error", error.message);
+            }
+          });
       }
     });
   }
@@ -531,6 +446,7 @@ export class ResultadoJulgamentoComponent implements OnInit {
         this.todosCapitulos = processo.capitulos;
         this.cd.detectChanges();
         this._criarChips();
+        this._carregarSuspensoesVistaEDestaque();
 
         this._processoService.obterVotosDoProcesso(this.processo.id).subscribe({
           next: (votos) => {
@@ -548,6 +464,14 @@ export class ResultadoJulgamentoComponent implements OnInit {
       }
 
     });
+  }
+
+  private _carregarSuspensoesVistaEDestaque(): void {
+    this.vistasEDestaques = [];
+    if (this.processo != null) {
+      this.vistasEDestaques = this.vistasEDestaques.concat(this.processo.destaques).concat(this.processo.vistas);
+      this.vistasEDestaques.sort((a, b) => { if (a.data < b.data) return 1; if (a.data > b.data) return -1 });
+    }
   }
 
   /**
@@ -590,26 +514,6 @@ export class ResultadoJulgamentoComponent implements OnInit {
 
     this.chips = chips;
     this.cd.detectChanges();
-  }
-
-  private _obterDadosDaVistaNaListaDeDecisoes(id: number): Vista {
-    let vista: Vista = null;
-
-    if (this.processo.vistas) {
-      vista = this.processo.vistas.find(v => v.id === id);
-    }
-
-    return vista;
-  }
-
-  private _obterDadosDoDestaqueNaListaDeDecisoes(id: number): Destaque {
-    let destaque: Destaque = null;
-
-    if (this.processo.destaques) {
-      destaque = this.processo.destaques.find(d => d.id === id);
-    }
-
-    return destaque;
   }
 
   /**

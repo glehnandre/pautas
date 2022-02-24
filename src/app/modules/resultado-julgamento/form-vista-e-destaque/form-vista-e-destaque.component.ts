@@ -45,13 +45,11 @@ interface FormVistaEDestaqueData {
 export class FormVistaEDestaqueComponent implements OnInit, OnChanges {
 
   @Input() processo: Processo;
-  @Input() vista: Vista;
-  @Input() destaque: Destaque;
+  @Input() vistaOuDestaqueSelecionado: any;
   @Input() sessao: SessaoDeJulgamento;
   @Output() closeDrawerEmit = new EventEmitter();
-  @Output() savedDrawer = new EventEmitter<{vistas: Vista[], destaques: Destaque[]}>();
-  @Output() excluirVista = new EventEmitter();
-  @Output() excluirDestaque = new EventEmitter();
+  @Output() savedDrawer = new EventEmitter<any>();
+  @Output() excluirVistaOuDestaque = new EventEmitter();
 
   formVistaEDestaque: FormGroup;
   ministros$: Observable<Ministro[]>;
@@ -91,18 +89,16 @@ export class FormVistaEDestaqueComponent implements OnInit, OnChanges {
       data: [null, Validators.required],
       ministro: [null, Validators.required],
       texto: ['', Validators.required],
-      id: ['']
+      id: [''],
+      type: ['']
     });
   }
 
   ngOnChanges() {
-    console.log("LOAD VISTA E DESTAQUE");
-    console.log(this.vista);
-    console.log(this.destaque);
-    if (this.vista != null) {
-      this.formVistaEDestaque.patchValue({data: this.vista.data, ministro: this.vista.ministro?.id, texto: this.vista.texto, id: this.vista.id});
-    }else if (this.destaque != null && this.destaque?.id != undefined) {
-      this.formVistaEDestaque.patchValue({data: this.destaque.data, ministro: this.destaque.ministro?.id, texto: this.destaque.texto, id: this.destaque.id});
+    console.log("ngOnCHANGE");
+    console.log(this.vistaOuDestaqueSelecionado);
+    if(this.vistaOuDestaqueSelecionado?.id != null){
+      this.formVistaEDestaque.patchValue({data: this.vistaOuDestaqueSelecionado.data, ministro: this.vistaOuDestaqueSelecionado.ministro?.id, texto: this.vistaOuDestaqueSelecionado.texto, id: this.vistaOuDestaqueSelecionado.id});
     }
   }
 
@@ -112,22 +108,23 @@ export class FormVistaEDestaqueComponent implements OnInit, OnChanges {
   }
 
   salvar(){
-    if(this.vista != null){
+    if(this.vistaOuDestaqueSelecionado.type == "vista"){
       this.salvarVista();
-    }else if(this.destaque != null){
+    }else if(this.vistaOuDestaqueSelecionado.type == "destaque"){
       this.salvarDestaque();
     }else this.closeDrawer();
   }
 
   private salvarVista(){
-        const vista: Vista = {
+        const vista:  Vista = {
             ...this.formVistaEDestaque.value,
             processo: this.processo.id,
             sessao: this.sessao.id,
+            type: "vista"
         };
         this._processoService.persistirVistaDoProcesso(this.sessao.numero, this.sessao.ano, this.processo.id, vista).subscribe({
           next: (vistaSalva) => {
-            this.savedDrawer.emit({vistas: vistaSalva, destaques: null});
+            this.savedDrawer.emit(vistaSalva);
             this.closeDrawer();
           },
           error: (error) => {
@@ -143,11 +140,12 @@ export class FormVistaEDestaqueComponent implements OnInit, OnChanges {
             ...this.formVistaEDestaque.value,
             processo: this.processo.id,
             sessao: this.sessao.id,
+            type: "destaque"
         };
 
         this._processoService.persistirDestaqueDoProcesso(this.sessao.numero, this.sessao.ano, this.processo.id, destaque).subscribe({
           next: (destaqueSalvo) => {
-            this.savedDrawer.emit({vistas: null, destaques: destaqueSalvo});
+            this.savedDrawer.emit(destaqueSalvo);
             this.closeDrawer();
           },
           error: (error) => {
@@ -158,9 +156,8 @@ export class FormVistaEDestaqueComponent implements OnInit, OnChanges {
         });
   }
 
-  excluir(tipo: string, vistaOuDestaque: any){
-    if(tipo=='vista') this.excluirVista.emit(vistaOuDestaque);
-    else this.excluirDestaque.emit(vistaOuDestaque);
+  excluir(vistaOuDestaque: any){
+    this.excluirVistaOuDestaque.emit(vistaOuDestaque);
   }
 
 }

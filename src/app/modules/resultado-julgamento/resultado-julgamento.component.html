@@ -5,7 +5,7 @@
             <!-- Header -->
             <div class="flex flex-col sm:flex-row justify-center items-center sm:justify-between pl-8 pb-2 bg-card dark:bg-transparent">
                 <h1 class="mt-4 text-primary font-medium text-xl sm:text-2xl">
-                    Lançamento do Resultado do Julgamento da {{getDadosDoProcesso()}}
+                    Lançamento do Resultado do Julgamento da {{getNomeCompletoProcesso()}}
                 </h1>
             </div>
         
@@ -119,10 +119,8 @@
                                                         </div>
                                                     
                                                         <!-- Capítulo link -->
-                                                        <a 
-                                                            class="flex flex-auto py-2 items-center 
-                                                                min-w-0 h-full pr-7"
-                                                            (click)="setCapituloSelecionado(null); recarregarListaDeDecisoes(); setCapituloSelecionado(item); abrirGaveta(FORM_CADASTRO_DECISAO);">
+                                                        <a class="flex flex-auto py-2 items-center min-w-0 h-full pr-7"
+                                                            (click)="setCapituloSelecionado(null); setCapituloSelecionado(item); abrirGaveta(FORM_CADASTRO_DECISAO);">
                                                             <!-- Title & Placeholder -->
                                                             <div class="flex-auto mr-2 truncate">
                                                                 <ng-container class="flex flex-row items-center justify-between">
@@ -180,51 +178,51 @@
                                 </ng-container>
                             </div>
                         </div>
-                        <!-- Card de Vistas -->
+
+                        <!-- Card de Vistas e Destaques -->
                         <div class="min-w-50 xl:col-span-1 flex flex-col flex-auto bg-card shadow rounded-2xl overflow-hidden justify-between">
                             <div>
                                 <div class="p-6">
-                                    <div class="mr-4 text-lg font-medium tracking-tight leading-6 truncate">Vistas</div>
-                                    <div class="text-secondary font-medium">Lista das vistas pedidas no julgamento</div>
+                                    <div class="mr-4 text-lg font-medium tracking-tight leading-6 truncate">Vistas e Destaques</div>
+                                    <div class="text-secondary font-medium">Lista das vistas ou destaques pedidos no julgamento</div>
                                 </div>
                                 <div class="overflow-x-auto mx-2">
-                                    <ng-container *ngIf="processo.vistas?.length > 0; else semVistas">
+                                    <ng-container *ngIf="vistasEDestaques?.length > 0; else semItens">
                                         <!-- Task -->
                                         <ng-container
-                                            *ngFor="let vista of processo?.vistas; index as i; let first = first; trackBy: trackByFn">
+                                            *ngFor="let item of vistasEDestaques ">
                                             <div class="group w-full select-none hover:bg-gray-100 dark:hover:bg-hover">
                                                 <!-- Task content -->
                                                 <div class="relative flex items-center h-full pl-10">
                                                 
-                                                    <img [src]="vista.ministro.imagem" alt="{{vista.ministro.nome}}"
+                                                    <img [src]="item.ministro.imagem" alt="{{item.ministro.nome}}"
                                                         class="w-9 h-9 mr-2 -ml-6 rounded-full ng-tns-c129-57 ng-star-inserted">
                                                 
                                                     <!-- Task link -->
                                                     <a class="flex flex-auto py-2 items-center min-w-0 h-full pr-7"
-                                                        (click)="editarVista(vista);">
+                                                        (click)="editarVistaOuDestaque(item);">
                                                         <!-- Title & Placeholder -->
                                                         <div class="flex-auto mr-2 truncate">
                                                             <ng-container class="flex items-center justify-center">
-                                                                <p class="my-auto" [matTooltip]="removerTagsHTML(vista.texto)" >
-                                                                    Vista <strong
-                                                                        class="text-primary-500">{{vista.ministro.nome}}</strong>
-                                                                    pedida em {{vista.data |
+                                                                <p class="my-auto" [matTooltip]="removerTagsHTML(item.texto)" >
+                                                                    <span *ngIf="item.type == 'vista'; else destaque">Vista </span> <ng-template #destaque>Destaque </ng-template> <strong
+                                                                        class="text-primary-500">{{item.ministro.nome}}</strong>
+                                                                    pedida em {{item.data |
                                                                     date:"dd/MM/YY"}}
                                                                 </p>
                                                             </ng-container>
                                                         </div>
                                                     </a>
-                                                    <button class="mt-2" (click)="excluirVista(vista)">
+                                                    <button class="mt-2" (click)="excluirVistaOuDestaque(item)">
                                                         <mat-icon>cancel</mat-icon>
                                                     </button>
                                                 </div>
                                             </div>
                                         </ng-container>
                                     </ng-container>
-                                    <ng-template #semVistas>
+                                    <ng-template #semItens>
                                         <div class="p-4">
-                                            <div class="mr-4 text-lg font-medium tracking-tight leading-6 truncate">Não há pedido de
-                                                vista</div>
+                                            <div class="mr-4 text-lg font-medium tracking-tight leading-6 truncate">Não há registros</div>
                                         </div>
                                     </ng-template>
                                 </div>
@@ -235,82 +233,18 @@
                                     <td class="py-6 px-0 border-0 flex items-end" mat-footer-cell colspan="6">
                                         <button mat-raised-button class="max-w-full mr-2 text-sm justify-end"
                                         (click)="novaVista()">PEDIDO DE VISTA</button>
-                                    </td>
-                                </ng-container>
-                            </div>
-                        </div>
-                        <!-- Card de Destaques -->
-                        <div class="min-w-50 xl:col-span-1 flex flex-col flex-auto bg-card shadow rounded-2xl overflow-hidden justify-between">
-                            <div>
-                                <div class="p-6">
-                                    <div class="mr-4 text-lg font-medium tracking-tight leading-6 truncate">Destaques</div>
-                                    <div class="text-secondary font-medium">Lista das destaques pedidos no julgamento virtual</div>
-                                </div>
-                                <div class="overflow-x-auto mx-2">
-                                    <ng-container *ngIf="processo.destaques?.length > 0; else semVistas">
-                                        <!-- Task -->
-                                        <ng-container
-                                            *ngFor="let destaque of processo?.destaques; index as i; let first = first; trackBy: trackByFn">
-                                            <div class="group w-full select-none hover:bg-gray-100 dark:hover:bg-hover">
-                                                <!-- Task content -->
-                                                <div class="relative flex items-center h-full pl-10">
-                                                
-                                                    <img [src]="destaque.ministro.imagem" alt="{{destaque.ministro.nome}}"
-                                                        class="w-9 h-9 mr-2 -ml-6 rounded-full ng-tns-c129-57 ng-star-inserted">
-                                                
-                                                    <!-- Task link -->
-                                                    <a class="flex flex-auto py-2 items-center min-w-0 h-full pr-7"
-                                                        (click)="editarDestaque(destaque);">
-                                                        <!-- Title & Placeholder -->
-                                                        <div class="flex-auto mr-2 truncate">
-                                                            <ng-container class="flex items-center justify-center">
-                                                                <p class="my-auto" [matTooltip]="removerTagsHTML(destaque.texto)">
-                                                                    Destaque <strong
-                                                                        class="text-primary-500">{{destaque.ministro.nome}}</strong>
-                                                                    pedido em
-                                                                    {{destaque.data | date:"dd/MM/YY"}}
-                                                                </p>
-                                                            </ng-container>
-                                                        </div>
-                                                    </a>
-
-                                                    <button 
-                                                        class="mt-2" 
-                                                        (click)="excluirDestaque(destaque)"
-                                                    >
-                                                        <mat-icon>cancel</mat-icon>
-                                                    </button>
-                                                </div>
-                                            </div>
-                                        </ng-container>
-                                    </ng-container>
-                                    <ng-template #semVistas>
-                                        <div class="p-4">
-                                            <div 
-                                                class="mr-4 text-lg font-medium tracking-tight 
-                                                    leading-6 truncate"
-                                            >
-                                                Não há pedido dedestaque
-                                            </div>
-                                        </div>
-                                    </ng-template>
-                                </div>
-                            </div>
-                            <div class="overflow-x-auto mx-6">
-                                <!-- Footer -->
-                                <ng-container matColumnDef="recentOrdersTableFooter">
-                                    <td class="py-6 px-0 border-0" mat-footer-cell colspan="2">
                                         <button 
-                                            mat-raised-button 
-                                            class="max-w-full mr-2 text-sm"
-                                            (click)="novoDestaque()"
-                                        >
-                                            PEDIDO DE DESTAQUE
-                                        </button>
+                                        mat-raised-button 
+                                        class="max-w-full mr-2 text-sm"
+                                        (click)="novoDestaque()"
+                                    >
+                                        PEDIDO DE DESTAQUE
+                                    </button>
                                     </td>
                                 </ng-container>
                             </div>
                         </div>
+
                     </div>
                 </div>
             </div>
@@ -364,13 +298,11 @@
 
                             <app-form-vista-e-destaque
                                 [sessao]= "sessao"
-                                [vista]="vistaSelecionada"
-                                [destaque]="destaqueSelecionado"
+                                [vistaOuDestaqueSelecionado]="vistaOuDestaqueSelecionado"
                                 [processo] = "processo"
                                 (closeDrawerEmit)="fecharGaveta(FORM_VISTA_DESTAQUE)"
                                 (savedDrawer)="retornoVistaDestaqueDrawer($event)"
-                                (excluirVista)="excluirVista($event)"
-                                (excluirDestaque)="excluirDestaque($event)"
+                                (excluirVistaOuDestaque)="excluirVistaOuDestaque($event)"
                             ></app-form-vista-e-destaque>
                         </div>
                     </div>

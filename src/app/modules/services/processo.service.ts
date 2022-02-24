@@ -73,6 +73,22 @@ export class ProcessoService {
     return this._httpClient.post<string>(`sessao-de-julgamento/${numeroAno}/processos/${idProcesso}/relator`, idRelator);
   }
 
+
+  public salvarImpedimentos(numero: number, ano: number, id: number, obj: any): Observable<void> {
+    const numeroAno = `${numero}-${ano}`;
+    return this._httpClient.post<void>(`sessao-de-julgamento/${numeroAno}/processos/${id}/impedimentos`, obj);
+  }
+
+  public excluirVistaDoProcesso(numero: number, ano: number, id: number, idVista: number): Observable<void> {
+    const numeroAno = `${numero}-${ano}`;
+    return this._httpClient.delete<void>(`sessao-de-julgamento/${numeroAno}/processos/${id}/vistas/${idVista}`);
+  }
+
+  public excluirDestaqueDoProcesso(numero: number, ano: number, id: number, idDestaque: number): Observable<void> {
+    const numeroAno = `${numero}-${ano}`;
+    return this._httpClient.delete<void>(`sessao-de-julgamento/${numeroAno}/processos/${id}/destaques/${idDestaque}`);
+  }
+  
   public persistirVistaDoProcesso(numero: number, ano: number, idProcesso: number, vista: Vista): Observable<Vista[]> {
     const numeroAno = `${numero}-${ano}`;
     if(vista.id!=null && vista.id != 0){
@@ -94,27 +110,11 @@ export class ProcessoService {
     }
   }
 
-  public salvarImpedimentos(numero: number, ano: number, id: number, obj: any): Observable<void> {
-    const numeroAno = `${numero}-${ano}`;
-    return this._httpClient.post<void>(`sessao-de-julgamento/${numeroAno}/processos/${id}/impedimentos`, obj);
-  }
-
-  public excluirVistaDoProcesso(numero: number, ano: number, id: number, idVista: number): Observable<void> {
-    const numeroAno = `${numero}-${ano}`;
-    return this._httpClient.delete<void>(`sessao-de-julgamento/${numeroAno}/processos/${id}/vistas/${idVista}`);
-  }
-
-
-  public atualizarVistasDoProcesso(numero: number, ano: number, id: number, idVista: number, vista: Vista): Observable<void> {
-    const numeroAno = `${numero}-${ano}`;
-    return this._httpClient.put<void>(`sessao-de-julgamento/${numeroAno}/processos/${id}/vistas/${idVista}`, vista);
-  }
-
+  
   public finalizarJulgamentoProcesso(numero: number, ano: number, processo: Processo): Observable<string> {
     const numeroAno = `${numero}-${ano}`;
     return this._httpClient.post<string>(`sessao-de-julgamento/${numeroAno}/processos/${processo.id}/finalizar-julgamento`, processo);
   }
-
 
   public finalizarSessaoDeJulgamento(numero: number, ano: number, dadosDaSessaoJulgamento: any): Observable<void> {
     const numeroAno = `${numero}-${ano}`;
@@ -124,17 +124,6 @@ export class ProcessoService {
   public listarProcessoJulgamento(processo: number, numero: number, ano: number): Observable<Processo> {
     const numeroAno = `${numero}-${ano}`;
     return this._httpClient.get<Processo>(`sessao-de-julgamento/${numeroAno}/processos/${processo}`);
-  }
-
-  public atualizarDestaquesDoProcesso(numero: number, ano: number, id: number, idDestaque: number, destaque: Destaque): Observable<void> {
-    const numeroAno = `${numero}-${ano}`;
-    return this._httpClient.put<void>(`sessao-de-julgamento/${numeroAno}/processos/${id}/destaques/${idDestaque}`, destaque);
-  }
-
-
-  public excluirDestaqueDoProcesso(numero: number, ano: number, id: number, idDestaque: number): Observable<void> {
-    const numeroAno = `${numero}-${ano}`;
-    return this._httpClient.delete<void>(`sessao-de-julgamento/${numeroAno}/processos/${id}/destaques/${idDestaque}`);
   }
 
 

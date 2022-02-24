@@ -13,11 +13,11 @@
         </button>
 
         <button 
-            *ngIf="vista?.id != null || destaque?.id != null"
+            *ngIf="vistaOuDestaqueSelecionado?.id != null"
             mat-raised-button 
             class="max-w-full mr-2" 
             color="warn"
-            (click)="(vista?.id!=null) ? excluir('vista', vista) : excluir('destaque', destaque); closeDrawer();"
+            (click)="excluir('excluir', vistaOuDestaqueSelecionado); closeDrawer();"
         >
            {{'Excluir' | uppercase}}
         </button>

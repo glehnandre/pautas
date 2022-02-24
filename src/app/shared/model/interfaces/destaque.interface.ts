@@ -1,10 +1,11 @@
 import { Ministro } from "./ministro.interface";
+import { Suspensao } from "./suspencao.interface";
 
-export interface Destaque {
-    id: number;
-    data: string;
-    processo: number;
+export interface Destaque extends Suspensao {
+    type: string;
     ministro: Ministro;
-    sessao: number;
-    texto: string;
+}
+
+export class Destaque implements Destaque{
+    type = "destaque";
 }

@@ -1,11 +1,15 @@
 import { Ministro } from "./ministro.interface";
-import { SessaoDeJulgamento } from "./sessao-julgamento.interface";
+import { Suspensao } from "./suspencao.interface";
 
-export interface Vista {
-    id: number;
-    data: string;
-    processo: number;
+export interface Vista extends Suspensao{
+    type: string;
     ministro: Ministro;
-    sessao: SessaoDeJulgamento;
-    texto: string;
+    dataDevolucao: Date;
 }
+
+export class Vista implements Vista{
+    type = "vista";
+    
+
+}
+
