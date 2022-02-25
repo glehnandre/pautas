@@ -1,0 +1,91 @@
+<div class="w-full h-full relative">
+    <p 
+        class="w-3/5 absolute text-center flex flex-row gap-4 justify-end items-end"
+        style="margin-top: -70px !important; margin-left: 40% !important;"
+    >
+        <button
+            *ngIf="suspensao?.id > 0"
+            mat-raised-button 
+            class="text-3xl sm:text-base mr-2"
+            color="warn" 
+            (click)="excluirSuspensao()"
+        >
+            <mat-icon class="mr-1">delete</mat-icon>
+            {{'Excluir' | uppercase}}
+        </button>
+
+        <button 
+            mat-raised-button 
+            class="text-3xl sm:text-base"
+            color="primary" 
+            [disabled]="formSuspensao.invalid"
+            (click)="salvarSuspensao()"
+        >
+            <mat-icon class="mr-1">save</mat-icon>
+            {{'Salvar' | uppercase}}
+        </button>
+    </p>
+
+    <form [formGroup]="formSuspensao" class="overflow-auto mt-8 mb-4 h-full">
+        <div class="flex flex-col h-full gap-4 mx-6">
+            <mat-form-field 
+                class="w-full row-span-1" 
+                appearance="outline"
+                (click)="picker.open()" 
+            >
+                <mat-label>Informe a data:</mat-label>
+
+                <input 
+                    formControlName="data" 
+                    autocomplete="off" 
+                    matInput 
+                    [matDatepicker]="picker"
+                >
+
+                <mat-datepicker-toggle 
+                    matSuffix 
+                    [for]="picker"
+                ></mat-datepicker-toggle>
+
+                <mat-datepicker #picker></mat-datepicker>
+            </mat-form-field>
+
+            <div class="h-full overflow-hidden row-span-4 mb-4 pb-8">
+                <label class="text-lg font-medium" for="texto-da-suspesao">
+                    Texto da suspensao sobre o capítulo:
+                </label>
+
+                <editor 
+                    id="texto-da-suspesao" 
+                    apiKey="aduua1w16bzaswikm1p5qbkcx7jj757x4g58xdm9okd8wpw7" 
+                    formControlName="texto"
+                    (onChange)="cd.detectChanges()"
+                    class="h-full"
+                    [init]="{
+                        selector: 'textarea', 
+                        height: '96%', 
+                        menubar: false, 
+                        plugins: [
+                            'autolink lists link charmap preview anchor',
+                            'insertdatetime table help wordcount'
+                        ],
+                        toolbar:
+                            'undo redo | formatselect | bold italic backcolor | \
+                            alignleft aligncenter alignright alignjustify | \
+                            bullist numlist outdent indent | removeformat | help'
+                    }"
+                ></editor>
+            </div>
+        </div>
+    </form>
+
+    <app-alerta
+        *ngIf="alerta"
+        [nome]="ALERTA_FORM_SUSPENSAO"
+        [titulo]="alerta.titulo"
+        [mensagem]="alerta.mensagem"
+        [aparencia]="'outline'"
+        [tipo]="alerta.tipo"
+        class="absolute top-2 right-2 max-w-120 mx-auto z-40"
+    ></app-alerta>
+</div>

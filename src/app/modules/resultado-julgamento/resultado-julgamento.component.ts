@@ -130,12 +130,23 @@ export class ResultadoJulgamentoComponent implements OnInit {
    * @description Método para exibir ou esconder a gaveta com conteúdo
    * @author Douglas da Silva Monteles
    */
-     public fecharGaveta(drawerName: string): void {
+     public fecharGaveta(drawerName: string, alerta?: Alerta): void {
        console.log(drawerName);
        
       //Limpa as informações da gaveta.
-      this.vistaSelecionada=null;
-      this.destaqueSelecionado=null;
+      this.vistaSelecionada = null;
+      this.destaqueSelecionado = null;
+      this.suspensaoSelecionada = null;
+
+      if (alerta) {
+        console.log(alerta)
+        const { titulo, mensagem, tipo } = alerta;
+        this.mostrarAlerta(
+          tipo === 'success' ? 'success' : 'error',
+          titulo,
+          mensagem,
+        );
+      }
       
       const drawer = this._fuseDrawerService.getComponent(drawerName);
       drawer.toggle();
@@ -569,7 +580,7 @@ export class ResultadoJulgamentoComponent implements OnInit {
    * @description Método para carregar todos os processos salvos via requisão GET
    * @author Douglas da Silva Monteles
    */
-  private _carregarDadosProcessos(): void {
+  public _carregarDadosProcessos(): void {
     this._processoService.listarProcessoJulgamento(this.parametros.processo, this.parametros.numero, this.parametros.ano).subscribe({
       next: (processo) => {
         this.processo = processo;
@@ -679,10 +690,11 @@ export class ResultadoJulgamentoComponent implements OnInit {
   ): void {
     this.alerta = {
       nome,
-      tipo,
       titulo,
       mensagem,
-    }
+      tipo,
+    };
+
     this._alertaService.exibirAlerta(this.alerta.nome);
   }
 }

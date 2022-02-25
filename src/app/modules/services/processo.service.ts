@@ -182,7 +182,7 @@ export class ProcessoService {
     return this._httpClient.post<ModeloDecisao>(`modelo-decisao`, modelo);
   }
 
-  public inserirOuAtualizarSuspensao(numero: number, ano: number, idProcesso: number, suspensao: Suspensao): Observable<void> {
+  public salvarOuAtualizarSuspensao(numero: number, ano: number, idProcesso: number, suspensao: Suspensao): Observable<void> {
     const numeroAno = `${numero}-${ano}`;
     return this._httpClient.put<void>(`sessao-de-julgamento/${numeroAno}/processo/${idProcesso}/suspensao`, suspensao);
   }

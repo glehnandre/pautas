@@ -324,7 +324,9 @@
                                     </div>
                                 </div>
                                 <div class="overflow-x-auto mx-2">
-                                    <ng-container *ngIf="processo.suspensoes?.length > 0; else semSuspensoes">
+                                    <ng-container 
+                                        *ngIf="processo.suspensoes?.length > 0; else semSuspensoes"
+                                    >
                                         <!-- Task -->
                                         <ng-container
                                             *ngFor="let suspensao of processo?.suspensoes; index as i; let first = first; trackBy: trackByFn">
@@ -461,7 +463,7 @@
                     [id]="'vista-destaque-drawer'"
                 >
                     <div class="flex-auto overflow-auto p-4">
-                        <div class="border-gray-300 rounded-2xl">
+                        <div class="h-full border-gray-300 rounded-2xl">
                             <button
                                 mat-mini-fab
                                 color="primary"
@@ -470,7 +472,10 @@
                                 <mat-icon>arrow_forward</mat-icon>
                             </button>
 
-                            <!-- <form-suspensao></form-suspensao> -->
+                            <app-form-suspensao
+                                [parametros]="parametros"
+                                (closeDrawerEmit)="fecharGaveta(DRAWER_SUSPENSAO, $event); _carregarDadosProcessos()"
+                            ></app-form-suspensao>
                         </div>
                     </div>
                 </fuse-drawer>
