@@ -335,6 +335,12 @@ export class ResultadoJulgamentoComponent implements OnInit {
     this.abrirGaveta(this.FORM_VISTA_DESTAQUE)
     this.cd.detectChanges();
   }
+
+  public editarSuspensao(suspensao: Suspensao): void {
+    this.suspensaoSelecionada = suspensao;
+    this.abrirGaveta(this.DRAWER_SUSPENSAO)
+    this.cd.detectChanges();
+  }
   
   novaVista(){
     this.vistaSelecionada = {} as Vista;
@@ -470,6 +476,37 @@ export class ResultadoJulgamentoComponent implements OnInit {
             .subscribe({
               next: () => {
                 this.mostrarAlerta('success', 'Sucesso!', `O Destaque do Ministro(a) ${destaque.ministro.nome} foi excluída com sucesso.`);
+                this.cd.detectChanges();
+              },
+              error: (error) => {
+                console.log(error);
+                this.mostrarAlerta("error", "Error", error.message);
+                this.cd.detectChanges();
+              }
+        });
+      }
+    });
+  }
+
+  public excluirSuspensao(suspensao: Suspensao): void {
+    const dialogRef = this._dialog.open(DialogoConfirmacaoComponent, {
+      data: {
+        titulo: 'EXCLUSÃO DE SUSPENSÃO',
+        mensagem: `Confirma a exclusão da Suspensão: ${suspensao.texto}?`
+      },
+    });
+
+    dialogRef.afterClosed().subscribe(confirmacao => {
+      if (confirmacao) {
+        this._processoService.excluirSuspensao(
+          this.parametros.numero, 
+          this.parametros.ano, 
+          this.parametros.processo, 
+          suspensao.id
+        )
+            .subscribe({
+              next: () => {
+                this.mostrarAlerta('success', 'Sucesso!', `A Suspensão foi excluída com sucesso.`);
                 this.cd.detectChanges();
               },
               error: (error) => {

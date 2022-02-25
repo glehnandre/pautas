@@ -324,41 +324,27 @@
                                     </div>
                                 </div>
                                 <div class="overflow-x-auto mx-2">
-                                    <ng-container *ngIf="processo.destaques?.length > 0; else semSuspensoes">
+                                    <ng-container *ngIf="processo.suspensoes?.length > 0; else semSuspensoes">
                                         <!-- Task -->
                                         <ng-container
-                                            *ngFor="let destaque of processo?.destaques; index as i; let first = first; trackBy: trackByFn">
+                                            *ngFor="let suspensao of processo?.suspensoes; index as i; let first = first; trackBy: trackByFn">
                                             <div class="group w-full select-none hover:bg-gray-100 dark:hover:bg-hover">
                                                 <!-- Task content -->
                                                 <div class="relative flex items-center h-full pl-10">
-                                                
-                                                    <img 
-                                                        [src]="destaque.ministro.imagem" 
-                                                        [alt]="destaque.ministro.nome"
-                                                        class="w-9 h-9 mr-2 -ml-6 rounded-full ng-tns-c129-57 ng-star-inserted"
-                                                    >
-                                                
                                                     <!-- Task link -->
                                                     <a 
                                                         class="flex flex-auto py-2 items-center min-w-0 h-full pr-7"
-                                                        (click)="editarDestaque(destaque);"
+                                                        (click)="editarSuspensao(suspensao);"
                                                     >
                                                         <!-- Title & Placeholder -->
                                                         <div class="flex-auto mr-2 truncate">
                                                             <ng-container class="flex items-center justify-center">
                                                                 <p 
                                                                     class="my-auto" 
-                                                                    [matTooltip]="removerTagsHTML(destaque.texto)"
+                                                                    [matTooltip]="removerTagsHTML(suspensao.texto)"
                                                                 >
-                                                                    Suspensão 
-
-                                                                    <strong class="text-primary-500">
-                                                                        {{destaque.ministro.nome}}
-                                                                    </strong>
-
-                                                                    pedido em
-
-                                                                    {{destaque.data | date:"dd/MM/YYYY"}}
+                                                                    Suspensão pedida em
+                                                                    {{suspensao.data | date:"dd/MM/YYYY"}}
                                                                 </p>
                                                             </ng-container>
                                                         </div>
@@ -366,7 +352,7 @@
 
                                                     <button 
                                                         class="mt-2" 
-                                                        (click)="excluirDestaque(destaque)"
+                                                        (click)="excluirSuspensao(suspensao)"
                                                     >
                                                         <mat-icon>cancel</mat-icon>
                                                     </button>

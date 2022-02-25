@@ -6,7 +6,7 @@ import { SessaoDeJulgamento } from 'app/shared/model/interfaces/sessao-julgament
 import { Suspensao } from 'app/shared/model/interfaces/suspensao.interface';
 import { processo as processosData } from '../processos/data';
 import { setStorage } from '../storage';
-import { secretarios, sessoesDeJulgamento, suspensoes } from './data';
+import { secretarios, sessoesDeJulgamento } from './data';
 
 @Injectable({
   providedIn: 'root'
@@ -15,7 +15,6 @@ export class SessaoDeJulgamentoMockApi {
   private _julgamentos: SessaoDeJulgamento[] = sessoesDeJulgamento;
   private _processos: Processo[] = processosData;
   private _secretarios: Secretario[] = secretarios;
-  private _suspensoes: Suspensao[] = suspensoes;
 
   constructor(
     private _fuseMockApiService: FuseMockApiService,
@@ -199,7 +198,14 @@ export class SessaoDeJulgamentoMockApi {
         const idProcesso = +urlParams.idProcesso;
         const suspensao = request.body as Suspensao;
 
-        const indexSuspensao = this._suspensoes
+        const indexProcesso = this._processos
+          .findIndex(p => p.id === idProcesso);
+
+        if (indexProcesso === -1) {
+          return [404, 'Processo não encontrado :('];
+        } 
+
+        const indexSuspensao = this._processos[indexProcesso].suspensoes
           .findIndex(s => {
             const sessao = sessoesDeJulgamento.find(sj => sj.id === s.sessao);
             const sessaoNumeroAno = `${sessao.numero}-${sessao.ano}`;
@@ -208,12 +214,12 @@ export class SessaoDeJulgamentoMockApi {
           );
 
         if (indexSuspensao !== -1) { // Já existe uma suspensão
-          this._suspensoes[indexSuspensao] = suspensao;
-          console.log(this._suspensoes);
+          this._processos[indexProcesso].suspensoes[indexSuspensao] = suspensao;
+          console.log(this._processos[indexProcesso].suspensoes);
           return [200, 'Suspensão atualizada com sucesso!'];
         } else {
-          this._suspensoes.push(suspensao);
-          console.log(this._suspensoes);
+          this._processos[indexProcesso].suspensoes.push(suspensao);
+          console.log(this._processos[indexProcesso].suspensoes);
           return [200, 'Suspensão cadastrada com sucesso!'];
         }
       });
@@ -222,12 +228,20 @@ export class SessaoDeJulgamentoMockApi {
       .onDelete('sessao-de-julgamento/:numero-ano/processo/:idProcesso/suspensao/:idSuspensao')
       .reply(({urlParams}) => {
         const idSuspensao = +urlParams.idSuspensao;
+        const idProcesso = +urlParams.idProcesso;
 
-        const indexSuspensao = this._suspensoes
+        const indexProcesso = this._processos
+          .findIndex(p => p.id === idProcesso);
+
+        if (indexProcesso === -1) {
+          return [404, 'Processo não encontrado :(!'];
+        } 
+
+        const indexSuspensao = this._processos[indexProcesso].suspensoes
           .findIndex(s => s.id === idSuspensao);
 
         if (indexSuspensao !== -1) { // Já existe uma suspensão
-          this._suspensoes.splice(indexSuspensao, 1);
+          this._processos[indexProcesso].suspensoes.splice(indexSuspensao, 1);
           return [200, 'Suspensão excluída com sucesso!'];
         } else {
           return [404, 'Nenhuma suspensão encontrada!'];

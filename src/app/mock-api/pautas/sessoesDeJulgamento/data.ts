@@ -341,5 +341,3 @@ export const envolvidos: Envolvido[] = [
       ],
     },
 ];
-
-export const suspensoes: Suspensao[] = [];
