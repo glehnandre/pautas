@@ -7,6 +7,7 @@ import { Tag } from './tag.interface';
 import { Envolvido } from './envolvido.interface';
 import { Vista } from './vista.interface';
 import { Destaque } from './destaque.interface';
+import { Suspensao } from './suspensao.interface';
 
 export interface Processo {
     id: number;
@@ -23,6 +24,7 @@ export interface Processo {
     ministros_impedidos: Ministro[];
     vistas: Vista[];
     destaques: Destaque[];
+    suspensoes: Suspensao[];
     relator?: Ministro;
     redator?: Ministro;
     checked?: boolean;

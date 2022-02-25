@@ -12,6 +12,7 @@ import { Ministro } from 'app/shared/model/interfaces/ministro.interface';
 import { ModeloDecisao } from 'app/shared/model/interfaces/modeloDecisao.interface';
 import { Processo } from 'app/shared/model/interfaces/processo.interface';
 import { SessaoDeJulgamento } from 'app/shared/model/interfaces/sessao-julgamento.interface';
+import { Suspensao } from 'app/shared/model/interfaces/suspensao.interface';
 import { Vista } from 'app/shared/model/interfaces/vista.interface';
 import { Voto } from 'app/shared/model/interfaces/voto.interface';
 import { AlertaService } from '../services/alerta.service';
@@ -57,6 +58,7 @@ export class ResultadoJulgamentoComponent implements OnInit {
   capituloSelecionado: Capitulo = null;
   vistaSelecionada: Vista = null;
   destaqueSelecionado: Destaque = null;
+  suspensaoSelecionada: Suspensao = null;
   modelo: ModeloDecisao;
   exibirListaDeDecisoes = false;
   exibirChips = true;
@@ -71,6 +73,7 @@ export class ResultadoJulgamentoComponent implements OnInit {
 
   readonly FORM_CADASTRO_DECISAO = 'formulario-de-cadastro-de-decisao';
   readonly FORM_VISTA_DESTAQUE = 'vistaDestaqueDrawer';
+  readonly DRAWER_SUSPENSAO = 'suspensaoDrawer';
 
   constructor(
     private _ministroService: MinistroService,
@@ -344,6 +347,11 @@ export class ResultadoJulgamentoComponent implements OnInit {
     this.destaqueSelecionado = {} as Destaque;
     this.vistaSelecionada = null;
     this.abrirGaveta(this.FORM_VISTA_DESTAQUE)
+  }
+
+  pedirSuspensao(): void {
+    this.suspensaoSelecionada = {} as Suspensao;
+    this.abrirGaveta(this.DRAWER_SUSPENSAO);
   }
 
 

@@ -4,8 +4,9 @@ import { Processo } from 'app/shared/model/interfaces/processo.interface';
 import { Secretario } from 'app/shared/model/interfaces/secretario.interface';
 import { SessaoDeJulgamento } from 'app/shared/model/interfaces/sessao-julgamento.interface';
 import { Suspensao } from 'app/shared/model/interfaces/suspensao.interface';
+import { processo as processosData } from '../processos/data';
 import { setStorage } from '../storage';
-import { processos as processosData, secretarios, sessoesDeJulgamento, suspensoes } from './data';
+import { secretarios, sessoesDeJulgamento, suspensoes } from './data';
 
 @Injectable({
   providedIn: 'root'
