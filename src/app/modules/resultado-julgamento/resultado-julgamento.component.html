@@ -474,7 +474,8 @@
 
                             <app-form-suspensao
                                 [parametros]="parametros"
-                                (closeDrawerEmit)="fecharGaveta(DRAWER_SUSPENSAO, $event); _carregarDadosProcessos()"
+                                [suspensao]="suspensaoSelecionada"
+                                (closeDrawerEmit)="fecharGaveta(DRAWER_SUSPENSAO, $event); carregarDadosProcessos()"
                             ></app-form-suspensao>
                         </div>
                     </div>

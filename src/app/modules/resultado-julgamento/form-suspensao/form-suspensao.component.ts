@@ -48,14 +48,14 @@ export class FormSuspensaoComponent implements OnInit, OnChanges {
 
   public excluirSuspensao(): void {
     const {
-      ano,
       numero,
+      ano,
       processo,
     } = this.parametros;
 
     this._processoService.excluirSuspensao(
-      ano, 
       numero, 
+      ano, 
       processo, 
       this.suspensao.id
     ).subscribe({
@@ -80,9 +80,9 @@ export class FormSuspensaoComponent implements OnInit, OnChanges {
         processo,
       } = this.parametros;
   
-      this._processoService.salvarOuAtualizarSuspensao(
-        ano, 
+      this._processoService.salvarOuAtualizarSuspensao( 
         numero, 
+        ano,
         processo, 
         this.formSuspensao.value as Suspensao,
       ).subscribe({

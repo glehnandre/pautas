@@ -62,7 +62,10 @@ export const sessoesDeJulgamento: SessaoDeJulgamento[] = getStorage('sessoesDeJu
     situacao: 'ABERTA',
     secretario: null,
     ata: atas[0],
-    processos: [processo[8], processo[1]]
+    processos: [
+      processo[8], 
+      processo[1],
+    ]
   },
   {
     ano: 2021,

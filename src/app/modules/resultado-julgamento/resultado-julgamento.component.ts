@@ -91,7 +91,7 @@ export class ResultadoJulgamentoComponent implements OnInit {
       this.parametros = params;
     });
 
-    this._carregarDadosProcessos();
+    this.carregarDadosProcessos();
 
     this._carregarSessaoDeJulgamento(this.parametros.numero, this.parametros.ano);
   }
@@ -336,6 +336,7 @@ export class ResultadoJulgamentoComponent implements OnInit {
   editarVista(vista:Vista){
     this.vistaSelecionada = vista;
     this.destaqueSelecionado = null;
+    this.suspensaoSelecionada = null;
     this.abrirGaveta(this.FORM_VISTA_DESTAQUE)
     this.cd.detectChanges();
   }
@@ -343,12 +344,15 @@ export class ResultadoJulgamentoComponent implements OnInit {
   editarDestaque(destaque:Destaque){
     this.destaqueSelecionado = destaque;
     this.vistaSelecionada = null;
+    this.suspensaoSelecionada = null;
     this.abrirGaveta(this.FORM_VISTA_DESTAQUE)
     this.cd.detectChanges();
   }
 
   public editarSuspensao(suspensao: Suspensao): void {
     this.suspensaoSelecionada = suspensao;
+    this.vistaSelecionada = null;
+    this.destaqueSelecionado = null;
     this.abrirGaveta(this.DRAWER_SUSPENSAO)
     this.cd.detectChanges();
   }
@@ -393,7 +397,7 @@ export class ResultadoJulgamentoComponent implements OnInit {
     dialogRef.afterClosed().subscribe(data => {
       if (data && data === 'ok') {
         this.processo = null;       // A mudança no valor do processo força uma nova renderização do componente
-        this._carregarDadosProcessos();  // Atualiza os chips de ministros suspeitos e impedidos
+        this.carregarDadosProcessos();  // Atualiza os chips de ministros suspeitos e impedidos
       }
     });
   }
@@ -580,9 +584,10 @@ export class ResultadoJulgamentoComponent implements OnInit {
    * @description Método para carregar todos os processos salvos via requisão GET
    * @author Douglas da Silva Monteles
    */
-  public _carregarDadosProcessos(): void {
+  public carregarDadosProcessos(): void {
     this._processoService.listarProcessoJulgamento(this.parametros.processo, this.parametros.numero, this.parametros.ano).subscribe({
       next: (processo) => {
+        console.log(processo?.suspensoes)
         this.processo = processo;
         this.todosCapitulos = processo.capitulos;
         this.cd.detectChanges();
