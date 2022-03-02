@@ -13,7 +13,7 @@ registerLocaleData(localePT);
 
 interface SessaoFinalizada {
   cabecalho: string,
-  secretario: Secretario,
+  secretario: string,
   outros_presentes: string,
   presidencia: Ministro,
   ministros_presentes: Ministro[],
