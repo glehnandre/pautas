@@ -4,12 +4,17 @@ import { AlertaService } from 'app/modules/services/alerta.service';
 import { MinistroService } from 'app/modules/services/ministro.service';
 import { Ministro } from 'app/shared/model/interfaces/ministro.interface';
 
-
-
-interface presidenteChecked {
-    nome: string;
-    checked: boolean;
+interface Presenca {
+    presidencia: Ministro;
+    presentes: Ministro[];
+    ausentes: Ministro[];
 }
+interface Turmas {
+    'pleno': Ministro;
+    'primeira-turma': Ministro[];
+    'segunda-turma': Ministro[];
+}
+const colegiados = ['primeira-turma', 'segunda-turma'];
 
 @Component({
   selector: 'app-composicao',
@@ -17,22 +22,17 @@ interface presidenteChecked {
   styleUrls: ['./composicao.component.scss']
 })
 
-export class ComposicaoComponent implements OnInit, AfterViewChecked {
+export class ComposicaoComponent implements OnInit {
 
   constructor(
     private _ministroService: MinistroService,
     private _alertaService: AlertaService,
   ) { }
 
-  @Input() presidente: Ministro = {} as Ministro;
+  @Input() listaPresenca: Presenca;
   @Output() statusComposicao = new EventEmitter<any>();
 
-  presidenteChecked: presidenteChecked[] = [];
-  primeiraTurma: Ministro[];
-  segundaTurma: Ministro[];
-  presentes: Ministro[] = [];
-  ausentes: Ministro[] = [];
-  presidencia: Ministro;
+  ministros: Turmas = {} as Turmas;
 
   errorMessage: string;
 
@@ -42,11 +42,7 @@ export class ComposicaoComponent implements OnInit, AfterViewChecked {
   ngOnInit(): void {
     this._ministroService.listarMinistrosDoColegiado('primeira-turma').subscribe({
       next: (ministros) => {
-        if(this.presidente)
-        console.log('PRIMEIRA TURMA');
-        console.log(ministros);
-        this.primeiraTurma = ministros;
-        console.log(this.primeiraTurma);
+        this.ministros['primeira-turma'] = ministros;
       },
       error: (error) => {
         console.log(error);
@@ -57,13 +53,7 @@ export class ComposicaoComponent implements OnInit, AfterViewChecked {
     this._ministroService.listarMinistrosDoColegiado('segunda-turma').subscribe(
       {
         next: (ministros) => {
-          if(this.presidente)
-          console.log('SEGUNDA TURMA');
-          console.log(ministros);
-          //ministros.splice(ministros.indexOf(ministros.find(ministro=>ministro.nome==this.presidente.nome)), 1);
-          this.segundaTurma = ministros;
-          //ministros.forEach(ministro=>this.presidenteChecked.push({nome: ministro.nome, checked: false}));
-          console.log(this.segundaTurma);
+          this.ministros['segunda-turma'] = ministros;
         },
         error: (error) => {
           console.log(error);
@@ -73,9 +63,7 @@ export class ComposicaoComponent implements OnInit, AfterViewChecked {
     });
     this._ministroService.listarColegiados('pleno', null, null).subscribe({
         next: (colegiado) => {
-          console.log('PRESIDENTE');
-          console.log(colegiado);
-          this.presidente = colegiado[0].presidente;
+          this.ministros.pleno = colegiado[0].presidente as Ministro;
         },
         error: (error) => {
           console.log(error);
@@ -83,14 +71,7 @@ export class ComposicaoComponent implements OnInit, AfterViewChecked {
           this._alertaService.exibirAlerta("Error");
         }
     });
-  }
-
-  /**
-   * After view checked
-   */
-  ngAfterViewChecked(): void{
-    if(this.presidente) 
-    if(this.presidenteChecked.indexOf({nome: this.presidente.nome, checked: false})==-1) this.presidenteChecked.push({nome: this.presidente.nome, checked: false});
+    if(this.listaPresenca.presidencia) this.emiteComposicao();
   }
 
   /**
@@ -98,9 +79,7 @@ export class ComposicaoComponent implements OnInit, AfterViewChecked {
    * @param nome nome do ministro
    */
   isChecked(nome: string): boolean{
-    const presidente = this.presidenteChecked.find(presidente=>presidente.nome==nome);
-    if(presidente) return presidente.checked;
-    return false;
+    return this.listaPresenca.presidencia.nome == nome;
   }
 
   /**
@@ -109,24 +88,29 @@ export class ComposicaoComponent implements OnInit, AfterViewChecked {
    * @param colegiado colegiado ao qual o ministro pertence
    */
   check(event: MatCheckboxChange, colegiado: string){
-    const nome = event.source.name;
-    this.presidenteChecked.forEach(presidente=>{
-      if(nome == presidente.nome) presidente.checked = event.checked;
-      else presidente.checked = false;
-    })
-    
+    const ministro = JSON.parse(JSON.stringify(event.source.name));
+
     if(event.checked){
-      if(colegiado=="presidente")
-        this.presidencia = this.presidente;
-      else if(colegiado=="primeira-turma")
-        this.presidencia = this.primeiraTurma.find(ministro=>ministro.nome==nome);
-      else this.presidencia = this.segundaTurma.find(ministro=>ministro.nome==nome);
+      this.listaPresenca.presidencia = ministro;
     }
     else{
-      this.presidencia = {} as Ministro;
+      this.listaPresenca.presidencia = {} as Ministro;
     }
 
     this.emiteComposicao();
+  }
+
+  /**
+   * @description com base no ID do ministro, verifica se está na listaPresenca
+   * no vetor com tipo:`presentes` ou `ausentes` se estiver retorna true, caso
+   * contrário false
+   * @param ministroID
+   * @param tipo 'presentes' ou 'ausentes'
+   * @author Rodrigo Carvalho dos Santos
+   */
+  presencaRegistrada(ministroID: number, tipo: 'presentes'|'ausentes'): boolean {
+    return this.listaPresenca[tipo].findIndex(
+      ({ id }) => ministroID == id) != -1
   }
 
   /**
@@ -134,80 +118,19 @@ export class ComposicaoComponent implements OnInit, AfterViewChecked {
    * @param event evento que é retornado do checkbox
    * @param colegiado colegiado ao qual o ministro pertence
    */
-  atualizaPresentes(event: MatCheckboxChange, colegiado: string){
-    const nome = event.source.name;
-
-    if(colegiado=="presidente"){
-      if(event.checked){
-        this.presentes.push(this.presidente);
-        const index = this.ausentes.indexOf(this.presidente);
-        if(index!=-1)
-          this.ausentes.splice(index, 1);
-      }
-      else this.presentes.splice(this.presentes.indexOf(this.presidente), 1);
+  atualizaPresenca(event: MatCheckboxChange, tipo: 'presentes'|'ausentes'){
+    const ministro = JSON.parse(JSON.stringify(event.source.name));
+    console.log(ministro);
+    if(event.checked) {
+      const tipo_contrario = tipo == 'presentes'? 'ausentes' : 'presentes';
+      this.listaPresenca[tipo].push(ministro);
+      const index = this.listaPresenca[tipo_contrario].findIndex(({ id }) => id == ministro.id);
+      if(index != -1) this.listaPresenca[tipo_contrario].splice(index, 1);
     }
-
-    else if(colegiado=="primeira-turma"){
-      if(event.checked){
-        this.presentes.push(this.primeiraTurma.find(ministro=>ministro.nome==nome));
-        const index = this.ausentes.indexOf(this.primeiraTurma.find(ministro=>ministro.nome==nome));
-        if(index!=-1)
-          this.ausentes.splice(index, 1);
-      }
-      else this.presentes.splice(this.presentes.indexOf(this.presentes.find(ministro=>ministro.nome==nome)), 1)
+    else {
+      const index = this.listaPresenca[tipo].findIndex(({ id }) => id == ministro.id);
+      if(index != -1) console.log(this.listaPresenca[tipo].splice(index, 1));
     }
-
-    else if(colegiado=="segunda-turma"){
-      if(event.checked){
-        this.presentes.push(this.segundaTurma.find(ministro=>ministro.nome==nome));
-        const index = this.ausentes.indexOf(this.segundaTurma.find(ministro=>ministro.nome==nome));
-        if(index!=-1)
-          this.ausentes.splice(index, 1);
-      }
-      else this.presentes.splice(this.presentes.indexOf(this.presentes.find(ministro=>ministro.nome==nome)), 1)
-    }
-    
-    this.emiteComposicao();
-  }
-
-  /**
-   * Atualiza a lista de ministros ausentes
-   * @param event evento que é retornado do checkbox
-   * @param colegiado colegiado ao qual o ministro pertence
-   */
-  atualizaAusentes(event: MatCheckboxChange, colegiado: string){
-    const nome = event.source.name;
-
-    if(colegiado=="presidente"){
-      if(event.checked){
-        this.ausentes.push(this.presidente);
-        const index = this.presentes.indexOf(this.primeiraTurma.find(ministro=>ministro.nome==nome));
-        if(index!=-1)
-          this.presentes.splice(index, 1);
-      }
-      else this.ausentes.splice(this.ausentes.indexOf(this.presidente), 1);
-    }
-
-    else if(colegiado=="primeira-turma"){
-      if(event.checked){
-        this.ausentes.push(this.primeiraTurma.find(ministro=>ministro.nome==nome));
-        const index = this.presentes.indexOf(this.primeiraTurma.find(ministro=>ministro.nome==nome));
-        if(index!=-1)
-          this.presentes.splice(index, 1);
-      }
-      else this.ausentes.splice(this.ausentes.indexOf(this.ausentes.find(ministro=>ministro.nome==nome)), 1)
-    }
-
-    else if(colegiado=="segunda-turma"){
-      if(event.checked){
-        this.ausentes.push(this.segundaTurma.find(ministro=>ministro.nome==nome));
-        const index = this.presentes.indexOf(this.segundaTurma.find(ministro=>ministro.nome==nome));
-        if(index!=-1)
-          this.presentes.splice(index, 1);
-      }
-      else this.ausentes.splice(this.ausentes.indexOf(this.ausentes.find(ministro=>ministro.nome==nome)), 1)
-    }
-
     this.emiteComposicao();
   }
 
@@ -215,10 +138,6 @@ export class ComposicaoComponent implements OnInit, AfterViewChecked {
    * Emite a composição da sessão
    */
   emiteComposicao(){
-    this.statusComposicao.emit({
-      presidencia: this.presidencia,
-      presentes: this.presentes,
-      ausentes: this.ausentes
-    })
+    this.statusComposicao.emit( this.listaPresenca );
   }
 }

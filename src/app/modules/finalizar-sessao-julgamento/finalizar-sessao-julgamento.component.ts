@@ -12,8 +12,9 @@ import { SessaoDeJulgamentoService } from '../services/sessao-de-julgamento.serv
 registerLocaleData(localePT);
 
 interface SessaoFinalizada {
+  atualizou: boolean,
   cabecalho: string,
-  secretario: Secretario,
+  secretario: string,
   outros_presentes: string,
   presidencia: Ministro,
   ministros_presentes: Ministro[],
@@ -57,6 +58,12 @@ export class FinalizarSessaoJulgamentoComponent implements OnInit {
     this._sessaoDeJulgamentoService.listarSessoesDeJulgamento(numero,ano).subscribe({
       next: (sessao) => {
         this.sessao = sessao;
+        console.log(sessao.ata);
+
+        const { cabecalho, ministros_ausentes, ministros_presentes,
+            outros_presentes, presidencia, secretario } = this.sessao?.ata;
+        this.sessaoFinalizada = { cabecalho, ministros_ausentes, ministros_presentes,
+            outros_presentes, presidencia, secretario, atualizou: false };
       },
       error: (error) => {
         console.log(error);
@@ -107,6 +114,7 @@ export class FinalizarSessaoJulgamentoComponent implements OnInit {
    * @param event evento que é retornado do componente
    */
   recuperaComposicao(event: any){
+    this.sessaoFinalizada.atualizou = true;
     this.sessaoFinalizada.ministros_presentes = event.presentes;
     this.sessaoFinalizada.ministros_ausentes = event.ausentes;
     this.sessaoFinalizada.presidencia = event.presidencia;
@@ -117,6 +125,7 @@ export class FinalizarSessaoJulgamentoComponent implements OnInit {
    * @param event evento que é retornado do componente
    */
   recuperaForm(event: any){
+    this.sessaoFinalizada.atualizou = true;
     this.sessaoFinalizada.cabecalho = event.cabecalho;
     this.sessaoFinalizada.outros_presentes = event.outrosPresentes;
     this.sessaoFinalizada.secretario = event.secretario;
@@ -127,7 +136,9 @@ export class FinalizarSessaoJulgamentoComponent implements OnInit {
    * JulgamentoService.
    */
   salvar(){
-    if(!this.sessaoFinalizada.presidencia)
+    if(!this.sessaoFinalizada.atualizou)
+      this.alertaDeErro("Dados da Sessão não foram alterados");
+    else if(!this.sessaoFinalizada.presidencia)
       this.alertaDeErro("Selecione um presidente");
     else if(!this.sessaoFinalizada.secretario)
       this.alertaDeErro("Secretário da sessão inválido");
@@ -150,7 +161,8 @@ export class FinalizarSessaoJulgamentoComponent implements OnInit {
         titulo: "Sucesso",
         mensagem: `A sessão ${this.sessao.numero}/${this.sessao.ano} ${this.sessao.tipo} ${this.sessao.modalidade} foi encerrada e as atividades decorrentes da finalização foram criadas.`
       }
-      this._alertaService.exibirAlerta('Sucesso')
+      this._alertaService.exibirAlerta('Sucesso');
+      this.sessaoFinalizada.atualizou = false;
     }
   }
 
