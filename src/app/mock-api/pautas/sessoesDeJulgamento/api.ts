@@ -199,6 +199,8 @@ export class SessaoDeJulgamentoMockApi {
         const idProcesso = +urlParams.idProcesso;
         const suspensao = request.body as Suspensao;
 
+        console.log(suspensao)
+
         const indexJulgamento = this._sessaoDeJulgamentos.findIndex(julg => {
           const sessaoNumeroAno = `${julg.numero}-${julg.ano}`;
           return sessaoNumeroAno === numeroAno;
@@ -220,7 +222,7 @@ export class SessaoDeJulgamentoMockApi {
             const sessao = sessoesDeJulgamento.find(sj => sj.numero === +s.sessao);
             const sessaoNumeroAno = `${sessao.numero}-${sessao.ano}`;
 
-            return s.id === suspensao.id && s.processo === idProcesso && sessaoNumeroAno === numeroAno}
+            return +s.id === suspensao.id && +s.processo === idProcesso && sessaoNumeroAno === numeroAno}
           );
 
         if (indexSuspensao !== -1) { // Já existe uma suspensão
@@ -252,20 +254,20 @@ export class SessaoDeJulgamentoMockApi {
         } 
 
         const indexProcesso = this._sessaoDeJulgamentos[indexJulgamento].processos
-          .findIndex(p => p.id === idProcesso);
-
+        .findIndex(p => p.id === idProcesso);
+        
         if (indexProcesso === -1) {
           return [404, 'Processo não encontrado :('];
         } 
-
+        
         const indexSuspensao = this._sessaoDeJulgamentos[indexJulgamento].processos[indexProcesso].suspensoes
           .findIndex(s => {
             const sessao = sessoesDeJulgamento.find(sj => sj.numero === +s.sessao);
             const sessaoNumeroAno = `${sessao.numero}-${sessao.ano}`;
-
-            return s.id === idSuspensao && s.processo === idProcesso && sessaoNumeroAno === numeroAno}
+            
+            return +s.id === idSuspensao && +s.processo === idProcesso && sessaoNumeroAno === numeroAno}
           );
-
+          
         if (indexSuspensao !== -1) { // Já existe uma suspensão
           this._sessaoDeJulgamentos[indexJulgamento].processos[indexProcesso].suspensoes.splice(indexSuspensao, 1);
           setStorage('sessoesDeJulgamento', this._sessaoDeJulgamentos);

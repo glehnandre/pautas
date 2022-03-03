@@ -189,7 +189,7 @@ export class ProcessoService {
 
   public excluirSuspensao(numero: number, ano: number, idProcesso: number, idSuspensao: number): Observable<void> {
     const numeroAno = `${numero}-${ano}`;
-    return this._httpClient.delete<void>(`sessao-de-julgamento/${numeroAno}/processo/${idProcesso}/suspensao/:${idSuspensao}`);
+    return this._httpClient.delete<void>(`sessao-de-julgamento/${numeroAno}/processo/${idProcesso}/suspensao/${idSuspensao}`);
   }
 
   public obterModeloDecisao(classe: string, tipoCapitulo: string, dispositivo: number, recurso: number): Observable<ModeloDecisao> {

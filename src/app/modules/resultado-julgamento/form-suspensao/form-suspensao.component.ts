@@ -1,8 +1,10 @@
 import { ChangeDetectorRef, Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { MatDialog } from '@angular/material/dialog';
 import { AlertaService } from 'app/modules/services/alerta.service';
 import { ProcessoService } from 'app/modules/services/processo.service';
 import { Alerta } from 'app/shared/alerta/alerta.component';
+import { DialogoConfirmacaoComponent } from 'app/shared/dialogo-confirmacao/dialogo-confirmacao.component';
 import { Suspensao } from 'app/shared/model/interfaces/suspensao.interface';
 
 interface Parametros {
@@ -33,6 +35,7 @@ export class FormSuspensaoComponent implements OnInit, OnChanges {
     private _fb: FormBuilder,
     private _processoService: ProcessoService,
     private _alertaService: AlertaService,
+    private _dialog: MatDialog,
     public cd: ChangeDetectorRef,
   ) { 
     
@@ -47,28 +50,39 @@ export class FormSuspensaoComponent implements OnInit, OnChanges {
   }
 
   public excluirSuspensao(): void {
-    const {
-      numero,
-      ano,
-      processo,
-    } = this.parametros;
-
-    this._processoService.excluirSuspensao(
-      numero, 
-      ano, 
-      processo, 
-      this.suspensao.id
-    ).subscribe({
-      next: () => {
-        this.alerta = {
-          nome: this.ALERTA_FORM_SUSPENSAO,
-          titulo: 'Sucesso!',
-          mensagem: 'Suspensão excluída com sucesso.',
-          tipo: 'success',
-        };
-
-        this.closeDrawerEmit.emit(this.alerta);
+    const dialogRef = this._dialog.open(DialogoConfirmacaoComponent, {
+      data: {
+        titulo: 'EXCLUSÃO DE SUSPENSÃO',
+        mensagem: `Confirma a exclusão da Suspensão: ${this.suspensao.texto}?`
       },
+    });
+
+    dialogRef.afterClosed().subscribe(confirmacao => {
+      if (confirmacao) {
+        const {
+          numero,
+          ano,
+          processo,
+        } = this.parametros;
+
+        this._processoService.excluirSuspensao(
+          numero, 
+          ano, 
+          processo, 
+          this.suspensao.id
+        ).subscribe({
+          next: () => {
+            this.alerta = {
+              nome: this.ALERTA_FORM_SUSPENSAO,
+              titulo: 'Sucesso!',
+              mensagem: 'Suspensão excluída com sucesso.',
+              tipo: 'success',
+            };
+
+            this.closeDrawerEmit.emit(this.alerta);
+          },
+        });
+      }
     });
   }
 
@@ -79,18 +93,25 @@ export class FormSuspensaoComponent implements OnInit, OnChanges {
         numero,
         processo,
       } = this.parametros;
+
+      const suspensao: Suspensao = {
+        ...this.formSuspensao.value,
+        id: this.suspensao.id,
+      };
+
+      const isSuspensaoJaExistente = (this.suspensao && this.suspensao?.texto?.length > 0);
   
       this._processoService.salvarOuAtualizarSuspensao( 
         numero, 
         ano,
         processo, 
-        this.formSuspensao.value as Suspensao,
+        suspensao,
       ).subscribe({
         next: () => {
           this.alerta = {
             nome: this.ALERTA_FORM_SUSPENSAO,
             titulo: 'Sucesso!',
-            mensagem: 'Suspensão cadastrada com sucesso.',
+            mensagem: `Suspensão ${(isSuspensaoJaExistente) ? 'atualizada' : 'cadastrada'} com sucesso.`,
             tipo: 'success',
           };
 
