@@ -38,6 +38,7 @@ import { FormVistaEDestaqueComponent } from './form-vista-e-destaque/form-vista-
 import { ResultadoJulgamentoComponent } from './resultado-julgamento.component';
 import { VotoDosMinistrosComponent } from './voto-dos-ministros/voto-dos-ministros.component';
 import { FormSuspensaoComponent } from './form-suspensao/form-suspensao.component';
+import { OrdenarPipe } from './ordenar.pipe';
 
 
 const ResultadoJulgamentoRoutes: Route[] = [
@@ -60,6 +61,7 @@ const ResultadoJulgamentoRoutes: Route[] = [
     FormIndicacaoImpedimentosComponent,
     ChipsComponent,
     FormSuspensaoComponent,
+    OrdenarPipe,
   ],
   imports: [
     CommonModule,

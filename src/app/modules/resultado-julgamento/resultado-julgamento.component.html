@@ -329,7 +329,7 @@
                                     >
                                         <!-- Task -->
                                         <ng-container
-                                            *ngFor="let suspensao of processo?.suspensoes; index as i; let first = first; trackBy: trackByFn">
+                                            *ngFor="let suspensao of (processo?.suspensoes | ordenar: 'data' : 'asc'); index as i; let first = first; trackBy: trackByFn">
                                             <div class="group w-full select-none hover:bg-gray-100 dark:hover:bg-hover">
                                                 <!-- Task content -->
                                                 <div class="relative flex items-center h-full pl-10">
