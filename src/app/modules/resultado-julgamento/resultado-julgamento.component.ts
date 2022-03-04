@@ -321,11 +321,18 @@ export class ResultadoJulgamentoComponent implements OnInit {
   }
 
   editarVistaOuDestaque(item: any) {
-    this.abrirGaveta(this.FORM_VISTA_DESTAQUE)
     this.vistaOuDestaqueSelecionado = item;
+    this.suspensaoSelecionada = null;
+    this.abrirGaveta(this.FORM_VISTA_DESTAQUE)
     this.cd.detectChanges();
   }
 
+  public editarSuspensao(suspensao: Suspensao): void {
+    this.suspensaoSelecionada = suspensao;
+    this.vistaOuDestaqueSelecionado = null;
+    this.abrirGaveta(this.DRAWER_SUSPENSAO)
+    this.cd.detectChanges();
+  }
 
   novaVista() {
     this.vistaOuDestaqueSelecionado = new Vista();
@@ -337,6 +344,7 @@ export class ResultadoJulgamentoComponent implements OnInit {
     this.vistaOuDestaqueSelecionado = new Destaque();
     this.abrirGaveta(this.FORM_VISTA_DESTAQUE)
   }
+
 
   public excluirVistaOuDestaque(item: any): void {
     if (item.type == 'vista') {

@@ -102,7 +102,7 @@ export class PublicacoesComponent implements OnInit, OnDestroy{
         if(this.hasParam) this.trataParams();
       },
       error: (error) => {
-        console.log(error);
+        console.error(error);
         this.alerta = {
           nome: "Error", 
           tipo: "error", 

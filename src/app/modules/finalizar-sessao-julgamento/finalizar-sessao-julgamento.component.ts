@@ -4,7 +4,6 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Alerta } from 'app/shared/alerta/alerta.component';
 import { Ministro } from 'app/shared/model/interfaces/ministro.interface';
-import { Secretario } from 'app/shared/model/interfaces/secretario.interface';
 import { SessaoDeJulgamento } from 'app/shared/model/interfaces/sessao-julgamento.interface';
 import { AlertaService } from '../services/alerta.service';
 import { SessaoDeJulgamentoService } from '../services/sessao-de-julgamento.service';
@@ -58,7 +57,7 @@ export class FinalizarSessaoJulgamentoComponent implements OnInit {
     this._sessaoDeJulgamentoService.listarSessoesDeJulgamento(numero,ano).subscribe({
       next: (sessao) => {
         this.sessao = sessao;
-        console.log(sessao.ata);
+        console.error(sessao.ata);
 
         const { cabecalho, ministros_ausentes, ministros_presentes,
             outros_presentes, presidencia, secretario } = this.sessao?.ata;
@@ -66,7 +65,7 @@ export class FinalizarSessaoJulgamentoComponent implements OnInit {
             outros_presentes, presidencia, secretario, atualizou: false };
       },
       error: (error) => {
-        console.log(error);
+        console.error(error);
         this.alerta = {
           nome: "Error",
           tipo: "error",
@@ -145,7 +144,7 @@ export class FinalizarSessaoJulgamentoComponent implements OnInit {
     else {
       this._sessaoDeJulgamentoService.finalizarSessaoDeJulgamento(this.queryParams.numero, this.queryParams.ano, this.sessaoFinalizada).subscribe({
         error: (error) => {
-          console.log(error);
+          console.error(error);
           this.alerta = {
             nome: "Error",
             tipo: "error",
