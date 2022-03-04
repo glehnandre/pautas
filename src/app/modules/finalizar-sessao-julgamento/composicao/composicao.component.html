@@ -6,7 +6,7 @@
         <span class="ml-4 mr-3">Ausente</span>
         <span class="ml-4">Presidente</span>
     </div>
-    <div *ngIf="presidente" class="flex flex-row items-center py-2 overflow-hidden">
+    <div *ngIf="ministros['pleno'] as presidente" class="flex flex-row items-center py-2 overflow-hidden">
         <span class="w-15">Presidente</span>
         <object class="flex w-5 h-16 bg-blue-600 mx-4 -my-20"></object>
         <span class="flex flex-none flex-row items-center w-48 mr-2">
@@ -16,29 +16,31 @@
         </span>
         <mat-checkbox
             #presente
-            [name]="presidente?.nome"
+            [checked]="presencaRegistrada(presidente.id, 'presentes')"
+            [name]="presidente"
             class="mr-15"
             color="primary"
-            (change)="ausente.checked=false; atualizaPresentes($event, 'presidente')"
+            (change)="ausente.checked=false; atualizaPresenca($event, 'presentes')"
         ></mat-checkbox>
         <mat-checkbox
             #ausente
-            [name]="presidente?.nome"
+            [checked]="presencaRegistrada(presidente.id, 'ausentes')"
+            [name]="presidente"
             class="mr-15"
             color="primary"
-            (change)="presente.checked=false; atualizaAusentes($event, 'presidente')"
+            (change)="presente.checked=false; atualizaPresenca($event, 'ausentes')"
         ></mat-checkbox>
         <mat-checkbox
             [checked]="isChecked(presidente?.nome)"
-            [name]="presidente?.nome"
+            [name]="presidente"
             color="primary"
             (change)="check($event, 'presidente')"
         ></mat-checkbox>
     </div>
-    <div *ngIf="primeiraTurma" class="flex flex-row items-center py-2 overflow-hidden">
+    <div *ngIf="ministros['primeira-turma']" class="flex flex-row items-center py-2 overflow-hidden">
         <span class="flex-none w-15">1ª Turma</span>
         <div class="flex-col space-y-4">
-            <div class="flex flex-1" *ngFor="let primeira of primeiraTurma; index as i">
+            <div class="flex flex-1" *ngFor="let primeira of ministros['primeira-turma']; index as i">
                 <object class="flex w-5 h-16 bg-orange-500 mx-4 -my-2"></object>
                 <span class="flex flex-row flex-none items-center w-48 mr-2">
                     <img [src]="primeira?.imagem" alt="Imagem de perfil"
@@ -47,21 +49,23 @@
                 </span>
                 <mat-checkbox
                     #presente1
-                    [name]="primeira.nome"
+                    [checked]="presencaRegistrada(primeira.id, 'presentes')"
+                    [name]="primeira"
                     class="mr-15 pt-3"
                     color="primary"
-                    (change)="ausente1.checked=false; atualizaPresentes($event, 'primeira-turma')"
+                    (change)="ausente1.checked=false; atualizaPresenca($event, 'presentes')"
                 ></mat-checkbox>
                 <mat-checkbox
                     #ausente1
-                    [name]="primeira.nome"
+                    [checked]="presencaRegistrada(primeira.id, 'ausentes')"
+                    [name]="primeira"
                     class="mr-15 pt-3"
                     color="primary"
-                    (change)="presente1.checked=false; atualizaAusentes($event, 'primeira-turma')"
+                    (change)="presente1.checked=false; atualizaPresenca($event, 'ausentes')"
                 ></mat-checkbox>
                 <mat-checkbox
                     [checked]="isChecked(primeira.nome)"
-                    [name]="primeira.nome"
+                    [name]="primeira"
                     class="pt-3"
                     color="primary"
                     (change)="check($event, 'primeira-turma')"
@@ -69,10 +73,10 @@
             </div>
         </div>
     </div>
-    <div *ngIf="segundaTurma" class="flex flex-row items-center pt-2 overflow-hidden">
+    <div *ngIf="ministros['segunda-turma']" class="flex flex-row items-center pt-2 overflow-hidden">
         <span class="flex-none w-15">2ª Turma</span>
         <div class="flex flex-col space-y-4">
-            <div class="flex flex-1" *ngFor="let segunda of segundaTurma; index as j">
+            <div class="flex flex-1" *ngFor="let segunda of ministros['segunda-turma']; index as j">
                 <object class="flex w-5 h-16 bg-green-700 mx-4 -my-2"></object>
                 <span class="flex flex-row items-center w-48 mr-2">
                     <img [src]="segunda?.imagem" alt="Imagem de perfil"
@@ -81,23 +85,23 @@
                 </span>
                 <mat-checkbox
                     #presente2
-                    [checked]="presente2.checked"
-                    [name]="segunda.nome"
+                    [checked]="presencaRegistrada(segunda.id, 'presentes')"
+                    [name]="segunda"
                     class="mr-15 pt-3"
                     color="primary"
-                    (change)="ausente2.checked=false; atualizaPresentes($event, 'segunda-turma')"
+                    (change)="ausente2.checked=false; atualizaPresenca($event, 'presentes')"
                 ></mat-checkbox>
                 <mat-checkbox
                     #ausente2
-                    [checked]="ausente2.checked"
-                    [name]="segunda.nome"
+                    [checked]="presencaRegistrada(segunda.id, 'ausentes')"
+                    [name]="segunda"
                     class="mr-15 pt-3"
                     color="primary"
-                    (change)="presente2.checked=false; atualizaAusentes($event, 'segunda-turma')"
+                    (change)="presente2.checked=false; atualizaPresenca($event, 'ausentes')"
                 ></mat-checkbox>
                 <mat-checkbox
                     [checked]="isChecked(segunda.nome)"
-                    [name]="segunda.nome"
+                    [name]="segunda"
                     class="pt-3"
                     color="primary"
                     (change)="check($event, 'segunda-turma')"

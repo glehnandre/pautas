@@ -21,6 +21,9 @@ export class FormComponent implements OnInit {
   ) { }
 
   @Input() secretario: Secretario;
+  @Input() cabecalho: string;
+  @Input() outrosPresentes: string;
+
   @Output() statusForm = new EventEmitter<any>();
 
   formFinalizarSessao: FormGroup;
@@ -46,8 +49,8 @@ export class FormComponent implements OnInit {
         this._alertaService.exibirAlerta("Error")
         return EMPTY;
       })
-    );;
-      
+    );
+    this.emitirForm();
   }
 
   /**

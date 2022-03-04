@@ -4,7 +4,6 @@ import { Ata } from "app/shared/model/interfaces/ata.interface";
 import { Pauta } from "app/shared/model/interfaces/pauta.interface";
 import { Processo } from "app/shared/model/interfaces/processo.interface";
 import { SessaoDeJulgamento } from "app/shared/model/interfaces/sessao-julgamento.interface";
-import { Suspensao } from "app/shared/model/interfaces/suspensao.interface";
 import { Observable } from "rxjs";
 
 
@@ -73,14 +72,6 @@ export class SessaoDeJulgamentoService {
 
   public getAta(numero: number, ano:number): Observable<Ata> {
     return this._httpClient.get<Ata>(`sessoes-de-julgamento/${numero}-${ano}/ata`);
-  }
-
-  public inserirOuAtualizarSuspensao(numeroAno: string, idProcesso: number, suspensao: Suspensao): Observable<void> {
-    return this._httpClient.put<void>(`sessao-de-julgamento/${numeroAno}/processo/${idProcesso}/suspensao`, suspensao);
-  }
-
-  public excluirSuspensao(numeroAno: string, idProcesso: number, idSuspensao: number): Observable<void> {
-    return this._httpClient.delete<void>(`sessao-de-julgamento/${numeroAno}/processo/${idProcesso}/suspensao/:${idSuspensao}`);
   }
 
 }
