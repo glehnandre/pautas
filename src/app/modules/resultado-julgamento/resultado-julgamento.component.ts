@@ -207,6 +207,10 @@ export class ResultadoJulgamentoComponent implements OnInit {
     });
   }
 
+  pedirSuspensao(): void {
+    this.suspensaoSelecionada = {} as Suspensao;
+    this.abrirGaveta(this.DRAWER_SUSPENSAO);
+  }
   /**
    * @public Método público
    * @description Método para exibir modal de cadastro de Indicação de Impedimentos
@@ -355,7 +359,7 @@ export class ResultadoJulgamentoComponent implements OnInit {
   }
 
   private excluirVista(vista: Vista): void {
-    console.log(vista);
+    console.error(vista);
 
     const dialogRef = this._dialog.open(DialogoConfirmacaoComponent, {
       data: {
@@ -372,7 +376,7 @@ export class ResultadoJulgamentoComponent implements OnInit {
               this._carregarDadosProcessos();
             },
             error: (error) => {
-              console.log(error);
+              console.error(error);
               this.mostrarAlerta("error", "Error", error.message);
             }
           });
@@ -397,7 +401,7 @@ export class ResultadoJulgamentoComponent implements OnInit {
               this._carregarDadosProcessos();
             },
             error: (error) => {
-              console.log(error);
+              console.error(error);
               this.mostrarAlerta("error", "Error", error.message);
             }
           });
@@ -427,7 +431,7 @@ export class ResultadoJulgamentoComponent implements OnInit {
                 this.cd.detectChanges();
               },
               error: (error) => {
-                console.log(error);
+                console.error(error);
                 this.mostrarAlerta("error", "Error", error.message);
                 this.cd.detectChanges();
               }
@@ -474,7 +478,7 @@ export class ResultadoJulgamentoComponent implements OnInit {
           this.mostrarAlerta('success', 'Sucesso', data);
         },
         error: (data) => {
-          console.log(data);
+          console.error(data);
         }
       });
     }
@@ -489,7 +493,7 @@ export class ResultadoJulgamentoComponent implements OnInit {
   private _carregarDadosProcessos(): void {
     this._processoService.listarProcessoJulgamento(this.parametros.processo, this.parametros.numero, this.parametros.ano).subscribe({
       next: (processo) => {
-        console.log(processo?.suspensoes)
+        console.error(processo?.suspensoes)
         this.processo = processo;
         this.todosCapitulos = processo.capitulos;
         this.cd.detectChanges();
@@ -501,13 +505,13 @@ export class ResultadoJulgamentoComponent implements OnInit {
             this.votos = votos;
           },
           error: (error) => {
-            console.log(error);
+            console.error(error);
             this.mostrarAlerta("error", "Error", error.message);
           }
         });
       },
       error: (error) => {
-        console.log(error);
+        console.error(error);
         this.mostrarAlerta("error", "Error", error.message);
       }
 

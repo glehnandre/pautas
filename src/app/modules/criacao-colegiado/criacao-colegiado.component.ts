@@ -71,7 +71,7 @@ export class CriacaoColegiadoComponent implements OnInit {
         this.processo = processos.find(processo => processo.id == this.queryParams.processo);
       },
       error: (error) => {
-        console.log(error);
+        console.error(error);
         this._exibeAlerta("Error", error.message);
       }
     })
@@ -100,7 +100,7 @@ export class CriacaoColegiadoComponent implements OnInit {
         this.colegiados = colegiados;
       },
       error: (error) => {
-        console.log(error);
+        console.error(error);
         this._exibeAlerta("Error", error.message);
       }
     });
@@ -171,7 +171,7 @@ export class CriacaoColegiadoComponent implements OnInit {
           
         },
         error: (error) => {
-          console.log(error);
+          console.error(error);
           this._exibeAlerta("Error", error.message);
         }
       });

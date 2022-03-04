@@ -1,4 +1,4 @@
-import { AfterViewChecked, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { MatCheckboxChange } from '@angular/material/checkbox';
 import { AlertaService } from 'app/modules/services/alerta.service';
 import { MinistroService } from 'app/modules/services/ministro.service';
@@ -45,7 +45,7 @@ export class ComposicaoComponent implements OnInit {
         this.ministros['primeira-turma'] = ministros;
       },
       error: (error) => {
-        console.log(error);
+        console.lerrorog(error);
         this.errorMessage = error.message
         this._alertaService.exibirAlerta("Error");
       }
@@ -56,7 +56,7 @@ export class ComposicaoComponent implements OnInit {
           this.ministros['segunda-turma'] = ministros;
         },
         error: (error) => {
-          console.log(error);
+          console.error(error);
           this.errorMessage = error.message
           this._alertaService.exibirAlerta("Error");
         }
@@ -66,7 +66,7 @@ export class ComposicaoComponent implements OnInit {
           this.ministros.pleno = colegiado[0].presidente as Ministro;
         },
         error: (error) => {
-          console.log(error);
+          console.error(error);
           this.errorMessage = error.message
           this._alertaService.exibirAlerta("Error");
         }
@@ -120,7 +120,7 @@ export class ComposicaoComponent implements OnInit {
    */
   atualizaPresenca(event: MatCheckboxChange, tipo: 'presentes'|'ausentes'){
     const ministro = JSON.parse(JSON.stringify(event.source.name));
-    console.log(ministro);
+    console.error(ministro);
     if(event.checked) {
       const tipo_contrario = tipo == 'presentes'? 'ausentes' : 'presentes';
       this.listaPresenca[tipo].push(ministro);
@@ -129,7 +129,7 @@ export class ComposicaoComponent implements OnInit {
     }
     else {
       const index = this.listaPresenca[tipo].findIndex(({ id }) => id == ministro.id);
-      if(index != -1) console.log(this.listaPresenca[tipo].splice(index, 1));
+      if(index != -1) console.error(this.listaPresenca[tipo].splice(index, 1));
     }
     this.emiteComposicao();
   }

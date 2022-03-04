@@ -198,8 +198,6 @@ export class SessaoDeJulgamentoMockApi {
         const numeroAno = urlParams['numero-ano'];
         const idProcesso = +urlParams.idProcesso;
         const suspensao = request.body as Suspensao;
-        console.log('api de suspensão....');
-        console.log(suspensao)
 
         const indexJulgamento = this._sessaoDeJulgamentos.findIndex(julg => {
           const sessaoNumeroAno = `${julg.numero}-${julg.ano}`;
@@ -216,7 +214,6 @@ export class SessaoDeJulgamentoMockApi {
         if (indexProcesso === -1) {
           return [404, 'Processo não encontrado.'];
         }
-        console.log(this._sessaoDeJulgamentos[indexJulgamento].processos[indexProcesso]);
         if(suspensao.id != undefined){
           const indexSuspensao = this._sessaoDeJulgamentos[indexJulgamento].processos[indexProcesso].suspensoes
           .findIndex(s => {

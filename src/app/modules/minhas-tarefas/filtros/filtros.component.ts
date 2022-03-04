@@ -44,7 +44,7 @@ export class FiltrosComponent implements OnInit {
                 this._obterTiposDasTags();
             },
             error: (error) => {
-              console.log(error);
+              console.error(error);
               this.errorMessage = error.message
               this._alertaService.exibirAlerta("Error");
             }

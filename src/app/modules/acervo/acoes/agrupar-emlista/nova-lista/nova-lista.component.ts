@@ -48,7 +48,7 @@ export class NovaListaComponent implements OnInit {
   cadastrarTagViaApi(): Observable<Tag> {
     return this._httpClient.post<Tag>('tags', this.listaFormGroup.value).pipe(
       catchError(error => {
-        console.log(error);
+        console.error(error);
         return EMPTY;
       })
     );

@@ -82,7 +82,7 @@ export class AgruparEmlistaComponent implements OnInit {
         this.tags.map(tag => tag.checked = false);
       },
       error: (error) => {
-        console.log(error);
+        console.error(error);
         this.errorMessage = error.message
         this._alertaService.exibirAlerta("Error");
       }

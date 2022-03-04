@@ -54,7 +54,7 @@ export class FormComentarioComponent implements OnInit {
         this._dialogRef.close(this.alerta);
       },
       error: (error) => {
-        console.log(error);
+        console.error(error);
         this.errorMessage = error.message
         this._alertaService.exibirAlerta("Error");
       }
@@ -83,7 +83,7 @@ export class FormComentarioComponent implements OnInit {
             this._dialogRef.close(this.alerta);
           },
           error: (error) => {
-            console.log(error);
+            console.error(error);
             this.errorMessage = error.message
             this._alertaService.exibirAlerta("Error");
           }
