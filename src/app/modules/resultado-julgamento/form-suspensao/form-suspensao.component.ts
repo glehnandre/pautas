@@ -97,6 +97,8 @@ export class FormSuspensaoComponent implements OnInit, OnChanges {
       const suspensao: Suspensao = {
         ...this.formSuspensao.value,
         id: (this.suspensao && this.suspensao.id) ? this.suspensao.id : null,
+        sessao: numero,
+        processo,
       };
 
       const isSuspensaoJaExistente = (this.suspensao && this.suspensao?.texto?.length > 0);

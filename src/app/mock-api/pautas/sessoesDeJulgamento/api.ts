@@ -220,7 +220,8 @@ export class SessaoDeJulgamentoMockApi {
         if(suspensao.id != undefined){
           const indexSuspensao = this._sessaoDeJulgamentos[indexJulgamento].processos[indexProcesso].suspensoes
           .findIndex(s => {
-              const sessao = sessoesDeJulgamento.find(sj => sj.numero === +s.sessao);
+              const sessao = sessoesDeJulgamento
+                .find(sj => +sj.numero === +s.sessao);
               const sessaoNumeroAno = `${sessao.numero}-${sessao.ano}`;
               return +s.id === suspensao.id && +s.processo === idProcesso && sessaoNumeroAno === numeroAno
             }
