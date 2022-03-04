@@ -137,7 +137,7 @@ export class GerenciarListasComponent implements OnInit {
   private _listarTags(): Observable<Tag[]> {
     return this._httpClient.get<Tag[]>('tags').pipe(
       catchError(error => {
-        console.log(error);
+        console.error(error);
         return EMPTY;
       })
     );
@@ -161,7 +161,7 @@ export class GerenciarListasComponent implements OnInit {
   private _carregarProcessosDaLista(): Observable<Processo[]> {
     return this._httpClient.get<Processo[]>(`tags/${this.tagEscolhida.id}/processos`).pipe(
       catchError(error => {
-        console.log(error);
+        console.error(error);
         return EMPTY;
       }),
     );
@@ -188,7 +188,7 @@ export class GerenciarListasComponent implements OnInit {
   private _carregarProcessos(): Observable<Processo[]> {
     return this._httpClient.get<Processo[]>('processos', {}).pipe(
       catchError(error => {
-        console.log(error);
+        console.error(error);
         return EMPTY;
       }),
     );
@@ -216,7 +216,7 @@ export class GerenciarListasComponent implements OnInit {
     return this._httpClient.put<Tag>(`tags/${this.tagEscolhida.id}`, this.tagForm.value)
       .pipe(
         catchError(error => {
-          console.log(error);
+          console.error(error);
           return EMPTY;
         }),  
     );
@@ -226,7 +226,7 @@ export class GerenciarListasComponent implements OnInit {
     const idsTags = [{id: tag.id}];
     return this._httpClient.put<Processo[]>(`processos/${id}/tag`, {idsTags}).pipe(
       catchError(error => {
-        console.log(error);
+        console.error(error);
         return EMPTY;
       }),
     );
@@ -236,7 +236,7 @@ export class GerenciarListasComponent implements OnInit {
     return this._httpClient.delete<Processo>(`tags/${this.tagEscolhida.id}/processos/${processoId}`)
       .pipe(
         catchError(error => {
-          console.log(error);
+          console.error(error);
           return EMPTY;
         }),
       );

@@ -114,7 +114,7 @@ export class TabelaComponent implements OnInit, OnChanges {
         });
       },
       error: (error) => {
-        console.log(error);
+        console.error(error);
         this.errorMessage = error.message
         this._alertaService.exibirAlerta("Error");
       }

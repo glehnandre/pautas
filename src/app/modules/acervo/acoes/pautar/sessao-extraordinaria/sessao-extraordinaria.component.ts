@@ -61,7 +61,7 @@ export class SessaoExtraordinariaComponent implements OnInit {
           this._dialogRef.close();
         },
         error: (error) => {
-          console.log(error);
+          console.error(error);
           this.errorMessage = error.message;
           this._alertaService.exibirAlerta("Error");
         }
@@ -138,7 +138,7 @@ export class SessaoExtraordinariaComponent implements OnInit {
 
     return this._httpClient.get<Processo[]>('processos', { params }).pipe(
       catchError(error => {
-        console.log(error);
+        console.error(error);
         return EMPTY;
       }),
     )

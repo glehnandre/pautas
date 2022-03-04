@@ -59,7 +59,7 @@ export class PautarComponent implements OnInit {
             this.sessoes = data;
             },
             error: (error) => {
-              console.log(error);
+              console.error(error);
               this.errorMessage = error.message;
               this._alertaService.exibirAlerta("Error");
             }
@@ -83,7 +83,7 @@ export class PautarComponent implements OnInit {
                     this._alertaService.exibirAlertaDeSucesso();
                 },
                 error: (error) => {
-                  console.log(error);
+                  console.error(error);
                   this.errorMessage = error.message;
                   this._alertaService.exibirAlerta("Error");
                 }

@@ -40,7 +40,7 @@ export class ReanalizarComponent implements OnInit {
         .subscribe({
           next: () => {},
           error: (error) => {
-            console.log(error);
+            console.error(error);
             this.errorMessage = error.message
             this._alertaService.exibirAlerta("Error");
           }

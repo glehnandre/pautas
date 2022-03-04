@@ -62,7 +62,10 @@ export const sessoesDeJulgamento: SessaoDeJulgamento[] = getStorage('sessoesDeJu
     situacao: 'ABERTA',
     secretario: null,
     ata: atas[0],
-    processos: [processo[8], processo[1]]
+    processos: [
+      processo[8], 
+      processo[1],
+    ]
   },
   {
     ano: 2021,
@@ -341,89 +344,3 @@ export const envolvidos: Envolvido[] = [
       ],
     },
 ];
-
-export const processos: Processo[] = [
-  {
-    id: 123455,
-    ementa: "Sessão de julgamento extraordinária para tratar da divisão de terras.",
-    lista: [{
-      descricao: "Semelhante a ADI 100",
-      id: 123445,
-      publica: false
-    }],
-    classe: "ADI",
-    numero: 100,
-    cadeia: "Embargo de declaração",
-    abreviacao: 'ED',
-    situacao: SituacaoDoProcesso.Pautado,
-    tipo: TipoDoProcesso.Merito,
-    capitulos: [
-      capitulo[1],
-    ],
-    ministros_impedidos: [],
-    ministros_suspeitos: [],
-    envolvidos,
-    vistas: [],
-    destaques: []
-  },
-
-  {
-    id: 123455,
-    ementa: "Sessão de julgamento extraordinária para tratar da divisão de terras.",
-    lista: [{
-      descricao: "Semelhante a ADI 100",
-      id: 123445,
-      gestor: {
-          numero: 19,
-          criacao: '2021-08-02T03:00:00.000Z',
-      },
-      publica: false
-    }],
-    classe: 'ADI',
-    numero: 100,
-    cadeia: 'Embargo de declaração',
-    abreviacao: 'ED',
-    situacao: SituacaoDoProcesso.Pautado,
-    tipo: TipoDoProcesso.Merito,
-    relator: ministro[10],
-    redator: ministro[10],
-    capitulos: [
-      capitulo[1],
-    ],
-    ministros_impedidos: [],
-    ministros_suspeitos: [],
-    envolvidos,
-    vistas: [],
-    destaques: []
-  },
-
-  {
-    id: 123455,
-    ementa: 'Sessão de julgamento extraordinária para tratar da divisão de terras.',
-    lista: [{
-      descricao: 'Semelhante a ADI 100',
-      id: 123445,
-      gestor: {
-          numero: 19,
-          criacao: '2021-08-02T03:00:00.000Z',
-      },
-      publica: false
-    }],
-    classe: 'ADI',
-    numero: 100,
-    cadeia: "Embargo de declaração",
-    abreviacao: '',
-    situacao: SituacaoDoProcesso.Pautado,
-    tipo: TipoDoProcesso.Merito,
-    capitulos: [
-      capitulo[1],
-    ],
-    ministros_impedidos: [],
-    ministros_suspeitos: [],
-    envolvidos,
-    vistas: [],
-    destaques: []
-  },
-];
-
-export const suspensoes: Suspensao[] = [];

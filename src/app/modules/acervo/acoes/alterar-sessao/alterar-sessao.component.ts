@@ -66,7 +66,7 @@ export class AlterarSessaoComponent implements OnInit {
         this.colegiadoEscolhido = this.pauta.colegiado;
       },
       error: (error) => {
-        console.log(error);
+        console.error(error);
         this.errorMessage = error.message;
         this._alertaService.exibirAlerta("Error");
       }
@@ -115,7 +115,7 @@ export class AlterarSessaoComponent implements OnInit {
             this._alertaService.exibirAlertaDeSucesso();
         },
         error: (error) => {
-          console.log(error);
+          console.error(error);
           this.errorMessage = error.message;
           this._alertaService.exibirAlerta("Error");
         }

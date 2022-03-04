@@ -11,7 +11,7 @@ import { Manifestacao } from 'app/shared/model/interfaces/manifestacao.interface
 import { ModeloDecisao } from 'app/shared/model/interfaces/modeloDecisao.interface';
 import { Processo } from 'app/shared/model/interfaces/processo.interface';
 import { SessaoDeJulgamento } from 'app/shared/model/interfaces/sessao-julgamento.interface';
-import { Suspensao } from 'app/shared/model/interfaces/suspencao.interface';
+import { Suspensao } from 'app/shared/model/interfaces/suspensao.interface';
 import { Vista } from 'app/shared/model/interfaces/vista.interface';
 import { Voto } from 'app/shared/model/interfaces/voto.interface';
 import { AlertaService } from '../services/alerta.service';
@@ -52,15 +52,17 @@ export class ResultadoJulgamentoComponent implements OnInit {
   todosCapitulos: Capitulo[] = [];
   capituloSelecionado: Capitulo = null;
   vistaOuDestaqueSelecionado: any = null;
+  suspensaoSelecionada: Suspensao = null;
   modelo: ModeloDecisao;
   exibirChips = true;
   chips: Array<{ id?: number; nome: string }> = [];
-  vistasEDestaques: Suspensao[];
+  vistasEDestaques: any[];
 
   alerta: Alerta = {} as Alerta;
 
   readonly FORM_CADASTRO_DECISAO = 'formulario-de-cadastro-de-decisao';
   readonly FORM_VISTA_DESTAQUE = 'vistaDestaqueDrawer';
+  readonly DRAWER_SUSPENSAO = 'suspensaoDrawer';
 
   constructor(
     private _ministroService: MinistroService,
@@ -90,7 +92,17 @@ export class ResultadoJulgamentoComponent implements OnInit {
     return data.body.textContent || "";
   }
 
-  /**
+
+
+  public obterResultadoDaAcao(resultado: {titulo:string;mensagem:string;tipo:'success' | 'error'}) {
+    this.alerta = {
+      ...resultado,
+      nome: 'ResultadoDaAcaoFormDecisao',
+    }
+    this._alertaService.exibirAlerta(this.alerta.nome);
+  }
+
+ /**
    * @public Método público
    * @param largura Tamanho da largura da tela para ser comparado
    * @default largura Valor padrão da largura é 720px
@@ -195,6 +207,10 @@ export class ResultadoJulgamentoComponent implements OnInit {
     });
   }
 
+  pedirSuspensao(): void {
+    this.suspensaoSelecionada = {} as Suspensao;
+    this.abrirGaveta(this.DRAWER_SUSPENSAO);
+  }
   /**
    * @public Método público
    * @description Método para exibir modal de cadastro de Indicação de Impedimentos
@@ -293,14 +309,6 @@ export class ResultadoJulgamentoComponent implements OnInit {
     drawer.toggle();
   }
 
-  public obterResultadoDaAcao(resultado: { titulo: string; mensagem: string; tipo: 'success' | 'error' }) {
-    this.alerta = {
-      ...resultado,
-      nome: 'ResultadoDaAcaoFormDecisao',
-    }
-    this._alertaService.exibirAlerta(this.alerta.nome);
-  }
-
 
 
   retornoVistaDestaqueDrawer(data) {
@@ -339,7 +347,7 @@ export class ResultadoJulgamentoComponent implements OnInit {
   }
 
   private excluirVista(vista: Vista): void {
-    console.log(vista);
+    console.error(vista);
 
     const dialogRef = this._dialog.open(DialogoConfirmacaoComponent, {
       data: {
@@ -356,7 +364,7 @@ export class ResultadoJulgamentoComponent implements OnInit {
               this._carregarDadosProcessos();
             },
             error: (error) => {
-              console.log(error);
+              console.error(error);
               this.mostrarAlerta("error", "Error", error.message);
             }
           });
@@ -381,10 +389,41 @@ export class ResultadoJulgamentoComponent implements OnInit {
               this._carregarDadosProcessos();
             },
             error: (error) => {
-              console.log(error);
+              console.error(error);
               this.mostrarAlerta("error", "Error", error.message);
             }
           });
+      }
+    });
+  }
+
+  public excluirSuspensao(suspensao: Suspensao): void {
+    const dialogRef = this._dialog.open(DialogoConfirmacaoComponent, {
+      data: {
+        titulo: 'EXCLUSÃO DE SUSPENSÃO',
+        mensagem: `Confirma a exclusão da Suspensão: ${suspensao.texto}?`
+      },
+    });
+
+    dialogRef.afterClosed().subscribe(confirmacao => {
+      if (confirmacao) {
+        this._processoService.excluirSuspensao(
+          this.parametros.numero, 
+          this.parametros.ano, 
+          this.parametros.processo, 
+          suspensao.id
+        )
+            .subscribe({
+              next: () => {
+                this.mostrarAlerta('success', 'Sucesso!', `A Suspensão foi excluída com sucesso.`);
+                this.cd.detectChanges();
+              },
+              error: (error) => {
+                console.error(error);
+                this.mostrarAlerta("error", "Error", error.message);
+                this.cd.detectChanges();
+              }
+        });
       }
     });
   }
@@ -427,7 +466,7 @@ export class ResultadoJulgamentoComponent implements OnInit {
           this.mostrarAlerta('success', 'Sucesso', data);
         },
         error: (data) => {
-          console.log(data);
+          console.error(data);
         }
       });
     }
@@ -442,6 +481,7 @@ export class ResultadoJulgamentoComponent implements OnInit {
   private _carregarDadosProcessos(): void {
     this._processoService.listarProcessoJulgamento(this.parametros.processo, this.parametros.numero, this.parametros.ano).subscribe({
       next: (processo) => {
+        console.error(processo?.suspensoes)
         this.processo = processo;
         this.todosCapitulos = processo.capitulos;
         this.cd.detectChanges();
@@ -453,13 +493,13 @@ export class ResultadoJulgamentoComponent implements OnInit {
             this.votos = votos;
           },
           error: (error) => {
-            console.log(error);
+            console.error(error);
             this.mostrarAlerta("error", "Error", error.message);
           }
         });
       },
       error: (error) => {
-        console.log(error);
+        console.error(error);
         this.mostrarAlerta("error", "Error", error.message);
       }
 
@@ -469,7 +509,7 @@ export class ResultadoJulgamentoComponent implements OnInit {
   private _carregarSuspensoesVistaEDestaque(): void {
     this.vistasEDestaques = [];
     if (this.processo != null) {
-      this.vistasEDestaques = this.vistasEDestaques.concat(this.processo.destaques).concat(this.processo.vistas);
+      this.vistasEDestaques = [...this.processo.destaques, ...this.processo.vistas];
       this.vistasEDestaques.sort((a, b) => { if (a.data < b.data) return 1; if (a.data > b.data) return -1 });
     }
   }
@@ -538,10 +578,11 @@ export class ResultadoJulgamentoComponent implements OnInit {
   ): void {
     this.alerta = {
       nome,
-      tipo,
       titulo,
       mensagem,
-    }
+      tipo,
+    };
+
     this._alertaService.exibirAlerta(this.alerta.nome);
   }
 }

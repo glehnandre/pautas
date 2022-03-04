@@ -4,8 +4,9 @@ import { Processo } from 'app/shared/model/interfaces/processo.interface';
 import { Secretario } from 'app/shared/model/interfaces/secretario.interface';
 import { SessaoDeJulgamento } from 'app/shared/model/interfaces/sessao-julgamento.interface';
 import { Suspensao } from 'app/shared/model/interfaces/suspensao.interface';
+import { processo as processosData } from '../processos/data';
 import { setStorage } from '../storage';
-import { processos as processosData, secretarios, sessoesDeJulgamento, suspensoes } from './data';
+import { secretarios, sessoesDeJulgamento } from './data';
 
 @Injectable({
   providedIn: 'root'
@@ -14,7 +15,7 @@ export class SessaoDeJulgamentoMockApi {
   private _julgamentos: SessaoDeJulgamento[] = sessoesDeJulgamento;
   private _processos: Processo[] = processosData;
   private _secretarios: Secretario[] = secretarios;
-  private _suspensoes: Suspensao[] = suspensoes;
+  private _sessaoDeJulgamentos: SessaoDeJulgamento[] = sessoesDeJulgamento;
 
   constructor(
     private _fuseMockApiService: FuseMockApiService,
@@ -193,40 +194,82 @@ export class SessaoDeJulgamentoMockApi {
 
     this._fuseMockApiService
       .onPut('sessao-de-julgamento/:numero-ano/processo/:idProcesso/suspensao')
-      .reply(({request, urlParams}) => {
+      .reply(({ request, urlParams }) => {
         const numeroAno = urlParams['numero-ano'];
         const idProcesso = +urlParams.idProcesso;
         const suspensao = request.body as Suspensao;
 
-        const indexSuspensao = this._suspensoes
+        const indexJulgamento = this._sessaoDeJulgamentos.findIndex(julg => {
+          const sessaoNumeroAno = `${julg.numero}-${julg.ano}`;
+          return sessaoNumeroAno === numeroAno;
+        });
+
+        if (indexJulgamento === -1) {
+          return [404, 'Julgamento não encontrado.'];
+        }
+
+        const indexProcesso = this._sessaoDeJulgamentos[indexJulgamento].processos
+          .findIndex(p => p.id === idProcesso);
+
+        if (indexProcesso === -1) {
+          return [404, 'Processo não encontrado.'];
+        }
+        if(suspensao.id != undefined){
+          const indexSuspensao = this._sessaoDeJulgamentos[indexJulgamento].processos[indexProcesso].suspensoes
           .findIndex(s => {
-            const sessao = sessoesDeJulgamento.find(sj => sj.id === s.sessao);
-            const sessaoNumeroAno = `${sessao.numero}-${sessao.ano}`;
-
-            return s.id === suspensao.id && s.processo === idProcesso && sessaoNumeroAno === numeroAno}
+              const sessao = sessoesDeJulgamento.find(sj => sj.numero === +s.sessao);
+              const sessaoNumeroAno = `${sessao.numero}-${sessao.ano}`;
+              return +s.id === suspensao.id && +s.processo === idProcesso && sessaoNumeroAno === numeroAno
+            }
           );
-
-        if (indexSuspensao !== -1) { // Já existe uma suspensão
-          this._suspensoes[indexSuspensao] = suspensao;
-          console.log(this._suspensoes);
-          return [200, 'Suspensão atualizada com sucesso!'];
-        } else {
-          this._suspensoes.push(suspensao);
-          console.log(this._suspensoes);
+          if (indexSuspensao !== -1) { // Já existe uma suspensão
+            this._sessaoDeJulgamentos[indexJulgamento].processos[indexProcesso].suspensoes[indexSuspensao] = suspensao;
+            setStorage('sessoesDeJulgamento', this._sessaoDeJulgamentos);
+            return [200, 'Suspensão atualizada com sucesso!'];
+          }
+        }else{
+          suspensao.id = this._sessaoDeJulgamentos[indexJulgamento].processos[indexProcesso]?.suspensoes?.length + 1;
+          this._sessaoDeJulgamentos[indexJulgamento].processos[indexProcesso].suspensoes.push(suspensao);
+          setStorage('sessoesDeJulgamento', this._sessaoDeJulgamentos);
           return [200, 'Suspensão cadastrada com sucesso!'];
         }
       });
 
     this._fuseMockApiService
       .onDelete('sessao-de-julgamento/:numero-ano/processo/:idProcesso/suspensao/:idSuspensao')
-      .reply(({urlParams}) => {
+      .reply(({ urlParams }) => {
         const idSuspensao = +urlParams.idSuspensao;
+        const idProcesso = +urlParams.idProcesso;
+        const numeroAno = urlParams['numero-ano'];
 
-        const indexSuspensao = this._suspensoes
-          .findIndex(s => s.id === idSuspensao);
+        const indexJulgamento = this._sessaoDeJulgamentos.findIndex(julg => {
+          const sessaoNumeroAno = `${julg.numero}-${julg.ano}`;
+          return sessaoNumeroAno === numeroAno;
+        });
+
+        if (indexJulgamento === -1) {
+          return [404, 'Julgamento não encontrado :('];
+        }
+
+        const indexProcesso = this._sessaoDeJulgamentos[indexJulgamento].processos
+          .findIndex(p => p.id === idProcesso);
+
+        if (indexProcesso === -1) {
+          return [404, 'Processo não encontrado :('];
+        }
+
+        const indexSuspensao = this._sessaoDeJulgamentos[indexJulgamento].processos[indexProcesso].suspensoes
+          .findIndex(s => {
+            const sessao = sessoesDeJulgamento.find(sj => sj.numero === +s.sessao);
+            const sessaoNumeroAno = `${sessao.numero}-${sessao.ano}`;
+
+            return +s.id === idSuspensao && +s.processo === idProcesso && sessaoNumeroAno === numeroAno
+          }
+          );
 
         if (indexSuspensao !== -1) { // Já existe uma suspensão
-          this._suspensoes.splice(indexSuspensao, 1);
+          this._sessaoDeJulgamentos[indexJulgamento].processos[indexProcesso].suspensoes.splice(indexSuspensao, 1);
+          setStorage('sessoesDeJulgamento', this._sessaoDeJulgamentos);
           return [200, 'Suspensão excluída com sucesso!'];
         } else {
           return [404, 'Nenhuma suspensão encontrada!'];

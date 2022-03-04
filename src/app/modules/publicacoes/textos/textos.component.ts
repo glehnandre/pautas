@@ -89,7 +89,7 @@ export class TextosComponent implements OnInit, AfterContentChecked {
           window.open(this.link['changingThisBreaksApplicationSecurity'], "_blank");
         },
         error: (error) => {
-          console.log(error);
+          console.error(error);
           this.errorMessage = error.message
           this._alertaService.exibirAlerta("Error");
         }

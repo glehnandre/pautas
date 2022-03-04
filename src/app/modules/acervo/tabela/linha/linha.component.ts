@@ -54,7 +54,7 @@ export class LinhaComponent implements OnInit {
     this.link = this._sanitizer.bypassSecurityTrustResourceUrl('');
     this.docs$ = this._processoService.obterDocumentosDoProcesso(this.processo.id).pipe(
       catchError(error => {
-        console.log(error);
+        console.error(error);
         this.errorMessage =  error.message;
         this._alertaService.exibirAlerta("Error")
         return EMPTY;

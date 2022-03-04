@@ -6,6 +6,7 @@ import { Documento } from 'app/shared/model/interfaces/documento.interface';
 import { Impedimento } from 'app/shared/model/interfaces/impedimento.interface';
 import { ModeloDecisao } from 'app/shared/model/interfaces/modeloDecisao.interface';
 import { Processo } from 'app/shared/model/interfaces/processo.interface';
+import { Suspensao } from 'app/shared/model/interfaces/suspensao.interface';
 import { Tag } from 'app/shared/model/interfaces/tag.interface';
 import { Vista } from 'app/shared/model/interfaces/vista.interface';
 import { Voto } from 'app/shared/model/interfaces/voto.interface';
@@ -168,6 +169,16 @@ export class ProcessoService {
 
   public salvarModeloDecisao(modelo: ModeloDecisao): Observable<ModeloDecisao> {
     return this._httpClient.post<ModeloDecisao>(`modelo-decisao`, modelo);
+  }
+
+  public salvarOuAtualizarSuspensao(numero: number, ano: number, idProcesso: number, suspensao: Suspensao): Observable<void> {
+    const numeroAno = `${numero}-${ano}`;
+    return this._httpClient.put<void>(`sessao-de-julgamento/${numeroAno}/processo/${idProcesso}/suspensao`, suspensao);
+  }
+
+  public excluirSuspensao(numero: number, ano: number, idProcesso: number, idSuspensao: number): Observable<void> {
+    const numeroAno = `${numero}-${ano}`;
+    return this._httpClient.delete<void>(`sessao-de-julgamento/${numeroAno}/processo/${idProcesso}/suspensao/${idSuspensao}`);
   }
 
   public obterModeloDecisao(classe: string, tipoCapitulo: string, dispositivo: number, recurso: number): Observable<ModeloDecisao> {

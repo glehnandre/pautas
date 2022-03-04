@@ -90,7 +90,7 @@ export class AcervoComponent implements OnInit {
       idsTags: this.processo.idsTags,
     }).pipe(
       catchError((error) => {
-        console.log(error);
+        console.error(error);
         return EMPTY;
       }),
     );
