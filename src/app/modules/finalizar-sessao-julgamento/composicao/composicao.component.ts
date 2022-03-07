@@ -45,7 +45,7 @@ export class ComposicaoComponent implements OnInit {
         this.ministros['primeira-turma'] = ministros;
       },
       error: (error) => {
-        console.lerrorog(error);
+        console.error(error);
         this.errorMessage = error.message
         this._alertaService.exibirAlerta("Error");
       }

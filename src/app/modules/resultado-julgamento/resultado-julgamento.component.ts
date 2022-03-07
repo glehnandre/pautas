@@ -345,11 +345,6 @@ export class ResultadoJulgamentoComponent implements OnInit {
     this.abrirGaveta(this.FORM_VISTA_DESTAQUE)
   }
 
-  public pedirSuspensao(): void {
-    this.suspensaoSelecionada = null;
-    this.abrirGaveta(this.DRAWER_SUSPENSAO);
-  }
-
   public excluirVistaOuDestaque(item: any): void {
     if (item.type == 'vista') {
       this.excluirVista(item);

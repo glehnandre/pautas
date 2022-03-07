@@ -15,7 +15,7 @@
         <form [formGroup]="formModeloDecisao">
             <div class="w-full grid grid-cols-1 sm:grid-cols-8 gap-4">
                 <mat-form-field class="w-full mb-4 col-span-2" appearance="outline">
-                    <mat-label>Classe processural <span class="text-red-500">*</span></mat-label>
+                    <mat-label>Classe processural</mat-label>
                     <mat-select
                         formControlName="classe"
                         (selectionChange)="carregarModeloDecisao()"
@@ -31,7 +31,7 @@
                 </mat-form-field>
 
                 <mat-form-field class="w-full mb-4 col-span-2" appearance="outline">
-                    <mat-label>Tipo do Capítulo <span class="text-red-500">*</span></mat-label>
+                    <mat-label>Tipo do Capítulo</mat-label>
                     <mat-select
                         formControlName="tipoCapitulo"
                         (valueChange)="buscarDispositivos()"
@@ -48,7 +48,7 @@
                 </mat-form-field>
 
                 <mat-form-field class="w-full mb-4 col-span-2" appearance="outline">
-                    <mat-label>Dispositivo <span class="text-red-500">*</span></mat-label>
+                    <mat-label>Dispositivo</mat-label>
                     <mat-select
                         formControlName="dispositivo"
                         (selectionChange)="carregarModeloDecisao()"
@@ -64,7 +64,7 @@
                 </mat-form-field>
 
                 <mat-form-field class="w-full mb-4 col-span-2" appearance="outline">
-                    <mat-label>Recurso <span class="text-red-500">*</span></mat-label>
+                    <mat-label>Recurso</mat-label>
                     <mat-select
                         formControlName="recurso"
                         (selectionChange)="carregarModeloDecisao()"
