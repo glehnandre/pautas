@@ -13,7 +13,7 @@ import { catchError } from 'rxjs/operators';
 
 
 @Component({
-  selector: 'app-linha',
+  selector: 'digital-linha',
   templateUrl: './linha.component.html',
   styleUrls: ['./linha.component.scss']
 })

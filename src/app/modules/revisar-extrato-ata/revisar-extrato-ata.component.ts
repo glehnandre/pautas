@@ -18,7 +18,7 @@ interface Parametros {
 }
 
 @Component({
-  selector: 'app-revisar-extrato-ata',
+  selector: 'digital-revisar-extrato-ata',
   templateUrl: './revisar-extrato-ata.component.html',
   styleUrls: ['./revisar-extrato-ata.component.scss']
 })

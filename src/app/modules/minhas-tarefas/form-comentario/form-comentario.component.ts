@@ -12,7 +12,7 @@ interface FormComentarioData {
 }
 
 @Component({
-  selector: 'app-form-comentario',
+  selector: 'digital-form-comentario',
   templateUrl: './form-comentario.component.html',
   styleUrls: ['./form-comentario.component.scss']
 })

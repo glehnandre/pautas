@@ -11,7 +11,7 @@ import { RevisaoInteiroTeor } from "../revisar-inteiro-teor.component";
 
 
 @Component({
-  selector: 'app-conteudo-publicacao',
+  selector: 'digital-conteudo-publicacao',
   templateUrl: './conteudo-publicacao.component.html',
   styleUrls: ['./conteudo-publicacao.component.scss']
 })

@@ -24,13 +24,13 @@
     <hr class="m-0 p-0" />
 
     <header class="px-8 pt-4 bg-card">
-        <app-cabecalho-relator
+        <digital-cabecalho-relator
             [processo]="processo"
             [colegiado]="'pleno'"
             [nomesDasSessoes]="nomesDasSessoes"
-        ></app-cabecalho-relator>
+        ></digital-cabecalho-relator>
 
-        <app-acoes
+        <digital-acoes
             [linhasSelecionadas]="linhasSelecionadas"
             [idProcesso]="idProcesso"
             [documentosDoProcesso]="documentosDoProcesso"
@@ -38,65 +38,65 @@
             (todosOsCheckboxSelecionados)="selecionarOuDeselecionarTodosOsCheckbox()"
             (revisoesAlteradas)="atualizarConteudo($event)"
             (publicacao)="abrirPublicacao()"
-        ></app-acoes>
+        ></digital-acoes>
     </header>
 
     <!-- Main -->
     <div class="flex-auto overflow-y-auto px-8 py-4 bg-card" cdkScrollable>
-        <app-tabela
+        <digital-tabela
             [dataSource]="dataSource"
             [revisoes]="revisoes"
             [todosOsCheckboxSelecionados]="todosOsCheckboxSelecionados"
             [idProcesso]="idProcesso"
             (checked)="selecionarOuDeselecionarLinha($event)"
             (link)="abrirPdf($event)"
-        ></app-tabela>
+        ></digital-tabela>
     </div>
 </div>
 
-<app-visualizador-pdf
+<digital-visualizador-pdf
     *ngIf="link"
     [nome]="'visualizador-pdf-do-revisar-inteiro-teor'"
     [link]="link"
     [posicao]="'left'"
-></app-visualizador-pdf>
+></digital-visualizador-pdf>
 
-<app-visualizador-inteiro-teor
+<digital-visualizador-inteiro-teor
     [nome]="'visualizador-inteiro-teor'"
     [link]="publicacao"
     [conteudo]="conteudo"
     [posicao]="'left'"
     [revisao]="revisoes"
     [processo]="processo"
-></app-visualizador-inteiro-teor>
+></digital-visualizador-inteiro-teor>
 
 <div class="w-full">
-    <app-alerta
+    <digital-alerta
         [nome]="'sucesso'"
         [titulo]="'Sucesso'"
         [mensagem]="MENSAGEM_SUCESSO"
         [aparencia]="'soft'"
         [tipo]="'success'"
         class="w-full"
-    ></app-alerta>
+    ></digital-alerta>
 
-    <app-alerta
+    <digital-alerta
         [nome]="NOME_DO_ALERTA_DESTA_CLASSE"
         [titulo]="'Erro de validação'"
         [mensagem]="'Selecione alguma linha da tabela para poder usar essa opção'"
         [aparencia]="'soft'"
         [tipo]="'error'"
         class="w-full"
-    ></app-alerta>
+    ></digital-alerta>
 </div>
 
-<app-alerta
+<digital-alerta
     [nome]="'Error'"
     [titulo]="'Error'"
     [mensagem]="errorMessage"
     [aparencia]="'outline'"
     [tipo]="'error'"
     class="absolute top-2 right-2 max-w-120 mx-auto z-40"
-></app-alerta>
+></digital-alerta>
 
 

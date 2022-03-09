@@ -20,7 +20,7 @@ export interface Filtro {
 }
 
 @Component({
-    selector: 'app-tabela',
+    selector: 'digital-tabela',
     templateUrl: './tabela.component.html',
     styleUrls: ['./tabela.component.scss'],
     providers: [{provide: MatPaginatorIntl, useClass: PaginacaoCustomizadaComponent}],

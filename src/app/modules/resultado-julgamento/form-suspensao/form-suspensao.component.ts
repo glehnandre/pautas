@@ -15,7 +15,7 @@ interface Parametros {
 }
 
 @Component({
-  selector: 'app-form-suspensao',
+  selector: 'digital-form-suspensao',
   templateUrl: './form-suspensao.component.html',
   styleUrls: ['./form-suspensao.component.scss']
 })

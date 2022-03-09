@@ -22,7 +22,7 @@ const DATE_FORMATS = {
 };
 
 @Component({
-  selector: 'app-resposta-solicitacao-sessao-extraordinaria',
+  selector: 'digital-resposta-solicitacao-sessao-extraordinaria',
   templateUrl: './resposta-solicitacao-sessao-extraordinaria.component.html',
   styleUrls: ['./resposta-solicitacao-sessao-extraordinaria.component.scss'],
   providers: [

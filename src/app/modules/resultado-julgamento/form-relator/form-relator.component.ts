@@ -17,7 +17,7 @@ interface FormRelatorData {
 }
 
 @Component({
-  selector: 'app-form-relator',
+  selector: 'digital-form-relator',
   templateUrl: './form-relator.component.html',
   styleUrls: ['./form-relator.component.scss']
 })

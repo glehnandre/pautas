@@ -11,7 +11,7 @@ import { ProcessoService } from '../services/processo.service';
 
 
 @Component({
-  selector: 'app-criacao-colegiado',
+  selector: 'digital-criacao-colegiado',
   templateUrl: './criacao-colegiado.component.html',
   styleUrls: ['./criacao-colegiado.component.scss'],
 })

@@ -1,7 +1,7 @@
 import { AfterContentChecked, Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
 
 @Component({
-    selector: 'app-carrossel-chips',
+    selector: 'digital-carrossel-chips',
     templateUrl: './carrossel-chips.component.html',
     styleUrls: ['./carrossel-chips.component.scss']
 })

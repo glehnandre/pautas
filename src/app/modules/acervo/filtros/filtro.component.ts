@@ -6,7 +6,7 @@ import { Filtros } from './filtros';
 
 
 @Component({
-  selector: 'app-filtro',
+  selector: 'digital-filtro',
   templateUrl: './filtro.component.html',
   styleUrls: ['./filtro.component.scss'],
   encapsulation: ViewEncapsulation.None,

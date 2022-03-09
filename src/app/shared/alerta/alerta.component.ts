@@ -8,7 +8,7 @@ export interface Alerta{
 }
 
 @Component({
-  selector: 'app-alerta',
+  selector: 'digital-alerta',
   templateUrl: './alerta.component.html',
   styleUrls: ['./alerta.component.scss']
 })

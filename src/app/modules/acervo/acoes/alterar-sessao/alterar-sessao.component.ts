@@ -10,7 +10,7 @@ import { Colegiado } from '../pautar/pautar.component';
 import { SessaoJulgamento } from '../pautar/sessaoJulgamento';
 
 @Component({
-  selector: 'app-alterar-sessao',
+  selector: 'digital-alterar-sessao',
   templateUrl: './alterar-sessao.component.html',
   styleUrls: ['./alterar-sessao.component.scss']
 })

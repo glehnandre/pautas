@@ -17,7 +17,7 @@ interface Filtrados {
 }
 
 @Component({
-  selector: 'app-filtros',
+  selector: 'digital-filtros',
   templateUrl: './filtros.component.html',
   styleUrls: ['./filtros.component.scss']
 })

@@ -3,7 +3,7 @@ import { FormBuilder } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 
 @Component({
-  selector: 'app-form-resposta',
+  selector: 'digital-form-resposta',
   templateUrl: './form-resposta.component.html',
   styleUrls: ['./form-resposta.component.scss']
 })

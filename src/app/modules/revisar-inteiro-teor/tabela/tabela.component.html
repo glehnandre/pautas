@@ -49,10 +49,10 @@
                 </span>
 
                 <div class="mb-3 ml-2">
-                    <app-icones-votos
+                    <digital-icones-votos
                         [ministros]="document.autores"
                         [quantidade]="3"
-                    ></app-icones-votos>
+                    ></digital-icones-votos>
                 </div>
             </div>
         </td>
@@ -75,10 +75,10 @@
         >
             <div class="flex flex-row justify-center items-center" *ngIf="(document.responsavel | json) !== '{}'">
                 <div class="mb-3">
-                    <app-icones-votos
+                    <digital-icones-votos
                         [ministros]="[document.responsavel]"
                         [quantidade]="1"
-                    ></app-icones-votos>
+                    ></digital-icones-votos>
                 </div>
             </div>
         </td>
@@ -324,11 +324,11 @@
     ></tr>
 </table>
 
-<app-alerta
+<digital-alerta
     [nome]="'Error'"
     [titulo]="'Error'"
     [mensagem]="errorMessage"
     [aparencia]="'outline'"
     [tipo]="'error'"
     class="absolute top-2 right-2 max-w-120 mx-auto z-40"
-></app-alerta>
+></digital-alerta>

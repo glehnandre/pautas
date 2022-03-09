@@ -5,7 +5,7 @@ import { Documento } from 'app/shared/model/interfaces/documento.interface';
 
 
 @Component({
-  selector: 'app-incluir-documento',
+  selector: 'digital-incluir-documento',
   templateUrl: './incluir-documento.component.html',
   styleUrls: ['./incluir-documento.component.scss']
 })

@@ -6,7 +6,7 @@ import { StatusProcesso } from '../../status/situacaoProcesso';
 
 
 @Component({
-  selector: 'app-status',
+  selector: 'digital-status',
   templateUrl: './status.component.html',
   styleUrls: ['./status.component.scss']
 })

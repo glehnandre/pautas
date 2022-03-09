@@ -6,7 +6,7 @@ import { Processo } from '../model/interfaces/processo.interface';
 
 
 @Component({
-  selector: 'app-processo-capitulo',
+  selector: 'digital-processo-capitulo',
   templateUrl: './processo-capitulo.component.html',
   styleUrls: ['./processo-capitulo.component.scss']
 })

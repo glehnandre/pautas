@@ -46,13 +46,13 @@
                 </div>
             </div>
             <div class="flex flex-row -pt-4 w-full">
-                <app-stacked-bar-processos
+                <digital-stacked-bar-processos
                   *ngIf="ata"
                   class="w-full"
                   [julgados]="ata.total_julgados"
                   [nao_julgados]="ata.total_nao_julgados"
                   [suspensos]="ata.total_suspensos"
-                ></app-stacked-bar-processos>
+                ></digital-stacked-bar-processos>
 
                 <button class="ml-2 hidden sm:flex" color="primary" mat-raised-button (click)="corrigir()">
                     <span>Solicitar Correção</span>
@@ -63,20 +63,20 @@
 
     <!-- Body -->
     <div class="overflow-y-auto w-full" cdkScrollable>
-        <app-extrato-ata
+        <digital-extrato-ata
           *ngIf="ata && sessao"
           [ata]="ata"
           [sessao]="sessao"
           [form]="form"
-        ></app-extrato-ata>
+        ></digital-extrato-ata>
     </div>
 </div>
 
-<app-alerta
+<digital-alerta
     [nome]="'Error'"
     [titulo]="'Error'"
     [mensagem]="errorMessage"
     [aparencia]="'outline'"
     [tipo]="'error'"
     class="absolute top-2 right-2 max-w-120 mx-auto z-40"
-></app-alerta>
+></digital-alerta>

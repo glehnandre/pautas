@@ -13,7 +13,7 @@ import { Processo } from 'app/shared/model/interfaces/processo.interface';
 import { Impedimento } from 'app/shared/model/interfaces/impedimento.interface';
 
 @Component({
-  selector: 'app-sessoes-julgamentos',
+  selector: 'digital-sessoes-julgamentos',
   templateUrl: './sessoes-julgamentos.component.html',
   styleUrls: ['./sessoes-julgamentos.component.scss']
 })

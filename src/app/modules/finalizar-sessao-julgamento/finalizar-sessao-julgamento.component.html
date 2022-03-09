@@ -57,22 +57,22 @@
 
     <!-- Main -->
     <div class="flex flex-col overflow-y-auto py-4 px-4 sm:px-8 lg:py-8 lg:px-40 bg-card"cdkScrollable>
-        <app-composicao
+        <digital-composicao
           [listaPresenca]="{
             presidencia: sessao?.ata?.presidencia,
             presentes: sessao?.ata?.ministros_presentes,
             ausentes: sessao?.ata?.ministros_ausentes
           }"
           (statusComposicao)="recuperaComposicao($event)"
-        ></app-composicao>
+        ></digital-composicao>
 
-        <app-form
+        <digital-form
           class="m-4 bg-card rounded-2xl p-4"
           [secretario]="sessao?.ata?.secretario"
           [cabecalho]="sessao?.ata?.cabecalho"
           [outrosPresentes]="sessao?.ata?.outros_presentes"
           (statusForm)="recuperaForm($event)"
-        ></app-form>
+        ></digital-form>
 
         <div class="flex flex-row space-x-2 ml-auto">
             <button mat-button>Cancelar</button>
@@ -81,13 +81,13 @@
     </div>
 
     <div class="absolute top-0 right-0 z-10">
-        <app-alerta
+        <digital-alerta
             [nome]="alerta.nome"
             [titulo]="alerta.titulo"
             [mensagem]="alerta.mensagem"
             [aparencia]="'soft'"
             [tipo]="alerta.tipo"
             class="w-full"
-        ></app-alerta>
+        ></digital-alerta>
     </div>
 </div>

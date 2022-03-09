@@ -24,7 +24,7 @@ interface ModeloDecisaoData {
 }
 
 @Component({
-  selector: 'app-form-modelo-decisao',
+  selector: 'digital-form-modelo-decisao',
   templateUrl: './form-modelo-decisao.component.html',
   styleUrls: ['./form-modelo-decisao.component.scss']
 })

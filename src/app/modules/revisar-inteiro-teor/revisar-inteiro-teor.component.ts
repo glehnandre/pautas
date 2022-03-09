@@ -27,7 +27,7 @@ export interface RevisaoInteiroTeor {
 }
 
 @Component({
-  selector: 'app-revisar-inteiro-teor',
+  selector: 'digital-revisar-inteiro-teor',
   templateUrl: './revisar-inteiro-teor.component.html',
   styleUrls: ['./revisar-inteiro-teor.component.scss'],
 })

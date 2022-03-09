@@ -11,7 +11,7 @@ import { Voto } from '../model/interfaces/voto.interface';
 
 
 @Component({
-  selector: 'app-cabecalho-relator',
+  selector: 'digital-cabecalho-relator',
   templateUrl: './cabecalho-relator.component.html',
   styleUrls: ['./cabecalho-relator.component.scss']
 })

@@ -4,7 +4,7 @@ import { ComposicaoColegiado } from 'app/shared/model/interfaces/colegiado.inter
 import { Ministro } from 'app/shared/model/interfaces/ministro.interface';
 
 @Component({
-  selector: 'app-card-ministro',
+  selector: 'digital-card-ministro',
   templateUrl: './card-ministro.component.html',
   styleUrls: ['./card-ministro.component.scss']
 })

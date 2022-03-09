@@ -12,7 +12,7 @@ import { PublicacaoService } from '../services/publicacao.service';
 
 
 @Component({
-  selector: 'app-publicacoes',
+  selector: 'digital-publicacoes',
   templateUrl: './publicacoes.component.html',
   styleUrls: ['./publicacoes.component.scss'],
   encapsulation: ViewEncapsulation.None

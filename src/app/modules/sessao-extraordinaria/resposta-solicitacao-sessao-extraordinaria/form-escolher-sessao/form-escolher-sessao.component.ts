@@ -24,7 +24,7 @@ const DATE_FORMATS = {
   };
 
 @Component({
-  selector: 'app-form-escolher-sessao',
+  selector: 'digital-form-escolher-sessao',
   templateUrl: './form-escolher-sessao.component.html',
   styleUrls: ['./form-escolher-sessao.component.scss'],
   providers: [

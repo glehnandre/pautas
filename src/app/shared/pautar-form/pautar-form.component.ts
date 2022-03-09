@@ -4,7 +4,7 @@ import { Colegiado } from 'app/modules/acervo/acoes/pautar/pautar.component';
 import { SessaoDeJulgamento } from '../model/interfaces/sessao-julgamento.interface';
 
 @Component({
-  selector: 'app-pautar-form',
+  selector: 'digital-pautar-form',
   templateUrl: './pautar-form.component.html',
   styleUrls: ['./pautar-form.component.scss']
 })

@@ -12,7 +12,7 @@ import { SessaoDeJulgamento } from 'app/shared/model/interfaces/sessao-julgament
 registerLocaleData(localePt);
 
 @Component({
-  selector: 'app-extrato-ata',
+  selector: 'digital-extrato-ata',
   templateUrl: './extrato-ata.component.html',
   styleUrls: ['./extrato-ata.component.scss'],
   providers: [

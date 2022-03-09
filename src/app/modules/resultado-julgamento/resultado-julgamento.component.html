@@ -12,8 +12,8 @@
             <hr class="m-0 mt-0 p-0" />
         
             <header class="pt-2 flex flex-col px-2 bg-card">
-                <app-cabecalho-relator [processo]="processo" [colegiado]="parametros.colegiado" [votos]="votos"
-                    [sessao]="sessao" [chips]="obterNomeDosChips()" *ngIf="processo"></app-cabecalho-relator>
+                <digital-cabecalho-relator [processo]="processo" [colegiado]="parametros.colegiado" [votos]="votos"
+                    [sessao]="sessao" [chips]="obterNomeDosChips()" *ngIf="processo"></digital-cabecalho-relator>
         
                 <div class="hidden md:grid md:grid-cols-6 lg:grid lg:grid-cols-10 my-2">
                     <div class="md:col-span-5 lg:col-span-6 my-auto">
@@ -37,9 +37,9 @@
         
         
                     <div class="md:col-span-1 lg:col-span-4">
-                        <app-chips [idChip]="'idChipsResultadoJulgamento'" [chips]="chips" [hasArrow]="true"
+                        <digital-chips [idChip]="'idChipsResultadoJulgamento'" [chips]="chips" [hasArrow]="true"
                             [hasBtnRemove]="true" [conteudosNoChipParaSerRemovivel]="['vista', 'destaque']"
-                            (onClick)="exibirModalDeIndicacaoDeImpedimentos()"></app-chips>
+                            (onClick)="exibirModalDeIndicacaoDeImpedimentos()"></digital-chips>
                     </div>
                 </div>
         
@@ -347,14 +347,14 @@
                             </button>
                         </div>
 
-                        <app-form-decisao
+                        <digital-form-decisao
                             [capitulo]="capituloSelecionado"
                             [processo]="processo"
                             [sessaoDeJulgamento]="sessao"
                             (dadosDoCapitulo)="atualizarCapitulos($event); abrirGaveta(FORM_CADASTRO_DECISAO)"
                             (resultadoDaAcao)="obterResultadoDaAcao($event)"
                             (closeDrawerEmit)="fecharGaveta(FORM_CADASTRO_DECISAO)"
-                        ></app-form-decisao>
+                        ></digital-form-decisao>
                     </div>
                 </fuse-drawer>
 
@@ -375,14 +375,14 @@
                                 <mat-icon>arrow_forward</mat-icon>
                             </button>
 
-                            <app-form-vista-e-destaque
+                            <digital-form-vista-e-destaque
                                 [sessao]= "sessao"
                                 [vistaOuDestaqueSelecionado]="vistaOuDestaqueSelecionado"
                                 [processo] = "processo"
                                 (closeDrawerEmit)="fecharGaveta(FORM_VISTA_DESTAQUE)"
                                 (savedDrawer)="retornoVistaDestaqueDrawer($event)"
                                 (excluirVistaOuDestaque)="excluirVistaOuDestaque($event)"
-                            ></app-form-vista-e-destaque>
+                            ></digital-form-vista-e-destaque>
                         </div>
                     </div>
                 </fuse-drawer>
@@ -404,11 +404,11 @@
                                 <mat-icon>arrow_forward</mat-icon>
                             </button>
 
-                            <app-form-suspensao
+                            <digital-form-suspensao
                                 [parametros]="parametros"
                                 [suspensao]="suspensaoSelecionada"
                                 (closeDrawerEmit)="fecharGaveta(DRAWER_SUSPENSAO);"
-                            ></app-form-suspensao>
+                            ></digital-form-suspensao>
                         </div>
                     </div>
                 </fuse-drawer>
@@ -417,11 +417,11 @@
     </div>
 </div>
 
-<app-alerta 
+<digital-alerta 
     [nome]="alerta.nome" 
     [titulo]="alerta.titulo" 
     [mensagem]="alerta.mensagem" 
     [aparencia]="'outline'"
     [tipo]="alerta.tipo" 
     class="absolute top-2 right-2 max-w-120 mx-auto z-40"
-></app-alerta>
+></digital-alerta>

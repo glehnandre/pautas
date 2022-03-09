@@ -15,7 +15,7 @@ import { FormRespostaComponent } from './form-resposta/form-resposta.component';
 registerLocaleData(localePT);
 
 @Component({
-  selector: 'app-sessao-extraordinaria',
+  selector: 'digital-sessao-extraordinaria',
   templateUrl: './sessao-extraordinaria.component.html',
   styleUrls: ['./sessao-extraordinaria.component.scss']
 })

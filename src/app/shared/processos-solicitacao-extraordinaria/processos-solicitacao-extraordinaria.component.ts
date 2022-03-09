@@ -8,7 +8,7 @@ import { SessaoDeJulgamento } from '../model/interfaces/sessao-julgamento.interf
 
 
 @Component({
-  selector: 'app-processos-solicitacao-extraordinaria',
+  selector: 'digital-processos-solicitacao-extraordinaria',
   templateUrl: './processos-solicitacao-extraordinaria.component.html',
   styleUrls: ['./processos-solicitacao-extraordinaria.component.scss']
 })

@@ -25,10 +25,10 @@
     <hr class="m-0 p-0" />
 
     <header class="px-8 pt-4 bg-white">
-        <app-cabecalho-relator
+        <digital-cabecalho-relator
             [processo]="queryParams?.processo"
             [colegiado]="queryParams?.colegiado"
-        ></app-cabecalho-relator>
+        ></digital-cabecalho-relator>
 
         <div class="my-2 text-primary font-medium text-lg">
             <p *ngIf="votosDosMinistros.length < 5">
@@ -50,24 +50,24 @@
                         sm:grid-cols-2 
                         md:grid-cols-3 md:max-w-280"
             >
-              <app-card-ministro
+              <digital-card-ministro
                   [class]="'w-full max-w-72'"
                   *ngFor="let comp of colegiados[0]?.composicao"
                   [composicao]="comp"
                   [colegiado]="colegiados[0]?.nome"
                   [disabled]="isMinistroParticipadandoDaVotacao(comp)"
                   (statusVotacao)="obterStatusDoVoto($event)"
-              ></app-card-ministro>
+              ></digital-card-ministro>
             </main>
         </div>
     </div>
 </div>
 
-<app-alerta
+<digital-alerta
     [nome]="alerta.nome"
     [titulo]="alerta.titulo"
     [mensagem]="alerta.mensagem"
     [aparencia]="'outline'"
     [tipo]="alerta.tipo"
     class="absolute top-2 right-2 max-w-120 mx-auto z-40"
-></app-alerta>
+></digital-alerta>

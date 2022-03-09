@@ -24,17 +24,17 @@
                     {{processo.cadeia}}
                 </div>
                 <div>
-                    <app-status
+                    <digital-status
                         [idProcesso]="processo.id" (statusSelecionado)="filtrarPorStatus($event)"
-                    ></app-status>
+                    ></digital-status>
                 </div>
             </div>
             <div class="flex flex-row w-full">
                 <div class="w-1/2 flex flex-row items-center">
-                    <app-tags [tags]="processo.lista" (tagSelecionada)="filtrarPorTags($event)"></app-tags>
+                    <digital-tags [tags]="processo.lista" (tagSelecionada)="filtrarPorTags($event)"></digital-tags>
                 </div>
                 <div class="w-1/2">
-                        <app-carrossel
+                        <digital-carrossel
                             *ngIf = "(docs$ | async | reduceDocuments) as docs"
                             [idChip]="'idDocExp'"
                             [chips]="docs?.nomes"
@@ -43,27 +43,27 @@
                             [class]="['flex-none', 'border-primary', 'border-solid', 'border-2', 'bg-transparent', 'text-primary']"
                             (linkDoPdfSelecionado)="abrirLink($event)"
                             [idLinha]="idLinha"
-                        ></app-carrossel>
+                        ></digital-carrossel>
                 </div>
             </div>
         </div>
     </mat-expansion-panel-header>
 
     <!--Conteúdo de dentro da área expansível-->
-    <app-processo-capitulo [processo]="processo"></app-processo-capitulo>
+    <digital-processo-capitulo [processo]="processo"></digital-processo-capitulo>
 </mat-expansion-panel>
 
-<app-visualizador-pdf
+<digital-visualizador-pdf
     *ngIf="link"
     [nome]="'visualizador-pdf-do-acervo' + idLinha"
     [link]="link"
-></app-visualizador-pdf>
+></digital-visualizador-pdf>
 
-<app-alerta
+<digital-alerta
     [nome]="'Error'"
     [titulo]="'Error'"
     [mensagem]="errorMessage"
     [aparencia]="'outline'"
     [tipo]="'error'"
     class="absolute top-2 right-2 max-w-120 mx-auto z-40"
-></app-alerta>
+></digital-alerta>

@@ -1,10 +1,10 @@
-<app-paginacao
+<digital-paginacao
     [totalDeDados]="5"
     (paginacao)="dadosDaPaginacao($event)"
-></app-paginacao>
+></digital-paginacao>
 
 <div class="m-2 sm:mx-0.5">
-    <app-linha
+    <digital-linha
         *ngFor="let processo of processos; index as i"
         [processo]="processo"
         (checked)="trataEventoDeChecked($event)"
@@ -12,19 +12,19 @@
         (tagSelecionada)="filtrarPorTags($event)"
         (statusSelecionado)="filtrarPorStatus($event)"
         [idLinha]="i"
-    ></app-linha>
+    ></digital-linha>
 </div>
 
-<app-paginacao
+<digital-paginacao
     [totalDeDados]="5"
     (paginacao)="dadosDaPaginacao($event)"
-></app-paginacao>
+></digital-paginacao>
 
-<app-alerta
+<digital-alerta
     [nome]="'Error'"
     [titulo]="'Error'"
     [mensagem]="errorMessage"
     [aparencia]="'outline'"
     [tipo]="'error'"
     class="absolute top-2 right-2 max-w-120 mx-auto z-40"
-></app-alerta>
+></digital-alerta>

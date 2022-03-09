@@ -10,7 +10,7 @@ import { NovaListaComponent } from './nova-lista/nova-lista.component';
 
 
 @Component({
-  selector: 'app-agrupar-emlista',
+  selector: 'digital-agrupar-emlista',
   templateUrl: './agrupar-emlista.component.html',
   styleUrls: ['./agrupar-emlista.component.scss']
 })

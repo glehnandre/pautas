@@ -25,9 +25,9 @@
                 </button>
             </div>
 
-            <app-filtros
+            <digital-filtros
                 [tarefas]="tarefas"
-            ></app-filtros>
+            ></digital-filtros>
         </mat-drawer>
 
         <mat-drawer-content class="">
@@ -119,17 +119,17 @@
                 <!-- Main -->
                 <div class="flex-auto overflow-y-auto sm:px-2 mt-2" cdkScrollable>
                     <!-- CONTENT GOES HERE -->
-                    <app-tabela
+                    <digital-tabela
                         (emitirTarefas)="tarefas = $event"
                         (emitirTarefasSelecionadas)="obterTarefasSelecionadas($event)"
-                    ></app-tabela>
+                    ></digital-tabela>
                 </div>
             </div>
         </mat-drawer-content>
     </mat-drawer-container>
 </div>
 
-<app-alerta
+<digital-alerta
     *ngIf="alerta"
     [nome]="NOME_DO_ALERTA"
     [titulo]="alerta.titulo"
@@ -137,4 +137,4 @@
     [aparencia]="'outline'"
     [tipo]="alerta.tipo"
     class="absolute top-2 right-2 max-w-120 mx-auto z-40"
-></app-alerta>
+></digital-alerta>

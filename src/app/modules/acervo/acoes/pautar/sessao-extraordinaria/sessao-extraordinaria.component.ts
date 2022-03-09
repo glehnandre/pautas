@@ -13,7 +13,7 @@ import { catchError, map, startWith } from 'rxjs/operators';
 
 
 @Component({
-  selector: 'app-sessao-extraordinaria',
+  selector: 'digital-sessao-extraordinaria',
   templateUrl: './sessao-extraordinaria.component.html',
   styleUrls: ['./sessao-extraordinaria.component.scss']
 })

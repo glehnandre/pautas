@@ -13,17 +13,17 @@
             class="flex flex-col py-6 sm:py-8 overflow-y-auto"
             [formGroup]="pautarForm"
         >
-            <app-processo-chip
+            <digital-processo-chip
                 [processos]="processos"
                 [isRemovable]="true"
                 [isEmitRemoveEvent]="true"
                 [isReturnable]="true"
-            ></app-processo-chip>
+            ></digital-processo-chip>
 
-            <app-pautar-form
+            <digital-pautar-form
                 [sessoes]="sessoes"
                 (statusPautarForm)="atualizaPautarForm($event)"
-            ></app-pautar-form>
+            ></digital-pautar-form>
 
             <div class="flex flex-col-reverse md:flex-row mt-4 md:mt-6 items-end space-x-0 md:space-x-4 space-y-4 md:space-y-0">
                 <!-- Discard -->
@@ -49,11 +49,11 @@
     </div>
 </div>
 
-<app-alerta
+<digital-alerta
     [nome]="'Error'"
     [titulo]="'Error'"
     [mensagem]="errorMessage"
     [aparencia]="'outline'"
     [tipo]="'Error'"
     class="absolute top-2 right-2 max-w-120 mx-auto z-40"
-></app-alerta>
+></digital-alerta>

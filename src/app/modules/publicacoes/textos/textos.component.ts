@@ -9,7 +9,7 @@ import { PublicacaoDto } from 'app/shared/model/interfaces/publicacaoDto.interfa
 registerLocaleData(localePT);
 
 @Component({
-  selector: 'app-textos',
+  selector: 'digital-textos',
   templateUrl: './textos.component.html',
   styleUrls: ['./textos.component.scss']
 })

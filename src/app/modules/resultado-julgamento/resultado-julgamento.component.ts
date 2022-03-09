@@ -36,7 +36,7 @@ interface Decisao {
 }
 
 @Component({
-  selector: 'app-resultado-julgamento',
+  selector: 'digital-resultado-julgamento',
   templateUrl: './resultado-julgamento.component.html',
   styleUrls: ['./resultado-julgamento.component.scss'],
   encapsulation: ViewEncapsulation.None,

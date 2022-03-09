@@ -121,11 +121,11 @@
                     <mat-hint>Caso não selecione nenhum ministro, indica que ninguém divergiu e foi <span class="font-medium">unânime</span>.</mat-hint>
                 </mat-form-field>
 
-                <app-aplicar-decisoes
+                <digital-aplicar-decisoes
                     [limparProcessosSelecionados]="limparProcessosSelecionados"
                     [processosParaAplicarAMesmaDecisao]="capitulo?.processos_mesma_decisao || []"
                     (obterProcessosSelecionados)="setIdsDosProcessosSelecionados($event)"
-                ></app-aplicar-decisoes>
+                ></digital-aplicar-decisoes>
             </div>
 
             <div class="col-span-2 h-full overflow-hidden">
@@ -156,12 +156,12 @@
         </div>
     </form>
 
-    <app-alerta
+    <digital-alerta
         [nome]="'Error'"
         [titulo]="'Error'"
         [mensagem]="errorMessage"
         [aparencia]="'outline'"
         [tipo]="'error'"
         class="absolute top-2 right-2 max-w-120 mx-auto z-40"
-    ></app-alerta>
+    ></digital-alerta>
 </div>

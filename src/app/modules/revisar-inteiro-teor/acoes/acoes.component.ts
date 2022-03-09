@@ -22,7 +22,7 @@ export interface RevisaoInteiroTeor {
 }
 
 @Component({
-  selector: 'app-acoes',
+  selector: 'digital-acoes',
   templateUrl: './acoes.component.html',
   styleUrls: ['./acoes.component.scss']
 })

@@ -21,7 +21,7 @@ interface SessaoFinalizada {
 }
 
 @Component({
-  selector: 'app-finalizar-sessao-julgamento',
+  selector: 'digital-finalizar-sessao-julgamento',
   templateUrl: './finalizar-sessao-julgamento.component.html',
   styleUrls: ['./finalizar-sessao-julgamento.component.scss']
 })
