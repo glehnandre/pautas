@@ -22,7 +22,7 @@ const routerConfig: ExtraOptions = {
 
 @NgModule({
     declarations: [
-        AppComponent
+        AppComponent,
     ],
     imports     : [
         BrowserModule,
@@ -51,6 +51,6 @@ const routerConfig: ExtraOptions = {
         { provide: MAT_DATE_LOCALE, useValue: 'pt-BR' },
     ],
 })
-export class AppModule
+export class DigitalModule
 {
 }
