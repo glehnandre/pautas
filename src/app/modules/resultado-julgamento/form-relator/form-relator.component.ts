@@ -1,4 +1,4 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { AfterViewInit, Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { AlertaService } from 'app/modules/services/alerta.service';
@@ -21,7 +21,7 @@ interface FormRelatorData {
   templateUrl: './form-relator.component.html',
   styleUrls: ['./form-relator.component.scss']
 })
-export class FormRelatorComponent implements OnInit {
+export class FormRelatorComponent implements OnInit, AfterViewInit {
 
   formRelator: FormGroup;
   ministros$: Observable<Ministro[]>;
@@ -42,6 +42,10 @@ export class FormRelatorComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    
+  }
+
+  ngAfterViewInit(): void {
     this.ministros$ = this._ministroService.listarMinistros().pipe(
       catchError(error => {
         console.log(error);
