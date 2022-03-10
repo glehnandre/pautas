@@ -1,15 +1,17 @@
 import { LOCALE_ID, NgModule } from '@angular/core';
 import { Route, RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
-import { SessaoExtraordinariaComponent } from './sessao-extraordinaria.component';
+import { SharedModule } from 'app/shared/shared.module';
+
 import { MatChipsModule } from '@angular/material/chips';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatIconModule } from '@angular/material/icon';
-import { SharedModule } from 'app/shared/shared.module';
 import { FuseAlertModule } from '@fuse/components/alert';
 import { FormsModule } from '@angular/forms';
+
 import { FormRespostaComponent } from './form-resposta/form-resposta.component';
+import { SessaoExtraordinariaComponent } from './sessao-extraordinaria.component';
 
 const sessaoExtraordinariaRoutes: Route[] = [
   {

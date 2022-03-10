@@ -27,6 +27,7 @@ import { FuseCardModule } from '@fuse/components/card';
 import { FuseDrawerModule } from '@fuse/components/drawer/drawer.module';
 import { EditorModule } from '@tinymce/tinymce-angular';
 import { SharedModule } from 'app/shared/shared.module';
+
 import { AplicarDecisoesComponent } from './aplicar-decisoes/aplicar-decisoes.component';
 import { ChipsComponent } from './chips/chips.component';
 import { ConteudoVotoMinistroComponent } from './conteudo-voto-ministro/conteudo-voto-ministro.component';
@@ -40,12 +41,11 @@ import { VotoDosMinistrosComponent } from './voto-dos-ministros/voto-dos-ministr
 import { FormSuspensaoComponent } from './form-suspensao/form-suspensao.component';
 import { OrdenarPipe } from './ordenar.pipe';
 
-
 const ResultadoJulgamentoRoutes: Route[] = [
   {
     path: '',
-    component: ResultadoJulgamentoComponent
-  }
+    component: ResultadoJulgamentoComponent,
+  },
 ];
 
 @NgModule({

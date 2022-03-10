@@ -44,8 +44,5 @@ const CriacaoColegiadoRoutes: Routes = [
     FuseDrawerModule,
     SharedModule,
   ],
-  exports: [
-    CriacaoColegiadoComponent,
-  ],
 })
 export class CriacaoColegiadoModule { }
