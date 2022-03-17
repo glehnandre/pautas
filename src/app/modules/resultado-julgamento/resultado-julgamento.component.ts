@@ -527,7 +527,7 @@ export class ResultadoJulgamentoComponent implements OnInit {
  * @author Douglas da Silva Monteles
  */
   private _carregarSessaoDeJulgamento(numero: number, ano: number): void {
-    this._sessaoDeJulgamentoService.listarSessoesDeJulgamento(numero, ano).subscribe({
+    this._sessaoDeJulgamentoService.obterSessaoDeJulgamento(numero, ano).subscribe({
       next: (SessaoDeJulgamento) => {
         this.sessao = SessaoDeJulgamento;
       }

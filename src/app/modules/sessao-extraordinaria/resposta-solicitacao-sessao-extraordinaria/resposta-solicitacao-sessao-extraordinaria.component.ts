@@ -53,7 +53,7 @@ export class RespostaSolicitacaoSessaoExtraordinariaoComponent implements OnInit
 
   ngOnInit(): void {
     const { numero, ano } = this._route.snapshot.queryParams;
-    this._julgamentoService.listarSessoesDeJulgamento(numero, ano).subscribe({
+    this._julgamentoService.obterSessaoDeJulgamento(numero, ano).subscribe({
       next: (sessao) => {
         console.log(sessao)
         this.sessao = sessao;

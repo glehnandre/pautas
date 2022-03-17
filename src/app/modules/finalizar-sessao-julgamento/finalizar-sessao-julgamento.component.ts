@@ -54,7 +54,7 @@ export class FinalizarSessaoJulgamentoComponent implements OnInit {
       ano
     };
 
-    this._sessaoDeJulgamentoService.listarSessoesDeJulgamento(numero,ano).subscribe({
+    this._sessaoDeJulgamentoService.obterSessaoDeJulgamento(numero,ano).subscribe({
       next: (sessao) => {
         this.sessao = sessao;
         console.error(sessao.ata);

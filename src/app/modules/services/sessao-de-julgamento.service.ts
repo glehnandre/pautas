@@ -33,7 +33,7 @@ export class SessaoDeJulgamentoService {
     });
   }
 
-  public listarSessoesDeJulgamento(numero: number, ano: number): Observable<SessaoDeJulgamento> {
+  public obterSessaoDeJulgamento(numero: number, ano: number): Observable<SessaoDeJulgamento> {
     const numeroAno = `${numero}-${ano}`;
     return this._httpClient.get<SessaoDeJulgamento>(`sessoes-de-julgamento/${numeroAno}`);
   }

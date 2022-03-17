@@ -87,7 +87,7 @@ export class FiltroDialogComponent implements OnInit {
       ano,
     };
 
-    this._sessaoDeJulgamentoService.listarSessoesDeJulgamento(this.queryParams.numero, this.queryParams.ano).subscribe({
+    this._sessaoDeJulgamentoService.obterSessaoDeJulgamento(this.queryParams.numero, this.queryParams.ano).subscribe({
       next: (sessao) => {
         const colegiado = (sessao.colegiado=="Primeira turma") ? "primeira-turma" : 
                           (sessao.colegiado=="Segunda turma") ? "segunda-turma" :
