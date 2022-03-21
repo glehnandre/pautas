@@ -114,6 +114,8 @@ export class ExtratoAtaComponent implements OnInit {
         
         this.sessao.processos.forEach(p => {
           p.vistas.map(v => v.sessao = this._buscarSessaoPeloId(+v.sessao));
+          p.destaques.map(d => d.sessao = this._buscarSessaoPeloId(+d.sessao));
+          p.suspensoes.map(s => s.sessao = this._buscarSessaoPeloId(+s.sessao) as any);
         });
 
         console.log(this.sessao.processos)
@@ -175,8 +177,16 @@ export class ExtratoAtaComponent implements OnInit {
     return capitulos.filter(({ tipo }) => tipo == tipoCapitulo);
   }
 
-  private _buscarSessaoPeloId(idSessao: number): SessaoDeJulgamento {
-    const index = this.sessoes.findIndex(s => s.id === idSessao);
+  public getMinsitrosAusentes(ministros: Array<Ministro>): string {
+    if (ministros && ministros.length > 0) {
+      return ministros.map(m => m.nome).toString().replace(',', ', ');
+    }
+    
+    return '';
+  }
+
+  private _buscarSessaoPeloId(sessao: number): SessaoDeJulgamento {
+    const index = this.sessoes.findIndex(s => s.id === sessao || s.numero === sessao);
     
     if (index === -1) {
       return null;
