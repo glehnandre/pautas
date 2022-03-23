@@ -118,7 +118,11 @@
                                 <div>
                                     <img class="w-8 h-8 mr-4" [src]="ministro.imagem">
                                 </div>
-                                <div>{{ ministro.nome }}</div>
+                                <div class="break-words whitespace-pre">
+                                    <span>{{ ministro.nome }}</span>
+                                    <span *ngIf="processo?.relator?.id == ministro.id"> - Relator do Processo</span>
+                                    <span *ngIf="processo?.redator?.id == ministro.id"> - Revisor do Processo</span>
+                                </div>
                             </div>
                         </mat-option>
                     </mat-select>
