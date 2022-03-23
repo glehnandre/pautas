@@ -1,0 +1,23 @@
+<div class="relative flex">
+    <fuse-drawer [name]="'leftDrawer'" [opened]="true" [mode]="'side'">
+        <div class="p-4">
+        <!--INSERIR FILTROS AQUI-->
+        </div>
+    </fuse-drawer>
+
+    <div class="flex-auto p-4">
+        <button mat-mini-fab color="primary" aria-label="Abrir ou fechar os filtros" (click)="toggleDrawerOpen('leftDrawer')">
+            <mat-icon *ngIf="isOpen('leftDrawer') else mudaIcone" >
+                arrow_back
+            </mat-icon>
+            <ng-template #mudaIcone>
+                <mat-icon>arrow_forward</mat-icon>
+            </ng-template>
+        </button>
+        <!--INSERIR A TABELA AQUI-->
+    </div>
+</div>
+
+
+<app-alerta *ngIf="alerta" [nome]="NOME_DO_ALERTA" [titulo]="alerta.titulo" [mensagem]="alerta.mensagem"
+    [aparencia]="'outline'" [tipo]="alerta.tipo" class="absolute top-2 right-2 max-w-120 mx-auto z-40"></app-alerta>

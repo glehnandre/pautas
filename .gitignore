@@ -46,3 +46,9 @@ testem.log
 Thumbs.db
 
 package-lock.json
+
+src/\@fuse/
+
+.vscode/
+
+src/\@fuse/
