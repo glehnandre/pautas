@@ -80,9 +80,9 @@
                         <h4 class="text-primary  font-medium">
                             Pedidos de vista no Julgamento
                         </h4>
-
+                        <br/>
                         <div class="">
-                            <span *ngFor="let vista of processo?.vistas">
+                            <span *ngFor="let vista of (processo?.vistas | ordenar: 'data')">
                                 <p class="leading-tight">
                                     No dia {{vista.data | date:'dd/MM/yyyy'}} às {{vista.data | date:'hh:mm'}}, houve um pedido de vista feito <span [innerHtml]=" fraseEMinistros([vista.ministro], FraseMinistro) "></span>
                                 </p>
@@ -102,8 +102,9 @@
                         <h4 class="text-primary  font-medium">
                             Pedidos de destaque no Julgamento Virtual
                         </h4>
+                        <br/>
                         <div class="mb-2">
-                            <span *ngFor="let destaque of processo?.destaques">
+                            <span *ngFor="let destaque of (processo?.destaques | ordenar: 'data')">
                                 <p class="leading-tight ">
                                     No dia {{destaque.data | date:'dd/MM/yyyy'}} às {{destaque.data | date:'hh:mm'}}, houve um pedido de destaque do plenário virtual feito <span [innerHtml]=" fraseEMinistros([destaque.ministro], FraseMinistro) "></span>
                                 </p>
@@ -111,7 +112,7 @@
                                     <div class="prose prose-h1" [innerHtml]="destaque.texto"></div>
                                 </div>                                
                                 <p class="leading-tight">
-                                    {{destaque?.sessao.numero}}, {{destaque?.sessao.ano}}. 
+                                    Sessão: {{destaque?.sessao.numero}}, {{destaque?.sessao.ano}}. 
                                     Ministros ausentes: {{getMinsitrosAusentes(destaque.sessao.ata?.ministros_ausentes)}}
                                 </p>
                                 <br>
@@ -123,8 +124,9 @@
                         <h4 class="text-primary  font-medium">
                             Pedidos de suspensão no Julgamento Virtual
                         </h4>
+                        <br/>
                         <div class="mb-2">
-                            <span *ngFor="let suspensao of processo?.suspensoes">
+                            <span *ngFor="let suspensao of (processo?.suspensoes | ordenar: 'data')">
                                 <p class="leading-tight ">
                                     <strong>Julgamento Suspenso: </strong> {{suspensao.data | date: 'dd/MM/yyyy'}}. <span [innerHtml]=" fraseEMinistros([suspensao.ministro], FraseMinistro) "></span> 
                                     [Ausentes da sessão se houver com o mesmo texto dos ausentes da sessão atual].
@@ -133,7 +135,7 @@
                                     <div class="prose prose-h1" [innerHtml]="suspensao.texto"></div>
                                 </div>                                
                                 <p class="leading-tight">
-                                    {{suspensao?.sessao.numero}}, {{suspensao?.sessao.ano}}. 
+                                    Sessão: {{suspensao?.sessao.numero}}, {{suspensao?.sessao.ano}}. 
                                     Ministros ausentes: {{getMinsitrosAusentes(suspensao.sessao.ata?.ministros_ausentes)}}
                                 </p>
                                 <br>
