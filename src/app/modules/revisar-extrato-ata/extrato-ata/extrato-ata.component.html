@@ -156,10 +156,17 @@
                                         <ng-template #unanime>Decisão unânime.</ng-template>
                                 </div>
                             </div>
-
                         </div>
-
                         <div *ngIf="processo.redator" class="mb-4 font-medium" [innerHtml]="fraseEMinistros([processo?.redator], FraseRedator)">
+                        </div>
+                    </div>
+                    <div class="w-full" *ngIf="processo.suspensoes">
+                        <div *ngFor="let suspensao of processo?.suspensoes">
+                            <div class="prose text-md ">
+                                <p class="font-medium">Adiamento do Julgamento em {{suspensao.data|date:'longDate'}}:</p>
+                                <div [innerHtml]="suspensao.texto"></div>
+                            </div>
+                            <hr>
                         </div>
                     </div>
                 </div>
