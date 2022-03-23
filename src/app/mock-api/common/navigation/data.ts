@@ -50,18 +50,14 @@ export const defaultNavigation: FuseNavigationItem[] = [
             colegiado: 'pleno',
             sessao: '1000-2021',
         }
-    },
+    },*/
     {
         id   : 'sessoes-julgamento',
         title: 'Processos pautados',
         type : 'basic',
         icon : '',
         link : '/sessoes-julgamento',
-        queryParams: {
-            numero: 1000,
-            ano: 2021,
-        }
-    },*/
+    },
     {
         id: 'minhas-tarefas',
         title: 'Minhas tarefas',

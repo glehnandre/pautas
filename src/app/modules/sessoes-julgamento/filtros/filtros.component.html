@@ -1,0 +1,53 @@
+<div class="flex flex-col flex-auto w-full justify-items-center p-4">
+    <!-- Filtros -->
+    <div class="mb-8 text-center">
+        <p class="text-xl font-bold">Sessões de Julgamento</p>
+    </div>
+    <div>
+
+        <form [formGroup]="formFiltros">
+            <mat-expansion-panel class="mb-2 border-solid border-2" [expanded]="true">
+                <mat-expansion-panel-header class="">
+                    <mat-panel-title class="font-semibold text-primary line-clamp-3">
+                        Período
+                    </mat-panel-title>
+                </mat-expansion-panel-header>
+
+                <section class="">
+                    <mat-form-field class="w-full" appearance="fill">
+                        <mat-date-range-input
+                            [rangePicker]="picker"
+                            class="flex w-full"
+                        >
+                            <input
+                                matStartDate
+                                placeholder="Início"
+                                name="data_inicio"
+                                formControlName="dataInicio"
+                                class="px-0"
+                            >
+
+                            <input
+                                matEndDate
+                                placeholder="Fim"
+                                name="data_fim"
+                                formControlName="dataFim"
+                            >
+                        </mat-date-range-input>
+
+                        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                        <mat-date-range-picker #picker></mat-date-range-picker>
+                    </mat-form-field>
+
+                    <button
+                        class="flex ml-auto"
+                        mat-flat-button
+                        [color]="'primary'"
+                    >
+                        <span>Limpar datas</span>
+                    </button>
+                </section>
+            </mat-expansion-panel>
+        </form>
+    </div>
+</div>

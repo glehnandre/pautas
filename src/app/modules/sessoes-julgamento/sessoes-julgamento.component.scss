@@ -2,13 +2,15 @@
     @apply border-primary;
 }
 
-$fuse-drawer-width: 450;
+$fuse-drawer-width: 320;
 
-#visualisador {
+#filtros {
     width: #{$fuse-drawer-width}px;
     min-width: #{$fuse-drawer-width}px;
     max-width: #{$fuse-drawer-width}px;
+    z-index: 150;
 }
+
 
 .position-left-90 {
     margin-left: 90%;
