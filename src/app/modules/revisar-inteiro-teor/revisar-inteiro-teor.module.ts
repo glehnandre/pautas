@@ -2,7 +2,6 @@ import { NgModule } from '@angular/core';
 import { Route, RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { MatButtonModule } from '@angular/material/button';
-import { RevisarInteiroTeorComponent } from './revisar-inteiro-teor.component';
 import { SharedModule } from '../../shared/shared.module';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatCheckboxModule } from '@angular/material/checkbox';
@@ -19,10 +18,12 @@ import { FuseAlertModule } from '@fuse/components/alert';
 import { FuseDrawerModule } from '@fuse/components/drawer';
 import { FuseCardModule } from '@fuse/components/card';
 import { FuseScrollbarModule } from '@fuse/directives/scrollbar';
-import { TabelaComponent } from './tabela/tabela.component';
 import { AcoesModule } from './acoes/acoes.module';
-import { VisualizadorInteiroTeorComponent } from './visualizador-inteiro-teor/visualizador-inteiro-teor.component';
+
+import { TabelaComponent } from './tabela/tabela.component';
+import { RevisarInteiroTeorComponent } from './revisar-inteiro-teor.component';
 import { ConteudoPublicacaoComponent } from './conteudo-publicacao/conteudo-publicacao.component';
+import { VisualizadorInteiroTeorComponent } from './visualizador-inteiro-teor/visualizador-inteiro-teor.component';
 
 const revisarInteiroTeorRoutes: Route[] = [
     {
@@ -58,7 +59,7 @@ const revisarInteiroTeorRoutes: Route[] = [
     FuseCardModule,
     FuseScrollbarModule,
     DragDropModule,
-    AcoesModule
+    AcoesModule,
   ]
 })
 export class RevisarInteiroTeorModule { }

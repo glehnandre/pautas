@@ -6,7 +6,7 @@ import { SessaoDeJulgamentoService } from '../../services/sessao-de-julgamento.s
 import { RespostaSolicitacaoSessaoExtraordinariaoComponent } from './resposta-solicitacao-sessao-extraordinaria.component';
 
 class MockJulgamentoService {
-  public listarSessoesDeJulgamento(): Observable<any> { return EMPTY };
+  public obterSessaoDeJulgamento(): Observable<any> { return EMPTY };
   public listarTodasAsSessoesDeJulgamento(): Observable<any> { return EMPTY };
 }
 

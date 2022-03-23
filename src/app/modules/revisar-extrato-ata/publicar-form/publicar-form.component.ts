@@ -29,7 +29,7 @@ const DATE_FORMATS = {
 
 
 @Component({
-  selector: 'app-publicar-form',
+  selector: 'digital-publicar-form',
   templateUrl: './publicar-form.component.html',
   styleUrls: ['./publicar-form.component.scss'],
   providers: [

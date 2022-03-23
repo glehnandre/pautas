@@ -4,7 +4,7 @@ import { Voto } from '../model/interfaces/voto.interface';
 
 
 @Component({
-  selector: 'app-ministros-que-acompanharam',
+  selector: 'digital-ministros-que-acompanharam',
   templateUrl: './ministros-que-acompanharam.component.html',
   styleUrls: ['./ministros-que-acompanharam.component.scss']
 })

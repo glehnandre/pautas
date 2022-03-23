@@ -14,7 +14,7 @@ interface Parametros {
 }
 
 @Component({
-  selector: 'app-informar-redator',
+  selector: 'digital-informar-redator',
   templateUrl: './informar-redator.component.html',
   styleUrls: ['./informar-redator.component.scss']
 })

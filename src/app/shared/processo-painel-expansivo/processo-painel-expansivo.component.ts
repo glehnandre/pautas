@@ -4,7 +4,7 @@ import { Processo } from '../model/interfaces/processo.interface';
 
 
 @Component({
-  selector: 'app-processo-painel-expansivo',
+  selector: 'digital-processo-painel-expansivo',
   templateUrl: './processo-painel-expansivo.component.html',
   styleUrls: ['./processo-painel-expansivo.component.scss']
 })

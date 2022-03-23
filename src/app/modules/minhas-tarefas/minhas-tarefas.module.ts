@@ -7,8 +7,6 @@ import { MatExpansionModule } from '@angular/material/expansion';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatChipsModule } from '@angular/material/chips';
 import { FuseNavigationModule } from '@fuse/components/navigation';
-import { MinhasTarefasComponent } from './minhas-tarefas.component';
-import { CriacaoColegiadoComponent } from '../criacao-colegiado/criacao-colegiado.component';
 import { FuseCardModule } from '@fuse/components/card';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatListModule } from '@angular/material/list';
@@ -22,16 +20,19 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatMenuModule } from '@angular/material/menu';
-
-import { FiltrosComponent } from './filtros/filtros.component';
-import { TabelaComponent } from './tabela/tabela.component';
-import { CarrosselChipsComponent } from './carrossel-chips/carrossel-chips.component';
-import { FiltrarTagPorTipoPipe } from './filtros/filtrar-tag-por-tipo.pipe';
+import { FuseAlertModule } from '@fuse/components/alert';
 import { MatInputModule } from '@angular/material/input';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatDialogModule } from '@angular/material/dialog';
+
+import { MinhasTarefasComponent } from './minhas-tarefas.component';
+import { CriacaoColegiadoComponent } from '../criacao-colegiado/criacao-colegiado.component';
+import { FiltrosComponent } from './filtros/filtros.component';
+import { TabelaComponent } from './tabela/tabela.component';
+import { CarrosselChipsComponent } from './carrossel-chips/carrossel-chips.component';
 import { FormComentarioComponent } from './form-comentario/form-comentario.component';
-import { FuseAlertModule } from '@fuse/components/alert';
+
+import { FiltrarTagPorTipoPipe } from './filtros/filtrar-tag-por-tipo.pipe';
 
 const minhasTarefasRoutes: Route[] = [
     {
@@ -53,7 +54,7 @@ const minhasTarefasRoutes: Route[] = [
     TabelaComponent,
     CarrosselChipsComponent,
     FiltrarTagPorTipoPipe,
-    FormComentarioComponent
+    FormComentarioComponent,
   ],
   imports: [
     CommonModule,
@@ -73,7 +74,6 @@ const minhasTarefasRoutes: Route[] = [
     MatTableModule,
     MatButtonModule,
     MatProgressSpinnerModule,
-    MatChipsModule,
     MatRippleModule,
     MatSelectModule,
     MatPaginatorModule,

@@ -7,7 +7,7 @@ import { ITask, ITaskTag } from 'app/shared/model/interfaces/itask.interface';
 
 
 @Component({
-    selector: 'app-filtros',
+    selector: 'digital-filtros',
     templateUrl: './filtros.component.html',
     styleUrls: ['./filtros.component.scss']
 })

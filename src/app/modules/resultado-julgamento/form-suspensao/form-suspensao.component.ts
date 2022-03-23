@@ -15,7 +15,7 @@ interface Parametros {
 }
 
 @Component({
-  selector: 'app-form-suspensao',
+  selector: 'digital-form-suspensao',
   templateUrl: './form-suspensao.component.html',
   styleUrls: ['./form-suspensao.component.scss']
 })
@@ -97,6 +97,8 @@ export class FormSuspensaoComponent implements OnInit, OnChanges {
       const suspensao: Suspensao = {
         ...this.formSuspensao.value,
         id: (this.suspensao && this.suspensao.id) ? this.suspensao.id : null,
+        sessao: numero,
+        processo,
       };
 
       const isSuspensaoJaExistente = (this.suspensao && this.suspensao?.texto?.length > 0);

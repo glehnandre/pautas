@@ -41,17 +41,17 @@
     <div class="flex-1 min-w-0 px-8 overflow-auto">
         <h2 class="text-primary">Processos</h2>
         <!-- Main -->
-        <app-processos-solicitacao-extraordinaria
+        <digital-processos-solicitacao-extraordinaria
             [sessao]="sessao"
-        ></app-processos-solicitacao-extraordinaria>
+        ></digital-processos-solicitacao-extraordinaria>
     </div>
 </div>
 
-<app-alerta
+<digital-alerta
     [nome]="'Error'"
     [titulo]="'Error'"
     [mensagem]="errorMessage"
     [aparencia]="'outline'"
     [tipo]="'error'"
     class="absolute top-2 right-2 max-w-120 mx-auto z-40"
-></app-alerta>
+></digital-alerta>

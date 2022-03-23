@@ -16,7 +16,7 @@ export interface Colegiado {
 }
 
 @Component({
-    selector: 'app-pautar',
+    selector: 'digital-pautar',
     templateUrl: './pautar.component.html',
     styleUrls: ['./pautar.component.scss'],
 })

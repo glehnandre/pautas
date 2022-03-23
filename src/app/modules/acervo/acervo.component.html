@@ -6,15 +6,15 @@
     <!-- Header -->
     <div class="sm:items-center sm:justify-between p-3 pb-11 sm:pt-2 sm:pb-10 sm:px-5 bg-default dark:bg-transparent">
         <div>
-            <app-filtro
+            <digital-filtro
             [tag]="eventsSubject.asObservable()"
-            ></app-filtro>
+            ></digital-filtro>
         </div>
         <div>
-            <app-acoes
+            <digital-acoes
                 (allSelected)="reciverFeedback($event)"
                 (colecaoIdsDasTags)="obterIdsDasTagsSelecionadas($event)"
-            ></app-acoes>
+            ></digital-acoes>
         </div>
     </div>
 
@@ -23,11 +23,11 @@
 
         <!-- CONTENT GOES HERE -->
         <div>
-            <app-tabela
+            <digital-tabela
                 [allSelected]="selectAllLines"
                 (tagSelecionada)="filtrarPorTags($event)"
                 (statusSelecionado)="filtrarPorStatus($event)"
-            ></app-tabela>
+            ></digital-tabela>
         </div>
     </div>
 

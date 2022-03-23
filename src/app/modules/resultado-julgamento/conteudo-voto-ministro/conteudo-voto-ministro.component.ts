@@ -3,7 +3,7 @@ import { Voto } from 'app/shared/model/interfaces/voto.interface';
 
 
 @Component({
-  selector: 'app-conteudo-voto-ministro',
+  selector: 'digital-conteudo-voto-ministro',
   templateUrl: './conteudo-voto-ministro.component.html',
   styleUrls: ['./conteudo-voto-ministro.component.scss']
 })

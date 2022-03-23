@@ -8,7 +8,7 @@ import { RevisaoInteiroTeor } from '../revisar-inteiro-teor.component';
 
 
 @Component({
-  selector: 'app-visualizador-inteiro-teor',
+  selector: 'digital-visualizador-inteiro-teor',
   templateUrl: './visualizador-inteiro-teor.component.html',
   styleUrls: ['./visualizador-inteiro-teor.component.scss']
 })

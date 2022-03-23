@@ -8,7 +8,7 @@ export interface Paginacao {
 }
 
 @Component({
-  selector: 'app-paginacao',
+  selector: 'digital-paginacao',
   templateUrl: './paginacao.component.html',
   styleUrls: ['./paginacao.component.scss']
 })

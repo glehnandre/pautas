@@ -23,7 +23,7 @@
 
             <div class="hidden md:flex">
                 
-                <app-carrossel
+                <digital-carrossel
                     [idChip]="'idDocs'"
                     [chips]="documentos?.nomes"
                     [links]="documentos?.links"
@@ -31,23 +31,23 @@
                     [class]="['border-primary', 'border-solid', 'border-2', 'bg-transparent', 'text-primary']"
                     (nomeDoPdfSelecionado)="obterNomeDoPdf($event)"
                     (linkDoPdfSelecionado)="abrirLink($event)"
-                ></app-carrossel>
+                ></digital-carrossel>
         
-                <app-carrossel
+                <digital-carrossel
                     *ngIf="nomesDasSessoes"
                     [idChip]="'idSessao'"
                     [hasArrow]="hasArrow"
                     [chips]="nomesDasSessoes"
-                ></app-carrossel>
+                ></digital-carrossel>
             </div>
         </div>
     </div>
 
     <div *ngIf="sessao" class="right-4 lg:right-16 flex flex-col items-end">
-        <app-dados-da-sessao
+        <digital-dados-da-sessao
             class="hidden md:block w-60"
             [sessao]="sessao"
-        ></app-dados-da-sessao>
+        ></digital-dados-da-sessao>
     </div>
 </div>
 
@@ -72,20 +72,20 @@
     <!--Conteúdo de dentro da área expansível-->
     <div class="container">
         <div class="flex flex-col min-w-full justify-between">
-            <app-carrossel
+            <digital-carrossel
                 [idChip]="'idTagsExp'"
                 [chips]="tags"
                 [hasArrow]="true"
-            ></app-carrossel>
+            ></digital-carrossel>
 
-            <app-carrossel
+            <digital-carrossel
                 *ngIf="nomesDasSessoes"
                 [idChip]="'idSessaoExp'"
                 [hasArrow]="true"
                 [chips]="nomesDasSessoes"
-            ></app-carrossel>
+            ></digital-carrossel>
 
-            <app-carrossel
+            <digital-carrossel
                 [idChip]="'idDocExp'"
                 [chips]="documentos?.nomes"
                 [links]="documentos?.links"
@@ -93,41 +93,41 @@
                 [class]="['flex-none', 'border-primary', 'border-solid', 'border-2', 'bg-transparent', 'text-primary']"
                 (nomeDoPdfSelecionado)="obterNomeDoPdf($event)"
                 (linkDoPdfSelecionado)="abrirLink($event)"
-            ></app-carrossel>
+            ></digital-carrossel>
 
-            <app-carrossel
+            <digital-carrossel
                 *ngIf="chips.length > 0"
                 [idChip]="'idChipsResultadoJulgamentoExpansivo'"
                 [chips]="chips"
                 [hasArrow]="true"
                 [hasBtnRemove]="true"
                 (chipRemovido)="obterChipRemovido($event)"
-            ></app-carrossel>
+            ></digital-carrossel>
 
             <div *ngIf="sessao" class="mr-auto max-w-60 shadow-md p-2">
-                <app-dados-da-sessao
+                <digital-dados-da-sessao
                     class=""
                     [sessao]="sessao"
-                ></app-dados-da-sessao>
+                ></digital-dados-da-sessao>
             </div>
         </div>
     </div>
 </mat-expansion-panel>
 
-<app-visualizador-pdf
+<digital-visualizador-pdf
     *ngIf="link"
     [nome]="'visualizador-pdf-do-colegiado'"
     [link]="link"
     [pdf]="nomePdf"
     [votos]="votos"
     [posicao]="'left'"
-></app-visualizador-pdf>
+></digital-visualizador-pdf>
 
-<app-alerta
+<digital-alerta
     [nome]="'Error'"
     [titulo]="'Error'"
     [mensagem]="errorMessage"
     [aparencia]="'outline'"
     [tipo]="'error'"
     class="absolute top-2 right-2 max-w-120 mx-auto z-40"
-></app-alerta>
+></digital-alerta>

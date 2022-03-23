@@ -18,7 +18,7 @@ interface Parametros {
 }
 
 @Component({
-  selector: 'app-revisar-extrato-ata',
+  selector: 'digital-revisar-extrato-ata',
   templateUrl: './revisar-extrato-ata.component.html',
   styleUrls: ['./revisar-extrato-ata.component.scss']
 })
@@ -60,7 +60,7 @@ export class RevisarExtratoAtaComponent implements OnInit {
   }
 
   private getSessaoDeJulgamento() {
-    this._sessaoDejulgamentoService.listarSessoesDeJulgamento(this.parametros.numero, this.parametros.ano).subscribe({
+    this._sessaoDejulgamentoService.obterSessaoDeJulgamento(this.parametros.numero, this.parametros.ano).subscribe({
       next: (sessao) => {
         this.sessao = sessao;
       },

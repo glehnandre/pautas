@@ -22,7 +22,7 @@ const DATE_FORMATS = {
 };
 
 @Component({
-  selector: 'app-resposta-solicitacao-sessao-extraordinaria',
+  selector: 'digital-resposta-solicitacao-sessao-extraordinaria',
   templateUrl: './resposta-solicitacao-sessao-extraordinaria.component.html',
   styleUrls: ['./resposta-solicitacao-sessao-extraordinaria.component.scss'],
   providers: [
@@ -53,7 +53,7 @@ export class RespostaSolicitacaoSessaoExtraordinariaoComponent implements OnInit
 
   ngOnInit(): void {
     const { numero, ano } = this._route.snapshot.queryParams;
-    this._julgamentoService.listarSessoesDeJulgamento(numero, ano).subscribe({
+    this._julgamentoService.obterSessaoDeJulgamento(numero, ano).subscribe({
       next: (sessao) => {
         console.log(sessao)
         this.sessao = sessao;

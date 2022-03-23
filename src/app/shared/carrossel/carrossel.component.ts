@@ -1,7 +1,7 @@
 import { Component, OnInit, Input, Output, EventEmitter, ChangeDetectorRef, AfterContentChecked, OnDestroy, OnChanges } from '@angular/core';
 
 @Component({
-  selector: 'app-carrossel',
+  selector: 'digital-carrossel',
   templateUrl: './carrossel.component.html',
   styleUrls: ['./carrossel.component.scss'],
   host: {

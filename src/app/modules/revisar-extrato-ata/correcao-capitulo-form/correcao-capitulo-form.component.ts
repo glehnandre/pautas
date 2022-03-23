@@ -9,7 +9,7 @@ import { catchError } from 'rxjs/operators';
 
 
 @Component({
-  selector: 'app-correcao-capitulo-form',
+  selector: 'digital-correcao-capitulo-form',
   templateUrl: './correcao-capitulo-form.component.html',
   styleUrls: ['./correcao-capitulo-form.component.scss']
 })

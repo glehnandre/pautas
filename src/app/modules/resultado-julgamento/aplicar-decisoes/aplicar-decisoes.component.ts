@@ -5,7 +5,7 @@ import { Processo } from 'app/shared/model/interfaces/processo.interface';
 
 
 @Component({
-  selector: 'app-aplicar-decisoes',
+  selector: 'digital-aplicar-decisoes',
   templateUrl: './aplicar-decisoes.component.html',
   styleUrls: ['./aplicar-decisoes.component.scss']
 })

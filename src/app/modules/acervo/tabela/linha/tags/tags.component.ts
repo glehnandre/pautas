@@ -3,7 +3,7 @@ import { Tag } from 'app/shared/model/interfaces/tag.interface';
 
 
 @Component({
-  selector: 'app-tags',
+  selector: 'digital-tags',
   templateUrl: './tags.component.html',
   styleUrls: ['./tags.component.scss']
 })

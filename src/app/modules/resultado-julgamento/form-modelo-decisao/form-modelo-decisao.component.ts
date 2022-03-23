@@ -1,4 +1,4 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { AfterViewInit, Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Alerta } from 'app/shared/alerta/alerta.component';
@@ -24,11 +24,11 @@ interface ModeloDecisaoData {
 }
 
 @Component({
-  selector: 'app-form-modelo-decisao',
+  selector: 'digital-form-modelo-decisao',
   templateUrl: './form-modelo-decisao.component.html',
   styleUrls: ['./form-modelo-decisao.component.scss']
 })
-export class FormModeloDecisaoComponent implements OnInit {
+export class FormModeloDecisaoComponent implements OnInit, AfterViewInit {
 
   readonly tiposCapitulo: string[] = [ 'Mérito', 'Preliminar', 'Modulação', 'Questão de Ordem', 'Tese' ];
   readonly atributos: string[] = ['colegiado', 'processo', 'sessao', 'data_inicio_sessao', 'data_fim_sessao', 'modalidade', 'tipo'];
@@ -64,6 +64,15 @@ export class FormModeloDecisaoComponent implements OnInit {
   }
   
   ngOnInit(): void {
+    this.formModeloDecisao.controls.texto.valueChanges.subscribe((texto: string) => {
+      this.exibirSugestoes = false;
+      if (texto.endsWith('@')) {
+        this.exibirSugestoes = true;
+      }
+    });
+  }
+
+  ngAfterViewInit(): void {
     this.classes$ = this._classeService.getClasses().pipe(
       catchError((error) => {
         console.log(error);
@@ -77,6 +86,7 @@ export class FormModeloDecisaoComponent implements OnInit {
         return EMPTY;
       }),
     );
+    
     this.recursos$ = this._recursoService.obterListaDeRecursos().pipe(
       catchError(error => {
         console.log(error);
@@ -90,13 +100,6 @@ export class FormModeloDecisaoComponent implements OnInit {
         return EMPTY;
       })
     );
-
-    this.formModeloDecisao.controls.texto.valueChanges.subscribe((texto: string) => {
-      this.exibirSugestoes = false;
-      if (texto.endsWith('@')) {
-        this.exibirSugestoes = true;
-      }
-    });
   }
 
   public buscarDispositivos(): void {

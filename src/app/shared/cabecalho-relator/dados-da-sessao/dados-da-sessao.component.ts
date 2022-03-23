@@ -3,7 +3,7 @@ import { SessaoDeJulgamento } from 'app/shared/model/interfaces/sessao-julgament
 
 
 @Component({
-  selector: 'app-dados-da-sessao',
+  selector: 'digital-dados-da-sessao',
   templateUrl: './dados-da-sessao.component.html',
   styleUrls: ['./dados-da-sessao.component.scss']
 })

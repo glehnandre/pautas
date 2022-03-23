@@ -16,18 +16,16 @@ import { MatExpansionModule } from '@angular/material/expansion';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { MAT_DATE_LOCALE } from '@angular/material/core';
-
+import { EmptyLayoutModule } from 'app/layout/layouts/empty/empty.module';
+import { SharedModule } from 'app/shared/shared.module';
 import { FuseNavigationModule } from '@fuse/components/navigation/navigation.module';
 import { FuseCardModule } from '@fuse/components/card';
 
-import { EmptyLayoutModule } from 'app/layout/layouts/empty/empty.module';
+import { MAT_DATE_LOCALE } from '@angular/material/core';
+
 import { PublicacoesComponent } from './publicacoes.component';
 import { FiltrosComponent } from './filtros/filtros.component';
 import { TextosComponent } from './textos/textos.component';
-import { SharedModule } from 'app/shared/shared.module';
-
-
 
 const PublicacoesRoutes: Routes = [
   { path: '', component: PublicacoesComponent },
@@ -67,7 +65,10 @@ const PublicacoesRoutes: Routes = [
     PublicacoesComponent
   ],
   providers:[
-    { provide: MAT_DATE_LOCALE, useValue: 'pt-BR' }
+    { 
+      provide: MAT_DATE_LOCALE, 
+      useValue: 'pt-BR' 
+    },
   ]
 })
 export class PublicacoesModule { }

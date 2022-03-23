@@ -13,7 +13,7 @@ class MockMinistroService {
 }
 
 class MockJulgamentoService {
-  public listarSessoesDeJulgamento(): Observable<any> { return EMPTY };
+  public obterSessaoDeJulgamento(): Observable<any> { return EMPTY };
 }
 
 const MockActivatedRoute = {

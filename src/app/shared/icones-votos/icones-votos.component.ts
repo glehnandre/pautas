@@ -3,7 +3,7 @@ import { Ministro } from '../model/interfaces/ministro.interface';
 
 
 @Component({
-  selector: 'app-icones-votos',
+  selector: 'digital-icones-votos',
   templateUrl: './icones-votos.component.html',
   styleUrls: ['./icones-votos.component.scss']
 })

@@ -2,17 +2,17 @@ import { registerLocaleData } from '@angular/common';
 import localePt from '@angular/common/locales/pt';
 import { Component, Input, LOCALE_ID, OnInit } from '@angular/core';
 import { MinistroService } from 'app/modules/services/ministro.service';
+import { SessaoDeJulgamentoService } from 'app/modules/services/sessao-de-julgamento.service';
 import { Ata } from 'app/shared/model/interfaces/ata.interface';
 import { Capitulo, Envolvido } from 'app/shared/model/interfaces/capitulo.interface';
 import { Frase } from 'app/shared/model/interfaces/frase-genero-plural.interface';
 import { Ministro } from 'app/shared/model/interfaces/ministro.interface';
 import { SessaoDeJulgamento } from 'app/shared/model/interfaces/sessao-julgamento.interface';
 
-
 registerLocaleData(localePt);
 
 @Component({
-  selector: 'app-extrato-ata',
+  selector: 'digital-extrato-ata',
   templateUrl: './extrato-ata.component.html',
   styleUrls: ['./extrato-ata.component.scss'],
   providers: [
@@ -24,7 +24,10 @@ export class ExtratoAtaComponent implements OnInit {
   @Input() sessao: SessaoDeJulgamento;
   @Input() form: any;
 
+  sessoes: SessaoDeJulgamento[] = [];
+
   tiposCapitulo: string[] = ['Preliminar', 'Mérito', 'Modulação', 'Questão de Ordem', 'Tese'];
+  
   descreveTipo: { [tipo: string]: string } = {
     'Preliminar': 'ª Decisão Preliminar',
     'Mérito': 'ª Decisão Mérito',
@@ -95,15 +98,29 @@ export class ExtratoAtaComponent implements OnInit {
     M: 'Redator do Acórdão Senhor Ministro ',
   }
 
-
   constructor(
     private _ministroService: MinistroService,
+    private _sessaoDeJulgamento: SessaoDeJulgamentoService,
   ) { }
 
   ngOnInit(): void {
     console.log('%cCarregando Elementos Internos', "font-size:15px;color:red");
     console.log(this.ata);
     console.log(this.sessao);
+
+    this._sessaoDeJulgamento.listarTodasAsSessoesDeJulgamento().subscribe({
+      next: (sessoes) => {
+        this.sessoes = sessoes;
+        
+        this.sessao.processos.forEach(p => {
+          p.vistas.map(v => v.sessao = this._buscarSessaoPeloId(+v.sessao));
+          p.destaques.map(d => d.sessao = this._buscarSessaoPeloId(+d.sessao));
+          p.suspensoes.map(s => s.sessao = this._buscarSessaoPeloId(+s.sessao) as any);
+        });
+
+        console.log(this.sessao.processos)
+      },
+    });
   }
 
   /**
@@ -159,4 +176,23 @@ export class ExtratoAtaComponent implements OnInit {
   filtraTipos(tipoCapitulo, capitulos: Capitulo[]) {
     return capitulos.filter(({ tipo }) => tipo == tipoCapitulo);
   }
+
+  public getMinsitrosAusentes(ministros: Array<Ministro>): string {
+    if (ministros && ministros.length > 0) {
+      return ministros.map(m => m.nome).toString().replace(',', ', ');
+    }
+    
+    return '';
+  }
+
+  private _buscarSessaoPeloId(sessao: number): SessaoDeJulgamento {
+    const index = this.sessoes.findIndex(s => s.id === sessao || s.numero === sessao);
+    
+    if (index === -1) {
+      return null;
+    }
+    
+    return this.sessoes[index];
+  }
+
 }

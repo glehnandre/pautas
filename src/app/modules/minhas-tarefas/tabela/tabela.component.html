@@ -77,10 +77,10 @@
                                 </mat-icon>
                             </strong>
 
-                            <app-carrossel-chips
+                            <digital-carrossel-chips
                                 *ngIf="element.etags"
                                 [chips]="element.etags"
-                            ></app-carrossel-chips>
+                            ></digital-carrossel-chips>
                         </div>
                     </div>
                 </td>
@@ -268,11 +268,11 @@
     ></mat-paginator>
 </div>
 
-<app-alerta
+<digital-alerta
     [nome]="'Error'"
     [titulo]="'Error'"
     [mensagem]="errorMessage"
     [aparencia]="'outline'"
     [tipo]="'error'"
     class="absolute top-2 right-2 max-w-120 mx-auto z-40"
-></app-alerta>
+></digital-alerta>

@@ -17,7 +17,7 @@ import { catchError, map } from 'rxjs/operators';
 
 
 @Component({
-  selector: 'app-form-decisao',
+  selector: 'digital-form-decisao',
   templateUrl: './form-decisao.component.html',
   styleUrls: ['./form-decisao.component.scss']
 })

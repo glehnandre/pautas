@@ -6,7 +6,7 @@ import { Voto } from '../model/interfaces/voto.interface';
 
 
 @Component({
-  selector: 'app-visualizador-pdf',
+  selector: 'digital-visualizador-pdf',
   templateUrl: './visualizador-pdf.component.html',
   styleUrls: ['./visualizador-pdf.component.scss']
 })

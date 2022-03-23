@@ -6,7 +6,7 @@ import { ProcessoService } from 'app/modules/services/processo.service';
 import { Processo } from '../model/interfaces/processo.interface';
 
 @Component({
-  selector: 'app-processo-chip',
+  selector: 'digital-processo-chip',
   templateUrl: './processo-chip.component.html',
   styleUrls: ['./processo-chip.component.scss']
 })

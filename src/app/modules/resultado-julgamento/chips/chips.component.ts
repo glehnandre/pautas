@@ -8,7 +8,7 @@ interface Chip {
 }
 
 @Component({
-  selector: 'app-chips',
+  selector: 'digital-chips',
   templateUrl: './chips.component.html',
   styleUrls: ['./chips.component.scss']
 })

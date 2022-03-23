@@ -36,7 +36,7 @@ interface Decisao {
 }
 
 @Component({
-  selector: 'app-resultado-julgamento',
+  selector: 'digital-resultado-julgamento',
   templateUrl: './resultado-julgamento.component.html',
   styleUrls: ['./resultado-julgamento.component.scss'],
   encapsulation: ViewEncapsulation.None,
@@ -345,7 +345,6 @@ export class ResultadoJulgamentoComponent implements OnInit {
     this.abrirGaveta(this.FORM_VISTA_DESTAQUE)
   }
 
-
   public excluirVistaOuDestaque(item: any): void {
     if (item.type == 'vista') {
       this.excluirVista(item);
@@ -528,7 +527,7 @@ export class ResultadoJulgamentoComponent implements OnInit {
  * @author Douglas da Silva Monteles
  */
   private _carregarSessaoDeJulgamento(numero: number, ano: number): void {
-    this._sessaoDeJulgamentoService.listarSessoesDeJulgamento(numero, ano).subscribe({
+    this._sessaoDeJulgamentoService.obterSessaoDeJulgamento(numero, ano).subscribe({
       next: (SessaoDeJulgamento) => {
         this.sessao = SessaoDeJulgamento;
       }

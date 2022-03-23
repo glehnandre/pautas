@@ -20,6 +20,7 @@ import { MatInputModule } from '@angular/material/input';
 import { ExtratoAtaComponent } from './extrato-ata/extrato-ata.component';
 import { CorrecaoCapituloFormComponent } from './correcao-capitulo-form/correcao-capitulo-form.component';
 import { MatCheckboxModule } from '@angular/material/checkbox';
+import { OrdenarPipe } from './extrato-ata/ordenar.pipe';
 
 const RevisarExtratoAtaRoute: Routes = [
     { path: '', component: RevisarExtratoAtaComponent}
@@ -32,6 +33,7 @@ const RevisarExtratoAtaRoute: Routes = [
     PublicarFormComponent,
     ExtratoAtaComponent,
     CorrecaoCapituloFormComponent,
+    OrdenarPipe,
   ],
   imports: [
     CommonModule,

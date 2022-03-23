@@ -27,7 +27,7 @@ export interface RevisaoInteiroTeor {
 }
 
 @Component({
-  selector: 'app-tabela',
+  selector: 'digital-tabela',
   templateUrl: './tabela.component.html',
   styleUrls: ['./tabela.component.scss'],
   animations: fuseAnimations

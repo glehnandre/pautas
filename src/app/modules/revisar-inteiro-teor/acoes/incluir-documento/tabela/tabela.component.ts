@@ -5,7 +5,7 @@ import { Documento } from "app/shared/model/interfaces/documento.interface";
 
 
 @Component({
-  selector: 'app-tabela',
+  selector: 'digital-tabela',
   templateUrl: './tabela.component.html',
   styleUrls: ['./tabela.component.scss']
 })

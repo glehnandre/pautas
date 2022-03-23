@@ -8,7 +8,7 @@ import { catchError } from 'rxjs/operators';
 
 
 @Component({
-  selector: 'app-form',
+  selector: 'digital-form',
   templateUrl: './form.component.html',
   styleUrls: ['./form.component.scss']
 })

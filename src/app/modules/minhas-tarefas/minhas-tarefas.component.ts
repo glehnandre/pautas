@@ -6,7 +6,7 @@ import { FormComentarioComponent } from './form-comentario/form-comentario.compo
 
 
 @Component({
-    selector: 'app-minhas-tarefas',
+    selector: 'digital-minhas-tarefas',
     templateUrl: './minhas-tarefas.component.html',
     styleUrls: ['./minhas-tarefas.component.scss']
 })

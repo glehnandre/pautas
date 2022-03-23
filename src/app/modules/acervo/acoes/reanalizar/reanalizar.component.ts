@@ -6,7 +6,7 @@ import { ProcessoService } from 'app/modules/services/processo.service';
 import { Processo } from 'app/shared/model/interfaces/processo.interface';
 
 @Component({
-  selector: 'app-reanalizar',
+  selector: 'digital-reanalizar',
   templateUrl: './reanalizar.component.html',
   styleUrls: ['./reanalizar.component.scss']
 })

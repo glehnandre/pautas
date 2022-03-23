@@ -13,7 +13,7 @@ import { Processo } from 'app/shared/model/interfaces/processo.interface';
 import { Impedimento } from 'app/shared/model/interfaces/impedimento.interface';
 
 @Component({
-  selector: 'app-sessoes-julgamentos',
+  selector: 'digital-sessoes-julgamentos',
   templateUrl: './sessoes-julgamentos.component.html',
   styleUrls: ['./sessoes-julgamentos.component.scss']
 })
@@ -50,7 +50,7 @@ export class SessoesJulgamentosComponent implements OnInit {
   ngOnInit(): void {
       const { numero, ano } = this._route.snapshot.queryParams;
 
-      this._sessaoDeJulgamentoService.listarSessoesDeJulgamento(numero, ano).subscribe({
+      this._sessaoDeJulgamentoService.obterSessaoDeJulgamento(numero, ano).subscribe({
         next: (data) => {
             this.sessao = data;
 

@@ -29,7 +29,7 @@ interface FormVistaEDestaqueData {
 }
 
 @Component({
-  selector: 'app-form-vista-e-destaque',
+  selector: 'digital-form-vista-e-destaque',
   templateUrl: './form-vista-e-destaque.component.html',
   styleUrls: ['./form-vista-e-destaque.component.scss'],
   providers: [

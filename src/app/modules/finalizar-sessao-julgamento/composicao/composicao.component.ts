@@ -17,7 +17,7 @@ interface Turmas {
 const colegiados = ['primeira-turma', 'segunda-turma'];
 
 @Component({
-  selector: 'app-composicao',
+  selector: 'digital-composicao',
   templateUrl: './composicao.component.html',
   styleUrls: ['./composicao.component.scss']
 })

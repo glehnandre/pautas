@@ -15,7 +15,7 @@ import { FormRespostaComponent } from './form-resposta/form-resposta.component';
 registerLocaleData(localePT);
 
 @Component({
-  selector: 'app-sessao-extraordinaria',
+  selector: 'digital-sessao-extraordinaria',
   templateUrl: './sessao-extraordinaria.component.html',
   styleUrls: ['./sessao-extraordinaria.component.scss']
 })
@@ -46,7 +46,7 @@ export class SessaoExtraordinariaComponent implements OnInit {
 
   ngOnInit(): void {
     const { numero, ano } = this._route.snapshot.queryParams;
-    this._sessaoDejulgamentoService.listarSessoesDeJulgamento(numero, ano).subscribe({
+    this._sessaoDejulgamentoService.obterSessaoDeJulgamento(numero, ano).subscribe({
       next: (sessao) => {
         this.sessao = sessao;
         this.observacao = sessao['observacao'];

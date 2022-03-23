@@ -9,7 +9,7 @@ import { SessaoDeJulgamento } from 'app/shared/model/interfaces/sessao-julgament
 
 
 @Component({
-  selector: 'app-form-indicacao-impedimentos',
+  selector: 'digital-form-indicacao-impedimentos',
   templateUrl: './form-indicacao-impedimentos.component.html',
   styleUrls: ['./form-indicacao-impedimentos.component.scss']
 })

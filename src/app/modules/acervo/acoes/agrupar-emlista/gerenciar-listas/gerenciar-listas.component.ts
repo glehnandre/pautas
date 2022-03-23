@@ -12,7 +12,7 @@ import { catchError, map, startWith } from 'rxjs/operators';
 import { AlertaComponent } from './alerta/alerta.component';
 
 @Component({
-  selector: 'app-gerenciar-listas',
+  selector: 'digital-gerenciar-listas',
   templateUrl: './gerenciar-listas.component.html',
   styleUrls: ['./gerenciar-listas.component.scss']
 })

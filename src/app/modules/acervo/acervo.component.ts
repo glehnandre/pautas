@@ -13,7 +13,7 @@ interface ProcessosTags {
 };
 
 @Component({
-  selector: 'app-acervo',
+  selector: 'digital-acervo',
   templateUrl: './acervo.component.html',
   styleUrls: ['./acervo.component.scss']
 })

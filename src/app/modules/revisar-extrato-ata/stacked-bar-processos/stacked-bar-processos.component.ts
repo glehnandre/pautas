@@ -1,7 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'app-stacked-bar-processos',
+  selector: 'digital-stacked-bar-processos',
   templateUrl: './stacked-bar-processos.component.html',
   styleUrls: ['./stacked-bar-processos.component.scss']
 })

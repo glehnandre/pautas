@@ -3,7 +3,7 @@ import { SessaoDeJulgamento } from '../model/interfaces/sessao-julgamento.interf
 
 
 @Component({
-  selector: 'app-contador',
+  selector: 'digital-contador',
   templateUrl: './contador.component.html',
   styleUrls: ['./contador.component.scss']
 })
