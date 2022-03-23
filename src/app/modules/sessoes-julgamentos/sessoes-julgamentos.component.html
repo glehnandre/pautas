@@ -1,0 +1,170 @@
+<div class="absolute inset-0 flex flex-col min-w-0 overflow-hidden bg-white">
+    <div class="sm:items-center sm:justify-between p-3 sm:pt-2 sm:px-5 bg-white dark:bg-transparent">
+        <div class="flex flex-row justify-between">
+            <div class="flex flex-col items-start justify-between" *ngIf="(sessao | json) !== '{}'">
+                <app-filtro
+                ></app-filtro>
+
+                <div class="flex flex-row">
+                    <mat-checkbox
+                        class="ml-9"
+                        color="primary"
+                    >
+                    </mat-checkbox>
+
+                    <mat-chip class="flex-none bg-red-700 text-white">
+                        Declarar impedimento
+                    </mat-chip>
+                </div>
+            </div>
+
+            <app-contador
+                *ngIf="(sessao | json) !== '{}'"
+                [sessao]="sessao"
+            ></app-contador>
+        </div>
+    </div>
+    <div class="flex-auto  overflow-y-auto px-8 py-4 mb-2" *ngIf="(sessao | json) !== '{}'" cdkScrollable>
+        <mat-expansion-panel class="flex flex-col" *ngFor="let processo of processos; let i = index">
+            <mat-expansion-panel-header [collapsedHeight]="'80px'" class="h-full w-full specific-class">
+                <div class="flex flex-col w-full">
+                    <div class="flex flex-row flex-wrap py-2">
+                        <div class="flex flex-nowrap flex-row">
+                            <div class="flex">
+                                <div>
+                                    <mat-checkbox
+                                        color="primary"
+                                    >
+                                    </mat-checkbox>
+                                </div>
+                            </div>
+                            <img
+                                *ngIf="(processo.relator && processo.relator.imagem) || (processo.redator && pr)"
+                                [src]="processo?.relator?.imagem ? processo.relator.imagem : processo.redator.imagem"
+                                alt="Imagem de perfil"
+                                class="w-14 h-14 mr-6 mb-4 rounded-full"
+                            >
+                            <div class="flex flex-col flex-none mr-14">
+                                <div class="flex flex-row">
+                                    <div class="text-lg font-medium text-primary leading-tight">
+                                        {{ processo.classe }} {{ processo.numero }}
+                                    </div>
+                                </div>
+                                <div class="flex flex-row" *ngIf="processo.relator || processo.redator">
+                                    <div class="text-md leading-tight font-bold">
+                                        {{ processo.relator.abreviacao || processo.redator.abreviacao }}
+                                    </div>
+                                    <div class="text-md text-secondary ml-2 leading-tight">
+                                        {{ processo.relator ? "Relator" : "Redator" }}
+                                    </div>
+                                </div>
+                                <mat-chip-list #chipList class="mt-2">
+                                    <mat-chip *ngIf="processo.capitulos[0].dispositivo" class="flex-none border-green-700 border-solid border-2 bg-transparent text-green-700">
+                                        {{ processo.capitulos[0].dispositivo }}
+                                    </mat-chip>
+                                </mat-chip-list>
+                            </div>
+                            <div class="flex flex-col text-xl">
+                                {{ processo.nome }}
+                            </div>
+                        </div>
+                    </div>
+                    <div *ngIf="impedimentos[i] | async as imp; else loading" class="flex flex-row flex-wrap mr-2 items-end space-x-2">
+                        <mat-chip-list #chipList class="mt-2 flex-none" *ngFor="let impedimento of imp">
+                            <mat-chip (click)="abrirJanela(impedimento)" [class]="(impedimento.tipo === 'Suspeição') ? 'bg-primary-400' : 'bg-red-300'">
+                                <mat-icon class="mr-2 icon-size-4" style="color:firebrick">warning</mat-icon>
+                                {{(impedimento.tipo === 'Suspeição') ? 'Possível motivo de suspeição' : 'Possível motivo de impedimento'}}
+                            </mat-chip>
+                        </mat-chip-list>
+                        <ng-template #loading>
+                            <div class="relative">
+                                <mat-spinner class="absolute bottom-0 right-4" [diameter]="30"></mat-spinner>
+                            </div>
+                        </ng-template>
+                    </div>
+                    <div class="flex flex-row w-full">
+                        <div class="w-1/2">
+                            <app-carrossel
+                                [idChip]="'idTags'"
+                                [chips]="tags"
+                                [lastId]="lastId"
+                            ></app-carrossel>
+                        </div>
+                        <div class="w-1/2">
+                            <app-carrossel
+                                [idChip]="'idDocs'"
+                                [chips]="documentos"
+                                [lastId]="lastId"
+                                [hasIcon]="true"
+                                [class]="['border-primary', 'border-solid', 'border-2', 'bg-transparent', 'text-primary']"
+                                (linkDoPdfSelecionado)="abrirLink($event)"
+                            ></app-carrossel>
+                        </div>
+                    </div>
+                </div>
+
+
+
+            </mat-expansion-panel-header>
+            <app-processo-capitulo [processo]="processo"></app-processo-capitulo>
+        </mat-expansion-panel>
+    </div>
+    <fuse-drawer
+        id="visualisador"
+        [name]="'telaImpedimentos'"
+        [opened]="false"
+        [position]="'right'"
+        [mode]="'over'"
+    >
+    <div class="grid grid-flow-row content-start mx-8">
+            <button
+                class="bg-accent-200 mt-4 absolute right-8 rounded-full text-center h-8 w-8"
+                mat-icon-button
+                (click)="toggleDrawerOpen('telaImpedimentos')"
+            >
+                <mat-icon class="text-current mt-1 text-black" [svgIcon]="'heroicons_outline:x'"></mat-icon>
+            </button>
+
+            <h2 class="mt-16 w-full">{{label}} ({{tamanho}})</h2>
+            <fuse-card class="flex flex-col items-start p-4 mb-4 bg-accent-100" *ngFor="let t of tipo">
+
+                <div class="w-full flex felx-col mb-4 border-solid border-b-2 text-justify">
+                <h3 class="font-medium mr-1 text-primary">Tipo:</h3>
+                <span class="mt-1 text-lg">{{t}}</span>
+                </div>
+                <div class="w-full flex felx-col mb-2 border-solid border-b-2 text-justify">
+                <h3 class="font-medium mr-1 text-primary">Relacionamento:</h3>
+                <span class="mt-1 text-lg">{{relacionamento}}</span>
+                </div>
+                <div class="mb-4 text-justify">
+                <h4 class="font-medium mb-0 pt-2">Descrição:</h4>
+                {{descricao}}
+                </div>
+                <div class="w-full mb-4 border-solid border-t-2 text-justify">
+                <h4 class="font-medium mb-0 pt-2">Observação:</h4>
+                {{observacao}}
+                </div>
+            </fuse-card>
+        </div>
+    </fuse-drawer>
+</div>
+<!-- <div class="absolute top-0 right-0 z-10 p-2">
+    <fuse-alert class="max-w-120 mx-auto"
+                [type]="'error'"
+                [appearance]="'soft'"
+                [dismissible]=true
+                [dismissed]=true
+                [name]="'alertBoxInvalidSession'">
+        <span fuseAlertTitle>Nenhuma sessão de julgamento aberta para o periodo encontrada.</span>
+        Pode haver sessão de julgamento fechadas para o período.
+    </fuse-alert>
+</div> -->
+
+<app-alerta
+    [nome]="'Error'"
+    [titulo]="'Error'"
+    [mensagem]="errorMessage"
+    [aparencia]="'outline'"
+    [tipo]="'error'"
+    class="absolute top-2 right-2 max-w-120 mx-auto z-40"
+></app-alerta>

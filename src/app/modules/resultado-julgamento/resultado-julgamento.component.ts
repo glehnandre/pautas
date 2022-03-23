@@ -15,6 +15,7 @@ import { Suspensao } from 'app/shared/model/interfaces/suspensao.interface';
 import { Vista } from 'app/shared/model/interfaces/vista.interface';
 import { Voto } from 'app/shared/model/interfaces/voto.interface';
 import { AlertaService } from '../services/alerta.service';
+import { MinistroService } from '../services/ministro.service';
 import { ProcessoService } from '../services/processo.service';
 import { SessaoDeJulgamentoService } from '../services/sessao-de-julgamento.service';
 import { FormIndicacaoImpedimentosComponent } from './form-indicacao-impedimentos/form-indicacao-impedimentos.component';
@@ -64,6 +65,7 @@ export class ResultadoJulgamentoComponent implements OnInit {
   readonly DRAWER_SUSPENSAO = 'suspensaoDrawer';
 
   constructor(
+    private _ministroService: MinistroService,
     private _processoService: ProcessoService,
     private _sessaoDeJulgamentoService: SessaoDeJulgamentoService,
     private _route: ActivatedRoute,

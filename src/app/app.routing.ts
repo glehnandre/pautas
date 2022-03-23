@@ -1,8 +1,8 @@
 import { Route } from '@angular/router';
-import { InitialDataResolver } from 'app/app.resolvers';
 import { AuthGuard } from 'app/core/auth/guards/auth.guard';
 import { NoAuthGuard } from 'app/core/auth/guards/noAuth.guard';
 import { LayoutComponent } from 'app/layout/layout.component';
+import { InitialDataResolver } from 'app/app.resolvers';
 
 // @formatter:off
 /* eslint-disable max-len */
@@ -80,7 +80,7 @@ export const appRoutes: Route[] = [
             {path: 'resposta-solicitacao-sessao-extraordinaria', loadChildren: () => import('app/modules/sessao-extraordinaria/resposta-solicitacao-sessao-extraordinaria/resposta-solicitacao-sessao-extraordinaria.module').then(m => m.JulgamentoExtraordinarioModule)},
             {path: 'sessao-extraordinaria', loadChildren: () => import('app/modules/sessao-extraordinaria/sessao-extraordinaria.module').then(m => m.SessaoExtraordinariaModule)},
             {path: 'criacao-colegiado', loadChildren: () => import('app/modules/criacao-colegiado/criacao-colegiado.module').then(m => m.CriacaoColegiadoModule)},
-            {path: 'sessoes-julgamento', loadChildren: () => import('app/modules/sessoes-julgamento/sessoes-julgamento.module').then(m => m.SessoesJulgamentoModule)},
+            {path: 'sessoes-julgamento', loadChildren: () => import('app/modules/sessoes-julgamentos/sessoes-julgamentos.module').then(m => m.SessoesJulgamentosModule)},
             {path: 'resultado-julgamento', loadChildren: () => import('app/modules/resultado-julgamento/resultado-julgamento.module').then(m => m.ResultadoJulgamentoModule)},
             {path: 'minhas-tarefas', loadChildren: () => import('app/modules/minhas-tarefas/minhas-tarefas.module').then(m => m.MinhasTarefasModule)},
             {path: 'revisar-inteiro-teor', loadChildren: () => import('app/modules/revisar-inteiro-teor/revisar-inteiro-teor.module').then(m => m.RevisarInteiroTeorModule)},
