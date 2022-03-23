@@ -128,8 +128,9 @@
                         <div class="mb-2">
                             <span *ngFor="let suspensao of (processo?.suspensoes | ordenar: 'data')">
                                 <p class="leading-tight ">
-                                    <strong>Julgamento Suspenso: </strong> {{suspensao.data | date: 'dd/MM/yyyy'}}. <span [innerHtml]=" fraseEMinistros([suspensao.ministro], FraseMinistro) "></span> 
-                                    [Ausentes da sessão se houver com o mesmo texto dos ausentes da sessão atual].
+                                    <strong>Julgamento Suspenso: </strong> 
+                                    {{suspensao.data | date: 'dd/MM/yyyy'}}. 
+                                    <span [innerHtml]=" fraseEMinistros([suspensao.ministro], FraseMinistro) "></span>
                                 </p>
                                 <div class="prose text-md">
                                     <div class="prose prose-h1" [innerHtml]="suspensao.texto"></div>
