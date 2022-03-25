@@ -1,11 +1,11 @@
-<div class="relative flex">
+<div class="relative flex w-full">
     <fuse-drawer [name]="'leftDrawer'" [opened]="true" [mode]="'side'" id="filtros">
         <!--INSERIR FILTROS AQUI-->
         <digital-filtros></digital-filtros>
     </fuse-drawer>
 
     <div class="flex-auto p-2 ml-4">
-        <button mat-mini-fab color="primary" aria-label="Abrir ou fechar os filtros" (click)="toggleDrawerOpen('leftDrawer')">
+        <button class="mb-2" mat-mini-fab color="primary" aria-label="Abrir ou fechar os filtros" (click)="toggleDrawerOpen('leftDrawer')">
             <mat-icon *ngIf="isOpen('leftDrawer') else mudaIcone" >
                 arrow_back
             </mat-icon>

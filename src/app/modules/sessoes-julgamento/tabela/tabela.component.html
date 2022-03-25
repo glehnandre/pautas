@@ -1,1 +1,131 @@
-<p>tabela works!</p>
+<div class="relative mat-elevation-z8">
+    <div
+        class="absolute top-0 left-0 right-0 bottom-14 bg-gray-200 
+                 z-10 flex items-center justify-center"
+        *ngIf="isLoadingResults || isRateLimitReached"
+    >
+        <mat-spinner
+            *ngIf="isLoadingResults"
+            class="mt-12 z-10"
+            color="primary"
+        ></mat-spinner>
+
+        <div
+            class="max-w-90 text-center"
+            *ngIf="isRateLimitReached"
+        >
+            Aguarde alguns segundos...
+        </div>
+    </div>
+
+    <div class="relative min-h-50 overflow-auto">
+        <table
+            mat-table
+            multiTemplateDataRows
+            [dataSource]="dataSource"
+            class="mat-elevation-z8 w-full overflow-y-auto"
+        >
+            <!-- Número/Ano da Sessão Column -->
+            <ng-container class="" matColumnDef="numero-ano-sessao">
+                <th mat-header-cell *matHeaderCellDef>
+                    Número/Ano da Sessão
+                </th>
+
+                <td mat-cell *matCellDef="let row">
+                    01/2021
+                </td>
+            </ng-container>
+
+            <!-- Colegiado Column -->
+            <ng-container matColumnDef="colegiado">
+                <th mat-header-cell *matHeaderCellDef>
+                    Colegiado
+                </th>
+
+                <td mat-cell *matCellDef="let element">
+                    Primeira Turma
+                </td>
+            </ng-container>
+
+            <!-- Modalidade Column -->
+            <ng-container matColumnDef="modalidade">
+                <th mat-header-cell *matHeaderCellDef>
+                    Modalidade
+                </th>
+
+                <td mat-cell *matCellDef="let element">
+                    Virtual
+                </td>
+            </ng-container>
+
+            <!-- Inicio Column -->
+            <ng-container matColumnDef="inicio">
+                <th mat-header-cell *matHeaderCellDef>
+                    Início
+                </th>
+
+                <td mat-cell *matCellDef="let element">
+                    22/03/2022
+                </td>
+            </ng-container>
+
+            <!-- Fim Column -->
+            <ng-container matColumnDef="fim">
+                <th mat-header-cell *matHeaderCellDef>
+                    Fim da Sessão
+                </th>
+
+                <td mat-cell *matCellDef="let element">
+                    22/03/2022
+                </td>
+            </ng-container>
+
+            <!-- Qtd Processos Column -->
+            <ng-container matColumnDef="qtd-processos">
+                <th mat-header-cell *matHeaderCellDef>
+                    Qtd Processos
+                </th>
+
+                <td mat-cell *matCellDef="let element">
+                    003
+                </td>
+            </ng-container>
+
+            <!-- Status da Sessão Column -->
+            <ng-container matColumnDef="status-sessao">
+                <th mat-header-cell *matHeaderCellDef>
+                    Status da Sessão
+                </th>
+
+                <td mat-cell *matCellDef="let element">
+                    PUBLICADO
+                </td>
+            </ng-container>
+
+            <tr 
+                mat-header-row 
+                *matHeaderRowDef="displayedColumns; sticky: true"
+            ></tr>
+            <tr 
+                mat-row 
+                *matRowDef="let element; columns: displayedColumns;"
+            ></tr>
+        </table>
+    </div>
+
+    <mat-paginator
+        [length]="resultsLength"
+        [pageSize]="pageSize"
+        [pageSizeOptions]="pageSizeOptions"
+        (page)="pageEvent = $event"
+    ></mat-paginator>
+</div>
+
+<digital-alerta
+    [nome]="'Error'"
+    [titulo]="'Error'"
+    [mensagem]="'teste'"
+    [aparencia]="'outline'"
+    [tipo]="'error'"
+    class="absolute top-2 right-2 max-w-120 mx-auto z-40"
+></digital-alerta>
