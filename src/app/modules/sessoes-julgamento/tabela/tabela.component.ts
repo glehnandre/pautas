@@ -29,8 +29,6 @@ export class TabelaComponent implements OnInit, AfterViewInit {
     'status-sessao'
   ];
   dataSource = new MatTableDataSource<SessaoDeJulgamento>([]);
-  selection = new SelectionModel<SessaoDeJulgamento>(true, []);
-  expandedElement: SessaoDeJulgamento | null;
 
   resultsLength = 0;
   pageSize = 30;
@@ -54,47 +52,19 @@ export class TabelaComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit(): void {
-    this.selection.changed.subscribe({
-      next: (tasksSelecinadas) => {
-
-      },
-    });
   }
 
   ngOnDestroy(): void {
     this.dataSource.disconnect();
   }
 
-  /**
-   * @description Whether the number of selected elements matches the total number of rows.
-   * @author Douglas da Silva Monteles
-  */
-  public isAllSelected() {
-    const numSelected = this.selection.selected.length;
-    const numRows = this.dataSource.data.length;
-    return numSelected === numRows;
-  }
-
-  @HostListener("window:resize")
-  public isTelaPequena(): boolean {
-    return window.screen.width < 600;
-  }
-
-  /**
-   * @description Selects all rows if they are not all selected; otherwise clear selection.
-   * @author Douglas da Silva Monteles
-  */
-  public masterToggle() {
-    if (this.isAllSelected()) {
-      this.selection.clear();
-      return;
-    }
-
-    this.selection.select(...this.dataSource.data);
-  }
-
   public obterChavesDoObj(obj: any) {
     return Object.keys(obj);
+  }
+
+  @HostListener("window:resize", ['$event'])
+  public isTelaPequena(): boolean {
+    return window.innerWidth < 600;
   }
 
   private _carregarSessoes(params?: Filtro): void {
@@ -123,12 +93,13 @@ export class TabelaComponent implements OnInit, AfterViewInit {
             return [];
           }
 
-          this.resultsLength = 20; // tamanho da lista
+          this.resultsLength = data.length; // tamanho da lista
           return data;
         }),
       ).subscribe({
         next: (data: any[]) => {
           this.sessoes = data;
+          console.log(this.sessoes)
 
           const grupoDeTarefas = this._sliceIntoChunks(this.sessoes, this.pageEvent?.pageSize);
           this.dataSource = new MatTableDataSource<SessaoDeJulgamento>(grupoDeTarefas[this.pageEvent?.pageIndex || 0]);

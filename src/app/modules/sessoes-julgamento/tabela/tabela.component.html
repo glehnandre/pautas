@@ -27,67 +27,67 @@
         >
             <!-- Número/Ano da Sessão Column -->
             <ng-container class="" matColumnDef="numero-ano-sessao">
-                <th mat-header-cell *matHeaderCellDef>
+                <th class="text-center" mat-header-cell *matHeaderCellDef>
                     Número/Ano da Sessão
                 </th>
 
-                <td mat-cell *matCellDef="let row">
-                    01/2021
+                <td mat-cell *matCellDef="let element">
+                    {{element.numero}}/{{element.ano}}
                 </td>
             </ng-container>
 
             <!-- Colegiado Column -->
             <ng-container matColumnDef="colegiado">
-                <th mat-header-cell *matHeaderCellDef>
+                <th class="text-center" mat-header-cell *matHeaderCellDef>
                     Colegiado
                 </th>
 
                 <td mat-cell *matCellDef="let element">
-                    Primeira Turma
+                    {{element.colegiado}}
                 </td>
             </ng-container>
 
             <!-- Modalidade Column -->
             <ng-container matColumnDef="modalidade">
-                <th mat-header-cell *matHeaderCellDef>
+                <th [ngClass]="{'hidden': isTelaPequena()}" mat-header-cell *matHeaderCellDef>
                     Modalidade
                 </th>
 
-                <td mat-cell *matCellDef="let element">
-                    Virtual
+                <td [ngClass]="{'hidden': isTelaPequena()}" mat-cell *matCellDef="let element">
+                    {{element.modalidade}}
                 </td>
             </ng-container>
 
             <!-- Inicio Column -->
             <ng-container matColumnDef="inicio">
-                <th mat-header-cell *matHeaderCellDef>
-                    Início
+                <th [ngClass]="{'hidden': isTelaPequena()}" mat-header-cell *matHeaderCellDef>
+                    Início da Sessão
                 </th>
 
-                <td mat-cell *matCellDef="let element">
-                    22/03/2022
+                <td [ngClass]="{'hidden': isTelaPequena()}" mat-cell *matCellDef="let element">
+                    {{element.data_inicio | date: 'dd/MM/yyyy'}}
                 </td>
             </ng-container>
 
             <!-- Fim Column -->
             <ng-container matColumnDef="fim">
-                <th mat-header-cell *matHeaderCellDef>
+                <th [ngClass]="{'hidden': isTelaPequena()}" mat-header-cell *matHeaderCellDef>
                     Fim da Sessão
                 </th>
 
-                <td mat-cell *matCellDef="let element">
-                    22/03/2022
+                <td [ngClass]="{'hidden': isTelaPequena()}" mat-cell *matCellDef="let element">
+                    {{element.data_fim | date: 'dd/MM/yyyy'}}
                 </td>
             </ng-container>
 
             <!-- Qtd Processos Column -->
             <ng-container matColumnDef="qtd-processos">
-                <th mat-header-cell *matHeaderCellDef>
+                <th [ngClass]="{'hidden': isTelaPequena()}" mat-header-cell *matHeaderCellDef>
                     Qtd Processos
                 </th>
 
-                <td mat-cell *matCellDef="let element">
-                    003
+                <td [ngClass]="{'hidden': isTelaPequena()}" mat-cell *matCellDef="let element">
+                    00{{element.processos?.length || 0}}
                 </td>
             </ng-container>
 
@@ -98,7 +98,7 @@
                 </th>
 
                 <td mat-cell *matCellDef="let element">
-                    PUBLICADO
+                    {{element.situacao}}
                 </td>
             </ng-container>
 
