@@ -16,6 +16,7 @@ import { FuseDrawerModule } from '@fuse/components/drawer';
 import { SharedModule } from '../../shared/shared.module';
 import { FiltrosComponent } from './filtros/filtros.component';
 import { SessoesJulgamentoComponent } from './sessoes-julgamento.component';
+import { TabelaComponent } from './tabela/tabela.component';
 
 
 const SessoesJulgamentoRoutes: Route[] = [
@@ -26,6 +27,7 @@ const SessoesJulgamentoRoutes: Route[] = [
   declarations: [
     SessoesJulgamentoComponent,
     FiltrosComponent,
+    TabelaComponent,
   ],
   imports: [
     CommonModule,
