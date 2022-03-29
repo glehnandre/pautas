@@ -41,6 +41,7 @@ export class TabelaComponent implements OnInit, AfterViewInit {
   errorMessage: string;
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
+  @ViewChild(MatSort) sort: MatSort;
 
   constructor(
     private _sessaoJulgamento: SessaoDeJulgamentoService,
@@ -78,7 +79,10 @@ export class TabelaComponent implements OnInit, AfterViewInit {
   }
 
   private _carregarSessoes(params?: Filtro): void {
-    merge(this.paginator.page)
+    // If the user changes the sort order, reset back to the first page.
+    this.sort.sortChange.subscribe(() => (this.paginator.pageIndex = 0));
+
+    merge(this.sort.sortChange, this.paginator.page)
       .pipe(
         startWith({}),
         switchMap(() => {
@@ -87,6 +91,8 @@ export class TabelaComponent implements OnInit, AfterViewInit {
           return this._sessaoJulgamento
             .listarTodasAsSessoesDeJulgamento()
             .pipe(
+              map(data => this._sortData(data, this.sort.active, 
+                this.sort.direction, this.paginator.pageIndex)),
               catchError(error => {
                 console.log(error);
                 this.errorMessage = error.message;
@@ -115,6 +121,40 @@ export class TabelaComponent implements OnInit, AfterViewInit {
           this.dataSource = new MatTableDataSource<SessaoDeJulgamento>(grupoDeTarefas[this.pageEvent?.pageIndex || 0]);
         }
       });
+  }
+
+  private _sortData(data: Array<any>, sort: string, order: SortDirection, page: number): Array<any> {
+    let keys = sort.split('-');
+    let arr = data;
+    
+    for (let i = 0; i < keys.length; i++) {
+      let key = keys[i];
+      arr = arr.sort((a, b) => {
+        let keyA = a[key];
+        let keyB = b[key];
+
+        if (key === 'inicio' || key === 'fim') { // ordenação por data
+          if (order === 'asc') {
+            if (new Date(keyA).getTime() > new Date(keyB).getTime()) return 1;
+            if (new Date(keyA).getTime() < new Date(keyB).getTime()) return -1;
+          } else {
+            if (new Date(keyA).getTime() < new Date(keyB).getTime()) return 1;
+            if (new Date(keyA).getTime() > new Date(keyB).getTime()) return -1;
+          }
+        } else {
+          if (order === 'asc') {
+            if (keyA > keyB) return 1;
+            if (keyA < keyB) return -1;
+          } else {
+            if (keyA < keyB) return 1;
+            if (keyA > keyB) return -1;
+          }
+        }
+        return 0;
+      });
+    }
+
+    return arr;
   }
 
   private _sliceIntoChunks(arr: Array<any>, chunkSize: number = 30): Array<any> {

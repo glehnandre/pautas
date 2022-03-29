@@ -23,11 +23,15 @@
             mat-table
             multiTemplateDataRows
             [dataSource]="dataSource"
+            matSort 
+            matSortActive="numero-ano" 
+            matSortDisableClear 
+            matSortDirection="desc"
             class="mat-elevation-z8 w-full overflow-y-auto"
         >
             <!-- Número/Ano da Sessão Column -->
             <ng-container class="" matColumnDef="numero-ano-sessao">
-                <th class="text-center" mat-header-cell *matHeaderCellDef>
+                <th class="text-center" mat-header-cell *matHeaderCellDef mat-sort-header="numero-ano" disableClear>
                     Número/Ano da Sessão
                 </th>
 
@@ -38,7 +42,7 @@
 
             <!-- Colegiado Column -->
             <ng-container matColumnDef="colegiado">
-                <th mat-header-cell *matHeaderCellDef>
+                <th mat-header-cell *matHeaderCellDef mat-sort-header="colegiado" disableClear>
                     Colegiado
                 </th>
 
@@ -49,7 +53,7 @@
 
             <!-- Modalidade Column -->
             <ng-container matColumnDef="modalidade">
-                <th [ngClass]="{'hidden': isTelaPequena()}" mat-header-cell *matHeaderCellDef>
+                <th [ngClass]="{'hidden': isTelaPequena()}" mat-header-cell *matHeaderCellDef mat-sort-header="modalidade" disableClear>
                     Modalidade
                 </th>
 
@@ -60,7 +64,7 @@
 
             <!-- Inicio Column -->
             <ng-container matColumnDef="inicio">
-                <th [ngClass]="{'hidden': isTelaPequena()}" mat-header-cell *matHeaderCellDef>
+                <th [ngClass]="{'hidden': isTelaPequena()}" mat-header-cell *matHeaderCellDef mat-sort-header="data_inicio" disableClear>
                     Início da Sessão
                 </th>
 
@@ -71,7 +75,7 @@
 
             <!-- Fim Column -->
             <ng-container matColumnDef="fim">
-                <th [ngClass]="{'hidden': isTelaPequena()}" mat-header-cell *matHeaderCellDef>
+                <th [ngClass]="{'hidden': isTelaPequena()}" mat-header-cell *matHeaderCellDef mat-sort-header="data_fim" disableClear>
                     Fim da Sessão
                 </th>
 
@@ -97,7 +101,7 @@
 
             <!-- Status da Sessão Column -->
             <ng-container matColumnDef="status-sessao">
-                <th mat-header-cell *matHeaderCellDef>
+                <th mat-header-cell *matHeaderCellDef mat-sort-header="status" disableClear>
                     Status da Sessão
                 </th>
 
