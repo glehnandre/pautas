@@ -62,6 +62,16 @@ export class TabelaComponent implements OnInit, AfterViewInit {
     return Object.keys(obj);
   }
 
+  public getQtdProcessosFormatado(qtdProcessos: number, qtdZeros: number = 3): string {
+    let zeros = "";
+
+    for (let i = 0; i < qtdZeros; i++) {
+      zeros += "0";
+    }
+    
+    return (zeros + qtdProcessos).slice(-zeros.length);
+  }
+
   @HostListener("window:resize", ['$event'])
   public isTelaPequena(): boolean {
     return window.innerWidth < 600;

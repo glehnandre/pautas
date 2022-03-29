@@ -25,3 +25,13 @@ tr.example-element-row:not(.example-expanded-row):hover {
   align-items: center;
   justify-content: center;
 }
+
+table {
+  th, td {
+    @apply text-center;
+  }
+
+  td {
+    @apply text-primary-600;
+  }
+}

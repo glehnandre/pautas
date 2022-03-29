@@ -38,7 +38,7 @@
 
             <!-- Colegiado Column -->
             <ng-container matColumnDef="colegiado">
-                <th class="text-center" mat-header-cell *matHeaderCellDef>
+                <th mat-header-cell *matHeaderCellDef>
                     Colegiado
                 </th>
 
@@ -87,7 +87,11 @@
                 </th>
 
                 <td [ngClass]="{'hidden': isTelaPequena()}" mat-cell *matCellDef="let element">
-                    00{{element.processos?.length || 0}}
+                    <div class="max-w-12 mx-auto py-0.5 px-3 rounded-full text-sm 
+                        font-semibold text-black bg-gray-300"
+                    >
+                        {{getQtdProcessosFormatado(element.processos?.length || 0)}}
+                    </div>
                 </td>
             </ng-container>
 
