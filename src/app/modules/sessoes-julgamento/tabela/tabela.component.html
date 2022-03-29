@@ -117,6 +117,7 @@
             <tr 
                 mat-row 
                 *matRowDef="let element; columns: displayedColumns;"
+                (click)="selecionarLinha(element)"
             ></tr>
         </table>
     </div>

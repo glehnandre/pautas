@@ -33,5 +33,10 @@ table {
 
   td {
     @apply text-primary-600;
+    @apply hover:cursor-pointer;
+  }
+
+  tr {
+    @apply hover:bg-gray-100;
   }
 }

@@ -78,6 +78,10 @@ export class TabelaComponent implements OnInit, AfterViewInit {
     return window.innerWidth < 600;
   }
 
+  public selecionarLinha(sessao: SessaoDeJulgamento): void {
+    console.log(sessao);
+  }
+
   private _carregarSessoes(params?: Filtro): void {
     // If the user changes the sort order, reset back to the first page.
     this.sort.sortChange.subscribe(() => (this.paginator.pageIndex = 0));

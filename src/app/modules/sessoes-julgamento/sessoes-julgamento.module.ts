@@ -23,7 +23,11 @@ import { TabelaComponent } from './tabela/tabela.component';
 
 
 const SessoesJulgamentoRoutes: Route[] = [
-  { path: '', component: SessoesJulgamentoComponent, pathMatch: 'full' },
+  { 
+    path: '', 
+    component: SessoesJulgamentoComponent, 
+    pathMatch: 'full' 
+  },
 ];
 
 @NgModule({
