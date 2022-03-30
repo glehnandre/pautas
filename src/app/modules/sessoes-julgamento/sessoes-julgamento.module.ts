@@ -22,6 +22,7 @@ import { DetalhesSessaoComponent } from './detalhes-sessao/detalhes-sessao.compo
 import { FiltrosComponent } from './filtros/filtros.component';
 import { SessoesJulgamentoComponent } from './sessoes-julgamento.component';
 import { TabelaComponent } from './tabela/tabela.component';
+import { TabelaProcessosComponent } from './detalhes-sessao/tabela-processos/tabela-processos.component';
 
 const SessoesJulgamentoRoutes: Route[] = [
   { 
@@ -41,6 +42,7 @@ const SessoesJulgamentoRoutes: Route[] = [
     FiltrosComponent,
     TabelaComponent,
     DetalhesSessaoComponent,
+    TabelaProcessosComponent,
   ],
   imports: [
     CommonModule,
