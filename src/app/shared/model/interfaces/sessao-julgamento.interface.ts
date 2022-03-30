@@ -1,4 +1,5 @@
 import { Ata } from "./ata.interface";
+import { Ministro } from "./ministro.interface";
 import { Processo } from "./processo.interface";
 
 export interface SessaoDeJulgamento {
@@ -14,4 +15,5 @@ export interface SessaoDeJulgamento {
     situacao: 'PUBLICADA' | 'APROVADA' | 'FECHADA' | 'ABERTA' | 'FINALIZADA' | 'REJEITADA';
     ata: Ata;
     processos: Array<Processo>;
+    presidencia?: Ministro;
 }

@@ -39,6 +39,7 @@ const SessoesJulgamentoRoutes: Route[] = [
     SessoesJulgamentoComponent,
     FiltrosComponent,
     TabelaComponent,
+    DetalhesSessaoComponent,
   ],
   imports: [
     CommonModule,
@@ -59,6 +60,7 @@ const SessoesJulgamentoRoutes: Route[] = [
     MatPaginatorModule,
     MatSortModule,
     MatMenuModule,
+    FuseCardModule,
   ],
 })
 export class SessoesJulgamentoModule { }
