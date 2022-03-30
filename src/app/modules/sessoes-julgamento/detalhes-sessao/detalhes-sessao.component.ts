@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { SessaoDeJulgamentoService } from 'app/modules/services/sessao-de-julgamento.service';
+import { Ministro } from 'app/shared/model/interfaces/ministro.interface';
 import { SessaoDeJulgamento } from 'app/shared/model/interfaces/sessao-julgamento.interface';
 
 @Component({
@@ -11,6 +12,8 @@ import { SessaoDeJulgamento } from 'app/shared/model/interfaces/sessao-julgament
 export class DetalhesSessaoComponent implements OnInit {
 
   sessao: SessaoDeJulgamento;
+  totalMinistrosPresentes: number = 0;
+  totalMinistrosAusentes: number = 0;
 
   constructor(
     private _route: ActivatedRoute,
@@ -24,6 +27,8 @@ export class DetalhesSessaoComponent implements OnInit {
     this._sessaoDeJulgamentoService.obterSessaoDeJulgamento(numero, ano).subscribe({
       next: (sessao) => {
         this.sessao = sessao;
+        this.totalMinistrosAusentes = this.sessao.ata.ministros_presentes.length;
+        this.totalMinistrosAusentes = this.sessao.ata.ministros_ausentes.length;
         console.log(sessao);
       }
     });
