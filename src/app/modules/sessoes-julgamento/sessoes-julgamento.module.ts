@@ -17,17 +17,21 @@ import { FuseAlertModule } from '@fuse/components/alert';
 import { FuseCardModule } from '@fuse/components/card';
 import { FuseDrawerModule } from '@fuse/components/drawer';
 import { SharedModule } from '../../shared/shared.module';
+import { DetalhesSessaoComponent } from './detalhes-sessao/detalhes-sessao.component';
 import { FiltrosComponent } from './filtros/filtros.component';
 import { SessoesJulgamentoComponent } from './sessoes-julgamento.component';
 import { TabelaComponent } from './tabela/tabela.component';
 
-
 const SessoesJulgamentoRoutes: Route[] = [
   { 
     path: '', 
-    component: SessoesJulgamentoComponent, 
-    pathMatch: 'full' 
+    component: SessoesJulgamentoComponent,
   },
+
+  {
+    path: 'detalhes',
+    component: DetalhesSessaoComponent,
+  }
 ];
 
 @NgModule({
@@ -38,6 +42,7 @@ const SessoesJulgamentoRoutes: Route[] = [
   ],
   imports: [
     CommonModule,
+    RouterModule.forChild(SessoesJulgamentoRoutes),
     MatFormFieldModule,
     MatChipsModule,
     MatIconModule,
@@ -49,7 +54,6 @@ const SessoesJulgamentoRoutes: Route[] = [
     FuseDrawerModule,
     MatButtonModule,
     MatProgressSpinnerModule,
-    RouterModule.forChild(SessoesJulgamentoRoutes),
     MatTableModule,
     MatDatepickerModule,
     MatPaginatorModule,

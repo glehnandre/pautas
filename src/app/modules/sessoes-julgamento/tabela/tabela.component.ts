@@ -1,8 +1,10 @@
 import { SelectionModel } from '@angular/cdk/collections';
+import { HttpParams } from '@angular/common/http';
 import { AfterViewInit, Component, HostListener, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { MatSort, SortDirection } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
+import { Route, Router } from '@angular/router';
 import { AlertaService } from 'app/modules/services/alerta.service';
 import { SessaoDeJulgamentoService } from 'app/modules/services/sessao-de-julgamento.service';
 import { SessaoDeJulgamento } from 'app/shared/model/interfaces/sessao-julgamento.interface';
@@ -46,6 +48,7 @@ export class TabelaComponent implements OnInit, AfterViewInit {
   constructor(
     private _sessaoJulgamento: SessaoDeJulgamentoService,
     private _alertaService: AlertaService,
+    private _router: Router,
   ) { }
 
   ngAfterViewInit(): void {
@@ -78,8 +81,15 @@ export class TabelaComponent implements OnInit, AfterViewInit {
     return window.innerWidth < 600;
   }
 
-  public selecionarLinha(sessao: SessaoDeJulgamento): void {
-    console.log(sessao);
+  public navegarParaDetalhesDaSessao(sessao: SessaoDeJulgamento): void {
+    const {numero, ano} = sessao;
+
+    this._router.navigate(['sessoes-julgamento/detalhes'], {
+      queryParams: {
+        numero, 
+        ano,
+      }
+    });
   }
 
   private _carregarSessoes(params?: Filtro): void {
