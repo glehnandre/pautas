@@ -12,6 +12,7 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatSortModule } from '@angular/material/sort';
 import { MatTableModule } from '@angular/material/table';
+import { MatTooltipModule } from '@angular/material/tooltip';
 import { Route, RouterModule } from '@angular/router';
 import { FuseAlertModule } from '@fuse/components/alert';
 import { FuseCardModule } from '@fuse/components/card';
@@ -60,6 +61,7 @@ const SessoesJulgamentoRoutes: Route[] = [
     MatPaginatorModule,
     MatSortModule,
     MatMenuModule,
+    MatTooltipModule,
     FuseCardModule,
   ],
 })
