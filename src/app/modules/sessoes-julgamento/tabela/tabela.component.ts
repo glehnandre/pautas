@@ -1,10 +1,10 @@
 import { SelectionModel } from '@angular/cdk/collections';
 import { HttpParams } from '@angular/common/http';
-import { AfterViewInit, Component, HostListener, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, HostListener, Input, OnChanges, OnInit, SimpleChanges, ViewChild } from '@angular/core';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { MatSort, SortDirection } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
-import { Route, Router } from '@angular/router';
+import { ActivatedRoute, Route, Router } from '@angular/router';
 import { AlertaService } from 'app/modules/services/alerta.service';
 import { SessaoDeJulgamentoService } from 'app/modules/services/sessao-de-julgamento.service';
 import { SessaoDeJulgamento } from 'app/shared/model/interfaces/sessao-julgamento.interface';
@@ -49,13 +49,19 @@ export class TabelaComponent implements OnInit, AfterViewInit {
     private _sessaoJulgamento: SessaoDeJulgamentoService,
     private _alertaService: AlertaService,
     private _router: Router,
+    private _route: ActivatedRoute,
   ) { }
+
+  ngOnInit(): void {
+    this._route.queryParams.subscribe(params => {
+      if (Object.values(params).length > 0) {
+        this._carregarSessoes(params);
+      }
+    });
+  }
 
   ngAfterViewInit(): void {
     this._carregarSessoes();
-  }
-
-  ngOnInit(): void {
   }
 
   ngOnDestroy(): void {
@@ -92,7 +98,7 @@ export class TabelaComponent implements OnInit, AfterViewInit {
     });
   }
 
-  private _carregarSessoes(params?: Filtro): void {
+  private _carregarSessoes(filtros?: any): void {
     // If the user changes the sort order, reset back to the first page.
     this.sort.sortChange.subscribe(() => (this.paginator.pageIndex = 0));
 
@@ -105,6 +111,7 @@ export class TabelaComponent implements OnInit, AfterViewInit {
           return this._sessaoJulgamento
             .listarTodasAsSessoesDeJulgamento()
             .pipe(
+              map(data => this._filtrar(data, filtros)),
               map(data => this._sortData(data, this.sort.active, 
                 this.sort.direction, this.paginator.pageIndex)),
               catchError(error => {
@@ -135,6 +142,21 @@ export class TabelaComponent implements OnInit, AfterViewInit {
           this.dataSource = new MatTableDataSource<SessaoDeJulgamento>(grupoDeTarefas[this.pageEvent?.pageIndex || 0]);
         }
       });
+  }
+
+  private _filtrar(data: Array<any>, filtros: any): Array<any> {
+    if (filtros) {
+      let arr = data;
+
+      for (const key of Object.keys(filtros)) {
+        const valor = filtros[key];
+        arr = arr.filter(item => `${item[key]}`.toLocaleLowerCase() == `${valor}`.toLocaleLowerCase());
+      }
+
+      return arr;
+    }
+
+    return data;
   }
 
   private _sortData(data: Array<any>, sort: string, order: SortDirection, page: number): Array<any> {

@@ -63,7 +63,7 @@
                                 matStartDate
                                 placeholder="Início"
                                 name="data_inicio"
-                                formControlName="dataInicio"
+                                formControlName="data_inicio"
                                 class="px-0"
                             >
 
@@ -71,7 +71,7 @@
                                 matEndDate
                                 placeholder="Fim"
                                 name="data_fim"
-                                formControlName="dataFim"
+                                formControlName="data_fim"
                             >
                         </mat-date-range-input>
 
@@ -154,6 +154,7 @@
                     class="mt-4"
                     mat-flat-button
                     [color]="'primary'"
+                    (click)="filtrar()"
                 >
                     <span>Filtrar</span>
                 </button>
