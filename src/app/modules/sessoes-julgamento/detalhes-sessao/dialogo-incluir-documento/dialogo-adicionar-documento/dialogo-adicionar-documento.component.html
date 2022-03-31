@@ -1,0 +1,104 @@
+<div class="flex flex-col  -m-6 mb-4">
+    <div class="flex flex-0 items-center justify-between h-16 pr-3 sm:pr-5 pl-6 sm:pl-8 bg-primary text-on-primary">
+      <div class="text-lg font-medium">
+        Adicionar Documento
+      </div>
+      <button mat-icon-button mat-dialog-close [tabIndex]="-1">
+          <mat-icon class="text-current" [svgIcon]="'heroicons_outline:x'"></mat-icon>
+      </button>
+    </div>
+  </div>
+
+  <div mat-dialog-content class="">
+    <form [formGroup]="formDialogAddDocumento" class="mt-8 mb-4">
+        <div class="grid grid-cols-3 gap-4">
+            <div class="col-span-1">
+                <mat-form-field class="w-full mb-4" appearance="outline">
+                    <mat-label>Tipo do documento</mat-label>
+                    <mat-select
+                        formControlName="tipo"
+                    >
+                        <mat-option
+                            *ngFor="let tipo of ['']"
+                            [value]="tipo"
+                        >
+                            {{tipo}}
+                        </mat-option>
+                    </mat-select>
+                    <mat-hint>Informe o tipo</mat-hint>
+                </mat-form-field>
+
+                <mat-form-field class="w-full mb-4" appearance="outline">
+                    <mat-label>Autor</mat-label>
+                    <mat-select
+                        formControlName="autor"
+                    >
+                    <mat-option
+                        *ngFor="let ministro of []"
+                        [value]="ministro"
+                    >
+                        <div class="flex items-center">
+                            <div>
+                                <img class="w-8 h-8 mr-4" [src]="ministro.imagem">
+                            </div>
+                            <div class="break-words whitespace-pre">
+                                <span>{{ ministro.nome }}</span>
+                            </div>
+                        </div>
+                    </mat-option>
+                    </mat-select>
+                    <mat-hint>Informe o autor</mat-hint>
+                </mat-form-field>
+
+                <mat-form-field class="w-full mb-4" appearance="outline">
+                    <mat-label>Nome do documento</mat-label>
+                    <input matInput type="text" formControlName="nome" />
+                    <mat-hint>Informe o nome do documento</mat-hint>
+                </mat-form-field>
+
+                <mat-radio-group class="flex justify-around" formControlName="tipo_manifestacao">
+                    <mat-radio-button color="primary" value="oral">Oral</mat-radio-button>
+                    <mat-radio-button color="primary" value="escrita">Escrita</mat-radio-button>
+                </mat-radio-group>
+            </div>
+
+            <div class="col-span-2 h-full overflow-hidden">
+                <label class="text-lg font-medium" for="texto-da-observacao-do-documento">
+                    Texto da decisão sobre o capítulo:
+                </label>
+
+                <editor
+                    id="texto-da-observacao-do-documento"
+                    apiKey="aduua1w16bzaswikm1p5qbkcx7jj757x4g58xdm9okd8wpw7"
+                    formControlName="observacao"
+                    class="h-full"
+                    [init]="{
+                        selector: 'textarea',
+                        height: '96%',
+                        menubar: false,
+                        plugins: [
+                            'autolink lists link charmap preview anchor',
+                            'insertdatetime table help wordcount'
+                        ],
+                        toolbar:
+                            'undo redo | formatselect | bold italic backcolor | \
+                            alignleft aligncenter alignright alignjustify | \
+                            bullist numlist outdent indent | removeformat | help'
+                    }"
+                ></editor>
+            </div>
+        </div>
+    </form>
+  </div>
+
+  <div class="flex flex-col sm:flex-row sm:items-center justify-between mt-4 sm:mt-6">
+    <div mat-dialog-actions class="flex items-center mt-4 sm:mt-0 ml-auto">
+      <button class="ml-auto mr-2 sm:ml-0" mat-button mat-dialog-close>
+        <span>FECHAR</span>
+      </button>
+
+      <button (click)="salvar()" class="ml-auto mr-2 sm:ml-0" color="primary" mat-raised-button>
+        <span>SALVAR</span>
+      </button>
+    </div>
+  </div>

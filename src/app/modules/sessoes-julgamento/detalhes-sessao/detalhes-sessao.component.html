@@ -124,7 +124,7 @@
 
     <div class="mt-4">
         <nav class="mb-4">
-            <button (click)="abrirModalDeIncluirDocumento()" mat-raised-button color="primary">
+            <button [disabled]="processosSelecionados.length === 0" (click)="abrirModalDeIncluirDocumento()" mat-raised-button color="primary">
                 Incluir Documento
             </button>
         </nav>

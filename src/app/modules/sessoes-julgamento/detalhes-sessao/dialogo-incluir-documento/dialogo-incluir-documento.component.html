@@ -10,6 +10,11 @@
   </div>
 
   <div mat-dialog-content class="min-w-160 max-w-240">
+    <nav>
+      <button (click)="modalDeAdicionarDocumento()" class="ml-auto mr-2 sm:ml-0" mat-raised-button color="primary">
+        <span>Adicionar documento</span>
+      </button>
+    </nav>
     <digital-tabela-documento
       [documentos]="documentos"
     ></digital-tabela-documento>
@@ -18,15 +23,7 @@
   <div class="flex flex-col sm:flex-row sm:items-center justify-between mt-4 sm:mt-6">
     <div mat-dialog-actions class="flex items-center mt-4 sm:mt-0 ml-auto">
       <button class="ml-auto mr-2 sm:ml-0" mat-button mat-dialog-close>
-        <span>CANCELAR</span>
-      </button>
-
-      <button
-        class="ml-auto"
-        color="primary"
-        mat-raised-button
-      >
-        SALVAR
+        <span>FECHAR</span>
       </button>
     </div>
   </div>

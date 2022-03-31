@@ -26,6 +26,12 @@ import { TabelaProcessosComponent } from './detalhes-sessao/tabela-processos/tab
 import { DialogoIncluirDocumentoComponent } from './detalhes-sessao/dialogo-incluir-documento/dialogo-incluir-documento.component';
 import { TabelaDocumentoComponent } from './detalhes-sessao/dialogo-incluir-documento/tabela-documento/tabela-documento.component';
 import { MatDialogModule } from '@angular/material/dialog';
+import { DialogoAdicionarDocumentoComponent } from './detalhes-sessao/dialogo-incluir-documento/dialogo-adicionar-documento/dialogo-adicionar-documento.component';
+import { EditorModule } from '@tinymce/tinymce-angular';
+import { MatRadioModule } from '@angular/material/radio';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MatInputModule } from '@angular/material/input';
+import { MatSelectModule } from '@angular/material/select';
 
 const SessoesJulgamentoRoutes: Route[] = [
   { 
@@ -48,11 +54,17 @@ const SessoesJulgamentoRoutes: Route[] = [
     DetalhesSessaoComponent,
     TabelaProcessosComponent,
     DialogoIncluirDocumentoComponent,
+    DialogoAdicionarDocumentoComponent,
   ],
   imports: [
     CommonModule,
     RouterModule.forChild(SessoesJulgamentoRoutes),
+    EditorModule,
+    FormsModule,
+    ReactiveFormsModule,
+    MatInputModule,
     MatFormFieldModule,
+    MatSelectModule,
     MatChipsModule,
     MatIconModule,
     MatExpansionModule,
@@ -71,6 +83,7 @@ const SessoesJulgamentoRoutes: Route[] = [
     MatTooltipModule,
     FuseCardModule,
     MatDialogModule,
+    MatRadioModule,
   ],
 })
 export class SessoesJulgamentoModule { }
