@@ -23,6 +23,9 @@ import { FiltrosComponent } from './filtros/filtros.component';
 import { SessoesJulgamentoComponent } from './sessoes-julgamento.component';
 import { TabelaComponent } from './tabela/tabela.component';
 import { TabelaProcessosComponent } from './detalhes-sessao/tabela-processos/tabela-processos.component';
+import { DialogoIncluirDocumentoComponent } from './detalhes-sessao/dialogo-incluir-documento/dialogo-incluir-documento.component';
+import { TabelaDocumentoComponent } from './detalhes-sessao/dialogo-incluir-documento/tabela-documento/tabela-documento.component';
+import { MatDialogModule } from '@angular/material/dialog';
 
 const SessoesJulgamentoRoutes: Route[] = [
   { 
@@ -41,8 +44,10 @@ const SessoesJulgamentoRoutes: Route[] = [
     SessoesJulgamentoComponent,
     FiltrosComponent,
     TabelaComponent,
+    TabelaDocumentoComponent,
     DetalhesSessaoComponent,
     TabelaProcessosComponent,
+    DialogoIncluirDocumentoComponent,
   ],
   imports: [
     CommonModule,
@@ -65,6 +70,7 @@ const SessoesJulgamentoRoutes: Route[] = [
     MatMenuModule,
     MatTooltipModule,
     FuseCardModule,
+    MatDialogModule,
   ],
 })
 export class SessoesJulgamentoModule { }
