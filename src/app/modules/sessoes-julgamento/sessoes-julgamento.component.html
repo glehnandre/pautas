@@ -1,23 +1,34 @@
-<div class="relative flex w-full">
-    <fuse-drawer [name]="'leftDrawer'" [opened]="true" [mode]="'side'" id="filtros">
-        <!--INSERIR FILTROS AQUI-->
-        <digital-filtros></digital-filtros>
-    </fuse-drawer>
+<div class="absolute inset-0 flex flex-col min-w-0">
+    <mat-drawer-container class="flex-auto h-full" [hasBackdrop]="false">
+        <mat-drawer
+            #drawer
+            tabindex="-1"
+            class="w-80 bg-page dark:bg-gray-900"
+            [mode]="'side'"
+            [opened]="true"
+        >
+            <digital-filtros></digital-filtros>
+        </mat-drawer>
 
-    <div class="flex-auto p-2 ml-4">
-        <button class="mb-2" mat-mini-fab color="primary" aria-label="Abrir ou fechar os filtros" (click)="toggleDrawerOpen('leftDrawer')">
-            <mat-icon *ngIf="isOpen('leftDrawer') else mudaIcone" >
-                arrow_back
-            </mat-icon>
-            <ng-template #mudaIcone>
-                <mat-icon>arrow_forward</mat-icon>
-            </ng-template>
-        </button>
-        <!--INSERIR A TABELA AQUI-->
-        <digital-tabela></digital-tabela>
-    </div>
+        <mat-drawer-content class="">
+            <div class="absolute inset-0 flex flex-col min-w-0 overflow-hidden bg-page">
+                <!-- Main -->
+                <div class="flex-auto overflow-y-auto sm:px-2 mt-2" cdkScrollable>
+                    <!-- CONTENT GOES HERE -->
+                    <button class="mb-2" mat-mini-fab color="primary" aria-label="Abrir ou fechar os filtros" (click)="drawer.toggle()">
+                        <mat-icon *ngIf="drawer.opened else mudaIcone" >
+                            arrow_back
+                        </mat-icon>
+                        <ng-template #mudaIcone>
+                            <mat-icon>arrow_forward</mat-icon>
+                        </ng-template>
+                    </button>
+                    <digital-tabela></digital-tabela>
+                </div>
+            </div>
+        </mat-drawer-content>
+    </mat-drawer-container>
 </div>
-
 
 <app-alerta *ngIf="alerta" [nome]="NOME_DO_ALERTA" [titulo]="alerta.titulo" [mensagem]="alerta.mensagem"
     [aparencia]="'outline'" [tipo]="alerta.tipo" class="absolute top-2 right-2 max-w-120 mx-auto z-40"></app-alerta>

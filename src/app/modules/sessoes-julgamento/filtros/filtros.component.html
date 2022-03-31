@@ -1,11 +1,51 @@
-<div class="flex flex-col flex-auto w-full justify-items-center p-4">
+<div class="flex flex-col flex-auto w-full justify-items-center p-4 overflow-y-auto">
     <!-- Filtros -->
     <div class="mb-8 text-center">
         <p class="text-xl font-bold">Sessões de Julgamento</p>
     </div>
     <div>
 
-        <form [formGroup]="formFiltros">
+        <form [formGroup]="formFiltros" class="">
+            <mat-expansion-panel class="mb-2 border-solid border-2" [expanded]="true">
+                <mat-expansion-panel-header class="">
+                    <mat-panel-title class="font-semibold text-primary line-clamp-3">
+                        Processo
+                    </mat-panel-title>
+                </mat-expansion-panel-header>
+
+                <section class="flex flex-row flex-wrap gap-2">
+                    <mat-form-field class="w-full" appearance="fill">
+                        <input
+                            matInput
+                            placeholder="Classe"
+                            name="classe"
+                            formControlName="classe"
+                            class="px-0"
+                        >
+                    </mat-form-field>
+
+                    <mat-form-field class="w-full" appearance="fill">
+                        <input
+                            matInput
+                            placeholder="Número"
+                            name="numero"
+                            formControlName="numero"
+                            class="px-0"
+                        >
+                    </mat-form-field>
+
+                    <mat-form-field class="w-full" appearance="fill">
+                        <input
+                            matInput
+                            placeholder="Cadeia"
+                            name="cadeia"
+                            formControlName="cadeia"
+                            class="px-0"
+                        >
+                    </mat-form-field>
+                </section>
+            </mat-expansion-panel>
+
             <mat-expansion-panel class="mb-2 border-solid border-2" [expanded]="true">
                 <mat-expansion-panel-header class="">
                     <mat-panel-title class="font-semibold text-primary line-clamp-3">
@@ -48,6 +88,76 @@
                     </button>
                 </section>
             </mat-expansion-panel>
+
+            <mat-expansion-panel class="mb-2 border-solid border-2" [expanded]="true">
+                <mat-expansion-panel-header class="">
+                    <mat-panel-title class="font-semibold text-primary line-clamp-3">
+                        Colegiado
+                    </mat-panel-title>
+                </mat-expansion-panel-header>
+
+                <section class="">
+                    <mat-form-field class="w-full" appearance="fill">
+                        <input
+                            matInput
+                            placeholder="Nome do colegiado"
+                            name="colegiado"
+                            formControlName="colegiado"
+                            class="px-0"
+                        >
+                    </mat-form-field>
+                </section>
+            </mat-expansion-panel>
+
+            <mat-expansion-panel class="mb-2 border-solid border-2" [expanded]="true">
+                <mat-expansion-panel-header class="">
+                    <mat-panel-title class="font-semibold text-primary line-clamp-3">
+                        Situação da Sessão
+                    </mat-panel-title>
+                </mat-expansion-panel-header>
+
+                <section class="">
+                    <mat-form-field class="w-full" appearance="fill">
+                        <input
+                            matInput
+                            placeholder="Classe, número e cadeia"
+                            name="situacao"
+                            formControlName="situacao"
+                            class="px-0"
+                        >
+                    </mat-form-field>
+                </section>
+            </mat-expansion-panel>
+
+            <mat-expansion-panel class="mb-2 border-solid border-2" [expanded]="true">
+                <mat-expansion-panel-header class="">
+                    <mat-panel-title class="font-semibold text-primary line-clamp-3">
+                        Modalidade
+                    </mat-panel-title>
+                </mat-expansion-panel-header>
+
+                <section class="">
+                    <mat-form-field class="w-full" appearance="fill">
+                        <input
+                            matInput
+                            placeholder="Nome da modalidade"
+                            name="modalidade"
+                            formControlName="modalidade"
+                            class="px-0"
+                        >
+                    </mat-form-field>
+                </section>
+            </mat-expansion-panel>
+
+            <div class="w-full flex justify-center">
+                <button
+                    class="mt-4"
+                    mat-flat-button
+                    [color]="'primary'"
+                >
+                    <span>Filtrar</span>
+                </button>
+            </div>
         </form>
     </div>
 </div>

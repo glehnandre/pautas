@@ -32,6 +32,7 @@ import { MatRadioModule } from '@angular/material/radio';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
+import { MatSidenavModule } from '@angular/material/sidenav';
 
 const SessoesJulgamentoRoutes: Route[] = [
   { 
@@ -84,6 +85,7 @@ const SessoesJulgamentoRoutes: Route[] = [
     FuseCardModule,
     MatDialogModule,
     MatRadioModule,
+    MatSidenavModule,
   ],
 })
 export class SessoesJulgamentoModule { }

@@ -29,10 +29,14 @@ export class FiltrosComponent implements OnInit, OnChanges{
     private _fb: FormBuilder,
     ) { 
       this.formFiltros = this._fb.group({
+        classe: [""],
+        numero: [""],
+        cadeia: [""],
         dataInicio: [""],
         dataFim: [""],
         colegiado: [""],
-        modalidade: [""]
+        situacao: [""],
+        modalidade: [""],
       });
     }
 
