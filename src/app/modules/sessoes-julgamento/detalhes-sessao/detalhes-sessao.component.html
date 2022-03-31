@@ -1,5 +1,5 @@
 <div class="w-full m-4">
-    <header class="flex gap-4">
+    <header class="flex flex-col md:flex-row gap-4">
         <div class="flex gap-4">
             <div class="flex flex-col items-center">
                 <img 
@@ -25,7 +25,7 @@
             </div>
         </div>
 
-        <div class="flex flex-row gap-4 ml-auto">
+        <div class="flex flex-row gap-4 md:ml-auto">
             <fuse-card
                 class="flex flex-col px-8 py-6 pb-4"
                 #fuseCard
@@ -123,6 +123,8 @@
     </header>
 
     <div class="mt-4">
-        <digital-tabela-processos></digital-tabela-processos>
+        <digital-tabela-processos
+            [processos]="sessao?.processos"
+        ></digital-tabela-processos>
     </div>
 </div>

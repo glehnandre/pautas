@@ -1,0 +1,13 @@
+table {
+    th {
+        @apply font-semibold;
+        @apply text-md;
+        @apply text-center;
+    }
+
+    tr, td {
+        @apply text-primary;
+        @apply font-medium;
+        @apply text-center;
+    }
+}

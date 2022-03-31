@@ -1,46 +1,40 @@
 import { SelectionModel } from '@angular/cdk/collections';
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
-
-export interface PeriodicElement {
-  name: string;
-  position: number;
-  weight: number;
-  symbol: string;
-}
-
-const ELEMENT_DATA: PeriodicElement[] = [
-  {position: 1, name: 'Hydrogen', weight: 1.0079, symbol: 'H'},
-  {position: 2, name: 'Helium', weight: 4.0026, symbol: 'He'},
-  {position: 3, name: 'Lithium', weight: 6.941, symbol: 'Li'},
-  {position: 4, name: 'Beryllium', weight: 9.0122, symbol: 'Be'},
-  {position: 5, name: 'Boron', weight: 10.811, symbol: 'B'},
-  {position: 6, name: 'Carbon', weight: 12.0107, symbol: 'C'},
-  {position: 7, name: 'Nitrogen', weight: 14.0067, symbol: 'N'},
-  {position: 8, name: 'Oxygen', weight: 15.9994, symbol: 'O'},
-  {position: 9, name: 'Fluorine', weight: 18.9984, symbol: 'F'},
-  {position: 10, name: 'Neon', weight: 20.1797, symbol: 'Ne'},
-];
+import { Processo } from 'app/shared/model/interfaces/processo.interface';
+import { ProcessoService } from 'app/modules/services/processo.service';
+import { StatusProcesso } from 'app/modules/acervo/tabela/status/situacaoProcesso';
 
 @Component({
   selector: 'digital-tabela-processos',
   templateUrl: './tabela-processos.component.html',
   styleUrls: ['./tabela-processos.component.scss']
 })
-export class TabelaProcessosComponent implements OnInit {
+export class TabelaProcessosComponent implements OnInit, OnChanges {
 
-  displayedColumns: string[] = ['select', 'position', 'name', 'weight', 'symbol'];
-  dataSource = new MatTableDataSource<PeriodicElement>(ELEMENT_DATA);
-  selection = new SelectionModel<PeriodicElement>(true, []);
+  @Input() processos: Processo[] = [];
 
-  ngOnInit(): void {
-    
+  displayedColumns: string[] = ['checkbox', 'processo', 'relator', 'indicacao', 'situacao'];
+  dataSource = new MatTableDataSource<Processo>([]);
+  selection = new SelectionModel<Processo>(true, []);
+
+  constructor (
+    private _processoService: ProcessoService,
+  ) {}
+
+  ngOnInit(): void { }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes.processos) {
+      this.getSituacao();
+      this.dataSource = new MatTableDataSource<Processo>(this.processos);
+    }
   }
 
   /** Whether the number of selected elements matches the total number of rows. */
   isAllSelected() {
     const numSelected = this.selection.selected.length;
-    const numRows = this.dataSource.data.length;
+    const numRows = this.dataSource?.data?.length;
     return numSelected === numRows;
   }
 
@@ -55,11 +49,21 @@ export class TabelaProcessosComponent implements OnInit {
   }
 
   /** The label for the checkbox on the passed row */
-  checkboxLabel(row?: PeriodicElement): string {
+  checkboxLabel(row?: Processo): string {
     if (!row) {
       return `${this.isAllSelected() ? 'deselect' : 'select'} all`;
     }
-    return `${this.selection.isSelected(row) ? 'deselect' : 'select'} row ${row.position + 1}`;
+    return `${this.selection.isSelected(row) ? 'deselect' : 'select'} row ${row.id + 1}`;
+  }
+
+  public getSituacao(): void {
+    this.processos?.map(p => {
+      this._processoService.obterStatusDoProcesso(p.id).subscribe({
+        next: (status) => {
+          p.situacao = status as any;
+        }
+      });
+    });
   }
 
 }
