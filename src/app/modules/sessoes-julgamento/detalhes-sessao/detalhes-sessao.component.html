@@ -123,8 +123,14 @@
     </header>
 
     <div class="mt-4">
+        <nav class="mb-4">
+            <button mat-raised-button color="primary">
+                Incluir Documento
+            </button>
+        </nav>
         <digital-tabela-processos
             [processos]="sessao?.processos"
+            (processosSelecionados)="obterProcessosSelecionados($event)"
         ></digital-tabela-processos>
     </div>
 </div>

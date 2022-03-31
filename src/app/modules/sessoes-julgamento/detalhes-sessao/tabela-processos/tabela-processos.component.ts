@@ -1,5 +1,5 @@
 import { SelectionModel } from '@angular/cdk/collections';
-import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { Processo } from 'app/shared/model/interfaces/processo.interface';
 import { ProcessoService } from 'app/modules/services/processo.service';
@@ -14,6 +14,8 @@ export class TabelaProcessosComponent implements OnInit, OnChanges {
 
   @Input() processos: Processo[] = [];
 
+  @Output() processosSelecionados = new EventEmitter<Processo[]>();
+
   displayedColumns: string[] = ['checkbox', 'processo', 'relator', 'indicacao', 'situacao'];
   dataSource = new MatTableDataSource<Processo>([]);
   selection = new SelectionModel<Processo>(true, []);
@@ -22,7 +24,11 @@ export class TabelaProcessosComponent implements OnInit, OnChanges {
     private _processoService: ProcessoService,
   ) {}
 
-  ngOnInit(): void { }
+  ngOnInit(): void { 
+    this.selection.changed.subscribe(() => {
+      this.processosSelecionados.emit(this.selection.selected);
+    });
+  }
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes.processos) {

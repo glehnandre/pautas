@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { SessaoDeJulgamentoService } from 'app/modules/services/sessao-de-julgamento.service';
 import { Ministro } from 'app/shared/model/interfaces/ministro.interface';
+import { Processo } from 'app/shared/model/interfaces/processo.interface';
 import { SessaoDeJulgamento } from 'app/shared/model/interfaces/sessao-julgamento.interface';
 
 @Component({
@@ -14,6 +15,7 @@ export class DetalhesSessaoComponent implements OnInit {
   sessao: SessaoDeJulgamento;
   totalMinistrosPresentes: number = 0;
   totalMinistrosAusentes: number = 0;
+  processosSelecionados: Processo[] = [];
 
   constructor(
     private _route: ActivatedRoute,
@@ -53,6 +55,10 @@ export class DetalhesSessaoComponent implements OnInit {
 
   public totalMinistros(ministros: Ministro[]): number {
     return ministros.length - ministros.slice(0, 3).length;
+  }
+
+  public obterProcessosSelecionados(processos: Processo[]): void {
+    this.processosSelecionados = processos;
   }
 
 }
